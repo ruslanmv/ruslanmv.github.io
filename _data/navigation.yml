@@ -1,19 +1,16 @@
 # main links
 main:
-  - title: "Blog"
-    url: /blog
-  - title: "Talks"
-    url: /talks
+#  - title: "Blog"
+#    url: /blog
   - title: "Projects"
     url: /projects
-
   - title: "Certifications"
     url: /certifications
 
-
   - title: "Publications"
     url: /publications
-
+  - title: "Talks"
+    url: /talks
 
   - title: "About"
     url: /about
