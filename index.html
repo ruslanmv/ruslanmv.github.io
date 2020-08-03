@@ -1,0 +1,58 @@
+---
+layout: splash
+author_profile: false
+description: "We talk about Cloud Development, Data Science, Machine Learning and Science"
+title: "Ruslan Magana Vsevolodovna"
+og_title: "Ruslan Magana Vsevolodovna"
+
+header:
+    overlay_image: "/assets/images/header-home.jpg"
+    og_image: "/assets/images/og-default-header.jpg"
+excerpt: "<div class='header_box'><div class='author__avatar'><img src='/assets/images/avatar.png' itemprop='image'></div>
+<div class='social__links'>
+<a href='mailto:ruslan.mv@gmail.com'><i class='fas fa-envelope' aria-hidden='true'></i></a>
+<a href='https://twitter.com/ruslanmv'><i class='fab fa-twitter' aria-hidden='true'></i></a>
+<a href='https://github.com/ruslanmv'><i class='fab fa-github' aria-hidden='true'></i></a>
+<a href='https://keybase.io/ruslanmv'><i class='fab fa-keybase' aria-hidden='true'></i></a>
+<a href='https://instagram.com/ruslanmv'><i class='fab fa-instagram' aria-hidden='true'></i></a>
+<a href='https://linkedin.com/in/ruslan-magana-vsevolodovna-phd'><i class='fab fa-linkedin' aria-hidden='true'></i></a>
+</div>
+</div>"
+
+feature_row:
+  - image_path: assets/images/thumb-blog.jpg
+    alt: "Blog"
+    title: "Blog"
+    excerpt: "Cloud Architecture, Data Science and Machine Learning"
+    url: "/blog"
+  - image_path: assets/images/thumb-talks.jpg
+    alt: "Talks"
+    title: "Talks"
+    excerpt: "Slides &amp; Videos"
+    url: "/talks"
+  - image_path: assets/images/thumb-about.jpg
+    alt: "About"
+    title: "About"
+    excerpt: "Hi there, my name is Ruslan Magana Vsevolodovna."
+    url: "/about"
+---
+
+<p align="center">
+    Cloud Development 🤖, Data Science 🎤, Machine Learning 🤝 and Science ✈️.<br/>
+    If you like them, you ended up in the right spot.
+</p>
+
+<hr>
+
+{% include feature_row %}
+
+<div class="archive">
+
+<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+
+{% for post in paginator.posts %}
+  {% include archive-single.html %}
+{% endfor %}
+
+{% include paginator.html %}
+</div>
