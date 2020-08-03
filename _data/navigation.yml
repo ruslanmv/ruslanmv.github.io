@@ -1,0 +1,19 @@
+# main links
+main:
+  - title: "Blog"
+    url: /blog
+  - title: "Talks"
+    url: /talks
+  - title: "Projects"
+    url: /projects
+
+  - title: "Certifications"
+    url: /certifications
+
+
+  - title: "Publications"
+    url: /publications
+
+
+  - title: "About"
+    url: /about
