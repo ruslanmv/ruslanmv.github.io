@@ -29,6 +29,10 @@ header:
 -  Machine Learning with TensorFlow on Google Cloud Platform, Google, Coursera "Spe- cialization", July 2019
 - Applied Data Science using Python,University of Michigan, Coursera "Specialization", May 2019
 ## Certifications
+- Introduction to Computer Vision with Watson and OpenCV by IBM
+August 2020
+- Building AI Applications with Watson APIs by IBM
+August 2020
 -  AWS Computer Vision: Getting Started with GluonCV by AWS, July 2020
 -  AWS Certified Solutions Architect Associate - 2020 by Neal Davis on Udemy, July 2020
 - Amazon SageMaker: Simplifying Machine Learning Application Development by AWS, July 2020
