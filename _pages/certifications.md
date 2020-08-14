@@ -18,6 +18,7 @@ header:
 - AWS Certified Solutions Architect – Associate, July 2020
 - AWS Certified Cloud Practitioner Issuing authority Amazon Web Services (AWS), Dec 2019
 ## Professional Certifications
+- IBM Applied AI Professional Certificate, Coursera "Specialization", August 2020
 - IBM AI Foundations for Business, IBM, Coursera "Specialization", July 2020
 - Key Technologies for Business, IBM, Coursera "Specialization", July 2020
 -  AI Foundations for Everyone, IBM, Coursera "Specialization", Jan 2020
