@@ -18,7 +18,7 @@ I'm a **Cloud Architect** a **Data Scientist** and a **Physicist**.
 ## Scientifical  studies
 
 I'm working as Postdoctoral Researcher at National Institute for Nuclear Physics (INFN)
-Genova [INFN](https:/www.ge.infn.it),
+Genova [INFN](www.ge.infn.it/){:class="external"},
 developing theoretical models for nuclear research.
  My main role is to develop libraries and tool for the Nuclear Physicist Community. I belong to the NUMEN collaboration, and I am  committed to provide high quality computations for nuclear physics,  and I love to engage my colleagues into new technologies such as Machine Learning.
 
