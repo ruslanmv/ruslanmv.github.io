@@ -28,14 +28,11 @@ I develop advanced cloud-based solutions and migrate existing workloads to the c
 I was part of developing software in CUDA language that can be used in clusters to perform heavy calculations.
 
 ## NUMEN experiment
-I am part of the experimental NUMEN collaboration. In the NUMEN project, nuclear reactions of double charge-exchange (DCE) will be used as a tool to extract information on the ββ nuclear matrix elements (NME). Nuclear matrix elements for neutrinoless double beta decay and double charge exchange in the scheme of microscopic Interacting Boson Model are important allowing me belong to the NUMEN collaboration.
-My research
-provides insights to compute accurate nuclear matrix elements that serve to improve the
-nuclear reactions calculations that can be compared with the current experimental data.
-By using machine learning techniques, such as regression and classification techniques it was
-possible develop an accurate method to fit parameters to construct the nuclear wave
-functions for complex nuclei allowing present the results by using plots in Python or R, which
-helps to understand the complex quantum structure of the nuclei.
+
+
+I am part of the experimental [NUMEN](https://web.infn.it/NUMEN/index.php/it/collaboration) collaboration. In the NUMEN project, nuclear reactions of double charge-exchange (DCE) will be used as a tool to extract information on the ββ nuclear matrix elements (NME). Nuclear matrix elements for neutrinoless double beta decay and double charge exchange in the scheme of microscopic Interacting Boson Model are important allowing me belong to the NUMEN collaboration.
+
+My research provides insights to compute accurate nuclear matrix elements that serve to improve the nuclear reactions calculations that can be compared with the current experimental data. By using machine learning techniques, such as regression and classification techniques it was possible develop an accurate method to fit parameters to construct the nuclear wave functions for complex nuclei allowing present the results by using plots in Python or R, which helps to understand the complex quantum structure of the nuclei.
 
 The implementation of new technologies is part of the aim of my future work
 
