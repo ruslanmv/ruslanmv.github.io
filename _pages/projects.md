@@ -21,14 +21,24 @@ header:
 My work is based on analysis data for actionable insights. Devising and applying models and algorithms to mine the stores of big data. Analyzing the data to identify patterns and trends.
 
 ## Cloud Solutions
+
+
 I develop advanced cloud-based solutions and migrate existing workloads to the cloud.
+
 ##  Cloud Data Science
- I am interested in the analysis of data to make predictions in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
+
+
+I am interested in the analysis of data to make predictions in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
+
 ## HPC CUDA Developments
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/nvdia.png" style="zoom:55%;" />
+
+
+
 I was part of developing software in CUDA language that can be used in clusters to perform heavy calculations.
 
 ## NUMEN experiment
-
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/NUMEN.jpg" style="zoom:10%;" />
 
 I am part of the experimental [NUMEN](https://web.infn.it/NUMEN/index.php/it/collaboration) collaboration. In the NUMEN project, nuclear reactions of double charge-exchange (DCE) will be used as a tool to extract information on the ββ nuclear matrix elements (NME). Nuclear matrix elements for neutrinoless double beta decay and double charge exchange in the scheme of microscopic Interacting Boson Model are important allowing me belong to the NUMEN collaboration.
 
@@ -44,8 +54,6 @@ The implementation of new technologies is part of the aim of my future work
 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/texas.png" style="zoom:33%;" />
 
-
-
 Texas A&M University and Cyclotron Institute
 College Station, Texas (United States).
 Programming Language: Python with Mathematica
@@ -58,7 +66,7 @@ The new model is proposed by fitting ground state properties of nuclear matter (
 
 This work helped to understand the nature of the nuclear matter and research more interesting properties of the plasma such are the sun and how under certain conditions the matter if created.
 
-![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%201.jpg)
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%201.jpg" style="zoom:70%;" />
 
 This work was published in [World Scientifc](https://www.worldscientific.com/doi/abs/10.1142/S0218301312500061) as: Int.J.Mod.Phys. E21 (2012) 1250006
 
@@ -114,15 +122,13 @@ Pavia (Italy)
 
 Programming Language,C,C++ ,Fortran, CUDA
 
-
-
  In this project, the Italian Association of Insurers enquired RED about some flood model results previously obtained for Italy and the South East of Europe in a different project. RED carried out an exhaustive analysis to evaluate the consistency of the flood event generation process, in the case of both defended and undefended areas, thus taking into account the asset vulnerability. Methodological and technical improvements were suggested to obtain a more accurate representation of the flood hazard in Italy, the results of the G-Cat model were analyzed for the 2014 flood of Modena (Italy), for residential buildings, using an exposure dataset. My role in this project was to help the software developers the porting of the code to CUDA and setup the GPUs ready to the servers for debugging on-premises servers. This program is useful to determine the risk of flooding for some geographical areas.
 
 
 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/rec.jpg" style="zoom:75%;" />
 
-
+The code is private and belong to the [RED Risk Engineering](https://www.redrisk.com/)
 
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
