@@ -57,8 +57,13 @@ The new model is proposed by fitting ground state properties of nuclear matter (
 
 This work helped to understand the nature of the nuclear matter and research more interesting properties of the plasma such are the sun and how under certain conditions the matter if created.
 
+![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%201.jpg)
 
-![](/Users/ruslan/Dropbox/23-GITHUB/ruslanmv/ruslanmv.github.io/_pages/projects.assets/image 1.jpg)
+
+
+
+
+
 
 
 
