@@ -18,7 +18,7 @@ header:
 
 
 
-My work is based on analysis data for actionable insights. Devising and applying models and algorithms to mine the stores of big data. Analyzing the data to identify **patterns** and **trends**.
+My work is based on analysis data for actionable insights. Devising and applying **models** and **algorithms** to mine the stores of big data. Analyzing the data to identify **patterns** and **trends**.
 
 ## Cloud Solutions
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" style="zoom:33%;" />
@@ -80,7 +80,7 @@ National Institute for Nuclear Physics
 Genova (Italy)
 Programming Language: Python with Fortran
 
-In this project, my task was to provide accurate wavefunctions of the 64Ni and 66Ni. To do that I required to compute the best parameters of the model which reproduce the experimental data coming from the [Database](https://www.nndc.bnl.gov/nudat2/ ) Nndc - Brookhaven National Laboratory . With this data, I have created a data set of all even-even nuclei which we have labeled the parameters. The parameters of the 66Ni and 66Ni were obtained by using a classification program in Python and by using the results I could determine the spectrum which are helpful to perform the analysis. The model is written in Fortran, but I was able to use python to get the coefficients. This work helped to study short-range correlations of sequential and direct reactions.
+In this project, my task was to provide accurate wavefunctions of the 64Ni and 66Ni. To do that I required to compute the best parameters of the model which reproduce the experimental data coming from the [Database](https://www.nndc.bnl.gov/nudat2/ ) Nndc - Brookhaven National Laboratory. With this data, I have created a data set of all even-even nuclei which we have labeled the parameters. The parameters of the 66Ni and 66Ni were obtained by using a classification program in Python and by using the results I could determine the spectrum which are helpful to perform the analysis. The model is written in Fortran, but I was able to use python to get the coefficients. This work helped to study short-range correlations of sequential and direct reactions.
 
 
 
