@@ -18,7 +18,7 @@ header:
 
 
 
-My work is based on analysis data for actionable insights. Devising and applying models and algorithms to mine the stores of big data. Analyzing the data to identify patterns and trends.
+My work is based on analysis data for actionable insights. Devising and applying models and algorithms to mine the stores of big data. Analyzing the data to identify **patterns** and **trends**.
 
 ## Cloud Solutions
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" style="zoom:33%;" />
@@ -28,7 +28,7 @@ I develop advanced cloud-based solutions and migrate existing workloads to the c
 ##  Cloud Data Science
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" style="zoom:11%;" />
 
-I am interested in the analysis of data to make predictions in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
+I am interested in the analysis of data to make **predictions** in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
 
 ## HPC CUDA Developments
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/nvdia.png" style="zoom:55%;" />
@@ -42,9 +42,9 @@ I was part of developing software in CUDA language that can be used in clusters 
 
 I am part of the experimental [NUMEN](https://web.infn.it/NUMEN/index.php/it/collaboration) collaboration. In the NUMEN project, nuclear reactions of double charge-exchange (DCE) will be used as a tool to extract information on the ββ nuclear matrix elements (NME). Nuclear matrix elements for neutrinoless double beta decay and double charge exchange in the scheme of microscopic Interacting Boson Model are important allowing me belong to the NUMEN collaboration.
 
-My research provides insights to compute accurate nuclear matrix elements that serve to improve the nuclear reactions calculations that can be compared with the current experimental data. By using machine learning techniques, such as regression and classification techniques it was possible develop an accurate method to fit parameters to construct the nuclear wave functions for complex nuclei allowing present the results by using plots in Python or R, which helps to understand the complex quantum structure of the nuclei.
+My research provides insights to compute accurate nuclear matrix elements that serve to improve the nuclear reactions calculations that can be compared with the current experimental data. By using **machine learning** techniques, such as regression and classification techniques it was possible develop an accurate method to fit parameters to construct the nuclear wave functions for complex nuclei allowing present the results by using plots in Python or R, which helps to understand the complex quantum structure of the nuclei.
 
-The implementation of new technologies is part of the aim of my future work
+The implementation of **new technologies** is part of the aim of my future work
 
 
 
@@ -76,8 +76,8 @@ This work was published in [World Scientifc](https://www.worldscientific.com/doi
 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/infn.jpg" style="zoom:70%;" />
 
-National Institute for Nuclear Physics Genova (Italy) 
-
+National Institute for Nuclear Physics
+Genova (Italy)
 Programming Language: Python with Fortran
 
 In this project, my task was to provide accurate wavefunctions of the 64Ni and 66Ni. To do that I required to compute the best parameters of the model which reproduce the experimental data coming from the [Database](https://www.nndc.bnl.gov/nudat2/ ) Nndc - Brookhaven National Laboratory . With this data, I have created a data set of all even-even nuclei which we have labeled the parameters. The parameters of the 66Ni and 66Ni were obtained by using a classification program in Python and by using the results I could determine the spectrum which are helpful to perform the analysis. The model is written in Fortran, but I was able to use python to get the coefficients. This work helped to study short-range correlations of sequential and direct reactions.
@@ -95,9 +95,7 @@ This work was published [Physical Review](https://journals.aps.org/prc/abstract/
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/infn.jpg" style="zoom:70%;" />
 
 National Institute for Nuclear Physics
-
 Genova (Italy)
-
 Programming Language: Python, Wolfram Mathematica, Matlab, C
 
 In this project, I have proposed a model to try to explain a nuclear reaction of a double charge exchange that allows determining the nature of the neutrinos. Find constraints to determine if the neutrinos are antiparticles and particles at the same time. My main role was to give the idea of the process and perform the calculation.
@@ -117,9 +115,7 @@ This work was published in [Physical Review](https://journals.aps.org/prc/abstra
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/reca.jpg" style="zoom:50%;" />
 
 RED Risk Engineering + Development
-
 Pavia (Italy)
-
 Programming Language,C,C++ ,Fortran, CUDA
 
  In this project, the Italian Association of Insurers enquired RED about some flood model results previously obtained for Italy and the South East of Europe in a different project. RED carried out an exhaustive analysis to evaluate the consistency of the flood event generation process, in the case of both defended and undefended areas, thus taking into account the asset vulnerability. Methodological and technical improvements were suggested to obtain a more accurate representation of the flood hazard in Italy, the results of the G-Cat model were analyzed for the 2014 flood of Modena (Italy), for residential buildings, using an exposure dataset. My role in this project was to help the software developers the porting of the code to CUDA and setup the GPUs ready to the servers for debugging on-premises servers. This program is useful to determine the risk of flooding for some geographical areas.
@@ -132,4 +128,3 @@ The code is private and belong to the [RED Risk Engineering](https://www.redrisk
 
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-
