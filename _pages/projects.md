@@ -63,7 +63,7 @@ This work helped to understand the nature of the nuclear matter and research mor
 
 ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%201.jpg)
 
-
+This work was published in [World Scientifc](https://www.worldscientific.com/doi/abs/10.1142/S0218301312500061) as: Int.J.Mod.Phys. E21 (2012) 1250006
 
 
 
@@ -80,6 +80,8 @@ In this project, my task was to provide accurate wavefunctions of the 64Ni and 6
 
 
 ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%202.jpg)
+
+This work was published [Physical Review](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.96.044612) C 96, 044612 (2017)
 
 
 
@@ -103,15 +105,25 @@ I have performed the calculation by using sophisticated numeric and algebraic me
 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image5.jpg" style="zoom:75%;" />
 
-
+This work was published in [Physical Review](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.98.061601)  Phys. Rev. C 98, 061601(R)
 
 ## Developing of CUDA software for the analysis of flooding of a geographical area.
 
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/reca.jpg" style="zoom:50%;" />
+
+RED Risk Engineering + Development
+
+Pavia (Italy)
+
+Programming Language,C,C++ ,Fortran, CUDA
 
 
 
+ In this project, the Italian Association of Insurers enquired RED about some flood model results previously obtained for Italy and the South East of Europe in a different project. RED carried out an exhaustive analysis to evaluate the consistency of the flood event generation process, in the case of both defended and undefended areas, thus taking into account the asset vulnerability. Methodological and technical improvements were suggested to obtain a more accurate representation of the flood hazard in Italy, the results of the G-Cat model were analyzed for the 2014 flood of Modena (Italy), for residential buildings, using an exposure dataset. My role in this project was to help the software developers the porting of the code to CUDA and setup the GPUs ready to the servers for debugging on-premises servers. This program is useful to determine the risk of flooding for some geographical areas.
 
 
+
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/rec.jpg" style="zoom:75%;" />
 
 
 
