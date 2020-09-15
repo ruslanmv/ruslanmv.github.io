@@ -21,12 +21,12 @@ header:
 My work is based on analysis data for actionable insights. Devising and applying models and algorithms to mine the stores of big data. Analyzing the data to identify patterns and trends.
 
 ## Cloud Solutions
-
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" style="zoom:33%;" />
 
 I develop advanced cloud-based solutions and migrate existing workloads to the cloud.
 
 ##  Cloud Data Science
-
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" style="zoom:11%;" />
 
 I am interested in the analysis of data to make predictions in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
 
