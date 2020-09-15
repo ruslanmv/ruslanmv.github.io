@@ -69,13 +69,43 @@ This work helped to understand the nature of the nuclear matter and research mor
 
 ## Classificaiton of the nuclei by knowing their spectrum and perform analysis of nuclear reactions
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/infn.jpg" style="zoom:80%;" />
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/infn.jpg" style="zoom:70%;" />
 
 National Institute for Nuclear Physics Genova (Italy) 
 
 Programming Language: Python with Fortran
 
-In this project, my task was to provide accurate wavefunctions of the 64Ni and 66Ni.To do that I required to compute the best parameters of the model which reproduce the experimental data coming from the [Database](https://www.nndc.bnl.gov/nudat2/ ) Nndc - Brookhaven National Laboratory . With this data, I have created a data set of all even-even nuclei which we have labeled the parameters. The parameters of the 66Ni and 66Ni were obtained by using a classification program in Python and by using the results I could determine the spectrum which are helpful to perform the analysis. The model is written in Fortran, but I was able to use python to get the coefficients. This work helped to study short-range correlations of sequential and direct reactions.
+In this project, my task was to provide accurate wavefunctions of the 64Ni and 66Ni. To do that I required to compute the best parameters of the model which reproduce the experimental data coming from the [Database](https://www.nndc.bnl.gov/nudat2/ ) Nndc - Brookhaven National Laboratory . With this data, I have created a data set of all even-even nuclei which we have labeled the parameters. The parameters of the 66Ni and 66Ni were obtained by using a classification program in Python and by using the results I could determine the spectrum which are helpful to perform the analysis. The model is written in Fortran, but I was able to use python to get the coefficients. This work helped to study short-range correlations of sequential and direct reactions.
+
+
+
+![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%202.jpg)
+
+
+
+## Analysis and development of a model of the nuclear reaction of Double Charge Exchange
+
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/infn.jpg" style="zoom:70%;" />
+
+National Institute for Nuclear Physics
+
+Genova (Italy)
+
+Programming Language: Python, Wolfram Mathematica, Matlab, C
+
+In this project, I have proposed a model to try to explain a nuclear reaction of a double charge exchange that allows determining the nature of the neutrinos. Find constraints to determine if the neutrinos are antiparticles and particles at the same time. My main role was to give the idea of the process and perform the calculation.
+
+I have performed the calculation by using sophisticated numeric and algebraic methods. We found correlations between neutrinoless double beta decay and double charge exchange and this opens the nuclear physicist community put constraints in the research of the masses of the neutrinos and explorer the new physics.
+
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%204.jpg" style="zoom:60%;" />
+
+
+
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image5.jpg" style="zoom:75%;" />
+
+
+
+## Developing of CUDA software for the analysis of flooding of a geographical area.
 
 
 
@@ -87,3 +117,4 @@ In this project, my task was to provide accurate wavefunctions of the 64Ni and 6
 
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+
