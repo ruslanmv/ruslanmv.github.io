@@ -41,13 +41,17 @@ The implementation of new technologies is part of the aim of my future work
 
 
 
+
+
 ## Virial Expansion of Nuclear Equation
+
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/texas.png" style="zoom:33%;" /> 
 
 Texas A&M University and Cyclotron Institute
 
-College Station, Texas (United States) 
+College Station, Texas (United States).
 
-Programming Language: Python with Mathematica
+ Programming Language: Python with Mathematica
 
 I have developed a **model** to study the transition between mater and plasma. This may help to understand the external conditions of nature to materialize the matter. This provides insight into how was created our universe in terms of thermodynamics. I have proposed a function in terms of energy and with my team, we expanded the energy per particle (E/A) of symmetric infinite nuclear matter in powers of the density to take into account 2, 3, . . . , N-body forces.
 
