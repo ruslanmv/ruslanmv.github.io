@@ -67,7 +67,7 @@ This work helped to understand the nature of the nuclear matter and research mor
 
 
 
-
+## Classificaiton of the nuclei by knowing their spectrum and perform analysis of nuclear reactions
 
 
 
