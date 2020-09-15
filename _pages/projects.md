@@ -45,19 +45,19 @@ The implementation of new technologies is part of the aim of my future work
 
 ## Virial Expansion of Nuclear Equation
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/texas.png" style="zoom:33%;" /> 
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/texas.png" style="zoom:33%;" />
+
+
 
 Texas A&M University and Cyclotron Institute
-
 College Station, Texas (United States).
-
- Programming Language: Python with Mathematica
+Programming Language: Python with Mathematica
 
 I have developed a **model** to study the transition between mater and plasma. This may help to understand the external conditions of nature to materialize the matter. This provides insight into how was created our universe in terms of thermodynamics. I have proposed a function in terms of energy and with my team, we expanded the energy per particle (E/A) of symmetric infinite nuclear matter in powers of the density to take into account 2, 3, . . . , N-body forces.
 
-Here we have used a **Machine Learning** technique of **Regression** in Python and used it in Mathematica to check our results. 
+Here we have used a **Machine Learning** technique of **Regression** in Python and used it in Mathematica to check our results.
 
-The new model is proposed by fitting ground state properties of nuclear matter (binding energy, compressibility, and pressure) and assuming that at high densities a second-order phase transition to the quark-gluon plasma (QGP) occurs. 
+The new model is proposed by fitting ground state properties of nuclear matter (binding energy, compressibility, and pressure) and assuming that at high densities a second-order phase transition to the quark-gluon plasma (QGP) occurs.
 
 This work helped to understand the nature of the nuclear matter and research more interesting properties of the plasma such are the sun and how under certain conditions the matter if created.
 
