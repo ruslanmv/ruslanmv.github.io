@@ -152,7 +152,7 @@ List of talks, seminars and workshops I've done.
 
 ## ORGANIZATION ACTIVITY
 
-* “ Women in Nuclear and Hadron Theoretical Physics: the last frontier -WTPLF 2018” [ 10/12/2018 – 11/12/2018 ]
+* “ Women in Nuclear and Hadron Theoretical Physics: the last frontier -[WTPLF 2018](https://agenda.infn.it/event/17372/)” [ 10/12/2018 – 11/12/2018 ]
 
 ## DISSEMINATION OF SCIENTIFIC KNOWLEDGE
 
