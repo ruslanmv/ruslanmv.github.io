@@ -37,13 +37,29 @@ List of talks, seminars and workshops I've done.
 
 * “Frontiers in Nuclear and Hadronic Physics school” at the GGI in Florence Italy Workshop  [ 22/02/2016 – 04/03/2016 ]
 
+* Workshop of the NUMEN Collaboration - Istituto Nazionale di Fisica Nucleare (INFN) - Laboratori Nazionali del Sud  Catania Italy [1-2 /12/ 2015]
+
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/workshop2015.jpg)
+
+  
+
+
 * “Challenges in the Dark Sector: Alternatives to the WIMP paradigm” at Laboratori Nazionali di Frascati, Rome  [ 06/12/2015 – 18/12/2015 ]
 
 * School “TALENT: Training in Advanced Low Energy Nuclear Theory” performed at the Large Heavy Ion National Accelerator GANIL and in Caen University, Caen, France, 12 / 15 [ 11/08/2014 – 29/08/2014 ]
 
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/caen.jpg)
+
+  
+
 * Workshop “Nucleon Resonances: From Photoproduction to High Photon Virtualities”  at Trento, Italy [ 12/10/2015 – 16/10/2015 ]
 
 * XXXVII Symposium on Nuclear Physics  at Cocoyoc Morelos, Mexico  [ 06/01/2014 – 09/01/2014 ]
+
+![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/2014Cocoyoc.jpg)
+
+
+
 
 * 1st fair Postgrade of the U.J.A.T. [ 21/10/2013 – 22/10/2013]
 
@@ -57,11 +73,19 @@ List of talks, seminars and workshops I've done.
 
 * "8th Symposium on Quantum Theory and Symmetries" at the National College, in Mexico City  [ 05/09/2013 – 08/09/2013 ]
 
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/symmetries.jpg)
+
+  
+
 * "Perturbation Methods within Quantum Mechanics at the XXIII Physics Forum, at D.A.C.B. U.J.A.T., in the Cunduacan municipality, Mexico  [ 23/09/2013 – 27/09/2013 ]
 
 * XXVII Annual Meeting on Particle Division and Fields  at UNAM, Mexico City.  [ 20/05/2013 – 22/05/2013 ]
 
 * Andean School called "Nuclear Physics on 21st Century" at the Andean University, in Bogota, Colombia,  [ 20/11/2012 – 26/11/2012 ]
+
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/colombia.jpg)
+
+  
 
 * LV Physics National Congress in Morelia municipality, the state of Michoacan,   [ 08/10/2012 – 12/10/2012 ]
 
@@ -86,16 +110,30 @@ List of talks, seminars and workshops I've done.
 
 * "XXXIV Symposium on Nuclear Physics", at Hacienda Cocoyoc, the state of Morelos, Mexico  [ 01/2011 ]
 
+![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/cocoyoc2011.jpg)
+
+
+
+* REU program research assistant in Cyclotron Institute College Station, Texas (United States) [23/09/2010]
+
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/texasreu.jpg?raw=true)
+
+  
+
+  
+
+
 * "XXXIII Symposium on Nuclear Physics" at Hacienda Cocoyoc, the state of Morelos, Mexico,  [ 01/01/2010 ]
 
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/cocoyoc2010.jpg)
+
+
+
+
 * Sixth Nuclear Physics School at the Nuclear Science Institute the National Autonomous University of Mexico, Mexico City,  [ 03/07/2009 ]
-
 * VIII School on Material Science and Engineering at the Material Research Institute  at the National Autonomous University of Mexico, Mexico City,[ 04/07/2008 ]
-
 * National Contest of Mathematics Pierre Fermat 2004 at the Politecnico National Institute IPN. Mexico City   [ 10/2004 ]
-
 * Natural Science-Applied Basic Microsoft Access course [ 20/07/2001 ]
-
 * First contest on Scientific Research of Tabasco Municipality  at ARJI College Tabasco Mexico.  [ 22/05/1997 ]
 
 
