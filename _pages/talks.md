@@ -1,19 +1,19 @@
 ---
-title: "Talks"
+title: "Workshops"
 layout: single
 excerpt: "List of talks, seminars and workshops I've done."
 sitemap: true
 permalink: /talks
 author_profile: true
 toc: true
-toc_label: "Talks"
+toc_label: "Workshops"
 header:
     overlay_filter: "0.6"
     overlay_image: "/assets/images/header-talks.jpg"
     show_overlay_excerpt: false
 ---
 
-
+List of talks, seminars and workshops I've done.
 
 
 ## PARTICIPATIONS AND WORKSHOPS
@@ -89,11 +89,11 @@ header:
 * Talk given with the title: "Introduction to Standard Model", at the Paul Dirac Physics seminar, in the Basic Science Academic Division from the Juarez Autonomous University of Tabasco, May 2012.
 * Talk given with the title: "Symmetries in Quantum Mechanics", at the Paul Dirac Physics seminar, in the Basic Science Academic Division from the Juarez Autonomous University of Tabasco, March 2012.
 
-### ORGANIZATION ACTIVITY
+## ORGANIZATION ACTIVITY
 
 * “ Women in Nuclear and Hadron Theoretical Physics: the last frontier -WTPLF 2018” [ 10/12/2018 – 11/12/2018 ]
 
-### DISSEMINATION OF SCIENTIFIC KNOWLEDGE
+## DISSEMINATION OF SCIENTIFIC KNOWLEDGE
 
 * "Art and Science across Italy" at the IIS Primo Levi college [ 18/01/2019 ]
 
