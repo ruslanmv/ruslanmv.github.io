@@ -21,11 +21,18 @@ List of talks, seminars and workshops I've done.
 * Machine Learning and Data Analysis for Nuclear Physics  at European Centre for Theoretical Studies in Nuclear Physics and Related Areas, Trento Italy [ 07/2020 ]
 
 * School “Frontiers in Nuclear and Hadronic Physics 2019”  [GGI2019](https://agenda.infn.it/e/ggi2019) at the GGI in Florence Italy  [ 25/02/2019 – 08/03/2019 ]
+
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/ggi2019.jpg)
+
 * Women in Nuclear and Hadron Theoretical Physics: the last frontier - [WTPLF 2018]( https://agenda.infn.it/e/WTPLF2018)
 
 * “Conference on Neutrino and Nuclear Physics (CNNP2017)” at the Monastero dei Benedettini, University of Catania, Catania, Italy  [ 15/10/2017 – 21/10/2017 ]
 
 * School “BMiNT- Bridging Methods in Nuclear Theory” performed in Strasbourg France School  [ 26/06/2017 – 30/06/2017 ]
+
+  <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/bmint.jpg" style="zoom:50%;" />
+
+  
 
 
 * “Frontiers in Nuclear and Hadronic Physics school” at the GGI in Florence Italy Workshop  [ 22/02/2016 – 04/03/2016 ]
@@ -39,6 +46,10 @@ List of talks, seminars and workshops I've done.
 * XXXVII Symposium on Nuclear Physics  at Cocoyoc Morelos, Mexico  [ 06/01/2014 – 09/01/2014 ]
 
 * 1st fair Postgrade of the U.J.A.T. [ 21/10/2013 – 22/10/2013]
+
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/ujat2013.jpg?raw=true)
+
+  
 
 * LVI National Congress on Physics at the Bicentenary Culture Center from the San Luis Potosi Autonomous University UASLP, the state of San Luis Potosi   [ 28/10/2013 – 01/11/2013 ]
 
@@ -60,7 +71,18 @@ List of talks, seminars and workshops I've done.
 
 * International congress called "Beauty in Physics; Theory and Experiment"  at Hacienda Cocoyoc, in the state of Morelos, Mexico, [ 14/05/2012 – 18/05/2012 ]
 
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/cocoyoc2012.jpg?raw=true)
+
+
+
+
+
+
 * Seventh Nuclear Physics School at the Nuclear Science Institute National Autonomous University of Mexico, Mexico City   [ 07/2011 ]
+
+  ![](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/fisica2014.jpg?raw=true)
+
+  
 
 * "XXXIV Symposium on Nuclear Physics", at Hacienda Cocoyoc, the state of Morelos, Mexico  [ 01/2011 ]
 
