@@ -10,7 +10,7 @@ header:
     caption: "Porto Antico - Genova Italy"
 ---
 
-Today I wanted to recap  Create a Flask Seaborn Regression Plot App Docker Container
+Today I wanted to create a Flask Seaborn Regression Plot by using an app Docker Container
 
 
 
