@@ -160,10 +160,22 @@ List of talks, seminars and workshops I've done.
 
 ## DISSEMINATION OF SCIENTIFIC KNOWLEDGE
 
-* "Art and Science across Italy" at the IIS Primo Levi college [ 18/01/2019 ]
+* "Art and Science across Italy" at the IIS Primo Levi college [ 18/01/2019 ] [Art and Science 2019](https://artandscience.infn.it/)
+
+  
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/WiopvNvAEUk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
-Do you want me to speak at your conference/meetup? You can find my talks/abstracts on the [Sessionize Profile](https://sessionize.com/ruslanmv/)
+
+
+Do you want see some videos of some conferences that I  have attended
+
+you can see them at my youtube channel  [ThePhysicsToday](https://www.youtube.com/channel/UC_c4xCIF64TORhLm206OJkA) ,  don't forget subscribe.
+
+
+
+
+
+<!--Do you want me to speak at your conference/meetup? You can find my talks/abstracts on the [Sessionize Profile](https://sessionize.com/ruslanmv/)-->
