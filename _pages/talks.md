@@ -37,7 +37,7 @@ List of talks, seminars and workshops I've done.
 
 * XXXVII Symposium on Nuclear Physics  at Cocoyoc Morelos, Mexico  [ 06/01/2014 – 09/01/2014 ]
 
-* 1st fair Postgrade of the U.J.A.T.  [ 21/10/2013 – 22/10/2013 ]
+* 1st fair Postgrade of the U.J.A.T. [ 21/10/2013 – 22/10/2013]
 
 * LVI National Congress on Physics at the Bicentenary Culture Center from the San Luis Potosi Autonomous University UASLP, the state of San Luis Potosi   [ 28/10/2013 – 01/11/2013 ]
 
