@@ -27,6 +27,7 @@ List of talks, seminars and workshops I've done.
 
 * School “BMiNT- Bridging Methods in Nuclear Theory” performed in Strasbourg France School  [ 26/06/2017 – 30/06/2017 ]
 
+
 * “Frontiers in Nuclear and Hadronic Physics school” at the GGI in Florence Italy Workshop  [ 22/02/2016 – 04/03/2016 ]
 
 * “Challenges in the Dark Sector: Alternatives to the WIMP paradigm” at Laboratori Nazionali di Frascati, Rome  [ 06/12/2015 – 18/12/2015 ]
