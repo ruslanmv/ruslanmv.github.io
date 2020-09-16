@@ -154,15 +154,15 @@ List of talks, seminars and workshops I've done.
 
 * “ Women in Nuclear and Hadron Theoretical Physics: the last frontier -[WTPLF 2018](https://agenda.infn.it/event/17372/)” [ 10/12/2018 – 11/12/2018 ]
 
+  ![[](https://www.flickr.com/gp/166697726@N06/44GZi1)](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/WTPLF2018.jpg?raw=true)
+
+  
+
 ## DISSEMINATION OF SCIENTIFIC KNOWLEDGE
 
 * "Art and Science across Italy" at the IIS Primo Levi college [ 18/01/2019 ]
 
-
-
-
-
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WiopvNvAEUk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
