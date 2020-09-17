@@ -28,7 +28,7 @@ Now we will work on Docker Container. We will accomplish it by completing each t
 
 
 
-# Install Docker on your Mac OS using Homebrew
+# Install Docker on your MacOS using Homebrew
 
 Note that `brew install docker` and `brew cask install docker` is different. Some of the instructions about docker installation on Mac OS use the latter code that installs Docker as an Application,
 
@@ -117,19 +117,76 @@ to add to the docker container.
 
 
 
-## Use the Pandas package with Seaborn to create a regression plot
-
-Create a Pandas Dataframe
-
-Create a Seaborn regression plot to show possible correlation.
-
-Save the file locally to verify code.
-
-Return the data file.
+## Setup Workspace
 
 
 
-## Use flask to create a web application that returns a plot.
+First we create a folder called DockerContainer and enter
+
+`$mkdir DockerContainer `
+
+`$cd DockerContainer`
+
+we copy the Pandas dataframe [tempYearly.csv](https://github.com/ruslanmv/DockerContainer/blob/master/tempYearly.csv)  to the folder
+
+```
+$curl -o ./tempYearly.csv -k https://github.com/ruslanmv/DockerContainer.git
+
+```
+
+and inside we create a app folder
+
+`$mkdir app`
+
+`$cd app`
+
+we create  a  [plotdata.py](https://github.com/ruslanmv/DockerContainer/blob/master/app/plotdata.py) file.
+
+Wee need create a python code where uses the Pandas package with Seaborn to create a regression plot,  we need import the a Pandas Dataframe and create a Seaborn regression plot to show possible correlation and we need  save the file locally to verify code and return the data file.
+
+We can do this by typing the following code:
+
+```python
+import pandas as pd
+import matplotlib
+import seaborn as sns
+import io
+if __name__ =='__main__':
+    from PIL import Image
+
+matplotlib.use('agg')
+
+def regression_plot():
+    df = pd.read_csv('tempYearly.csv')
+
+    sns_plot = sns.regplot(x='Rainfall', y='Temperature', data=df)
+
+    image = io.BytesIO()
+
+    sns_plot.figure.savefig(image, format = 'png')
+
+    image.seek(0)
+    return image
+
+if  __name__ == '__main__':
+    image = regression_plot()
+    im = Image.open(image)
+    im.save('regress.png','PNG')
+```
+
+
+
+After write this code we can test this program, so we return back to the folder DockerContainer  and from there we run the app to test
+
+`python3 ./app/plotdata.py`
+
+then it is created a file regress.png
+
+<img src="https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/regress.png" style="zoom:60%;" />
+
+Good!. Now let us create the application that uses Flask to call this program.
+
+The next task is use flask to create a web application that returns a plot.
 
 Import objects and methods to create a flask application.
 
@@ -139,47 +196,93 @@ Return the image to the browser window.
 
 Run the application and browse to localhost:5000
 
+Let us return back to the folder app and there we create the the file  [app.py](https://github.com/ruslanmv/DockerContainer/blob/master/app/app.py) 
+
+with the following code:
+
+```python
+from flask import Flask, send_file
+from plotdata import regression_plot
+
+app = Flask(__name__)
+
+@app.route('/', methods = ['GET'])
+def regr_plot():
+    image = regression_plot()
+
+    return send_file(image,
+    attachment_filename = 'regplot.png',
+    mimetype = 'image/png' )
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',debug = False)
+
+```
+
+We return back to the folder DockerContainer and we the app with the following 
+
+`$python3 ./app/app.py`
+
+we obtain
+
+![](https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2014.54.53.png)
+
+We copy the address http://0.0.0.0:5000/ and we paste it in our browser
+
+<img src="https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2014.57.52.png" style="zoom:35%;" />
+
+
+
+
+
+
+
 ## Build a requirements document with packages needed for the application.
 
-Create a file called requirements.txt
+We return back to the  folder DockerContainer  and there
 
-Determine the versions of packages needed for the application.
+we create a file called  [requirements.txt](https://github.com/ruslanmv/DockerContainer/blob/master/requirements.txt)
 
-pip freeze | grep pandas
+We have to determine the versions of packages needed for the application:
 
-pip freeze | grep matplotlib
-
-pip freeze | grep seaborn
-
- pip freeze | grep matplotlib
-
+```unix
+$pip freeze | grep pandas
+$pip freeze | grep matplotlib
+$pip freeze | grep seaborn
+$pip freeze | grep matplotlib
 python
-
 import flask
-
 flask.__ version __
+```
+
+<img src="https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2015.10.25.png" style="zoom:50%;" />
+
+With these information of the versions,  we add the packages and versions to the requirements.txt.
+
+<img src="https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2015.13.19.png" style="zoom:50%;" />
 
 
-
-
-
-Add the packages and versions to the requirements.txt.
 
 Create a Dockerfile for use in the next task
 
 ## Build the application in a container using a Dockerfile and test it.
 
-Load the base image.
 
-Copy the requirements doc to the container. 
 
-Identify the working directory in the container image.
 
-Identify the port to run on.
 
-Create the command to run the app.
 
-docker build --tag flask-plotting-app .
 
-run -i -t --name flaskpltapp -p5000:5000 flask-plotting-app:latest
+Load the base image with the following command
 
+`$docker build --tag flask-plotting-app .`
+
+<img src="https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2015.22.06.png" style="zoom:50%;" />
+
+It is copied the requirements doc to the container. finally  we run the app of the  container chossing the port to  5000 
+
+`$docker run -i -t --name flaskpltapp -p5000:5000 flask-plotting-app:latest`
+
+
+
+![](https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2015.28.36.png)
