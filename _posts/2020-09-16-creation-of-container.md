@@ -282,3 +282,8 @@ It is copied the requirements doc to the container. finally  we run the app of t
 
 
 ![](https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2015.28.36.png)
+
+
+
+**Congratulations!**  you have created  App Docker Container wirh  a Flask  Regression. 
+
