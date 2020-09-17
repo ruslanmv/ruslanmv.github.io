@@ -269,10 +269,6 @@ Create a Dockerfile for use in the next task
 
 
 
-
-
-
-
 Load the base image with the following command
 
 `$docker build --tag flask-plotting-app .`
