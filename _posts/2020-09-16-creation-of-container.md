@@ -43,7 +43,7 @@ $ eval "$(docker-machine env default)"
 
 ```
 
-Notice: that if the deamon of the docker is stopped you can start it  with the command
+Notice: that if the deamon of the docker is stopped, you can start it  with the command
 
 $ docker-machine start default
 
