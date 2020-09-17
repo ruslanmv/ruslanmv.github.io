@@ -1,6 +1,6 @@
 ---
 title: "Create a Flask Regression Plot App Docker Container."
-categories: "Linux"
+categories: "Linux, Python, Flask, Container, Docker"
 
 excerpt: "Create a Flask Regression Plot App Docker Container."
 
