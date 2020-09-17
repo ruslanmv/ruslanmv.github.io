@@ -267,6 +267,36 @@ Create a Dockerfile for use in the next task
 
 ## Build the application in a container using a Dockerfile and test it.
 
+We create a Dockerfile in the folder of the DockerContainer
+
+There we  copy the requirements  to the container and   we run the app of the  container chossing the port to  5000.
+
+
+
+ 
+
+```dockerfile
+FROM python:3.8
+
+COPY ./requirements.txt /requirements.txt
+
+WORKDIR /
+
+RUN pip3 install -r requirements.txt
+
+COPY . /
+
+EXPOSE 5000
+
+ENTRYPOINT ["python3"]
+
+CMD ["app/app.py"]
+```
+
+
+
+
+
 
 
 Load the base image with the following command
@@ -275,7 +305,7 @@ Load the base image with the following command
 
 <img src="https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2015.22.06.png" style="zoom:50%;" />
 
-It is copied the requirements doc to the container. finally  we run the app of the  container chossing the port to  5000 
+
 
 `$docker run -i -t --name flaskpltapp -p5000:5000 flask-plotting-app:latest`
 
@@ -286,4 +316,12 @@ It is copied the requirements doc to the container. finally  we run the app of t
 
 
 **Congratulations!**  you have created  App Docker Container wirh  a Flask  Regression. 
+
+
+
+When you finish playing around with Docker this time, don’t forget to stop the machine with this command. ( You can check the status `docker-machine ls`)
+
+```unix
+$ docker-machine stop default
+```
 
