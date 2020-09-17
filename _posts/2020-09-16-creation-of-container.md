@@ -40,12 +40,34 @@ $ brew cask install virtualbox
 $ docker-machine create --driver virtualbox default
 $ docker-machine env default
 $ eval "$(docker-machine env default)"
-$ docker run hello-world
-$ docker-machine stop default
+
 ```
 
+Notice: that if the deamon of the docker is stopped you can start it  with the command
 
-# List Docker Containers
+$ docker-machine start default
+
+After installation, add yourself to the docker group, otherwise use sudo for commands.
+
+
+
+We check if the installation of the docker is correct
+
+$ docker run hello-world
+
+<img src="https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot 2020-09-17 at 10.39.44.png" style="zoom:67%;" />
+
+
+
+Here, you are added to the docker group
+
+Start a Docker container with a Linux Image.
+
+$docker run python:3.8
+
+
+
+Use Docker command ps-a to view containers.
 
 To list all running Docker containers, enter the following into a terminal window:
 
@@ -53,21 +75,21 @@ To list all running Docker containers, enter the following into a terminal windo
 docker ps –a
 ```
 
-The **`ps`** command provides several columns of information:
+![](https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot 2020-09-17 at 10.50.11.png)
 
-- `Container ID` – a unique alphanumeric number for each container
-- `Image` – The base operating system image the container is based on
-- `Command` – The command that launched the container
-- `Created` – How long ago the container was created
-- `Status` – Uptime or downtime
-- `Ports` – Specifies any ports forwarded to the container for networking
-- `Name` – A memorable name assigned by the Docker software
+Enter a Container Linux environment in a bash shell.
 
-To create a new container from an image and start it, use **`docker run`**:
+`$docker run -it python:3.8 bash `
 
-```unix
-docker run [options] image [command] [argument] 
-```
+`pip3 install flask`
+
+`exit`
+
+![](https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2010.56.13.png)
+
+Run and remove a named container.
+
+`docker ps -a`
 
 To immediately **remove** a docker container without waiting for the grace period to end use:
 
@@ -75,21 +97,25 @@ To immediately **remove** a docker container without waiting for the grace perio
 docker rm  container_id
 ```
 
-## Install Linux image into container
+## 
 
-Verify the docker installation.
+To create a new container from an image and start it, use **`docker run`**:
 
-After installation, add yourself to the docker group, otherwise use sudo for commands.
+```unix
+docker run --name myContainer python:3.8
+```
 
-Here, you are added to the docker group
+and remove
 
-Start a Docker container with a Linux Image.
+`docker rm myContainer ` 
 
-Use Docker command ps-a to view containers.
+![](https://raw.githubusercontent.com/ruslanmv/pictures/master/uPic/Screenshot%202020-09-17%20at%2010.59.09.png)
 
-Enter a Container Linux environment in a bash shell.
+Congratulations! now that you have created your first container with unix, we will create the application 
 
-Run and remove a named container.
+to add to the docker container.
+
+
 
 ## Use the Pandas package with Seaborn to create a regression plot
 
