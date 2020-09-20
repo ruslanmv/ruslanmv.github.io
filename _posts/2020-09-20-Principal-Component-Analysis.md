@@ -1,6 +1,6 @@
 ---
 title: "Principal Component Analysis (PCA)"
-excerpt: "Welcome to my new website"
+excerpt: "Linear transformation tool for dimensional reduction"
 
 header:
   image: "/assets/images/posts/2020-09-20-Principal-Component-Analysis/graficas.jpg"
