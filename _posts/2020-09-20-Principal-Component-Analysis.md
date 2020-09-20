@@ -421,13 +421,9 @@ for val in eigen_values:
     0.1483422264816399
     0.02074601399559571
 
-
-
-```python
 and now we can see how much of the variance in our data is explained by
 each of those components and also look at the variance play cummulativaly
-this is a context application, what you are looking for
-```
+this is a context application, what you are looking for.
 
 We can exclude the components with low variance
 
