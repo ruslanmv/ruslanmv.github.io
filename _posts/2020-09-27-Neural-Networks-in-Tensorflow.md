@@ -134,7 +134,7 @@ class NeuralNetwork:
 ```python
 class NeuralNetwork(NeuralNetwork):
     def forward_pass(self, X):
-        # Your code here
+
         A = tf.convert_to_tensor(X, dtype=tf.float32)
         for i in range(1, self.L):
             Z = tf.matmul(A,tf.transpose(self.W[i])) + tf.transpose(self.b[i])
@@ -157,7 +157,7 @@ class NeuralNetwork(NeuralNetwork):
 
 ```python
 class NeuralNetwork(NeuralNetwork):
-    # Your code here
+
     def compute_loss(self, A, Y):
         loss = tf.nn.softmax_cross_entropy_with_logits(Y,A)
         return tf.reduce_mean(loss)
@@ -183,7 +183,7 @@ class NeuralNetwork(NeuralNetwork):
 ```python
 class NeuralNetwork(NeuralNetwork):
     def predict(self, X):
-        # Your code here
+
         A = self.forward_pass(X)
         return tf.argmax(tf.nn.softmax(A), axis=1)
     
@@ -247,7 +247,7 @@ class NeuralNetwork(NeuralNetwork):
 ```python
 class NeuralNetwork(NeuralNetwork):
     def train(self, x_train, y_train, x_test, y_test, epochs, steps_per_epoch, batch_size, lr):
-        # Your code here
+
         history = {
             'val_loss':[],
             'train_loss':[],
