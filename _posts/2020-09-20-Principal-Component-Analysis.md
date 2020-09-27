@@ -1,6 +1,6 @@
 ---
 title: "Principal Component Analysis (PCA)"
-categories: "Machine Learning, Data Analysis"
+categories: "Machine Learning,Data Analysis"
 excerpt: "Linear transformation tool for dimensional reduction"
 
 header:
