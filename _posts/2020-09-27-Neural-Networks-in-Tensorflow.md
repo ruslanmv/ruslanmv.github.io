@@ -22,7 +22,7 @@ We are going to classify Images by using Tensorflow.
 
 This notebook works the tensorflow version >= 2.1.0
 
-First we Importing relevant libraries and helper functions.
+First we import relevant libraries and helper functions.
 
 ```python
 import tensorflow as tf
@@ -88,7 +88,7 @@ def plot_results(history):
 
 ## Initializing Neural Network
 
-We have to creating the Neural Network class, understanding the init function and setting up initial parameter values.
+We have to create the Neural Network class, understand the init function and setting up initial parameter values.
 
 
 
@@ -115,7 +115,7 @@ class NeuralNetwork:
         self.setup()
         
     def setup(self):
-        # Your code here
+       
         for i in range(1, self.L):
             self.W[i] = tf.Variable(tf.random.normal(shape=(self.layers[i],self.layers[i-1])))
             self.b[i] = tf.Variable(tf.random.normal(shape=(self.layers[i],1)))
@@ -126,7 +126,7 @@ class NeuralNetwork:
 
 ## Forward Pass
 
-- Creating a forward pass function.
+- We have to create a forward pass function.
 
 
 
@@ -149,8 +149,8 @@ class NeuralNetwork(NeuralNetwork):
 
 ## Computing Loss and Updating Parameters
 
-- Using the cross entropy loss with logits.
-- Updating parameters for all the layers.
+- We use the cross entropy loss with logits.
+- We update  parameters for all the layers.
 
 
 
@@ -208,7 +208,7 @@ class NeuralNetwork(NeuralNetwork):
 
 - We create the main training mechanism.
 
-- Annd we implement the gradient descent with automatic differentiation.
+- And we implement the gradient descent with automatic differentiation.
 
   
 
@@ -216,7 +216,7 @@ class NeuralNetwork(NeuralNetwork):
   ```python
   class NeuralNetwork(NeuralNetwork):
       def train_on_batch(self, X, Y, lr):
-          # Your code here
+         
           X = tf.convert_to_tensor(X, dtype=tf.float32)
           Y = tf.convert_to_tensor(Y, dtype=tf.float32)
           
