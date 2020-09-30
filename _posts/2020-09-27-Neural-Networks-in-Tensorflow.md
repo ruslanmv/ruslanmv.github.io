@@ -4,9 +4,9 @@ categories: "Tensorflow,Deep-Learning,Classification,Machine Learning"
 excerpt: "Neural Network  in TensorFlow from Scratch"
 
 header:
-  image: "/assets/images/posts/2020-09-27-Neural-Networks-in-Tensorflow/scot-big.jpg"
-  teaser: "/assets/images/posts/2020-09-27-Neural-Networks-in-Tensorflow/scot.jpeg"
-  caption: "Ryerson Department of Architectural Science, Toronto, Canada @scottwebb"
+  image: "/assets/images/posts/2020-09-27-Neural-Networks-in-Tensorflow/handwritten2.jpeg"
+  teaser: "/assets/images/posts/2020-09-27-Neural-Networks-in-Tensorflow/handwritten2.jpeg"
+  caption: "Handwritten notes by Dimitri Houtteman"
   
 ---
 
