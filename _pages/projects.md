@@ -33,7 +33,7 @@ I perform analysis of data to make **predictions** in the sector of the Industry
 
 
 
-## NUMEN experiment
+## Data Analysis at  NUMEN 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/NUMEN.jpg" style="zoom:10%;" />
 
 I am part of the experimental [NUMEN](https://web.infn.it/NUMEN/index.php/it/collaboration) collaboration. In the NUMEN project, nuclear reactions of double charge-exchange (DCE) will be used as a tool to extract information on the ββ nuclear matrix elements (NME). Nuclear matrix elements for neutrinoless double beta decay and double charge exchange in the scheme of microscopic Interacting Boson Model are important allowing me belong to the NUMEN collaboration.
