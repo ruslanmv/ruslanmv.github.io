@@ -13,11 +13,11 @@ header:
 
 
 
-## Image Classification with Tensor-Flow with Keras
+## Tensorflow image classification with Keras
 
-Today I would like discuss a little bit about **Image Classification with Tensor-Flow**
+Today I would like discuss a little bit about **Image Classification with TensorFlow**. 
 
-We are going to   build a neural network model to solve a basic image classification problem.
+We are going to  build a neural network model to solve a basic image classification problem.
 
 
 
