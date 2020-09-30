@@ -72,7 +72,7 @@ This work was published in [World Scientifc](https://www.worldscientific.com/doi
 
 
 
-## Classificaiton of the nuclei by knowing their spectrum and perform analysis of nuclear reactions
+## Classification of the nuclei by knowing their spectrum and perform analysis of nuclear reactions
 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/infn.jpg" style="zoom:70%;" />
 
