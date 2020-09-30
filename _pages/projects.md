@@ -30,12 +30,7 @@ I develop advanced cloud-based solutions and migrate existing workloads to the c
 
 I am interested in the analysis of data to make **predictions** in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
 
-## HPC CUDA Developments
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/nvdia.png" style="zoom:55%;" />
 
-
-
-I was part of developing software in CUDA language that can be used in clusters to perform heavy calculations.
 
 ## NUMEN experiment
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/NUMEN.jpg" style="zoom:10%;" />
@@ -125,6 +120,18 @@ Programming Language,C,C++ ,Fortran, CUDA
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/rec.jpg" style="zoom:75%;" />
 
 The code is private and belong to the [RED Risk Engineering](https://www.redrisk.com/)
+
+
+
+
+
+## HPC CUDA Developments
+
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/nvdia.png" style="zoom:55%;" />
+
+
+
+I was part of developing software in CUDA language that can be used in clusters to perform heavy calculations.
 
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
