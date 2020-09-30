@@ -26,9 +26,10 @@ My work is based on analysis data for actionable insights. Devising and applying
 I develop advanced cloud-based solutions and migrate existing workloads to the cloud.
 
 ##  Cloud Data Science
+
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" style="zoom:11%;" />
 
-I am interested in the analysis of data to make **predictions** in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
+I perform analysis of data to make **predictions** in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
 
 
 
@@ -105,6 +106,16 @@ I have performed the calculation by using sophisticated numeric and algebraic me
 
 This work was published in [Physical Review](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.98.061601)  Phys. Rev. C 98, 061601(R)
 
+## HPC CUDA Developments
+
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/nvdia.png" style="zoom:55%;" />
+
+
+
+I have developed software in CUDA language that used in clusters to perform heavy calculations.
+
+
+
 ## Developing of CUDA software for the analysis of flooding of a geographical area.
 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/reca.jpg" style="zoom:50%;" />
@@ -125,13 +136,7 @@ The code is private and belong to the [RED Risk Engineering](https://www.redrisk
 
 
 
-## HPC CUDA Developments
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/nvdia.png" style="zoom:55%;" />
-
-
-
-I was part of developing software in CUDA language that can be used in clusters to perform heavy calculations.
 
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
