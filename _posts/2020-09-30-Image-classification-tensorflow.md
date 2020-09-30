@@ -167,15 +167,15 @@ y_train_encoded[1]
 
 The above graph simply represents the equation:
 
-\begin{equation}
-y = w1 * x1 + w2 * x2 + w3 * x3 + b
-\end{equation}
+<img src="https://render.githubusercontent.com/render/math?math=\begin{equation*} y = w1 * x1 + w2 * x2 + w3 * x3 + b \end{equation*}">
+
+
 
 Where the `w1, w2, w3` are called the weights and `b` is an intercept term called bias. The equation can also be *vectorised* like this:
 
-\begin{equation}
-y = W . X + b
-\end{equation}
+<img src="https://render.githubusercontent.com/render/math?math=\begin{equation*} y = W . X + b \end{equation*}">
+
+
 
 Where `X = [x1, x2, x3]` and `W = [w1, w2, w3].T`. The .T means *transpose*. This is because we want the dot product to give us the result we want i.e. `w1 * x1 + w2 * x2 + w3 * x3`. This gives us the vectorised version of our linear equation.
 
@@ -280,15 +280,11 @@ The purpose of the activation functions is to help neural networks find non-line
 If we simply cascaded linear functions with each other without using activation functions, the overall output would still be a linear function model
 
 The first step in the node is the linear sum of the inputs:
-\begin{equation}
-Z = W . X + b
-\end{equation}
+<img src="https://render.githubusercontent.com/render/math?math=\begin{equation*} Z = W . X + b \end{equation*}">
 
 The second step in the node is the activation function output:
 
-\begin{equation}
-A = f(Z)
-\end{equation}
+<img src="https://render.githubusercontent.com/render/math?math=\begin{equation*} A = f(Z) \end{equation*}">
 
 Graphical representation of a node where the two operations are performed:
 
