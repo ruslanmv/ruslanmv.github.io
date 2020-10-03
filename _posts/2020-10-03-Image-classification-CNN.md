@@ -26,7 +26,7 @@ CNNs take a different approach towards regularization: they take advantage of th
 
 
 
-[![img](../assets/images/posts/2020-10-03-Image-classification-CNN/229px-Conv_layer.png)](https://en.wikipedia.org/wiki/File:Conv_layer.png)
+<img src="../assets/images/posts/2020-10-03-Image-classification-CNN/Conv_layer.png" style="zoom:50%;" />
 
 Neurons of a convolutional layer (blue), connected to their receptive field (red)
 
