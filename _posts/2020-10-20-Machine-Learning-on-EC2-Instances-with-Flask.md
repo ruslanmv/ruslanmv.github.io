@@ -37,23 +37,23 @@ Amazon EC2 offers the broadest and deepest compute platform with choice of proce
 
 ## EC2 Instance Setup
 
-1. First we need to enter to the AWS Management Console
+First we need to enter to the AWS Management Console
 
-   [https://aws.amazon.com/it/console/](https://aws.amazon.com/it/console/)
+[https://aws.amazon.com/it/console/](https://aws.amazon.com/it/console/)
 
-   
+
 
 ![](../assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/1.png)
 
 
 
-2. We enter with our credentials and we enter to the EC2 service
+ We enter with our credentials and we enter to the EC2 service
 
 
 
 ![](../assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/2.png)
 
-3. We launch an instance
+ We launch an instance
 
 
 
@@ -63,33 +63,33 @@ Amazon EC2 offers the broadest and deepest compute platform with choice of proce
 
 
 
-4. We Select **Amazon Linux 2 AMI (HVM), SSD Volume Type**   with the default settings
+ We Select **Amazon Linux 2 AMI (HVM), SSD Volume Type**   with the default settings
 
 ![](../assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/4.png)
 
 
 
-5 . We add  the tag,  ``Name`` with the value  ``WebApplication``
+We add  the tag,  ``Name`` with the value  ``WebApplication``
 
 ![](../assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/5.png)
 
 
 
-6. For the Security Group, for this example, we  assign open the port 22 TCP and the Custom 5000 for the Flask application.
+For the Security Group, for this example, we  assign open the port 22 TCP and the Custom 5000 for the Flask application.
 
 ![](../assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/6.png)
 
-7. For the key pair , we can create  new key pair or use your key pair.
+For the key pair , we can create  new key pair or use your key pair.
 
-   If you don't have your keypair you have create and download.
+If you don't have your keypair you have create and download.
 
-   Because you will use  in order to enter to the server.
+Because you will use  in order to enter to the server.
 
-   
 
-   
 
-   
+
+
+
 
 ![](../assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/7.png)
 
@@ -97,8 +97,9 @@ Amazon EC2 offers the broadest and deepest compute platform with choice of proce
 
 
 
-8. Finally we launch our EC2 Instance.
-9. We return back to the EC2 Dashboard and we copy the ``IPv4 Public IP`` 
+Finally we launch our EC2 Instance.
+
+We return back to the EC2 Dashboard and we copy the ``IPv4 Public IP`` 
 
 ![](../assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/8.png)
 
