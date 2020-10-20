@@ -1,6 +1,6 @@
 ---
-title: "How to deploy WebApp on EC2 Instance with Flask"
-excerpt: "How to deploy WebApp on EC2 Instance with Flask"
+title: "How to deploy a WebApp on EC2 Instance with Flask"
+excerpt: "How to deploy a WebApp on EC2 Instance with Flask"
 
 header:
   image: "/assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/photo23.jpg"
@@ -9,7 +9,7 @@ header:
   
 ---
 
-Today we are going to deploy a web application on the AWS cloud that perform a regression and plot the results on the screen. This method can be used to deploy different Machine Learning models. 
+Today we are going to deploy a web application on the AWS cloud that perform a regression and plot the results on the web browser. This method can be used to deploy different Machine Learning models. 
 
 
 
@@ -132,7 +132,7 @@ Both options are good but if you use docker you have the advantage to install in
 
 I prefer use Docker but I going to install Python and Flask on the EC2 Instances to have both options.
 
-### Docker Installation on EC2
+## Docker Installation on EC2
 
 ```
 sudo amazon-linux-extras install docker
@@ -152,7 +152,7 @@ We want add the privilege to the ec2-user to use docker
 sudo usermod -a -G docker ec2-user
 ```
 
-### Python Installation on EC2
+## Python Installation on EC2
 
 In addition to Docker, and have the opportunity to execute in natural way the python programs we install python on the EC2 Instance
 
@@ -211,7 +211,7 @@ exit
 
 
 
-### Web Application Installation
+## Web Application Installation
 
 We enter again to our EC2 server
 
@@ -256,13 +256,7 @@ Let us remove the hello-world container, lets copy the ``CONTANIER ID`` and dele
 docker rm 0d69fdc5d8e1
 ```
 
-
-
-
-
-```
-docker run -it python:3.8 bash
-```
+there is not any  running container
 
 ```
 docker ps -a
@@ -284,15 +278,17 @@ cd DockerContainer/
 
 We choose a dataset that we want to perform the regression,
 
- I decided to download one by one, in order to see what files we are  using,
-
 ```
 curl -o ./tempYearly.csv -k https://raw.githubusercontent.com/ruslanmv/DockerContainer/master/tempYearly.csv
 ```
 
+ we download the docker file
+
 ```
 curl -o ./Dockerfile -k https://raw.githubusercontent.com/ruslanmv/DockerContainer/master/Dockerfile
 ```
+
+and the dependencies of our webapp
 
 ```
 curl -o ./requirements.txt -k https://raw.githubusercontent.com/ruslanmv/DockerContainer/master/requirements.txt
@@ -322,7 +318,7 @@ curl -o ./plotdata.py -k https://raw.githubusercontent.com/ruslanmv/DockerContai
 cd ..
 ```
 
-### Building the Docker  WebApp
+## Building the Docker  WebApp
 
 ```
 docker build --tag flask-plotting-app . 
@@ -338,7 +334,7 @@ Successfully tagged flask-plotting-app:latest
 
 
 
-#### Execution of the WebApp
+## Execution of the WebApp
 
 We can execute the container by the following command
 
