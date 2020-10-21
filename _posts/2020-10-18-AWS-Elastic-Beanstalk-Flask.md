@@ -4,8 +4,8 @@ excerpt: "AWS Elastic Beanstalk with Flask"
 categories: [Flask,AWS]
 
 header:
-  image: "assets/images/posts/2020-10-18-AWS-Elastic-Beanstalk-Flask/Data-center.jpg"
-  teaser: "assets/images/posts/2020-10-18-AWS-Elastic-Beanstalk-Flask/Data-center.jpg"
+  image: "assets/images/posts/2020-10-18-AWS-Elastic-Beanstalk-Flask/Data-center.webp"
+  teaser: "assets/images/posts/2020-10-18-AWS-Elastic-Beanstalk-Flask/Data-center.webp"
   caption: "AWS Data Center"
    
 ---
