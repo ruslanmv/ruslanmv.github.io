@@ -1,6 +1,6 @@
 ---
 title: "Image Classification with Tensorflow"
-categories: "Tensorflow,Deep-Learning,Classification,Machine Learning"
+categories: [Tensorflow,Deep Learning,Classification,Machine Learning]
 excerpt: "Image Classification with Tensorflow"
 
 

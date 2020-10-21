@@ -1,7 +1,7 @@
 ---
 title: "Machine Learning Web App with Streamlit and Python"
 excerpt: "Machine Learning Web App with Streamlit and Python"
-categories: "Classification,Machine Learning"
+categories: [Classification,Machine Learning]
 
 header:
   image: "/assets/images/posts/2020-10-17-Web-Application-Classification/coding.jpeg"

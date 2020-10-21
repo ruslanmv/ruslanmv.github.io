@@ -1,6 +1,7 @@
 ---
 title: "AWS Elastic Beanstalk with Flask"
 excerpt: "AWS Elastic Beanstalk with Flask"
+categories: [Flask,AWS]
 
 header:
   image: "assets/images/posts/2020-10-18-AWS-Elastic-Beanstalk-Flask/Data-center-1024x512.png"
