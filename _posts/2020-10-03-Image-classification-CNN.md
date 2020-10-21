@@ -1,6 +1,6 @@
 ---
 title: "Image Classification with CNNs"
-categories: "Tensorflow,Deep-Learning,Classification,Machine Learning"
+categories: [Tensorflow,Deep-Learning,Classification,Machine Learning]
 excerpt: "Image Classification with CNN of 60 000 colour images."
 
 header:

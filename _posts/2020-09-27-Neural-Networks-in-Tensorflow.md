@@ -1,6 +1,6 @@
 ---
 title: "Image Classification with Tensorflow without Keras"
-categories: "Tensorflow,Deep-Learning,Classification,Machine Learning"
+categories: [Tensorflow,Deep-Learning,Classification,Machine Learning]
 excerpt: "Neural Network  in TensorFlow from Scratch"
 
 header:

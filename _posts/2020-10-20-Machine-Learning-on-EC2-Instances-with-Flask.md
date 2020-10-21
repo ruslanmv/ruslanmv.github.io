@@ -1,7 +1,7 @@
 ---
 title: "How to deploy a WebApp on EC2 Instance with Flask"
 excerpt: "How to deploy a WebApp on EC2 Instance with Flask"
-
+categories: [Flask,AWS]
 header:
   image: "/assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/photo23.jpg"
   teaser: "/assets/images/posts/2020-10-20-Machine-Learning-on-EC2-Instances-with-Flask/photo23.jpg"

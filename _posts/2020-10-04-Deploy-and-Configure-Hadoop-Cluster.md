@@ -1,6 +1,6 @@
 ---
 title: "Deploy and Configure Hadoop Cluster"
-categories: "Hadoop,Linux,BigData"
+categories: [Hadoop,Linux,BigData]
 excerpt: "Deploy and Configure a Single-Node Hadoop Cluster"
 
 header:

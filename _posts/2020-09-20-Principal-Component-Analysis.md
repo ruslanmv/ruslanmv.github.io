@@ -1,6 +1,6 @@
 ---
 title: "Principal Component Analysis (PCA)"
-categories: "Machine-Learning,Data-Analysis"
+categories: [Machine Learning,Data Analysis]
 excerpt: "Linear transformation tool for dimensional reduction"
 
 header:
@@ -387,6 +387,7 @@ print("Eigenvalues :\n",eigen_values,"\n")
              [-0.56561105, -0.06541577, -0.6338014 ,  0.52354627]])
 
   
+
 
 
 
