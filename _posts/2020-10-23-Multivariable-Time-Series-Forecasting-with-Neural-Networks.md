@@ -29,7 +29,7 @@ prediction model of a Semi-autogenous (SAG) Mill.
 
 
 
-![](../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/SAG-Mill-Manufacturer.gif)
+<img src="../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/SAG-Mill-Manufacturer.gif" style="zoom:80%;" />
 
 
 
@@ -46,7 +46,7 @@ a SAG mill works like a giant washing machine for rocks and steel balls.
 
 
 
-![](../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/SAG_Mill_Manufacturers.png)
+<img src="../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/SAG_Mill_Manufacturers.png" style="zoom:80%;" />
 
 
 
@@ -249,8 +249,7 @@ ax.set_yticklabels(data.columns)
 plt.show()
 ```
 
-
-![png](../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/Multivariable-Times-Series-Forecasting-with-Neural-Networks_14_0.png)
+<img src="../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/Multivariable-Times-Series-Forecasting-with-Neural-Networks_14_0.png" alt="png" style="zoom:150%;" />
 
 
 
@@ -372,8 +371,7 @@ for group in groups:
 pyplot.show()
 ```
 
-
-![png](../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/Multivariable-Times-Series-Forecasting-with-Neural-Networks_28_0.png)
+<img src="../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/Multivariable-Times-Series-Forecasting-with-Neural-Networks_28_0.png" alt="png" style="zoom:120%;" />
 
 
 The first step is to prepare the Bearing Pressure (kPa) dataset for the LSTM. This involves framing the dataset as a supervised learning problem and normalizing the input variables.We will frame the supervised learning problem as predicting the Bearing Pressure (kPa) at the current time (t) given the Power Draw (MW),Speed (RPM) Dilution Flow Rate (m3/h) Conveyor Belt Feed Rate (t/h) Conveyor Belt PSD Fines (%)  parameters at the prior time step.
@@ -1785,8 +1783,7 @@ result .plot(subplots=True, layout=(-1, 1), lw=1, figsize=(12, 6))
 plt.tight_layout()
 ```
 
-
-![png](../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/Multivariable-Times-Series-Forecasting-with-Neural-Networks_158_0.png)
+<img src="../assets/images/posts/2020-10-23-Multivariable-Time-Series-Forecasting-with-Neural-Networks/Multivariable-Times-Series-Forecasting-with-Neural-Networks_158_0.png" alt="png" style="zoom:120%;" />
 
 
 
