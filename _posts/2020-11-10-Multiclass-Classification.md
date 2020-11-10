@@ -60,9 +60,6 @@ from keras.wrappers.scikit_learn import KerasClassifier
 ```
 
 
-```python
-
-```
 
 ### 2. Data Wrangling
 
