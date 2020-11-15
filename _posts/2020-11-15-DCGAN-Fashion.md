@@ -275,9 +275,7 @@ train_dcgan(gan, dataset, batch_size, num_features, epochs=10)
 
 
 
-```python
 
-```
 
 ## 9. Generate Synthetic Images with DCGAN
 
