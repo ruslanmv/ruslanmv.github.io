@@ -105,7 +105,7 @@ author:
   avatar           : "/assets/images/avatar.png"
   bio              : "Cloud Architect , Data Scientist &  Physicist"
   location         : "Genoa, Italy"
-  email            : "ruslan_g3@hotmail.com"
+  email            : "contact@ruslanmv.com"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
@@ -130,7 +130,7 @@ author:
   vine             :
   weibo            :
   xing             :
-  youtube          : # "https://youtube.com/c/ruslanmv"
+  youtube          : "https://youtube.com/c/ruslanmv"
 
 
 # Reading Files

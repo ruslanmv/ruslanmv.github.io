@@ -32,7 +32,7 @@ List of talks, seminars and workshops I've done.
 
   <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/bmint.jpg" style="zoom:50%;" />
 
-  
+
 
 
 * “Frontiers in Nuclear and Hadronic Physics school” at the GGI in Florence Italy Workshop  [ 22/02/2016 – 04/03/2016 ]
@@ -41,7 +41,7 @@ List of talks, seminars and workshops I've done.
 
   ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/workshop2015.jpg)
 
-  
+
 
 
 * “Challenges in the Dark Sector: Alternatives to the WIMP paradigm” at Laboratori Nazionali di Frascati, Rome  [ 06/12/2015 – 18/12/2015 ]
@@ -50,7 +50,7 @@ List of talks, seminars and workshops I've done.
 
   ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/caen.jpg)
 
-  
+
 
 * Workshop “Nucleon Resonances: From Photoproduction to High Photon Virtualities”  at Trento, Italy [ 12/10/2015 – 16/10/2015 ]
 
@@ -65,7 +65,7 @@ List of talks, seminars and workshops I've done.
 
   ![](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/ujat2013.jpg?raw=true)
 
-  
+
 
 * LVI National Congress on Physics at the Bicentenary Culture Center from the San Luis Potosi Autonomous University UASLP, the state of San Luis Potosi   [ 28/10/2013 – 01/11/2013 ]
 
@@ -75,7 +75,7 @@ List of talks, seminars and workshops I've done.
 
   ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/symmetries.jpg)
 
-  
+
 
 * "Perturbation Methods within Quantum Mechanics at the XXIII Physics Forum, at D.A.C.B. U.J.A.T., in the Cunduacan municipality, Mexico  [ 23/09/2013 – 27/09/2013 ]
 
@@ -85,7 +85,7 @@ List of talks, seminars and workshops I've done.
 
   ![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/colombia.jpg)
 
-  
+
 
 * LV Physics National Congress in Morelia municipality, the state of Michoacan,   [ 08/10/2012 – 12/10/2012 ]
 
@@ -106,7 +106,7 @@ List of talks, seminars and workshops I've done.
 
   ![](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/fisica2014.jpg?raw=true)
 
-  
+
 
 * "XXXIV Symposium on Nuclear Physics", at Hacienda Cocoyoc, the state of Morelos, Mexico  [ 01/2011 ]
 
@@ -118,9 +118,9 @@ List of talks, seminars and workshops I've done.
 
   ![](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/texasreu.jpg?raw=true)
 
-  
 
-  
+
+
 
 
 * "XXXIII Symposium on Nuclear Physics" at Hacienda Cocoyoc, the state of Morelos, Mexico,  [ 01/01/2010 ]
@@ -156,24 +156,21 @@ List of talks, seminars and workshops I've done.
 
   ![[](https://www.flickr.com/gp/166697726@N06/44GZi1)](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/WTPLF2018.jpg?raw=true)
 
-  
+
 
 ## DISSEMINATION OF SCIENTIFIC KNOWLEDGE
 
 * "Art and Science across Italy" at the IIS Primo Levi college [ 18/01/2019 ] [Art and Science 2019](https://artandscience.infn.it/)
 
-  
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WiopvNvAEUk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="460" height="215" src="https://www.youtube.com/embed/WiopvNvAEUk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
 ## VIDEOS
-
-Do you want see some videos of some and lectures conferences that I  have attended, you can see them at my youtube channel [ThePhysicsToday](https://www.youtube.com/c/ThePhysicsToday/playlists)  don't forget subscribe.
-
-
-
-
-
+Do you want see some videos of some and lectures conferences that I  have attended.
+Check out my  [YouTube channel](https://www.youtube.com/c/ruslanmv/playlists)  don't forget subscribe.
+<script src="https://apis.google.com/js/platform.js"></script>
+<div class="g-ytsubscribe" data-channelid="UC_c4xCIF64TORhLm206OJkA" data-layout="default" data-count="default"></div>
 <!--Do you want me to speak at your conference/meetup? You can find my talks/abstracts on the [Sessionize Profile](https://sessionize.com/ruslanmv/)-->

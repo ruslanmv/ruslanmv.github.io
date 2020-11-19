@@ -42,13 +42,13 @@ I also really enjoy public speaking and sharing my experiences. You can checkout
 
 
 
-In my free time, I like to  be with my family around and visit new places. I like also
-have discussions about the culture of each new place we visit. Lear new languages and discover new people.
+In my free time, I like to  be with my family around and visit new places, watch videos in Youtube. I like also
+have discussions about the culture of each new place we visit. Learn new languages and discover new people.
 
 
 
 
 <figure>
   <img src="/assets/images/attachment-about.jpg" alt="Oaxaca Mexico">
-  <figcaption>Oaxaca</figcaption>
+  <figcaption>Oaxaca Mexico</figcaption>
 </figure>
