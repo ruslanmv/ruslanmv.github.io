@@ -171,6 +171,5 @@ List of talks, seminars and workshops I've done.
 ## VIDEOS
 Do you want see some videos of some and lectures conferences that I  have attended.
 Check out my  [YouTube channel](https://www.youtube.com/c/ruslanmv/playlists)  don't forget subscribe.
-<script src="https://apis.google.com/js/platform.js"></script>
-<div class="g-ytsubscribe" data-channelid="UC_c4xCIF64TORhLm206OJkA" data-layout="default" data-count="default"></div>
+
 <!--Do you want me to speak at your conference/meetup? You can find my talks/abstracts on the [Sessionize Profile](https://sessionize.com/ruslanmv/)-->
