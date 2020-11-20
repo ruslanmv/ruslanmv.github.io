@@ -65,4 +65,15 @@ August 2020
 - Performance of Research practicum on Student Movement Institution Program’s frame- work during February-July 2013, at the National Autonomous University of Mexico in the Nuclear Science Institute.
 - Passing corresponding studies of Graphic Design Software Teaching Course at the Juarez Autonomous University of Tabasco, in Villahermosa municipality, the state of Tabasco, May 26 2001.
 
+## Additional Online Certifications
+
+<p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
+<img src="../assets/images/acclaim.png" width="300" alt="homepage" /></a></p>
+<p><a href="https://www.credential.net/profile/ruslanidelfonsomaganavsevodovna/wallet" title="Redirect Credentials">   
+<img src="../assets/images/accredible.svg" width="300" alt="homepage" />  
+</a></p>
+
+
+
+
 <script async defer src="https://buttons.github.io/buttons.js"></script>
