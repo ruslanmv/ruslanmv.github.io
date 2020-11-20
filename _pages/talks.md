@@ -150,11 +150,15 @@ List of talks, seminars and workshops I've done.
 * Talk given with the title: "Introduction to Standard Model", at the Paul Dirac Physics seminar, in the Basic Science Academic Division from the Juarez Autonomous University of Tabasco, May 2012.
 * Talk given with the title: "Symmetries in Quantum Mechanics", at the Paul Dirac Physics seminar, in the Basic Science Academic Division from the Juarez Autonomous University of Tabasco, March 2012.
 
-## ORGANIZATION ACTIVITY
 
-* “ Women in Nuclear and Hadron Theoretical Physics: the last frontier -[WTPLF 2018](https://agenda.infn.it/event/17372/)” [ 10/12/2018 – 11/12/2018 ]
 
-  ![[](https://www.flickr.com/gp/166697726@N06/44GZi1)](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/WTPLF2018.jpg?raw=true)
+## VIDEOS
+Do you want see some videos of some and lectures conferences that I  have attended.
+Check out my  [YouTube channel](https://www.youtube.com/c/ruslanmv/playlists)  don't forget subscribe.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bi9FN0aeEF4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 
 
 
@@ -168,8 +172,14 @@ List of talks, seminars and workshops I've done.
 
 
 
-## VIDEOS
-Do you want see some videos of some and lectures conferences that I  have attended.
-Check out my  [YouTube channel](https://www.youtube.com/c/ruslanmv/playlists)  don't forget subscribe.
+## ORGANIZATION ACTIVITY
+
+* “ Women in Nuclear and Hadron Theoretical Physics: the last frontier -[WTPLF 2018](https://agenda.infn.it/event/17372/)” [ 10/12/2018 – 11/12/2018 ]
+
+  [![](https://github.com/ruslanmv/ruslanmv.github.io/blob/master/assets/images/WTPLF2018.jpg?raw=true)](https://www.flickr.com/gp/166697726@N06/44GZi1)
+
+
+
+
 
 <!--Do you want me to speak at your conference/meetup? You can find my talks/abstracts on the [Sessionize Profile](https://sessionize.com/ruslanmv/)-->
