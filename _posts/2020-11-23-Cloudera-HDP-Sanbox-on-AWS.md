@@ -1,6 +1,6 @@
 ---
 title: "Cloudera HDP Sandbox on AWS EC2"
-excerpt: "How to install Cloudera HDP Sanbox on AWS EC2 and execute Hive to analize a dataset."
+excerpt: "How to install Cloudera HDP Sandbox on AWS EC2 and execute Hive to analize a dataset."
 categories: [Docker, Cloudera,HDP,Sandbox,Hadoop,Big Data, AWS, EC2,Hive]
 
 header:
