@@ -178,7 +178,7 @@ and after few minutes the services should be ready ( something like 7 minutes)
 
 
 
-Great finally  is running our server. 
+Great finally  is running our server on the AWS Cloud with HDP.
 
 
 
@@ -212,7 +212,7 @@ We prooceed to upload file from local,
 
 
 
-<img src="../assets/images/posts/2020-11-23-Cloudera-HDP-Sanbox-on-AWS/Screenshot%202020-11-23%20at%2000.55.06.png" alt="Screenshot 2020-11-23 at 00.55.06" style="zoom:33%;" />We specify we click on  settings for the file type and we choose the filed delimiter and  we choose the Field Delimitar TAB
+<img src="../assets/images/posts/2020-11-23-Cloudera-HDP-Sanbox-on-AWS/Screenshot%202020-11-23%20at%2000.55.06.png" alt="Screenshot 2020-11-23 at 00.55.06" style="zoom:33%;" />We specify we click on  settings for the file type and  we choose the Field Delimitar `TAB`
 
 <img src="../assets/images/posts/2020-11-23-Cloudera-HDP-Sanbox-on-AWS/Screenshot%202020-11-23%20at%2000.55.40.png" alt="Screenshot 2020-11-23 at 00.55.40" style="zoom:33%;" />
 
@@ -270,15 +270,15 @@ and we upload the table
 
 
 
-##### Query in Hive
+### Query in Hive
 
-After the tables are uploaded we can open the query editor and execute the following SQL commnd
+After the tables are uploaded we can open the query editor and execute the following SQL command and execute it.
 
 <img src="../assets/images/posts/2020-11-23-Cloudera-HDP-Sanbox-on-AWS/Screenshot%202020-11-23%20at%2001.03.44.png" alt="Screenshot 2020-11-23 at 01.03.44" style="zoom:33%;" />
 
 ### Data Visualisation
 
-In addition we can visualize the data easily , whe choose the x, y vaiables the columns that we want to visualize.
+In addition we can visualize the data easily , we choose the x, y vaiables the columns that we want to visualize.
 
 
 
