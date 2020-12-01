@@ -1,6 +1,7 @@
 ---
 title: "AWS Cloud Architect Tutorial"
 excerpt: "AWS Cloud Architect Tutorial from Acloud Guru"
+categories: [Cloud,Cloud Computing, AWS]
 
 header:
   image: "/assets/images/posts/2020-12-01-AWS-Cloud-Architect-Tutorial/cloud.png"
