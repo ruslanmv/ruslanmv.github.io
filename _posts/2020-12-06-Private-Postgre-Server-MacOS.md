@@ -161,7 +161,24 @@ Login as postgres user using su / sudo command, enter:
 su postgresql
 ```
 
-and edit the file 
+```
+export PGDATA="/Library/PostgreSQL/13/data"
+```
+
+we can see if the server is running
+
+```
+/Library/PostgreSQL/13/bin/pg_ctl status
+```
+
+you got
+
+```
+pg_ctl: server is running (PID: 69)
+/Library/PostgreSQL/13/bin/postgres "-D/Library/PostgreSQL/13/data"
+```
+
+Now, we can edit the file 
 
 ```
 nano /Library/PostgreSQL/13/data/pg_hba.conf
