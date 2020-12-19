@@ -327,7 +327,7 @@ os.system('cmd command')# you can execute any FORTRAN or C compiled program :))
 
 ## Install Tensorflow in a VAX machine
 
-If you dont have root credentials its a bit hard to compile Tensorflow , because you need to install bazel and Tensorflow source and compile them by using the appropiate version of gcc, if you dont have the control of that is a a really mess.  So there is a trick that fortuntally worked  to me.
+If you dont have root credentials its a bit hard to compile Tensorflow , because you need to install bazel and Tensorflow source and compile them by using the appropiate version of gcc, if you dont have the control of that is a a really mess.  So there is a trick that fortunatelly worked  to me.
 
 ```
 conda --version
