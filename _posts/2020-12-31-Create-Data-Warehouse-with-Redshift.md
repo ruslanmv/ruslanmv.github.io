@@ -937,7 +937,7 @@ Test by running etl.py after running create_tables.py and running the analytic q
 
 We have to delete our redshift cluster when finished.
 
-<b><font color='red'>Please  remove your cluster to avoid charges! <br/></span></b>
+<b><font color='red'>Please  delete your cluster to avoid charges! <br/>
 
 
 ```python
@@ -1040,5 +1040,5 @@ iam.delete_role(RoleName=DWH_IAM_ROLE_NAME)
 
 
 
-Congratulations we finish this project!
+**Congratulations** we have created a Redshift cluter with and created a database !
 
