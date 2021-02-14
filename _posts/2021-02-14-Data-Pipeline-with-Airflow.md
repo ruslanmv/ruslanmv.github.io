@@ -108,7 +108,15 @@ conda create --name airflow-pipeline python=3.7
 conda activate airflow-pipeline
 ```
 
-6 - Print the absolute path to your working directory by typing pwd.
+6 - We  install the dependency needed
+
+```
+pip install -r requirements.txt 
+```
+
+
+
+7 - Print the absolute path to your working directory by typing pwd.
 
 I get `/Users/ruslan/Documents/Data-Pipeline-with-Airflow` but you might get something different. Copy this path
 
