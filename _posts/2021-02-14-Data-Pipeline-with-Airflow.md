@@ -74,7 +74,7 @@ We would like to construct a flow like this
 
 Follow these steps to install Airflow 
 
-1. Open a Terminal window.
+1 - Open a Terminal window.
 
 Navigate to your Desktop in your Terminal. We are going to create a working directory here but you can create anywhere else in your file system if you like.
 
@@ -82,13 +82,13 @@ Navigate to your Desktop in your Terminal. We are going to create a working dire
 cd Documents
 ```
 
-2. Clone repository to local machine
+2 - Clone repository to local machine
 
 ```
 git clone https://github.com/ruslanmv/Data-Pipeline-with-Airflow.git
 ```
 
-3. Change to Data-Pipeline-with-Airflow directory in your Terminal.
+3 - Change to Data-Pipeline-with-Airflow directory in your Terminal.
 
 ```
 cd Data-Pipeline-with-Airflow
@@ -96,29 +96,29 @@ cd Data-Pipeline-with-Airflow
 
 
 
-4. Create a virtual environment using coda (or any other tool). Install Python 3.7 in your virtual environment. I’m going to call the environment airflow-tutorial.( with Python 3.8 + the current script of docker-compose.yml doesnt work.  )
+4  - Create a virtual environment using coda (or any other tool). Install Python 3.7 in your virtual environment. I’m going to call the environment airflow-tutorial.( with Python 3.8 + the current script of docker-compose.yml doesnt work.  )
 
 ```
 conda create --name airflow-pipeline python=3.7
 ```
 
-5. Activate the virtual environment
+5 -  Activate the virtual environment
 
 ```
 conda activate airflow-pipeline
 ```
 
-6. Print the absolute path to your working directory by typing pwd.
+6 - Print the absolute path to your working directory by typing pwd.
 
 I get `/Users/ruslan/Documents/Data-Pipeline-with-Airflow` but you might get something different. Copy this path
 
-7. Set the path as the AIRFLOW_HOME environment variable. Note that you have to do this every time you open a new Terminal window and wish to use the Airflow CLI. Alternatively, you can set a permanent environment variable in your bash_profile.
+7 - Set the path as the AIRFLOW_HOME environment variable. Note that you have to do this every time you open a new Terminal window and wish to use the Airflow CLI. Alternatively, you can set a permanent environment variable in your bash_profile.
 
 ```
 export AIRFLOW_HOME=/Users/ruslan/Documents/Data-Pipeline-with-Airflow
 ```
 
-8. Start Airflow container
+8-Start Airflow container
 
 Everything is configured in the docker-compose.yml file.
 If you are satisfied with the default configurations you can just start the containers.
@@ -133,7 +133,7 @@ Aftet this step you should wait until your screen says that is ready
 
 ![Screenshot 2021-02-14 at 16.41.06](../assets/images/posts/2021-02-14-Data-Pipeline-with-Airflow/Screenshot%202021-02-14%20at%2016.41.06.png)
 
-9. Open the Airflow UI
+9 -Open the Airflow UI
 
 Go to your web browswer and type  http://localhost:8080
 
@@ -155,43 +155,43 @@ The first step in the Installation of the Airflow on your local system, I am usi
 
 Follow these steps to install Airflow on Mac.
 
-1. Open a Terminal window.
+1 -  Open a Terminal window.
 
-2. Navigate to your Desktop in your Terminal. We are going to create a working directory here but you can create anywhere else in your file system if you like.
+2 - Navigate to your Desktop in your Terminal. We are going to create a working directory here but you can create anywhere else in your file system if you like.
 
 ```
 cd Documents
 ```
 
-3. Create a working directory here called Data-Pipeline-with-Airflow by clonning the repo
+3 - Create a working directory here called Data-Pipeline-with-Airflow by clonning the repo
 
 ```
 git clone https://github.com/ruslanmv/Data-Pipeline-with-Airflow.git
 ```
 
-4. Change to Data-Pipeline-with-Airflow directory in your Terminal.
+4 - Change to Data-Pipeline-with-Airflow directory in your Terminal.
 
 ```
 cd Data-Pipeline-with-Airflow
 ```
 
-5. Create a virtual environment using coda (or any other tool). Install Python 3.7 in your virtual environment. I’m going to call the environment airflow-tutorial.
+5 - Create a virtual environment using coda (or any other tool). Install Python 3.7 in your virtual environment. I’m going to call the environment airflow-tutorial.
 
 ```
 conda create --name airflow-pipeline python=3.7
 ```
 
-6. Activate the virtual environment
+6 - Activate the virtual environment
 
 ```
 conda activate airflow-pipeline
 ```
 
-7. Print the absolute path to your working directory by typing pwd.
+7 - Print the absolute path to your working directory by typing pwd.
 
 I get `/Users/ruslan/Documents/Data-Pipeline-with-Airflow` but you might get something different. Copy this path
 
-8. Set the path as the AIRFLOW_HOME environment variable. Note that you have to do this every time you open a new Terminal window and wish to use the Airflow CLI. Alternatively, you can set a permanent environment variable in your bash_profile.
+8 - Set the path as the AIRFLOW_HOME environment variable. Note that you have to do this every time you open a new Terminal window and wish to use the Airflow CLI. Alternatively, you can set a permanent environment variable in your bash_profile.
 
 ```
 export AIRFLOW_HOME=/Users/ruslan/Documents/Data-Pipeline-with-Airflow
@@ -199,7 +199,7 @@ export AIRFLOW_HOME=/Users/ruslan/Documents/Data-Pipeline-with-Airflow
 
 By default, airflow uses ~/airflow as it’s AIRFLOW_HOME directory. We can overwrite this by setting a different path. Airflow will initialize the airflow.cfg file here along with the logs folder. We’ll store our dags and plugins in this directory.
 
-9. Install Airflow 1.10.10 + extras using pip
+9 - Install Airflow 1.10.10 + extras using pip
 
 ```
 pip install apache-airflow[gcp,statsd,sentry]==1.10.10
@@ -210,7 +210,7 @@ pip install psycopg2-binary
 pip install celery
 ```
 
-10. Running Airflow on Mac os Locally
+10 - Running Airflow on Mac os Locally
 
 Before starting make sure you set your airflow home variable to the working directory. Validate this by typing `echo $AIRFLOW_HOME` .
 
