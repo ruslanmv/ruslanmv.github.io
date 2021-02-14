@@ -224,11 +224,11 @@ We are going to initialize the airflow database using the following command. Mak
 airflow initdb
 ```
 
+![](../assets/images/posts/2021-02-14-Data-Pipeline-with-Airflow/Screenshot%202021-02-13%20at%2014.55.10.png)
 
 
 
 
-<img src="../../../../../Desktop/Screenshot%25202021-02-13%2520at%252014.55.10.png" alt="Screenshot 2021-02-13 at 14.55.10" style="zoom:50%;" />
 
 
 
@@ -236,9 +236,9 @@ ad the end you will recieve a message of **Done**, now you  can run the webserve
 
 
 
+![](../assets/images/posts/2021-02-14-Data-Pipeline-with-Airflow/Screenshot%202021-02-13%20at%2015.00.26.png)
 
 
-<img src="../../../../../Desktop/Screenshot%25202021-02-13%2520at%252015.00.26.png" alt="Screenshot 2021-02-13 at 15.00.26" style="zoom:50%;" />
 
 
 
@@ -255,7 +255,11 @@ airflow scheduler
 
 
 
-<img src="../../../../../Desktop/Screenshot%25202021-02-13%2520at%252015.02.38.png" alt="Screenshot 2021-02-13 at 15.02.38" style="zoom:50%;" />
+
+
+![](../assets/images/posts/2021-02-14-Data-Pipeline-with-Airflow/Screenshot%202021-02-13%20at%2015.02.38.png)
+
+
 
 
 
@@ -339,7 +343,9 @@ Here, we'll use Airflow's UI to configure your AWS credentials and connection to
 
 1. Under **Connections**, select **Create**.
 
-<img src="../../../../../Desktop/Screenshot%25202021-02-13%2520at%252015.17.39.png" alt="Screenshot 2021-02-13 at 15.17.39" style="zoom:40%;" />
+![](../assets/images/posts/2021-02-14-Data-Pipeline-with-Airflow/Screenshot%202021-02-13%20at%2015.17.39.png)
+
+
 
 1. On the create connection page, enter the following values:
 
