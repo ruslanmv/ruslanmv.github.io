@@ -29,7 +29,7 @@ My professional background includes crafting **algorithms**, making use of **mac
 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" style="zoom:11%;" />
 
-I perform **data mining, analysis, synthesis, visualisation**, and data conversion into reportable formats for presentations, reports writing, and disseminate findings. I determine research methodology by collecting and evaluating data to ensure completeness and accuracy of information. I develop and implement extensive research plans and deliver detailed reports for informed decision-making. [Read more...](cloud-data-science.com)
+I perform **data mining, analysis, synthesis, visualisation**, and data conversion into reportable formats for presentations, reports writing, and disseminate findings. I determine research methodology by collecting and evaluating data to ensure completeness and accuracy of information. I develop and implement extensive research plans and deliver detailed reports for informed decision-making. [Read more...](https://cloud-data-science.com)
 
 
 
