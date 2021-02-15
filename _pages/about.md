@@ -46,5 +46,5 @@ In my free time, I like to  be with my family around and visit new places, watch
   <img src="/assets/images/attachment-about.jpg" alt="Oaxaca Mexico">
   <figcaption>Oaxaca Mexico</figcaption>
 </figure>
-I also really enjoy public speaking and sharing my experiences. You can checkout some of my slides and videos in the [talks page](applewebdata://CFDE16FA-7961-4F00-AD7C-E27B429B9F23/talks). Are you looking for speakers?
+I also really enjoy public speaking and sharing my experiences. You can checkout some of my slides and videos in the [talks page](/talks). Are you looking for speakers?
 
