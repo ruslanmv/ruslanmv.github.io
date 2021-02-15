@@ -17,7 +17,7 @@ I'm a **Cloud Architect** a **Data Scientist** and a **Physicist**.
 
 ## Scientifical  studies
 
-I am a self-motivated and ambitious data scientist with specialised knowledge in database applications analyses, data analyses. and reports generation to propel project success.
+I am a self-motivated and ambitious data scientist with specialised knowledge in database applications analyses, data analyses and reports generation to propel project success.
 
 I'm working as Postdoctoral Researcher at National Institute for Nuclear Physics (INFN) at Genova [INFN](https://www.ge.infn.it) developing theoretical models for nuclear research.  My main role is to develop libraries and tool for the Nuclear Physicist Community. 
 
