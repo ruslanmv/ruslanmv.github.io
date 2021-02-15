@@ -23,13 +23,13 @@ My work is based on analysis data for actionable insights. Devising and applying
 ## Cloud Solutions
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" style="zoom:33%;" />
 
-I develop advanced cloud-based solutions and migrate existing workloads to the cloud.
+I develop advanced cloud-based solutions and migrate existing workloads to the cloud.[Read more...](https://cloud-data-science.com/index.php/data-center-analytics/)
 
 ##  Cloud Data Science
 
 <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" style="zoom:11%;" />
 
-I perform analysis of data to make **predictions** in the sector of the Industry and Science, such in Data Science and develop algorithms in Machine Learning.
+I perform **data mining, analysis, synthesis, visualisation**, and data conversion into reportable formats for presentations, reports writing, and disseminate findings. I determine research methodology by collecting and evaluating data to ensure completeness and accuracy of information. I develop and implement extensive research plans and deliver detailed reports for informed decision-making. [Read more...](cloud-data-science.com)
 
 
 
