@@ -31,7 +31,7 @@ My professional background includes crafting algorithms, making use of machine l
 
 I have the ability to expand existing data delivery platforms and creating data systems that optimise data management, capturing, and quality. 
 
-Please feel free to contact me at contact@ruslanmv.com with any thoughts, comments, or questions about my work—I’m always interested in making new professional acquaintances. You can checkout some of  the services that I am able to do  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
+Please feel free to contact me at [contact@ruslanmv.com](malito:contact@ruslanmv.com) with any thoughts, comments, or questions about my work—I’m always interested in making new professional acquaintances.  You can checkout some of  the services that I am able to do  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
 
 
 
