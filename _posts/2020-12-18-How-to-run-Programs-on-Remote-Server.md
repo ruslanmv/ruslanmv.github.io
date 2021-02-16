@@ -214,7 +214,7 @@ In your local computer,  to start SSH tunneling on unix, open your terminal and 
 ssh -N -f -L localhost:8887:localhost:8889 username@172.26.36.128
 ```
 
-Now open web browser (google chrome, firefox, ...) and type:
+Your terminal will be freeze , don't worry its normal, just  open web browser (google chrome, firefox, ...) and type:
 
 ```
 localhost:8887
