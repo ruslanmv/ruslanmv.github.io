@@ -480,6 +480,65 @@ and you got something like
 
 ![Screenshot 2020-12-19 at 21.35.49](../assets/images/posts/2020-12-18-How-to-run-Programs-on-Remote-Server/Screenshot%202020-12-19%20at%2021.35.49-8410953.png)
 
+## Extra tricks: Automatic Login in Windows
+
+
+
+If your local computer is windows and you want shortcut that summarize everything  to do the  automatic login you can. This is a trick that worked to me.
+
+I assume that you have Chrome, Windows 10 and Putty
+
+In your remote computer you create a file, in your home folder
+
+**run-server-ml.sh**  with the lines:
+
+```
+jupyter notebook --no-browser --port 8889
+```
+
+and in Putty you create  a session which I called INFN-Jupyter
+
+
+
+![](../assets/images/posts/2020-12-18-How-to-run-Programs-on-Remote-Server/remote1.jpg)
+
+
+
+and
+
+
+
+![](../assets/images/posts/2020-12-18-How-to-run-Programs-on-Remote-Server/remote2.jpg)
+
+You save the session. Then in your local computer you create  batch file called
+
+**INFN-Jupyter.bat**  with :
+
+```
+@echo off
+title We are starting Jupyter Notebook!
+echo Welcome to the  Jupyter Notebook batch!
+START C:\"Program Files"\PuTTY\putty.exe -load INFN-Jupyter
+echo We are performing the ssh tunnel on your local computer!
+ssh -N -f -L localhost:8887:localhost:8889 username@remoteserver.com
+cd "C:\Program Files (x86)\Google\Chrome\Application\"
+start /d "C:\Program Files (x86)\Google\Chrome\Application\" chrome.exe http://localhost:8887
+```
+
+
+
+and finally just you create  shortcut to your Desktop with your favorite icon
+
+![](../assets/images/posts/2020-12-18-How-to-run-Programs-on-Remote-Server/jupy.jpg)
+
+
+
+and **wuallaa** you have your Jupyter notebook linked to your **remote server** in your **local machine**
+
+
+
+![](../assets/images/posts/2020-12-18-How-to-run-Programs-on-Remote-Server/jupy.png)
+
 ## Conclusion
 
 This is how you access jupyter notebook from a remote server. Some additional things you can do is run the SSH Tunnel command and Jupyter notebook command in the background. So you can have a jupyter notebook perpetually running on some dedicated port.
