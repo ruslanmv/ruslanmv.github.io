@@ -24,7 +24,11 @@ My work is based on analysis data for actionable insights. Devising and applying
 
 
 
-<p float="left"> <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" width="120" /> <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" width="120" /> <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/google2.png" width="120" /> </p>
+<p float="left"> 
+    <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" width="120" /> 
+        <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/google2.png" width="190"
+ /><img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" width="120" />
+</p>
 
 
 
