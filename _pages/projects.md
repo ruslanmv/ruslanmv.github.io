@@ -21,7 +21,12 @@ header:
 My work is based on analysis data for actionable insights. Devising and applying **models** and **algorithms** to mine the stores of big data. Analyzing the data to identify **patterns** and **trends**.
 
 ## Cloud Solutions
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" style="zoom:33%;" />
+
+
+
+<p float="left"> <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" width="120" /> <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" width="120" /> <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/google2.png" width="120" /> </p>
+
+
 
 My professional background includes crafting **algorithms**, making use of **machine learning** to mine, make sense of data, and using **data visualization** to present it to decision-makers. I am instrumental in analysing and delivering quantitative and qualitative research based solutions that reduce redundancy, improve accuracy and efficiency, and achieve organisational objectives. I have the ability to expand existing data delivery platforms and creating data systems that optimise data management, capturing, and quality. I develop advanced cloud-based solutions and migrate existing workloads to the cloud. [Read more...](https://cloud-data-science.com/index.php/services/)
 
