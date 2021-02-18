@@ -26,8 +26,7 @@ My work is based on analysis data for actionable insights. Devising and applying
 
 <p float="left"> 
     <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" width="120" /> 
-        <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/google2.png" width="190"
- /></p>
+        </p>
 
 
 
@@ -55,7 +54,7 @@ My research provides insights to compute accurate nuclear matrix elements that s
 
 ## Virial Expansion of Nuclear Equation
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/texas.png" style="zoom:33%;" />
+<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/texas.png" style="zoom:35%;" />
 
 Texas A&M University and Cyclotron Institute
 College Station, Texas (United States).
