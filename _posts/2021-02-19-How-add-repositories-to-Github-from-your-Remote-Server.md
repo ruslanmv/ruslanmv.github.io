@@ -50,7 +50,7 @@ If you’ve never used git or github before, and you want use them with your pri
     git config --global core.editor nano
     ```
 
-    The first of these will enable colored output in the terminal; the second tells git that you want to use emacs.
+    The first of these will enable colored output in the terminal; the second tells git that you want to use nano.
 
     
 
