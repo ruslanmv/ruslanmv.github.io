@@ -12,7 +12,7 @@ header:
 
 GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere. 
 
-How to run a  create a **repository**  in Github,   from  a remote Server on remote server with SSH?
+How to  create a **repository**  in Github  from  a **remote Server** with SSH?
 
 A **repository** is usually used to organize a single project. Repositories can contain folders and files, images, videos, spreadsheets, and data sets – anything your project needs.
 
