@@ -64,7 +64,11 @@ If you’ve never used git or github before, and you want use them with your pri
     ssh-keygen -t rsa -C "your_email@example.com"
     ```
 
-  - Copy your public key (the contents of the newly-created `id_rsa.pub` file) into your clipboard. **On a Windows**, in the terminal/shell, type:
+  - Copy your public key (the contents of the newly-created `id_rsa.pub` file) 
+
+  - You can download the file .pub copy and delete
+
+    **On a Windows**, in the terminal/shell, type:
 
     ```
     scp username@yourremoteserver.com:~/.ssh/id_rsa.pub C:\Users\username\Documents
@@ -76,7 +80,7 @@ If you’ve never used git or github before, and you want use them with your pri
 scp username@yourremoteserver.com:~/.ssh/id_rsa.pub  /Users/username/Documents/
 ```
 
-
+- You open your any editor in your  Documents foder, copy the string and then go to the Github page.
 
 - Paste your ssh public key into your github account settings.
 
@@ -101,9 +105,13 @@ scp username@yourremoteserver.com:~/.ssh/id_rsa.pub  /Users/username/Documents/
     not provide shell access.
     ```
 
+Don't forget delete your .pub file in your documents folder of your local computer.
+
+```
+del C:\Users\username\Documents\id_rsa.pub 
+```
+
 ## Security Issues
-
-
 
 If you got the error 
 
