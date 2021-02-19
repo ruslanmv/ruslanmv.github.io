@@ -73,14 +73,17 @@ If you’ve never used git or github before, and you want use them with your pri
     ```
     scp username@yourremoteserver.com:~/.ssh/id_rsa.pub C:\Users\username\Documents
     ```
+  
+    In case you have **Linux /Mac** you can use
+    
+    ```
+    scp username@yourremoteserver.com:~/.ssh/id_rsa.pub  /Users/username/Documents/
+    ```
+    
+    
+  
 
-  In case you have **Linux /Mac** you can use
-
-```
-scp username@yourremoteserver.com:~/.ssh/id_rsa.pub  /Users/username/Documents/
-```
-
-- You open your any editor in your  Documents foder, copy the string and then go to the Github page.
+- You open your any editor in your  Documents folder, copy the string and then go to the Github page.
 
 - Paste your ssh public key into your github account settings.
 
@@ -142,7 +145,7 @@ The relevant portion from the manpage (`man ssh`)
 
 ## Create new repo from local to Github
 
-First we need to create a repositoy in the website of Github
+First we need to create a repository in the website of Github
 
 1. In the upper-right corner of any page, use the drop-down menu, and select New **repository**.
 2. Type a short, memorable name for your **repository**. ...
