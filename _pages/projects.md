@@ -56,8 +56,9 @@ My research provides insights to compute accurate nuclear matrix elements that s
 
 
 
-<p><a href="https://cyclotron.tamu.edu/" title="Redirect NUMEN collaboration">  
+<p><a href="https://cyclotron.tamu.edu/" title="Redirect TAMU">  
 <img src="../assets/images/texas.png" width="120" alt="homepage" /></a></p>
+
 
 Texas A&M University and Cyclotron Institute
 College Station, Texas (United States).
@@ -129,8 +130,9 @@ I have developed software in CUDA language that used in clusters to perform heav
 
 ## Developing of CUDA software for the analysis of flooding of a geographical area.
 
-<p><a href="https://www.redrisk.com/" title="Redirect INFN Genova">  
+<p><a href="https://www.redrisk.com/" title="Redirect REC">  
 <img src="../assets/images/reca.jpg" width="120" alt="homepage" /></a></p>
+
 
 RED Risk Engineering + Development
 Pavia (Italy)
