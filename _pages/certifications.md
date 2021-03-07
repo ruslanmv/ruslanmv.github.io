@@ -44,13 +44,13 @@ header:
 - IBM Data Science Professional Certificate, IBM, Coursera "Specialization", July 2019.
 
   <p float="left"> 
-      <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/googlecloud.png" width="290" /> 
+      <img src="../assets/images/googlecloud.png" width="210" /> 
           </p>
 
 - Machine Learning with TensorFlow on Google Cloud Platform, Google, Coursera "Specialization", July 2019
 
   <p float="left"> 
-      <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/michigan.jpg" width="120" /> 
+      <img src="../assets/images/michigan.jpg" width="120" /> 
           </p>
 
 - Applied Data Science using Python,University of Michigan, Coursera "Specialization", May 2019
