@@ -102,7 +102,7 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   DOI: [10.1140/epja/i2018-12509-3](https://doi.org/10.1140/epja/i2018-12509-3)
   
 - ### Transfer reactions, neutrinoless double beta decay and double charge exchange.
-  Dissertation-thesis
+  Dissertation-Thesis
   DOI: [Doi-PHD2018-03-26](https://doi.org/10.15167/MAGANA-VSEVOLODOVNA-RUSLAN-IDELFONSO_PHD2018-03-26)
   
 - ### Measuring nuclear reaction cross sections to extract information on neutrinoless double beta decay
@@ -129,7 +129,7 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   Phys. Rev. C
   DOI: [10.1103/PhysRevC.96.044612](https://doi.org/10.1103/physrevc.96.044612)
   
-- ### **STUDY OF THE 18O+ 64Ni TWO-NEUTRON TRANSFER REACTION AT 84 MeV BY MAGNEX**
+- ### **Study of the 18o+ 64ni two-neutron transfer reaction at 84 MeV by MAGNEX**
   DOI: [10.5506/APhysPolB.49.381](https://doi.org/10.5506/APhysPolB.49.381)
 
 - ### **The NUMEN project @ LNS: Status and perspectives**
@@ -138,14 +138,16 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   DOI: [10.1063/1.5007629](https://doi.org/10.1063/1.5007629)
   
 - ### **The NUMEN project@ LNS: Status and perspectives***AIP Conference Proceedings*
-   conference-paper
+   Conference-paper
+  
+  DOI:[10.1063/1.5124592](https://aip.scitation.org/doi/10.1063/1.5124592)
   
 - ### **An Interacting Quark–Diquark Model***Few-Body Systems*
   journal-article
   DOI: [10.1007/s00601-016-1139-4](https://doi.org/10.1007/s00601-016-1139-4)
   
 - ### **The nuclear matrix elements of 0vββ decay and the NUMEN project at INFN-LNS***Journal of Physics: Conference Series*
-  2016-07 | journal-article
+  journal-article
   
 - DOI: [10.1088/1742-6596/730/1/012006](https://doi.org/10.1088/1742-6596/730/1/012006)
 
@@ -164,25 +166,21 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   
 - ### **Electronic Spectra in Molecular Supersymmetry**
   
-- ### **VIRIAL EXPANSION OF THE NUCLEAR EQUATION OF STATE**
+- ### **Virial expansion of the nuclear equation of state**
 International Journal of Modern Physics E
   2012-01 | journal-article
   DOI: [10.1142/s0218301312500061](https://doi.org/10.1142/s0218301312500061)
   
-- ### **Back Matter for Volume 1488**
-  AIP Conference Proceedings
-  2012 | conference-paper
+- #### BEAUTY IN PHYSICS: THEORY AND EXPERIMENT: In honor of Francesco Iachello on the occasion of his 70th birthday ,
   
 - ### Generalized F-spin and correlations between one-nucleon transfer reactions
   2012 | conference-paper
   DOI: [10.1063/1.4759426](https://doi.org/10.1063/1.4759426)
   
-- ### **Back Matter for Volume 1271**
-  AIP Conference Proceedings
-  2010 | conference-paper
+- #### **6th mexican nuclear physics school**
   
-- ### **CORRELACIONES ENTRE REACCIONES DE TRANSFERENCIA DE NUCLEONES EN EL MARCO DE LA SUPERSIMETRÍA NUCLEAR**
-  2010 | dissertation-thesis
+- ### **Correlaciones entre reacciones de transferencia de nucleones en el marco de la supersimetría nuclear**
+  2010 |Dissertation-thesis
   
 - ### **Correlations between nucleon transfer reactions in the context of nuclear supersymmetry**
   2010 | journal-article
@@ -191,7 +189,7 @@ International Journal of Modern Physics E
   journal-article
   [Link](https://revistas.ujat.mx/index.php/jobs/article/view/1019)
 ###  Peer review
--  Review activity for **Brazilian Journal of Physics(1)**
+-  Review activity for **Brazilian Journal of Physics**
 
 Record last modified March 02, 2021 11:00:07 AM
 ## Additional Research profiles:
