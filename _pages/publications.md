@@ -115,6 +115,7 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
   
 - ### Transfer reactions, neutrinoless double beta decay and double charge exchange.
   Dissertation-Thesis
+  
   DOI: [Doi-PHD2018-03-26](https://doi.org/10.15167/MAGANA-VSEVOLODOVNA-RUSLAN-IDELFONSO_PHD2018-03-26)
   
 - ### Measuring nuclear reaction cross sections to extract information on neutrinoless double beta decay
@@ -130,11 +131,13 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
 
 - ### Study of the 18O + 64Ni Two-neutron Transfer Reaction at 84 MeV by MAGNEX
   Acta Physica Polonica B
+  
   DOI: [10.5506/aphyspolb.49.381](https://doi.org/10.5506/aphyspolb.49.381)
   
 - ### NUMEN project @ LNS: Status and perspectives
   Proceedings of Neutrino Oscillation Workshop — PoS(NOW2016)
    conference-paper
+  
   DOI: [10.22323/1.283.0075](https://doi.org/10.22323/1.283.0075)
   
 - ### Long-range versus short-range correlations in the two-neutron transfer reaction 6Ni(18O,1O)66Ni
