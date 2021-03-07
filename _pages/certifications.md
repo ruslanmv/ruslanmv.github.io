@@ -44,7 +44,7 @@ header:
 - IBM Data Science Professional Certificate, IBM, Coursera "Specialization", July 2019.
 
   <p float="left"> 
-      <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/google.png" width="190" /> 
+      <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/google.jpg" width="190" /> 
           </p>
 
 - Machine Learning with TensorFlow on Google Cloud Platform, Google, Coursera "Spe- cialization", July 2019
