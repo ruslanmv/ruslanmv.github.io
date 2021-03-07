@@ -162,6 +162,8 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
 - ### **An Interacting Quark–Diquark Model***Few-Body Systems*
   Journal-article : Few-Body Systems
   
+  
+  
   DOI: [10.1007/s00601-016-1139-4](https://doi.org/10.1007/s00601-016-1139-4)
   
 - ### **The nuclear matrix elements of 0vββ decay and the NUMEN project at INFN-LNS**
