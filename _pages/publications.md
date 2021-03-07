@@ -40,7 +40,7 @@ header:
   
 - ### Double charge exchange reactions as a probe for neutrinoless double beta decay nuclear matrix elements
   
-  Journal of Physics: Conference Series
+   Conference Series
   
   DOI: [10.1088/1742-6596/1610/1/012013](http://dx.doi.org/10.1088/1742-6596/1610/1/012013)
   
@@ -54,20 +54,26 @@ header:
   arXiv preprint [arXiv:2002.02761](https://arxiv.org/abs/2002.02761)
   
 - ### Recent results on heavy-ion direct reactions of interest for 0νββdecay at INFN-LNS
-  Journal of Physics: Conference Series
+  Conference Series
 
   DOI: [10.1088/1742-6596/1610/1/012004](https://doi.org/10.1088/1742-6596/1610/1/012004)
 
 - ### The NUMEN Project@ LNS
-[Il Nuovo Cimento C](https://www.sif.it/riviste/sif/ncc/econtents/2019/042/02-03/article/7)
+
+  Il Nuovo Cimento C
+  
+  DOI [10.1393/ncc/i2019-19057-2](https://www.sif.it/riviste/sif/ncc/econtents/2019/042/02-03/article/7)
   
 - ### Challenges in double charge exchange measurements for neutrino physics
-  [CERN Proc. journal-article](https://cds.cern.ch/record/2669349)
+  
+  Proceedings of the 15th International Conference on Nuclear Reaction Mechanisms
+  
+  DOI [10.23727/CERN-Proceedings-2019-001](http://dx.doi.org/10.23727/CERN-Proceedings-2019-001)
   
   
   
 - ### Double charge exchange reactions and neutrinoless double beta decay
-  WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
+  Workshop on calculation of double-beta-decay matrix elements (medex’19)
 
   DOI: [10.1063/1.5130983](https://doi.org/10.1063/1.5130983)
 
@@ -88,7 +94,7 @@ header:
   DOI: [10.1063/1.5124592](https://doi.org/10.1063/1.5124592)
   
 - ### The NUMEN project @ LNS: Status and perspectives
-WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
+Workshop on calculation of double-beta-decay matrix elements (medex’19)
   
    DOI: [10.1063/1.5130964](https://doi.org/10.1063/1.5130964)
   
@@ -98,7 +104,7 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
    DOI:[10.1063/1.5007629](https://aip.scitation.org/doi/abs/10.1063/1.5007629)
   
 - ### Two-nucleon transfer and Double Charge Exchange reactions
-  Journal of Physics: Conference Series
+  Conference Series
   
   DOI: [10.1088/1742-6596/1056/1/012053](https://doi.org/10.1088/1742-6596/1056/1/012053)
 
@@ -112,7 +118,7 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   DOI: [Doi-PHD2018-03-26](https://doi.org/10.15167/MAGANA-VSEVOLODOVNA-RUSLAN-IDELFONSO_PHD2018-03-26)
   
 - ### Measuring nuclear reaction cross sections to extract information on neutrinoless double beta decay
-  Journal of Physics: Conference Series
+  Conference Series
   
   DOI: [10.1088/1742-6596/966/1/012021](https://doi.org/10.1088/1742-6596/966/1/012021)
   
@@ -133,6 +139,7 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   
 - ### Long-range versus short-range correlations in the two-neutron transfer reaction 6Ni(18O,1O)66Ni
   Phys. Rev. C
+  
   DOI: [10.1103/PhysRevC.96.044612](https://doi.org/10.1103/physrevc.96.044612)
   
 - ### **Study of the 18o+ 64ni two-neutron transfer reaction at 84 MeV by MAGNEX**
@@ -140,7 +147,7 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
 
 - ### **The NUMEN project @ LNS: Status and perspectives**
   AIP Conference Proceedings
-   conference-paper
+  
   DOI: [10.1063/1.5007629](https://doi.org/10.1063/1.5007629)
   
 - ### **The NUMEN project@ LNS: Status and perspectives***AIP Conference Proceedings*
@@ -149,11 +156,13 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   DOI:[10.1063/1.5124592](https://aip.scitation.org/doi/10.1063/1.5124592)
   
 - ### **An Interacting Quark–Diquark Model***Few-Body Systems*
-  journal-article
+  Journal-article : Few-Body Systems
+  
   DOI: [10.1007/s00601-016-1139-4](https://doi.org/10.1007/s00601-016-1139-4)
   
-- ### **The nuclear matrix elements of 0vββ decay and the NUMEN project at INFN-LNS***Journal of Physics: Conference Series*
-  journal-article
+- ### **The nuclear matrix elements of 0vββ decay and the NUMEN project at INFN-LNS**
+  
+   Conference Series
   
 - DOI: [10.1088/1742-6596/730/1/012006](https://doi.org/10.1088/1742-6596/730/1/012006)
 
@@ -174,28 +183,37 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   
 - ### **Virial expansion of the nuclear equation of state**
 International Journal of Modern Physics E
-  2012-01 | journal-article
+   Journal-article
+  
   DOI: [10.1142/s0218301312500061](https://doi.org/10.1142/s0218301312500061)
   
-- #### BEAUTY IN PHYSICS: THEORY AND EXPERIMENT: In honor of Francesco Iachello on the occasion of his 70th birthday ,
+- #### Beauty in physics: theory and experiment: In honor of Francesco Iachello on the occasion of his 70th birthday 
+  
+  Conference Proceedings
+  
+  DOI:[10.1063/1.4759375](https://doi.org/10.1063/1.4759375)
   
 - ### Generalized F-spin and correlations between one-nucleon transfer reactions
-  2012 | conference-paper
+  Conference Proceedings
   DOI: [10.1063/1.4759426](https://doi.org/10.1063/1.4759426)
   
-- #### **6th mexican nuclear physics school**
   
+
+
 - ### **Correlaciones entre reacciones de transferencia de nucleones en el marco de la supersimetría nuclear**
-  2010 |Dissertation-thesis
+  Dissertation-thesis
+  
+  [DOI: 10.13140/2.1.3616.5123](https://doi.org/10.1063/1.4759375)
   
 - ### **Correlations between nucleon transfer reactions in the context of nuclear supersymmetry**
-  2010 | journal-article
+  Journal-article
 
   DOI:[10.1088/1742-6596/284/1/012013/pdf](https://iopscience.iop.org/article/10.1088/1742-6596/284/1/012013/pdf)
   
 - ### **Método variacional para átomos de muchos electrones**
-  journal-article
-  [Link](https://revistas.ujat.mx/index.php/jobs/article/view/1019)
+  Journal-article
+  
+  DOI:[10.19136/jobs.a1n1.1019](https://revistas.ujat.mx/index.php/jobs/article/view/1019)
 ###  Peer review
 -  Review activity for **Brazilian Journal of Physics**
 
