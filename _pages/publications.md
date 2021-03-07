@@ -175,8 +175,7 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
 - ### **An Interacting Quark--Diquark Model**
   Few-Body Systems
   
-
-DOI:[10.1007/s00601-016-1139-4](https://link.springer.com/article/10.1007/s00601-016-1139-4)
+  DOI:[10.1007/s00601-016-1139-4](https://link.springer.com/article/10.1007/s00601-016-1139-4)
 
 - ### **An Interacting Quark--Diquark Model; Strange and Nonstrange Baryon Spectroscopy and Other Observables**
   Few-Body Systems
