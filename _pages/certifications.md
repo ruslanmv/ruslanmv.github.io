@@ -14,19 +14,45 @@ header:
     show_overlay_excerpt: false
 ---
 ## Industry Certifications
-- AWS Certified Machine Learning – Specialty Issuing authority Amazon Web Services (AWS), May 2020
-- AWS Certified Solutions Architect – Associate, July 2020
+<p float="left"> 
+    <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" width="120" /> 
+        </p>
+
+- AWS Certified Data Analytics – Specialty. Issuing authority Amazon Web Services (AWS) March 2021
+- AWS Certified Machine Learning – Specialty.  Issuing authority Amazon Web Services (AWS) May 2020
+- AWS Certified Solutions Architect – Associate.  Issuing authority Amazon Web Services (AWS)  July 2020
 - AWS Certified Cloud Practitioner Issuing authority Amazon Web Services (AWS), Dec 2019
 ## Professional Certifications
+<p float="left"> 
+    <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" width="120" /> 
+        </p>
+
 - IBM Applied AI Professional Certificate, Coursera "Specialization", August 2020
+
 - IBM AI Foundations for Business, IBM, Coursera "Specialization", July 2020
+
 - Key Technologies for Business, IBM, Coursera "Specialization", July 2020
--  AI Foundations for Everyone, IBM, Coursera "Specialization", Jan 2020
+
+- AI Foundations for Everyone, IBM, Coursera "Specialization", Jan 2020
+
 - Advanced Data Science with IBM ,IBM, Coursera "Specialization", Jan 2020
--  IBM AI Engineering Professional Certificate ,IBM, Coursera "Specialization", Jan 2020
+
+- IBM AI Engineering Professional Certificate ,IBM, Coursera "Specialization", Jan 2020
+
 - Applied Data Science with Python,IBM, Coursera "Specialization", Oct 2019
--  IBM Data Science Professional Certificate, IBM, Coursera "Specialization", July 2019.
--  Machine Learning with TensorFlow on Google Cloud Platform, Google, Coursera "Spe- cialization", July 2019
+
+- IBM Data Science Professional Certificate, IBM, Coursera "Specialization", July 2019.
+
+  <p float="left"> 
+      <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/Google_Cloud_Platform.svg" width="120" /> 
+          </p>
+
+- Machine Learning with TensorFlow on Google Cloud Platform, Google, Coursera "Spe- cialization", July 2019
+
+  <p float="left"> 
+      <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/michigan.jpg" width="120" /> 
+          </p>
+
 - Applied Data Science using Python,University of Michigan, Coursera "Specialization", May 2019
 ## Certifications
 - Introduction to Computer Vision with Watson and OpenCV by IBM
