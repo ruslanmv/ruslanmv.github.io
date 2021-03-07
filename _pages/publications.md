@@ -47,21 +47,17 @@ header:
 - ### NURE: An ERC project to study nuclear reactions for neutrinoless double beta decay
   arXiv preprint [arXiv:2002.02761](https://arxiv.org/abs/2002.02761)
   
-
 - ### Recent results on heavy-ion direct reactions of interest for 0νββdecay at INFN-LNS
   Journal of Physics: Conference Series
   
-  
 - ### The NUMEN Project@ LNS
 Il Nuovo Cimento C
-  
   
 - ### Challenges in double charge exchange measurements for neutrino physics
   CERN Proc. journal-article
   
 - ### Double charge exchange reactions and neutrinoless double beta decay
   AIP Conference Proceedings
-  
   
 - ### Double charge exchange reactions and neutrinoless double beta decay
   WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
@@ -71,10 +67,8 @@ Il Nuovo Cimento C
 - ### New experimental campaign of NUMEN project
   AIP Conference Proceedings
   
-
 -  ### Recent results on Heavy-Ion induced reactions of interest for 0νββ decay
     Journal of Physics: Conference Series
-    
     
 - ### Recent results on heavy-ion induced reactions of interest for neutrinoless double beta decay at INFN-LNS*
   EPJ Web of Conferences
@@ -96,12 +90,12 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   
   
   
-  
 - ### Two-nucleon transfer and Double Charge Exchange reactions
   Journal of Physics: Conference Series
   
+
  DOI: [10.1088/1742-6596/1056/1/012053](https://doi.org/10.1088/1742-6596/1056/1/012053)
-  
+
 - ### The NUMEN project: NUclear Matrix Elements for Neutrinoless double beta decay
   The European Physical Journal A
   
@@ -118,8 +112,8 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   
 - ### Heavy-ion double-charge-exchange and its relation to neutrinoless double-$β$ decay
    Physical Review C
-  
-  
+
+
 - ### Study of the 18O + 64Ni Two-neutron Transfer Reaction at 84 MeV by MAGNEX
   Acta Physica Polonica B
   DOI: [10.5506/aphyspolb.49.381](https://doi.org/10.5506/aphyspolb.49.381)
@@ -194,10 +188,10 @@ International Journal of Modern Physics E
 - ### **Método variacional para átomos de muchos electrones**
   journal-article
   [Link](https://revistas.ujat.mx/index.php/jobs/article/view/1019)
-###  Peer review (1)
+###  Peer review
 -  Review activity for **Brazilian Journal of Physics(1)**
 
-Record last modified Nov 19, 2020 11:00:07 AM
+Record last modified March 02, 2021 11:00:07 AM
 ## Additional Research profiles:
 
  [![inspirehep](/assets/images/inspire.png)](https://inspirehep.net/authors/1073175)
