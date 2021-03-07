@@ -130,6 +130,7 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
 
 
 - ### Study of the 18O + 64Ni Two-neutron Transfer Reaction at 84 MeV by MAGNEX
+  
   Acta Physica Polonica B
   
   DOI: [10.5506/aphyspolb.49.381](https://doi.org/10.5506/aphyspolb.49.381)
