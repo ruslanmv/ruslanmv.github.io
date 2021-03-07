@@ -51,7 +51,9 @@ header:
   
 - ### Recent results on heavy-ion direct reactions of interest for 0νββdecay at INFN-LNS
   Journal of Physics: Conference Series
-  
+
+  DOI: [10.1088/1742-6596/1610/1/012004](https://doi.org/10.1088/1742-6596/1610/1/012004)
+
 - ### The NUMEN Project@ LNS
 [Il Nuovo Cimento C](https://www.sif.it/riviste/sif/ncc/econtents/2019/042/02-03/article/7)
   
@@ -66,7 +68,7 @@ header:
   DOI: [10.1063/1.5130983](https://doi.org/10.1063/1.5130983)
 
 - ### New experimental campaign of NUMEN project
-  [AIP Conference Proceedings](https://aip.scitation.org/doi/10.1063/1.5124590)
+  DOI:[10.1063/1.5124590](https://aip.scitation.org/doi/10.1063/1.5124590)
   
 -  ### Recent results on Heavy-Ion induced reactions of interest for 0νββ decay
     DOI:[10.1088/1742-6596/1308/1/012002](https://iopscience.iop.org/article/10.1088/1742-6596/1308/1/012002)
@@ -185,6 +187,8 @@ International Journal of Modern Physics E
 - ### **Correlations between nucleon transfer reactions in the context of nuclear supersymmetry**
   2010 | journal-article
 
+  DOI:[10.1088/1742-6596/284/1/012013/pdf](https://iopscience.iop.org/article/10.1088/1742-6596/284/1/012013/pdf)
+  
 - ### **Método variacional para átomos de muchos electrones**
   journal-article
   [Link](https://revistas.ujat.mx/index.php/jobs/article/view/1019)
