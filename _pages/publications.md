@@ -42,8 +42,10 @@ header:
   
 - ### New results from the NUMEN project
   Proceedings of 13th International Conference on Nucleus-Nucleus Collisions
-  2020 | conference-paper
+  2020 | 
 
+  [doi/abs/10.7566/JPSCP.32.010045](https://journals.jps.jp/doi/abs/10.7566/JPSCP.32.010045)
+  
 - ### NURE: An ERC project to study nuclear reactions for neutrinoless double beta decay
   arXiv preprint [arXiv:2002.02761](https://arxiv.org/abs/2002.02761)
   
@@ -51,13 +53,12 @@ header:
   Journal of Physics: Conference Series
   
 - ### The NUMEN Project@ LNS
-Il Nuovo Cimento C
+[Il Nuovo Cimento C](https://www.sif.it/riviste/sif/ncc/econtents/2019/042/02-03/article/7)
   
 - ### Challenges in double charge exchange measurements for neutrino physics
-  CERN Proc. journal-article
+  [CERN Proc. journal-article](https://cds.cern.ch/record/2669349)
   
-- ### Double charge exchange reactions and neutrinoless double beta decay
-  AIP Conference Proceedings
+  
   
 - ### Double charge exchange reactions and neutrinoless double beta decay
   WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
@@ -65,7 +66,7 @@ Il Nuovo Cimento C
   DOI: [10.1063/1.5130983](https://doi.org/10.1063/1.5130983)
 
 - ### New experimental campaign of NUMEN project
-  AIP Conference Proceedings
+  [AIP Conference Proceedings](https://aip.scitation.org/doi/10.1063/1.5124590)
   
 -  ### Recent results on Heavy-Ion induced reactions of interest for 0νββ decay
     Journal of Physics: Conference Series
