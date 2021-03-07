@@ -22,6 +22,7 @@ header:
 - ### Analysis of two-nucleon transfer reactions in the Ne20+Cd116 system at 306 MeV
   
   Physical Review C 
+  
   DOI: [10.1103/physrevc.102.044606](https://doi.org/10.1103/physrevc.102.044606)
   
 - ### Beta decay rates of (115,117)Rh into 115,117 Pd isotopes in the microscopic IBFM-2
@@ -32,12 +33,14 @@ header:
   ### Heavy-ion double-charge-exchange and its relation to neutrinoless double- β decay
 
   Physical Review C
-  DOI: [10.1103/physrevc.98.061601](https://doi.org/10.1103/physrevc.98.061601)
-
+  
+DOI: [10.1103/physrevc.98.061601](https://doi.org/10.1103/physrevc.98.061601)
   
 
+  
 - ### Double charge exchange reactions as a probe for neutrinoless double beta decay nuclear matrix elements
   Journal of Physics: Conference Series
+  
   DOI: [10.1088/1742-6596/1610/1/012013](http://dx.doi.org/10.1088/1742-6596/1610/1/012013)
   
 - ### New results from the NUMEN project
