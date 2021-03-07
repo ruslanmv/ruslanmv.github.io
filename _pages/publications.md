@@ -175,16 +175,15 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
 - ### **An Interacting Quark--Diquark Model**
   Few-Body Systems
   
+
 DOI:[10.1007/s00601-016-1139-4](https://link.springer.com/article/10.1007/s00601-016-1139-4)
-  
+
 - ### **An Interacting Quark--Diquark Model; Strange and Nonstrange Baryon Spectroscopy and Other Observables**
   Few-Body Systems
 
   DOI: [10.1007/s00601-016-1139-4](https://doi.org/10.1007/s00601-016-1139-4)
 
-- ### **Método variacional para átomos de muchos electrones**
-  Journal of Basic Sciences
-   [journal-article](https://www.researchgate.net/publication/266970604_Metodo_variacional_para_atomos_de_muchos_electrones)
+  
   
 - ### **Electronic Spectra in Molecular Supersymmetry**
   
