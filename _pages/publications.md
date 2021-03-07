@@ -14,8 +14,9 @@ header:
     show_overlay_excerpt: false
 ---
 
-<p><a href="https://orcid.org/0000-0001-6754-4238" title="Redirect Acclaim">  
+<p><a href="https://orcid.org/0000-0001-6754-4238" title="Redirect Orcid">  
 <img src="../assets/images/physics.png" width="140" alt="homepage" /></a></p>
+
 
 
 
@@ -34,10 +35,11 @@ header:
 
   Physical Review C
   
-DOI: [10.1103/physrevc.98.061601](https://doi.org/10.1103/physrevc.98.061601)
-  
 
-  
+DOI: [10.1103/physrevc.98.061601](https://doi.org/10.1103/physrevc.98.061601)
+
+
+
 - ### Double charge exchange reactions as a probe for neutrinoless double beta decay nuclear matrix elements
   Journal of Physics: Conference Series
   
