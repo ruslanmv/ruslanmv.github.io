@@ -14,18 +14,18 @@ header:
     show_overlay_excerpt: false
 ---
 ## Industry Certifications
-<p float="left"> 
-    <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" width="120" /> 
-        </p>
+<p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
+<img src="../assets/images/awslogo.png" width="120" alt="homepage" /></a></p>
+
 
 - AWS Certified Data Analytics – Specialty. Issuing authority Amazon Web Services (AWS) March 2021
 - AWS Certified Machine Learning – Specialty.  Issuing authority Amazon Web Services (AWS) May 2020
 - AWS Certified Solutions Architect – Associate.  Issuing authority Amazon Web Services (AWS)  July 2020
 - AWS Certified Cloud Practitioner Issuing authority Amazon Web Services (AWS), Dec 2019
 ## Professional Certifications
-<p float="left"> 
-    <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/IBM-logo.jpg" width="120" /> 
-        </p>
+<p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
+<img src="../assets/images/IBM-logo.jpg" width="120" alt="homepage" /></a></p>
+
 
 - IBM Applied AI Professional Certificate, Coursera "Specialization", August 2020
 
@@ -44,10 +44,10 @@ header:
 - IBM Data Science Professional Certificate, IBM, Coursera "Specialization", July 2019.
 
   <p float="left"> 
-      <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/google.jpg" width="290" /> 
+      <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/googlecloud.png" width="290" /> 
           </p>
 
-- Machine Learning with TensorFlow on Google Cloud Platform, Google, Coursera "Spe- cialization", July 2019
+- Machine Learning with TensorFlow on Google Cloud Platform, Google, Coursera "Specialization", July 2019
 
   <p float="left"> 
       <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/michigan.jpg" width="120" /> 
