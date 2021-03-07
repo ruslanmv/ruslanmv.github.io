@@ -170,8 +170,8 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
   
    Conference Series
   
-- DOI: [10.1088/1742-6596/730/1/012006](https://doi.org/10.1088/1742-6596/730/1/012006)
-
+  DOI: [10.1088/1742-6596/730/1/012006](https://doi.org/10.1088/1742-6596/730/1/012006)
+  
 - ### **An Interacting Quark--Diquark Model**
   Few-Body Systems
   DOI:[10.1007/s00601-016-1139-4](https://link.springer.com/article/10.1007/s00601-016-1139-4)
@@ -187,11 +187,7 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
   
 - ### **Electronic Spectra in Molecular Supersymmetry**
   
-- ### **Virial expansion of the nuclear equation of state**
-International Journal of Modern Physics E
-   Journal-article
   
-  DOI: [10.1142/s0218301312500061](https://doi.org/10.1142/s0218301312500061)
   
 - #### Beauty in physics: theory and experiment: In honor of Francesco Iachello on the occasion of his 70th birthday 
   
@@ -216,10 +212,22 @@ International Journal of Modern Physics E
 
   DOI:[10.1088/1742-6596/284/1/012013/pdf](https://iopscience.iop.org/article/10.1088/1742-6596/284/1/012013/pdf)
   
-- ### **Método variacional para átomos de muchos electrones**
+- ### **Método variacional para átomos de muchos electrones** 
+  
   Journal-article
   
   DOI:[10.19136/jobs.a1n1.1019](https://revistas.ujat.mx/index.php/jobs/article/view/1019)
+  
+- ### **Virial expansion of the nuclear equation of state**
+  
+  International Journal of Modern Physics E
+   Journal-article
+  
+  DOI: [10.1142/s0218301312500061](https://doi.org/10.1142/s0218301312500061)
+  
+  
+  
+  
 ###  Peer review
 -  Review activity for **Brazilian Journal of Physics**
 
