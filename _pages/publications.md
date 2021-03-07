@@ -174,8 +174,9 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
   
 - ### **An Interacting Quark--Diquark Model**
   Few-Body Systems
-  DOI:[10.1007/s00601-016-1139-4](https://link.springer.com/article/10.1007/s00601-016-1139-4)
-
+  
+DOI:[10.1007/s00601-016-1139-4](https://link.springer.com/article/10.1007/s00601-016-1139-4)
+  
 - ### **An Interacting Quark--Diquark Model; Strange and Nonstrange Baryon Spectroscopy and Other Observables**
   Few-Body Systems
 
@@ -197,6 +198,7 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
   
 - ### Generalized F-spin and correlations between one-nucleon transfer reactions
   Conference Proceedings
+  
   DOI: [10.1063/1.4759426](https://doi.org/10.1063/1.4759426)
   
   
