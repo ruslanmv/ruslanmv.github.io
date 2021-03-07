@@ -35,8 +35,7 @@ header:
 
   Physical Review C
   
-
-DOI: [10.1103/physrevc.98.061601](https://doi.org/10.1103/physrevc.98.061601)
+  DOI: [10.1103/physrevc.98.061601](https://doi.org/10.1103/physrevc.98.061601)
 
 
 

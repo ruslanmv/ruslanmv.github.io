@@ -16,18 +16,14 @@ header:
 
 
 
-
-
 My work is based on analysis data for actionable insights. Devising and applying **models** and **algorithms** to mine the stores of big data. Analyzing the data to identify **patterns** and **trends**.
 
 ## Cloud Solutions
 
 
 
-<p float="left"> 
-    <img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/awslogo.png" width="120" /> 
-        </p>
-
+<p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
+<img src="../assets/images/awslogo.png" width="120" alt="homepage" /></a></p>
 
 
 
@@ -35,14 +31,18 @@ My professional background includes crafting **algorithms**, making use of **mac
 
 ##  Cloud Data Science
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/logo_small.png" style="zoom:38%;" />
+<p><a href="https://cloud-data-science.com" title="Redirect Cloud Data Science">  
+<img src="../assets/images/logo_small.png" width="120" alt="homepage" /></a></p>
 
 I perform **data mining, analysis, synthesis, visualization**, and data conversion into reportable formats for presentations, reports writing, and disseminate findings. I determine research methodology by collecting and evaluating data to ensure completeness and accuracy of information. I develop and implement extensive research plans and deliver detailed reports for informed decision-making. [Read more...](https://cloud-data-science.com)
 
 
 
 ## Data Analysis at  NUMEN 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/NUMEN.jpg" style="zoom:10%;" />
+<p><a href="https://web.infn.it/NUMEN/index.php/it/collaboration" title="Redirect NUMEN collaboration">  
+<img src="../assets/images/NUMEN.jpg" width="170" alt="homepage" /></a></p>
+
+
 
 I am part of the experimental [NUMEN](https://web.infn.it/NUMEN/index.php/it/collaboration) collaboration. In the NUMEN project, nuclear reactions of double charge-exchange (DCE) will be used as a tool to extract information on the ββ nuclear matrix elements (NME). Nuclear matrix elements for neutrinoless double beta decay and double charge exchange in the scheme of microscopic Interacting Boson Model are important allowing me belong to the NUMEN collaboration.
 
@@ -54,7 +54,10 @@ My research provides insights to compute accurate nuclear matrix elements that s
 
 ## Virial Expansion of Nuclear Equation
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/texas.png" style="zoom:35%;" />
+
+
+<p><a href="https://cyclotron.tamu.edu/" title="Redirect NUMEN collaboration">  
+<img src="../assets/images/texas.png" width="120" alt="homepage" /></a></p>
 
 Texas A&M University and Cyclotron Institute
 College Station, Texas (United States).
@@ -76,7 +79,8 @@ This work was published in [World Scientifc](https://www.worldscientific.com/doi
 
 ## Classification of the nuclei by knowing their spectrum and perform analysis of nuclear reactions
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/infn.jpg" style="zoom:70%;" />
+<p><a href="https://www.ge.infn.it/wordpress/" title="Redirect INFN Genova">  
+<img src="../assets/images/infn.jpg" width="170" alt="homepage" /></a></p>
 
 National Institute for Nuclear Physics
 Genova (Italy)
@@ -94,7 +98,8 @@ This work was published [Physical Review](https://journals.aps.org/prc/abstract/
 
 ## Analysis and development of a model of the nuclear reaction of Double Charge Exchange
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/infn.jpg" style="zoom:70%;" />
+<p><a href="https://www.ge.infn.it/wordpress/" title="Redirect INFN Genova">  
+<img src="../assets/images/infn.jpg" width="170" alt="homepage" /></a></p>
 
 National Institute for Nuclear Physics
 Genova (Italy)
@@ -124,7 +129,8 @@ I have developed software in CUDA language that used in clusters to perform heav
 
 ## Developing of CUDA software for the analysis of flooding of a geographical area.
 
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/reca.jpg" style="zoom:50%;" />
+<p><a href="https://www.redrisk.com/" title="Redirect INFN Genova">  
+<img src="../assets/images/reca.jpg" width="120" alt="homepage" /></a></p>
 
 RED Risk Engineering + Development
 Pavia (Italy)
