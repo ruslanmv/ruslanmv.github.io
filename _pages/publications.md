@@ -42,9 +42,9 @@ header:
   
 - ### New results from the NUMEN project
   Proceedings of 13th International Conference on Nucleus-Nucleus Collisions
-  2020 | 
+  2020 
 
-  [doi/abs/10.7566/JPSCP.32.010045](https://journals.jps.jp/doi/abs/10.7566/JPSCP.32.010045)
+  DOI:[10.7566/JPSCP.32.010045](https://journals.jps.jp/doi/abs/10.7566/JPSCP.32.010045)
   
 - ### NURE: An ERC project to study nuclear reactions for neutrinoless double beta decay
   arXiv preprint [arXiv:2002.02761](https://arxiv.org/abs/2002.02761)
@@ -69,7 +69,7 @@ header:
   [AIP Conference Proceedings](https://aip.scitation.org/doi/10.1063/1.5124590)
   
 -  ### Recent results on Heavy-Ion induced reactions of interest for 0νββ decay
-    Journal of Physics: Conference Series
+    DOI:[10.1088/1742-6596/1308/1/012002](https://iopscience.iop.org/article/10.1088/1742-6596/1308/1/012002)
     
 - ### Recent results on heavy-ion induced reactions of interest for neutrinoless double beta decay at INFN-LNS*
   EPJ Web of Conferences
@@ -84,18 +84,17 @@ header:
 - ### The NUMEN project @ LNS: Status and perspectives
 WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   
-  Part of* DOI: [10.1063/1.5130964](https://doi.org/10.1063/1.5130964)
+   DOI: [10.1063/1.5130964](https://doi.org/10.1063/1.5130964)
   
 - ### The NUMEN project@ LNS: Status and perspectives
   AIP Conference Proceedings
   
-  
+   DOI:[10.1063/1.5007629](https://aip.scitation.org/doi/abs/10.1063/1.5007629)
   
 - ### Two-nucleon transfer and Double Charge Exchange reactions
   Journal of Physics: Conference Series
   
-
- DOI: [10.1088/1742-6596/1056/1/012053](https://doi.org/10.1088/1742-6596/1056/1/012053)
+  DOI: [10.1088/1742-6596/1056/1/012053](https://doi.org/10.1088/1742-6596/1056/1/012053)
 
 - ### The NUMEN project: NUclear Matrix Elements for Neutrinoless double beta decay
   The European Physical Journal A
@@ -103,7 +102,7 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   DOI: [10.1140/epja/i2018-12509-3](https://doi.org/10.1140/epja/i2018-12509-3)
   
 - ### Transfer reactions, neutrinoless double beta decay and double charge exchange.
-  dissertation-thesis
+  Dissertation-thesis
   DOI: [Doi-PHD2018-03-26](https://doi.org/10.15167/MAGANA-VSEVOLODOVNA-RUSLAN-IDELFONSO_PHD2018-03-26)
   
 - ### Measuring nuclear reaction cross sections to extract information on neutrinoless double beta decay
@@ -113,6 +112,8 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   
 - ### Heavy-ion double-charge-exchange and its relation to neutrinoless double-$β$ decay
    Physical Review C
+   
+   DOI:[10.1103/PhysRevC.98.061601](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.98.061601)
 
 
 - ### Study of the 18O + 64Ni Two-neutron Transfer Reaction at 84 MeV by MAGNEX
@@ -126,12 +127,11 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
   
 - ### Long-range versus short-range correlations in the two-neutron transfer reaction 6Ni(18O,1O)66Ni
   Phys. Rev. C
-  journal-article
   DOI: [10.1103/PhysRevC.96.044612](https://doi.org/10.1103/physrevc.96.044612)
   
 - ### **STUDY OF THE 18O+ 64Ni TWO-NEUTRON TRANSFER REACTION AT 84 MeV BY MAGNEX**
-  | journal-article
-  
+  DOI: [10.5506/APhysPolB.49.381](https://doi.org/10.5506/APhysPolB.49.381)
+
 - ### **The NUMEN project @ LNS: Status and perspectives**
   AIP Conference Proceedings
    conference-paper
@@ -151,15 +151,16 @@ WORKSHOP ON CALCULATION OF DOUBLE-BETA-DECAY MATRIX ELEMENTS (MEDEX’19)
 
 - ### **An Interacting Quark--Diquark Model**
   Few-Body Systems
-  journal-article
+  DOI:[10.1007/s00601-016-1139-4](https://link.springer.com/article/10.1007/s00601-016-1139-4)
 
 - ### **An Interacting Quark--Diquark Model; Strange and Nonstrange Baryon Spectroscopy and Other Observables**
   Few-Body Systems
-   journal-article
-  
+
+  DOI: [10.1007/s00601-016-1139-4](https://doi.org/10.1007/s00601-016-1139-4)
+
 - ### **Método variacional para átomos de muchos electrones**
   Journal of Basic Sciences
-   journal-article
+   [journal-article](https://www.researchgate.net/publication/266970604_Metodo_variacional_para_atomos_de_muchos_electrones)
   
 - ### **Electronic Spectra in Molecular Supersymmetry**
   
