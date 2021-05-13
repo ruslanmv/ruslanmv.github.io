@@ -18,6 +18,24 @@ header:
 
 My work is based on analysis data for actionable insights. Devising and applying **models** and **algorithms** to mine the stores of big data. Analyzing the data to identify **patterns** and **trends**.
 
+
+
+
+
+## Cloud Solutions
+
+
+
+<p><a href="https://reply.it" title="Redirect Reply">  
+<img src="../assets/images/reply.png" width="190" alt="homepage" /></a></p>
+
+
+I am responsible for **building** and maintaining an organization's data infrastructure, particularly for cloud services in AWS, including relational databases and non-relational databases, **data warehouses**, and data pipelines. The infrastructure is deployed by using **Terraform** and the data transformation through **Scala** and **Spark**.
+
+
+
+
+
 ## Cloud Solutions
 
 
