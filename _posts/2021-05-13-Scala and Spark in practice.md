@@ -248,7 +248,7 @@ Now that we have learn some of the essential things of the  IntelliJ IDEA let us
 
 
 
-#### Basic concepts of Scala
+## Basic concepts of Scala
 
 
 
