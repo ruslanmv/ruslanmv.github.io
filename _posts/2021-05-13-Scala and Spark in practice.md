@@ -1413,7 +1413,7 @@ partitions in a uniform way. Some times should be hard but we can try.
 
 **Congratulation** we have  practiced Scala and  Apache Spark with **IntelliJ** 
 
-You can download the project [here : https://ruslanmv.com/blog/Scala-and-Spark-in-practice](https://github.com/ruslanmv/Scala-and-Spark-in-Practice-) 
+You can download the project [here :https://github.com/ruslanmv/Scala-and-Spark-in-Practice-](https://github.com/ruslanmv/Scala-and-Spark-in-Practice-) 
 
 References:  The example codes of this blog are taken  from  [Udemy ](https://www.udemy.com/course/taming-big-data-with-apache-spark-hands-on/)and  [SparkByExamples.com](SparkByExamples.com")  
 
