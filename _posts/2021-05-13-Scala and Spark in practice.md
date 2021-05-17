@@ -1394,9 +1394,7 @@ object Save2 extends App {
 
 
 
-I would like to say that during the developing of our programs if is possible assign the priorty
-
-to transformations that cost less network cost cost as
+I would like to say that during the developing of our programs, it is  recommendable assign the priority to transformations that cost less network cost as
 
 1. Narrow transformations 
 
