@@ -40,9 +40,7 @@ Let us assume you have already installed property  [Intellij](https://www.jetbra
 
 The first step you should perform is create a folder, let us call for example **dev**
 
-and inside the folder you have  two files, the first file is winutils
-
-and then you create a file called  **build.sbt**
+and inside the folder you have  you create a file called  **build.sbt**
 
 ```
 name := "DEV"
