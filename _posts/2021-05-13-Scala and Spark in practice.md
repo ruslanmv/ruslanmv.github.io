@@ -1394,6 +1394,25 @@ object Save2 extends App {
 
 
 
+I would like to say that during the developing of our programs if is possible assign the priorty
+
+to transformations that cost less network cost cost as
+
+1. Narrow transformations 
+
+2. Wider  transformations
+3. Applications
+
+
+
+And always try to keep in mind to distribute the computation charge around all possible
+
+partitions in a uniform way. Some times should be hard but we can try.
+
+
+
+
+
 **Congratulation** we have  practiced Scala and  Apache Spark with **IntelliJ** 
 
 You can download the project here https://github.com/ruslanmv/Scala-and-Spark-in-Practice-.git
