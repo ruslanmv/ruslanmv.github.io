@@ -21,7 +21,7 @@ There are almost 100 questions splited in four sections:
 
 4. Simple  Exercises in Python
 
-I have collected those questions during my preparation as a Data Engineer, but also it is important for a Data Scientist because retrieve the data is really important.
+I have collected those questions during my preparation as a Data Engineer.
 
 
 
