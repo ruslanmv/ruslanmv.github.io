@@ -1392,8 +1392,6 @@ object Save2 extends App {
 
 ```
 
-
-
 I would like to say that during the developing of our programs, it is  recommendable assign the priority to transformations that cost less network cost as
 
 1. Narrow transformations 
@@ -1406,6 +1404,111 @@ I would like to say that during the developing of our programs, it is  recommend
 And always try to keep in mind to distribute the computation charge around all possible
 
 partitions in a uniform way. Some times should be hard but we can try.
+
+### Setup configuration in Scala
+
+
+
+When we need to load our passwords or  configuration parameters of our program in scala. It is important to know how to load them. The separation of configuration from code is a good practice that makes our system customisable as we can load different configurations according to the environment we are running it in. 
+
+
+
+## Configurations from a file
+
+
+
+
+
+The first thing that we have to do is add the library  in **build.sbt**
+
+
+
+```scala
+libraryDependencies += "com.typesafe" % "config" % "1.2.0"
+```
+
+
+
+And the location of the property file is **/src/main/resources/application.conf**
+
+```
+my {
+    secret {
+        value = "super-secret"
+        value = ${?VALUE}
+    }
+}
+```
+
+and then we create a file called Configuration1.scala
+
+```scala
+package com.ruslanmv.spark
+// config-tutorial.scala
+object Configuration1 {
+
+  def main(args: Array[String]): Unit = {
+
+    // config-tutorial.scala
+    import com.typesafe.config.ConfigFactory
+    val value = ConfigFactory.load().getString("my.secret.value")
+    println(s"My secret value is $value")
+
+  }
+}
+```
+
+
+
+and when it is compiled you get
+
+
+
+![](../assets/images/posts/2021-05-13-Scala%20and%20Spark%20in%20practice/1d.jpg)
+
+
+
+A simple script that will try to load configurations in the following order: 1) From properly named environment variables 2) From command line paramenters 3) From the configuration file
+
+
+
+```scala
+package com.ruslanmv.spark
+
+// config-tutorial.scala
+object Configuration2 {
+
+  def main(args: Array[String]): Unit = {
+
+    // config-tutorial.scala
+    import com.typesafe.config.ConfigFactory
+    import scala.util.Properties
+    
+    class MyConfig(fileNameOption: Option[String] = None) {
+      val config = fileNameOption.fold(
+        ifEmpty = ConfigFactory.load() )(
+        file => ConfigFactory.load(file) )
+
+      def envOrElseConfig(name: String): String = {
+        Properties.envOrElse(
+          name.toUpperCase.replaceAll("""\.""", "_"),
+          config.getString(name)
+        )
+      }
+    }
+    val myConfig = new MyConfig()
+    val value = myConfig.envOrElseConfig("my.secret.value")
+    println(s"My secret value is $value")
+    
+  }
+}
+```
+
+and we again obtain the same 
+
+
+
+![](../assets/images/posts/2021-05-13-Scala%20and%20Spark%20in%20practice/1d.jpg)
 
 
 
