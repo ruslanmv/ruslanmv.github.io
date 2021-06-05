@@ -1,13 +1,13 @@
 ---
 title: "How to install Python 3 in Windows Subsystem with Ubuntu"
-categories: [Linux,Python,Windows]
-
-excerpt: "How to install Python 3 in Windows Subsystem for Linux (WSL) and Set Up a Programming Environment"
+excerpt: " How to install Python 3 in Windows Subsystem for Linux (WSL) and Set Up a Programming Environment"
 
 header:
-    image: "/assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/reply-target.jpg"
-    teaser: "/assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/reply-target.jpg"
-    caption: "Reply - Milano Italy"
+  image: "../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/reply-target.jpg"
+  teaser: "../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/reply-target.jpg"
+  caption: "Reply Headquarters, Milan"
+  
+
 ---
 
 In this blog post, we'll see how to Install Python 3 in  Windows Subsystem for Linux Ubuntu and Windows 10 and how to Set Up a Programming Environment with Visual Studio Code.
@@ -32,7 +32,7 @@ To install WSL using Setting on Windows 10, use these steps:
 
 5. Check the **Windows Subsystem for Linux** option.
 
-   ![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/2.jpg)
+   ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/2.jpg)
 
 6. Click the **OK** button.
 
@@ -49,7 +49,7 @@ To install a distribution of Linux on Windows 10, use these steps:
 5. Create a username for the Linux distro and press **Enter**.
 6. Specify a password for the distro and press **Enter**.
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/3.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/3.jpg)
 
 
 
@@ -208,7 +208,7 @@ and  we type
 code .
 ```
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/82.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/82.jpg)
 
 
 
@@ -222,11 +222,11 @@ print("Hello World from Ubuntu in Windows")
 
 and then save  ( ctrl+s)
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/83.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/83.jpg)
 
 then we go to click on **terminal** then **new terminal**
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/84.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/84.jpg)
 
 
 
@@ -245,17 +245,13 @@ Hello World from Ubuntu in Windows
 (frameworkenv) ruslanmv@Blade:/mnt/c/Users/ruslamv/myproject1$ 
 ```
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/86b.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/86b.jpg)
 
 
 
+**Congratulations !** Now  we can work on VS code with your custom python environment.
 
-
-
-
-Congratulations we now you can work on VS code with your custom python enviroment.
-
-The the next sections we will repeat the same in case we want skip work in Linux from Windows and just use windows 10
+The the next sections we will repeat the same but now by using only **Windows 10**.
 
 
 
@@ -269,7 +265,7 @@ it will take you to the Python official download website.
 
  
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/4.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/4.jpg)
 
  
 
@@ -281,7 +277,7 @@ If you need Python 3.8.0. from this [link](https://www.python.org/ftp/python/3.8
 
 Next, right click the mouse button you will see open button click to open.
 
- ![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/5.jpg)
+ ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/5.jpg)
 
 Here is very important step
 
@@ -291,13 +287,13 @@ Here is very important step
 
 
 
- ![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/5-1622905097403.jpg)
+ ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/5-1622905097403.jpg)
 
 
 
  
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/6.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/6.jpg)
 
  
 
@@ -315,7 +311,7 @@ if you have installed a previous version choose that the last two digits ends to
 
 
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/7-1622905219230.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/7-1622905219230.jpg)
 
 Wait a few minutes and display setup was successful. Next you will click the close button.
 
@@ -325,7 +321,7 @@ Wait a few minutes and display setup was successful. Next you will click the clo
 
 If we want to add the path to the **python.exe** file to the Path variable, start the **Run** box
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/71.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/71.jpg)
 
 
 
@@ -335,7 +331,7 @@ If we want to add the path to the **python.exe** file to the Path variable, star
 
 
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/9.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/9.jpg)
 
 
 
@@ -343,7 +339,7 @@ This should open up the **System Properties** window. Go to the **Advanced** tab
 
 
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/10.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/10.jpg)
 
 
 
@@ -351,17 +347,13 @@ In the **System variable** window, find the **Path** variable and click **Edit**
 
 
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/81.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/81.jpg)
 
 
 
-In the case the installation was done by **adding the PATH**  we don't  need to do something else. JUST in case something goes wrong you have to be sure
+In the case the installation was done by **adding the PATH**  we don't  need to do something else. JUST in case something goes wrong you have to be sure that the System Variable has Python, otherwise  at the end of the **Variable** **value** line and add the path to the **python.exe** file, preceeded with the semicolon character (**;**). In our example  we have **;C:\Python38** 
 
-that the System Variable has Python, otherwise  at the end of the **Variable** **value** line and add the path to the **python.exe** file, preceeded with the semicolon character (**;**). In our example  we have **;C:\Python38** Close all windows. 
-
-
-
-Now you can open cmd   
+Close all windows.  Now you can open cmd   
 
 ```
 Microsoft Windows [Version 10.0.19042.985]
@@ -384,7 +376,7 @@ C:\Users\ruslamv>
 
 3.Go to -> "start" and type "Manage App Execution Aliases" .Go to it and turn off "python"
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/12.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/12.jpg)
 
 ###  How to setup Virtual Environment in Windows 
 
@@ -404,7 +396,7 @@ or
 pip install virtualenv
 ```
 
-Let us assume that we want to create our virtual environment  called **frameworkenv ** in the folder **venvs**  
+Let us assume that we want to create our virtual environment  called `frameworkenv`  in the folder   `venvs`
 
 so you go to your terminal type
 
@@ -490,7 +482,7 @@ deactivate
 
 First you need is to install VScode from this [link](https://code.visualstudio.com/download)
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/89.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/89.jpg)
 
 
 
@@ -520,7 +512,7 @@ C:\Users\ruslamv\myproject1>
 
 
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/90-1622912461495.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/90-1622912461495.jpg)
 
 
 
@@ -528,23 +520,23 @@ bye default the terminal is **PowerShell** but you need to change it
 
 in terminal, you have two buttons that seems to be one
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/91.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/91.jpg)
 
 
 
 the button
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/91a.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/91a.jpg)
 
 and
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/92a.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/92a.jpg)
 
 you click this last one
 
 and appears
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/93.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/93.jpg)
 
 otherwise you just duplicate the terminals.
 
@@ -579,7 +571,7 @@ python hello.py
 
 and you get 
 
-![](../assets/images/posts/2021-06-05-How%20to%20Install%20Python%203%20in%20Windows%20Subsystem%20for%20Linux%20(WSL)%20with%20Ubuntu/final-1622913460131.jpg)
+![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/final-1622913460131.jpg)
 
 
 
