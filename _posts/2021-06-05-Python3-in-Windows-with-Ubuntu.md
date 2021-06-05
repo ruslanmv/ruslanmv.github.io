@@ -1,6 +1,6 @@
 ---
 title: "How to install Python 3 in Windows Subsystem with Ubuntu"
-excerpt: " How to install Python 3 in Windows Subsystem for Linux (WSL) and Set Up a Programming Environment"
+excerpt: " How to install Python 3 in Windows Subsystem for Linux (WSL) and Set Up a Programming Environment in VS Code."
 
 header:
   image: "../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/reply-target.jpg"
@@ -516,9 +516,7 @@ C:\Users\ruslamv\myproject1>
 
 
 
-by default the terminal is **PowerShell** but you need to change it 
-
-in terminal, you have two buttons that seems to be one
+by default the terminal is **PowerShell** but you need to change it , in terminal, you have two buttons that seems to be one
 
 ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/91.jpg)
 
@@ -532,19 +530,11 @@ and
 
 ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/92a.jpg)
 
-you click this last one
-
-and appears
+you click this last one, and appears
 
 ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/93.jpg)
 
-otherwise you just duplicate the terminals.
-
-and you select **CommandPromt**
-
-
-
-and just type
+otherwise you just duplicate the terminals, and you select **CommandPromt**, and just type
 
 ```
 %USERPROFILE%\venvs\frameworkenv\Scripts\activate
@@ -577,7 +567,7 @@ and you get
 
 
 
-**Congratulations!**  you have installed Python 3 , VS Code in Windows Subsystem for Linux  and and install the Virtual Environments of python for your future projects.
+**Congratulations!**  you have installed Python 3 , VS Code in Windows Subsystem for Linux  and and created  Virtual Environments of python for your future projects.
 
 
 
