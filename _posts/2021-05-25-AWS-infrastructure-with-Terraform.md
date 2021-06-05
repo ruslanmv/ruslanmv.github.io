@@ -1,13 +1,16 @@
 ---
 title: "AWS infrastructure with Terraform "
-excerpt: " How to deploy AWS infrastructure with Terraform and Terragrunt "
+excerpt: " How to deploy AWS infrastructure with Terraform "
 
 header:
-  image: "../assets/images/posts/2021-05-18-Apache%20Spark%20and%20Scala%20in%20AWS/web_mg_9912_1.jpg"
-  teaser: "../assets/images/posts/2021-05-18-Apache%20Spark%20and%20Scala%20in%20AWS/web_mg_9912_1.jpg"
+  image: "../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/web_mg_9912_1.jpg"
+  teaser: "../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/web_mg_9912_1.jpg"
   caption: "Amazon Headquarters, Milan"
   
+
 ---
+
+
 
 In the first part of this tutorial we are going  install  Terraform and AWS CLI  to deploy some  AWS services. 
 
@@ -29,15 +32,15 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 2. Wait a few seconds for the command to complete.
 3. If you don't see any errors, you are ready to use Chocolatey! Type `choco` or `choco -?` 
 
-Reference: https://chocolatey.org/install
+[Reference:](https://chocolatey.org/install) 
 
 ### Install AWS CLI on Windows
 
 1. Download and run the AWS CLI MSI installer for Windows (64-bit):
 
-   - **For the latest version of the AWS CLI:** https://awscli.amazonaws.com/AWSCLIV2.msi
+   - **For the latest version of the AWS CLI:** chisl this [link]( https://awscli.amazonaws.com/AWSCLIV2.msi) 
 
-   Reference https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+   [Reference](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) 
 
    
 
@@ -66,15 +69,15 @@ You can install the modularized version of AWS Tools for PowerShell on computers
 
    If you are notified that the repository is "untrusted", it asks you if you want to install anyway. Enter `y` to allow PowerShell to install the module. To avoid the prompt and install the module without trusting the repository, you can run the command with the `-Force` parameter.
 
-   Reference https://docs.aws.amazon.com/powershell/latest/userguide/pstools-getting-set-up-windows.html
+   [Reference]( https://docs.aws.amazon.com/powershell/latest/userguide/pstools-getting-set-up-windows.html)
 
 ### Install VS Code editor  
 
 We will require use VS Code editor 
 
-Download VS Code from the following link : https://code.visualstudio.com
+Download VS Code from the following [link]( https://code.visualstudio.com) :
 
-and we need to add this plugin: https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform
+and we need to add this [plugin]( https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform):
 
 
 
@@ -123,7 +126,7 @@ then go to view  and then click terminal and write
 terraform init
 ```
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/1.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/1.jpg)
 
 Next is we want to check if our  AWS credentials were introduced correctly we type in the terminal
 
@@ -133,7 +136,7 @@ terraform plan
 
 
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/3.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/3.jpg)
 
 
 
@@ -145,17 +148,17 @@ terraform apply
 
 and we write yes
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/4.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/4.jpg)
 
 
 
 and then it is created the vpc
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/5.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/5.jpg)
 
 Let us check if was created in the AWS console and we go to the region were was created ang go to vpc
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/6.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/6.jpg)
 
 
 
@@ -169,7 +172,7 @@ Now let us delete it with the command
 terraform destroy
 ```
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/7.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/7.jpg)
 
 
 
@@ -177,11 +180,11 @@ and then type yes
 
 
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/8.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/8.jpg)
 
 if you return back to the console, and refresh the windows, you can see that  VPC it has been deleted
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/9.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/9.jpg)
 
 
 
@@ -348,7 +351,7 @@ and it is displayed the following:
 
 
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/10.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/10.jpg)
 
 
 
@@ -368,7 +371,7 @@ and we perform  terraform apply
 
 then type **MyInputName** and press enter and type **yes** and you got the following screen
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/11.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/11.jpg)
 
 
 
@@ -381,7 +384,6 @@ which shows  the outputs the **vpcid** that you created.
 
 
 ```
-
 
 variable "mytuple" {
     type = tuple( string,number,string)
@@ -411,7 +413,7 @@ Let us create an instance, first at all let us enter to the AWS console and copy
 
 
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/12-1622012491356.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/12-1622012491356.jpg)
 
 
 
@@ -437,13 +439,13 @@ resource "aws_instance" "ec2" {
 
 We go to the terminal and we go the ec2 folder and there we type `terraform init` and then `terraform apply`
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/13.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/13.jpg)
 
 and if we check our console we can see our instance created
 
 
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/14.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/14.jpg)
 
 
 
@@ -485,7 +487,7 @@ we type `terraform init` and then `terraform apply` in the folder eip
 
 
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/15.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/15.jpg)
 
 
 
@@ -495,21 +497,13 @@ now we  stop the instance and remove the elastic ip with  `terraform destroy`
 
 
 
-![](2021-05-25-AWS%20infrastructure%20with%20Terraform.assets/16.jpg)
+![](../assets/images/posts/2021-05-25-AWS-infrastructure-with-Terraform/16.jpg)
 
 
 
 
 
-
-
-
-
-
-
-
-
-**Congratulation** we have  practiced Terraform and Terragrunt
+**Congratulation** we have  practiced Terraform  by using AWS.
 
 
 
