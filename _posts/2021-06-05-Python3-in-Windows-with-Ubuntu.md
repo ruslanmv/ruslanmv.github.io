@@ -516,7 +516,7 @@ C:\Users\ruslamv\myproject1>
 
 
 
-bye default the terminal is **PowerShell** but you need to change it 
+by default the terminal is **PowerShell** but you need to change it 
 
 in terminal, you have two buttons that seems to be one
 
