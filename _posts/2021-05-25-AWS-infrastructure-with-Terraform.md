@@ -14,9 +14,19 @@ header:
 
 In the first part of this tutorial we are going  install  Terraform and AWS CLI  to deploy some  AWS services. 
 
-### Installation of Terraform
 
-1. First, ensure that you are using an ***[administrative shell](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/)\*** - you can also install as a non-admin, check out [Non-Administrative Installation](https://docs.chocolatey.org/en-us/choco/setup#non-administrative-install).
+
+##  What is Terraform?
+
+Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.
+
+###  Infrastructure as Code
+
+Infrastructure is described using a high-level configuration syntax. This allows a blueprint of your datacenter to be versioned and treated as you would any other code. Additionally, infrastructure can be shared and re-used.
+
+### Installation of Terraform in Windows
+
+First, ensure that you are using an ***[administrative shell](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/)\*** - you can also install as a non-admin, check out [Non-Administrative Installation](https://docs.chocolatey.org/en-us/choco/setup#non-administrative-install).
 
 With PowerShell, you must ensure [Get-ExecutionPolicy](https://go.microsoft.com/fwlink/?LinkID=135170) is not Restricted. We suggest using `Bypass` to bypass the policy to get things installed or `AllSigned` for quite a bit more security.
 
@@ -48,10 +58,6 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 2. Wait a few seconds for the command to complete.
 3. If you don't see any errors, you are ready to use Chocolatey! Type `choco` or `choco -?` 
 
-[Reference:](https://chocolatey.org/install) 
-
-
-
 Install the latest version of  Terraform
 
 ```
@@ -64,7 +70,35 @@ If you need an specific version of Terraform as an example `0.13.5`
 choco install terraform --version=0.13.5
 ```
 
+### Installation of Terraform in Linux
 
+Ensure that your system is up to date, and you have the gnupg, software-properties-common, and curl packages installed. You will use these packages to verify HashiCorp's GPG signature, and install HashiCorp's Debian package repository.
+
+```shell-session
+$ sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+```
+
+Add the HashiCorp [GPG key](https://apt.releases.hashicorp.com/gpg).
+
+```shell-session
+$ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+```
+
+Add the official HashiCorp Linux repository.
+
+```shell-session
+$ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+```
+
+Update to add the repository, and install the Terraform CLI.
+
+```shell-session
+$ sudo apt-get update && sudo apt-get install terraform
+```
+
+**TIP:** Now that you have added the HashiCorp repository, you can install [Vault](https://learn.hashicorp.com/tutorials/vault/getting-started-install), [Consul](https://learn.hashicorp.com/tutorials/consul/get-started-install), [Nomad](https://learn.hashicorp.com/tutorials/nomad/get-started-install) and [Packer](https://learn.hashicorp.com/tutorials/packer/get-started-install) with the same command.
+
+[Reference:](https://chocolatey.org/install) 
 
 ### Install AWS CLI on Windows
 
