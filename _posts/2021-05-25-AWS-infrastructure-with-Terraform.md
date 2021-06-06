@@ -20,7 +20,23 @@ In the first part of this tutorial we are going  install  Terraform and AWS CLI 
 
 With PowerShell, you must ensure [Get-ExecutionPolicy](https://go.microsoft.com/fwlink/?LinkID=135170) is not Restricted. We suggest using `Bypass` to bypass the policy to get things installed or `AllSigned` for quite a bit more security.
 
-- Run `Get-ExecutionPolicy`. If it returns `Restricted`, then run `Set-ExecutionPolicy AllSigned` or `Set-ExecutionPolicy Bypass -Scope Process`.
+Run 
+
+```
+Get-ExecutionPolicy
+```
+
+. If it returns `Restricted`, then run 
+
+```
+Set-ExecutionPolicy AllSigned
+```
+
+ or 
+
+```
+Set-ExecutionPolicy Bypass -Scope Process
+```
 
 Now run the following command:
 
@@ -33,6 +49,22 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 3. If you don't see any errors, you are ready to use Chocolatey! Type `choco` or `choco -?` 
 
 [Reference:](https://chocolatey.org/install) 
+
+
+
+Install the latest version of  Terraform
+
+```
+choco install terraform
+```
+
+If you need an specific version of Terraform as an example `0.13.5`
+
+```
+choco install terraform --version=0.13.5
+```
+
+
 
 ### Install AWS CLI on Windows
 
