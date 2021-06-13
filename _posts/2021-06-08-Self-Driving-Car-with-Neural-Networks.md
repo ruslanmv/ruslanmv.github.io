@@ -3,10 +3,10 @@ title: "Self-Driving-Car-with-Neural-Networks"
 excerpt: "Emulate your Self Driving Car with Neural Networks"
 
 header:
-  image: "../assets/images/posts/2021-06-08-Self-Driving-Car-with-Neural-Networks/self-driving-cars.jpg"
   teaser: "../assets/images/posts/2021-06-08-Self-Driving-Car-with-Neural-Networks/self-driving-cars.jpg"
-  caption: "The Future of Self Driving Cars"
-  
+  video:
+    id: GuamaNgul5w
+    provider: youtube  
 ---
 
 
@@ -1125,13 +1125,9 @@ open your drive emulator and choose autonomous mode
 
 
 
-and then you will check your how is running your code.
+and then you can check your how is running your code.
 
 
-
-```none
-[![Watch the video]()](https://youtu.be/GuamaNgul5w)
-```
 
 **Congratulations!** We have applied Neural Networks in Tensorflow to emulate a self driver car.
 
