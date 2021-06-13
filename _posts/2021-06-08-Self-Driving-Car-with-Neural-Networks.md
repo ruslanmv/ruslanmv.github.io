@@ -3,8 +3,8 @@ title: "Self-Driving-Car-with-Neural-Networks"
 excerpt: "Emulate your Self Driving Car with Neural Networks"
 
 header:
-  image: "/assets/images/self-driving-cars.webp"
-  teaser: "/assets/images/Future-of-Self-Driving-Cars.webp"
+  image: "../assets/images/posts/2021-06-08-Self-Driving-Car-with-Neural-Networks/self-driving-cars.webp"
+  teaser: "../assets/images/posts/2021-06-08-Self-Driving-Car-with-Neural-Networks/Future-of-Self-Driving-Cars.webp"
   caption: "The Future of Self Driving Cars"
   
 ---
