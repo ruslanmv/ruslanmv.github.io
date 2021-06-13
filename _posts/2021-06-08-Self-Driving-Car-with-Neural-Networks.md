@@ -1,5 +1,5 @@
 ---
-title: "Self-Driving-Car-with-Neural-Networks"
+title: "Self Driving Car with Neural Networks"
 excerpt: "Emulate your Self Driving Car with Neural Networks"
 
 header:
