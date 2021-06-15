@@ -1,7 +1,7 @@
 ---
 usemathjax: true
 title: "Quantum Machine Learning with TensorFlow Quantum"
-excerpt: "Welcome to my new website"
+excerpt: "Get started with  Quantum Machine Learning with TensorFlow Quantum"
 
 header:
   image: "../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/Interior_of_IBM_s_quantum_computer.jpg"
