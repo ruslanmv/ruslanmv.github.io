@@ -286,3 +286,6 @@ defaults:
       related: true
       header:
         hero: false
+
+# Build settings
+markdown: kramdown

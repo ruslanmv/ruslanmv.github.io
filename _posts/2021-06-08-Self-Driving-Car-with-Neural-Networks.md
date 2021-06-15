@@ -1127,6 +1127,10 @@ open your drive emulator and choose autonomous mode
 
 and then you can check your how is running your code.
 
+You can download the full notebook here:
+
+[https://github.com/ruslanmv/self-driving-car-with-neural-networks](https://github.com/ruslanmv/self-driving-car-with-neural-networks)
+
 
 
 **Congratulations!** We have applied Neural Networks in Tensorflow to emulate a self driver car.
