@@ -923,7 +923,7 @@ A **two-dimensional** labeled data structure with columns of potentially differe
 
 ```python
 >>> s.drop(['a', 'c']) #Drop values from rows (axis=B)
->>> df.drop( 'Coun try', axis=l) #Drop values from columns(axis=l)
+>>> df.drop( 'Country', axis=l) #Drop values from columns(axis=l)
 
 ```
 
@@ -1007,7 +1007,7 @@ Country Capital Population 1 India New Delhi 1303171035
 **By Label**
 
 ```python
->>> df.loc[[0], [ 'Coun try']] #Select single value by row & column labels 'Belgium'
+>>> df.loc[[0], [ 'Country']] #Select single value by row & column labels 'Belgium'
 >>> df.at([0], [ 'Country ']) 'Belgium'
 ```
 
