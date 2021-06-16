@@ -4,8 +4,8 @@ title: "Quantum Machine Learning with TensorFlow Quantum"
 excerpt: "Get started with  Quantum Machine Learning with TensorFlow Quantum"
 
 header:
-  image: "../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/Interior_of_IBM_s_quantum_computer.jpg"
-  teaser: "../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/Interior_of_IBM_s_quantum_computer.jpg"
+  image: "../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/Interior_of_IBM_s_quantum_computer.jpg"
+  teaser: "../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/Interior_of_IBM_s_quantum_computer.jpg"
   caption: "Interior of IBM’s quantum computer"
   
 ---
@@ -220,7 +220,7 @@ A visualization of the backend structure corresponding to a simple computation i
 
 
 
-![](../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/tensor.jpg)
+![](../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/tensor.jpg)
 
 ​																						**Figure 1**
 
@@ -417,7 +417,7 @@ plt.legend()
 
 
 
-![png](../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/gradients_24_1.png)
+![png](../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/gradients_24_1.png)
     
 
 
@@ -461,7 +461,7 @@ plt.legend()
 
 
 ​    
-![png](../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/gradients_25_1.png)
+![png](../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/gradients_25_1.png)
 ​    
 
 
@@ -501,7 +501,7 @@ plt.legend()
 
 
 ​    
-![png](../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/gradients_27_1.png)
+![png](../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/gradients_27_1.png)
 ​    
 
 
@@ -713,7 +713,7 @@ plt.xlabel('x')
 
 
 ​    
-![png](../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/gradients_42_1.png)
+![png](../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/gradients_42_1.png)
 ​    
 
 
@@ -877,7 +877,7 @@ bloch.show()
 ```
 
 
-![png](../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/binary_classifier_14_0.png)
+![png](../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/binary_classifier_14_0.png)
 ​    
 
 
@@ -930,7 +930,7 @@ print(history.history["loss"][-1])
 
 Now we test how well our model performs on a sample.  Notice that the network has high probability for predicting the correct state, even though the variation in the data was significant.
 
-[![Open In Colab](../assets/images/posts/2021-06-15-Quantum-Computing-With-Tensorflow/colab-badge.svg)](https://colab.research.google.com/github/tensorflow/quantum/blob/research/binary_classifier/binary_classifier.ipynb)
+[![Open In Colab](../assets/images/posts/2020-07-27-Quantum-Computing-With-Tensorflow/colab-badge.svg)](https://colab.research.google.com/github/tensorflow/quantum/blob/research/binary_classifier/binary_classifier.ipynb)
 
 **Congratulations:**  We have run some TensorFlow Quantum examples
 
