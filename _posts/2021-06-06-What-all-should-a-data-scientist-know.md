@@ -30,7 +30,7 @@ This is my personal list of the things that as data scientist should know:
 - [Section 9:  Neural Networks with Keras ](#section-9)
 - [Section 10:  PySpark & Spark SQL](#section-10)
 
-I should remark that I am **missing** many other import programming languages that can be used in **Data Science** such as **R, Spark, Scala, Ruby , JavaScript, Go and Swift** and tools of ingestion of Data such as **Apache Kafka**  and  creation of the Cloud Infrastructure such as     **Terraform** with **Terragrunt** and for the automatization of the **ETL** ,  **Airflow** and **Jenkins** and for sure  the **CLI ** in Linux and the use of **Git** and **Unit test** to check your programs.  In addition I am skipping all the part of **Deep Learning**  in details and Machine Learning in the Cloud that will be subject of future posts.
+I should remark that I am **missing** many other import programming languages that can be used in **Data Science** such as **R, Spark, Scala, Ruby , JavaScript, Go and Swift** and tools of ingestion of Data such as **Apache Kafka**  and  creation of the Cloud Infrastructure such as     **Terraform** with **Terragrunt** and for the automatization of the **ETL** ,  **Airflow** and **Jenkins** and for sure  the **CLI **  in Linux and the use of  **Git** and **Unit test** to check your programs.  In addition I am skipping all the part of **Deep Learning**  in details and Machine Learning in the Cloud that will be subject of future posts.
 
 I know there are a toons of things that is needed to know to become a great Data Scientist but I will introduce only the essential topics  based on **Python** and a little of **SQL** to manage the data from **Cloud Databases**. 
 
