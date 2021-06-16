@@ -546,7 +546,7 @@ Duration GPSstart Observatory Type UTCstart
 >>> os.listdir(wd) #Output contents of the directory in a list
 >>> os.chdir(path) #Change current working directory
 >>> os.rename( "testl.txt", #Rename a file
-11 test2.txt 11 )
+ 				"test2.txt" )
 >>> os.remove( "test1. txt") #Oelete an existing file
 >>> os.mkdir( "newd ir") #Create a new directory
 
