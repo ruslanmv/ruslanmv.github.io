@@ -20,3 +20,5 @@ gem "minimal-mistakes-jekyll"
 gem "rouge", "~> 3.2.1"
 gem 'gemoji', '~> 3.0', '>= 3.0.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+gem "webrick", "~> 1.7"

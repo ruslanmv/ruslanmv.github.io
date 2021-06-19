@@ -704,11 +704,11 @@ plt.show()
 
 You can download  the notebook here.
 
+[![Open In Colab](../assets/images/posts/2021-06-18-Reinforcement-Learning-with-Games-and-Neural-Networks/colab-badge.svg)](https://colab.research.google.com/gist/ruslanmv/3a51cecb1f9ad9f8e0cfa829213ca656/reinforcement_learning_lunar_lander.ipynb)
 
 
 
 
-https://colab.research.google.com/gist/ruslanmv/3a51cecb1f9ad9f8e0cfa829213ca656/reinforcement_learning_lunar_lander.ipynb
 
 **Congratulations** we have excuted  an Atari Game with python and  executed a Reiforcement Learning  with Colab!
 
