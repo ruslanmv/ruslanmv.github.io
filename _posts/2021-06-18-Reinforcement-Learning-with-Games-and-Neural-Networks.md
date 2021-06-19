@@ -11,6 +11,30 @@ header:
 
 Today In this blog I will show:  How to open an atari games by using python and we will chose one game to perform Reinforment Learning by using colab.
 
+**Gym is a toolkit for developing and comparing reinforcement learning algorithms.** It makes no assumptions about the structure of your agent, and is compatible with any numerical computation library, such as TensorFlow or Theano.
+
+The [gym](https://github.com/openai/gym) library is a collection of test problems — **environments** — that you can use to work out your reinforcement learning algorithms. These environments have a shared interface, allowing you to write general algorithms.
+
+The environment’s `step` function returns exactly what we need. In fact, `step` returns four values. These are:
+
+- `observation` (**object**): an environment-specific object representing your observation of the environment. For example, pixel data from a camera, joint angles and joint velocities of a robot, or the board state in a board game.
+- `reward` (**float**): amount of reward achieved by the previous action. The scale varies between environments, but the goal is always to increase your total reward.
+- `done` (**boolean**): whether it’s time to `reset` the environment again. Most  tasks are divided up into well-defined episodes, and `done` being `True` indicates the episode has terminated.
+- `info` (**dict**): diagnostic information useful for debugging. It can sometimes be useful for learning . However, official evaluations of your agent are not allowed to use this for learning.
+
+This is just an implementation of the classic “agent-environment loop”. Each timestep, the agent chooses an `action`, and the environment returns an `observation` and a `reward`.
+
+![img](../assets/images/posts/2021-06-18-Reinforcement-Learning-with-Games-and-Neural-Networks/aeloop-138c89d44114492fd02822303e6b4b07213010bb14ca5856d2d49d6b62d88e53.svg)
+
+The process gets started by calling `reset()`, which returns an initial `observation`. So a more proper way of writing the previous code would be to respect the `done` flag.
+
+Gym comes with a diverse suite of environments that range from easy to difficult and involve many different kinds of data. 
+
+- [Classic control](https://gym.openai.com/envs#classic_control) and [toy text](https://gym.openai.com/envs#toy_text): complete small-scale tasks, mostly from the RL literature. 
+- [Algorithmic](https://gym.openai.com/envs#algorithmic): perform computations such as adding multi-digit numbers and reversing sequences. One might object that these tasks are easy for a computer.
+- [Atari](https://gym.openai.com/envs#atari): play classic Atari games. 
+- [2D and 3D robots](https://gym.openai.com/envs#mujoco): control a robot in simulation.
+
 ## Installation
 
 To get started, you’ll need to have Python 3.5+ installed. Simply install `gym` using `pip`:
@@ -62,8 +86,6 @@ Lunar Lander is a single-player arcade game in the Lunar Lander subgenre. It was
 # LunarLander - v2
 
 Landing pad is always at coordinates (0,0). Coordinates are the first two numbers in state vector. Reward for moving from the top of the screen to landing pad and zero speed is about 100..140 points. If lander moves away from landing pad it loses reward back. Episode finishes if the lander crashes or comes to rest, receiving additional -100 or +100 points. Each leg ground contact is +10. Firing main engine is -0.3 points each frame. Solved is 200 points. Landing outside landing pad is possible. Fuel is infinite, so an agent can learn to fly and then land on its first attempt. Four discrete actions available: do nothing, fire left orientation engine, fire main engine, fire right orientation engine.
-
-
 
 In collab you can create a notebook
 
