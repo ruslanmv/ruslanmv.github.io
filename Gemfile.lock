@@ -109,6 +109,7 @@ GEM
     tzinfo-data (1.2021.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (1.7.0)
+    webrick (1.7.0)
 
 PLATFORMS
   ruby
@@ -121,6 +122,7 @@ DEPENDENCIES
   nokogiri (>= 1.8.5)
   rouge (~> 3.2.1)
   tzinfo-data
+  webrick (~> 1.7)
 
 BUNDLED WITH
    2.2.3
