@@ -732,5 +732,5 @@ You can download  the notebook here.
 
 
 
-**Congratulations** we have excuted  an Atari Game with python and  executed a Reiforcement Learning  with Colab!
+**Congratulations** we have excuted  an Atari Game with python and  executed a Reinforcement Learning  with Colab!
 
