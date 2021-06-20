@@ -302,20 +302,20 @@ Subset Lists of Lists
 >>> print(file.closed) #Check whether file is closed
 >>> file.close() #Close file
 >>> print(text)
-Using the context manager with
+```
 
->>> with open('huck_ finn.txt', 'r' ) as file:
+```
+>>> with open('huck_finn.txt', 'r' ) as file:
     print(file.readline()) #Read single line 
     print(file.readline()) 
     print(file.readline())
-
 ```
+
+
 
 ## Table Data: Flat Files
 
 **Importing Flat Files with NumPy**
-
-
 
 ```python
 >>>filename= 'huck_finn.txt'
@@ -349,11 +349,7 @@ Using the context manager with
 #The default dtype of the np.recfromcsv() function is None
 ```
 
-
-
 ### Importing Flat Files with Pandas
-
-
 
 ```python
 >>>filename= 'winequality-red.csv'
@@ -366,8 +362,6 @@ Using the context manager with
 
 ```
 
-
-
 ## Exploring  Your Data
 
 **NumPy Arrays**
@@ -376,10 +370,7 @@ Using the context manager with
 >> data_array.dtype #Data type of array elements
 >>> data_array.shape #Array dimensions
 >>> len(data_array) #Length of array
-
 ```
-
-
 
 **Pandas DataFrames**
 
@@ -407,8 +398,6 @@ Using the context manager with
 >>>data= pd.read_stata('urbanpop .dta')
 ```
 
-
-
 **Excel Spreadsheets**
 
 ```python
@@ -425,7 +414,7 @@ Using the context manager with
 To access the sheet names, use the sheet_names attribute:
 
 ```python
->>>   data.sheet_names
+>>> data.sheet_names
 ```
 
 ### Relational Databases
@@ -462,8 +451,6 @@ rs= con.execute('SELEC T OrderID FROM Order s')
 
 **Querying relational databases with pandas**
 
-
-
 ```
 >>> df = pd.read_sql_query( ''SELECT*  FROM Orders'', engine)
 ```
@@ -487,8 +474,6 @@ Matlab File
 
 HDF5 Files
 
-
-
 ```python
 >>> import h5py
 >>>filename= 'file.hdf5'
@@ -498,8 +483,6 @@ HDF5 Files
 ## Exploring Dictionaries
 
 **Querying relational databases with pandas**
-
-
 
 ```python
 >>> print(mat.keys()) #Print dictionary keys
@@ -534,10 +517,6 @@ Duration GPSstart Observatory Type UTCstart
 
 ```
 
-
-
-
-
 **OS Library**
 
 ```python
@@ -553,8 +532,6 @@ Duration GPSstart Observatory Type UTCstart
 
 ```
 
-
-
 **Pivot**
 
 ```python
@@ -568,10 +545,6 @@ values='Value' )
 
 **Pivot Table**
 
-
-
-
-
 ```python
 >>> df4 = pd.pivot_table(df2, #Spread rows into
 columns values='Va lue', index='Date ', columns='Type'])
@@ -580,17 +553,11 @@ columns values='Va lue', index='Date ', columns='Type'])
 
 **Stack** / **Unstack**
 
-
-
 ```python
 >>>stacked= df5.stack() #Pivot o level of column labels
 >>> stacked.unstack() #Pivot o level of index labels
 
 ```
-
-
-
-
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/2.jpg)
 
@@ -625,8 +592,6 @@ columns values='Va lue', index='Date ', columns='Type'])
 ### Advanced Indexing
 
 **Selecting**
-
-
 
 ```python
 >>> df3.loc[:,(df3>1).any()] #Select cols with any vols >1
@@ -731,8 +696,6 @@ names= [ 'first' , 'second' ])
 ```
 
 ### Grouping Data
-
-
 
 **Aggregation**
 
