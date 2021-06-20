@@ -119,7 +119,7 @@ from math import pi
 
 ```python
 >>> my_string = 'thisStringisAwesome'
->>> my _string
+>>> my_string
 'thisStringisAwesome'
 
 ```
@@ -127,9 +127,9 @@ from math import pi
 **String Operation**
 
 ```python
->>> my _string * 2
+>>> my_string * 2
 'thisStringisAwesomethisStringisAwesome'
->>>  my_string +'Innit'
+>>> my_string +'Innit'
 'thisStringisAwesomeinnit'
 >>> 'm' in  my_string
 True
@@ -140,8 +140,8 @@ True
 Index starts at 0
 
 ```python
->>> my_ string[ 3]
->>> my_ string[s :9]
+>>> my_string[ 3]
+>>> my_string[s :9]
 
 ```
 
@@ -150,16 +150,16 @@ Index starts at 0
 ```python
 >>> my_string.upper() #String to uppercase
 >>> my_string.lower() #String to lowercase
->>> my_ string.count('w') #Count String elements
->>> my_ string.replace('e', 'i') #Replace String elements
->>> my_ string.strip() #Strip whitespoces
+>>> my_string.count('w') #Count String elements
+>>> my_string.replace('e', 'i') #Replace String elements
+>>> my_string.strip() #Strip whitespoces
 
 ```
 
 ### Lists
 
 ```python
->>> my _list =  [1, 2, 3, s]
+>>> my_list =  [1, 2, 3, s]
 >>> my_array = np.array(my_list)
 >>> my_2darray = np.array([[l,2,3],[s,5,6]])
 
@@ -171,14 +171,14 @@ Index starts at 0
 
 ```python
 Subset
->>> my_ array[ l] #Select item at index 1
+>>> my_array[ l] #Select item at index 1
 2
 
 Slice
->>> my_ array[ 0:2]#Select items at index 0 and 1
+>>> my_array[ 0:2]#Select items at index 0 and 1
 array([1, 2])
 Subset 2D Numpy arrays
->>> my _2da rray[:,0]#my_2dorroy[rows, columns]
+>>> my_2da rray[:,0]#my_2dorroy[rows, columns]
 array([1, s])
 
 ```
@@ -200,12 +200,12 @@ array([6, 8, 10, 12])
 ```python
 >>> my_array.shape #Get the dimensions of the array
 >>> np.append(other_array) #Append items to on array
->>> np.insert( my _array, 1, 5) #Insert items in on array
->>> np.delete( my _array,[1]) #Delete items in on array
+>>> np.insert( my_array, 1, 5) #Insert items in on array
+>>> np.delete( my_array,[1]) #Delete items in on array
 >>> np.mean(my_array) #Mean of the array
 >>> np.median(my_array) #Median of the array
 >>> my_array.corrcoef() #Correlation coefficient
->>> np.std( my _array) #Standard deviation
+>>> np.std( my_array) #Standard deviation
 
 ```
 
@@ -225,7 +225,7 @@ Index starts at 0
 
 ```python
 Subset
->>> my _list[l] #Select item at index 1
+>>> my_list[l] #Select item at index 1
 >>> my_list[-3] #Select 3rd last item
 Slice
 >>> my_list[l:3] #Select items at index 1 and 2
@@ -406,7 +406,7 @@ Subset Lists of Lists
 >>> df_sheet2 = data.parse('1960-1966',
 				skiprows=[0], names=['Country',
 					'AAM: War(2002)'])
->>> df sheetl = data.parse(0,
+>>> df_sheetl = data.parse(0,
 				parse_cols=[0], skiprows=[0],
 				name s=['Country'])
 ```
@@ -497,12 +497,12 @@ meta quality strain
 **Accessing Data Items with Keys**
 
 ```python
->>> for key in data [ 'meta'].keys() #Explore the HOF5
+>>> for key in data['meta'].keys() #Explore the HOF5
 structure
 print(key) Description DescriptionURL Detector
 Duration GPSstart Observatory Type UTCstart
 #Retrieve the value for a key
->>> print(da ta['meta ']['Description'].value)
+>>> print(data['meta']['Description'].value)
 
 ```
 
@@ -547,7 +547,7 @@ values='Value' )
 
 ```python
 >>> df4 = pd.pivot_table(df2, #Spread rows into
-columns values='Va lue', index='Date ', columns='Type'])
+columns values='Value', index='Date', columns='Type'])
 
 ```
 
@@ -689,8 +689,8 @@ names= [ 'first' , 'second' ])
 ### Duplicate Data
 
 ```python
->>> s3.uniqu e(J #Return unique values
->>> df2.dup licated( 'Type') #Check duplicates
+>>> s3.unique() #Return unique values
+>>> df2.duplicated('Type') #Check duplicates
 >>> df2.drop_dup licates( 'Type', keep='last') #Drop duplicates
 >>> df.index.duplicated() #Check index duplicates
 ```
