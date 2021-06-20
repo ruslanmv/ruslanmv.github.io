@@ -9,8 +9,6 @@ header:
   caption: " AWS Solutions | Connect your business in the cloud"
 ---
 
-
-
 In this blog post,  I will try to give you the first  **10 things** to become a **Data Scientist** .
 
 For sure, depending of your background, you should learn many others things needed to become a great Data Scientist.
@@ -592,11 +590,7 @@ columns values='Va lue', index='Date ', columns='Type'])
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/2.jpg)
 
-
-
 **Melt**
-
-
 
 ```
 >>> pd.melt(df2, #Gather columns into rows
@@ -624,8 +618,6 @@ columns values='Va lue', index='Date ', columns='Type'])
 
 ```
 
-
-
 ### Advanced Indexing
 
 **Selecting**
@@ -642,8 +634,6 @@ columns values='Va lue', index='Date ', columns='Type'])
 
 **Indexing With** isin ()
 
-
-
 ```python
 >>> df[(df.Country.isin(df2.Type))] #Find some elements
 >>> df3.filter(iterns="a","b"]) #Filter on values
@@ -651,11 +641,7 @@ columns values='Va lue', index='Date ', columns='Type'])
 
 ```
 
-
-
 **Where**
-
-
 
 ```python
 >>> s.where(s > 0) #Subset the data
@@ -765,8 +751,6 @@ names= [ 'first' , 'second' ])
 
 **Merge**
 
-
-
 ```python
 >>> pd.merge(datal,
             data2,
@@ -806,8 +790,6 @@ names= [ 'first' , 'second' ])
 
 **Join**
 
-
-
 ```python
 >>> datal.join(data2, ho w='righ t')
 ```
@@ -842,8 +824,6 @@ periods=6, freq='M' )
 
 ### Visualization
 
-
-
 ```python
 >>> import matplotlib.pyplot as plt
 >>> s.plot()
@@ -859,8 +839,6 @@ periods=6, freq='M' )
 >>> plt.show()
 ```
 
-
-
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/10.jpg)
 
 # Section 3
@@ -871,9 +849,7 @@ periods=6, freq='M' )
 
 The **Pandas** library is built on NumPy and provides easy-to-use **data structures** and **data analysis** tools for the Python programming language.
 
- 
-
-**Use the following import convention:**
+ **Use the following import convention:**
 
 ```python
 >>> import pandas as pd
