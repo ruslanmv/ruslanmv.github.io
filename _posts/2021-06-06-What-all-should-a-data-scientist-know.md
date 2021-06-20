@@ -969,7 +969,7 @@ Country Brazil Capital Brasilia Population 207847528
 **Setting**
 
 ```python
->>> s['a'  ] = 6 #Set index a of Series s to 6
+>>> s['a'] = 6 #Set index a of Series s to 6
 ```
 
 ### Retrieving Series/DataFrame Information
@@ -1086,7 +1086,7 @@ The NumPy library is the  core library  for scientific computing in Python.  It 
 
 ```python
 >> np.loadtxt("myfile.txt")
->>> np.genfromtxt("my_file.csv"", delimiter=',' )
+>>> np.genfromtxt("my_file.csv", delimiter=',' )
 >>> np.savetxt("myarray.txt" , a, delimiter=" " )
 ```
 
@@ -1322,7 +1322,7 @@ Matplotlib is a Python 2D plotting library which produces publication-quality fi
 **2D Data or Images**
 
 ```python
->>>data= 2 * np.random.random((10, 10))
+>>> data= 2 * np.random.random((10, 10))
 >>> data2 = 3 * np.random.random((10, 10))
 >>> Y, X = np.mgrid[-3:3:100j, -3:3:100j]
 >>> U = -1 - X**2 + Y
@@ -1401,10 +1401,10 @@ ll plotting is done with respect to an Axes. In most cases, a subplot will fit y
 ```
 >>> fig, ax= plt.subplots()
 >>> im = ax.imshow(img, #Colormapped or RGB arrays
-cmap= 1 gist_ear th 1 ,
-interpo lation= 1 neare st',
-vmin=-2,
-vmax =2)
+            cmap= 1 gist_ear th 1 ,
+            interpolation= 1 neare st',
+            vmin=-2,
+            vmax =2)
 >>> axes2[0].pcolor(data2) #Pseudocolor plot of 2D array
 >>> axes2[0].pcolormesh(data) #Pseudocolor plot of 2D array
 >>>CS= plt.contour(Y,X,U) #Plot contours
@@ -3410,8 +3410,8 @@ True
 **Repartitioning** 
 
 ```python
->>> rdd.repartitian(s) #New ROD with 4 partitions
->>> rdd.caalesce(l) #Decrease the number of partitions in the ROD to 1
+>>> rdd.repartitian(4) #New ROD with 4 partitions
+>>> rdd.caalesce(1) #Decrease the number of partitions in the ROD to 1
 
 ```
 
