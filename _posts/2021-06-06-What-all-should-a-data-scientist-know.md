@@ -3174,17 +3174,11 @@ df.lastName \
 >> spark.stop()
 ```
 
-
-
 ## **PySpark RDD** 
-
-
 
 PySpark is the Spark Python API that exposes the Spark programming model to Python.
 
 **Inspect SparkContext**
-
-
 
 ```python
 >>> sc.version #Retrieve SparkContext version
@@ -3211,8 +3205,6 @@ PySpark is the Spark Python API that exposes the Spark programming model to Pyth
 ```
 
 **Using The Shell**
-
-
 
 In the PySpark shell, a special interpreter aware SparkContext is already created in the variable called sc.
 
@@ -3280,8 +3272,6 @@ True
 ```
 
 ### Applying Functions
-
-
 
 ```python
 #Apply a function to each ROD element
