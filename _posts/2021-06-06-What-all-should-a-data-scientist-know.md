@@ -127,11 +127,10 @@ from math import pi
 ```python
 >>> my _string * 2
 'thisStringisAwesomethisStringisAwesome'
->>>  my_string  +   'Innit'
+>>>  my_string +'Innit'
 'thisStringisAwesomeinnit'
->>> 'm'    in    my_string
+>>> 'm' in  my_string
 True
-
 ```
 
 **String** **Indexing** 
@@ -513,12 +512,12 @@ meta quality strain
 **Accessing Data Items with Keys**
 
 ```python
->>> for key in data [ 'me ta'].keys() #Explore the HOF5
+>>> for key in data [ 'meta'].keys() #Explore the HOF5
 structure
 print(key) Description DescriptionURL Detector
 Duration GPSstart Observatory Type UTCstart
 #Retrieve the value for a key
->>> print(da ta['meta ']['Descr iption'].value)
+>>> print(da ta['meta ']['Description'].value)
 
 ```
 
@@ -548,7 +547,7 @@ Duration GPSstart Observatory Type UTCstart
 >>> os.rename( "testl.txt", #Rename a file
  				"test2.txt" )
 >>> os.remove( "test1. txt") #Oelete an existing file
->>> os.mkdir( "newd ir") #Create a new directory
+>>> os.mkdir( "newdir") #Create a new directory
 
 ```
 
@@ -558,7 +557,7 @@ Duration GPSstart Observatory Type UTCstart
 
 ```python
 >>> df3= df2.pivot(inde x='Date', #Spread rows into columns
-col umns= ' Type  ' ,
+col umns= 'Type' ,
 values='Value' )
 
 ```
@@ -602,7 +601,7 @@ columns values='Va lue', index='Date ', columns='Type'])
 ```
 >>> pd.melt(df2, #Gather columns into rows
 		id _vars=[°Date°],     
-		value_var s=['Type', °Value°], 
+		value_var s=['Type','Value'], 
 		value name=''Observations'')
 ```
 
@@ -690,7 +689,6 @@ columns values='Va lue', index='Date ', columns='Type'])
 ```
 >>> df.reindex(	range(4),
 				method= 'ffill')
-
 ```
 
 ```
@@ -699,7 +697,6 @@ columns values='Va lue', index='Date ', columns='Type'])
 1	India	New Delhi	1303171035	
 2	Brazil	Brasilia	207847528	
 3	Brazil	Brasilia	207847528
-
 ```
 
 
@@ -709,7 +706,6 @@ columns values='Va lue', index='Date ', columns='Type'])
 ```python
 >>> s3 = s.reindex(	range(5),
 					method= 'bfill')
-
 ```
 
 ```
@@ -731,7 +727,6 @@ np.array([5,4,3])]
 names= [ 'first' , 'second' ])
 >>> df6 = pd.DataFrame(np.random.rand(3, 2), index=index)
 >>> df2.set_index([ "Date", "Type"])
-
 ```
 
 
@@ -743,7 +738,6 @@ names= [ 'first' , 'second' ])
 >>> df2.dup licated( 'Type') #Check duplicates
 >>> df2.drop_dup licates( 'Type', keep='last') #Drop duplicates
 >>> df.index.duplicated() #Check index duplicates
-
 ```
 
 ### Grouping Data
@@ -756,7 +750,6 @@ names= [ 'first' , 'second' ])
 >>> df2.groupby(by=['Date','Type']).mean()
 >>> df4.groupby(level=0).sum()
 >>> df4.groupby(level=0).agg({ 'a':lambda x:sum(x)/len (x), 'b': np.sum})
-
 ```
 
 **Transformation**
@@ -764,7 +757,6 @@ names= [ 'first' , 'second' ])
 ```python
 >>> customSum = lambda x: (x+x%2)
 >>> df4.groupby(level=0).transform(customSum)
-
 ```
 
 ## Combining Data
@@ -900,7 +892,7 @@ A **one-dimensional** labeled array
 capable of holding any data type
 
 ```
->>>  s   = pd.Series([3,-5,7, s], index=['a','b','c','d'])
+>>>  s = pd.Series([3,-5,7, s], index=['a','b','c','d'])
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/11.jpg)
@@ -1526,20 +1518,19 @@ The basic steps to creating plots with matplotlib are:
 >>> plt.show() #Step 6
 ```
 
-Close and Clear
+**Close and Clear**
 
-```
+```python
 >>> plt.cla() #Clear on axis
 >>> plt.clf() #Clear the entire figure
 >>> plt.close() #Close a window
-
 ```
 
 
 
-Plotting Cutomize Plot
+### Plotting Cutomize Plot
 
-Colors, Color Bars & Color Map
+**Colors, Color Bars & Color Map**
 
 ```python
 >>> plt.plot(x, x, x, X**2, x, X**3)
@@ -1560,20 +1551,15 @@ Colors, Color Bars & Color Map
 
 ​	**Linestyles**
 
-
-
-```
+```python
 >>> plt.plot(x,y,linewidth=4.0)
 >>> plt.plot(x,y,ls='solid')
 >>> plt.plot(x,y,ls='--' )
 >>> plt.plot(x, y,'-- 1 ,X**2,Y** 2, '-.')
 >>> plt.setp(lines,color='r',linewidth= 4.0)
-
 ```
 
 **Text** & **Annotations**
-
-
 
 ```
 >>> ax.text(1,-2.1,'Example Graph' , style='italic')
@@ -1587,7 +1573,9 @@ Colors, Color Bars & Color Map
 
 **Mathtext**
 
-\>>> plt.title(r'$sigma_ i=15$', fontsize=20)
+```
+>>> plt.title(r'$sigma_ i=15$', fontsize=20)
+```
 
 **Limits, Legends and Layouts**
 
@@ -2654,7 +2642,7 @@ Matrix Square Root
 
 ```
 >>> la, v = linalg.eig(A) #Solve ordinary or generalized eigenvalue problem for square matrix
->>> ll, l2 = la #Unpack eigenvalues
+>>> l1, l2 = la #Unpack eigenvalues
 >>> v[:,0] #First eigenvector
 >>> v[:,1] #Second eigenvector
 >>> linalg.eigvals(A) #Unpack eigenvalues
@@ -2742,10 +2730,10 @@ np.loadtxt(urlopen( "http://archive.ics.uci.edu/ml/machine-learning-databa ses/p
 
 ```python
 >>> from keras.utils import to_categorical
->>> Y_train = to_categorical(y_train, num_classes)
->>> Y_test = to_categorical(y _test, num_classes)
->>> Y_train3 = to_categorical(y_train3, num_classes)
->>> Y_test3 = to_categorical(y_test3, num_classes)
+>>Y_train = to_categorical(y_train,num_classes)
+>>> Y_test = to_categorical(y_test,num_classes)
+>>> Y_train3 = to_categorical(y_train3,num_classes
+>>> Y_test3 = to_categorical(y_test3,num_classes)
 ```
 
 ### Model Architecture
@@ -3082,7 +3070,7 @@ Duplicate Values
 #Show firstName, and lastName is TRUE if lastName is like Smith
 >>> df.select( "firstName",
 				df.lastName .like(''Smith')') \
-		.show()
+	  .show()
 ```
 
 **Startswith** - **Endswith**
@@ -3121,15 +3109,15 @@ df.lastName \
             .withColumn( 'postalCade',df.address.pastalCode) \
             .withCalumn( 'state',df.address.state) \
             .withColumn( 'streetAddress',df.address.streetAddress) \
-            .withColumn( 'telePhoneNumber ', explode(df.phoneNumber.number)) \
-            .withColumn( 'telePhone Type' , explode(df.phoneNumber.type))
+            .withColumn( 'telePhoneNumber ',explode(df.phoneNumber.number)) \
+            .withColumn( 'telePhone Type',explode(df.phoneNumber.type))
 
 ```
 
 **Updating Columns**
 
 ```
->>> df a df.withColumnRenamed('telePhoneNumber ','phoneNumber' )
+>>> df=df.withColumnRenamed('telePhoneNumber ','phoneNumber' )
 ```
 
 **Removing Columns**
@@ -3141,26 +3129,25 @@ df.lastName \
 
 ### Missing & Replacing Values
 
-```
+```python
 >>> df.na.fill(50).show() #Replace null values
 >>> df.na.drop().shaw() #Return new df omitting rows with null values
 >>> df.na \ #Return new df replacing one value with another
       .replace(10, 20) \
       .show()
-
 ```
 
 ### GroupBy
 
 ```python
->>> df.groupBy( "age")\ #Group by age, count the members in the groups
+>>> df.groupBy("age")\ #Group by age, count the members in the groups
       .count() \
       .show()
 ```
 
 ### Sort
 
-```
+```python
 >>> peopledf.sort(peopledf.age.desc()).collect()
 >>> df.sort("age" , ascending=False).collect()
 >>> df.orderBy([ "age", "city" ],ascending=[0,1])\
@@ -3169,12 +3156,11 @@ df.lastName \
 
 ### Repartitioning
 
-```
+```python
 >>> df.repartitian(10)\ #df with 10 partitions
 	  .rdd \
 	  .getNumPartitions()
->>> df.coalesce(1.rdd.getNumPartitions() #df with 1 partition
-
+>>> df.coalesce(1).rdd.getNumPartitions() #df with 1 partition
 ```
 
 ### Running Queries Programmatically
@@ -3188,14 +3174,14 @@ df.lastName \
 **Query Views**
 
 ```python
->>> df5 a spark .sql("SELECT * FROM customer").show()
+>>> df5 = spark.sql("SELECT * FROM customer").show()
 >>> peopledf2=spark.sql( "SELEC T* FROM global_ temp.people")\
 				    .show()
 ```
 
 ### **Inspect Data**
 
-```
+```python
 >>> df.dtypes #Return df column names and data types
 >>> df.show() #Display the content of df
 >>> df.head() #Return first n raws
@@ -3208,7 +3194,6 @@ df.lastName \
 >>> df.distinct().count() #Count the number of distinct rows in df
 >>> df.printSchema() #Print the schema of df
 >>> df.explain() #Print the (logical and physical) plans
-
 ```
 
 ### Output
@@ -3216,15 +3201,14 @@ df.lastName \
 **Data Structures**
 
 ```
->>> rddl a df.rdd #Convert df into an ROD
+>>> rddl = df.rdd #Convert df into an ROD
 >>> df.taJSON().first() #Convert df into a ROD of string
 >>> df.toPandas() #Return the contents of df as Pandas DataFrame
-
 ```
 
 **Write** & **Save to Files**
 
-```
+```python
 >>> df.select( "firstName", "city")\
  .write \
  .save("nameAndCity.parquet" )
@@ -3241,4 +3225,261 @@ df.lastName \
 
 
 
+## **PySpark RDD** 
+
+
+
+PySpark is the Spark Python API that exposes the Spark programming model to Python.
+
+**Inspect SparkContext**
+
+
+
+```python
+>>> sc.version #Retrieve SparkContext version
+>>> sc.pythonVer #Retrieve Python version
+>>> sc.master #Master URL to connect to
+>>> str(sc.sparkHome) #Path where Spark is installed an worker nodes
+>>> str(sc.sparkUser()) #Retrieve name of the Spark User running SparkContext
+>>> sc.appName #Return application name
+>>> sc.applicationld #Retrieve application ID
+>>> sc.defaultParallelism #Return default level of parallelism
+>>> sc.defaultMinPartitions #Default minimum number of partitions for RDDs
+
+```
+
+**Configuration**
+
+```
+>>> from pyspark import SparkConf, SparkContext
+>>> conf = (SparkConf()
+            .setMaster("local")
+            .setAppName("My app")
+            .set("spark.executor.memory","1g" ) )
+>>> sc = SparkContext(conf = conf)
+```
+
+**Using The Shell**
+
+
+
+In the PySpark shell, a special interpreter aware SparkContext is already created in the variable called sc.
+
+```
+$ ./bin/spark shell --master local[2]
+$ ./bin/pyspark --master local[4] --py files code.py
+```
+
+Set which master the context connects to with the --master argument, and add Python **.zip, .egg** or **.py** files to the  runtime path by passing a comma separated list to --py-files
+
+### Loading Data
+
+**Parallelized Collections**
+
+```python
+>>> rdd = sc.parallelize([('a',7),('a',2),('b',2)])
+>>> rdd = sc.parallelize([('a',2),('d',1),('b',1)])
+>>> rdd3 = sc.parallelize(range(100))
+>>> rdd4 = sc.parallelize([("a",["x","y","z"]),
+                            ("b",["p","r"])]
+```
+
+**External Data**
+
+Read either one text file from HDFS.a local file system or or any Hadoop-supported file system URI with textFile(). or read in a directory of text files with wholeTextFiles()
+
+```python
+>>> textFile = sc.textFile("/my/directory/*.txt")
+>>> textFile2 = sc.wholeTextFiles( "/my/directory/")
+```
+
+### Retrieving RDD Information
+
+**Basic Information**
+
+```python
+>>> rdd.getNumPartitions() #List the number of partitions
+>>> rdd.count() #Count ROD instances 3
+>>> rdd.countByKey() #Count ROD instances by key
+defaultdict(<type 'int'>,{'a':2,'b' :1})
+>>> rdd.countByValue() #Count ROD instances by value
+defaultdict(<type 'int'>,{('b',2):1,'(a',2):1,('a',7):1})
+>>> rdd.collectAsMap() #Return (key,value) pairs as a dictionary
+{'a':2,1b':2}
+>>> rdd3.sum() #Sum of ROD elements 4950
+>>> sc.parallelize([]).isEmpty() #Check whether ROD is empty
+True
+
+```
+
+**Summary**
+
+```python
+>>> rdd3.max() #Maximum value of ROD elements 99
+>>> rdd3.min() #Minimum value of ROD elements
+0
+>>> rdd3.mean() #Mean value of ROD elements
+,9.5
+>>> rdd3.stdev() #Standard deviation of ROD elements 2a.8660700s772211a
+>>> rdd3.variance() #Compute variance of ROD elements 833.25
+>>> rdd3.histogram(3) #Compute histogram by bins
+([0,33,66,991,[33,33,3,])
+>>> rdd3.stats() #Summary statistics (count, mean, stdev, max & min)
+
+```
+
+### Applying Functions
+
+
+
+```python
+#Apply a function to each ROD element
+>>> rdd.map(lambda x: x+(x[l],x[0])).callect()
+[('a',7,7,'a'),('a',2,2,'a'),('b',2,2,'b')]
+#Apply a function to each ROD element and flatten the result
+>>> rdd5 = rdd.flatMap(lambda x: x+(x[l],x[0]))
+>>> rdd5.collect()
+['a',7,7'a','a',2,2'a','b',2,2'b']
+#Apply a flatMap function to each (key,value) pair of rdd4 without changing the keys
+>>> rdds.flatMapValues(lambda x: x).callect()
+[('a','x'),('a','y'),('a','z'),('b','p'),('b','r')]
+
+```
+
+### Selecting Data
+
+
+
+**Getting**
+
+```python
+>>> rdd.collect() #Return a list with all ROD elements
+[('a',7),('a',2),('b',2)]
+>>> rdd.take(2) #Take first 2 ROD elements 
+[('a',7),('a',2)]
+>>> rdd.first() #Toke first ROD element
+[('a',7),('a',2)]
+>>> rdd.top(2) #Take top 2 ROD elements
+[('b',2),('a',7)]
+```
+
+**Sampling**
+
+```python
+>>> rdd3.sample(False, 0.15, 81).collect() #Return sampled subset of rdd3
+ [3,4,27,31,40,41,42,43,60,76,79,80,86,97]
+```
+
+**Filtering**
+
+```python
+>>> rdd.filter(lambda x: "a" in x).collect() #Filter the ROD
+[( 'a',7),('a',2)]
+>>> rdd5.distinct().callect() #Return distinct ROD values
+['a',2,'b',7]
+>>> rdd.keys().collect() #Return (key,value) RDD's keys
+['a','a','b']
+
+```
+
+```python
+>>> def g(x): print(x)
+>>> rdd.foreach(g) #Apply a function to all ROD elements
+('a',7)
+('b',2)
+('a',2)
+
+```
+
+### Reshaping Data
+
+**Reducing**
+
+```
+>>> rdd.reduceByKey(lambda x,y : x+y).callect() #Merge the rdd values for each key
+ [('a',9),('b',2)]
+>>> rdd.reduce(lambda a, b: a+	b) #Merge the rdd values
+('a',7,'a',2,'b',2)
+
+```
+
+**Grouping by**
+
+```python
+>>> rdd3.groupBy(lambda x: x % 2) 
+ .mapValues(list)
+ .collect()
+>>> rdd.groupByKey() 
+ .mapValues(list)
+ .collect()
+[('a',[7,2]),('b',[2])]
+```
+
+**Aggregating**
+
+```python
+>>> seqOp = (lambda x,y: (x[0]+y,x[1]+1))
+>>> combOp = (lambda x,y:(x[0]+y[0],x[1]+y[1]))
+#Aggregate RDD elements of each partition and then the results
+>>> rdd3.aggregate((0,0),seqOp,combOp) 
+ (4950,100) 
+ #Aggregate values of each RDD key
+>>> rdd.aggregateByKey((0,0),seqop,combop).collect()
+ [('a',(9,2)),('b',(2,1))]
+#Aggregate the elements of each partition, and then the results
+>>> rdd3.fold(0,add) 
+ 4950 
+#Merge the values for each key
+>>> rdd.foldByKey(0, add).collect()
+[('a',9),('b',2)]
+#Create tuples of RDD elements by applying a function
+>>> rdd3.keyBy(lambda x: x+x).collect() 
+```
+
+### Mathematical Operations
+
+```
+>>> rdd.subtract(rdd2).collect() #Return each rdd value not contained in rdd2
+[('b',2),('a',7)]
+#Return each (key,value) pair of rdd2 with no matching key in rdd
+>>> rdd2.subtractByKey(rdd).collect()
+[('d',1)l
+>>> rdd.cartesian(rdd2).callect() #Return the Cartesian product of rdd and rdd2
+```
+
+**Sort**
+
+```
+>>> rdd2.sortBy(lambda x: x[l]).collect() #Sort ROD by given function
+[('d',1),('b',1),('a',2)]
+>>> rdd2.sartByKey().collect() #Sort (key, value) ROD by key
+[('a',2),('b',1),('d',1)]
+```
+
+**Repartitioning** 
+
+```python
+>>> rdd.repartitian(s) #New ROD with 4 partitions
+>>> rdd.caalesce(l) #Decrease the number of partitions in the ROD to 1
+
+```
+
+**Saving**
+
+```
+>>> rdd .saveA sTextFile("rdd.txt")
+>>> rdd.saveAsHadaapFile("hdfs://namenadehost/parent/child",
+						  ’org.apache.hadoop.mapred.TextOutputFormat')
+
+```
+
+**Execution**
+
+```
+$ ./bin/spark submit examples/src/main/python/pi.py
+```
+
+
+
 **Congratulations!**    You have read an small summary about important things in **Data Science**.
+
