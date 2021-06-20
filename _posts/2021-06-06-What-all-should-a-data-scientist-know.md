@@ -1119,11 +1119,7 @@ The NumPy library is the  core library  for scientific computing in Python.  It 
 >>> np.savetxt("myarray.txt" , a, delimiter=" " )
 ```
 
-
-
 ### Inspecting  Your Array
-
-
 
 ```python
 >>> a.shape #Array dimensions
@@ -2860,11 +2856,11 @@ model3.compile(loss='binary_crossentropy ',
 
 ```python
 model3.fit(x_train4,
-			y_train4, 
-			batch_size=32, 
-			epochs=15, 
-			verbose=l,
-			validation_data=(x_test4,y_test4))
+           y_train4, 
+		   batch_size=32,
+		   epochs=15, 
+		   verbose=1,
+		   validation_data=(x_test4,y_test4))
 ```
 
 **Evaluate Your Model's Performance**
