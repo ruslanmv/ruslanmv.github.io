@@ -43,7 +43,11 @@ You  have also to know basis of **Data Engineering** such as in the previous pos
 
 
 
-## Python Operator Precedence
+<img src="../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/python-logo-3.png" style="zoom:33%;" />
+
+
+
+**Python Operator Precedence**
 
 From Python documentation on [operator precedence](http://docs.python.org/reference/expressions.html) (Section 5.15) 
 
@@ -845,7 +849,7 @@ periods=6, freq='M' )
 
 # Data Wrangling with Pandas 
 
-
+![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/pandas.png)
 
 The **Pandas** library is built on NumPy and provides easy-to-use **data structures** and **data analysis** tools for the Python programming language.
 
@@ -1068,6 +1072,10 @@ d 7.0
 # Section 4
 
 ## Data Analysis with Numpy
+
+
+
+<img src="../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/numpy.jpg" style="zoom:20%;" />
 
 The NumPy library is the  core library  for scientific computing in Python.  It provides a high performance multidimensional array object , and tools  for  working  with these arrays
 
@@ -1602,6 +1610,8 @@ hspace=0.3, left=0.125, right=0.9, top=0.9, bottom=0.1)
 
 # Queries in SQL 
 
+<img src="../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/sql.jpg" style="zoom:33%;" />
+
 ## **Querying** data **from a table**
 
 Query data in columns c1, c2 from a table
@@ -2046,6 +2056,10 @@ DROP TRIGGER trigger_name;
 
 # Machine Learning with Scikit-Learn
 
+![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/scikit.jpg)
+
+
+
 Scikit-learn is an open source Python library that implements a range of machine learning, preprocessing, cross-validation and visualization algorithms using a unified interface.
 
 **Example**
@@ -2348,6 +2362,8 @@ Scikit-learn is an open source Python library that implements a range of machine
 
 ## SciPy
 
+![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/scipi.png)
+
 **The SciPy library is one of the core packages for scientific computing that provides mathematical algorithms and convenience functions built on the NumPy extension of Python.**
 
 ```python
@@ -2640,6 +2656,10 @@ Matrix Square Root
 
 ##  Neural Networks with Keras
 
+<img src="../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/keras.png" style="zoom:50%;" />
+
+
+
 
 
 **Keras is a powerful and easy-to-use deep learning library for Theano and TensorFlow that provides a high-level neural networks API to develop and evaluate deep learning models.**
@@ -2908,11 +2928,9 @@ Optimization Parameters
 
 # PySpark & Spark SQL
 
-Spark SQL is Apache Spark's module for working with structured data.
+![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/pyskpark.png)
 
-
-
-A SparkSession can be used create DataFrame, register DataFrame as tables, execute SQL over tables, cache tables, and read parquet files
+Spark SQL is Apache Spark's module for working with structured data. A SparkSession can be used create DataFrame, register DataFrame as tables, execute SQL over tables, cache tables, and read parquet files
 
 ```
 >>> from pyspark.sql import SparkSession
