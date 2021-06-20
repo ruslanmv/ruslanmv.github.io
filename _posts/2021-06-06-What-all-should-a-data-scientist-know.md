@@ -1573,7 +1573,7 @@ hspace=0.3, left=0.125, right=0.9, top=0.9, bottom=0.1)
 
 # Queries in SQL 
 
-<img src="../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/sql.jpg" style="zoom:33%;" />
+![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/sql-1624218464827.jpg)
 
 ## **Querying** data **from a table**
 
@@ -2019,9 +2019,7 @@ DROP TRIGGER trigger_name;
 
 # Machine Learning with Scikit-Learn
 
-![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/scikit.jpg)
-
-
+<img src="../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/scikit-learn.png" style="zoom:70%;" />
 
 Scikit-learn is an open source Python library that implements a range of machine learning, preprocessing, cross-validation and visualization algorithms using a unified interface.
 
