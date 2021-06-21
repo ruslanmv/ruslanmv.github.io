@@ -94,8 +94,8 @@ $$\theta\leftarrow\theta-\left(\nabla_\theta^2\ell(\theta)\right)^{-1}\nabla_\th
 
 ### What is the  Least Mean Squares (LMS) algorithm ?
 
-LMS algorithm By noting $\alpha$ the learning rate, the update rule of the Least Mean Squares (LMS) algorithm
- for a training set of $m$ data points, which is also known as the Widrow-Hoff learning rule, is as follows:
+LMS algorithm By noting $$\alpha$$ the learning rate, the update rule of the Least Mean Squares (LMS) algorithm
+ for a training set of $$m$$ data points, which is also known as the Widrow-Hoff learning rule, is as follows:
 
 $$\displaystyle \forall j \quad \theta_j \leftarrow \theta_j+\alpha\sum_{i=1}^m[y^{(i)}-h_\theta(x^{(i)})]x_j^{(i)}$$
 
