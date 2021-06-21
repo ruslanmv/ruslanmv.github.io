@@ -1,7 +1,7 @@
 ---
 usemathjax: true
 title: " What should know about Deep Learning"
-excerpt: "Top questions that any Data Scientist working in Deep Learning should answer"
+excerpt: "Top questions that any Data Scientist working in Deep Learning should know"
 
 header:
   image: "../assets/images/posts/2021-06-20-What-should-know-about-Deep-Learning/data5.jpg"
