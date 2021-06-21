@@ -1018,7 +1018,7 @@ $$\boxed{Q(s,a)\leftarrow Q(s,a)+\alpha\Big[R(s,a,s')+\gamma\max_{a'}Q(s',a')-Q(
 
 
 
-**Congratulations y**ou have some of the concepts that any Data Scientist about Deep Learning should know . For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
+**Congratulations ** you have some of the concepts that any Data Scientist about Deep Learning should know . For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
 
 
 
