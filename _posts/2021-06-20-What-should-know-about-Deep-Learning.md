@@ -291,7 +291,7 @@ $$s=\frac{b-a}{\max(a,b)}$$
 
 ### What is Principal component analysis?
 It is a dimension reduction technique that finds the variance maximizing directions onto which to project the data.
-### What is **Eigenvalue, eigenvector**?
+### What is Eigenvalue, eigenvector?
 Given a matrix $$A\in\mathbb{R}^{n\times n}$$, $$\lambda$$ is said to be an eigenvalue of A
  if there exists a vector $$z\in\mathbb{R}^n\backslash\{0\}$$, called eigenvector, such that we have:
 $$\boxed{Az=\lambda z}$$
@@ -302,7 +302,7 @@ $$\boxed{Az=\lambda z}$$
 
 The Principal Component Analysis (PCA) procedure is a dimension reduction technique that projects the data on k*k* dimensions by maximizing the variance of the data as follows:
 
-This procedure maximizes the variance among all k*k*-dimensional spaces.
+This procedure maximizes the variance among all k-dimensional spaces.
 
 ![Illustration](../assets/images/posts/2021-06-20-What-should-know-about-Deep-Learning/pca-en.png)
 
