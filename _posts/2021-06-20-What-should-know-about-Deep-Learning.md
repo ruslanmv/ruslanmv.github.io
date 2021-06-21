@@ -278,6 +278,8 @@ which is summed up in the table below:
 |         **Ward linkage**         |               **Average linkage**               |                **Complete linkage**                |
 | :------------------------------: | :---------------------------------------------: | :------------------------------------------------: |
 | Minimize within cluster distance | Minimize average distance between cluster pairs | Minimize maximum distance of between cluster pairs |
+
+
 In an unsupervised learning setting, it is often hard to assess the performance of a model since we don't have 
 the ground truth labels as was the case in the supervised learning setting.
 
