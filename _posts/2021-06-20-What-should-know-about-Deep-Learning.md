@@ -957,7 +957,7 @@ Here are the different types of gates that we encounter in a typical recurrent n
 
 A long short-term memory (LSTM) network is a type of RNN model that avoids the vanishing gradient problem by adding 'forget' gates.
 
-###What is the goal of Reinforcement Learning ?
+### What is the goal of Reinforcement Learning ?
 
 The goal of reinforcement learning is for an agent to learn how to evolve in an environment.
 
