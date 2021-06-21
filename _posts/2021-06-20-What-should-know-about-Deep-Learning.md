@@ -960,6 +960,17 @@ A long short-term memory (LSTM) network is a type of RNN model that avoids the v
 ### What is the goal of Reinforcement Learning ?
 
 The goal of reinforcement learning is for an agent to learn how to evolve in an environment.
+Reinforcement learning involves an agent, a set of states $$ S $$,
+and a set $$A$$ of actions per state. By performing an action 
+$$a \in A$$, the agent transitions from state to state. 
+Executing an action in a specific state provides the agent with a **reward** (a numerical score).
+The goal of the agent is to maximize its total reward. 
+It does this by adding the maximum reward attainable from future states to the reward 
+for achieving its current state, effectively influencing the current action by the potential future reward. 
+This potential reward is a weighted sum of the expected values 
+of the rewards of all future steps starting from the current state
+
+
 
 ### What is Markov decision processes?
 
@@ -1010,6 +1021,9 @@ $$\boxed{V_{i+1}(s)=R(s)+\max_{a\in\mathcal{A}}\left[\sum_{s'\in\mathcal{S}}\gam
 
 ### What is Q-learning?
 
+Q-learning is a model-free reinforcement learning algorithm to learn the value of an action in a particular state. It does not require a model of the environment
+(hence "model-free"), and it can handle problems with stochastic transitions and rewards without requiring adaptations.
+
 **Q-learning** is a model-free estimation of Q, which is done as follows:
 
 $$\boxed{Q(s,a)\leftarrow Q(s,a)+\alpha\Big[R(s,a,s')+\gamma\max_{a'}Q(s',a')-Q(s,a)\Big]}$$
@@ -1018,7 +1032,7 @@ $$\boxed{Q(s,a)\leftarrow Q(s,a)+\alpha\Big[R(s,a,s')+\gamma\max_{a'}Q(s',a')-Q(
 
 
 
-**Congratulations ** you have some of the concepts that any Data Scientist about Deep Learning should know . For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
+**Congratulations** you have some of the concepts that any Data Scientist about Deep Learning should know . For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
 
 
 
