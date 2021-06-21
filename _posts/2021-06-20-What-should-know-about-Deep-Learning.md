@@ -157,7 +157,7 @@ $$\boxed{K(x,z)=\phi(x)^T\phi(z)}$$
 
 In practice, the kernel K defined by 
 
-$$K(x,z)=\exp\left(-\frac{\|x-z\|^2}{2\sigma^2}\right$$
+$$K(x,z)=\exp\left(-\frac{\|x-z\|^2}{2\sigma^2}\right)$$
 
 is called the Gaussian kernel and is commonly used.
 
