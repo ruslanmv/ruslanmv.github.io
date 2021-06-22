@@ -14,9 +14,18 @@ header:
     show_overlay_excerpt: false
 ---
 
+
+
+# Research profile:
+
+  [![orcid](/assets/images/orcid2.png)](https://orcid.org/0000-0001-6754-4238)
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+# Published Articles :
+
 <p><a href="https://orcid.org/0000-0001-6754-4238" title="Redirect Orcid">  
 <img src="../assets/images/physics.png" width="140" alt="homepage" /></a></p>
-
 
 
 
@@ -94,7 +103,7 @@ header:
   DOI: [10.1063/1.5124592](https://doi.org/10.1063/1.5124592)
   
 - ### The NUMEN project @ LNS: Status and perspectives
-Workshop on calculation of double-beta-decay matrix elements (medex’19)
+  Workshop on calculation of double-beta-decay matrix elements (medex’19)
   
    DOI: [10.1063/1.5130964](https://doi.org/10.1063/1.5130964)
   
@@ -232,9 +241,14 @@ Workshop on calculation of double-beta-decay matrix elements (medex’19)
 -  Review activity for **Brazilian Journal of Physics**
 
 Record last modified March 02, 2021 11:00:07 AM
-## Additional Research profiles:
 
- [![inspirehep](/assets/images/inspire.png)](https://inspirehep.net/authors/1073175)
+
+
+# Additional Research profiles:
+
+[![inspirehep](/assets/images/inspire.png)](https://inspirehep.net/authors/1073175)
+
+ [![researchgate](/assets/images/researchgate.png)](https://www.researchgate.net/profile/Ruslan_Magana_Vsevolodovna/research)
 
  [![google-scholar](/assets/images/google-scholar.png)](https://scholar.google.it/citations?user=rWBrOpwAAAAJ&hl=it&oi=sra)
 
@@ -242,8 +256,6 @@ Record last modified March 02, 2021 11:00:07 AM
 
 
 
- [![researchgate](/assets/images/researchgate.png)](https://www.researchgate.net/profile/Ruslan_Magana_Vsevolodovna/research)
 
-<div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0001-6754-4238" href="https://orcid.org/0000-0001-6754-4238" target="orcid.widget" rel="me noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">https://orcid.org/0000-0001-6754-4238</a></div>
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
