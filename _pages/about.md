@@ -46,5 +46,5 @@ I like open source projects    [<i class="fab fa-github"></i>  Github profile](h
   <img src="/assets/images/attachment-about.jpg" alt="Oaxaca Mexico">
   <figcaption>Oaxaca Mexico</figcaption>
 </figure>
-I also really enjoy public speaking and sharing my experiences in Science. You can checkout some  my videos in [Youtube.](https://www.youtube.com/c/ruslanmv/featured)
+I also really enjoy public speaking and sharing my experiences in Science. You can checkout some  my videos in [Youtube.](https://www.youtube.com/c/ruslanmv/playlists)
 
