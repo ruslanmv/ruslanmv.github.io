@@ -887,8 +887,6 @@ The generator is used to generate new examples, while the discriminator is used 
 
 ###  Why are generative adversarial networks (GANs) so popular?
 
-
-
 Generative adversarial networks are used for a variety of purposes. In the case of working with images, they have a high amount of traction and efficient working.
 
 - Creation of art: GANs are used to create artistic images, sketches, and paintings.
@@ -898,8 +896,6 @@ Generative adversarial networks are used for a variety of purposes. In the case 
 
 
 ### What are Neural Networks?
-
-
 
 Neural networks are a class of models that are built with layers. Commonly used types 
 of neural networks include convolutional and recurrent neural networks.
@@ -918,17 +914,21 @@ The individual neuron. As a diagram, a **neuron** (or **unit**) with one input l
 
 ![Diagram of a linear unit.](../assets/images/posts/2021-06-20-What-should-know-about-Deep-Learning/mfOlDR6.png)
 
-The Linear Unit: $$ y=wx+by=wx+b$$
-
-The input is `x`. Its connection to the neuron has a **weight** which is `w`. Whenever a value flows through a connection, you multiply the value by the connection's weight. For the input `x`, what reaches the neuron is `w * x`. 
+The Linear Unit: $$ y=wx+by=wx+b$$ The input is $$x$$ . Its connection to the neuron has a **weight** which is $$w$$ . Whenever a value flows through a connection, you multiply the value by the connection's weight. For the input $$x$$, what reaches the neuron is $$wx$$. 
 
 ### How the neuron learn new data?
 
 A neural network "learns" by modifying its weights.
 
-The `b` is a special kind of weight we call the **bias**. The bias doesn't have any input data associated with it; instead, we put a `1` in the diagram so that the value that reaches the neuron is just `b` (since `1 * b = b`). The bias enables the neuron to modify the output independently of its inputs.
+The $$b$$ is a special kind of weight we call the **bias**. 
 
-The `y` is the value the neuron ultimately outputs. To get the output, the neuron sums up all the values it receives through its connections. This neuron's activation is $$y = w * x + b$$ or as a formula $$y=wx+by=wx+b$$.
+The bias doesn't have any input data associated with it; instead, we put a  $$1$$ in the diagram so that the value that reaches the neuron is just   $$b$$  (since $$1 \times b = b$$).
+
+ The bias enables the neuron to modify the output independently of its inputs.
+
+The $$y$$ is the value the neuron ultimately outputs. To get the output, the neuron sums up all the values it receives through its connections. 
+
+This neuron's activation is $$y = w  x + b$$ or as a formula $$y=wx+by=wx+b$$.
 
 
 
@@ -1113,9 +1113,7 @@ $$\boxed{Q(s,a)\leftarrow Q(s,a)+\alpha\Big[R(s,a,s')+\gamma\max_{a'}Q(s',a')-Q(
 
 
 
-
-
-**Congratulations** you have some of the concepts that any Data Scientist about Deep Learning should know . For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
+**Congratulations** you have some of the concepts that any Data Scientist about Deep Learning should know. For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
 
 
 
