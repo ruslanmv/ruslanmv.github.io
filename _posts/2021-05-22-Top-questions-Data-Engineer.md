@@ -350,6 +350,38 @@ Finally runs reduce tasks on each partition based on key.
 
 
 
+### What is Polymorphism in Python?
+
+Polymorphism defines the ability to take different forms. In Python, Polymorphism lets us define methods in the child class that have the same name as the methods in the parent class. In inheritance, the child class inherits the methods from the parent class. This process of re-implementing a method in the child class is known as Method Overriding.
+
+
+
+```python
+class USA():
+	def capital(self):
+		print("Washington, D.C. is the capital of USA.")
+	def language(self):
+		print("English is the primary language of USA.")
+	def type(self):
+		print("USA is a developed country.")
+def func(obj):
+	obj.capital()
+	obj.language()
+	obj.type()
+obj_usa = USA()
+func(obj_usa)
+```
+
+**Output:**
+
+```
+Washington, D.C. is the capital of USA.
+English is the primary language of USA.
+USA is a developed country.
+```
+
+
+
 ### What is the difference between list and tuples in Python?
 
 Lists are mutable i.e they can be edited. Syntax: list_1 = [10, ‘Chelsea’, 20] Lists are slower than tuples. Tuples are immutable (tuples are lists which can’t be edited). Syntax: tup_1 = (10, ‘Chelsea’ , 20)
@@ -1038,8 +1070,31 @@ list.sort()
 print (list)
 ```
 
+### Identify numbers in a list
+
+Given a list of numbers list =[1,22,34,12,11,43,8] Check if there is a number where all numbers to the right are greater and to the left are smaller .Give me the position of the list where is located.
+
+```python
+list = [1,22,34,12,11,43,8]
+for item in list:
+            resa=[number for number in list if item > number]
+            size1=len(resa)
+            size2=len(list)-1
+            if (size1 == size2):
+                print("This is bigger than all",item,resa)
+            resa_small=[number for number in list if item < number]
+            size3=len(resa_small)
+            if (size2 == size3):
+                print("This is smaller than all",item,resa_small)    
+            print("For the number",
+                   item,
+                   "The smaller numbers are",
+                   resa,
+                   "The bigger numbers are",
+                    resa_small
+            )
+```
 
 
 
-
-Congratulations you have some of the concepts that any Data Engineer working in Spark should know . For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
+**Congratulations** you have some of the concepts that any Data Engineer working in Spark should know . For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
