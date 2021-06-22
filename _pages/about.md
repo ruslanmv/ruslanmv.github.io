@@ -31,20 +31,20 @@ My professional background includes crafting algorithms, making use of machine l
 
 I have the ability to expand existing data delivery platforms and creating data systems that optimize data management, capturing, and quality. 
 
-Please feel free to contact me at [contact@ruslanmv.com](mailto:contact@ruslanmv.com) with any thoughts, comments, or questions about my work—I’m always interested in making new professional acquaintances.  You can checkout some of  the projects that I have  [https://stackmuncher.com/ruslanmv](https://stackmuncher.com/ruslanmv ) or for more information you can visit  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
+Please feel free to contact me at [contact@ruslanmv.com](mailto:contact@ruslanmv.com) with any thoughts, comments, or questions about my work—I’m always interested in making new professional acquaintances.  You can checkout some of  the projects that I have  [https://stackmuncher.com/ruslanmv](https://stackmuncher.com/ruslanmv )  in addition you can visit  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
 
 
 
 ## Free time
 
-In my free time, I like to  be with my family around and visit new places, watch videos in Youtube. I like also have discussions about the culture of each new place we visit. Learn new languages and discover new people. I'm also in love with open source. Checkout my [<i class="fab fa-github"></i>  Github profile](https://github.com/ruslanmv) to see my projects and get in touch!
+In my free time, I like to  be with my family around and visit new places. I like also have discussions about the culture of each new place I  visit. Learn new languages and discover new people. I'm also in love to write topics about **Data Science** and **Data Engineering** Check out  [my Blog! ](https://ruslanmv.com/blog) 
 
-
+I like open source projects    [<i class="fab fa-github"></i>  Github profile](https://github.com/ruslanmv) to see my projects and get in touch!
 
 
 <figure>
   <img src="/assets/images/attachment-about.jpg" alt="Oaxaca Mexico">
   <figcaption>Oaxaca Mexico</figcaption>
 </figure>
-I also really enjoy public speaking and sharing my experiences. You can checkout some of my slides and videos in the [talks page](/talks). Are you looking for speakers?
+I also really enjoy public speaking and sharing my experiences in Science. You can checkout some  my videos in [Youtube.](https://www.youtube.com/c/ruslanmv/featured)
 
