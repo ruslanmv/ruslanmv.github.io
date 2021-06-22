@@ -27,11 +27,11 @@ I  was committed to provide high quality computations for nuclear physics,  and 
 
 
 
-My professional background includes crafting algorithms, making use of machine learning to mine, make sense of data, and using data visualization to present it to decision-makers. I am instrumental in analysing and delivering quantitative and qualitative research based solutions that reduce redundancy, improve accuracy and efficiency, and achieve organisational objectives. 
+My professional background includes crafting algorithms, making use of machine learning to mine, make sense of data, and using data visualization to present it to decision-makers. I am instrumental in analyzing and delivering quantitative and qualitative research based solutions that reduce redundancy, improve accuracy and efficiency, and achieve organizational objectives. 
 
-I have the ability to expand existing data delivery platforms and creating data systems that optimise data management, capturing, and quality. 
+I have the ability to expand existing data delivery platforms and creating data systems that optimize data management, capturing, and quality. 
 
-Please feel free to contact me at [contact@ruslanmv.com](mailto:contact@ruslanmv.com) with any thoughts, comments, or questions about my work—I’m always interested in making new professional acquaintances.  You can checkout some of  the services that I am able to do  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
+Please feel free to contact me at [contact@ruslanmv.com](mailto:contact@ruslanmv.com) with any thoughts, comments, or questions about my work—I’m always interested in making new professional acquaintances.  You can checkout some of  the projects that I have  [https://stackmuncher.com/ruslanmv](https://stackmuncher.com/ruslanmv ) or for more information you can visit  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
 
 
 
