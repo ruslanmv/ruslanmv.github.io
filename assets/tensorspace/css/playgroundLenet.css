@@ -1,0 +1,53 @@
+.signature-pad {
+    position: relative;
+}
+
+.wrapper {
+    width: 224px;
+    height: 224px;
+    margin-left: 38px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #000;
+    border: 1px solid #4C9BBB;
+    border-radius: 3px;
+}
+
+.controlButton {
+    width: 102px;
+}
+
+#clear {
+    margin-left: 38px;
+}
+
+#resetTrigger {
+    margin-left: 20px;
+}
+
+#hint {
+    width: 100%;
+    text-align: center;
+    color: #D6FDFF;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.inferences {
+    width: 100%;
+    margin-top: 20px;
+    vertical-align: middle;
+}
+
+.inferences > span {
+    display: inline-block;
+    width: 19%;
+    text-align: center;
+    color: #456989;
+    font-size: 22px;
+    line-height: 35px;
+    height: 35px;
+}
+

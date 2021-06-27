@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TensorSpace Playground - LeNet</title>
+
+    <meta name="description" content="TensorSpace.js Playground">
+    <link rel='icon' href='../../assets/img/common/logo.ico' type=‘image/x-ico’>
+    <meta name="viewport" content="width = device-width, initial-scale =1.0, maximum-scale = 1.0, user-scalable = no">
+
+    <script src="../../assets/jslib/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../assets/csslib/bootstrap.min.css">
+    <script src="../../assets/jslib/bootstrap.min.js"></script>
+    <script src="../../assets/jslib/three.min.js"></script>
+    <script src="../../assets/jslib/tween.min.js"></script>
+    <script src="../../assets/jslib/tf.min.js"></script>
+    <script src="../../assets/jslib/TrackballControls.js"></script>
+    <script src="../../assets/jslib/stats.min.js"></script>
+    <script src="../../assets/jslib/tensorspace.min.js"></script>
+    <script src="../../assets/jslib/signature_pad.min.js"></script>
+
+    <link rel="stylesheet" href="../../assets/csslib/material.fonts.css">
+    <link rel="stylesheet" href="../../assets/csslib/material.min.css">
+    <script src="../../assets/jslib/material.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/playground.css">
+    <link rel="stylesheet" href="../../css/playgroundLenet.css">
+
+    <script src="../../js/playground.js"></script>
+    <script src="../../js/lenet.js"></script>
+
+</head>
+<body>
+
+
+
+<aside id="playgroundNav">
+    <div><a href="../../../../../">Home</a></div>
+    <div><a href="../../../tools/index.html">Neural Network Draw</a></div>
+    <div><a href="../../../tools/LeNet.html">LeNet Draw</a></div>
+    <div><a href="index.html">Introduction</a></div>
+    <div class="now-label">LeNet<span class="aside-size-of-model">0.2MB</span></div>
+    <div><a href="mobilenetv1.html">MobileNetv1</a><span class="aside-size-of-model">16MB</span></div>
+    <div><a href="inceptionv3.html">InceptionV3</a><span class="aside-size-of-model">96MB</span></div>
+    <div><a href="resnet50.html">ResNet-50</a><span class="aside-size-of-model">98MB</span></div>
+    <img id="close" src="../../assets/img/playground/close.png">
+</aside>
+
+<div id="curtain"></div>
+
+<button id="playgroundMenu" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+    <i class="material-icons">menu</i>
+</button>
+
+<main>
+
+    <div id="modelArea"></div>
+    <div id="controlPanel">
+
+        <div class="panelTitle">LeNet</div>
+        <div class="nav-size-of-model">( Model Size: 0.2MB )</div>
+
+        <div class="wrapper">
+            <canvas id="signature-pad" class="signature-pad" width=224 height=224></canvas>
+        </div>
+
+        <button id="clear" class="controlButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            <i class="material-icons">clear</i>Clear
+        </button>
+
+        <button id="resetTrigger"
+                class="controlButton mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            <i class="material-icons">replay</i>Reset
+        </button>
+
+        <p id="hint">LeNet thinks you write a</p>
+
+        <div class="inferences">
+            <span id="result0">0</span>
+            <span id="result1">1</span>
+            <span id="result2">2</span>
+            <span id="result3">3</span>
+            <span id="result4">4</span>
+        </div>
+        <div class="inferences">
+            <span id="result5">5</span>
+            <span id="result6">6</span>
+            <span id="result7">7</span>
+            <span id="result8">8</span>
+            <span id="result9">9</span>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
