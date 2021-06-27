@@ -1,0 +1,29 @@
+#loadingPad {
+    background-color: #5E4773;
+}
+
+#controlPanel > img {
+
+    width: 80%;
+    margin-left: 10%;
+
+}
+
+#hint {
+    width: 100%;
+    text-align: center;
+    color: #D6FDFF;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+#PredictResult {
+
+    width: 100%;
+    text-align: center;
+    color: #D6FDFF;
+    margin-top: 40px;
+    font-size: 40px;
+    line-height: 40px;
+
+}

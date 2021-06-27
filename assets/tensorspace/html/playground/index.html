@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TensorSpace Playground</title>
+
+    <meta name="description" content="TensorSpace.js Playground">
+    <link rel='icon' href='../../assets/img/common/logo.ico' type=‘image/x-ico’>
+    <meta name="viewport" content="width = device-width, initial-scale =1.0, maximum-scale = 1.0, user-scalable = no">
+
+    <script src="../../assets/jslib/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../assets/csslib/bootstrap.min.css">
+    <script src="../../assets/jslib/bootstrap.min.js"></script>
+    <script src="../../assets/jslib/three.min.js"></script>
+    <script src="../../assets/jslib/tween.min.js"></script>
+    <script src="../../assets/jslib/tf.min.js"></script>
+    <script src="../../assets/jslib/TrackballControls.js"></script>
+    <script src="../../assets/jslib/tensorspace.min.js"></script>
+
+    <link rel="stylesheet" href="../../assets/csslib/material.fonts.css">
+    <link rel="stylesheet" href="../../assets/csslib/material.min.css">
+    <script src="../../assets/jslib/material.min.js"></script>
+
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/playground.css">
+    <link rel="stylesheet" href="../../css/playgroundIndex.css">
+
+    <script src="../../js/playground.js"></script>
+</head>
+<body>
+
+
+
+<div id="playgroundMenu">
+    <span class="glyphicon glyphicon-list"></span>
+</div>
+
+<aside id="playgroundNav">
+    <div><a href="../../../../../">Home</a></div>
+    <div><a href="../../../tools/index.html">Neural Network Draw</a></div>
+    <div><a href="../../../tools/LeNet.html">LeNet Draw</a></div>
+    <div class="now-label">Introduction</div>
+    <div><a href="lenet.html">LeNet</a><span class="aside-size-of-model">0.2MB</span></div>
+    <div><a href="mobilenetv1.html">MobileNetv1</a><span class="aside-size-of-model">16MB</span></div>
+    <div><a href="inceptionv3.html">InceptionV3</a><span class="aside-size-of-model">96MB</span></div>
+    <div><a href="resnet50.html">ResNet-50</a><span class="aside-size-of-model">98MB</span></div>
+    <img id="close" src="../../assets/img/playground/close.png">
+</aside>
+
+<div id="curtain"></div>
+
+<main>
+    <header>Neural Networks Playground</header>
+
+    
+    <p>Hi,the TensorSpace Playground is the place we designed for presenting different pre-built models. In the "Playground",
+        we can experience different pre-trained deep learning models, including object classification, object
+        detections, image generations etc.</p>
+    <p>All models in the "Playground" are interactive. We can move the mouse to see the relation lines among layers; we
+        can click the layer aggregation to check feature maps; we can move the camera to view from any direction.
+
+
+
+    <div class="guide">Interaction Guide:</div>
+    <div id="guideLine">
+
+        <div class="card-wrapper">
+
+            <div class="mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <img class="img33" src="../../assets/img/playground/left-click-drag.gif">
+                </div>
+                <div class="mdl-card__actions mdl-card--border operation-description">
+                    <p class="operation-title">- left click and drag -</p>
+                    <p class="operation-explanation">change camera angle</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-wrapper">
+
+            <div class="mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <img class="img33" src="../../assets/img/playground/right-click-drag.gif">
+                </div>
+                <div class="mdl-card__actions mdl-card--border operation-description">
+                    <p class="operation-title">- right click and drag -</p>
+                    <p class="operation-explanation">change camera position</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-wrapper">
+
+            <div class="mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <img class="img33" src="../../assets/img/playground/scroll.gif">
+                </div>
+                <div class="mdl-card__actions mdl-card--border operation-description">
+                    <p class="operation-title">- scroll up and down -</p>
+                    <p class="operation-explanation">move camera closer or further</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    
+
+    <div>The TensorSpace.js works well on Chrome, Safari, Firefox. TensorSpace is also compatible to mobile
+        browsers.
+        TensorSpace.org provides documents, downloads and live examples of TensorSpace.js.<br><br>
+        The source code of TensorSpace.js is available at <a
+                href="https://github.com/tensorspace-team/tensorspace">Github</a>.
+    </div>
+
+
+
+</main>
+
+</body>
+</html>

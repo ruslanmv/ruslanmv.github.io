@@ -402,9 +402,9 @@ predicted_classes = CNN.predict_classes(X_test_gray_norm)
 y_true = y_test
 ```
 
-Just in case we can remember the confusion matrix formulas
+ Exemplified Confusion matrix with the formulas of **precision** (PR), **recall** (RE), accuracy (CA), and **F 1-measure**
 
-![](../assets/images/posts/2021-07-25-Multi-Classification-Neural-Network-Traffic-Signs/confusionMatrxiUpdated.jpeg)
+![](../assets/images/posts/2021-07-25-Multi-Classification-Neural-Network-Traffic-Signs/confusion.png)
 
 
 
