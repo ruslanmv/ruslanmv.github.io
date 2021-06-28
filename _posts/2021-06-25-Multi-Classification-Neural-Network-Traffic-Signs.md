@@ -208,11 +208,11 @@ Weight and bias are the parameters that can be optimized while training and they
 
 If you want to see a cartoon of how the Neural Network works you can visit this
 
-page [https://www.cs.ryerson.ca/~aharley/vis/conv/](https://www.cs.ryerson.ca/~aharley/vis/conv/)
+page 
 
-or in 2D
-
-[https://www.cs.ryerson.car-aharley/vis/conv/flat.html](https://www.cs.ryerson.car-aharley/vis/conv/flat.html )
+[https://ruslanmv.com/assets/tensorspace/html/playground/lenet.html](https://ruslanmv.com/assets/tensorspace/html/playground/lenet.html)
+or
+[https://www.cs.ryerson.ca/~aharley/vis/conv/](https://www.cs.ryerson.ca/~aharley/vis/conv/flat.html)
 
 You can draw the number 5 for example and see the stages of the evolution of the
 
