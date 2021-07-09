@@ -89,10 +89,16 @@ conda install pip pandas
 conda install sqlite
 ```
 
-Then we install the correct versions of the the **Tensorflow**
+Then we install the correct versions of the the **Tensorflow**, if you will use only CPU
 
 ```
-pip install tensorflow==2.2.0
+pip install tensorflow==2.2.0  
+```
+
+If you will use GPU
+
+```
+pip install tensorflow-gpu==2.0.0
 ```
 
 ```
@@ -100,12 +106,22 @@ pip install keras==2.3.1
 ```
 
 ```
-pip install sagemaker
+pip install sagemaker==2.35.0
 ```
 
 ```
 pip  install boto3
 ```
+
+optional libraries that I suggest install are:
+
+```
+pip install awswrangler==2.7.0
+pip install seaborn==0.11.0
+pip install matplotlib===3.3.3
+```
+
+
 
 Then download the following file and local_sagemaker.ipynb 
 
