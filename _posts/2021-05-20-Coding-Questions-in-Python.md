@@ -1,6 +1,6 @@
 ---
-title: " Top 100 Coding Exercises in Python"
-excerpt: "Top  100 coding Exercises in Python that we should know "
+title: " Top Coding Exercises in Python"
+excerpt: "Top coding Exercises in Python that we should know "
 
 header:
   image: "../assets/images/posts/2021-05-20-Coding-Questions-in-Python/mac.jpg"
