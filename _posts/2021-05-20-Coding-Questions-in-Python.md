@@ -39,7 +39,7 @@ d[x] "Return value for key x"
 d[x] = 1 "Set value for key x to 1"
 d.keys() "Return list of keys"
 d.values() "Return list of values"
-Tuple
+#Tuple
 tup = ()
 tup = (1,2) + tup
 #Other functions
