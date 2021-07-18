@@ -9,10 +9,6 @@ header:
   
 ---
 
-
-
-
-
 For this project, we are going to work on evaluating price of houses given the following features:
 
 1. Year of sale of the house
@@ -21,6 +17,8 @@ For this project, we are going to work on evaluating price of houses given the f
 4. Number of stores in the locality
 5. The latitude
 6. The longitude
+
+
 
 Note: This notebook uses `python 3` and these packages: `tensorflow`, `pandas`, `matplotlib`, `scikit-learn`.
 
@@ -50,11 +48,9 @@ print('Libraries imported.')
 
 #  Importing the Data
 
+You can download the data from [here](https://github.com/ruslanmv/Regression-with-Neural-Networks/blob/main/data.csv).
+
 The dataset is saved in a `data.csv` file. We will use `pandas` to take a look at some of the rows.
-
-
-
-You can download the data from [here](https://github.com/ruslanmv/Regression-with-Neural-Networks/blob/main/data.csv)
 
 
 ```python
@@ -80,7 +76,6 @@ df.isna()
         vertical-align: middle;
     }
 
-
     .dataframe tbody tr th {
         vertical-align: top;
     }
@@ -88,9 +83,7 @@ df.isna()
     .dataframe thead th {
         text-align: right;
     }
-
 </style>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -230,7 +223,6 @@ df.isna()
   </tbody>
 </table>
 <p>5000 rows × 8 columns</p>
-
 </div>
 
 
@@ -277,11 +269,14 @@ df.head()
         vertical-align: middle;
     }
 
-
-    .dataframe tbody tr th {    vertical-align: top;}.dataframe thead th {    text-align: right;}
-
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+    
+    .dataframe thead th {
+        text-align: right;
+    }
 </style>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -354,7 +349,6 @@ df.head()
     </tr>
   </tbody>
 </table>
-
 </div>
 
 
@@ -375,11 +369,14 @@ df.iloc[:,1:].head()
         vertical-align: middle;
     }
 
-
-    .dataframe tbody tr th {    vertical-align: top;}.dataframe thead th {    text-align: right;}
-
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+    
+    .dataframe thead th {
+        text-align: right;
+    }
 </style>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -446,7 +443,6 @@ df.iloc[:,1:].head()
     </tr>
   </tbody>
 </table>
-
 </div>
 
 
@@ -455,7 +451,9 @@ and we normalize
 
 
 ```python
-df = df.iloc[:,1:]df_norm = (df - df.mean())/df.std()df_norm.head()
+df = df.iloc[:,1:]
+df_norm = (df - df.mean())/df.std()
+df_norm.head()
 ```
 
 
@@ -467,11 +465,14 @@ df = df.iloc[:,1:]df_norm = (df - df.mean())/df.std()df_norm.head()
         vertical-align: middle;
     }
 
-
-    .dataframe tbody tr th {    vertical-align: top;}.dataframe thead th {    text-align: right;}
-
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+    
+    .dataframe thead th {
+        text-align: right;
+    }
 </style>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -538,7 +539,6 @@ df = df.iloc[:,1:]df_norm = (df - df.mean())/df.std()df_norm.head()
     </tr>
   </tbody>
 </table>
-
 </div>
 
 
@@ -554,7 +554,14 @@ Because we are using normalized values for the labels, we will get the predictio
 
 
 ```python
-y_mean = df['price'].mean()y_std = df['price'].std()def convert_label_value(pred):    return int(pred * y_std + y_mean)print(convert_label_value(-1.836486), " that corresponds to the price 12032")
+y_mean = df['price'].mean()
+y_std = df['price'].std()
+
+def convert_label_value(pred):
+    return int(pred * y_std + y_mean)
+
+
+print(convert_label_value(-1.836486), " that corresponds to the price 12032")
 ```
 
     12031  that corresponds to the price 12032
@@ -568,7 +575,8 @@ Make sure to remove the column __price__ from the list of features as it is the 
 
 
 ```python
-x = df_norm.iloc[:,:6]x.head()
+x = df_norm.iloc[:,:6]
+x.head()
 ```
 
 
@@ -580,11 +588,14 @@ x = df_norm.iloc[:,:6]x.head()
         vertical-align: middle;
     }
 
-
-    .dataframe tbody tr th {    vertical-align: top;}.dataframe thead th {    text-align: right;}
-
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+    
+    .dataframe thead th {
+        text-align: right;
+    }
 </style>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -645,7 +656,6 @@ x = df_norm.iloc[:,:6]x.head()
     </tr>
   </tbody>
 </table>
-
 </div>
 
 
@@ -656,7 +666,8 @@ We select the prices
 
 
 ```python
-y = df_norm.iloc[:,-1:]y.head()
+y = df_norm.iloc[:,-1:]
+y.head()
 ```
 
 
@@ -668,11 +679,14 @@ y = df_norm.iloc[:,-1:]y.head()
         vertical-align: middle;
     }
 
-
-    .dataframe tbody tr th {    vertical-align: top;}.dataframe thead th {    text-align: right;}
-
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+    
+    .dataframe thead th {
+        text-align: right;
+    }
 </style>
-
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -703,7 +717,6 @@ y = df_norm.iloc[:,-1:]y.head()
     </tr>
   </tbody>
 </table>
-
 </div>
 
 
@@ -714,10 +727,15 @@ We will need to extract just the numeric values for the features and labels as t
 
 
 ```python
-x_arr = x.valuesy_arr = y.valuesprint('features array shape', x_arr.shape)print('labels array shape', y_arr.shape)
+x_arr = x.values
+y_arr = y.values
+
+print('features array shape', x_arr.shape)
+print('labels array shape', y_arr.shape)
 ```
 
-    features array shape (5000, 6)labels array shape (5000, 1)
+    features array shape (5000, 6)
+    labels array shape (5000, 1)
 
 
 ## Train and Test Split
@@ -726,10 +744,16 @@ We will keep some part of the data aside as a __test__ set. The model will not u
 
 
 ```python
-x_train, x_test , y_train, y_test = train_test_split(x_arr,                                                     y_arr,                                                      test_size = 0.05,                                                      random_state =0)print( 'Training set', x_train.shape, y_train.shape)print( 'Test set', x_test.shape, y_test.shape)
+x_train, x_test , y_train, y_test = train_test_split(x_arr,
+                                                     y_arr, 
+                                                     test_size = 0.05, 
+                                                     random_state =0)
+print( 'Training set', x_train.shape, y_train.shape)
+print( 'Test set', x_test.shape, y_test.shape)
 ```
 
-    Training set (4750, 6) (4750, 1)Test set (250, 6) (250, 1)
+    Training set (4750, 6) (4750, 1)
+    Test set (250, 6) (250, 1)
 
 
 Let's write a function that returns an untrained model
@@ -770,7 +794,22 @@ Let's write a function that returns an untrained model of a certain architecture
 
 
 ```python
-def get_model():    model = Sequential([        Dense(10, input_shape = (6,), activation = 'relu'),        Dense(20, activation = 'relu'),        Dense(5, activation = 'relu'),        Dense(1)                     ])        model.compile(         loss = 'mse',         optimizer = 'adam'                )    return model
+def get_model():
+    model = Sequential([
+        Dense(10, input_shape = (6,), activation = 'relu'),
+        Dense(20, activation = 'relu'),
+        Dense(5, activation = 'relu'),
+        Dense(1) 
+        
+        
+    ])
+    
+    model.compile(
+         loss = 'mse',
+         optimizer = 'adam'    
+            )
+    return model
+
 ```
 
 This is the input and then we have three hidden layers.
@@ -809,7 +848,22 @@ the loss of function.
 get_model().summary()
 ```
 
-    Model: "sequential"_________________________________________________________________Layer (type)                 Output Shape              Param #   =================================================================dense (Dense)                (None, 10)                70        _________________________________________________________________dense_1 (Dense)              (None, 20)                220       _________________________________________________________________dense_2 (Dense)              (None, 5)                 105       _________________________________________________________________dense_3 (Dense)              (None, 1)                 6         =================================================================Total params: 401Trainable params: 401Non-trainable params: 0_________________________________________________________________
+    Model: "sequential"
+    _________________________________________________________________
+    Layer (type)                 Output Shape              Param #   
+    =================================================================
+    dense (Dense)                (None, 10)                70        
+    _________________________________________________________________
+    dense_1 (Dense)              (None, 20)                220       
+    _________________________________________________________________
+    dense_2 (Dense)              (None, 5)                 105       
+    _________________________________________________________________
+    dense_3 (Dense)              (None, 1)                 6         
+    =================================================================
+    Total params: 401
+    Trainable params: 401
+    Non-trainable params: 0
+    _________________________________________________________________
 
 
 The first dense layer that you see here is our first
@@ -857,10 +911,56 @@ We can use an `EarlyStopping` callback from Keras to stop the model training if 
 
 
 ```python
-es_cb = EarlyStopping(monitor='val_loss',patience=5)model = get_model()preds_on_untrained = model.predict(x_test)history = model.fit(        x_train,y_train,        validation_data =(x_test,y_test),        epochs = 100,        callbacks = [es_cb])
+es_cb = EarlyStopping(monitor='val_loss',patience=5)
+model = get_model()
+preds_on_untrained = model.predict(x_test)
+history = model.fit(
+        x_train,y_train,
+        validation_data =(x_test,y_test),
+        epochs = 100,
+        callbacks = [es_cb]
+
+)
 ```
 
-    Epoch 1/100149/149 [==============================] - 1s 3ms/step - loss: 0.6905 - val_loss: 0.2966Epoch 2/100149/149 [==============================] - 0s 1ms/step - loss: 0.2348 - val_loss: 0.1922Epoch 3/100149/149 [==============================] - 0s 1ms/step - loss: 0.1783 - val_loss: 0.1677Epoch 4/100149/149 [==============================] - 0s 1ms/step - loss: 0.1676 - val_loss: 0.1666Epoch 5/100149/149 [==============================] - 0s 1ms/step - loss: 0.1631 - val_loss: 0.1633Epoch 6/100149/149 [==============================] - 0s 1ms/step - loss: 0.1602 - val_loss: 0.1612Epoch 7/100149/149 [==============================] - 0s 1ms/step - loss: 0.1589 - val_loss: 0.1616Epoch 8/100149/149 [==============================] - 0s 1ms/step - loss: 0.1562 - val_loss: 0.1602Epoch 9/100149/149 [==============================] - 0s 1ms/step - loss: 0.1558 - val_loss: 0.1608Epoch 10/100149/149 [==============================] - 0s 1ms/step - loss: 0.1561 - val_loss: 0.1623Epoch 11/100149/149 [==============================] - 0s 2ms/step - loss: 0.1550 - val_loss: 0.1604Epoch 12/100149/149 [==============================] - 0s 1ms/step - loss: 0.1540 - val_loss: 0.1605Epoch 13/100149/149 [==============================] - 0s 2ms/step - loss: 0.1539 - val_loss: 0.1573Epoch 14/100149/149 [==============================] - 0s 1ms/step - loss: 0.1530 - val_loss: 0.1537Epoch 15/100149/149 [==============================] - 0s 1ms/step - loss: 0.1526 - val_loss: 0.1600Epoch 16/100149/149 [==============================] - 0s 1ms/step - loss: 0.1523 - val_loss: 0.1544Epoch 17/100149/149 [==============================] - 0s 1ms/step - loss: 0.1515 - val_loss: 0.1567Epoch 18/100149/149 [==============================] - 0s 1ms/step - loss: 0.1516 - val_loss: 0.1601Epoch 19/100149/149 [==============================] - 0s 1ms/step - loss: 0.1510 - val_loss: 0.1593
+    Epoch 1/100
+    149/149 [==============================] - 1s 3ms/step - loss: 0.6905 - val_loss: 0.2966
+    Epoch 2/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.2348 - val_loss: 0.1922
+    Epoch 3/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1783 - val_loss: 0.1677
+    Epoch 4/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1676 - val_loss: 0.1666
+    Epoch 5/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1631 - val_loss: 0.1633
+    Epoch 6/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1602 - val_loss: 0.1612
+    Epoch 7/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1589 - val_loss: 0.1616
+    Epoch 8/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1562 - val_loss: 0.1602
+    Epoch 9/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1558 - val_loss: 0.1608
+    Epoch 10/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1561 - val_loss: 0.1623
+    Epoch 11/100
+    149/149 [==============================] - 0s 2ms/step - loss: 0.1550 - val_loss: 0.1604
+    Epoch 12/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1540 - val_loss: 0.1605
+    Epoch 13/100
+    149/149 [==============================] - 0s 2ms/step - loss: 0.1539 - val_loss: 0.1573
+    Epoch 14/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1530 - val_loss: 0.1537
+    Epoch 15/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1526 - val_loss: 0.1600
+    Epoch 16/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1523 - val_loss: 0.1544
+    Epoch 17/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1515 - val_loss: 0.1567
+    Epoch 18/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1516 - val_loss: 0.1601
+    Epoch 19/100
+    149/149 [==============================] - 0s 1ms/step - loss: 0.1510 - val_loss: 0.1593
 
 
 ##  Plot Training and Validation Loss
@@ -895,7 +995,8 @@ Let's use the `compare_predictions` helper function to compare predictions from 
 
 
 ```python
-preds_on_trained = model.predict(x_test)compare_predictions(preds_on_untrained,preds_on_trained,y_test)
+preds_on_trained = model.predict(x_test)
+compare_predictions(preds_on_untrained,preds_on_trained,y_test)
 ```
 
 
