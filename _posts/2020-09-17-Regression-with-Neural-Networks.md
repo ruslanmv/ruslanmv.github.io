@@ -53,6 +53,10 @@ print('Libraries imported.')
 The dataset is saved in a `data.csv` file. We will use `pandas` to take a look at some of the rows.
 
 
+
+You can download the data from [here](https://github.com/ruslanmv/Regression-with-Neural-Networks/blob/main/data.csv)
+
+
 ```python
 df = pd.read_csv('data.csv', names = column_names)
 df.head()
@@ -933,11 +937,14 @@ compare_predictions(preds_on_untrained,preds_on_trained,y_test)
 ![png](../assets/images/posts/2020-09-17-Regression-with-Neural-Networks/Regression-with-Neural-Networks_53_0.png)
 ​    
 
-
 We pretty much get the same graph, but the ranges are now
 different. You can see the ranges from 12,000 to 16,000 or something for
 both predictions and labels You can see that the train model is a lot more
 aligned in its predictions to ground truth compared to the
 untrained model.
+
+You can download the notebook [here](https://github.com/ruslanmv/Regression-with-Neural-Networks/blob/main/Regression-with-Neural-Networks.ipynb)
+
+
 
 **Congratulations!** we have created a neural network that performs regression.
