@@ -297,7 +297,7 @@ num1='364'
 num2='1836'
 
 def sumation(num1,num2):
-    return str(eval(num1)+eval(num2))
+    return str(int(num1)+int(num2))
 print(sumation(num1,num2))
 ```
 
