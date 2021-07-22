@@ -65,6 +65,8 @@ Extract the Fibonacci numbers from a list from 1 to 100
 #F_n=F_{n-1}-F_{n-2}
 # F_0=0 and F_1=1
 
+lista=list(range(1,10))
+
 def fibonacci(n):
     if n < 0 :
         print("The n should be positive")
@@ -74,11 +76,8 @@ def fibonacci(n):
         return 1
     else:
         return fibonacci(n-1)+fibonacci(n-2)
-
-lista=list(range(1,100))
-fib_num=map(lambda x: fibonacci(x),lista)
-values = map(lambda x: fibonacci(x),lista)
-print(list(values))
+        
+print(list(map(lambda x: fibonacci(x),lista)))
 ```
 
 **Practice yourself**
