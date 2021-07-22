@@ -631,6 +631,68 @@ There are four main layers that form a convolutional neural network:
 
 
 
+
+
+## What is Convolutional layers?
+
+Convolutional layers in a convolutional neural network systematically apply learned filters to input images in order to create feature maps that summarize the presence of those features in the input.
+
+Convolutional layers prove very effective, and stacking convolutional layers in deep models allows layers close to the input to learn low-level features (e.g. lines) and layers deeper in the model to learn high-order or more abstract features, like shapes or specific objects.
+
+
+
+
+
+## What is down sampling?
+
+A limitation of the feature map output of convolutional layers is that they record the precise position of features in the input. This means that small movements in the position of the feature in the input image will result in a different feature map. This can happen with re-cropping, rotation, shifting, and other minor changes to the input image.
+
+A common approach to addressing this problem from signal processing is called **down sampling**. This is where a lower resolution version of an input signal is created that still contains the large or important structural elements, without the fine detail that may not be as useful to the task.
+
+Down sampling can be achieved with convolutional layers by changing the stride of the convolution across the image. A more robust and common approach is to use a pooling layer.
+
+
+
+### What is pooling layer?
+
+
+
+A pooling layer is a new layer added after the convolutional layer. Specifically, after a nonlinearity (e.g. ReLU) has been applied to the feature maps output by a convolutional layer; for example the layers in a model may look as follows:
+
+1. Input Image
+2. Convolutional Layer
+3. Nonlinearity
+4. Pooling Layer
+
+The addition of a pooling layer after the convolutional layer is a common pattern used for ordering layers within a convolutional neural network that may be repeated one or more times in a given model.
+
+The pooling layer operates upon each feature map separately to create a new set of the same number of pooled feature maps.
+
+
+
+## In what consists pooling operation?
+
+Pooling involves selecting a pooling operation, much like a filter to be applied to feature maps. The size of the **pooling operation** or **filter** is smaller than the size of the feature map; specifically, it is almost always 2×2 pixels applied with a stride of 2 pixels.
+
+This means that the **pooling layer will always reduce** the size of each feature map by a factor of 2, e.g. each dimension is halved, reducing the number of pixels or values in each feature map to one quarter the size. For example, a pooling layer applied to a feature map of 6×6 (36 pixels) will result in an output pooled feature map of 3×3 (9 pixels).
+
+
+
+## What are the common functions used in the pooling operation?
+
+
+
+The pooling operation is specified, rather than learned. Two common functions used in the pooling operation are:
+
+- **Average Pooling**: Calculate the average value for each patch on the feature map.
+- **Maximum Pooling (or Max Pooling)**: Calculate the maximum value for each patch of the feature map.
+
+The result of using a pooling layer and creating down sampled or pooled feature maps is a summarized version of the features detected in the input. They are useful as small changes in the location of the feature in the input detected by the convolutional layer will result in a pooled feature map with the feature in the same location. This capability added by pooling is called the model’s invariance to local translation.
+
+
+
+
+
 ### **What is an RNN in Deep Learning?**
 
 
@@ -1110,6 +1172,18 @@ Q-learning is a model-free reinforcement learning algorithm to learn the value o
 (hence "model-free"), and it can handle problems with stochastic transitions and rewards without requiring adaptations. Q-learning is a model-free estimation of Q, which is done as follows:
 
 $$\boxed{Q(s,a)\leftarrow Q(s,a)+\alpha\Big[R(s,a,s')+\gamma\max_{a'}Q(s',a')-Q(s,a)\Big]}$$
+
+
+
+### What is ARIMA?
+
+The ARIMA model predicts a given time series based on its own past values. It can be used for any **nonseasonal** series of numbers that exhibits patterns and is not a series of random events. For example, sales data from a clothing store would be a time series because it was collected over a period of time. One of the key characteristics is the data is collected over a series of constant, regular intervals. A modified version can be created to model predictions over multiple seasons. 
+
+### What are the components of ARIMA?
+
+- **Autoregression**(AR): refers to a model that shows a changing variable that regresses on its own lagged, or prior, values.
+- **Integrated** (I): represents the differencing of raw observations to allow for the time series to become stationary (i.e., data values are replaced by the difference between the data values and the previous values).
+- **Moving average** (MA): incorporates the dependency between an observation and a residual error from a moving average model applied to lagged observations.
 
 
 
