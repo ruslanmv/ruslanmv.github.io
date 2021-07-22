@@ -140,9 +140,8 @@ True
 Index starts at 0
 
 ```python
->>> my_string[ 3]
->>> my_string[s :9]
-
+>>> my_string[3]
+>>> my_string[4:9]
 ```
 
 **String Methods**
@@ -151,17 +150,16 @@ Index starts at 0
 >>> my_string.upper() #String to uppercase
 >>> my_string.lower() #String to lowercase
 >>> my_string.count('w') #Count String elements
->>> my_string.replace('e', 'i') #Replace String elements
+>>> my_string.replace('e','i') #Replace String elements
 >>> my_string.strip() #Strip whitespoces
-
 ```
 
 ### Lists
 
 ```python
->>> my_list =  [1, 2, 3, s]
+>>> my_list = [1, 2, 3, 4]
 >>> my_array = np.array(my_list)
->>> my_2darray = np.array([[l,2,3],[s,5,6]])
+>>> my_2darray = np.array([[1,2,3],[4,5,6]])
 
 ```
 
@@ -171,16 +169,14 @@ Index starts at 0
 
 ```python
 Subset
->>> my_array[ l] #Select item at index 1
+>>> my_array[1] #Select item at index 1
 2
-
 Slice
 >>> my_array[ 0:2]#Select items at index 0 and 1
 array([1, 2])
 Subset 2D Numpy arrays
->>> my_2da rray[:,0]#my_2dorroy[rows, columns]
-array([1, s])
-
+>>> my_2darray[:,0]#my_2darroy[rows, columns]
+array([1, 4])
 ```
 
 **Numpy Array Operations**
@@ -189,10 +185,9 @@ array([1, s])
 >>> my_array > 3
 array([False, False, False, True], dtype=bool)
 >>> my_array *  2
-array([2, s, 6, 8])
+array([2, 4, 6, 8])
 >>> my_array + np.array([5, 6, 7, 8])
 array([6, 8, 10, 12])
-
 ```
 
 **Numpy Array Functions**
@@ -206,7 +201,6 @@ array([6, 8, 10, 12])
 >>> np.median(my_array) #Median of the array
 >>> my_array.corrcoef() #Correlation coefficient
 >>> np.std( my_array) #Standard deviation
-
 ```
 
 ### Lists
@@ -214,9 +208,8 @@ array([6, 8, 10, 12])
 ```python
 >>> a  =  'is'
 >>> b  =  'nice'
->>> my_list = ['my', 'list', a, b]
->>> my_list2=[[4,5,6,7], [3,4,5,6]]
-
+>>> my_list = ['my','list', a, b]
+>>> my_list2=[[4,5,6,7],[3,4,5,6]]
 ```
 
 **Selecting List Elements**
@@ -225,11 +218,11 @@ Index starts at 0
 
 ```python
 Subset
->>> my_list[l] #Select item at index 1
+>>> my_list[1] #Select item at index 1
 >>> my_list[-3] #Select 3rd last item
 Slice
->>> my_list[l:3] #Select items at index 1 and 2
->>> my_list[l:] #Select items after index 0
+>>> my_list[1:3] #Select items at index 1 and 2
+>>> my_list[1:] #Select items after index 0
 >>> my_list[:3] #Select items before index 3
 >>> my_list[:] #Copy my_list
 Subset Lists of Lists
@@ -242,9 +235,9 @@ Subset Lists of Lists
 
 ```python
 >>> my_list + my_list
-    [ 'my' , 'list' , 'is' , 'nice' ,'my' , 'list' , 'is' , 'nice' ]
+    ['my','list','is','nice','my','list','is','nice']
 >>> 2*my_list 
-    [ 'my' , 'list' , 'is' , 'nice' ,'my' , 'list' , 'is' , 'nice' ]
+    ['my','list','is','nice','my','list','is','nice']
 ```
 
 **List Methods**
@@ -255,13 +248,13 @@ Subset Lists of Lists
 >>> my_list.count(a) #Count on item
 1
 >>> my_list.append( '!') #Append on item ot a time
-['my ', 'list', 'is', 'nice', '!']
+['my','list','is','nice','!']
 >>> my_list.remove( '!' ) #Remove  on  item
 >>> del(my_list[0:1]) #Remove an item
-['list', 'is', 'nice']
+['list','is','nice']
 >>> my_list.reverse() #Reverse the list
-['nice', 'is', 'list', 'my']
->>> my_list.extend( '!') #Append on item
+['nice','is','list','my']
+>>> my_list.extend('!') #Append on item
 >>> my_list.pop(-1) #Remove on item
 >>> my_list.insert(0, '!') #Insert on item
 >>> my_list.sort() #Sort the list
@@ -460,7 +453,6 @@ Pickled File
 ```python
 >>> import pickle
 >>> with open('pickled_fruit.pkl', 'rb' ) as file: pickled_data = pickle.load(file)
-
 ```
 
 Matlab File
@@ -469,7 +461,6 @@ Matlab File
 >>> import scipy.io
 >>>filename= 1 workspace.m at 1
 >>>mat= scipy.io.loadmat(filename)
-
 ```
 
 HDF5 Files
@@ -491,7 +482,6 @@ print(key)
 meta quality strain
 >>> pickled_data.values() #Return dictionary values
 >>> print(mat.items()) #Returns items in list format of (key, value) tuple pairs
-
 ```
 
 **Accessing Data Items with Keys**
@@ -503,18 +493,16 @@ print(key) Description DescriptionURL Detector
 Duration GPSstart Observatory Type UTCstart
 #Retrieve the value for a key
 >>> print(data['meta']['Description'].value)
-
 ```
 
 ### Navigating Your FileSystem
 
 **Magic Commands**
 
-```
+```python
 !ls #List directory contents of files and directories
 %cd .. #Change current working directory
 %pwd #Return the current working directory path
-
 ```
 
 **OS Library**
@@ -529,7 +517,6 @@ Duration GPSstart Observatory Type UTCstart
  				"test2.txt" )
 >>> os.remove( "test1. txt") #Oelete an existing file
 >>> os.mkdir( "newdir") #Create a new directory
-
 ```
 
 **Pivot**
@@ -538,7 +525,6 @@ Duration GPSstart Observatory Type UTCstart
 >>> df3= df2.pivot(inde x='Date', #Spread rows into columns
 col umns= 'Type' ,
 values='Value' )
-
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/1.jpg)
@@ -548,7 +534,6 @@ values='Value' )
 ```python
 >>> df4 = pd.pivot_table(df2, #Spread rows into
 columns values='Value', index='Date', columns='Type'])
-
 ```
 
 **Stack** / **Unstack**
@@ -556,14 +541,13 @@ columns values='Value', index='Date', columns='Type'])
 ```python
 >>>stacked= df5.stack() #Pivot o level of column labels
 >>> stacked.unstack() #Pivot o level of index labels
-
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/2.jpg)
 
 **Melt**
 
-```
+```python
 >>> pd.melt(df2, #Gather columns into rows
 		id _vars=[°Date°],     
 		value_var s=['Type','Value'], 
@@ -598,7 +582,6 @@ columns values='Value', index='Date', columns='Type'])
 >>> df3.loc[:,(df3>1).all()] #Select cols with vols> 1
 >>> df3.loc[:,df3.isnull().any()] #Select cols with NaN
 >>> df3.loc[:,df3.notnull().all()] #Select cols without NaN
-
 ```
 
 **Indexing With** isin ()
@@ -607,7 +590,6 @@ columns values='Value', index='Date', columns='Type'])
 >>> df[(df.Country.isin(df2.Type))] #Find some elements
 >>> df3.filter(iterns="a","b"]) #Filter on values
 >>> df.select(lambda x: not x%5) #Select specific elements
-
 ```
 
 **Where**
@@ -636,12 +618,12 @@ columns values='Value', index='Date', columns='Type'])
 **Reindexing**
 
 ```python
->>> s2 = s. reindex ([ 'a ' , 'c' , 'd' , 'e' , 'b'] )
+>>>s2=s.reindex(['a','c','d','e','b'])
 ```
 
 **Forward Filling**
 
-```
+```python
 >>> df.reindex(	range(4),
 				method= 'ffill')
 ```
@@ -719,7 +701,7 @@ names= [ 'first' , 'second' ])
 **Merge**
 
 ```python
->>> pd.merge(datal,
+>>> pd.merge(data1,
             data2,
             how = 'left' ,
             on='X1')
@@ -728,7 +710,7 @@ names= [ 'first' , 'second' ])
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/5.jpg)
 
 ```python
->>> pd.merge(datal,
+>>> pd.merge(data1,
             data2,
             how = 'right' ,
             on='X1')
@@ -737,17 +719,16 @@ names= [ 'first' , 'second' ])
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/6.jpg)
 
 ```python
->>> pd.merge(datal,
+>>> pd.merge(data1,
             data2,   
             how='inner',
             on='X1')
-
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/7.jpg)
 
 ```python
->>> pd.merge(datal,
+>>> pd.merge(data1,
 			data2,    
              how='outer',
              on='X1')
@@ -773,8 +754,7 @@ names= [ 'first' , 'second' ])
 
 ```python
 >>> pd.concat([s,s2],axis=l, keys=['One' ,'Two'])
->>> pd.concat([datal, data2], axis=l, join='inner')
-
+>>> pd.concat([data1, data2], axis=l, join='inner')
 ```
 
 ### Dates
@@ -834,7 +814,7 @@ A **one-dimensional** labeled array
 
 capable of holding any data type
 
-```
+```python
 >>>  s = pd.Series([3,-5,7, s], index=['a','b','c','d'])
 ```
 
@@ -859,7 +839,6 @@ A **two-dimensional** labeled data structure with columns of potentially differe
 ```python
 >>> s.drop(['a', 'c']) #Drop values from rows (axis=B)
 >>> df.drop( 'Country', axis=l) #Drop values from columns(axis=l)
-
 ```
 
 **Sort & Rank**
@@ -868,7 +847,6 @@ A **two-dimensional** labeled data structure with columns of potentially differe
 >>> df.sort_index() #Sort by labels along an axis
 >>> df.sort_values( by='Country') #Sort by the values along on axis
 >>> df.rank() #Assign ranks to entries
-
 ```
 
 ### I/O
@@ -910,8 +888,6 @@ read_sql() is a convenience wrapper around read_sql_table() and read_sql_query()
 ```
 >>> df.to_sql('myDf',engine)
 ```
-
-
 
 ### Selection
 
@@ -982,12 +958,11 @@ Country Brazil Capital Brasilia Population 207847528
 >>> df.columns #Describe DataFrame columns
 >>> df.info() #Info on DataFrame
 >>> df.count() #Number of non-NA values
-
 ```
 
 **Summary**
 
-```
+```python
 >>> df.sum() #Sum of values
 >>> df.cumsum() #Cummulative sum of values
 >>> df.min() /df.max() #11inimum/maximum values
@@ -1333,8 +1308,6 @@ Matplotlib is a Python 2D plotting library which produces publication-quality fi
 
 ### Create Plot
 
-
-
 ```
 >>>import matplotlib.pyplot as plt
 ```
@@ -1371,11 +1344,7 @@ ll plotting is done with respect to an Axes. In most cases, a subplot will fit y
 >>> plt.show()
 ```
 
-
-
 ### Plotting Routines
-
-
 
 **1D Data**
 
@@ -1391,8 +1360,6 @@ ll plotting is done with respect to an Axes. In most cases, a subplot will fit y
 >>> ax.fill_between(x,y,color='yellow') #Fill between y-values and 0
 
 ```
-
-
 
 **2D Data**
 
@@ -1413,11 +1380,7 @@ ll plotting is done with respect to an Axes. In most cases, a subplot will fit y
 
 ```
 
-
-
 **Vector Fields**
-
-
 
 ```
 >>> axes[0,1].arrow(0,0,0.5,0.5) #Add an arrow to the axes
@@ -1427,8 +1390,6 @@ ll plotting is done with respect to an Axes. In most cases, a subplot will fit y
 ```
 
 **Data Distributions**
-
-
 
 ```
 >>> axl.hist(y) #Plot a histogram
@@ -2040,8 +2001,6 @@ Scikit-learn is an open source Python library that implements a range of machine
 >>> y_pred = knn.predict(X_test)
 >>> accuracy_score(y _test, y_pred)
 ```
-
-
 
 ### Loading The Data
 
@@ -3407,7 +3366,7 @@ True
 
 **Saving**
 
-```
+```python
 >>> rdd .saveA sTextFile("rdd.txt")
 >>> rdd.saveAsHadaapFile("hdfs://namenadehost/parent/child",
 						  ’org.apache.hadoop.mapred.TextOutputFormat')
