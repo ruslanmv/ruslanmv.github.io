@@ -80,7 +80,7 @@ def fibonacci(n):
 print(list(map(lambda x: fibonacci(x),lista)))
 ```
 
-**Practice yourself**
+**Example**
 
 <iframe src="https://trinket.io/embed/python/701f59c1f2" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
 
