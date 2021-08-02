@@ -445,7 +445,7 @@ sudo systemctl status nginx
 Now w start the chatbot service
 
 ```
-sudo systemctl status chatbot.service
+sudo systemctl start chatbot.service
 ```
 
 and then we check
@@ -469,7 +469,7 @@ sudo systemctl status chatbot.service
 
 Now I can access the Flask application with a browser via the name.
 
-[http://chatbot.ruslanmv.com](http://chatbot.ruslanmv.com)
+http://chatbot.ruslanmv.com
 
 
 
