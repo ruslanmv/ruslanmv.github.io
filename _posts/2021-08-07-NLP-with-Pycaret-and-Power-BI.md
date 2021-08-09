@@ -39,7 +39,7 @@ Some common use cases for theme modeling are:
 
 
 
-Various **algorithms ** are used for theme modeling. Some of the most common are latent Dirichlet assignment (**LDA** ), latent semantic analysis (**LSA** ), and non-negative matrix factorization ( **NMF** ).
+Various **algorithms** are used for theme modeling. Some of the most common are latent Dirichlet assignment (**LDA** ), latent semantic analysis (**LSA** ), and non-negative matrix factorization ( **NMF** ).
 
 ![img](../assets/images/posts/2021-08-07-NLP-with-Pycaret-and-Power-BI/r-1DoNguS7GtQ6DYLjuxjQ_b56f5c72b2cb4de1be8daa073ae8cf90_Basic-Topic-Modeling-Process.png)
 
@@ -61,10 +61,6 @@ PyCaret automatically preprocesses text data by applying more than 15 techniques
 PyCaret's NLP module (`pycaret.nlp`) is an unsupervised machine learning module that can be used to analyze text data by creating a topic model to find hidden semantic structure in documents.
 
  PyCaret's NLP module comes integrated with a wide range of text preprocessing techniques, which is the fundamental step in any NLP problem. Transform raw text into a format that machine learning algorithms can learn from.
-
-Starting from the first version, PyCaret's NLP module only supports the English language and provides several popular implementations of theme models from latent Dirichlet assignment to non-negative matrix factorization. 
-
-PyCaret's NLP module also implements a unique `tune_model ()` function that allows you to tune the hyperparameters of a topic model to optimize the supervised learning objective,  such as AUC for classification or R2 for regression.
 
 In machine learning and natural language processing, a topic model is a type of statistical model for discovering the abstract "topics" that occur in a collection of documents. 
 
