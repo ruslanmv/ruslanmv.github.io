@@ -64,13 +64,11 @@ PyCaret's NLP module (`pycaret.nlp`) is an unsupervised machine learning module 
 
 Starting from the first version, PyCaret's NLP module only supports the English language and provides several popular implementations of theme models from latent Dirichlet assignment to non-negative matrix factorization. 
 
-It has more than 5 out-of-the-box algorithms and more than 10 graphics to analyze text. PyCaret's NLP module also implements a unique `tune_model ()` function that allows you to tune the hyperparameters of a topic model to optimize the supervised learning objective,  such as AUC for classification or R2 for regression.
+PyCaret's NLP module also implements a unique `tune_model ()` function that allows you to tune the hyperparameters of a topic model to optimize the supervised learning objective,  such as AUC for classification or R2 for regression.
 
 In machine learning and natural language processing, a topic model is a type of statistical model for discovering the abstract "topics" that occur in a collection of documents. 
 
 Theme modeling is a frequently used text extraction tool for discovering hidden semantic structures in a body of text.
-
-Creating a theme model in PyCaret is simple and similar to how you would have created a model in pycaret supervised modules. 
 
 A theme model is created using the `create_model ()` function which takes a required parameter, that is, the model name as a string.  This function returns a trained model object. 
 
@@ -86,7 +84,7 @@ When the setup runs, the following preprocessing steps are applied automatically
 - **Removal of special characters:** All non-alphanumeric special characters are removed from the text. They are also replaced with blanks.
 - **Word Tokenization:** Word Tokenization is the process of breaking a large sample of text into words. This is the fundamental requirement in natural language processing tasks, where each word must be captured separately for further analysis.
 - **Stop Word Removal:** An empty word (or non-existent word) is a word that is often removed from the text because it is common and provides little value for information retrieval, although it may be linguistically significant. Examples of such words in English are: "the", "a", "an", "in", etc.
-- **Bigrama extraction:** A bigrama is a sequence of two adjacent elements of a chain of tokens, which are usually letters, syllables or words. For example: the word New York is captured as two different words "New" and "York" when tokenizing, but if repeated enough times, Bigram Extraction will render the word as one, ie "New_York" 
+- **Bigram extraction:** A bigram is a sequence of two adjacent elements of a chain of tokens, which are usually letters, syllables or words. For example: the word New York is captured as two different words "New" and "York" when tokenizing, but if repeated enough times, Bigram Extraction will render the word as one, ie "New_York" 
 
 - **Trigram extraction:** Similar to bigram extraction, the trigram is a sequence of three adjacent elements of a chain of tokens. 
 - **Stemming:** Stemming is the process of grouping the inflected forms of a word together so that they can be parsed as a single word, identified by the word's motto or dictionary form. In the English language, the word appears in various inflected forms. For example, the verb "walk" can appear as "walk", "walk", "walk", "walk". The basic form, 'walk', that one might look up in a dictionary, is called the word motto 
@@ -513,8 +511,9 @@ print(lda)
 
     LdaModel(num_terms=5302, num_topics=4, decay=0.5, chunksize=100)
 
+We have created the Latent Dirichlet Assignment (LDA) model with a single word, that is, `create_model ()`. Notice that the `num_topics` parameter is set to` 4`, which is a default value taken when you do not pass the `num_topics` parameter in` create_model () `. 
 
-We have created the Latent Dirichlet Assignment (LDA) model with a single word, that is, `create_model ()`. Notice that the `num_topics` parameter is set to` 4`, which is a default value taken when you do not pass the `num_topics` parameter in` create_model () `. In the following example, we will create an LDA model with 6 themes and also set the `multi_core` parameter to` True`. When `multi_core` is set to` True`, Latent Dirichlet Allocation (LDA) uses all CPU cores to parallelize and speed up model training.
+In the following example, we will create an LDA model with 6 themes and also set the `multi_core` parameter to` True`. When `multi_core` is set to` True`, Latent Dirichlet Allocation (LDA) uses all CPU cores to parallelize and speed up model training.
 
 
 ```python
@@ -693,8 +692,9 @@ plot_model(lda, plot = 'topic_distribution')
 
 ![](../assets/images/posts/2021-08-07-NLP-with-Pycaret-and-Power-BI/20.jpg)
 
+Each document is a distribution of topics and not a single topic.
 
-Each document is a distribution of topics and not a single topic. Although, if the task is to categorize the document into specific topics, it would not be wrong to use the ratio of topics with the highest value to categorize the document into ** one topic **. In the chart above, each document is ranked on a topic using the highest proportion of topic weights. We can see that most of the documents are in "Topic 3" and only a few are in "Topic 1". If you hover your mouse over these bars, you will get a basic idea of ​​the topics in this topic by looking at the keywords.
+ Although, if the task is to categorize the document into specific topics, it would not be wrong to use the ratio of topics with the highest value to categorize the document into **one topic**. In the chart above, each document is ranked on a topic using the highest proportion of topic weights. We can see that most of the documents are in "Topic 3" and only a few are in "Topic 1". If you hover your mouse over these bars, you will get a basic idea of ​​the topics in this topic by looking at the keywords.
 
 For example, if you evaluate "Topic 2", you will see keywords like "farmer", "rice", "land", which probably means that loan applicants in this category belong to agricultural loans. However, if you hover over `Topic 0` and` Topic 3`, you will notice that many repetitions and keywords overlap in all topics, such as the word "loan" and "business" that appear in both the ` Topic 0` as in `Topic 3`
 
@@ -763,8 +763,6 @@ saved_lda = load_model('Final LDA Model')
 ```python
 print(saved_lda)
 ```
-
-    LdaModel(num_terms=5302, num_topics=4, decay=0.5, chunksize=100)
 
 You can download the notebook [here](https://github.com/ruslanmv/Natural-Language-Processing-with-Pycaret-and-Power-BI/raw/main/NLP-with-Pycaret.ipynb)
 
