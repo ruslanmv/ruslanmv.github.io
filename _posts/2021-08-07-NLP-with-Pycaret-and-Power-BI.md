@@ -45,7 +45,7 @@ Various **algorithms** are used for theme modeling. Some of the most common are 
 
 ###  Text pre-processing for theme modeling 
 
-To get meaningful results from topic modeling, the text data must be **processed before ** it is fed into the algorithm. This is common with almost all NLP tasks. Text preprocessing is different from the classic preprocessing techniques that are often used in machine learning.
+To get meaningful results from topic modeling, the text data must be **processed before** it is fed into the algorithm. This is common with almost all NLP tasks. Text preprocessing is different from the classic preprocessing techniques that are often used in machine learning.
 
 PyCaret automatically preprocesses text data by applying more than 15 techniques, such as **elimination of stopwords and stopwords, tokenization, stemming, bi-gram / tri-gram extraction**  etc.
 
