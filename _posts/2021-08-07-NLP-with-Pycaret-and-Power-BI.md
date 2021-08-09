@@ -86,15 +86,7 @@ When the setup runs, the following preprocessing steps are applied automatically
 - **Stemming:** Stemming is the process of grouping the inflected forms of a word together so that they can be parsed as a single word, identified by the word's motto or dictionary form. In the English language, the word appears in various inflected forms. For example, the verb "walk" can appear as "walk", "walk", "walk", "walk". The basic form, 'walk', that one might look up in a dictionary, is called the word motto 
 - **Custom noise words:** Many times the text contains words that are not noise words according to the language rule, but that add little or no information. For example, in this tutorial we are using the loan dataset. As such, words like "loan", "bank", "money", "business" are too obvious and do not add value. Most of the time, they also add a lot of noise in the theme model. You can remove those words from the corpus using the `custom_stopwords` parameter.
 
-Once the installation is successful, it prints the information grid with the following information:
 
-- **session_id:** A pseduo-random number distributed as a seed in all functions for later reproducibility. If no `session_id` is passed, a random number is automatically generated and distributed to all functions. In this experiment, session_id is set to `123` for later reproducibility. 
-- **Documents:** Number of documents (or samples in the dataset if the data frame is passed). 
-- **Vocabulary size:** Vocabulary size in the corpus after applying all the preprocessing of the text, such as stopword removal, extraction of bigrams / trigrams, stemming, etc. 
-
-Note that all text preprocessing steps are done automatically when you run `setup ()`. These steps are essential to perform any NLP experiment. 
-
-The `setup ()` function prepares the ready-to-use corpus and dictionary for theme models that you can create using the `create_model ()` function. Another way to pass the text is as a list, in which case the `target` parameter is not needed.
 
 # Setting up the Environment
 
@@ -118,9 +110,6 @@ pip install pycaret
 ```
 
 Some functionality in `pycaret.nlp` requires an English language model. The language model is not downloaded automatically when you install pycaret. You will need to download this Python command line interface, like Anaconda Prompt.
-
-pip install -U pip setuptools wheel
-pip install -U spacy
 
  To download the model, type the following on your command line:
 
@@ -494,6 +483,22 @@ models()
     </tr>
   </tbody>
 </table>
+
+
+where we have the following information
+
+- **session_id:** A pseduo-random number distributed as a seed in all functions for later reproducibility. If no `session_id` is passed, a random number is automatically generated and distributed to all functions. In this experiment, session_id is set to `123` for later reproducibility. 
+- **Documents:** Number of documents (or samples in the dataset if the data frame is passed). 
+- **Vocabulary size:** Vocabulary size in the corpus after applying all the preprocessing of the text, such as stopword removal, extraction of bigrams / trigrams, stemming, etc. 
+
+Note that all text preprocessing steps are done automatically when you run `setup ()`. These steps are essential to perform any NLP experiment. 
+
+The `setup ()` function prepares the ready-to-use corpus and dictionary for theme models that you can create using the `create_model ()` function. Another way to pass the text is as a list, in which case the `target` parameter is not needed.
+
+
+
+
+
 
 
 ```python
