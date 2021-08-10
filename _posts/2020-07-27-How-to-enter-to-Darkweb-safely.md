@@ -27,7 +27,7 @@ The surface web refers to content published publicly on the internet that doesnâ
 
 
 
-We are going to run a public VPS with Kali and install Tor.  Note that if either you perform no action during more than **10 minutes,** or you leave the tab with the OnWorks session, we release your session for another user.
+We are going to run a public VPS with Kali and install Tor.  Note that if either you perform no action during more than **10 minutes,** or you leave the tab with the OnWorks session, the remote server will release your session for another user.
 
 
 
