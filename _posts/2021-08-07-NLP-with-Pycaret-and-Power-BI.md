@@ -4,7 +4,7 @@ excerpt: "Natural Language Processing with Pycaret and Power BI"
 
 header:
   image: "../assets/images/posts/2021-08-07-NLP-with-Pycaret-and-Power-BI/ima.jpg"
-  teaser: "../assets/images/posts/2021-08-07-NLP-with-Pycaret-and-Power-BI/ima.jpg"
+  teaser: "../assets/images/posts/2021-08-07-NLP-with-Pycaret-and-Power-BI/libros.jpg"
   caption: "This photo is of the book “101 Essays That Will Change The Way You Think” by Brianna Wiest."
   
 ---
@@ -67,24 +67,6 @@ In machine learning and natural language processing, a topic model is a type of 
 Theme modeling is a frequently used text extraction tool for discovering hidden semantic structures in a body of text.
 
 A theme model is created using the `create_model ()` function which takes a required parameter, that is, the model name as a string.  This function returns a trained model object. 
-
-## Environment configuration in PyCaret
-
-The `setup ()` function initializes the environment in pycaret and performs various text preprocessing steps that are imperative for working with NLP problems. setup must be called before executing any other functions in pycaret. 
-
-Two parameters are needed: the pandas data frame and the name of the text column passed as the `target` parameter. You can also pass a `list` containing text, in which case it is not necessary to pass the` target` parameter. 
-
-When the setup runs, the following preprocessing steps are applied automatically:
-
-- **Removal of numeric characters:** All numeric characters are removed from the text. They are replaced with blanks. 
-- **Removal of special characters:** All non-alphanumeric special characters are removed from the text. They are also replaced with blanks.
-- **Word Tokenization:** Word Tokenization is the process of breaking a large sample of text into words. This is the fundamental requirement in natural language processing tasks, where each word must be captured separately for further analysis.
-- **Stop Word Removal:** An empty word (or non-existent word) is a word that is often removed from the text because it is common and provides little value for information retrieval, although it may be linguistically significant. Examples of such words in English are: "the", "a", "an", "in", etc.
-- **Bigram extraction:** A bigram is a sequence of two adjacent elements of a chain of tokens, which are usually letters, syllables or words. For example: the word New York is captured as two different words "New" and "York" when tokenizing, but if repeated enough times, Bigram Extraction will render the word as one, ie "New_York" 
-
-- **Trigram extraction:** Similar to bigram extraction, the trigram is a sequence of three adjacent elements of a chain of tokens. 
-- **Stemming:** Stemming is the process of grouping the inflected forms of a word together so that they can be parsed as a single word, identified by the word's motto or dictionary form. In the English language, the word appears in various inflected forms. For example, the verb "walk" can appear as "walk", "walk", "walk", "walk". The basic form, 'walk', that one might look up in a dictionary, is called the word motto 
-- **Custom noise words:** Many times the text contains words that are not noise words according to the language rule, but that add little or no information. For example, in this tutorial we are using the loan dataset. As such, words like "loan", "bank", "money", "business" are too obvious and do not add value. Most of the time, they also add a lot of noise in the theme model. You can remove those words from the corpus using the `custom_stopwords` parameter.
 
 
 
