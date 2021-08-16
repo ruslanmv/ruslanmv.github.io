@@ -95,7 +95,7 @@ print(face_recognition.__version__)
 And my output
 
 ```
-4.2.0
+4.5.3
 19.19.0
 1.2.3
 ```
@@ -112,13 +112,23 @@ Apply and OK
 
 File restart
 
+We can verify if the cv2 is working
+
 ```python
+import cv2
+import dlib
+import face_recognition
+
+#printing versions
+print(cv2.__version__)
+print(dlib.__version__)
+print(face_recognition.__version__)
+
+
 #loading the image to detect
-image_test= cv2.imread('images/testing/trump-modi.jpg')
-
-#showing the current image with title
+image_test= cv2.imread('images/testing/people.jpg')
 cv2.imshow("Image",image_test)
-
+cv2.waitKey(0)
 ```
 
 Installing Tensorflow and Keras in Anaconda
@@ -489,9 +499,7 @@ cv2.destroyAllWindows()
 
 
 
-If you require a program that detect the faces in a single image which gives you the
-
-gender and also the years.
+If you require a program that detect the faces in a single image which gives you the gender and  the years.
 
 
 
