@@ -1453,7 +1453,7 @@ int3
 ```
 
     There are 18 sensors that we will use
-
+    
     ['state', 29, 33, 26, 21, 40, 52, 7, 55, 18, 39, 19, 2, 34, 4, 35, 41, 12, 9]
 
 
@@ -2209,8 +2209,7 @@ plt.gca().set_aspect('equal')
 plt.show()
 ```
 
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\seaborn\_decorators.py:36: FutureWarning: Pass the following variable as a keyword arg: x. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
-      warnings.warn(
+
 
 
 
@@ -4332,12 +4331,6 @@ multinomial(x_pca)
     3            0            0            0          543
 
 
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\statsmodels\discrete\discrete_model.py:2290: RuntimeWarning: overflow encountered in exp
-      eXB = np.column_stack((np.ones(len(X)), np.exp(X)))
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\statsmodels\discrete\discrete_model.py:2291: RuntimeWarning: invalid value encountered in true_divide
-      return eXB/eXB.sum(1)[:,None]
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\statsmodels\base\optimizer.py:413: RuntimeWarning: invalid value encountered in greater
-      while (iterations < maxiter and np.any(np.abs(newparams -
 
 
 
@@ -4367,12 +4360,6 @@ multinomial(dfs)
     3            0            0            0          543
 
 
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\statsmodels\discrete\discrete_model.py:2290: RuntimeWarning: overflow encountered in exp
-      eXB = np.column_stack((np.ones(len(X)), np.exp(X)))
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\statsmodels\discrete\discrete_model.py:2291: RuntimeWarning: invalid value encountered in true_divide
-      return eXB/eXB.sum(1)[:,None]
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\statsmodels\base\optimizer.py:413: RuntimeWarning: invalid value encountered in greater
-      while (iterations < maxiter and np.any(np.abs(newparams -
 
 
 
@@ -4693,8 +4680,7 @@ full_multiclass_report(model,
                       )
 ```
 
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\keras\engine\sequential.py:450: UserWarning: `model.predict_classes()` is deprecated and will be removed after 2021-01-01. Please use instead:* `np.argmax(model.predict(x), axis=-1)`,   if your model does multi-class classification   (e.g. if it uses a `softmax` last-layer activation).* `(model.predict(x) > 0.5).astype("int32")`,   if your model does binary classification   (e.g. if it uses a `sigmoid` last-layer activation).
-      warnings.warn('`model.predict_classes()` is deprecated and '
+
 
 
     Accuracy : 0.8231884057971014
@@ -4813,16 +4799,6 @@ By using different tests of parameters we got the following network
 model = Sequential()
 model.add(Dense(16,activation='softplus',input_shape = (inputs,)))
 model.add(Dense(4,activation='softmax'))
-model.compile(optimizer = 'rmsprop',
-             loss='categorical_crossentropy',
-             metrics=['accuracy'])
-```
-
-
-```python
-model = Sequential()
-model.add(Dense(16,activation='softplus',input_shape = (inputs,)))
-model.add(Dense(4,activation='softmax'))
 model.compile(optimizer = 'adam',
              loss='categorical_crossentropy',
              metrics=['accuracy'])
@@ -4864,8 +4840,7 @@ full_multiclass_report(model,
                       )
 ```
 
-    C:\Users\rusla\.conda\envs\tf-keras-gpu-test\lib\site-packages\keras\engine\sequential.py:450: UserWarning: `model.predict_classes()` is deprecated and will be removed after 2021-01-01. Please use instead:* `np.argmax(model.predict(x), axis=-1)`,   if your model does multi-class classification   (e.g. if it uses a `softmax` last-layer activation).* `(model.predict(x) > 0.5).astype("int32")`,   if your model does binary classification   (e.g. if it uses a `sigmoid` last-layer activation).
-      warnings.warn('`model.predict_classes()` is deprecated and '
+
 
 
     Accuracy : 0.8318840579710145
