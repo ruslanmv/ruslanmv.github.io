@@ -11,7 +11,7 @@ header:
 
 
 
-Hello, today we are going toe clone your voice by using Python and Anaconda.
+Hello, today we are going to clone your voice by using Python and Anaconda.
 
 First you need to create a directory where you will work , enter to your terminal
 
