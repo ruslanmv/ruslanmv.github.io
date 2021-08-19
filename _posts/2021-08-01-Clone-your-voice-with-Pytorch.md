@@ -87,11 +87,11 @@ In windows you download the file
 
 copy the folder and  paste on your "Local Disk (C :)", 
 
-[![Immagine titolata Install FFmpeg on Windows Step 11](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-11-Version-2.jpg.webp)]()
+![](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-11-Version-2.jpg.webp)
 
 **Click on an empty spot in the right pane of the window with the right mouse button, then choose the \**Paste\** option from the context menu that will appear.** This way the folder you copied will be transferred from the directory where it is currently located to the root of your computer's hard drive.
 
-[![Immagine titolata Install FFmpeg on Windows Step 12](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-12-Version-4.jpg.webp)]()
+![](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-12-Version-4.jpg.webp)
 
 **Access the window from which you can manage Windows environment variables.** Follow these instructions:
 
@@ -99,13 +99,13 @@ copy the folder and  paste on your "Local Disk (C :)",
 - Click on the **Edit system-related environment variables** icon that appears in the list of results;
 - Click on the **Environment Variables** button displayed in the lower right corner of the window;
 
-[![Immagine titolata Install FFmpeg on Windows Step 13](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-13-Version-4.jpg.webp)]()
+![](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-13-Version-4.jpg.webp)
 
 **Select the variable Path listed in the "User Variables for [username]" section, then click the \**Edit\** button .** The list of paths currently assigned to the variable will be displayed.
 
 
 
-[![Immagine titolata Install FFmpeg on Windows Step 14](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-14-Version-3.jpg.webp)]()
+![](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-14-Version-3.jpg.webp)
 
 
 
@@ -115,7 +115,7 @@ copy the folder and  paste on your "Local Disk (C :)",
 - Enter the path C:\ffmpeg\bin. If you have pasted the "FFmpeg" folder into a different memory drive or folder, you will need to replace the path indicated with the specific one in your case (remember to add the string "\ bin" at the end);
 - Click on the **OK** button . At this point, the complete path of the "FFmpeg" folder will be present as the last value of the "Path" variable.
 
-[![Immagine titolata Install FFmpeg on Windows Step 15](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-15-Version-3.jpg.webp)]()
+![](../assets/images/posts/2021-08-01-Clone-your-voice-with-Pytorch/v4-728px-Install-FFmpeg-on-Windows-Step-15-Version-3.jpg.webp)
 
 **Click on the \**OK\** button to save the changes.**
 
