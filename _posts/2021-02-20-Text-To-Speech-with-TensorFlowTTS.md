@@ -1,5 +1,5 @@
 ---
-title: "Text to Speech with TensorFlow with Heruku and Google Colab"
+title: "Text to Speech with TensorFlow with Heroku and Google Colab"
 excerpt: "Text-to-Speech TTS To Synthesize Speech That Sounds Like a Real Human Person with Gradio"
 
 header:
