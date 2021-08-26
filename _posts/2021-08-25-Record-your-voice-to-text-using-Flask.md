@@ -232,19 +232,5 @@ You can try:
 
 
 
-In addition if you want to check the  web app we can use [https://circleci.com/](https://circleci.com/ )  platform 
-
-![](../assets/images/posts/2021-08-25-Record-your-voice-to-text-using-Flask/aa.jpg)
-
-and verify the status of your programs or perform unit tests with **pytest** here, the setup file is 
-
-in the .circleci folder in the **config.yml** file.
-
-![](../assets/images/posts/2021-08-25-Record-your-voice-to-text-using-Flask/bb.jpg)
-
-
-
-
-
 **Congratulations!** You were able to create a web app that can convert your audio to text.
 
