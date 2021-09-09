@@ -141,7 +141,7 @@ We will use the SMILE Twitter dataset.
 
 _Wang, Bo; Tsakalidis, Adam; Liakata, Maria; Zubiaga, Arkaitz; Procter, Rob; Jensen, Eric (2016): SMILE Twitter Emotion dataset. figshare. Dataset. https://doi.org/10.6084/m9.figshare.3187909.v2_
 
-we create a folder called  data you can download here
+we create a folder called  data you can download [here](https://github.com/ruslanmv/Deep-Learning-using-BERT/blob/main/Data/smile-annotations-final.csv)
 
 ```
 mkdir data
