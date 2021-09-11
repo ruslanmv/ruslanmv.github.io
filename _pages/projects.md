@@ -20,25 +20,16 @@ My work is based on analysis data for actionable insights. Devising and applying
 
 
 
-
-
 ## Cloud Solutions
 
+<p><a href="https://www.capgemini.com/" title="Redirect Capgemini">  
+<img src="../assets/images/posts/projects/capgemini.png" width="190" alt="homepage" /></a></p>
 
+I am responsible for Analyzing a company's IT system and  **cloud** infrastructure of a client. Diagnosing IT system problems, inefficiencies, and weaknesses. Planning a timeline for **completion of projects**. Understanding a client's business needs. Implementing a **cloud solution** to meet business needs. Analyzing and determining security threats. Providing advice on technology best practices. Collaborating with the **technical** in-house team to ensure familiarity with **cloud** technology.
 
 <p><a href="https://reply.it" title="Redirect Reply">  
 <img src="../assets/images/reply.png" width="190" alt="homepage" /></a></p>
-
-
-I am responsible for **building** and maintaining an organization's data infrastructure, particularly for cloud services in AWS, including relational databases and non-relational databases, **data warehouses**, and data pipelines. The infrastructure is deployed by using **Terraform** and the data transformation through **Scala** and **Spark**.
-
-
-
-
-
-## Cloud Solutions
-
-
+I  have **built** and maintained an organization's data infrastructure, particularly for cloud services in AWS, including relational databases and non-relational databases, **data warehouses**, and data pipelines. The infrastructure is deployed by using **Terraform** and the data transformation through **Scala** and **Spark**.
 
 <p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
 <img src="../assets/images/awslogo.png" width="120" alt="homepage" /></a></p>
