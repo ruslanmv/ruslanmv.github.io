@@ -332,9 +332,9 @@ kubectl exec -it spark -c spark  -- /bin/bash
 
 You've now entered container *spark* in Pod *spark* inside Kubernetes. This container we will use to submit Spark applications to the Kubernetes cluster. This container is based on an image with the Apache Spark distribution and the *kubectl* command pre-installed.
 
-If you are interested you can have a look at the [Dockerfile](https://github.com/romeokienzler/new_horizons/blob/main/spark/Dockerfile) to understand what's really inside.
+If you are interested you can have a look at the [Dockerfile](https://github.com/ruslanmv/Spark-with-Kubernetes/blob/main/spark/Dockerfile) to understand what's really inside.
 
-You can also check out the [pod.yaml](https://github.com/romeokienzler/new_horizons/blob/main/spark/pod_spark.yaml). You'll notice that it contains two containers. One is Apache Spark, another one is providing a Kubernetes Proxy - a so called side car container - allowing to interact with the Kubernetes cluster from inside a Pod.
+You can also check out the [pod.yaml](https://github.com/ruslanmv/Spark-with-Kubernetes/blob/main/spark/pod_spark.yaml). You'll notice that it contains two containers. One is Apache Spark, another one is providing a Kubernetes Proxy - a so called side car container - allowing to interact with the Kubernetes cluster from inside a Pod.
 
 Inside the container you can use the *spark-submit* command which makes use of the new native Kubernetes scheduler that has been added to Spark recently.
 
