@@ -770,6 +770,60 @@ print(double(5))
 
 
 
+
+
+### What is decorator in Python?
+
+A decorator in Python is **a function that takes another function as its argument, and returns yet another function** . 
+
+Example,  by defining a wrapper inside an enclosed function.
+
+
+
+```python
+def uppercase_decorator(function):
+    def wrapper():
+        func = function()
+        make_uppercase = func.upper()
+        return make_uppercase
+
+    return wrapper
+```
+
+Our decorator function takes a function as an argument, and we shall, therefore, define a function and pass it to our decorator. We learned earlier that we could assign a function to a variable. We'll call our decorator function.
+
+```python
+def say_hi():
+    return 'hello there'
+
+decorate = uppercase_decorator(say_hi)
+decorate()
+```
+
+```
+'HELLO THERE'
+```
+
+However, Python provides a much easier way for us to apply decorators. We simply use the **@ symbol** before the function we'd like to decorate. Let's show that in practice below.
+
+```python
+@uppercase_decorator
+def say_hi():
+    return 'hello there'
+
+say_hi()
+```
+
+```
+'HELLO THERE'
+```
+
+### What type is function range()  in Python?
+
+Python 3 added a new [`range`](https://docs.python.org/3/library/stdtypes.html#range) class to efficiently handle "an immutable sequence of numbers". The type is <class 'range'>
+
+
+
 ## What is a class in Python?
 
 Like function definitions begin with the def keyword in Python, class definitions begin with a class keyword. 
