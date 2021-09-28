@@ -9,7 +9,7 @@ header:
   
 ---
 
-We are interested to  to determine the most common users, grouped by their gender and age from a **S3** bucket that contains  on hundreds/thousands of files containing **CSV** data about the users who interact with the application.  To accomplish this, you will first need to create an **EMR cluster** and copy user data into **HDFS**.
+We are interested to  to determine the most common users, grouped by their gender and age from a **S3** bucket that contains  on hundreds/thousands of files containing **CSV** data about the users who interact with the application of one company.  To accomplish this, you will first need to create an **EMR cluster** and copy user data into **HDFS**.
 
 
 
