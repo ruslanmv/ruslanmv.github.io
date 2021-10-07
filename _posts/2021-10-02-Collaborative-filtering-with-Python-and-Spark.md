@@ -1381,7 +1381,11 @@ If your computer has less than 5g of RAM change the memory of spark
 
 
 ```python
-spark = SparkSession.builder \    .master('local[*]') \    .config("spark.driver.memory", "5g") \    .appName('rec') \    .getOrCreate()
+spark = SparkSession.builder \
+    .master('local[*]') \
+    .config("spark.driver.memory", "5g") \
+    .appName('rec') \
+    .getOrCreate()
 ```
 
 
@@ -1554,6 +1558,7 @@ reccomendations.orderBy('prediction',ascending=False).show()
     +-------+------+----------+
 
  
+
 
 
 
