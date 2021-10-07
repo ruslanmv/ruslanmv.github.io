@@ -226,7 +226,7 @@ pip install numpy matplotlib pandas
 
 ## Introduction to Machine Learning
 
-Machine learning is the science of creating algorithms capable of learning based on the data provided to them.  The  primary techniques  used in machine learning that we will cover here: 
+Machine learning is the science of creating algorithms capable of learning based on the data provided to them.  The  primary techniques  used in machine learning that we will cover here are: 
 
 
 <div class="alert alert-block alert-info" style="margin-top: 20px">
@@ -245,9 +245,7 @@ The tables can be managed in Python with **Dataframes**.  **Dataframes** and **D
 
 Among the essential components of the Machine Learning models are:
 
-- **Features**: Are the columns of the tables that we will use to create our Machine Learning Model, denoted by the vector
-
-  of all the feature values of the ith instance in the dataset, or in other words, the predicted value of the ith row $$\vec x^{(i)}$$
+- **Features**: Are the columns of the tables that we will use to create our Machine Learning Model, denoted by the vector of all the feature values of the ith instance in the dataset, or in other words, the predicted value of the ith row $$\vec x^{(i)}$$
 
 - **Prediction values**: Is the  variable that we want to predict, denoted by $$\hat y^{(i)} =h(\vec  x^{(i)})$$   
 
@@ -276,13 +274,13 @@ where $$\hat y$$ is the predicted value,  $$n$$  is the number of features, $$x_
 
 To train a Linear regression model , we need to find the value $$\vec w $$ that **minimizes the Root Mean Square Error** (RMSE)
 
-$$RMSE(\vec x,)=\sqrt{\frac{1}{m}\sum_{i=1}^m(h(\vec x^{(i)})-y^{(i)})^2}$$
-
+$$RMSE(\vec x, h)=\sqrt{\frac{1}{m}\sum_{i=1}^m(h(\vec x^{(i)})-y^{(i)})^2}$$
 
 In practical linear regression problems ,  we can use the **Mean Square Error**(MSE). 
+
 The MSE of a Linear Regression hypothesis $$h_w$$ on a training set $$\vec x$$ is calculated by using the MSE **cost function** for Linear regression
 
-$$ MSE(\vec x,)=\frac{1}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})^2$$
+$$ MSE(\vec x, h)=\frac{1}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})^2$$
 
 In Machine Learning, vectors are often represented as column vectors, which are 2D arrays with a single column.
 
@@ -339,6 +337,9 @@ $$y = w_0 + w_1  x_1 + w_2  x_2 + \cdots$$
 and finds the values of parameters  $$w_0, ws_1, w_2$$, etc, where the term $$w_0$$ is the "intercept". It can be generally shown as:
 
 $$ h_w(𝑥) = w^TX $$
+
+
+
 Logistic Regression is a variation of Linear Regression, useful when the observed dependent variable, <b>y</b>, is categorical. It produces a formula that predicts the probability of the class label as a function of the independent variables.
 
 Logistic regression fits a special s-shaped curve by taking the linear regression and transforming the numeric estimate into a probability with the following function, which is called sigmoid function 𝜎:
