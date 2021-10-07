@@ -309,7 +309,7 @@ $$\frac{\partial }{\partial w_j}MSE(\vec w)=\frac{2}{m}\sum_{i=1}^m(\vec w^T \ve
 
 Instead use the partials individually we can compute the gradient vector
 
-$$\nabla_W MSE(W)\frac{2}{m}X^T(XW-y)$$
+$$\nabla_W MSE(W)=\frac{2}{m}X^T(XW-y)$$
 
 then we can use the gradient step
 
