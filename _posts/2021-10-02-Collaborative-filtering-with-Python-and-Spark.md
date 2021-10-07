@@ -411,22 +411,29 @@ We can achieve this by first filtering out the rows that contain the input movie
 
 
 ```python
-#Filtering out the movies by titleinputId = movies_df[movies_df['title'].isin(inputMovies['title'].tolist())]
+#Filtering out the movies by title
+inputId = movies_df[movies_df['title'].isin(inputMovies['title'].tolist())]
+
 ```
 
 
 ```python
-#Then merging it so we can get the movieId. It's implicitly merging it by title.inputMovies = pd.merge(inputId, inputMovies)
+#Then merging it so we can get the movieId. It's implicitly merging it by title.
+inputMovies = pd.merge(inputId, inputMovies)
 ```
 
 
 ```python
-#Dropping information we won't use from the input dataframeinputMovies = inputMovies.drop('year', 1)
+#Dropping information we won't use from the input dataframe
+inputMovies = inputMovies.drop('year', 1)
 ```
 
 
 ```python
-#Final input dataframe#If a movie you added in above isn't here, then it might not be in the original #dataframe or it might spelled differently, please check capitalisation.inputMovies
+#Final input dataframe
+#If a movie you added in above isn't here, then it might not be in the original 
+#dataframe or it might spelled differently, please check capitalisation.
+inputMovies
 ```
 
 
@@ -1451,6 +1458,7 @@ reccomendations.orderBy('prediction',ascending=False).show()
     +-------+------+----------+|movieId|userId|prediction|+-------+------+----------+|   1275|    11| 3.4204795||   1225|    11| 3.4091446||   2687|    11| 3.3668394||   1266|    11|  3.320037||    908|    11| 3.2962897||   3686|    11|  3.268262||   1220|    11|   3.22914||   2993|    11|    3.0513||   2599|    11| 3.0509036||   2641|    11| 2.8271532||      3|    11| 2.8164563||    186|    11| 2.8024044||   3826|    11| 2.7049482|+-------+------+----------+
 
  
+
 
 
 You can download the notebook [here](https://github.com/ruslanmv/Machine-Learning-with-Python-and-Spark/blob/master/Recommender-Systems/Recommender-Systems.ipynb)

@@ -432,7 +432,13 @@ df_r.show()
 
 
 ```python
-assembler = VectorAssembler(  inputCols=['Age',             'Sex_index',              'BP_index',              'Cholesterol_index',              'Na_to_K'],              outputCol="features")
+assembler = VectorAssembler(
+  inputCols=['Age',
+             'Sex_index', 
+             'BP_index', 
+             'Cholesterol_index', 
+             'Na_to_K'],
+              outputCol="features")
 ```
 
 
@@ -451,7 +457,8 @@ from pyspark.ml.feature import StringIndexer
 
 
 ```python
-indexer = StringIndexer(inputCol="Drug", outputCol="DrugIndex")output_fixed = indexer.fit(output).transform(output)
+indexer = StringIndexer(inputCol="Drug", outputCol="DrugIndex")
+output_fixed = indexer.fit(output).transform(output)
 ```
 
 
@@ -504,14 +511,21 @@ We will be using a college dataset to try to classify colleges as Private or Pub
 
 
 ```python
-# Use mostly defaults to make this comparison "fair"dtc = DecisionTreeClassifier(labelCol='DrugIndex',featuresCol='features')rfc = RandomForestClassifier(labelCol='DrugIndex',featuresCol='features')#A gradient boosted tree classifier#gbt = GBTClassifier(labelCol='DrugIndex',featuresCol='features')
+# Use mostly defaults to make this comparison "fair"
+
+dtc = DecisionTreeClassifier(labelCol='DrugIndex',featuresCol='features')
+rfc = RandomForestClassifier(labelCol='DrugIndex',featuresCol='features')
+
+#A gradient boosted tree classifier
+#gbt = GBTClassifier(labelCol='DrugIndex',featuresCol='features')
 ```
 
 Train  models:
 
 
 ```python
-# Train the models (its three models, so it might take some time)dtc_model = dtc.fit(train_data)
+# Train the models (its three models, so it might take some time)
+dtc_model = dtc.fit(train_data)
 ```
 
 
@@ -542,17 +556,26 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 
 
 ```python
-# Select (prediction, true label) and compute test erroracc_evaluator = MulticlassClassificationEvaluator(labelCol="DrugIndex", predictionCol="prediction", metricName="accuracy")
+# Select (prediction, true label) and compute test error
+acc_evaluator = MulticlassClassificationEvaluator(labelCol="DrugIndex", predictionCol="prediction", metricName="accuracy")
 ```
 
 
 ```python
-dtc_acc = acc_evaluator.evaluate(dtc_predictions)rfc_acc = acc_evaluator.evaluate(rfc_predictions)#gbt_acc = acc_evaluator.evaluate(gbt_predictions)
+dtc_acc = acc_evaluator.evaluate(dtc_predictions)
+rfc_acc = acc_evaluator.evaluate(rfc_predictions)
+#gbt_acc = acc_evaluator.evaluate(gbt_predictions)
 ```
 
 
 ```python
-print("Here are the results!")print('-'*80)print('A single decision tree had an accuracy of: {0:2.2f}%'.format(dtc_acc*100))print('-'*80)print('A random forest ensemble had an accuracy of: {0:2.2f}%'.format(rfc_acc*100))#print('-'*80)#print('A ensemble using GBT had an accuracy of: {0:2.2f}%'.format(gbt_acc*100))
+print("Here are the results!")
+print('-'*80)
+print('A single decision tree had an accuracy of: {0:2.2f}%'.format(dtc_acc*100))
+print('-'*80)
+print('A random forest ensemble had an accuracy of: {0:2.2f}%'.format(rfc_acc*100))
+#print('-'*80)
+#print('A ensemble using GBT had an accuracy of: {0:2.2f}%'.format(gbt_acc*100))
 ```
 
     Here are the results!--------------------------------------------------------------------------------A single decision tree had an accuracy of: 92.86%--------------------------------------------------------------------------------A random forest ensemble had an accuracy of: 89.29%
