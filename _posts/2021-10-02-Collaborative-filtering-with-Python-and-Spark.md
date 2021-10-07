@@ -181,7 +181,8 @@ movies_df.head(1)
 
 
 ```python
-#Dropping the genres columnmovies_df = movies_df.drop('genres', 1)
+#Dropping the genres column
+movies_df = movies_df.drop('genres', 1)
 ```
 
 
@@ -289,7 +290,8 @@ Every row in the ratings dataframe has a user id associated with at least one mo
 
 
 ```python
-#Drop removes a specified row or column from a dataframeratings_df = ratings_df.drop('timestamp', 1)
+#Drop removes a specified row or column from a dataframe
+ratings_df = ratings_df.drop('timestamp', 1)
 ```
 
 
@@ -316,7 +318,11 @@ Notice: To add more movies, simply increase the amount of elements in the userIn
 
 
 ```python
-#Dataframe manipulation libraryimport pandas as pd#Math functions, we'll only need the sqrt function so let's import only thatfrom math import sqrtimport numpy as npimport matplotlib.pyplot as plt%matplotlib inline
+#Dataframe manipulation library
+import pandas as pd
+#Math functions, we'll only need the sqrt function so let's import only thatfrom math 
+import sqrtimport numpy as np
+import matplotlib.pyplot as plt%matplotlib inline
 ```
 
 The first technique we're going to take a look at is called __Collaborative Filtering__, which is also known as __User-User Filtering__. 
@@ -491,7 +497,9 @@ Now with the movie ID's in our input, we can now get the subset of users that ha
 
 
 ```python
-#Filtering out users that have watched movies that the input has watched and storing ituserSubset = ratings_df[ratings_df['movieId'].isin(inputMovies['movieId'].tolist())]userSubset.head()
+#Filtering out users that have watched movies that the input has watched and storing it
+userSubset = ratings_df[ratings_df['movieId'].isin(inputMovies['movieId'].tolist())]
+userSubset.head()
 ```
 
 
@@ -557,7 +565,8 @@ Now with the movie ID's in our input, we can now get the subset of users that ha
 
 
 ```python
-#Groupby creates several sub dataframes where they all have the same value in the column specified as the parameteruserSubsetGroup = userSubset.groupby(['userId'])
+#Groupby creates several sub dataframes where they all have the same value in the column specified as the parameter
+userSubsetGroup = userSubset.groupby(['userId'])
 ```
 
 lets look at one of the users, e.g. the one with userID=1130
@@ -630,7 +639,8 @@ userSubsetGroup.get_group(1130)
 
 
 ```python
-#Sorting it so users with movie most in common with the input will have priorityuserSubsetGroup = sorted(userSubsetGroup,  key=lambda x: len(x[1]), reverse=True)
+#Sorting it so users with movie most in common with the input will have priority
+userSubsetGroup = sorted(userSubsetGroup,  key=lambda x: len(x[1]), reverse=True)
 ```
 
 Now lets look at the first user
@@ -664,12 +674,42 @@ Now, we calculate the Pearson Correlation between input user and subset group, a
 
 
 ```python
-#Store the Pearson Correlation in a dictionary, where the key is the user Id and the value is the coefficientpearsonCorrelationDict = {}#For every user group in our subsetfor name, group in userSubsetGroup:    #Let's start by sorting the input and current user group so the values aren't mixed up later on    group = group.sort_values(by='movieId')    inputMovies = inputMovies.sort_values(by='movieId')    #Get the N for the formula    nRatings = len(group)    #Get the review scores for the movies that they both have in common    temp_df = inputMovies[inputMovies['movieId'].isin(group['movieId'].tolist())]    #And then store them in a temporary buffer variable in a list format to facilitate future calculations    tempRatingList = temp_df['rating'].tolist()    #Let's also put the current user group reviews in a list format    tempGroupList = group['rating'].tolist()    #Now let's calculate the pearson correlation between two users, so called, x and y    Sxx = sum([i**2 for i in tempRatingList]) - pow(sum(tempRatingList),2)/float(nRatings)    Syy = sum([i**2 for i in tempGroupList]) - pow(sum(tempGroupList),2)/float(nRatings)    Sxy = sum( i*j for i, j in zip(tempRatingList, tempGroupList)) - sum(tempRatingList)*sum(tempGroupList)/float(nRatings)        #If the denominator is different than zero, then divide, else, 0 correlation.    if Sxx != 0 and Syy != 0:        pearsonCorrelationDict[name] = Sxy/sqrt(Sxx*Syy)    else:        pearsonCorrelationDict[name] = 0
+#Store the Pearson Correlation in a dictionary, where the key is the user Id and the value is the coefficient
+pearsonCorrelationDict = {}
+
+#For every user group in our subset
+for name, group in userSubsetGroup:
+    #Let's start by sorting the input and current user group so the values aren't mixed up later on
+    group = group.sort_values(by='movieId')
+    inputMovies = inputMovies.sort_values(by='movieId')
+    #Get the N for the formula
+    nRatings = len(group)
+    #Get the review scores for the movies that they both have in common
+    temp_df = inputMovies[inputMovies['movieId'].isin(group['movieId'].tolist())]
+    #And then store them in a temporary buffer variable in a list format to facilitate future calculations
+    tempRatingList = temp_df['rating'].tolist()
+    #Let's also put the current user group reviews in a list format
+    tempGroupList = group['rating'].tolist()
+    #Now let's calculate the pearson correlation between two users, so called, x and y
+    Sxx = sum([i**2 for i in tempRatingList]) - pow(sum(tempRatingList),2)/float(nRatings)
+    Syy = sum([i**2 for i in tempGroupList]) - pow(sum(tempGroupList),2)/float(nRatings)
+    Sxy = sum( i*j for i, j in zip(tempRatingList, tempGroupList)) - sum(tempRatingList)*sum(tempGroupList)/float(nRatings)
+    
+    #If the denominator is different than zero, then divide, else, 0 correlation.
+    if Sxx != 0 and Syy != 0:
+        pearsonCorrelationDict[name] = Sxy/sqrt(Sxx*Syy)
+    else:
+        pearsonCorrelationDict[name] = 0
+
 ```
 
 
 ```python
-pearsonDF = pd.DataFrame.from_dict(pearsonCorrelationDict, orient='index')pearsonDF.columns = ['similarityIndex']pearsonDF['userId'] = pearsonDF.indexpearsonDF.index = range(len(pearsonDF))pearsonDF.head()
+pearsonDF = pd.DataFrame.from_dict(pearsonCorrelationDict, orient='index')
+pearsonDF.columns = ['similarityIndex']
+pearsonDF['userId'] = pearsonDF.index
+pearsonDF.index = range(len(pearsonDF))
+pearsonDF.head()
 ```
 
 
@@ -733,7 +773,8 @@ Now let's get the top 50 users that are most similar to the input.
 
 
 ```python
-topUsers=pearsonDF.sort_values(by='similarityIndex', ascending=False)[0:50]topUsers.head()
+topUsers=pearsonDF.sort_values(by='similarityIndex', ascending=False)[0:50]
+topUsers.head()
 ```
 
 
@@ -876,7 +917,9 @@ It shows the idea of all similar users to candidate movies for the input user:
 
 
 ```python
-#Multiplies the similarity by the user's ratingstopUsersRating['weightedRating'] = topUsersRating['similarityIndex']*topUsersRating['rating']topUsersRating.head()
+#Multiplies the similarity by the user's ratings
+topUsersRating['weightedRating'] = topUsersRating['similarityIndex']*topUsersRating['rating']
+topUsersRating.head()
 ```
 
 
@@ -954,7 +997,10 @@ It shows the idea of all similar users to candidate movies for the input user:
 
 
 ```python
-#Applies a sum to the topUsers after grouping it up by userIdtempTopUsersRating = topUsersRating.groupby('movieId').sum()[['similarityIndex','weightedRating']]tempTopUsersRating.columns = ['sum_similarityIndex','sum_weightedRating']tempTopUsersRating.head()
+#Applies a sum to the topUsers after grouping it up by userId
+tempTopUsersRating = topUsersRating.groupby('movieId').sum()[['similarityIndex','weightedRating']]
+tempTopUsersRating.columns = ['sum_similarityIndex','sum_weightedRating']
+tempTopUsersRating.head()
 ```
 
 
@@ -1019,7 +1065,12 @@ It shows the idea of all similar users to candidate movies for the input user:
 
 
 ```python
-#Creates an empty dataframerecommendation_df = pd.DataFrame()#Now we take the weighted averagerecommendation_df['weighted average recommendation score'] = tempTopUsersRating['sum_weightedRating']/tempTopUsersRating['sum_similarityIndex']recommendation_df['movieId'] = tempTopUsersRating.indexrecommendation_df.head()
+#Creates an empty dataframe
+recommendation_df = pd.DataFrame()
+#Now we take the weighted average
+recommendation_df['weighted average recommendation score'] = tempTopUsersRating['sum_weightedRating']/tempTopUsersRating['sum_similarityIndex']
+recommendation_df['movieId'] = tempTopUsersRating.index
+recommendation_df.head()
 ```
 
 
@@ -1332,12 +1383,14 @@ data.describe().show()
 
 
 ```python
-# Smaller dataset so we will use 0.8 / 0.2(training, test) = data.randomSplit([0.8, 0.2])
+# Smaller dataset so we will use 0.8 / 0.2
+(training, test) = data.randomSplit([0.8, 0.2])
 ```
 
 
 ```python
-# Build the recommendation model using ALS on the training dataals = ALS(maxIter=5, regParam=0.01, userCol="userId", itemCol="movieId", ratingCol="rating")
+# Build the recommendation model using ALS on the training data
+als = ALS(maxIter=5, regParam=0.01, userCol="userId", itemCol="movieId", ratingCol="rating")
 ```
 
 Attention: we requiere 5g of free  RAM memory
@@ -1351,7 +1404,8 @@ Now let's see how the model performed!
 
 
 ```python
-# Evaluate the model by computing the RMSE on the test datapredictions = model.transform(test)
+# Evaluate the model by computing the RMSE on the test data
+predictions = model.transform(test)
 ```
 
 
@@ -1375,7 +1429,8 @@ single_user = test.filter(test['userId']==11).select(['movieId','userId'])
 
 
 ```python
-# User had 10 ratings in the test data set single_user.show()
+# User had 10 ratings in the test data set 
+single_user.show()
 ```
 
     +-------+------+|movieId|userId|+-------+------+|      3|    11||    186|    11||    908|    11||   1220|    11||   1225|    11||   1266|    11||   1275|    11||   2599|    11||   2641|    11||   2687|    11||   2993|    11||   3686|    11||   3826|    11|+-------+------+
@@ -1396,6 +1451,7 @@ reccomendations.orderBy('prediction',ascending=False).show()
     +-------+------+----------+|movieId|userId|prediction|+-------+------+----------+|   1275|    11| 3.4204795||   1225|    11| 3.4091446||   2687|    11| 3.3668394||   1266|    11|  3.320037||    908|    11| 3.2962897||   3686|    11|  3.268262||   1220|    11|   3.22914||   2993|    11|    3.0513||   2599|    11| 3.0509036||   2641|    11| 2.8271532||      3|    11| 2.8164563||    186|    11| 2.8024044||   3826|    11| 2.7049482|+-------+------+----------+
 
  
+
 
 You can download the notebook [here](https://github.com/ruslanmv/Machine-Learning-with-Python-and-Spark/blob/master/Recommender-Systems/Recommender-Systems.ipynb)
 
