@@ -302,18 +302,19 @@ findspark.init()
 ```
 
 
-```python
-#Tree methods Examplefrom pyspark.sql import SparkSessionspark = SparkSession.builder.appName('treecode').getOrCreate()
+
+```
+#Tree methods Example
+from pyspark.sql import SparkSessionspark = SparkSession.builder.appName('treecode').getOrCreate()
 ```
 
-<h3 id="understanding_data">Understanding the Data</h2>
-
-
-
+### Understanding the Data
 
 ```python
 data = spark.read.csv('drug200.csv',inferSchema=True,header=True)
 ```
+
+
 
 
 ```python
