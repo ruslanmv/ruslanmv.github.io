@@ -134,7 +134,7 @@ my_data[0:5]
 
 
 
-Using <b>my_data</b> as the Drug.csv data read by pandas, declare the following variables: <br>
+Using **drug200.csv** data read by pandas, declare the following variables: <br>
 
 <ul>
     <li> <b> X </b> as the <b> Feature Matrix </b> (data of my_data) </li>
@@ -405,7 +405,8 @@ data.show()
 
 
 ```python
-from pyspark.ml import Pipelinefrom pyspark.ml.feature import IndexToString, StringIndexer
+from pyspark.ml import Pipeline
+from pyspark.ml.feature import IndexToString, StringIndexer
 ```
 
 
@@ -413,7 +414,31 @@ from pyspark.ml import Pipelinefrom pyspark.ml.feature import IndexToString, Str
 data.show()
 ```
 
-    +---+---+------+-----------+-------+-----+|Age|Sex|    BP|Cholesterol|Na_to_K| Drug|+---+---+------+-----------+-------+-----+| 23|  F|  HIGH|       HIGH| 25.355|drugY|| 47|  M|   LOW|       HIGH| 13.093|drugC|| 47|  M|   LOW|       HIGH| 10.114|drugC|| 28|  F|NORMAL|       HIGH|  7.798|drugX|| 61|  F|   LOW|       HIGH| 18.043|drugY|| 22|  F|NORMAL|       HIGH|  8.607|drugX|| 49|  F|NORMAL|       HIGH| 16.275|drugY|| 41|  M|   LOW|       HIGH| 11.037|drugC|| 60|  M|NORMAL|       HIGH| 15.171|drugY|| 43|  M|   LOW|     NORMAL| 19.368|drugY|| 47|  F|   LOW|       HIGH| 11.767|drugC|| 34|  F|  HIGH|     NORMAL| 19.199|drugY|| 43|  M|   LOW|       HIGH| 15.376|drugY|| 74|  F|   LOW|       HIGH| 20.942|drugY|| 50|  F|NORMAL|       HIGH| 12.703|drugX|| 16|  F|  HIGH|     NORMAL| 15.516|drugY|| 69|  M|   LOW|     NORMAL| 11.455|drugX|| 43|  M|  HIGH|       HIGH| 13.972|drugA|| 23|  M|   LOW|       HIGH|  7.298|drugC|| 32|  F|  HIGH|     NORMAL| 25.974|drugY|+---+---+------+-----------+-------+-----+only showing top 20 rows
+    +---+---+------+-----------+-------+-----+
+    |Age|Sex|    BP|Cholesterol|Na_to_K| Drug|
+    +---+---+------+-----------+-------+-----+
+    | 23|  F|  HIGH|       HIGH| 25.355|drugY|
+    | 47|  M|   LOW|       HIGH| 13.093|drugC|
+    | 47|  M|   LOW|       HIGH| 10.114|drugC|
+    | 28|  F|NORMAL|       HIGH|  7.798|drugX|
+    | 61|  F|   LOW|       HIGH| 18.043|drugY|
+    | 22|  F|NORMAL|       HIGH|  8.607|drugX|
+    | 49|  F|NORMAL|       HIGH| 16.275|drugY|
+    | 41|  M|   LOW|       HIGH| 11.037|drugC|
+    | 60|  M|NORMAL|       HIGH| 15.171|drugY|
+    | 43|  M|   LOW|     NORMAL| 19.368|drugY|
+    | 47|  F|   LOW|       HIGH| 11.767|drugC|
+    | 34|  F|  HIGH|     NORMAL| 19.199|drugY|
+    | 43|  M|   LOW|       HIGH| 15.376|drugY|
+    | 74|  F|   LOW|       HIGH| 20.942|drugY|
+    | 50|  F|NORMAL|       HIGH| 12.703|drugX|
+    | 16|  F|  HIGH|     NORMAL| 15.516|drugY|
+    | 69|  M|   LOW|     NORMAL| 11.455|drugX|
+    | 43|  M|  HIGH|       HIGH| 13.972|drugA|
+    | 23|  M|   LOW|       HIGH|  7.298|drugC|
+    | 32|  F|  HIGH|     NORMAL| 25.974|drugY|
+    +---+---+------+-----------+-------+-----+
+    only showing top 20 rows
 
 
 ​    
@@ -531,10 +556,34 @@ train_data,test_data = final_data.randomSplit([0.7,0.3])
 train_data.show()
 ```
 
-    +--------------------+---------+|            features|DrugIndex|+--------------------+---------+|(5,[0,4],[29.0,12...|      2.0||(5,[0,4],[31.0,30...|      0.0||(5,[0,4],[34.0,18...|      0.0||(5,[0,4],[39.0,9....|      2.0||(5,[0,4],[40.0,27...|      0.0||(5,[0,4],[47.0,10...|      2.0||(5,[0,4],[50.0,7....|      2.0||(5,[0,4],[58.0,18...|      0.0||(5,[0,4],[60.0,13...|      3.0||(5,[0,4],[66.0,16...|      0.0||(5,[0,4],[68.0,11...|      3.0||(5,[0,4],[70.0,9....|      3.0||(5,[0,4],[70.0,13...|      3.0||(5,[0,4],[74.0,9....|      3.0||[15.0,0.0,0.0,1.0...|      0.0||[15.0,0.0,2.0,0.0...|      1.0||[15.0,1.0,0.0,1.0...|      0.0||[16.0,0.0,0.0,1.0...|      0.0||[16.0,1.0,0.0,1.0...|      0.0||[18.0,1.0,0.0,1.0...|      0.0|+--------------------+---------+only showing top 20 rows
+    +--------------------+---------+
+    |            features|DrugIndex|
+    +--------------------+---------+
+    |(5,[0,4],[29.0,12...|      2.0|
+    |(5,[0,4],[31.0,30...|      0.0|
+    |(5,[0,4],[34.0,18...|      0.0|
+    |(5,[0,4],[39.0,9....|      2.0|
+    |(5,[0,4],[40.0,27...|      0.0|
+    |(5,[0,4],[47.0,10...|      2.0|
+    |(5,[0,4],[50.0,7....|      2.0|
+    |(5,[0,4],[58.0,18...|      0.0|
+    |(5,[0,4],[60.0,13...|      3.0|
+    |(5,[0,4],[66.0,16...|      0.0|
+    |(5,[0,4],[68.0,11...|      3.0|
+    |(5,[0,4],[70.0,9....|      3.0|
+    |(5,[0,4],[70.0,13...|      3.0|
+    |(5,[0,4],[74.0,9....|      3.0|
+    |[15.0,0.0,0.0,1.0...|      0.0|
+    |[15.0,0.0,2.0,0.0...|      1.0|
+    |[15.0,1.0,0.0,1.0...|      0.0|
+    |[16.0,0.0,0.0,1.0...|      0.0|
+    |[16.0,1.0,0.0,1.0...|      0.0|
+    |[18.0,1.0,0.0,1.0...|      0.0|
+    +--------------------+---------+
+    only showing top 20 rows
 
 
-   
+
 
 ### The Classifiers
 
@@ -560,9 +609,6 @@ We will be using a college dataset to try to classify colleges as Private or Pub
 
 dtc = DecisionTreeClassifier(labelCol='DrugIndex',featuresCol='features')
 rfc = RandomForestClassifier(labelCol='DrugIndex',featuresCol='features')
-
-#A gradient boosted tree classifier
-#gbt = GBTClassifier(labelCol='DrugIndex',featuresCol='features')
 ```
 
 Train  models:
@@ -579,9 +625,6 @@ rfc_model = rfc.fit(train_data)
 ```
 
 
-```python
-#gbt_model = gbt.fit(train_data)
-```
 
 ## Model Comparison
 
@@ -589,7 +632,7 @@ Let's compare each of these models!
 
 
 ```python
-dtc_predictions = dtc_model.transform(test_data)rfc_predictions = rfc_model.transform(test_data)#gbt_predictions = gbt_model.transform(test_data)
+dtc_predictions = dtc_model.transform(test_data)rfc_predictions = rfc_model.transform(test_data)#gbt_predictions = 
 ```
 
 **Evaluation Metrics:**
@@ -609,7 +652,6 @@ acc_evaluator = MulticlassClassificationEvaluator(labelCol="DrugIndex", predicti
 ```python
 dtc_acc = acc_evaluator.evaluate(dtc_predictions)
 rfc_acc = acc_evaluator.evaluate(rfc_predictions)
-#gbt_acc = acc_evaluator.evaluate(gbt_predictions)
 ```
 
 
@@ -619,8 +661,7 @@ print('-'*80)
 print('A single decision tree had an accuracy of: {0:2.2f}%'.format(dtc_acc*100))
 print('-'*80)
 print('A random forest ensemble had an accuracy of: {0:2.2f}%'.format(rfc_acc*100))
-#print('-'*80)
-#print('A ensemble using GBT had an accuracy of: {0:2.2f}%'.format(gbt_acc*100))
+
 ```
 
     Here are the results!--------------------------------------------------------------------------------A single decision tree had an accuracy of: 92.86%--------------------------------------------------------------------------------A random forest ensemble had an accuracy of: 89.29%
