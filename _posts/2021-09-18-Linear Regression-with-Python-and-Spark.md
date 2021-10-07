@@ -513,7 +513,8 @@ predictions.show()
 
 
 ```python
-print("RMSE: {}".format(test_results.rootMeanSquaredError))print("MSE: {}".format(test_results.meanSquaredError))
+print("RMSE: {}".format(test_results.rootMeanSquaredError))
+print("MSE: {}".format(test_results.meanSquaredError))
 ```
 
     RMSE: 10.608638076962102MSE: 112.54320184797014
