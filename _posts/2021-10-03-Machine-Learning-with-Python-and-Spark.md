@@ -409,7 +409,7 @@ Now that we have seen  the idea of Decision Trees,  let us see an example to und
 
 <h2 id="ref4">Clustering</h2>
 
-There are many models for **clustering** out there. In this notebook, we will be presenting the model that is considered one of the simplest models amongst them. Despite its simplicity, the **K-means** is vastly used for clustering in many data science applications, especially useful if you need to quickly discover insights from **unlabeled data**. In this notebook, you will learn how to use k-Means for customer segmentation.
+There are many models for **clustering** out there.  We will be presenting the model that is considered one of the simplest models amongst them. Despite its simplicity, the **K-means** is vastly used for clustering in many data science applications, especially useful if you need to quickly discover insights from **unlabeled data**. 
 
 Some real-world applications of k-means:
 
@@ -427,7 +427,7 @@ Now that we have seen  the idea of clustering, let us discuss a problem  by usin
 
 <h2 id="ref5">Collaborative Filtering</h2>
 
-Recommendation systems are a collection of algorithms used to recommend items to users based on information taken from the user. These systems have become ubiquitous can be commonly seen in online stores, movies databases and job finders. In this notebook, we will explore recommendation systems based on Collaborative Filtering and implement simple version of one using Python and the Pandas library.
+Recommendation systems are a collection of algorithms used to recommend items to users based on information taken from the user. These systems have become ubiquitous can be commonly seen in online stores, movies databases and job finders. We will explore recommendation systems based on Collaborative Filtering and implement simple version of one using Python and the Pandas library.
 
 
 
