@@ -9,7 +9,7 @@ header:
   
 ---
 
-
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 We will examine a dataset with Ecommerce Customer Data for a company's website.
 Then we will build a regression model that will predict the customer's yearly spend on the company's product.
@@ -274,9 +274,9 @@ y_hat= regr.predict(test[inputCols])x = np.asanyarray(test[inputCols])y = np.asa
 
 
 __explained variance regression score:__  
-If $\hat{y}$ is the estimated target output, y the corresponding (correct) target output, and Var is Variance, the square of the standard deviation, then the explained variance is estimated as follow:
+If $$\hat{y}$$ is the estimated target output, y the corresponding (correct) target output, and Var is Variance, the square of the standard deviation, then the explained variance is estimated as follow:
 
-$\texttt{explainedVariance}(y, \hat{y}) = 1 - \frac{Var\{ y - \hat{y}\}}{Var\{y\}}$  
+$$\texttt{explainedVariance}(y, \hat{y}) = 1 - \frac{Var\{ y - \hat{y}\}}{Var\{y\}}$$  
 The best possible score is 1.0, lower values are worse.
 
 <a id="ref2"></a>
