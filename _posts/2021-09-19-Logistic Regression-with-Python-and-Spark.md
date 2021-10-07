@@ -152,10 +152,11 @@ churn_df = churn_df[inputCols]
 
 
 ```python
-churn_df['Churn'] = churn_df['Churn'].astype('int')churn_df.head()
+churn_df['Churn'] = churn_df['Churn'].astype('int')
+churn_df.head()
 ```
 
-    C:\Anaconda3\envs\pyspark\lib\site-packages\ipykernel_launcher.py:1: SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame.Try using .loc[row_indexer,col_indexer] = value insteadSee the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy  """Entry point for launching an IPython kernel.
+
 
 
 
@@ -286,7 +287,10 @@ We split our dataset into train and test set:
 
 
 ```python
-from sklearn.model_selection import train_test_splitX_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)print ('Train set:', X_train.shape,  y_train.shape)print ('Test set:', X_test.shape,  y_test.shape)
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
+print ('Train set:', X_train.shape,  y_train.shape)
+print ('Test set:', X_test.shape,  y_test.shape)
 ```
 
     Train set: (720, 5) (720,)Test set: (180, 5) (180,)
@@ -296,7 +300,10 @@ Lets build our model using __LogisticRegression__ from Scikit-learn package. The
 
 
 ```python
-from sklearn.linear_model import LogisticRegressionfrom sklearn.metrics import confusion_matrixLR = LogisticRegression(C=0.01, solver='liblinear').fit(X_train,y_train)LR
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+LR = LogisticRegression(C=0.01, solver='liblinear').fit(X_train,y_train)
+LR
 ```
 
 
@@ -310,7 +317,8 @@ Now we can predict using our test set:
 
 
 ```python
-yhat = LR.predict(X_test)yhat
+yhat = LR.predict(X_test)
+yhat
 ```
 
 
@@ -324,7 +332,8 @@ __predict_proba__  returns estimates for all classes, ordered by the label of cl
 
 
 ```python
-yhat_prob = LR.predict_proba(X_test)yhat_prob
+yhat_prob = LR.predict_proba(X_test)
+yhat_prob
 ```
 
 
@@ -340,7 +349,42 @@ Another way of looking at accuracy of classifier is to look at __confusion matri
 
 
 ```python
-from sklearn.metrics import classification_report, confusion_matriximport itertoolsdef plot_confusion_matrix(cm, classes,                          normalize=False,                          title='Confusion matrix',                          cmap=plt.cm.Blues):    """    This function prints and plots the confusion matrix.    Normalization can be applied by setting `normalize=True`.    """    if normalize:        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]        print("Normalized confusion matrix")    else:        print('Confusion matrix, without normalization')    print(cm)    plt.imshow(cm, interpolation='nearest', cmap=cmap)    plt.title(title)    plt.colorbar()    tick_marks = np.arange(len(classes))    plt.xticks(tick_marks, classes, rotation=45)    plt.yticks(tick_marks, classes)    fmt = '.2f' if normalize else 'd'    thresh = cm.max() / 2.    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):        plt.text(j, i, format(cm[i, j], fmt),                 horizontalalignment="center",                 color="white" if cm[i, j] > thresh else "black")    plt.tight_layout()    plt.ylabel('True label')    plt.xlabel('Predicted label')print(confusion_matrix(y_test, yhat, labels=[1,0]))
+from sklearn.metrics import classification_report, confusion_matrix
+import itertools
+def plot_confusion_matrix(cm, classes,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.Blues):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+print(confusion_matrix(y_test, yhat, labels=[1,0]))
 ```
 
     [[ 14  16] [  6 144]]
@@ -348,7 +392,14 @@ from sklearn.metrics import classification_report, confusion_matriximport iterto
 
 
 ```python
-# Compute confusion matrixcnf_matrix = confusion_matrix(y_test, yhat, labels=[1,0])np.set_printoptions(precision=2)# Plot non-normalized confusion matrixplt.figure()plot_confusion_matrix(cnf_matrix, classes=['churn=1','churn=0'],normalize= False,  title='Confusion matrix')
+# Compute confusion matrix
+cnf_matrix = confusion_matrix(y_test, yhat, labels=[1,0])
+np.set_printoptions(precision=2)
+
+
+# Plot non-normalized confusion matrix
+plt.figure()
+plot_confusion_matrix(cnf_matrix, classes=['churn=1','churn=0'],normalize= False,  title='Confusion matrix')
 ```
 
     Confusion matrix, without normalization[[ 14  16] [  6 144]]
