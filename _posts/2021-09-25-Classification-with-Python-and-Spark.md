@@ -59,8 +59,6 @@ my_data[0:5]
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
-
-
     .dataframe tbody tr th {
         vertical-align: top;
     }
@@ -223,7 +221,8 @@ X_trainset, X_testset, y_trainset, y_testset = train_test_split(X, y, test_size=
 
 
 ```python
-drugTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)drugTree # it shows the default parameters
+drugTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
+drugTree # it shows the default parameters
 ```
 
 
@@ -260,7 +259,8 @@ predTree = drugTree.predict(X_testset)
 
 
 ```python
-print (predTree [0:5])print (y_testset [0:5])
+print (predTree [0:5])
+print (y_testset [0:5])
 ```
 
     ['drugY' 'drugX' 'drugX' 'drugX' 'drugX']40     drugY51     drugX139    drugX197    drugX170    drugXName: Drug, dtype: object
@@ -277,7 +277,9 @@ print (predTree [0:5])print (y_testset [0:5])
 
 
 ```python
-from sklearn import metricsimport matplotlib.pyplot as pltprint("DecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
+from sklearn import metrics
+import matplotlib.pyplot as plt
+print("DecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
 ```
 
     DecisionTrees's Accuracy:  0.9833333333333333
@@ -347,7 +349,12 @@ data.head()
 
 
 ```python
-# A few things we need to do before Spark can accept the data!# It needs to be in the form of two columns# ("label","features")# Import VectorAssembler and Vectorsfrom pyspark.ml.linalg import Vectorsfrom pyspark.ml.feature import VectorAssembler
+# A few things we need to do before Spark can accept the data!
+# It needs to be in the form of two columns
+# ("label","features")
+# Import VectorAssembler and Vectors
+from pyspark.ml.linalg import Vectors
+from pyspark.ml.feature import VectorAssembler
 ```
 
 
@@ -367,7 +374,31 @@ data.columns
 data.show()
 ```
 
-    +---+---+------+-----------+-------+-----+|Age|Sex|    BP|Cholesterol|Na_to_K| Drug|+---+---+------+-----------+-------+-----+| 23|  F|  HIGH|       HIGH| 25.355|drugY|| 47|  M|   LOW|       HIGH| 13.093|drugC|| 47|  M|   LOW|       HIGH| 10.114|drugC|| 28|  F|NORMAL|       HIGH|  7.798|drugX|| 61|  F|   LOW|       HIGH| 18.043|drugY|| 22|  F|NORMAL|       HIGH|  8.607|drugX|| 49|  F|NORMAL|       HIGH| 16.275|drugY|| 41|  M|   LOW|       HIGH| 11.037|drugC|| 60|  M|NORMAL|       HIGH| 15.171|drugY|| 43|  M|   LOW|     NORMAL| 19.368|drugY|| 47|  F|   LOW|       HIGH| 11.767|drugC|| 34|  F|  HIGH|     NORMAL| 19.199|drugY|| 43|  M|   LOW|       HIGH| 15.376|drugY|| 74|  F|   LOW|       HIGH| 20.942|drugY|| 50|  F|NORMAL|       HIGH| 12.703|drugX|| 16|  F|  HIGH|     NORMAL| 15.516|drugY|| 69|  M|   LOW|     NORMAL| 11.455|drugX|| 43|  M|  HIGH|       HIGH| 13.972|drugA|| 23|  M|   LOW|       HIGH|  7.298|drugC|| 32|  F|  HIGH|     NORMAL| 25.974|drugY|+---+---+------+-----------+-------+-----+only showing top 20 rows
+    +---+---+------+-----------+-------+-----+
+    |Age|Sex|    BP|Cholesterol|Na_to_K| Drug|
+    +---+---+------+-----------+-------+-----+
+    | 23|  F|  HIGH|       HIGH| 25.355|drugY|
+    | 47|  M|   LOW|       HIGH| 13.093|drugC|
+    | 47|  M|   LOW|       HIGH| 10.114|drugC|
+    | 28|  F|NORMAL|       HIGH|  7.798|drugX|
+    | 61|  F|   LOW|       HIGH| 18.043|drugY|
+    | 22|  F|NORMAL|       HIGH|  8.607|drugX|
+    | 49|  F|NORMAL|       HIGH| 16.275|drugY|
+    | 41|  M|   LOW|       HIGH| 11.037|drugC|
+    | 60|  M|NORMAL|       HIGH| 15.171|drugY|
+    | 43|  M|   LOW|     NORMAL| 19.368|drugY|
+    | 47|  F|   LOW|       HIGH| 11.767|drugC|
+    | 34|  F|  HIGH|     NORMAL| 19.199|drugY|
+    | 43|  M|   LOW|       HIGH| 15.376|drugY|
+    | 74|  F|   LOW|       HIGH| 20.942|drugY|
+    | 50|  F|NORMAL|       HIGH| 12.703|drugX|
+    | 16|  F|  HIGH|     NORMAL| 15.516|drugY|
+    | 69|  M|   LOW|     NORMAL| 11.455|drugX|
+    | 43|  M|  HIGH|       HIGH| 13.972|drugA|
+    | 23|  M|   LOW|       HIGH|  7.298|drugC|
+    | 32|  F|  HIGH|     NORMAL| 25.974|drugY|
+    +---+---+------+-----------+-------+-----+
+    only showing top 20 rows
 
 
 ​    
@@ -425,7 +456,31 @@ df_r = pipeline.fit(data).transform(data)
 df_r.show()
 ```
 
-    +---+---+------+-----------+-------+-----+--------+-----------------+---------+|Age|Sex|    BP|Cholesterol|Na_to_K| Drug|BP_index|Cholesterol_index|Sex_index|+---+---+------+-----------+-------+-----+--------+-----------------+---------+| 23|  F|  HIGH|       HIGH| 25.355|drugY|     0.0|              0.0|      1.0|| 47|  M|   LOW|       HIGH| 13.093|drugC|     1.0|              0.0|      0.0|| 47|  M|   LOW|       HIGH| 10.114|drugC|     1.0|              0.0|      0.0|| 28|  F|NORMAL|       HIGH|  7.798|drugX|     2.0|              0.0|      1.0|| 61|  F|   LOW|       HIGH| 18.043|drugY|     1.0|              0.0|      1.0|| 22|  F|NORMAL|       HIGH|  8.607|drugX|     2.0|              0.0|      1.0|| 49|  F|NORMAL|       HIGH| 16.275|drugY|     2.0|              0.0|      1.0|| 41|  M|   LOW|       HIGH| 11.037|drugC|     1.0|              0.0|      0.0|| 60|  M|NORMAL|       HIGH| 15.171|drugY|     2.0|              0.0|      0.0|| 43|  M|   LOW|     NORMAL| 19.368|drugY|     1.0|              1.0|      0.0|| 47|  F|   LOW|       HIGH| 11.767|drugC|     1.0|              0.0|      1.0|| 34|  F|  HIGH|     NORMAL| 19.199|drugY|     0.0|              1.0|      1.0|| 43|  M|   LOW|       HIGH| 15.376|drugY|     1.0|              0.0|      0.0|| 74|  F|   LOW|       HIGH| 20.942|drugY|     1.0|              0.0|      1.0|| 50|  F|NORMAL|       HIGH| 12.703|drugX|     2.0|              0.0|      1.0|| 16|  F|  HIGH|     NORMAL| 15.516|drugY|     0.0|              1.0|      1.0|| 69|  M|   LOW|     NORMAL| 11.455|drugX|     1.0|              1.0|      0.0|| 43|  M|  HIGH|       HIGH| 13.972|drugA|     0.0|              0.0|      0.0|| 23|  M|   LOW|       HIGH|  7.298|drugC|     1.0|              0.0|      0.0|| 32|  F|  HIGH|     NORMAL| 25.974|drugY|     0.0|              1.0|      1.0|+---+---+------+-----------+-------+-----+--------+-----------------+---------+only showing top 20 rows
+    +---+---+------+-----------+-------+-----+--------+-----------------+---------+
+    |Age|Sex|    BP|Cholesterol|Na_to_K| Drug|BP_index|Cholesterol_index|Sex_index|
+    +---+---+------+-----------+-------+-----+--------+-----------------+---------+
+    | 23|  F|  HIGH|       HIGH| 25.355|drugY|     0.0|              0.0|      1.0|
+    | 47|  M|   LOW|       HIGH| 13.093|drugC|     1.0|              0.0|      0.0|
+    | 47|  M|   LOW|       HIGH| 10.114|drugC|     1.0|              0.0|      0.0|
+    | 28|  F|NORMAL|       HIGH|  7.798|drugX|     2.0|              0.0|      1.0|
+    | 61|  F|   LOW|       HIGH| 18.043|drugY|     1.0|              0.0|      1.0|
+    | 22|  F|NORMAL|       HIGH|  8.607|drugX|     2.0|              0.0|      1.0|
+    | 49|  F|NORMAL|       HIGH| 16.275|drugY|     2.0|              0.0|      1.0|
+    | 41|  M|   LOW|       HIGH| 11.037|drugC|     1.0|              0.0|      0.0|
+    | 60|  M|NORMAL|       HIGH| 15.171|drugY|     2.0|              0.0|      0.0|
+    | 43|  M|   LOW|     NORMAL| 19.368|drugY|     1.0|              1.0|      0.0|
+    | 47|  F|   LOW|       HIGH| 11.767|drugC|     1.0|              0.0|      1.0|
+    | 34|  F|  HIGH|     NORMAL| 19.199|drugY|     0.0|              1.0|      1.0|
+    | 43|  M|   LOW|       HIGH| 15.376|drugY|     1.0|              0.0|      0.0|
+    | 74|  F|   LOW|       HIGH| 20.942|drugY|     1.0|              0.0|      1.0|
+    | 50|  F|NORMAL|       HIGH| 12.703|drugX|     2.0|              0.0|      1.0|
+    | 16|  F|  HIGH|     NORMAL| 15.516|drugY|     0.0|              1.0|      1.0|
+    | 69|  M|   LOW|     NORMAL| 11.455|drugX|     1.0|              1.0|      0.0|
+    | 43|  M|  HIGH|       HIGH| 13.972|drugA|     0.0|              0.0|      0.0|
+    | 23|  M|   LOW|       HIGH|  7.298|drugC|     1.0|              0.0|      0.0|
+    | 32|  F|  HIGH|     NORMAL| 25.974|drugY|     0.0|              1.0|      1.0|
+    +---+---+------+-----------+-------+-----+--------+-----------------+---------+
+    only showing top 20 rows
 
 
 ​    
