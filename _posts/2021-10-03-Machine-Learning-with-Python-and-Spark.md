@@ -8,8 +8,7 @@ header:
   caption: "The key to artificial intelligence has always been the representation.” -Jeff Hawkins"
   
 ---
-
-
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 Machine learning is the science of creating algorithms capable of learning based on the data provided to them.  The  primary techniques  used in machine learning that we will cover here: 
 
@@ -250,7 +249,7 @@ Among the essential components of the Machine Learning models are:
 
   of all the feature values of the ith instance in the dataset, or in other words, the predicted value of the ith row $$\vec x^{(i)}$$
 
-- **Prediction values**: Is the  variable that we want to predict, denoted by $$\hat^{(i)} y=h(\vec  x^{(i)})$$   
+- **Prediction values**: Is the  variable that we want to predict, denoted by $$\hat y^{(i)} y=h(\vec  x^{(i)})$$   
 
 - **Number of features**: Is the number of columns that we will use to create our Machine Learning Model
 
@@ -267,53 +266,56 @@ Those are the main ingredients of the most common Machine Learning Models. In th
 <h2 id="ref1">Linear Regression</h2>
 
 Linear models make a prediction using a linear function of input features.
-$$
-\hat y= w_0  + w_1 x_1 + w_2 x_2 + ... + w_n + x_n  = \vec w \cdot \vec x = h_w(\vec x)
-$$
+
+$$\hat y= w_0  + w_1 x_1 + w_2 x_2 + ... + w_n + x_n  = \vec w \cdot \vec x = h_w(\vec x)$$
 
 
-where $$\hat y$$ is the predicted value,  $$n$$  is the number of features, $$x_i$$ is the ith feature value and $$w_j$$ is the jth model parameter, where w_0 is called the bias term.
+where $$\hat y$$ is the predicted value,  $$n$$  is the number of features, $$x_i$$ is the ith feature value and $$w_j$$ is the jth model parameter, where $$w_0$$ is called the bias term.
 
 
 
 To train a Linear regression model , we need to find the value $$\vec w $$ that **minimizes the Root Mean Square Error** (RMSE)
-$$
-RMSE(\vec x,)=\sqrt{\frac{1}{m}\sum_{i=1}^m(h(\vec x^{(i)})-y^{(i)})^2}
-$$
-In practical linear regression problems ,  we can use the **Mean Square Error**(MSE). The MSE of a Linear Regression hypothesis $$h_w$$ on a training set $$\vec x$$ is calculated by using the MSE **cost function** for Linear regression
-$$
-MSE(\vec x,)=\frac{1}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})^2
-$$
+
+$$RMSE(\vec x,)=\sqrt{\frac{1}{m}\sum_{i=1}^m(h(\vec x^{(i)})-y^{(i)})^2}$$
+
+
+In practical linear regression problems ,  we can use the **Mean Square Error**(MSE). 
+The MSE of a Linear Regression hypothesis $$h_w$$ on a training set $$\vec x$$ is calculated by using the MSE **cost function** for Linear regression
+
+$$ MSE(\vec x,)=\frac{1}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})^2$$
+
 In Machine Learning, vectors are often represented as column vectors, which are 2D arrays with a single column.
 
 
 
-If  $$\vec w$$ and $$\vec x$$ are column vectors then the prediction is $$ \hat y = \vec w ^T \vec x $$, where $$ \vec w ^ $$ is the transpose of $$ w$$ that means a row vector instead a column vector.
+If  $$\vec w$$ and $$\vec x$$ are column vectors then the prediction is 
+
+$$ \hat y = \vec w ^T \vec x $$, 
+
+where $$ \vec w^T $$ is the transpose of $$ w$$ that means a row vector instead a column vector.
 
 To find the value of $$w$$ that minimizes the cost function we use the **Normal Equation**
 
 
-$$
-\hat \theta = (\vec x^T \vec x)^{-1} \vec x^T \vec y
-$$
-where $$ \theta w$$ is the value of  $$ \vec w$$ that minimizes the cost function, and $$\vec y$$ is the vector of target values.
+$$\hat \theta = (\vec x^T \vec x)^{-1} \vec x^T \vec y$$
+
+where $$\hat \theta $$ is the value of  $$ \vec w$$ that minimizes the cost function, and $$\vec y$$ is the vector of target values.
 
 
 
 There are different techniques that allows us minimizes the cost function.  Among them the most used is the  **Gradient descent**
 
 We need to calculate how much the cost function will change if yuou change w_j a little bit.. This is possible with the partial derivative
-$$
-\frac{\partial }{\partial w_j}MSE(\vec w)=\frac{2}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})x_j^{(i)}
-$$
+
+$$\frac{\partial }{\partial w_j}MSE(\vec w)=\frac{2}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})x_j^{(i)}$$
+
 Instead use the partials individually we can compute the gradient vector
-$$
-\grad_W MSE(W)\frac{2}{m}X^T(XW-y)
-$$
+
+$$\nabla_W MSE(W)\frac{2}{m}X^T(XW-y)$$
+
 then we can use the gradient step
-$$
-W^{(step+1)}=W-\eta \grad_W MSE(W)\
-$$
+
+$$ W^{(step+1)}=W-\eta \nabla_W MSE(W) $$
 
 
 where eta $$\eta $$ is the hyperparameter called learning rate. 
@@ -330,36 +332,30 @@ We will examine a dataset with Ecommerce Customer Data for a company’s website
 
  Linear Regression is suited for estimating continuous values (e.g. estimating house price), it is not the best tool for predicting the class of an observed data point.  In order to estimate the class of a data point, we need some sort of guidance on what would be the <b>most probable class</b> for that data point. For this, we use <b>Logistic Regression</b>.
 
-As you know, <b>Linear regression</b> finds a function that relates a continuous dependent variable, <b>y</b>, to some predictors (independent variables x_1, x_2, etc.). For example, Simple linear regression assumes a function of the form:
+As you know, <b>Linear regression</b> finds a function that relates a continuous dependent variable, <b>y</b>, to some predictors (independent variables $$x_1, x_2$$, etc.). For example, Simple linear regression assumes a function of the form:
 
-$$
-y = w_0 + w_1  x_1 + w_2  x_2 + \cdots
-$$
-and finds the values of parameters  $w_0, ws_1, w_2$, etc,$ where the term $w_0$ is the "intercept". It can be generally shown as:
+$$y = w_0 + w_1  x_1 + w_2  x_2 + \cdots$$
 
-$$
-ℎ_w(𝑥) = w^TX
-$$
+and finds the values of parameters  $$w_0, ws_1, w_2$$, etc, where the term $$w_0$$ is the "intercept". It can be generally shown as:
+
+$$ h_w(𝑥) = w^TX $$
 Logistic Regression is a variation of Linear Regression, useful when the observed dependent variable, <b>y</b>, is categorical. It produces a formula that predicts the probability of the class label as a function of the independent variables.
 
 Logistic regression fits a special s-shaped curve by taking the linear regression and transforming the numeric estimate into a probability with the following function, which is called sigmoid function 𝜎:
 
-$$
-ℎ_\vec w(\vec 𝑥) = \sigma({\vec w^T \vec X}) =  \frac {e^{(w_0 + w_1  x_1 + w_2  x_2 +...)}}{1 + e^{(w_0 + w_1  x_1 + w_2  x_2 +\cdots)}}
-$$
-Or ProbabilityOfaClass_1:
-$$
-P(Y=1|X) = \sigma({w^TX}) = \frac{e^{w^TX}}{1+e^{w^TX}}
-$$
+$$h_\vec w(\vec x) = \sigma({\vec w^T \vec X}) =  \frac {e^{(w_0 + w_1  x_1 + w_2  x_2 +...)}}{1 + e^{(w_0 + w_1  x_1 + w_2  x_2 +\cdots)}}$$
+
+or probability of a class 1:
+
+$$P(Y=1|X) = \sigma({w^TX}) = \frac{e^{w^TX}}{1+e^{w^TX}}$$
 
 
 
 
 
 Where the logistic is a a sigmoid function that outputs a number between 0 and 1
-$$
-\sigma(t)=\frac{1}{1+exp(-t)}
-$$
+
+$$ \sigma(t)=\frac{1}{1+exp(-t)}$$
 
 
 
@@ -372,9 +368,9 @@ So, briefly, Logistic Regression passes the input through the logistic/sigmoid b
 src="../assets/images/posts/2021-10-03-Machine-Learning-with-Python-and-Spark/kgv9alcghmjcv97op4d6onkyxevk23b1-16336026405911.png" width="400" align="center">
 
 The objective of __Logistic Regression__ algorithm, is to find the best parameters W, for 
-$$
-ℎ_W(x) = \sigma({W^TX})
-$$
+
+$$ℎ_W(x) = \sigma({W^TX})$$
+
 in such a way that the model best predicts the class of each case.
 
 
