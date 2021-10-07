@@ -345,7 +345,15 @@ The process for creating a User Based recommendation system is as follows:
 
 
 ```python
-userInput = [            {'title':'Breakfast Club, The', 'rating':5},            {'title':'Toy Story', 'rating':3.5},            {'title':'Jumanji', 'rating':2},            {'title':"Pulp Fiction", 'rating':5},            {'title':'Akira', 'rating':4.5}         ] inputMovies = pd.DataFrame(userInput)inputMovies
+userInput = [
+            {'title':'Breakfast Club, The', 'rating':5},
+            {'title':'Toy Story', 'rating':3.5},
+            {'title':'Jumanji', 'rating':2},
+            {'title':"Pulp Fiction", 'rating':5},
+            {'title':'Akira', 'rating':4.5}
+         ] 
+inputMovies = pd.DataFrame(userInput)
+inputMovies
 ```
 
 
@@ -660,7 +668,27 @@ userSubsetGroup[0:3]
 
 
 
-    [(75,        userId  movieId  rating  7507      75        1     5.0  7508      75        2     3.5  7540      75      296     5.0  7633      75     1274     4.5  7673      75     1968     5.0), (106,        userId  movieId  rating  9083     106        1     2.5  9084     106        2     3.0  9115     106      296     3.5  9198     106     1274     3.0  9238     106     1968     3.5), (686,         userId  movieId  rating  61336     686        1     4.0  61337     686        2     3.0  61377     686      296     4.0  61478     686     1274     4.0  61569     686     1968     5.0)]
+    [(75,
+            userId  movieId  rating
+      7507      75        1     5.0
+      7508      75        2     3.5
+      7540      75      296     5.0
+      7633      75     1274     4.5
+      7673      75     1968     5.0),
+     (106,
+            userId  movieId  rating
+      9083     106        1     2.5
+      9084     106        2     3.0
+      9115     106      296     3.5
+      9198     106     1274     3.0
+      9238     106     1968     3.5),
+     (686,
+             userId  movieId  rating
+      61336     686        1     4.0
+      61337     686        2     3.0
+      61377     686      296     4.0
+      61478     686     1274     4.0
+      61569     686     1968     5.0)]
 
 
 
@@ -1458,6 +1486,7 @@ reccomendations.orderBy('prediction',ascending=False).show()
     +-------+------+----------+|movieId|userId|prediction|+-------+------+----------+|   1275|    11| 3.4204795||   1225|    11| 3.4091446||   2687|    11| 3.3668394||   1266|    11|  3.320037||    908|    11| 3.2962897||   3686|    11|  3.268262||   1220|    11|   3.22914||   2993|    11|    3.0513||   2599|    11| 3.0509036||   2641|    11| 2.8271532||      3|    11| 2.8164563||    186|    11| 2.8024044||   3826|    11| 2.7049482|+-------+------+----------+
 
  
+
 
 
 
