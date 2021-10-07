@@ -230,7 +230,11 @@ test = cdf[~msk]
 
 
 ```python
-#### Train data distributionplt.scatter(train[["Length of Membership"]], train[["Yearly Amount Spent"]],  color='blue')plt.xlabel("Length of Membership")plt.ylabel("Yearly Amount Spent")plt.show()
+#### Train data distribution
+plt.scatter(train[["Length of Membership"]], train[["Yearly Amount Spent"]],  color='blue')
+plt.xlabel("Length of Membership")
+plt.ylabel("Yearly Amount Spent")
+plt.show()
 ```
 
 
@@ -241,7 +245,8 @@ test = cdf[~msk]
 
 
 ```python
-inputCols=["Avg Session Length", "Time on App",                "Time on Website",'Length of Membership']
+inputCols=["Avg Session Length", "Time on App", 
+               "Time on Website",'Length of Membership']
 ```
 
 
@@ -251,7 +256,9 @@ x = np.asanyarray(train[inputCols])y = np.asanyarray(train[['Yearly Amount Spent
 
 
 ```python
-regr.fit (x, y)# The coefficientsprint ('Coefficients: ', regr.coef_)
+regr.fit (x, y)
+# The coefficients
+print ('Coefficients: ', regr.coef_)
 ```
 
     Coefficients:  [[25.2930502  39.10921682  0.26557361 61.71566227]]
@@ -264,7 +271,14 @@ Given that it is a multiple linear regression, with 3 parameters, and knowing th
 
 
 ```python
-y_hat= regr.predict(test[inputCols])x = np.asanyarray(test[inputCols])y = np.asanyarray(test[['Yearly Amount Spent']])print("Residual sum of squares: %.2f"      % np.mean((y_hat - y) ** 2))# Explained variance score: 1 is perfect predictionprint('Variance score: %.2f' % regr.score(x, y))
+y_hat= regr.predict(test[inputCols])
+x = np.asanyarray(test[inputCols])
+y = np.asanyarray(test[['Yearly Amount Spent']])
+print("Residual sum of squares: %.2f"
+      % np.mean((y_hat - y) ** 2))
+
+# Explained variance score: 1 is perfect prediction
+print('Variance score: %.2f' % regr.score(x, y))
 ```
 
     Residual sum of squares: 106.31Variance score: 0.98
@@ -312,12 +326,14 @@ from pyspark.ml.regression import LinearRegression
 
 
 ```python
-# Use Spark to read in the Ecommerce Customers csv file.data = spark.read.csv("Ecommerce_Customers.csv",inferSchema=True,header=True)
+# Use Spark to read in the Ecommerce Customers csv file.
+data = spark.read.csv("Ecommerce_Customers.csv",inferSchema=True,header=True)
 ```
 
 
 ```python
-# Print the Schema of the DataFramedata.printSchema()
+# Print the Schema of the DataFrame
+data.printSchema()
 ```
 
     root |-- Email: string (nullable = true) |-- Address: string (nullable = true) |-- Avatar: string (nullable = true) |-- Avg Session Length: double (nullable = true) |-- Time on App: double (nullable = true) |-- Time on Website: double (nullable = true) |-- Length of Membership: double (nullable = true) |-- Yearly Amount Spent: double (nullable = true)
@@ -327,7 +343,11 @@ from pyspark.ml.regression import LinearRegression
 
 
 ```python
-# The data should to be in the form of two columns# ("label","features")# Import VectorAssembler and Vectorsfrom pyspark.ml.linalg import Vectorsfrom pyspark.ml.feature import VectorAssembler
+# The data should to be in the form of two columns
+# ("label","features")
+# Import VectorAssembler and Vectors
+from pyspark.ml.linalg import Vectors
+from pyspark.ml.feature import VectorAssembler
 ```
 
 
@@ -344,7 +364,10 @@ data.columns
 
 
 ```python
-assembler = VectorAssembler(    inputCols=["Avg Session Length", "Time on App",                "Time on Website",'Length of Membership'],    outputCol="features")
+assembler = VectorAssembler(
+    inputCols=["Avg Session Length", "Time on App", 
+               "Time on Website",'Length of Membership'],
+    outputCol="features")
 ```
 
 
@@ -407,7 +430,8 @@ We  separated our data set into a training and test set.
 
 
 ```python
-# Pass in the split between training/test as a list.train_data,test_data = final_data.randomSplit([0.7,0.3])
+# Pass in the split between training/test as a list.
+train_data,test_data = final_data.randomSplit([0.7,0.3])
 ```
 
 
@@ -427,19 +451,22 @@ train_data,test_data = final_data.randomSplit([0.7,0.3])
 
 
 ```python
-# Create a Linear Regression Model objectlr = LinearRegression(labelCol='Yearly Amount Spent')
+# Create a Linear Regression Model object
+lr = LinearRegression(labelCol='Yearly Amount Spent')
 ```
 
 
 ```python
-# Fit the model to the data and call this model lrModellrModel = lr.fit(train_data,)
+# Fit the model to the data and call this model lrModel
+lrModel = lr.fit(train_data,)
 ```
 
 Now we only train on the train_data
 
 
 ```python
-# Print the coefficients and intercept for linear regressionprint("Coefficients: {} Intercept: {}".format(lrModel.coefficients,lrModel.intercept))
+# Print the coefficients and intercept for linear regression
+print("Coefficients: {} Intercept: {}".format(lrModel.coefficients,lrModel.intercept))
 ```
 
     Coefficients: [25.653882207112016,38.97921920533161,-0.05250030143171747,61.37838420015769] Intercept: -1032.8799998886036
