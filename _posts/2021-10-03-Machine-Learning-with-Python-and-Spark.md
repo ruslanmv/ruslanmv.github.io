@@ -280,7 +280,7 @@ In practical linear regression problems ,  we can use the **Mean Square Error**(
 
 The MSE of a Linear Regression hypothesis $$h_w$$ on a training set $$\vec x$$ is calculated by using the MSE **cost function** for Linear regression
 
-$$ MSE(\vec x, h)=\frac{1}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})^2$$
+$$ MSE(\vec x, h_w)=\frac{1}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})^2$$
 
 In Machine Learning, vectors are often represented as column vectors, which are 2D arrays with a single column.
 
@@ -303,7 +303,7 @@ where $$\hat \theta $$ is the value of  $$ \vec w$$ that minimizes the cost func
 
 There are different techniques that allows us minimizes the cost function.  Among them the most used is the  **Gradient descent**
 
-We need to calculate how much the cost function will change if yuou change w_j a little bit.. This is possible with the partial derivative
+We need to calculate how much the cost function will change if you change $$w_j$$ a little bit. This is possible with the partial derivative
 
 $$\frac{\partial }{\partial w_j}MSE(\vec w)=\frac{2}{m}\sum_{i=1}^m(\vec w^T \vec x^{(i)})-y^{(i)})x_j^{(i)}$$
 
