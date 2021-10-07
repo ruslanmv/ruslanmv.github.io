@@ -200,14 +200,6 @@ conda install ipykernel
 python -m ipykernel install --user --name pyspark --display-name "Python (Pyspark)"
 ```
 
-then open the Jupyter notebook with the command
-
-```
-jupyter notebook
-```
-
-Then we choose the Folder Linear Regression we open the notebook
-
 
 
 Installing libraries
@@ -222,7 +214,13 @@ pip install -U scikit-learn
 pip install numpy matplotlib pandas
 ```
 
+then open the Jupyter notebook with the command
 
+```
+jupyter notebook
+```
+
+Then we can create a new notebook, and later we select the **kernel Python (Pyspark)** and then we can start.
 
 ## Introduction to Machine Learning
 
