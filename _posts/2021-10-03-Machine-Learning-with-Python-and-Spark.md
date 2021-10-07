@@ -249,7 +249,7 @@ Among the essential components of the Machine Learning models are:
 
   of all the feature values of the ith instance in the dataset, or in other words, the predicted value of the ith row $$\vec x^{(i)}$$
 
-- **Prediction values**: Is the  variable that we want to predict, denoted by $$\hat y^{(i)} y=h(\vec  x^{(i)})$$   
+- **Prediction values**: Is the  variable that we want to predict, denoted by $$\hat y^{(i)} =h(\vec  x^{(i)})$$   
 
 - **Number of features**: Is the number of columns that we will use to create our Machine Learning Model
 
