@@ -284,7 +284,6 @@ print('Variance score: %.2f' % regr.score(x, y))
     Residual sum of squares: 106.31Variance score: 0.98
 
 
-    C:\Anaconda3\envs\pyspark\lib\site-packages\sklearn\base.py:435: UserWarning: X has feature names, but LinearRegression was fitted without feature names  f"X has feature names, but {self.__class__.__name__} was fitted without"
 
 
 __explained variance regression score:__  
@@ -336,7 +335,15 @@ data = spark.read.csv("Ecommerce_Customers.csv",inferSchema=True,header=True)
 data.printSchema()
 ```
 
-    root |-- Email: string (nullable = true) |-- Address: string (nullable = true) |-- Avatar: string (nullable = true) |-- Avg Session Length: double (nullable = true) |-- Time on App: double (nullable = true) |-- Time on Website: double (nullable = true) |-- Length of Membership: double (nullable = true) |-- Yearly Amount Spent: double (nullable = true)
+    root
+     |-- Email: string (nullable = true)
+     |-- Address: string (nullable = true)
+     |-- Avatar: string (nullable = true)
+     |-- Avg Session Length: double (nullable = true)
+     |-- Time on App: double (nullable = true)
+     |-- Time on Website: double (nullable = true)
+     |-- Length of Membership: double (nullable = true)
+     |-- Yearly Amount Spent: double (nullable = true)
 
 
 ​    
@@ -358,7 +365,14 @@ data.columns
 
 
 
-    ['Email', 'Address', 'Avatar', 'Avg Session Length', 'Time on App', 'Time on Website', 'Length of Membership', 'Yearly Amount Spent']
+    ['Email',
+     'Address',
+     'Avatar',
+     'Avg Session Length',
+     'Time on App',
+     'Time on Website',
+     'Length of Membership',
+     'Yearly Amount Spent']
 
 
 
@@ -380,7 +394,14 @@ output = assembler.transform(data)
 output.select("features").show(3)
 ```
 
-    +--------------------+|            features|+--------------------+|[34.4972677251122...||[31.9262720263601...||[33.0009147556426...|+--------------------+only showing top 3 rows
+    +--------------------+
+    |            features|
+    +--------------------+
+    |[34.4972677251122...|
+    |[31.9262720263601...|
+    |[33.0009147556426...|
+    +--------------------+
+    only showing top 3 rows
 
 
 ​    
@@ -410,7 +431,9 @@ final_data = output.select("features",'Yearly Amount Spent')
 final_data.printSchema()
 ```
 
-    root |-- features: vector (nullable = true) |-- Yearly Amount Spent: double (nullable = true)
+    root
+     |-- features: vector (nullable = true)
+     |-- Yearly Amount Spent: double (nullable = true)
 
 
 ​    
