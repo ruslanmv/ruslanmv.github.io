@@ -53,7 +53,7 @@ This container can be used when you wants to work in **JupyterLab with Pyspark**
 docker run -p 8888:8888 ruslanmv/pyspark-elyra:3.1.2
 ```
 
-This container can be used when you wants to work in **JupyterLab with Pyspark and  Elyra**,  This is helpful when you wants toc create a **Pipeline** with **Apache Airflow** or **Kubernet Flow**. The image is stored at  the Docker Hub  [here](https://hub.docker.com/repository/docker/ruslanmv/pyspark-elyra)
+This container can be used when you wants to work in **JupyterLab with Pyspark and  Elyra**,  This is helpful when you wants to create a **Pipeline** with **Apache Airflow** or **Kubernet Flow**. The image is stored at  the Docker Hub  [here](https://hub.docker.com/repository/docker/ruslanmv/pyspark-elyra)
 
 copy the command and paste in the terminal and press enter
 
