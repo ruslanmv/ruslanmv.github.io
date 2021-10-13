@@ -476,7 +476,7 @@ navigate to [http://localhost:8888](http://localhost:8888/) in your browser with
 
 
 
-Setting up a Docker container on your local machine is pretty simple. Simply download docker from the [docker website](https://www.docker.com/get-started) and run the following command in the terminal:
+Setting up a Docker container on your local machine is pretty simple. Simply download docker from the [docker website](https://www.docker.com/get-started) and run it.
 
 
 
@@ -521,7 +521,7 @@ For example, the following steps publish the container image you’ve just creat
 
    
 
-Once the image is published on Docker Hub we can use them wherever we want and reference the published ` ruslanmv/pyspark-elyra:3.1.2` Docker image.
+Once the image is published on Docker Hub we can use them wherever we want and reference the published `ruslanmv/pyspark-elyra:3.1.2` Docker image.
 
 **Congratulation!** we have created three ready to go containers with **Pyspark** and **Python.**
 
