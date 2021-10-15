@@ -523,5 +523,21 @@ For example, the following steps publish the container image you’ve just creat
 
 Once the image is published on Docker Hub we can use them wherever we want and reference the published `ruslanmv/pyspark-elyra:3.1.2` Docker image.
 
+## Cleaning unused data
+
+Remove build cache
+
+```
+docker builder prune
+```
+
+To remove all images which are not used by existing containers, use the `-a` flag:
+
+```
+docker image prune -a
+```
+
+
+
 **Congratulation!** we have created three ready to go containers with **Pyspark** and **Python.**
 
