@@ -3,8 +3,8 @@ title: "Deploy  Elasticsearch and Kibana in a Cluster"
 excerpt: "Deploy  Elasticsearch  and Kibana  in a Cluster"
 
 header:
-  image: "../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/foto2.jpg"
-  teaser: "../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/foto2.jpg"
+  image: "../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/foto3.jpg"
+  teaser: "../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/foto3.jpg"
   caption: "Access to computers and the Internet has become a basic need for education in our society - Kent Conrad"
   
 ---
