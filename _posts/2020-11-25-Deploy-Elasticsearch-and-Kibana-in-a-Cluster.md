@@ -702,7 +702,184 @@ GET _cat/nodes?v
 
 
 
+Great, now we can start working on Kibana.
 
+## Deploy  Elasticsearch with Amazon OpenSearch
+
+OpenSearch is a community-driven, open source search and analytics suite derived from Apache 2.0 licensed Elasticsearch 7.10.2 & Kibana 7.10.2. It consists of a search engine daemon, OpenSearch, and a visualization and user interface, OpenSearch Dashboards.
+
+ 
+
+We login to our AWS console and then we search for **Opensearch** 
+
+Let us create a cluster in AWS by creating a domain in OpenSearch.
+
+
+
+![](../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/1o.jpg)
+
+
+
+we name the Domain name as `cluster-1`
+
+
+
+<img src="../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/2a.jpg" alt="2a" style="zoom:70%;" />
+
+
+
+then we select the instance type  `r5.large.search`  and only 1  node, for this test
+
+<img src="../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/3a.jpg" alt="3a" style="zoom:70%;" />
+
+then in Network we choose `Public access` and without `fine grained` access, for production we should use VPC and Fine grained access control. 
+
+<img src="../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/network.jpg" alt="network" style="zoom:80%;" />
+
+For the access policy we choose configure our level,  we choose our current ip
+
+for exaample [https://www.whatsmyip.org/](https://www.whatsmyip.org/) and copy your address ip and paste in the principal
+
+
+
+<img src="../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/5a.jpg" alt="5a" style="zoom:70%;" />
+
+The Access Policy   generated in JSON format  should be something similar like
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": [
+        "es:*"
+      ],
+      "Resource": "arn:aws:es:us-east-1:298039135746:domain/cluster-1/*",
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": [
+            "97.14.131.224"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+then we create our cluster
+
+<img src="../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/6a.jpg" alt="6a" style="zoom:67%;" />
+
+we have to wait at least 10 minutes
+
+<img src="../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/7a.jpg" alt="7a" style="zoom:80%;" />
+
+after a while  the status should be **Active**
+
+<img src="../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/8a.jpg" alt="8a" style="zoom:80%;" />
+
+Then we go to our terminal, and lets get information about our cluster
+
+we will  use the command `curl -XGET` + `Domain endpoint`   , we copy the Domain endpoint from our AWS console , in my case is `https://search-cluster-1-qtas43cbwk4zwyvjfyfr4ic4ye.us-east-1.es.amazonaws.com/`  you should have something similar, then  type 
+
+```
+curl -XGET https://search-cluster-1-qtas43cbwk4zwyvjfyfr4ic4ye.us-east-1.es.amazonaws.com/
+```
+
+you will get
+
+```
+{
+  "name" : "c3812926142472338371572d47cc4d1a",
+  "cluster_name" : "298039135746:cluster-1",
+  "cluster_uuid" : "OdNhU9BkRou1MT77Ue4jBA",
+  "version" : {
+    "distribution" : "opensearch",
+    "number" : "1.0.0",
+    "build_type" : "tar",
+    "build_hash" : "unknown",
+    "build_date" : "2021-08-20T12:03:05.728738Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.8.2",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+}
+```
+
+The next step is download a test json to check our cluster.
+
+```
+curl -OL https://github.com/ruslanmv/Deploy-Elasticsearch-and-Kibana-in-a-Cluster/raw/master/movies.json
+```
+
+
+
+The next step is  upload  this json to the cluster by using the command
+
+`curl -XPUT` + `Domain endpoint`  , 
+
+
+
+```
+curl -XPUT https://search-cluster-1-qtas43cbwk4zwyvjfyfr4ic4ye.us-east-1.es.amazonaws.com/_bulk?pretty --data-binary @movies.json -H 'Content-Type: application/json'
+```
+
+the output will be 
+
+![o1](../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/o1.jpg)
+
+then let us check if was loaded
+
+`curl -XPGET` + `Domain endpoint`  , +`/movies/_search?pretty` 
+
+```
+curl   -XGET  https://search-cluster-1-qtas43cbwk4zwyvjfyfr4ic4ye.us-east-1.es.amazonaws.com/movies/_search?pretty 
+```
+
+and then output should be 
+
+
+
+![o2](../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/o2.jpg)
+
+
+
+Finally we can copy address of the the **OpenSearch Dashboard** url and paste in the browser
+
+
+
+<img src="../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/o3.jpg" alt="o3" style="zoom:50%;" />
+
+in th OpenSearch  click **Explore on my own**, we go to **Management Tab**  then  **Stack Management** then **Index Pattern**
+
+Then **Create Index Pattern**
+
+![o4](../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/o4.jpg)
+
+and write `movies*`
+
+Below the index pattern 
+
+![o5](../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/o5.jpg)
+
+we will get
+
+![o6](../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/o6.jpg)
+
+finally you can analyze them
+
+![o7](../assets/images/posts/2020-11-25-Deploy-Elasticsearch-and-Kibana-in-a-Cluster/o7.jpg)
+
+After finished this project, you can Delete the Domain to avoid charges in AWS.
+
+**Congratulations!** We have installed **Elasticsearch** and **Kibana** and **Opensearch** in a Cluster
 
 
 
