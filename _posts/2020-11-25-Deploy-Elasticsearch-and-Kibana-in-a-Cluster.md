@@ -1,4 +1,5 @@
 ---
+
 title: "Deploy  Elasticsearch and Kibana in a Cluster"
 excerpt: "Deploy  Elasticsearch  and Kibana  in a Cluster"
 
@@ -701,5 +702,9 @@ GET _cat/nodes?v
 
 
 
-**Congratulations!** We have installed Elasticsearch and Kibana in a Cluster
+
+
+
+
+
 
