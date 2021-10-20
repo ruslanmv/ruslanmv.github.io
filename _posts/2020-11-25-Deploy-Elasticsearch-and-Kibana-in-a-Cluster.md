@@ -823,7 +823,7 @@ curl -OL https://github.com/ruslanmv/Deploy-Elasticsearch-and-Kibana-in-a-Cluste
 
 The next step is  upload  this json to the cluster by using the command
 
-`curl -XPUT` + `Domain endpoint`  , 
+`curl -XPUT` + `Domain endpoint`  + `/_bulk?pretty --data-binary @movies.json -H 'Content-Type: application/json'`
 
 
 
