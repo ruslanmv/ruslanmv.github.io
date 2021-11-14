@@ -945,6 +945,74 @@ English is the primary language of USA.
 USA is a developed country.
 ```
 
+### How to pass object of the class as parameter in Python?
+
+Let us consider  two classes Person and MyClass, object of class Person is passed as parameter to the method of class MyClass.
+
+```
+class MyClass():
+  def my_method(self, obj):
+    print('In my_method method of MyClass')
+    print("Name:", obj.name)
+    print("Age:", obj.age)
+```
+
+In MyClass there is one method my_method which takes one more argument apart from self.
+
+```
+from MyClass import MyClass
+class Person:
+  def __init__(self, name, age):
+    print('init called')
+    self.name = name
+    self.age = age
+
+  def display(self):
+    print('in display')
+    print("Name-", self.name)
+    print("Age-", self.age)
+    # object of class MyClass
+    obj = MyClass()
+    # passing person object to
+    # method of MyClass (self = person here)
+    obj.my_method(self)
+
+person = Person('Ruslan', 35)
+person.display()
+```
+
+In class Person, MyClass is also used so that is imported.
+
+```
+from MyClass import MyClass
+```
+
+In method display() object of MyClass is created.
+
+```
+obj = MyClass()
+```
+
+Then the my_method() method of class MyClass is called and object of Person class is passed as parameter.
+
+```
+ # passing person object to
+ # method of MyClass (self = person here)
+ obj.my_method(self)
+```
+
+On executing this Python program you get output as following.
+
+```
+init called
+in display
+Name- Ruslan
+Age- 35
+In my_method method of MyClass
+Name: Ruslan
+Age: 35
+```
+
 ### What is a Design Pattern?
 
 A design pattern is a particular approach to solving a recurring problem in software development and is also used to represent good practices.  
