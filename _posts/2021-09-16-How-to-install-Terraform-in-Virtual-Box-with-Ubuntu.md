@@ -22,8 +22,6 @@ In addition we are going to setup the **Virtual Box** with Ubuntu and install **
 
 If you are working in **Windows**  or **Mac** you  can install **VirtualBox 6.1.22** otherwise you can skip the following step.
 
-If you have all the prerequisites mentioned before go to the step 5 to start coding =).
-
 # Section 1. Ubuntu as a virtual machine on Windows
 
 To install Ubuntu as a virtual machine on Windows 10:
