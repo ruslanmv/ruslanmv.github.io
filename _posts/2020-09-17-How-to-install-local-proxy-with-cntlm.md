@@ -10,10 +10,7 @@ header:
 ---
 
 
-If you are working in industry and your internet is enterprise where all the traffic pass trought your enterprise proxy and
-you need to use some applications where requieres internet and the authentication requieres a strong password.
-You can setup you local proxy with your strong password and use your local proxy to use it to use on several applications like
-a Virtual Machine or even Webrowsing like Firefox.
+If you are working in an industry and your internet is an enterprise where all the traffic passes through your enterprise proxy and you need to use some applications where require internet and authentication requires a strong password. You can set up your local proxy with your strong password and use your local proxy to use it to use on several applications like a Virtual Machine or even We browsing like Firefox.
 
 
 First we have to download Cntlm  for your operative system.
