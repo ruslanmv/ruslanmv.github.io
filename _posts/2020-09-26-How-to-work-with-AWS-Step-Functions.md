@@ -25,43 +25,43 @@ To effectively design and implement workflows in AWS Step Functions first let us
 
  and let us create a step function.
 
-<img src="/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/1.jpg" style="zoom:50%;" />
+<img src="/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/1.jpg" style="zoom:50%;" />
 
 Then we create a **state machine**
 
 
 
-<img src="/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/2.jpg" style="zoom:50%;" />
+<img src="/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/2.jpg" style="zoom:50%;" />
 
 
 
 We select **write workflow code**
 
-<img src="/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/3.jpg" alt="3" style="zoom:50%;" />
+<img src="/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/3.jpg" alt="3" style="zoom:50%;" />
 
 and let us just continue with the **Hello World** example
 
-![](/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/4.jpg)
+![](/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/4.jpg)
 
 we choose create with the default settings and create.
 
  We select our **State machine** and press **Start Execution**
 
-![](/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/5.jpg)
+![](/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/5.jpg)
 
 We  keep the default **JSON** input and click **Start Execution**
 
-![](/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/6.jpg)
+![](/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/6.jpg)
 
  A Step Functions execution receives a **JSON** text as input and passes that input to the first state in the workflow.    Individual states receive **JSON** as input and usually pass **JSON** as output to the next state.
 
-<img src="/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/7.jpg" style="zoom:50%;" />
+<img src="/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/7.jpg" style="zoom:50%;" />
 
 
 
 After the execution you can see that was **Succeeded** and the deployed picture as below
 
-<img src="/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/8.jpg" alt="8" style="zoom:50%;" />
+<img src="/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/8.jpg" alt="8" style="zoom:50%;" />
 
 
 
@@ -219,7 +219,7 @@ In the **Amazon States Language**, these fields filter and control the flow of *
 
 The following diagram shows how **JSON** information moves through a task state. 
 
-![       Input and output processing     ](/assets/images/2020-09-26-How-to-work-with-AWS-Step-Functions/input-output-processing.png)
+![       Input and output processing     ](/assets/images/posts/2020-09-26-How-to-work-with-AWS-Step-Functions/input-output-processing.png)
 
 
 
