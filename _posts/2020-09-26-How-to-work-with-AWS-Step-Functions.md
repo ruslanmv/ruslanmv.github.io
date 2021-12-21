@@ -9,8 +9,6 @@ header:
   
 ---
 
-# How to work with AWS Step Functions
-
 In this blog post, I will discuss how to get start with **AWS Step Functions**. Why use it and how to use it.
 
 **AWS Step Functions** is a low-code, visual workflow service that developers use to build distributed applications, automate IT and business processes, and build data and machine learning pipelines using AWS services.
@@ -366,4 +364,6 @@ Considering the previous input along with the Parameters field, this is the JSON
 },
 ```
 
-In addition to the provided input, you’ll easily access a special JSON object that’s known as “context object.” This object includes all information regarding your state machine execution
+In addition to the provided input, you’ll easily access a special JSON object that’s known as “context object.” This object includes all information regarding your state machine execution.
+
+Congratulations!  We have reviewed some points of the Step Functions. 
