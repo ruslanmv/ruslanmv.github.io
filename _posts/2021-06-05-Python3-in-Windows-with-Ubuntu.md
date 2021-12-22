@@ -563,7 +563,17 @@ and you get
 
 ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/final-1622913460131.jpg)
 
-
+## How to export your enviroment by using pip
+If you want to to export your enviroment by using pip, you type
+```
+pip freeze > requirements.txt
+```
+Then use the resulting requirements.txt to create a pip virtual environment:
+```
+python3 -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+```
 ## How to create requirements.txt for pip3 from conda
 
 If you want to export your enviroment from conda to conda you type
