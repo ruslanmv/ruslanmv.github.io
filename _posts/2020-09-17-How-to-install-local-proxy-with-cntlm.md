@@ -17,7 +17,7 @@ First we have to download Cntlm  for your operative system.
 
 http://cntlm.sourceforge.net/
 
-### Windows
+## Windows Setup
 
 After download.  Run setup.exe installer
 
@@ -26,11 +26,6 @@ After download.  Run setup.exe installer
 
 After installation, you have to locate the configuration file. 
 
-#### Linux
-
-The default for Linux packages is **/etc/cntlm.conf**, for locally compiled source distribution ("./configure; make; make install") it's **/usr/local/etc/cntlm.conf** and 
-
-#### Windows
 
 for Windows installer it's **%PROGRAMFILES%\Cntlm\cntlm.ini** (usually X:\Program Files\Cntlm\cntlm.ini, where X is your system drive).
 
@@ -70,11 +65,7 @@ Listen 3128
 SOCKS5Proxy 3129
 ```
 
-
-
-
-
- Good thing Cntlm has this magic switch to do it for you - thank me. :) Save the configuration and run the following command; when asked, enter your proxy access password:
+Good thing Cntlm has this magic switch to do it for you - thank me. :) Save the configuration and run the following command; when asked, enter your proxy access password:
 
 ```
 $ cntlm -I -M http://test.com
@@ -116,8 +107,6 @@ Start -> Settings -> Control Panel -> Administrative Tools -> Services
 OR (command line):
 net start cntlm
 
-
-
 ```
 cd  "C:\Program Files (x86)"\Cntlm\
 
@@ -128,13 +117,6 @@ C:\Program Files (x86)\Cntlm>net start cntlm
 Servizio Cntlm Authentication Proxy in fase di avvio .
 Avvio del servizio Cntlm Authentication Proxy riuscito.
 ```
-
-
-
-
-
-
-
 ## Check 
 
 If you need to check from a command line try this:
@@ -174,11 +156,122 @@ If you need to stop the service
 net stop cntlm
 ```
 
+### Uninstalling
+
+Stop Cntlm service, run uninstaller from your Start Menu, or use
+native Windows "Add/Remove Programs" Control Panel.
+
+### Troubleshooting
+
+If you have recently changed your windows password, and your proxy depends on your windows password, you should update of group policies that are applied by your company. 
+
+```
+gpupdate /force
+```
+
+ Changes made in the Group Policy are not applied immediately but after 90 mins by default (with a ~30 min offset to spread the load). By using the **GPUpdate** command we can force the update.
+
+Group Policies are used to change security settings and for system management (like deploying printers or mapping network drives). For troubleshooting IT problems, it’s sometimes necessary to update the group policy manually.
+
+
+## Linux setup
+
+Before you install CNTLM, it's best to update and upgrade your machine. 
+
+sudo apt-get update
+sudo apt-get upgrade -y
+
+Once the upgrade is complete, reboot (if necessary) and install CNTLM, with the command:
+
+sudo apt-get install cntlm -y
+
+sudo cntlm -H -d DOMAIN -u USERNAME
+
+Where DOMAIN is the domain to be used and USER is the Windows user.
+
+Password: 
+PassLM          EC6398A6D87148B777E43632D37E2957
+PassNT          AF5EEAE6B9272E4CE8BC9B1589FD33F3
+PassNTLMv2      5E8128822C6FB537ACA3024C448E6B22    # Only for user 'USERNAME'
+
+
+Copy theses hashed passwords (you'll use one of them in the configuration file).
+
+The configuration of CNTLM is done within a single file. Issue the command:
+
+The default for Linux packages is **/etc/cntlm.conf** 
+
+sudo nano /etc/cntlm.conf
+Within that file, you'll find four lines that need to be configured:
+
+Username USERNAME
+Domain DOMAIN
+Proxy IP:PORT
+Password PASSWORD
+Where:
+
+USERNAME is your actual Windows user name.
+DOMAIN is your Windows domain.
+IP is the IP address of the MS proxy server you want to connect to.
+PORT is the port used by the MS proxy server (most likely 8080).
+PASSWORD is the hashed password you created for your Windows user.
+
+If you have more than one proxy server on your network, you can define each with the Proxy entry (one per line) like so:
+Once you've finished your configurations, save and close the file.
+
+Restart CNTLM with the command:
+
+sudo systemctl restart cntlm
+
+At this point, your machine is now capable of connecting to the MS NTLM proxy server.
+You will then need to configure apps or services to connect using the proxy.
+If you don't want to configure the apps, one at a time, you can try this.
+
+
+nano ~/.bashrc
+Paste the following to the bottom of that file:
+in linux
+export http_proxy=http://127.0.0.1:3128
+export https_proxy=http://127.0.0.1:3128
+export socks_proxy=http://127.0.0.1:3129
+in windows
+set http_proxy=http://127.0.0.1:3128/
+set https_proxy=http://127.0.0.1:3128/
+set socks_proxy=http://127.0.0.1:3129/
+
+Save and close that file. Finally, issue the command:
+
+. ~/.bashrc
+That's it. So long as your MS proxy server is configured 
+
+nano  /etc/apt/apt.conf.d/proxy.conf
+Acquire::http::Proxy "http://127.0.0.1:3128";
+Acquire::https::Proxy "http://127.0.0.1:3128";
+
+Browser and machine network connection
+
+In order to allow the internet connection using proxy,
+you need to enable the proxy configuration on the target ubuntu machine: 
+
+Go to start and search "Proxy" with the searchbox on the top-right side
+Enable "Manual" proxy configuration
+Copy the value of the /etc/cntlm.conf if the field are not automatically filled
+After that goes to Firefox browser (or the browser you prefer ) and go to:
+Preferences
+Proxy
+and enable "Use system proxy"
+
+
+in wsl
+~/.bash_profile
+export http_proxy=http://127.0.0.1:3128/
+export https_proxy=http://127.0.0.1:3128/
+export socks_proxy=http://127.0.0.1:3129/
+
+
 
 
 ## Additional Check
-
-
 
 Install firefox, then go  to **Settings**>**General**> **Network Settings**
 
@@ -199,28 +292,5 @@ localhost 3129
 ```
 ![](/assets/images/firefox.jpg)
 then you can enter to google  and see how is working your custom proxy
-
-
-
-### Uninstalling
-
-Stop Cntlm service, run uninstaller from your Start Menu, or use
-native Windows "Add/Remove Programs" Control Panel.
-
-### Troubleshooting
-
-If you have recently changed your windows password, and your proxy depends on your windows password, you should update of group policies that are applied by your company. 
-
-```
-gpupdate /force
-```
-
- Changes made in the Group Policy are not applied immediately but after 90 mins by default (with a ~30 min offset to spread the load). By using the **GPUpdate** command we can force the update.
-
-Group Policies are used to change security settings and for system management (like deploying printers or mapping network drives). For troubleshooting IT problems, it’s sometimes necessary to update the group policy manually.
-
-
-
-
 
 **Congratulations!** You have installed your local proxy.
