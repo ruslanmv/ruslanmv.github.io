@@ -90,8 +90,6 @@ PassNTLMv2      4AC6525378DFc69CF6Bv234532943AC
 
 You see, **NTLMv2** - I told you to use it, now it's official. :) BTW, here you can see all tests running - it's just for demonstration purposes. Normal version finishes when it finds the first (i.e. most secure) working setup.
 
-
-
 When you get your options (might be more than just **Auth** and **Pass\*** here), remove all previous password settings and paste the profile into the configuration file and save it. (Re)start Cntlm and it should work. To use it in your applications, replace the old proxy settings with "**localhost**", port same as you chose for **Listen**.
 
 Visit http://cntlm.sf.net for HOWTO's and configuration tips.
@@ -168,14 +166,10 @@ set https_proxy=http://127.0.0.1:3128/
 set socks_proxy=http://127.0.0.1:3129/
 ```
 
-
-
 ### Uninstalling
 
 Stop Cntlm service, run uninstaller from your Start Menu, or use
 native Windows "Add/Remove Programs" Control Panel.
-
-
 
 ### Troubleshooting
 
@@ -297,18 +291,16 @@ Acquire::https::Proxy "http://127.0.0.1:3128";
 In order to allow the internet connection using proxy,
 you need to enable the proxy configuration on the target ubuntu machine: 
 
-Go to start and search "Proxy" with the searchbox on the top-right side
-Enable "Manual" proxy configuration
+Go to start and search "**Proxy**" with the searchbox on the top-right side
+Enable "**Manual**" proxy configuration
 Copy the value of the /etc/cntlm.conf if the field are not automatically filled
 After that goes to Firefox browser (or the browser you prefer ) and go to:
-Preferences
-Proxy
-and enable "Use system proxy"
+Preferences>Proxy and enable "Use system proxy"
 
-in **wsl**
+in **wsl** just add the following
 
 ```
-~/.bash_profile
+nano ~/.bash_profile
 ```
 
 ```
