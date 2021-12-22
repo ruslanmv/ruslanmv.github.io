@@ -65,7 +65,11 @@ Listen 3128
 SOCKS5Proxy 3129
 ```
 
-Good thing Cntlm has this magic switch to do it for you - thank me. :) Save the configuration and run the following command; when asked, enter your proxy access password:
+Good thing Cntlm has this magic switch to do it for you - thank me. :) 
+
+If you have more than one proxy server on your network, you can define each with the Proxy entry (one per line).
+
+Save the configuration and run the following command; when asked, enter your proxy access password:
 
 ```
 $ cntlm -I -M http://test.com
@@ -156,10 +160,24 @@ If you need to stop the service
 net stop cntlm
 ```
 
+#### Environment variables
+
+in windows, optionally , you  can add this to your environment
+
+```
+set http_proxy=http://127.0.0.1:3128/
+set https_proxy=http://127.0.0.1:3128/
+set socks_proxy=http://127.0.0.1:3129/
+```
+
+
+
 ### Uninstalling
 
 Stop Cntlm service, run uninstaller from your Start Menu, or use
 native Windows "Add/Remove Programs" Control Panel.
+
+
 
 ### Troubleshooting
 
@@ -178,21 +196,32 @@ Group Policies are used to change security settings and for system management (l
 
 Before you install CNTLM, it's best to update and upgrade your machine. 
 
+```
 sudo apt-get update
+```
+
+```
 sudo apt-get upgrade -y
+```
 
-Once the upgrade is complete, reboot (if necessary) and install CNTLM, with the command:
+Once the upgrade is complete, and install CNTLM, with the command:
 
+```
 sudo apt-get install cntlm -y
+```
 
+```
 sudo cntlm -H -d DOMAIN -u USERNAME
+```
 
 Where DOMAIN is the domain to be used and USER is the Windows user.
 
+```
 Password: 
 PassLM          EC6398A6D87148B777E43632D37E2957
 PassNT          AF5EEAE6B9272E4CE8BC9B1589FD33F3
 PassNTLMv2      5E8128822C6FB537ACA3024C448E6B22    # Only for user 'USERNAME'
+```
 
 
 Copy theses hashed passwords (you'll use one of them in the configuration file).
@@ -201,13 +230,19 @@ The configuration of CNTLM is done within a single file. Issue the command:
 
 The default for Linux packages is **/etc/cntlm.conf** 
 
+```
 sudo nano /etc/cntlm.conf
+```
+
 Within that file, you'll find four lines that need to be configured:
 
+```
 Username USERNAME
 Domain DOMAIN
 Proxy IP:PORT
 Password PASSWORD
+```
+
 Where:
 
 USERNAME is your actual Windows user name.
@@ -216,39 +251,47 @@ IP is the IP address of the MS proxy server you want to connect to.
 PORT is the port used by the MS proxy server (most likely 8080).
 PASSWORD is the hashed password you created for your Windows user.
 
-If you have more than one proxy server on your network, you can define each with the Proxy entry (one per line) like so:
+
 Once you've finished your configurations, save and close the file.
 
 Restart CNTLM with the command:
 
+```
 sudo systemctl restart cntlm
+```
 
 At this point, your machine is now capable of connecting to the MS NTLM proxy server.
 You will then need to configure apps or services to connect using the proxy.
 If you don't want to configure the apps, one at a time, you can try this.
 
-
+```
 nano ~/.bashrc
+```
+
 Paste the following to the bottom of that file:
 in linux
+
+```
 export http_proxy=http://127.0.0.1:3128
 export https_proxy=http://127.0.0.1:3128
 export socks_proxy=http://127.0.0.1:3129
-in windows
-set http_proxy=http://127.0.0.1:3128/
-set https_proxy=http://127.0.0.1:3128/
-set socks_proxy=http://127.0.0.1:3129/
+```
 
-Save and close that file. Finally, issue the command:
+Finally, issue the command:
 
 . ~/.bashrc
 That's it. So long as your MS proxy server is configured 
 
+```
 nano  /etc/apt/apt.conf.d/proxy.conf
+```
+
+```
 Acquire::http::Proxy "http://127.0.0.1:3128";
 Acquire::https::Proxy "http://127.0.0.1:3128";
+```
 
-Browser and machine network connection
+### Browser and machine network connection
 
 In order to allow the internet connection using proxy,
 you need to enable the proxy configuration on the target ubuntu machine: 
@@ -261,12 +304,17 @@ Preferences
 Proxy
 and enable "Use system proxy"
 
+in **wsl**
 
-in wsl
+```
 ~/.bash_profile
+```
+
+```
 export http_proxy=http://127.0.0.1:3128/
 export https_proxy=http://127.0.0.1:3128/
 export socks_proxy=http://127.0.0.1:3129/
+```
 
 
 
