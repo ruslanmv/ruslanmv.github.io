@@ -44,11 +44,7 @@ First a few rules, though - lines beginning with a hash, **#**, are *comments*: 
 - **Proxy** - IP address (or ping-able hostname) of your proxy; if you use several alternative proxies or know of backup ones, use this option multiple times; if one stops working, Cntlm will move on to the next
 - **Listen** - local port number which Cntlm should bind to; the default is OK, but remember you can't have more than one application per port; you can use *netstat* to list used up ports (lines with LISTEN)
 
-
-
 Next, we need to find out which NTLM dialect your proxy understands. 
-
-
 
 ```
 Username ruslanmv
@@ -62,8 +58,6 @@ NoProxy dev.company.com,*dev.company.com
 Listen 3128
 SOCKS5Proxy 3129
 ```
-
-
 
 If you have more than one proxy server on your network, you can define each with the Proxy entry (one per line).
 
@@ -284,14 +278,13 @@ Acquire::https::Proxy "http://127.0.0.1:3128";
 
 ### Browser and machine network connection
 
-In order to allow the internet connection using proxy,
-you need to enable the proxy configuration on the target ubuntu machine: 
+In order to allow the internet connection using proxy, you need to enable the proxy configuration on the target ubuntu machine: 
 
 Go to start and search "**Proxy**" with the searchbox on the top-right side
 Enable "**Manual**" proxy configuration
 Copy the value of the /etc/cntlm.conf if the field are not automatically filled
 After that goes to Firefox browser (or the browser you prefer ) and go to:
-Preferences>Proxy and enable "Use system proxy"
+**Preferences**>**Proxy** and enable "**Use system proxy**"
 
 in **wsl** just add the following
 
