@@ -20,7 +20,7 @@ If you are working in an industry and your internet is an enterprise where all t
 
 Let us download **Cntlm**  for your operative system:
 
-http://cntlm.sourceforge.net/
+[http://cntlm.sourceforge.net/](http://cntlm.sourceforge.net/)
 
 ## Windows Setup
 
