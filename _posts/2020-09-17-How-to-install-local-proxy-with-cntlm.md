@@ -36,8 +36,6 @@ code cntlm.ini
 
 When you have found it, fire up your favorite editor (**not** a word processor) and open the file.
 
-
-
 First a few rules, though - lines beginning with a hash, **#**, are *comments*: completely ignored. There is no required formatting and option names are case insensitive. Option values are parsed literally: a quote means a quote and is taken as part of the string, so do not quote, escape, etc. Anyway, you need to set these core options:
 
 - **Username** - your domain/proxy account name
@@ -245,11 +243,11 @@ Password PASSWORD
 
 Where:
 
-USERNAME is your actual Windows user name.
-DOMAIN is your Windows domain.
-IP is the IP address of the MS proxy server you want to connect to.
-PORT is the port used by the MS proxy server (most likely 8080).
-PASSWORD is the hashed password you created for your Windows user.
+- **USERNAME** is your actual Windows user name.
+- **DOMAIN** is your Windows domain.
+- **IP** is the IP address of the MS proxy server you want to connect to.
+- **PORT** is the port used by the MS proxy server (most likely 8080).
+- **PASSWORD** is the hashed password you created for your Windows user.
 
 
 Once you've finished your configurations, save and close the file.
@@ -279,7 +277,10 @@ export socks_proxy=http://127.0.0.1:3129
 
 Finally, issue the command:
 
+```
 . ~/.bashrc
+```
+
 That's it. So long as your MS proxy server is configured 
 
 ```
