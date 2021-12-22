@@ -1,5 +1,5 @@
 ---
-title: "How to install a local proxy with cntlm"
+title: "How to install a local proxy with cntlm in Windows and Linux"
 excerpt: "How to Install Cntlm in Windows 10 and Linux"
 
 header:
@@ -10,7 +10,7 @@ header:
 ---
 
 
-If you are working in an industry and your internet is an enterprise where all the traffic passes through your enterprise proxy and you need to use some applications where require internet and authentication requires a strong password. You can set up your local proxy with your strong password and use your local proxy to use it to use on several applications like a Virtual Machine or even We browsing like Firefox.
+If you are working in an industry and your internet is an enterprise where all the traffic passes through your enterprise proxy and you need to use some applications where require internet and authentication requires a strong password. You can set up your local proxy with your strong password and use your local proxy to use it to use on several applications like a Virtual Machine or web browsing with Firefox.
 
 
 First we have to download Cntlm  for your operative system.
