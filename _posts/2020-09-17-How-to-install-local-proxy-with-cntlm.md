@@ -202,9 +202,25 @@ then you can enter to google  and see how is working your custom proxy
 
 
 
-## Uninstalling
+### Uninstalling
 
 Stop Cntlm service, run uninstaller from your Start Menu, or use
 native Windows "Add/Remove Programs" Control Panel.
 
-Congratulations! You have installed your local proxy.
+### Troubleshooting
+
+If you have recently changed your windows password, and your proxy depends on your windows password, you should update of group policies that are applied by your company. 
+
+```
+gpupdate /force
+```
+
+ Changes made in the Group Policy are not applied immediately but after 90 mins by default (with a ~30 min offset to spread the load). By using the **GPUpdate** command we can force the update.
+
+Group Policies are used to change security settings and for system management (like deploying printers or mapping network drives). For troubleshooting IT problems, it’s sometimes necessary to update the group policy manually.
+
+
+
+
+
+**Congratulations!** You have installed your local proxy.
