@@ -46,7 +46,7 @@ First a few rules, though - lines beginning with a hash, **#**, are *comments*: 
 
 
 
-Next, we need to find out which NTLM dialect your proxy understands. It's a jungle out there and it can be quite challenging (i.e. boooring) to find a working NTLM setup - thank Bill.
+Next, we need to find out which NTLM dialect your proxy understands. 
 
 
 
@@ -63,7 +63,7 @@ Listen 3128
 SOCKS5Proxy 3129
 ```
 
-Good thing Cntlm has this magic switch to do it for you - thank me. :) 
+
 
 If you have more than one proxy server on your network, you can define each with the Proxy entry (one per line).
 
@@ -88,15 +88,11 @@ PassNTLMv2      4AC6525378DFc69CF6Bv234532943AC
 ------------------------------------------------
 ```
 
-You see, **NTLMv2** - I told you to use it, now it's official. :) BTW, here you can see all tests running - it's just for demonstration purposes. Normal version finishes when it finds the first (i.e. most secure) working setup.
-
-When you get your options (might be more than just **Auth** and **Pass\*** here), remove all previous password settings and paste the profile into the configuration file and save it. (Re)start Cntlm and it should work. To use it in your applications, replace the old proxy settings with "**localhost**", port same as you chose for **Listen**.
+ When you get your options (might be more than just **Auth** and **Pass\*** here), remove all previous password settings and paste the profile into the configuration file and save it. (Re)start Cntlm and it should work. To use it in your applications, replace the old proxy settings with "**localhost**", port same as you chose for **Listen**.
 
 Visit http://cntlm.sf.net for HOWTO's and configuration tips.
 
 ## Start Cntlm
-
-
 
 You can use Cntlm Start Menu shortcuts to start, stop and configure
 the application. Cntlm is installed as an auto-start service.
@@ -312,7 +308,7 @@ export socks_proxy=http://127.0.0.1:3129/
 
 
 
-## Additional Check
+## Additional Checks
 
 Install firefox, then go  to **Settings**>**General**> **Network Settings**
 
