@@ -564,10 +564,30 @@ and you get
 ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/final-1622913460131.jpg)
 
 
+## How to create requirements.txt for pip3 from conda
 
+If you want to export your enviroment from conda to conda you type
+```
+conda list -e > requirements.txt
+```
+can be used to create a conda virtual environment with
 
+```
+conda create --name <env> --file requirements.txt
+```
+
+If you want a file which you can use to create a pip virtual environment 
+you can install pip within the conda environment, the use pip to create requirements.txt.
+```
+conda activate <env>
+conda install pip
+pip list --format=freeze > requirements.txt
+
+```
+Then use the resulting requirements.txt to create a pip virtual environment:
+
+python3 -m venv env
+source env/bin/activate
+pip install -r requirements.txt
 
 **Congratulations!**  you have installed Python 3 , VS Code in Windows Subsystem for Linux  and and created  Virtual Environments of python for your future projects.
-
-
-
