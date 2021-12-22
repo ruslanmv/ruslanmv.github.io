@@ -585,9 +585,9 @@ pip list --format=freeze > requirements.txt
 
 ```
 Then use the resulting requirements.txt to create a pip virtual environment:
-
+```
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
-
+```
 **Congratulations!**  you have installed Python 3 , VS Code in Windows Subsystem for Linux  and and created  Virtual Environments of python for your future projects.
