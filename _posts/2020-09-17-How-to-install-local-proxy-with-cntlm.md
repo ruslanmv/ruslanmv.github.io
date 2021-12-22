@@ -9,11 +9,16 @@ header:
   
 ---
 
-
 If you are working in an industry and your internet is an enterprise where all the traffic passes through your enterprise proxy and you need to use some applications where require internet and authentication requires a strong password. You can set up your local proxy with your strong password and use your local proxy to use it to use on several applications like a Virtual Machine or web browsing with Firefox.
 
 
-First we have to download Cntlm  for your operative system.
+
+### What is Cntlm?
+
+**Cntlm** is an authenticating HTTP proxy intended to help you break free from the chains of Microsoft proprietary world.  It takes the address of your proxy or proxies (*host1..N* and *port1..N*) and opens a listening socket, forwarding each request to the parent proxy (moving in a circular list if the active parent stops working). Along the way, a connection to the parent is created a new and authenticated or, if available, previously cached connection is reused to achieve higher efficiency and faster responses.
+
+
+Let us download **Cntlm**  for your operative system:
 
 http://cntlm.sourceforge.net/
 
