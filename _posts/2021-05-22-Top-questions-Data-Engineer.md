@@ -589,7 +589,9 @@ BigQuery Best Practices:
 
 6. Query patterns and best     practices:
 
-7. 1. Avoid SELF JOIN --> Use      Window Functions;
+7. 1. Avoid 
+
+JOIN --> Use      Window Functions;
    2. Filter you data as early as possible;
    3. Avoid CROSS JOIN (cartesian product) --> pre-aggregate your      data with GROUP BY and if possible use a Window Function.
    4. Use Buld DML operations instead of point-specific ones.
@@ -849,6 +851,42 @@ print(Person.age)
 ### What is self in Python?
 
 Self represents the instance of the class. By using the “self” keyword we can access the attributes and methods of the class in python. It binds the attributes with the given arguments.
+
+
+```python 
+class car():
+     
+    # init method or constructor
+    def __init__(self, model, color):
+        self.model = model
+        self.color = color
+         
+    def show(self):
+        print("Model is", self.model )
+        print("color is", self.color )
+         
+# both objects have different self which
+# contain their attributes
+audi = car("audi a4", "blue")
+ferrari = car("ferrari 488", "green")
+ 
+audi.show()     # same output as car.show(audi)
+ferrari.show()  # same output as car.show(ferrari)
+ 
+# Behind the scene, in every instance method
+# call, python sends the instances also with
+# that method call like car.show(audi)
+```
+
+Output
+```
+Model is audi a4
+color is blue
+Model is ferrari 488
+color is green
+```
+
+
 
 ### What is object in Python?
 
