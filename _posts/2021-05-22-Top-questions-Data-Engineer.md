@@ -848,10 +848,22 @@ print(Person.age)
 10
 ```
 
+### What is object in Python?
+
+Python is an object oriented programming language.
+
+Almost everything in Python is an object, with its properties and methods.
+
+```python
+# create a new object of Person class
+alex= Person()
+# Calling object's greet() method
+alex.greet()
+Hello
+```
 ### What is self in Python?
 
-Self represents the instance of the class. By using the “self” keyword we can access the attributes and methods of the class in python. It binds the attributes with the given arguments.
-
+Self represents the instance of the class. By using the “self” keyword we can access the attributes and methods of the class in python. It binds the attributes with the given arguments. Example:
 
 ```python 
 class car():
@@ -885,23 +897,6 @@ color is blue
 Model is ferrari 488
 color is green
 ```
-
-
-
-### What is object in Python?
-
-Python is an object oriented programming language.
-
-Almost everything in Python is an object, with its properties and methods.
-
-```python
-# create a new object of Person class
-alex= Person()
-# Calling object's greet() method
-alex.greet()
-Hello
-```
-
 ### What is Inheritance?
 
 It refers to defining a new class with little or no modification to an existing class. 
