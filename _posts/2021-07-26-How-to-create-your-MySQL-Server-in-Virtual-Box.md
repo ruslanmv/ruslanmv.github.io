@@ -571,6 +571,37 @@ ssh ruslanmv@192.168.56.101
 
 ![](../assets/images/posts/2021-07-26-How-to-create-your-MySQL-Server-in-Virtual-Box/8a.jpg)
 
+Download the  sample database from to this project
+
+```
+mkdir test
+```
+
+```
+cd test
+```
+
+```
+wget https://raw.githubusercontent.com/ruslanmv/How-to-create-a-dataframe-in-S3-from-SQL-queries/master/mysqlsampledatabase.sql
+```
+
+```
+mysql -u root -p
+```
+
+```
+source /home/ruslanmv/test/mysqlsampledatabase.sql
+```
+
+```
+USE classicmodels;
+SELECT * FROM customers;
+```
+
+Basically, those statements switch the current database to `classicmodels` and query data from the `customers` table.
+
+ If you see the customer data returned, you have successfully imported the sample database into the MySQL database server.
+
 
 
 **Congratulations !**   You have installed a **MySQL Server** on a virtual machine in windows.
