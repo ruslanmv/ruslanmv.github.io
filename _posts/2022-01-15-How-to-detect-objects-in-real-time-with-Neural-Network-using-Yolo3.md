@@ -1,6 +1,6 @@
 ---
 title: "Real Time Object Recognition From your Screen Desktop ."
-excerpt: "Real Time Object Recognition From your Screen Desktop ."
+excerpt: "Real Time Object Recognition From your Screen Desktop with Yolo3 ."
 
 header:
   teaser: "../assets/images/posts/2022-01-15-How-to-detect-objects-in-real-time-with-Neural-Network-using-Yolo3/detector.jpg"
@@ -9,7 +9,7 @@ header:
     provider: youtube  
 ---
 
-Hello, today I would like to detect objects using **Neural Network in TensorFlow** by using the pretrained neural network **Yolo3**
+Hello, today I would like to detect objects using **OpenCV** and the pretrained Neural Network **Yolo v3**
 
 In this post, I will explain how to build a simply program to detect objects from you desktop computer.
 
@@ -52,7 +52,7 @@ Proceed ([y]/n)? y
 python -m ipykernel install --user --name detector --display-name "Python (Object Detector)"
 ```
 
-Then we install the correct versions of the the **Tensorflow**, and **Numpy** and **Keras**
+Then we install the correct versions of **Numpy** and **OpenCV**
 
 we create a file called **requirements.txt**
 
@@ -71,14 +71,19 @@ nano  requirements.txt
 and you paste the following lines
 
 ```
-Keras==2.4.3
-keras-resnet==0.2.0
 numpy==1.19.3
 opencv-python==3.4.2.17
+Pillow==9.0.0
+```
+
+Optionally, if you want to use this environment to develop additional neural neural network you can install **Keras** and **Tensorflow**
+
+```
+Keras==2.4.3
+keras-resnet==0.2.0
 tensorflow==2.4.0
 tensorflow-estimator==2.4.0
 tensorflow-gpu==2.4.0
-Pillow==9.0.0
 ```
 
 and then we return back to the terminal and install them
@@ -231,7 +236,5 @@ or the classic traffic recognition [https://youtu.be/7HaJArMDKgI](https://youtu.
 
 ![](../assets/images/posts/2022-01-15-How-to-detect-objects-in-real-time-with-Neural-Network-using-Yolo3/video2.gif)
 
-
-
-**Congratulations!** We have applied Neural Networks with Yolo3 in **Tensorflow** to detect objects in **real time**.
+**Congratulations!** We have applied Neural Networks with Yolo3 to detect objects in **real time**.
 
