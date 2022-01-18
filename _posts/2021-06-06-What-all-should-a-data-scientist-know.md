@@ -2870,6 +2870,34 @@ PySpark SparkContext is an initial entry point of the spark functionality. It al
  .getOrCreate()
 
 ```
+
+**What is spark-submit?**
+
+Spark-submit is a utility to run a pyspark application job by specifying options and configurations.
+```
+spark-submit \
+--master <master-url> \
+--deploy-mode <deploy-mode> \
+--conf <key<=<value> \
+--driver-memory <value>g \
+--executor-memory <value>g \
+--executor-cores <number of cores> \
+--jars <comma separated dependencies> \
+--packages <package name> \
+--py-files \
+<application> <application args>
+```
+where
+
+--master : Cluster Manager (yarn, mesos, Kubernetes, local, local(k))\
+--deploy-mode: Either cluster or client\
+--conf: We can provide runtime configurations, shuffle parameters, application configurations using –conf.
+Ex: --conf spark.sql.shuffle.partitions = 300\
+--driver-memory : Amount of memory to allocate for a driver (Default: 1024M).\
+--executor-memory : Amount of memory to use for the executor process.\
+--executor cores : Number of CPU cores to use for the executor process.
+
+
 **What are RDDs in PySpark?**
 
 RDDs expand to Resilient Distributed Datasets. These are the elements that are used for running and operating on multiple nodes to perform parallel processing on a cluster. Since RDDs are suited for parallel processing, they are immutable elements. This means that once we create RDD, we cannot modify it. RDDs are also fault-tolerant which means that whenever failure happens, they can be recovered automatically. Multiple operations can be performed on RDDs to perform a certain task.
