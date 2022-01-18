@@ -2987,7 +2987,8 @@ Spark Datasets is an extension of Dataframes API with the benefits of both RDDs 
 The operations can be of 2 types, actions and transformation.
 
 **What is Transformation in Pyspark?**
-- Transformation: These operations when applied on RDDs result in the creation of a new RDD. Some of the examples of transformation operations are filter, groupBy, map.
+
+Transformation: These operations when applied on RDDs result in the creation of a new RDD. Some of the examples of transformation operations are filter, groupBy, map.
 Let us take an example to demonstrate transformation operation by considering filter() operation:
 
 ```python
@@ -3547,6 +3548,7 @@ $ ./bin/spark submit examples/src/main/python/pi.py
 ```
 
 **Does PySpark provide a machine learning API?**
+
 Similar to Spark, PySpark provides a machine learning API which is known as MLlib that supports various ML algorithms like:
 
 - mllib.classification − This supports different methods for binary or multiclass classification and regression analysis like Random Forest, Decision Tree, Naive Bayes etc.
@@ -3558,9 +3560,11 @@ Similar to Spark, PySpark provides a machine learning API which is known as MLli
 - mllib.regression − This is used for solving problems using regression algorithms that find relationships and variable dependencies.
 - 
 **Is PySpark faster than pandas?**
+
 PySpark supports parallel execution of statements in a distributed environment, i.e on different cores and different machines which are not present in Pandas. This is why PySpark is faster than pandas.
 
 **What is Broadcast Variables?**
+
 Broadcast variables: These are also known as read-only shared variables and are used in cases of data lookup requirements. These variables are cached and are made available on all the cluster nodes so that the tasks can make use of them. The variables are not sent with every task. They are rather distributed to the nodes using efficient algorithms for reducing the cost of communication. When we run an RDD job operation that makes use of Broadcast variables, the following things are done by PySpark:
 
 The job is broken into different stages having distributed shuffling. The actions are executed in those stages.
@@ -3576,20 +3580,21 @@ An important point of using broadcast variables is that the variables are not se
 
 
 **What is Accumulator variable?**
+
 Accumulator variables: These variables are called updatable shared variables. They are added through associative and commutative operations and are used for performing counter or sum operations. PySpark supports the creation of numeric type accumulators by default. It also has the ability to add custom accumulator types. The custom types can be of two types:
 
 **What is PySpark Architecture?**
+
 PySpark similar to Apache Spark works in master-slave architecture pattern. Here, the master node is called the Driver and the slave nodes are called the workers. When a Spark application is run, the Spark Driver creates SparkContext which acts as an entry point to the spark application. All the operations are executed on the worker nodes. The resources required for executing the operations on the worker nodes are managed by the Cluster Managers
 
 **What is the common workflow of a spark program?**
+
 The most common workflow followed by the spark program is:
 The first step is to create input RDDs depending on the external data.
 Data can be obtained from different data sources.
 Post RDD creation, the RDD transformation operations like filter() or map() are run for creating new RDDs depending on the business logic.
 If any intermediate RDDs are required to be reused for later purposes, we can persist those RDDs.
 Lastly, if any action operations like first(), count() etc are present then spark launches it to initiate parallel computation.
-Spark SQL is Apache Spark's module for working with structured data. 
-A SparkSession can be used create DataFrame, register DataFrame as tables, execute SQL over tables, cache tables, and read parquet files
 
 
 **Congratulations!**    You have read an small summary about important things in **Data Science**.
