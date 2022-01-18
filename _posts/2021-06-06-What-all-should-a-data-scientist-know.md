@@ -2850,7 +2850,20 @@ Optimization Parameters
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/pyskpark.png)
 
-Spark SQL is Apache Spark's module for working with structured data. A SparkSession can be used create DataFrame, register DataFrame as tables, execute SQL over tables, cache tables, and read parquet files
+
+
+**What is PySpark?**
+PySpark is an Apache Spark interface in Python. It is used for collaborating with Spark using APIs written in Python. It also supports Spark’s features like Spark DataFrame, Spark SQL, Spark Streaming, Spark MLlib and Spark Core.
+
+
+
+
+
+
+**What is PySpark SparkContext?**
+PySpark SparkContext is an initial entry point of the spark functionality. It also represents Spark Cluster Connection and can be used for creating the Spark RDDs (Resilient Distributed Datasets) and broadcasting the variables on the cluster.
+
+
 
 ```
 >>> from pyspark.sql import SparkSession
@@ -2862,7 +2875,60 @@ Spark SQL is Apache Spark's module for working with structured data. A SparkSess
 
 ```
 
+**What is  PySpark SparkFiles?**
+PySpark’s SparkFiles are used for loading the files onto the Spark application. This functionality is present under SparkContext and can be called using the sc.addFile() method for loading files on Spark. SparkFiles can also be used for getting the path using the SparkFiles.get() method. It can also be used to resolve paths to files added using the sc.addFile() method
+
+
 ## Creating DataFrame
+
+
+**What are RDDs in PySpark?**
+RDDs expand to Resilient Distributed Datasets. These are the elements that are used for running and operating on multiple nodes to perform parallel processing on a cluster. Since RDDs are suited for parallel processing, they are immutable elements. This means that once we create RDD, we cannot modify it. RDDs are also fault-tolerant which means that whenever failure happens, they can be recovered automatically. Multiple operations can be performed on RDDs to perform a certain task.
+
+
+**What type of operation has Pyspark?**
+The operations can be of 2 types, actions and transformation.
+
+**What is Transformation in Pyspark?**
+- Transformation: These operations when applied on RDDs result in the creation of a new RDD. Some of the examples of transformation operations are filter, groupBy, map.
+Let us take an example to demonstrate transformation operation by considering filter() operation:
+
+```python
+from pyspark import SparkContext
+sc = SparkContext("local", "Transdormation Demo")
+words_list = sc.parallelize (
+  ["pyspark", 
+  "interview", 
+  "questions"]
+)
+filtered_words = words_list.filter(lambda x: 'interview' in x)
+filtered = filtered_words.collect()
+print(filtered)
+```
+The output of the above code would be:
+```
+[
+  "interview"
+]
+```
+**What is Action in Pyspark?**
+
+Action: These operations instruct Spark to perform some computations on the RDD and return the result to the driver. It sends data from the Executer to the driver. count(), collect(), take() are some of the examples.
+Let us consider an example to demonstrate action operation by making use of the count() function.
+
+```python
+from pyspark import SparkContext
+sc = SparkContext("local", "Action Demo")
+words = sc.parallelize (
+  ["pyspark", 
+  "interview", 
+  "questions"]
+)
+counts = words.count()
+print("Count of elements in RDD -> ",  counts)
+```
+we count the number of elements in the spark RDDs. The output of this code is Count of elements in RDD -> 3
+
 
 **From RDDs**
 
@@ -2939,10 +3005,14 @@ Duplicate Values
 
 ### Queries
 
+
+**What is PySpark SQL?**
+PySpark SQL is the most popular PySpark module that is used to process structured columnar data. Once a DataFrame is created, we can interact with data using the SQL syntax. Spark SQL is used for bringing native raw SQL queries on Spark by using select, where, group by, join, union etc. For using PySpark SQL, the first step is to create a temporary table on DataFrame by using createOrReplaceTempView()
+
+
 ```
 >>> from pyspark.sql import functions as F
 ```
-
 **Select**
 
 ```python
@@ -3151,9 +3221,7 @@ PySpark is the Spark Python API that exposes the Spark programming model to Pyth
 >>> sc.defaultMinPartitions #Default minimum number of partitions for RDDs
 
 ```
-
 **Configuration**
-
 ```
 >>> from pyspark import SparkConf, SparkContext
 >>> conf = (SparkConf()
@@ -3379,6 +3447,50 @@ True
 $ ./bin/spark submit examples/src/main/python/pi.py
 ```
 
+**Does PySpark provide a machine learning API?**
+Similar to Spark, PySpark provides a machine learning API which is known as MLlib that supports various ML algorithms like:
+
+- mllib.classification − This supports different methods for binary or multiclass classification and regression analysis like Random Forest, Decision Tree, Naive Bayes etc.
+- mllib.clustering − This is used for solving clustering problems that aim in grouping entities subsets with one another depending on similarity.
+- mllib.fpm − FPM stands for Frequent Pattern Matching. This library is used to mine frequent items, subsequences or other structures that are used for analyzing large datasets.
+- mllib.linalg − This is used for solving problems on linear algebra.
+- mllib.recommendation − This is used for collaborative filtering and in recommender systems.
+- spark.mllib − This is used for supporting model-based collaborative filtering where small latent factors are identified using the Alternating Least Squares (ALS) algorithm which is used for predicting missing entries.
+- mllib.regression − This is used for solving problems using regression algorithms that find relationships and variable dependencies.
+- 
+**Is PySpark faster than pandas?**
+PySpark supports parallel execution of statements in a distributed environment, i.e on different cores and different machines which are not present in Pandas. This is why PySpark is faster than pandas.
+
+**What is Broadcast Variables?**
+Broadcast variables: These are also known as read-only shared variables and are used in cases of data lookup requirements. These variables are cached and are made available on all the cluster nodes so that the tasks can make use of them. The variables are not sent with every task. They are rather distributed to the nodes using efficient algorithms for reducing the cost of communication. When we run an RDD job operation that makes use of Broadcast variables, the following things are done by PySpark:
+
+The job is broken into different stages having distributed shuffling. The actions are executed in those stages.
+The stages are then broken into tasks.
+The broadcast variables are broadcasted to the tasks if the tasks need to use it.
+Broadcast variables are created in PySpark by making use of the broadcast(variable) method from the SparkContext class. The syntax for this goes as follows:
+```
+broadcastVar = sc.broadcast([10, 11, 22, 31])
+broadcastVar.value    # access broadcast variable
+```
+
+An important point of using broadcast variables is that the variables are not sent to the tasks when the broadcast function is called. They will be sent when the variables are first required by the executors.
+
+
+**What is Accumulator variable?**
+Accumulator variables: These variables are called updatable shared variables. They are added through associative and commutative operations and are used for performing counter or sum operations. PySpark supports the creation of numeric type accumulators by default. It also has the ability to add custom accumulator types. The custom types can be of two types:
+
+**What is PySpark Architecture?**
+PySpark similar to Apache Spark works in master-slave architecture pattern. Here, the master node is called the Driver and the slave nodes are called the workers. When a Spark application is run, the Spark Driver creates SparkContext which acts as an entry point to the spark application. All the operations are executed on the worker nodes. The resources required for executing the operations on the worker nodes are managed by the Cluster Managers
+
+**What is the common workflow of a spark program?**
+The most common workflow followed by the spark program is:
+The first step is to create input RDDs depending on the external data.
+Data can be obtained from different data sources.
+Post RDD creation, the RDD transformation operations like filter() or map() are run for creating new RDDs depending on the business logic.
+If any intermediate RDDs are required to be reused for later purposes, we can persist those RDDs.
+Lastly, if any action operations like first(), count() etc are present then spark launches it to initiate parallel computation.
+Spark SQL is Apache Spark's module for working with structured data. 
+A SparkSession can be used create DataFrame, register DataFrame as tables, execute SQL over tables, cache tables, and read parquet files
 
 
 **Congratulations!**    You have read an small summary about important things in **Data Science**.
