@@ -2851,18 +2851,14 @@ Optimization Parameters
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/pyskpark.png)
 
 
-
 **What is PySpark?**
+
 PySpark is an Apache Spark interface in Python. It is used for collaborating with Spark using APIs written in Python. It also supports Spark’s features like Spark DataFrame, Spark SQL, Spark Streaming, Spark MLlib and Spark Core.
 
 
-
-
-
-
 **What is PySpark SparkContext?**
-PySpark SparkContext is an initial entry point of the spark functionality. It also represents Spark Cluster Connection and can be used for creating the Spark RDDs (Resilient Distributed Datasets) and broadcasting the variables on the cluster.
 
+PySpark SparkContext is an initial entry point of the spark functionality. It also represents Spark Cluster Connection and can be used for creating the Spark RDDs (Resilient Distributed Datasets) and broadcasting the variables on the cluster.
 
 
 ```
@@ -2874,19 +2870,92 @@ PySpark SparkContext is an initial entry point of the spark functionality. It al
  .getOrCreate()
 
 ```
-
-**What is  PySpark SparkFiles?**
-PySpark’s SparkFiles are used for loading the files onto the Spark application. This functionality is present under SparkContext and can be called using the sc.addFile() method for loading files on Spark. SparkFiles can also be used for getting the path using the SparkFiles.get() method. It can also be used to resolve paths to files added using the sc.addFile() method
-
-
-## Creating DataFrame
-
-
 **What are RDDs in PySpark?**
+
 RDDs expand to Resilient Distributed Datasets. These are the elements that are used for running and operating on multiple nodes to perform parallel processing on a cluster. Since RDDs are suited for parallel processing, they are immutable elements. This means that once we create RDD, we cannot modify it. RDDs are also fault-tolerant which means that whenever failure happens, they can be recovered automatically. Multiple operations can be performed on RDDs to perform a certain task.
 
+- Data Representation: RDD is a distributed collection of data elements without any schema
+- Optimization: No in-built optimization engine for RDDs
+- Schema: we need to define the schema manually.
+- Aggregation Operation: RDD is slower than both Dataframes and Datasets to perform simple operations like grouping the data
+
+
+**Creation of  RDD using textFile API**
+```
+rdd = spark.sparkContext.textFile('practice/test')
+rdd.take(5)
+for i in rdd.take(5): print(i)
+```
+**Get the Number of Partitions in the RDD**
+
+```
+rdd.getNumPartitions()
+```
+**Get the Number of elements in each partition**
+```
+rdd.glom().map(len).collect()
+```
+**Create RDD using textFile API and a defined number of partitions**
+```
+rdd = spark.sparkContext.textFile('practice/test',10)
+```
+**Create a RDD from a Python List**
+```
+lst = [1,2,3,4,5,6,7]
+rdd = spark.sparkContext.parallelize(lst)
+for i in rdd.take(5) : print(i)
+```
+
+**Create a RDD from a Python List**
+```
+lst = [1,2,3,4,5,6,7]
+rdd = spark.sparkContext.parallelize(lst)
+for i in rdd.take(5) : print(i)
+```
+**Create a RDD from local file**
+```
+lst = open('/staging/test/sample.txt').read().splitlines()
+lst[0:10]
+rdd = spark.sparkContext.parallelize(lst)
+for i in rdd.take(5) : print(i)
+```
+**Create RDD from range function**
+```
+lst1 = range(10)
+rdd = spark.sparkContext.parallelize(lst1)
+for i in rdd.take(5) : print(i)
+```
+**Create RDD from a DataFrame**
+```
+df=spark.createDataFrame(data=(('robert',35),('Mike',45)),schema=('name','age'))
+df.printSchema()
+df.show()
+rdd1= df.rdd
+type(rdd1)
+for i in rdd1.take(2) : print(i)
+```
+
+**What are Dataframes?**
+
+It was introduced first in Spark version 1.3 to overcome the limitations of the Spark RDD. Spark Dataframes are the distributed collection of the data points, but here, the data is organized into the named columns
+
+- Data Representation:It is also the distributed collection organized into the named columns
+- Optimization: It uses a catalyst optimizer for optimization.
+- Schema: It will automatically find out the schema of the dataset.
+- Aggregation Operation: It performs aggregation faster than both RDDs and Datasets.
+
+
+**What are Datasets?**
+
+Spark Datasets is an extension of Dataframes API with the benefits of both RDDs and the Datasets. It is fast as well as provides a type-safe interface. 
+
+- Data Representation:It is an extension of Dataframes with more features like type-safety and object-oriented interface.
+- Optimization:It uses a catalyst optimizer for optimization.
+- Schema: It will automatically find out the schema of the dataset.
+- Aggregation Operation:Dataset is faster than RDDs but a bit slower than Dataframes.
 
 **What type of operation has Pyspark?**
+
 The operations can be of 2 types, actions and transformation.
 
 **What is Transformation in Pyspark?**
@@ -2928,6 +2997,8 @@ counts = words.count()
 print("Count of elements in RDD -> ",  counts)
 ```
 we count the number of elements in the spark RDDs. The output of this code is Count of elements in RDD -> 3
+## Creating DataFrame
+
 
 
 **From RDDs**
