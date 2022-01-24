@@ -3,8 +3,8 @@ title: "Create a repository in Github from  a remote Server via SSH"
 excerpt: " Create a repository in Github from  a remote Server via SSH"
 
 header:
-  image: "/assets/images/posts/2021-02-19-How-add-repositories-to-Github-from-your-Remote-Server/repo.jpg"
-  teaser: "/assets/images/posts/2021-02-19-How-add-repositories-to-Github-from-your-Remote-Server/repo.jpg"
+  image: "../assets/images/posts/2021-02-19-How-add-repositories-to-Github-from-your-Remote-Server/repo.jpg"
+  teaser: "../assets/images/posts/2021-02-19-How-add-repositories-to-Github-from-your-Remote-Server/repo.jpg"
   caption: "Repo"
   
 
@@ -82,7 +82,6 @@ If you’ve never used git or github before, and you want use them with your pri
     
     
   
-
 - You open your any editor in your  Documents folder, copy the string and then go to the Github page.
 
 - Paste your ssh public key into your github account settings.
