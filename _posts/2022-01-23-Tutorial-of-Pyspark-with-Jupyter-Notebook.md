@@ -15,7 +15,7 @@ In order to answer the exercises we are going to use a docker container with **P
 Let us  install Docker in your computer 
 **Step 1.** Install Docker desktop in you computer.
 
-https://www.docker.com/products/docker-desktop
+[https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
 
 after installed we restart our computer and then we open docker desktop and then open a terminal
 
