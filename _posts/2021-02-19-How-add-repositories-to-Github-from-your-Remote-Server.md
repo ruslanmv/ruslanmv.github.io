@@ -18,9 +18,7 @@ A **repository** is usually used to organize a single project. Repositories can 
 
 
 
-
-
-![github](../assets/images/posts/2021-02-19-How-add-repositories-to-Github-from-your-Remote-Server/github.png)
+<img src="../assets/images/posts/2021-02-19-How-add-repositories-to-Github-from-your-Remote-Server/github.png" alt="github" style="zoom:50%;" />
 
 
 
