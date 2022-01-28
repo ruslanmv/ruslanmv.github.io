@@ -235,5 +235,5 @@ tableName:classicmodels_products
 databaseName: default
 ```
 
-**Congratulations !** We have created a **Data Catalog**  with **AWS Glue** from you **MySQL Database.**
+**Congratulations !** We have created a **Data Catalog**  with **AWS Glue** from your **MySQL Database.**
 
