@@ -22,7 +22,14 @@ header:
 - AWS Certified **Machine Learning** – Specialty.  Issuing authority Amazon Web Services (AWS) May 2020
 - AWS Certified **Solutions Architect** – Associate.  Issuing authority Amazon Web Services (AWS)  July 2020
 - AWS Certified **Cloud Practitioner** Issuing authority Amazon Web Services (AWS), Dec 2019
+
+<p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
+<img src="../assets/images/microsoft-logo.jpg" width="120" alt="homepage" /></a></p>
+
+- Microsoft Certified: **Azure Fundamentals** -  Issuing authority Microsoft Corporation,  Jan 2022
+
 ## Professional Certifications
+
 <p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
 <img src="../assets/images/IBM-logo.jpg" width="120" alt="homepage" /></a></p>
 
