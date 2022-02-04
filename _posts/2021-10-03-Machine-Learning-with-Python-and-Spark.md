@@ -30,6 +30,10 @@ In the following sections, I  will  take a high-level look at each of these tech
 
  I will consider windows with a single computer that will simulate a cluster. In this way we test our spark codes and practice.
 
+
+
+When we are working with Windows there is the well known bug called spark-2356, so to avoid this warning.
+
 Go to your terminal and go to you root directory and create a directory called winutills
 
 ```
@@ -104,6 +108,56 @@ We modify **Path**  and we add
 `%JAVA_HOME%\bin`
 
 
+
+## Cleaning the logging  spark-shell
+
+Due to we want to work without too much noise information during with spark, let us
+
+We have to go to conf directory of spark
+
+```
+cd C:\Spark\spark-3.0.2-bin-hadoop2.7\conf
+```
+
+we copy the file
+
+```
+copy log4j.properties.template log4j.properties
+```
+
+and we edit the file `log4j.properties`
+
+we change all `INFO` and  `WARN` to `ERROR`
+
+something like:
+
+```
+# Set everything to be logged to the console
+log4j.rootCategory=ERROR, console
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+log4j.appender.console.target=System.err
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n
+
+# Set the default spark-shell log level to WARN. When running the spark-shell, the
+# log level for this class is used to overwrite the root logger's log level, so that
+# the user can have different defaults for the shell and regular Spark apps.
+log4j.logger.org.apache.spark.repl.Main=ERROR
+
+# Settings to quiet third party logs that are too verbose
+log4j.logger.org.sparkproject.jetty=ERROR
+log4j.logger.org.sparkproject.jetty.util.component.AbstractLifeCycle=ERROR
+log4j.logger.org.apache.spark.repl.SparkIMain$exprTyper=ERROR
+log4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter=ERROR
+log4j.logger.org.apache.parquet=ERROR
+log4j.logger.parquet=ERROR
+
+# SPARK-9183: Settings to avoid annoying messages when looking up nonexistent UDFs in SparkSQL with Hive support
+log4j.logger.org.apache.hadoop.hive.metastore.RetryingHMSHandler=FATAL
+log4j.logger.org.apache.hadoop.hive.ql.exec.FunctionRegistry=ERROR
+```
+
+in this way we show only ERROR messages and our spark login is much clean.
 
 ### Troubleshooting
 

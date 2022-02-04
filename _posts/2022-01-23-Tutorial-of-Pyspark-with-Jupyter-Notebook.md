@@ -2542,11 +2542,7 @@ rdd17.intersection(rdd18).collect()
 ```
 
 
-
-
     [1, 3]
-
-
 
 What is distinct?
 
@@ -2632,7 +2628,6 @@ df.explain() #Print the (logical and physical) plans
 
 
 ​    
-​    
 
 **Data Structures**
 
@@ -2649,11 +2644,7 @@ df.toJSON().first() #Convert df into a ROD of string
 ```
 
 
-
-
     '{"id":1,"weight":144.5,"height":5.9,"age":33,"gender":"M"}'
-
-
 
 
 ```python
@@ -2688,19 +2679,13 @@ rdd.repartition(4) #New ROD with 4 partitions
 ```
 
 
-
-
     MapPartitionsRDD[451] at coalesce at NativeMethodAccessorImpl.java:0
-
-
 
 
 ```python
 
 rdd.coalesce(1) #Decrease the number of partitions in the ROD to 1
 ```
-
-
 
 
     CoalescedRDD[452] at coalesce at NativeMethodAccessorImpl.java:0
@@ -2742,8 +2727,6 @@ rdd14.coalesce(1).getNumPartitions()
 ```
 
 
-
-
     1
 
 
@@ -2780,8 +2763,6 @@ broadcastVar.value    # access broadcast variable
 ```
 
 
-
-
     [10, 11, 22, 31]
 
 
@@ -2810,4 +2791,178 @@ Post RDD creation, the RDD transformation operations like filter() or map() are 
 If any intermediate RDDs are required to be reused for later purposes, we can persist those RDDs.
 Lastly, if any action operations like first(), count() etc are present then spark launches it to initiate parallel computation.
 
-**Congratulation!** We have practiced Pyspark with Jupyter Notebook in Docker Container
+Let us practice some exercises:
+
+# Exercises
+
+**Exercise 0**: Create a new SparkSession
+
+
+```python
+import pyspark
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName('example').getOrCreate()
+```
+
+**Exercise 1**: Load a csv file from data/Incidents.csv and create two separated "Year" and "Month" columns, and then another one called Year-Month, composed by the first two.
+The format must be 2022-1
+
+
+```python
+# We import the Functions library and we load the data
+from pyspark.sql import functions as f
+incidents = spark.read.csv("data/Incidents.csv", header=True)    
+```
+
+
+```python
+incidents = incidents.withColumn("Year", f.year(f.col("Date")))\
+                     .withColumn("Month", f.month(f.col("Date")))\
+                     .withColumn("Year_Month", f.concat(f.col("Year"), f.lit("-"), f.col("Month")))
+```
+
+**Exercise 2**: Create another dataframe containing only the incidents from January 2022.
+
+
+```python
+incidents_of_January = incidents.filter(f.col("Year_Month") == "2022-1")
+```
+
+**Exercise 3**: Import another dataset from the the path data/Incidents_with_SnapshotDate.csv
+You need to add the Snapshot_date column from the Incidents_snapshow dataframe, also to the first one. Then select only the records with the last snapshot date over the three key fields: Service_code, Customer_code and Date.
+Make sure you'll have no duplicated rows.
+
+
+```python
+# Importing additional libs
+from datetime import datetime
+from pyspark.sql import Window as W
+incidents_snapshot = spark.read.csv("data/Incidents_with_SnapshotDate.csv", header=True)
+```
+
+
+```python
+incidents_snapshot = incidents_snapshot.select("Service_code", 'Customer_code', 'Date', 'Snapshot_Date')
+incidents = incidents.join(incidents_snapshot, on=['Service_code', 'Customer_code', 'Date'], how='left')
+incidents = incidents.withColumn("max_snapshotdate", f.max("Snapshot_Date").over(W.partitionBy('Service_code', 'Customer_code', 'Date')))
+incidents = incidents.filter(f.col("Snapshot_Date") == f.col("max_snapshotdate")).distinct()  
+```
+
+**Exercise 4**: Create a 'key' field composed by the three key fields.
+Then use the groupby function to create another dataframe named "incidents_per_service" that contains the number of incidents occurred for each service.
+
+
+```python
+incidents = incidents.withColumn("key", f.concat(f.col("Service_code"), f.col("Customer_code"), f.col("Date")))
+incidents_per_service = incidents.groupby("Service_code").agg(f.count('key').alias("Incidents_number"))
+```
+
+**Exercise 5**: Group again the incidents in a separate dataframe, but this time calculate the average of incidents occurred for each Year-Month.
+Join these two datasets in order to add the average also to the main dataframe.
+Then, per each year_month, keep only the incidents where the Relevance is major that the average of the corresponding year_month.
+
+
+```python
+incidents_per_yearmonth = incidents.groupby("Year_Month").agg(f.avg(f.col("Relevance")).alias("Relevance_avg"))
+incidents = incidents.join(incidents_per_yearmonth, on=['Year_Month'], how="left")
+incidents = incidents.filter(f.col('Relevance') >= f.col("Relevance_avg"))
+```
+
+**Exercise 6**: Iter over all the columns and convert all the names in lower case.
+
+
+```python
+incidents = incidents.toDF(*[col.lower() for col in incidents.columns])
+```
+
+**Exercise 7**: Load a new dataframe in data/exercise_8.csv and define a function that, when passed a dataframe and a list of columns, returns a duplicate-free dataset for that subset of columns.
+
+```python
+# Load another csv file
+people = spark.read.csv("data/exercise_7.csv", header=True)
+people = people.toDF(*[col.lower() for col in people.columns])
+def clean(df, cols):
+  return df.dropDuplicates(subset=cols)
+people = clean(people, ['Lastname', 'Age'])   
+```
+
+**Exercise 8**:  Let's take again the incidents dataframe and Create a month_name column, containing the month written in full.
+
+
+```python
+incidents = incidents.withColumn("month_name",
+                                 f.when(f.col("month") == 1, "January")
+                                  .when(f.col("month") == 2, "February")
+                                  .when(f.col("month") == 3, "March")
+                                  .when(f.col("month") == 4, "April")
+                                  .when(f.col("month") == 5, "May")
+                                  .when(f.col("month") == 6, "June")
+                                  .when(f.col("month") == 7, "July")
+                                  .when(f.col("month") == 8, "August")
+                                  .when(f.col("month") == 9, "September")
+                                  .when(f.col("month") == 10, "October")
+                                  .when(f.col("month") == 11, "November")
+                                  .when(f.col("month") == 12, "December"))
+```
+
+  **Exercise 9**: The table imported above contains different services and customers that had incidents in different periods.
+You need to re-create the missing columns, so that you can finally unite these new data to the older one.
+
+
+```python
+finalDataframe = spark.read.csv("data/Incidents_with_SnapshotDate_2.csv", header=True)
+# finalDataframe.show()
+df = finalDataframe
+df = df.toDF(*[col.lower() for col in df.columns])
+df = df.withColumn("year", f.year(f.col("date")))\
+       .withColumn("month", f.month(f.col("date")))\
+       .withColumn("year_month", f.concat(f.col("year"), f.lit("-"), f.col("month")))\
+       .withColumn("key", f.concat(f.col("service_code"), f.col("customer_code"), f.col("date")))\
+       .withColumn("month_name", f.when(f.col("month") == 1, "January")
+                                  .when(f.col("month") == 2, "February")
+                                  .when(f.col("month") == 3, "March")
+                                  .when(f.col("month") == 4, "April")
+                                  .when(f.col("month") == 5, "May")
+                                  .when(f.col("month") == 6, "June")
+                                  .when(f.col("month") == 7, "July")
+                                  .when(f.col("month") == 8, "August")
+                                  .when(f.col("month") == 9, "September")
+                                  .when(f.col("month") == 10, "October")
+                                  .when(f.col("month") == 11, "November")
+                                  .when(f.col("month") == 12, "December"))\
+       .withColumn("max_snapshotdate", f.max("snapshot_date").over(W.partitionBy("service_code", "customer_code", "date")))
+
+df = df.filter(f.col("snapshot_date") == f.col("max_snapshotdate")).distinct()
+
+df_grouped = df.groupby("year_month").agg(f.avg("relevance").alias("relevance_avg"))
+df = df.join(df_grouped, on=['year_month'], how='left')\
+       .filter(f.col("relevance") >= f.col("relevance_avg"))
+
+df_final = incidents.unionByName(df)
+```
+
+**Exercise 10**: Load data/cities.csv and data/pm10.csv and starting from the two tables above, create one that contains, in addition to the id, the name of the city, the population, the date, and the weekly average per city.
+Attention: 1 month and 5 days must be added to each date.
+
+
+```python
+# We import two new dataframes: cities and pm10
+cities = spark.read.csv("data/cities.csv", header=True)
+pm10 = spark.read.csv("data/pm10.csv", header=True)
+```
+
+
+```python
+pm10 = pm10.withColumnRenamed("name", "city_name")
+pm10 = pm10.withColumnRenamed("id_city","id")
+pm10 = pm10.join(cities, on=['id'], how='left')\
+           .drop("city_name")
+pm10_grouped = pm10.groupby("id").agg(f.avg("value").alias("weekly_average"))
+pm10 = pm10.join(pm10_grouped, on=['id'], how='left')
+
+pm10 = pm10.withColumn("date", f.date_add(f.col("date"), 5))\
+           .withColumn("date", f.add_months(f.col("date"), 1))
+```
+
+**Congratulation!** We have practiced **Pyspark** with Jupyter Notebook in Docker Container
+
