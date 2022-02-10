@@ -9,7 +9,7 @@ header:
   
 ---
 
-Today we are going to study some filters that we will use to develop our Neural Network, in order to do that, first we need to understand how to work the single images.
+Today we are going to study some filters that we will use to develop our Neural Network, in order to do that, first we need to understand how to work with the single images.
 
 
 The first step is load the needed libraries
@@ -1735,7 +1735,7 @@ showarray(img_prepro_night)
 ![png](../assets/images/posts/2022-02-10-How-to-use-OpenCV-with-Games/output_134_0.png)
 ​    
 
-You can download his notebook here
+You can download his notebook [here](https://github.com/ruslanmv/BOT-MMORPG-AI/blob/master/versions/0.01/0-Way-Identification.ipynb)
 
 
 
