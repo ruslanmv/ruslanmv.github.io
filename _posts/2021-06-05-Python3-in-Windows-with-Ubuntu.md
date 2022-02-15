@@ -38,6 +38,8 @@ To install WSL using Setting on Windows 10, use these steps:
 
 7. Click the **Restart now** button.
 
+There are two ways to install Ubuntu: Using Microsoft store or using PowerShell
+
 ### Installing Linux distros using Microsoft Store
 
 To install a distribution of Linux on Windows 10, use these steps:
@@ -52,6 +54,17 @@ To install a distribution of Linux on Windows 10, use these steps:
 ![](../assets/images/posts/2021-06-05-Python3-in-Windows-with-Ubuntu/3.jpg)
 
 
+### Installing Linux distros using PowerShell
+You can now install everything you need to run Windows Subsystem for Linux (WSL) by entering this command in an administrator PowerShell or Windows Command Prompt and then restarting your machine.
+**PowerShellCopy**
+
+```powershell
+wsl --install
+```
+
+This command will enable the required optional components, download the latest Linux kernel, set WSL 2 as your default, and install a Linux distribution for you *(Ubuntu by default).
+
+The first time you launch a newly installed Linux distribution, a console window will open and you'll be asked to wait for files to de-compress and be stored on your machine. All future launches should take less than a second.
 
 
 
