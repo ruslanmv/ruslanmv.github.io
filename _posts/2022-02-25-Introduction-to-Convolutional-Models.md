@@ -1112,6 +1112,8 @@ pyplot.plot(series_in, series_out)
 pyplot.show()
 ```
 
+<img src="../assets/images/posts/2022-02-25-Introduction-to-Convolutional-Models/output_77_0.png" style="width:450px;height:300px;">
+
 <a name='5'></a>
 
 ## 5 - Backpropagation in Convolutional Neural Networks 
