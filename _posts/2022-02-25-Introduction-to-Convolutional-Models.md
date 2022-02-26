@@ -25,7 +25,7 @@ We will review them and **extend** it within **Tensorflow**, **Keras** and **Pyt
 
 ## Introduction 
 
-In order to understand the language of Neural Network in a propper way,  we will use the **Linear Algebra**, among the most mportant  definitions that we will use are:
+In order to understand the language of Neural Network in a propper way,  we will use the **Linear Algebra**, among the most important  definitions that we will use are:
 
 - Matrix
 - Digital image 
