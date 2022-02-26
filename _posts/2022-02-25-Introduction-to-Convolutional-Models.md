@@ -25,10 +25,10 @@ We will review them and **extend** it within **Tensorflow**, **Keras** and **Pyt
 
 ## Introduction 
 
-In order to understand the language of Neural Network in a propper way,  we will use the **Linear Algebra**, the more important  definitions that we will use are:
+In order to understand the language of Neural Network in a propper way,  we will use the **Linear Algebra**, among the most mportant  definitions that we will use are:
 
 - Matrix
-- Matrix in Computer Vision
+- Digital image 
 - Multiplication of matrices
 - Convolutions
 
@@ -63,18 +63,17 @@ $$\mathbf{C}=\begin{pmatrix}
 \end{pmatrix}$$
 
 such that 
-$$ c_{ij} = x_{i1}w_{1j} + x_{i2}w_{2j} +\cdots + x_{in}w_{nj}= \sum_{k=1}^n x_{ik}w_{kj}, $$
+$$ c_{ij} = x_{i1}w_{1j} + x_{i2}w_{2j} +\cdots + x_{in}w_{nj}= \sum_{k=1}^n x_{ik}w_{kj}.$$
 
 ### Matrix in Computer Vision
 
 There is a relation between matrices and digital images. A digital image in a computer is
-presented by pixels matrix. An image is an array, or a matrix, of square pixels (picture elements) arranged in
-columns and rows.
-
+presented by pixels matrix. An image is an array, or a matrix, of square pixels (picture elements) arranged in columns and rows.
 
 A digital grayscale image is presented in the computer by pixels
-matrix. Each pixel of such image is presented by one matrix element – integer from the set
-. The numeric values in pixel presentation are uniformly changed from zero (black
+matrix.
+
+Each pixel of such image is presented by one matrix element – integer from the set. The numeric values in pixel presentation are uniformly changed from zero (black
 pixels) to 255 (white pixels).
 <img src="../assets/images/posts/2022-02-25-Introduction-to-Convolutional-Models/matrix.jpg" >
 
