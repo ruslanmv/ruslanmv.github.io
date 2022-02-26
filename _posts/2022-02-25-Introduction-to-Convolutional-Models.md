@@ -1558,4 +1558,4 @@ You can download this notebook [here](https://github.com/ruslanmv/Introduction-t
 
 
 
-**Congratulations**!  He have studied some aspects of convolution models.
+**Congratulations**!  We have studied some aspects of convolution models.
