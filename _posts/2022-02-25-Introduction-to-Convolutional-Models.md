@@ -369,9 +369,12 @@ Stride is a parameter of the neural network's filter that modifies the amount of
 Stride is a component for the compression of images and video data.
 For example, if a neural network's stride is set to 1, the filter will move one pixel, or unit,  at a time.
 If stride = 1, the filter will move one pixel.
+
 ![jpg](../assets/images/posts/2022-02-25-Introduction-to-Convolutional-Models/stride1.jpg)
+
 The size of the filter affects the encoded output volume, so stride is often set to a whole integer, rather than a fraction or decimal.
 If stride = 2, the filter will move two pixels.
+
 ![jpg](../assets/images/posts/2022-02-25-Introduction-to-Convolutional-Models/stride2.jpg)
 
 
