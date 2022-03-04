@@ -375,7 +375,7 @@ If stride = 1, the filter will move one pixel.
 The size of the filter affects the encoded output volume, so stride is often set to a whole integer, rather than a fraction or decimal.
 If stride = 2, the filter will move two pixels.
 
-![jpg](../assets/images/posts/2022-02-25-Introduction-to-Convolutional-Models/stride2.jpg)
+![jpg](../assets/images/posts/2022-02-25-Introduction-to-Convolutional-Models/stride3.jpg)
 
 
 
