@@ -377,8 +377,7 @@ If stride = 2, the filter will move two pixels.
 
 ![png](../assets/images/posts/2022-02-25-Introduction-to-Convolutional-Models/stride3.png)
 
-In this case for exable below, we have a matrix 7x7 that we do the convolution with another matrix 3x3 with stride = 2, 
-the last component of the final matrix 3x3 will be  74 that is the result of 
+In the example as below, we have a matrix 7x7 that we do the convolution with another matrix 3x3 with stride = 2,  the last component of the final matrix 3x3 will be  74 that is the result of 
 
 $$(3\cdot 3)+(4 \cdot 4)+(6 \cdot 4)+(9\cdot 1)+(8\cdot 0)+(3\cdot 2)+(2 \cdot -1)+(1\cdot 0)+(4 \cdot 3)=74$$
 
