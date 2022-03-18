@@ -5,7 +5,7 @@ excerpt: "Simple classification with Neural Networks and XGBoost to detect diabe
 header:
   image: "../assets/images/posts/2022-03-17-Simple-Classification-with-Neural-Networks-and-XGBoost/food.jpg"
   teaser: "../assets/images/posts/2022-03-17-Simple-Classification-with-Neural-Networks-and-XGBoost/food.jpg"
-  caption: "Cinque Terre - Liguria, Italy"
+  caption: "Humans should be worried about the threat posed by artificial intelligence.” -Bill Gates"
   
 ---
 
