@@ -655,15 +655,15 @@ networks, I'm just gonna use Keras which is high level API.
 
 Let  use sequential mode to build our artificial neural network model object or instance. 
 
-To this object we add a layers dense with 400 neurons. We specify the activation function to be a relu activation function and really stands for rectified linear units. 
+To this object we add a layers dense with 400 neurons. Due to the the non linearity  of the network. We specify the activation function to be a ReLu activation function and ReLu stands for rectified linear units. 
 
-Due to the the non linearity  of the network.  We need to specify the shape here and the shape is eight because  we have eight inputs in the model. Next we add what we call it, a dropout layer after you add this layer here which contains 400 neurons.
+  We need to specify the shape here and the shape is eight because  we have eight inputs in the model. Next we add what we call it, a dropout layer after you add this layer here which contains 400 neurons.
 
-Finally we  add another layer with dropout, meaning the overall idea of dropout is make sure that the network is able to generalize and not memorize think of it as more of a regularization technique. 
+Finally we  add another layer with dropout, the dropout  make sure that the network is able to generalize and not memorize ,  it is a regularization technique. 
 
-We drop a couple of neurons along with their connected weight, the overall idea is we make sure that the neurons do not develop any dependency. 
+We drop a couple of neurons along with their connected weight, we make sure that the neurons do not develop any dependency. 
 
-When we add a dense layer is commonly  followed by dropout. We add another dense layer followed by another dropout. So the next dense layer will to contain 400 neurons with again, activation function relu. 
+When we add a dense layer is commonly  followed by dropout. We add another dense layer followed by another dropout. The next dense layer will to contain 400 neurons with again, activation function ReLu. 
 
 And then add the dropout afterwards. And then finally the output include an activation function of sigmoid and the units here is only one neuron. And the reason is is because the output is going to simply going to be a binary values either zero or one.
 
@@ -672,7 +672,7 @@ And then add the dropout afterwards. And then finally the output include an acti
 
 ```python
 # !pip install tensorflow
-import tensorflow as tf
+import tensorflow as tf 
 ANN_model = tf.keras.models.Sequential()
 ANN_model.add(tf.keras.layers.Dense(units=400, activation='relu', input_shape=(8, )))
 ANN_model.add(tf.keras.layers.Dropout(0.2))
@@ -808,7 +808,7 @@ print(classification_report(y_test, y_pred))
     weighted avg       0.70      0.70      0.70       154
 
 
-  
+
 
 # TRAIN AND EVALUATE AN XG-BOOST ALGORITHM
 
