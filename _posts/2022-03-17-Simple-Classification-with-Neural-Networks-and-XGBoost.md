@@ -37,12 +37,13 @@ Only female patients are considered with at least 21 years old of Pima Indian he
 Inputs: 
 * Pregnancies: Number of times pregnant 
 * GlucosePlasma: glucose concentration a 2 hours in an oral glucose tolerance test 
-* BloodPressure: Diastolic blood pressure (mm Hg) o Skin: ThicknessTriceps skin fold thickness (mm) 
+* BloodPressure: Diastolic blood pressure (mm Hg)  
+* Skin: ThicknessTriceps skin fold thickness (mm) 
 * Insulin: 2-Hour serum insulin (mu Wm!) 
 * BMI: Body mass index (weight in kg/(height in m)^2) 
 * DiabetesPedigreeFunction: Diabetes pedigree function 
-* Age: Age (years) Outputs: 
-* Diabetes or no diabetes (0 or 1) 
+* Age: Age (years) 
+* Outputs: Diabetes or no diabetes (0 or 1) 
 
 
 Basically I'm going to build think of it as a mini artificial brain that can consume or use all these different features that we have in the input in X train and it's going to learn all the different features within that data and map it to the output, which is going to be my white train.
@@ -69,7 +70,6 @@ diabetes = pd.read_csv('diabetes.csv')
 diabetes
 ```
 
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -419,7 +419,7 @@ diabetes.info()
 diabetes.describe()
 ```
 
-</style>
+
 
 <table border="1" class="dataframe">
   <thead>
@@ -536,7 +536,7 @@ diabetes.describe()
   </tbody>
 </table>
 
-</div>
+
 
 
 
