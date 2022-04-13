@@ -74,7 +74,7 @@ The  logistic function s of the form:
 
 $$p(x)=\frac{1}{1+e^{-(x-\mu)/s}}$$
 
-where ''&mu;'' is a location parameter (the midpoint of the curve, where  p(\mu)=1/2  and *s* is a  scale parameter, for example
+where $$\mu$$  is a location parameter (the midpoint of the curve, where $$ p(\mu)=1/2$$  and $$s$$ is a  scale parameter.
 
 ![img](../assets/images/posts/2022-04-11-The-best-binary-Machine-Learning-Model/400px-Exam_pass_logistic_curve.svg.png)
 
@@ -95,12 +95,6 @@ Well, if the distribution of the data may be distributed this logistic function,
 ## 2. Support Vector Machines
 
 Support vector machine is based on statistical approaches. Her we try to find a hyperplane that best separates the two classes.
-
-
-
-
-
-
 
  SVM finding the maximum margin between the hyperplanes that means maximum distances between the two classes.
 
@@ -125,8 +119,6 @@ An interesting point of SVM that you can use Non-Linear SVM that can be used to 
 ### When use this model?
 
 We can use SVM **when a number of features are high compared to a number of data points in the dataset**. By using the correct kernel and setting an optimum set of parameters.  It is effective in high dimensional spaces. Still effective in cases where number of dimensions is greater than the number of samples. Uses a subset of training points in the decision function (called support vectors), so it is also memory efficient.
-
-
 
 ### 3. Naive Bayes
 
@@ -218,8 +210,6 @@ Random forests on the other hand are a collection of decision trees being groupe
 
 
 
-
-
 The goal of using a Decision Tree is to create a training model that can use to predict the class or value of the target variable by **learning simple decision rules** inferred from prior data(training data).
 
 In Decision Trees, for predicting a class label for a record we start from the **root** of the tree. We compare the values of the root attribute with the record’s attribute. On the basis of comparison, we follow the branch corresponding to that value and jump to the next node.
@@ -240,8 +230,6 @@ Among some uses are in:
 6. Medicines (diagnosis, cardiology, psychiatry).
 7. Physics (Particle detection).
 
-
-
 ## 5. Neural Network
 
 Deep learning can be used for binary classification, too. In fact, building a neural network that acts as a binary classifier is little different than building one that acts as a regressor. 
@@ -261,8 +249,6 @@ Computation of NN is done by forward propagation for computing outputs and Backw
 $$Z=W^Tx+b$$
 
 Here Z is the weighted sum of inputs with the inclusion of bias
-
-
 
 Predicted Output is activation function applied on weighted sum(Z)
 
