@@ -1,4 +1,5 @@
 ---
+usemathjax: true
 title: "The best machine learning model for binary classification"
 excerpt: "The best machine learning model for binary classification"
 
@@ -95,6 +96,12 @@ Well, if the distribution of the data may be distributed this logistic function,
 
 Support vector machine is based on statistical approaches. Her we try to find a hyperplane that best separates the two classes.
 
+
+
+
+
+
+
  SVM finding the maximum margin between the hyperplanes that means maximum distances between the two classes.
 
 SVM works best when the dataset is small and complex. 
@@ -112,6 +119,14 @@ SVM is helpful when you have a simple pattern of data, and you can find this hyp
 An interesting point of SVM that you can use Non-Linear SVM that can be used to separate the classses by using a kernel, and with a Decision surface we can obtain this separation of the 2 classes.
 
 ![img](../assets/images/posts/2022-04-11-The-best-binary-Machine-Learning-Model/1403824.png)
+
+
+
+### When use this model?
+
+We can use SVM **when a number of features are high compared to a number of data points in the dataset**. By using the correct kernel and setting an optimum set of parameters.  It is effective in high dimensional spaces. Still effective in cases where number of dimensions is greater than the number of samples. Uses a subset of training points in the decision function (called support vectors), so it is also memory efficient.
+
+
 
 ### 3. Naive Bayes
 
@@ -137,7 +152,10 @@ The fundamental Naïve Bayes assumption is that each feature makes an: **indepen
 
 What it does mean that?  This mean that when you have several features and they are **independent,** they are not correlated, and  none of the attributes are irrelevant and assumed to be contributing **Equally** to the outcome.
 
-Due to the independence assumption is never correct we call Naive. This model works particularly well with natural language processing (NLP) problems.
+Due to the independence assumption is never correct we call Naive. This model works particularly well with natural language processing (NLP) problems. Because we can assume
+
+1. The order of the words in document X makes no difference but repetitions of words do. (**Bag of Words assumption** )
+2. Words appear independently of each other, given the document class (**Conditional Independence** ).
 
 There are different types , among common types are:
 
@@ -208,8 +226,6 @@ In Decision Trees, for predicting a class label for a record we start from the *
 
 ### When use this model?
 
-
-
 When you don’t need to prepare the data before building the model and when your dataset can have a mix of numerical and categorical data, and you won’t need to [encode](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html) any of the categorial features.
 
 However you should take into account that Decision tree models are often biased toward splits on features having a large number of levels. Small changes in the training data can result in large changes to decision logic and large trees can be difficult to interpret and the decisions they make may seem counter intuitive.
@@ -226,7 +242,7 @@ Among some uses are in:
 
 
 
-## Neural Network
+## 5. Neural Network
 
 Deep learning can be used for binary classification, too. In fact, building a neural network that acts as a binary classifier is little different than building one that acts as a regressor. 
 
@@ -240,15 +256,13 @@ Neural Networks are remarkably good at figuring out functions from X to Y.  In g
 
 Computation of NN is done by forward propagation for computing outputs and Backward pass for computing gradients.
 
-**What if I remove hidden layer in 2 layer network?**
-
 **Forward propagation:**
 
-**Z=W<sup>T</sup>x+b**
+$$Z=W^Tx+b$$
 
 Here Z is the weighted sum of inputs with the inclusion of bias
 
-**y<sup>^</sup>=a(For simplification)=activation_function(z)** 
+
 
 Predicted Output is activation function applied on weighted sum(Z)
 
@@ -256,7 +270,7 @@ Predicted Output is activation function applied on weighted sum(Z)
 
 1. *Sigmoid*: 
 
-Sigmoid(x) = ** 1/(1+exp(-x))**
+$$\sigma(x) = 1/(1+exp(-x))$$
 
 ![Sigmoid](../assets/images/posts/2022-04-11-The-best-binary-Machine-Learning-Model/1Xu7B5y9gp0iL5ooBj7LtWw.png)
 
@@ -265,7 +279,7 @@ The main reason why we use sigmoid function is because it exists between (0 to 1
 
 2. *Tanh*: 
 
-Tanh(x): **(exp(x)-exp(-x))/(exp(x)+exp(-x))**
+$$Tanh(x): (exp(x)-exp(-x))/(exp(x)+exp(-x))$$
 
 ![Tanh](../assets/images/posts/2022-04-11-The-best-binary-Machine-Learning-Model/tanh.png)
 
@@ -273,7 +287,7 @@ The advantage is that the negative inputs will be mapped strongly negative and t
 
 3. *Relu*:
 
-Relu(x)=max(0,x)
+$$Relu(x)=max(0,x)$$
 
 ![Relu](../assets/images/posts/2022-04-11-The-best-binary-Machine-Learning-Model/1XxxiA0jJvPrHEJHD4z893g.png)
 
@@ -282,11 +296,9 @@ The ReLU is the most used activation function in the world right now. Since, it 
 
 4. *Softmax*:
 
-Softmax(y<sub>i</sub>)=exp(y<sub>i</sub>)/sigma(exp(y<sub>j</sub>))
+$$Softmax(y_i)=exp(y_i)/sigma(exp(y_i))$$
 
 In general we use softmax activation function when we have multiple ouput units. For example for predicting hand written digits we have 10 possibilities. We have 10 output units, for getting the 10 probabilities of a given digit we use softmax.
-
-
 
 **Activation functions can be different for hidden and output layers.**
 
@@ -294,14 +306,13 @@ What is categorical variable? What is numeric variable?
 
 **Loss Functions**
 
-*Regression*: When actual Y values are numeric. Eg: Price of house as output variable, range of price of a house can vary within certain range.
-For regression problems: For regression problems we generally use RMSE as loss function.
-*Classification(binary)*: When the given y takes only two values. i.e 0 or 1 Eg: Whether the person will buy the house and each class is mutually exclusive.
-For binary Classification problems: For binary classification proble we generally use **binary cross entropy** as loss function.
+- *Regression*: When actual Y values are numeric. Eg: Price of house as output variable, range of price of a house can vary within certain range.
+  For regression problems: For regression problems we generally use RMSE as loss function.
+
+- *Classification(binary)*: When the given y takes only two values. i.e 0 or 1 Eg: Whether the person will buy the house and each class is mutually exclusive.
+  For binary Classification problems: For binary classification proble we generally use **binary cross entropy** as loss function.
 
 ![BCE](data:image/png;base64,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)
-
-
 
 
 A neural network topology with many layers offers more opportunity for the network to extract key features and recombine them in useful nonlinear ways.
