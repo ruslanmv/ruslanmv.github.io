@@ -33,7 +33,7 @@ Until you have understood very well you source data you  can identify which mode
 
 ## Step 2 - Clean the data
 
-In order to analyze the data you should clean the data, this allows you identify patterns of the data
+In order to analyze the data you should clean the data, this allows you identify patterns of the data.
 
 ## Step 3 - Plot the data
 
