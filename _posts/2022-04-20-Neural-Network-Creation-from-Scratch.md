@@ -23,7 +23,7 @@ What I want to predict are the keys of a gamepad of a gameplay of one videogame
 
 # Introduction
 
-Firs you have to install Tensorflow
+First you have to install Tensorflow
 
 1. Download and install [Anaconda](https://www.anaconda.com/download/) 
 
@@ -336,7 +336,7 @@ model.fit(X, Y, n_epoch=5, validation_set=0.1, shuffle=True,
           snapshot_epoch=False, run_id=MODEL_NAME)
 ```
 
-    Training Step: 15  | total loss: [1m[32m45.78939[0m[0m | time: 0.667s
+    Training Step: 15  | total loss: [1m[32m45.78939[0m[0m | time: 0.667s
     | Adam | epoch: 005 | loss: 45.78939 - acc: 0.0000 -- iter: 180/180
 
 
@@ -411,7 +411,7 @@ model.fit(X, Y, n_epoch=5, validation_set=0.1, shuffle=True,
           snapshot_epoch=False, run_id=MODEL_NAME)
 ```
 
-    Training Step: 15  | total loss: [1m[32m1.90749[0m[0m | time: 20.594s
+    Training Step: 15  | total loss: [1m[32m1.90749[0m[0m | time: 20.594s
     | Momentum | epoch: 005 | loss: 1.90749 - acc: 0.5036 -- iter: 180/180
 
 ```python
@@ -534,7 +534,7 @@ print('SAVING MODEL!')
 model.save(MODEL_NAME)   
 ```
 
-    Training Step: 15  | total loss: [1m[32m1.95906[0m[0m | time: 21.006s
+    Training Step: 15  | total loss: [1m[32m1.95906[0m[0m | time: 21.006s
     | Momentum | epoch: 005 | loss: 1.95906 - acc: 0.5166 -- iter: 180/180
     SAVING MODEL!
 
