@@ -1,5 +1,5 @@
 ---
-title: "Creation of the Neural Networks of an unknown Dataset in with TensorFlow"
+title: "Creation of the Neural Networks of an unknown Dataset with TensorFlow"
 excerpt: "Neural Networks of an unknown Dataset in TensorFlow with TFLEARN and analysis with TensorBoard"
 
 header:
@@ -734,7 +734,7 @@ You can identify that the  best model that have tested is **mmorpg-0.001-alexnet
 
 What we have to do is try to find different neural networks from here [http://tflearn.org/examples/](http://tflearn.org/examples/) and try to identify which is the best Neural Network adapted to your problem.
 
-In addition try to improve the quality of the input dataset and also define different strategies to apply the neural network. For example for this video game we can improve by creating larger dataset and also performing more processing  images to focalize into the details of the images such was explained in this blog [here](https://ruslanmv.com/blog/How-to-use-OpenCV-with-Games) . You can download the notebook [here](https://github.com/ruslanmv/Neural-Networks-from-Scratch)
+In addition try to improve the quality of the input dataset and also define different strategies to apply the neural network. For example for this video game we can improve by creating larger dataset and also performing more processing  images to focalize into the details of the images such was explained in this blog [here](https://ruslanmv.com/blog/How-to-use-OpenCV-with-Games) . You can download the notebook [here](https://github.com/ruslanmv/Neural-Networks-from-Scratch).
 
 
 
