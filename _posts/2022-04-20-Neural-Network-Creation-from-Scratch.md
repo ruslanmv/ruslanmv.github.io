@@ -77,7 +77,7 @@ HEIGHT = 270
 ```
 
 # Getting the data
-The data that I will use I have created from the MMORPG Project [here](https://github.com/purplnecropanda/BOT-MMORPG-AI).  The RPG Game used here is Genshin Impact.
+The data that I will use I have created from the MMORPG Project [here](https://github.com/ruslanmv/BOT-MMORPG-AI).  The RPG Game used here is Genshin Impact.
 
 Genshin Impact is an action role-playing game developed by Chinese company miHoYo, and first published in 2020. The game features an anime-style open-world environment and an action-based battle system using elemental magic and character-switching.
 
