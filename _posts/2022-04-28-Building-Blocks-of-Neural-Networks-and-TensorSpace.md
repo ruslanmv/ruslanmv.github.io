@@ -186,7 +186,7 @@ model.add( new TSP.layers.Output1d({
 }) );
 ```
 
-Last, we should load our [preprocessed TensorSpace compatible model](https://github.com/tensorspace-team/tensorspace/blob/master/examples/helloworld/model/mnist.json) and use `init()` method to create the TensorSpace model:
+Last, we should load the preprocessed TensorSpace compatible model and use `init()` method to create the TensorSpace model:
 
 ```JavaScript
 model.load({
