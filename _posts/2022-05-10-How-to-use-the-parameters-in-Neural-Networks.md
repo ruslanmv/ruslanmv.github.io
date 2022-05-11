@@ -650,7 +650,7 @@ nparameters_fully_connected(10 , 84)
 ```
 
     Activation Shape, Activation Size, # Parameters
-
+    
     ((10, 1), 10, 850)
 
 Up to now we have seen the dimensions of the activation shape, the activation size and the number of parameters. Let us put in practice this knowledge.
@@ -1582,7 +1582,14 @@ def alexnet_adapted(width, height, lr, output=29):
     return model
 ```
 
+Up to now, we have seen  how to use the activation shape, size and number of parameters.
+
+However there are further hyperparameters that should know. Let us summarize some of them.
+
+
+
 **Learning rate** 
+
 The learning rate defines how quickly a network updates its parameters.
 
 Low learning rate slows down the learning process but converges smoothly. Larger learning rate speeds up the learning but may not converge.
@@ -1590,14 +1597,17 @@ Low learning rate slows down the learning process but converges smoothly. Larger
 Usually a decaying Learning rate is preferred.
 
 **Momentum**
+
 Momentum helps to know the direction of the next step with the knowledge of the previous steps. It helps to prevent oscillations. A typical choice of momentum is between 0.5 to 0.9.
 
 **Number of epochs**
+
 Number of epochs is the number of times the whole training data is shown to the network while training.
 
 Increase the number of epochs until the validation accuracy starts decreasing even when training accuracy is increasing(overfitting).
 
 **Batch size**
+
 Mini batch size is the number of sub samples given to the network after which parameter update happens.
 
 
@@ -1655,8 +1665,8 @@ for bsize in params_grid['batch_size']:
               snapshot_epoch=False, run_id=MODEL_NAME)
 ```
 
-We can try different combinations of hyperparameters. We should perform hyperparameter tuning but due to we are working with tflearn, we can skip this part.
-https://github.com/ruslanmv/Hyperparameter-tuning-in-Machine-Learning-Models
+We can try different combinations of hyperparameters. We should perform hyperparameter tuning but due to we are working with tflearn, we can skip this part. To more information visit this [reference](https://github.com/ruslanmv/Hyperparameter-tuning-in-Machine-Learning-Models).
+
 
 
 
