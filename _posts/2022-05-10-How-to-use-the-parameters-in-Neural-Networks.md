@@ -1856,7 +1856,7 @@ for e in range(EPOCHS):
 
 We have got  acc: **0.5730** and loss: **1.38892**,  we could decrease the loss and training time. 
 
-![strided](../assets/images/posts/2022-05-10-How-to-use-the-parameters-in-Neural-Networks/result.jpg)
+[![Foo](../assets/images/posts/2022-05-10-How-to-use-the-parameters-in-Neural-Networks/result.jpg)](https://github.com/ruslanmv/Neural-Networks-from-Scratch/raw/master/img/result.jpg)
 
 
 
