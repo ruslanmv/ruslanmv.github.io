@@ -1584,7 +1584,7 @@ def alexnet_adapted(width, height, lr, output=29):
 
 Up to now, we have seen  how to use the activation shape, size and number of parameters.
 
-However there are further hyperparameters that should know. Let us summarize some of them.
+However there are further hyperparameters that we should know. Let us summarize some of them.
 
 
 
