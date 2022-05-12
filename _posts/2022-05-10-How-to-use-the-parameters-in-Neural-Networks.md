@@ -304,7 +304,7 @@ dim_rgb_convolution(inputs, kernel,stride,padding,filters)
     
     (17, 17, 20)
 
-The sme happens if we want to calculate the activation size for this convolution. All we have to do is just multiply (17, 17, 20) , i.e 17* 17* 20= 5780 
+The same happens if we want to calculate the activation size for this convolution. All we have to do is just multiply (17, 17, 20) , i.e 17* 17* 20= 5780 
 
 
 ```python
