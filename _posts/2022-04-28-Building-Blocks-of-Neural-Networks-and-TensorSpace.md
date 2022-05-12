@@ -807,11 +807,11 @@ Note: If inputs are shaped `(batch,)` without a feature axis, then flattening ad
 
 Now that we have seen  some of the building blocks of the Neural Networks, we can visualize some of the neural networks.
 
+[LeNet](http://ruslanmv.com/assets/tensorspace/data/models/lenet/lenet.html)
+
 [AlexNet](http://ruslanmv.com/assets/tensorspace/data/models/alexnet/alexnet.html)
 
 [Inceptionv3](http://ruslanmv.com/assets/tensorspace/data/models/inceptionv3/inceptionv3.html)
-
-[LeNet](http://ruslanmv.com/assets/tensorspace/data/models/lenet/lenet.html)
 
 [MobileNet](http://ruslanmv.com/assets/tensorspace/data/models/mobilenetv1/mobilenet.html)
 
@@ -831,13 +831,13 @@ If you are interested to download the papers or get more information about the p
 
 ### References
 
-https://tensorspace.org/
+[https://tensorspace.org/](https://tensorspace.org/)
 
-https://keras.io/
+[https://keras.io/](https://keras.io/)
 
-https://www.tensorflow.org/
+[https://www.tensorflow.org/](https://www.tensorflow.org/)
 
-https://keras.io/examples/
+[https://keras.io/examples/](https://keras.io/examples/)
 
 
 
