@@ -53,6 +53,10 @@ def dim_valid_convolution(inputs,  kernel):
     return (nh-fh) + 1, (nw-fw) + 1
 ```
 
+Let us assume that you have an image of dimension 6x6  which you will perform a  convolution with a  filter (kernel) that has a dimensions of 3x3.  Then the valid output dimension of this convolution is 4x4.
+
+This example may be represented as:
+
 
 ```python
 inputs = 6 , 6  # nxn image
@@ -110,7 +114,7 @@ def check_same(inputs,parameters):
 check_same(inputs,parameters)
 ```
 
-From the Coursera Deep Learning Course the strided convolution can be depicted as 
+Now let us consider another example, we take a image of dimension 7x7  which you will perform an stride  convolution with a kernel of 3x3 within stride 2 and padding 0.
 
 ![strided](../assets/images/posts/2022-05-10-How-to-use-the-parameters-in-Neural-Networks/strided.jpg)
 
@@ -140,6 +144,8 @@ def dim_strided_convolution(inputs, kernel ,s,p):
     return (nh+2*p-fh)/s + 1, (nw+2*p-fw)/s + 1
 ```
 
+You can describe this example as
+
 
 ```python
 inputs = 7,7  # nxn image
@@ -148,6 +154,8 @@ stride=2.0    #stride s
 padding=0.0   # padding s
 dim_strided_convolution(inputs, kernel ,stride,padding)
 ```
+
+with the allowed results
 
     Activation Shape Strided
     
@@ -193,7 +201,9 @@ def dim_rgb_convolution(inputs, kernel,stride,padding,filters):
     return output
 ```
 
-Let us define the number of parameters used in each convolution. The parameters are defined as :
+Let us define the number of parameters used in each convolution.
+
+ The parameters are defined as :
 
  ((shape of width of filter x shape of height filter x number of filters in the previous layer+1) xnumber of filters) 
 
@@ -258,9 +268,13 @@ nparameters_convolution(inputs, kernel,stride,padding,filters)
     Activation Shape, Activation Size, # Parameters
     ((28, 28, 8), 6272, 608)
 
-For example, let us a consider simple case of the a convolution Neural Network like ConvNet
+For example, let us a consider simple case of the a convolution Neural Network like ConvNet from the Coursera Deep Learning Course 
+
+
 
 ![convnet](../assets/images/posts/2022-05-10-How-to-use-the-parameters-in-Neural-Networks/convnet.jpg)
+
+with the following example
 
 
 ```python
