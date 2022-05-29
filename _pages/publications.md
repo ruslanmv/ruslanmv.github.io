@@ -29,6 +29,12 @@ header:
 
 
 
+- ### Analysis of the one-neutron transfer reaction in 18O+76Se collisions at 275 MeV
+  
+  Physical Review C 
+  
+  DOI: [10.1103/PhysRevC.105.044607](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.105.044607)
+  
 - ### Analysis of two-nucleon transfer reactions in the Ne20+Cd116 system at 306 MeV
   
   Physical Review C 
