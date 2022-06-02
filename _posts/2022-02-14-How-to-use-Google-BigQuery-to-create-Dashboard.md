@@ -11,9 +11,19 @@ header:
 
 Hello everyone, today  I want to show you how to use Google Data Studio to create an Interesting BI dashboard by using BigQuery. What I want to discuss is how to use **BigQuery** to create a BI Dashboard by using **Google Data Studio**.
 
+Let us assume that you are working in a company where you have to to **track, analyze** and **report** one dataset that is daily updated on key performance indicators that your company requested to you. You can perform this by using  **business intelligence dashboard**.
+
+A **BI dashboards** typically visualize data in charts, graphs and maps which helps stakeholders understand, share and collaborate on the information.
+
+For this project we wil use **Google Cloud Platform** as a cloud solution. This problem also can be solved by using **Amazon Web Services** or **Microsoft Azure** which will be a subject of another blog post.
+
+
+
 ## Introduction
 
 ![](../assets/images/posts/2022-02-14-How-to-use-Google-BigQuery-to-create-Dashboard/logo.jpg)
+
+
 
 **BigQuery** is a serverless, cost-effective and multicloud data warehouse designed to help you turn big data into valuable business insights. BigQuery is a fully-managed, serverless data warehouse that enables scalable analysis over petabytes of data. It is a Platform as a Service that supports querying using ANSI SQL. It also has built-in machine learning capabilities.
 
