@@ -890,7 +890,7 @@ How-to-use-TensorFlow-with-VertexAI/self-paced-labs/vertex-ai/vertex-distributed
 
 ![](../assets/images/posts/2022-03-18-How-to-use-TensorFlow-with-Google-VertexAI/13.jpg)
 
-Continue the lab in the notebook, and run each cell by clicking the **Run** ( ![run-button.png](../assets/images/posts/2022-03-18-How-to-use-TensorFlow-with-Google-VertexAI/vrDGIoOBYHb7rndaVAJo%252BiWClGQ2qew1JY2pAu5r%252BCQ%253D.png)) icon at the top of the screen. Alternatively, you can execute the code in a cell with **SHIFT + ENTER**.
+Continue the lab in the notebook, and run each cell by clicking the **Run**  icon at the top of the screen. Alternatively, you can execute the code in a cell with **SHIFT + ENTER**.
 
 ## Congratulations!
 
