@@ -283,8 +283,6 @@ To delete the endpoint you deployed, in the **Endpoints** section of your Vertex
 
 To remove the endpoint, click the overflow menu. Then click **Remove endpoint**.
 
-To delete the Cloud Storage bucket, on the **Cloud Storage** page, select your bucket, and then click **Delete**.
-
 
 
 **Congratulations!**   You have used Vertex AI to train and serve a model with tabular data. You have build a fraud detection model to determine whether a particular credit card transaction should be classified as fraudulent.
