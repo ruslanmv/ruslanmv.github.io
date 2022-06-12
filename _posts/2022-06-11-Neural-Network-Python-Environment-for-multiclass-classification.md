@@ -853,6 +853,8 @@ You can see above how the pixels highlighted turn to increasingly abstract and c
 
 The representations downstream start highlighting what the network pays attention to, and they show fewer and fewer features being "activated"; most are set to zero. This is called _representation sparsity_ and is a key feature of deep learning. These representations carry increasingly less information about the original pixels of the image, but increasingly refined information about the class of the image. You can think of a convnet (or a deep network in general) as an information distillation pipeline wherein each layer filters out the most useful features.
 
+You can download this notebook [here](https://github.com/ruslanmv/Neural-Network-Enviroment-for-Classification-in-Python/blob/master/Multiclass-Classification-with-Neural-Networks.ipynb).
+
 ## Congratulations
 
 We have learned how to visualize, train and create a Neural Network model with MMORPG-AI
