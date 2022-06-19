@@ -9,7 +9,7 @@ header:
  
 ---
 
-Hello everyone, today in this blog post I will discuss how to develop a  Detector of damaged car parts. I want to to train a model to classify images of damaged car part. For the labeling issue we  won’t need to label images because a labeled dataset in a CSV will be provided. For this project, our model will learn to classify five different damaged car parts: **bumper**, **engine compartment**, **hood**, **lateral**, and **windshield**.
+Hello everyone, today in this blog post I will discuss how to develop a  Detector of damaged car parts. I want to to train a model to classify images of damaged car parts. For the labeling issue we  won’t need to label images because a labeled dataset in a CSV will be provided. For this project, our model will learn to classify five different damaged car parts: **bumper**, **engine compartment**, **hood**, **lateral**, and **windshield**.
 
 ## Introduction.
 
