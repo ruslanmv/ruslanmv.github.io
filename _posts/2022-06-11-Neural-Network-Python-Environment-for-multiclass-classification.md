@@ -847,6 +847,8 @@ The representations downstream start highlighting what the network pays attentio
 
 You can download this notebook [here](https://github.com/ruslanmv/Neural-Network-Enviroment-for-Classification-in-Python/blob/master/Multiclass-Classification-with-Neural-Networks.ipynb).
 
+ Or also you can checkout our Colab version of this notebook. [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ruslanmv/Neural-Networks-from-Scratch/blob/master/3_Visualizing_Intermediate_Representations.ipynb)
+
 ## Congratulations
 
 We have learned how to visualize, train and create a Neural Network model with MMORPG-AI
