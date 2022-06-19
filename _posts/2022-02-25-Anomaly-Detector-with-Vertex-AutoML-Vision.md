@@ -109,7 +109,7 @@ Switch to intended project:
 gcloud config set project `PROJECT ID`
 ```
 
-for example, I have created a project called ruslanmv, so I can want use this project by typing
+for example, I have created a project called ruslanmv, so I can use this project by typing
 
 ```
 gcloud config set project ruslanmv
