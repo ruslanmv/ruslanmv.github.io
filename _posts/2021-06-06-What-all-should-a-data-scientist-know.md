@@ -118,8 +118,8 @@ from math import pi
 ### Strings
 
 ```python
->>> my_string = 'thisStringisAwesome'
->>> my_string
+ my_string = 'thisStringisAwesome'
+ my_string
 'thisStringisAwesome'
 
 ```
@@ -127,11 +127,11 @@ from math import pi
 **String Operation**
 
 ```python
->>> my_string * 2
+ my_string * 2
 'thisStringisAwesomethisStringisAwesome'
->>> my_string +'Innit'
+ my_string +'Innit'
 'thisStringisAwesomeinnit'
->>> 'm' in  my_string
+ 'm' in  my_string
 True
 ```
 
@@ -140,26 +140,26 @@ True
 Index starts at 0
 
 ```python
->>> my_string[3]
->>> my_string[4:9]
+ my_string[3]
+ my_string[4:9]
 ```
 
 **String Methods**
 
 ```python
->>> my_string.upper() #String to uppercase
->>> my_string.lower() #String to lowercase
->>> my_string.count('w') #Count String elements
->>> my_string.replace('e','i') #Replace String elements
->>> my_string.strip() #Strip whitespoces
+ my_string.upper() #String to uppercase
+ my_string.lower() #String to lowercase
+ my_string.count('w') #Count String elements
+ my_string.replace('e','i') #Replace String elements
+ my_string.strip() #Strip whitespoces
 ```
 
 ### Lists
 
 ```python
->>> my_list = [1, 2, 3, 4]
->>> my_array = np.array(my_list)
->>> my_2darray = np.array([[1,2,3],[4,5,6]])
+ my_list = [1, 2, 3, 4]
+ my_array = np.array(my_list)
+ my_2darray = np.array([[1,2,3],[4,5,6]])
 
 ```
 
@@ -169,47 +169,47 @@ Index starts at 0
 
 ```python
 Subset
->>> my_array[1] #Select item at index 1
+ my_array[1] #Select item at index 1
 2
 Slice
->>> my_array[ 0:2]#Select items at index 0 and 1
+ my_array[ 0:2]#Select items at index 0 and 1
 array([1, 2])
 Subset 2D Numpy arrays
->>> my_2darray[:,0]#my_2darroy[rows, columns]
+ my_2darray[:,0]#my_2darroy[rows, columns]
 array([1, 4])
 ```
 
 **Numpy Array Operations**
 
 ```python
->>> my_array > 3
+ my_array > 3
 array([False, False, False, True], dtype=bool)
->>> my_array *  2
+ my_array *  2
 array([2, 4, 6, 8])
->>> my_array + np.array([5, 6, 7, 8])
+ my_array + np.array([5, 6, 7, 8])
 array([6, 8, 10, 12])
 ```
 
 **Numpy Array Functions**
 
 ```python
->>> my_array.shape #Get the dimensions of the array
->>> np.append(other_array) #Append items to on array
->>> np.insert( my_array, 1, 5) #Insert items in on array
->>> np.delete( my_array,[1]) #Delete items in on array
->>> np.mean(my_array) #Mean of the array
->>> np.median(my_array) #Median of the array
->>> my_array.corrcoef() #Correlation coefficient
->>> np.std( my_array) #Standard deviation
+ my_array.shape #Get the dimensions of the array
+ np.append(other_array) #Append items to on array
+ np.insert( my_array, 1, 5) #Insert items in on array
+ np.delete( my_array,[1]) #Delete items in on array
+ np.mean(my_array) #Mean of the array
+ np.median(my_array) #Median of the array
+ my_array.corrcoef() #Correlation coefficient
+ np.std( my_array) #Standard deviation
 ```
 
 ### Lists
 
 ```python
->>> a  =  'is'
->>> b  =  'nice'
->>> my_list = ['my','list', a, b]
->>> my_list2=[[4,5,6,7],[3,4,5,6]]
+ a  =  'is'
+ b  =  'nice'
+ my_list = ['my','list', a, b]
+ my_list2=[[4,5,6,7],[3,4,5,6]]
 ```
 
 **Selecting List Elements**
@@ -218,52 +218,52 @@ Index starts at 0
 
 ```python
 Subset
->>> my_list[1] #Select item at index 1
->>> my_list[-3] #Select 3rd last item
+ my_list[1] #Select item at index 1
+ my_list[-3] #Select 3rd last item
 Slice
->>> my_list[1:3] #Select items at index 1 and 2
->>> my_list[1:] #Select items after index 0
->>> my_list[:3] #Select items before index 3
->>> my_list[:] #Copy my_list
+ my_list[1:3] #Select items at index 1 and 2
+ my_list[1:] #Select items after index 0
+ my_list[:3] #Select items before index 3
+ my_list[:] #Copy my_list
 Subset Lists of Lists
->>> my_list2[1][0] #my_list[list][itemOfList]
->>> my_list2[1][:2]
+ my_list2[1][0] #my_list[list][itemOfList]
+ my_list2[1][:2]
 
 ```
 
 **List Operations**
 
 ```python
->>> my_list + my_list
+ my_list + my_list
     ['my','list','is','nice','my','list','is','nice']
->>> 2*my_list 
+ 2*my_list 
     ['my','list','is','nice','my','list','is','nice']
 ```
 
 **List Methods**
 
 ```python
->>> my_list.index(a) #Get the index of an item
+ my_list.index(a) #Get the index of an item
 2
->>> my_list.count(a) #Count on item
+ my_list.count(a) #Count on item
 1
->>> my_list.append( '!') #Append on item ot a time
+ my_list.append( '!') #Append on item ot a time
 ['my','list','is','nice','!']
->>> my_list.remove( '!' ) #Remove  on  item
->>> del(my_list[0:1]) #Remove an item
+ my_list.remove( '!' ) #Remove  on  item
+ del(my_list[0:1]) #Remove an item
 ['list','is','nice']
->>> my_list.reverse() #Reverse the list
+ my_list.reverse() #Reverse the list
 ['nice','is','list','my']
->>> my_list.extend('!') #Append on item
->>> my_list.pop(-1) #Remove on item
->>> my_list.insert(0, '!') #Insert on item
->>> my_list.sort() #Sort the list
+ my_list.extend('!') #Append on item
+ my_list.pop(-1) #Remove on item
+ my_list.insert(0, '!') #Insert on item
+ my_list.sort() #Sort the list
 ```
 
 **Asking For Help**
 
 ```python
->>> help(str)
+ help(str)
 ```
 
 # Section 2
@@ -273,15 +273,15 @@ Subset Lists of Lists
 **Most of the time, you'll use either NumPy or pandas to import your data:**
 
 ```
->>> import numpy as np
->>> import pandas as pd
+ import numpy as np
+ import pandas as pd
 ```
 
 **Help**
 
 ```
->>> np.info(np.ndarray.dtype)
->>> help(pd.read_csv)
+ np.info(np.ndarray.dtype)
+ help(pd.read_csv)
 ```
 
 ### Text Files
@@ -289,16 +289,16 @@ Subset Lists of Lists
 **Plain Text Files**
 
 ```python
->>>filename= 'huck_finn.txt'
->>>file= open(filename, mode= 'r' ) #Open the file for reading
->>>text= file.read() #Reado file's contents
->>> print(file.closed) #Check whether file is closed
->>> file.close() #Close file
->>> print(text)
+filename= 'huck_finn.txt'
+file= open(filename, mode= 'r' ) #Open the file for reading
+text= file.read() #Reado file's contents
+ print(file.closed) #Check whether file is closed
+ file.close() #Close file
+ print(text)
 ```
 
 ```
->>> with open('huck_finn.txt', 'r' ) as file:
+ with open('huck_finn.txt', 'r' ) as file:
     print(file.readline()) #Read single line 
     print(file.readline()) 
     print(file.readline())
@@ -311,19 +311,19 @@ Subset Lists of Lists
 **Importing Flat Files with NumPy**
 
 ```python
->>>filename= 'huck_finn.txt'
->>>file= open(filename, mode= 'r' ) #Open the file for reading
->>>text= file.read() #Reado file's contents
->>> print(file.closed) #Check whether file is closed
->>> file.close() #Close file
->>> print(text)
+filename= 'huck_finn.txt'
+file= open(filename, mode= 'r' ) #Open the file for reading
+text= file.read() #Reado file's contents
+ print(file.closed) #Check whether file is closed
+ file.close() #Close file
+ print(text)
 ```
 
 **Files with one data type**
 
 ```python
->>>filename= 'mnist.txt'
->>>data= np.loadtxt(filename,
+filename= 'mnist.txt'
+data= np.loadtxt(filename,
 					delimiter=',' , #String used to separate values 
                     skiprows=2, #Skip the first 2 lines 
                     usecols=[0,2], #Read the 1st and 3rd column 
@@ -333,20 +333,20 @@ Subset Lists of Lists
 **Files with mixed data type**
 
 ```python
->>>filename= 'titanic.csv'
->>>data= np.genfromtxt(	filename,
+filename= 'titanic.csv'
+data= np.genfromtxt(	filename,
 					   	delimiter = ',',
 					   	names=True, #Look for column header
 						dtype=None)
->>> data_array = np.recfromcsv(filename)
+ data_array = np.recfromcsv(filename)
 #The default dtype of the np.recfromcsv() function is None
 ```
 
 ### Importing Flat Files with Pandas
 
 ```python
->>>filename= 'winequality-red.csv'
->>>data= pd.read_csv(filename,
+filename= 'winequality-red.csv'
+data= pd.read_csv(filename,
 					 nrows=5, #Number of rows of file to read 
                      header=None, #Row number to use as col names 
                      sep='\t', #Delimiter to use
@@ -360,46 +360,46 @@ Subset Lists of Lists
 **NumPy Arrays**
 
 ```python
->> data_array.dtype #Data type of array elements
->>> data_array.shape #Array dimensions
->>> len(data_array) #Length of array
+ data_array.dtype #Data type of array elements
+ data_array.shape #Array dimensions
+ len(data_array) #Length of array
 ```
 
 **Pandas DataFrames**
 
 ```python
->>> df.head() #Return first DataFrame rows
->>> df.tail() #Return last OataFrame rows
->>> df.index #Describe index
->>> df.columns #Describe OataFrame columns
->>> df.info() #Info an DataFrame
->>> data_array = data.values #Convert a DataFrame to an a NumPy array
+ df.head() #Return first DataFrame rows
+ df.tail() #Return last OataFrame rows
+ df.index #Describe index
+ df.columns #Describe OataFrame columns
+ df.info() #Info an DataFrame
+ data_array = data.values #Convert a DataFrame to an a NumPy array
 
 ```
 
 **SAS File**
 
 ```python
->>> from sas7bdat import SAS7BDAT
->>> with SAS7BDAT( 'urbanpop .sas7bdat') as file: 
+ from sas7bdat import SAS7BDAT
+ with SAS7BDAT( 'urbanpop .sas7bdat') as file: 
 		df_sas = file.to_da ta_frame()
 ```
 
 **Stata File**
 
 ```
->>>data= pd.read_stata('urbanpop .dta')
+data= pd.read_stata('urbanpop .dta')
 ```
 
 **Excel Spreadsheets**
 
 ```python
->>>file= 'urbanpop.xlsx'
->>>data= pd.ExcelFile(file)
->>> df_sheet2 = data.parse('1960-1966',
+file= 'urbanpop.xlsx'
+data= pd.ExcelFile(file)
+ df_sheet2 = data.parse('1960-1966',
 				skiprows=[0], names=['Country',
 					'AAM: War(2002)'])
->>> df_sheetl = data.parse(0,
+ df_sheetl = data.parse(0,
 				parse_cols=[0], skiprows=[0],
 				name s=['Country'])
 ```
@@ -407,14 +407,14 @@ Subset Lists of Lists
 To access the sheet names, use the sheet_names attribute:
 
 ```python
->>> data.sheet_names
+ data.sheet_names
 ```
 
 ### Relational Databases
 
 ```python
->>> from sqlalchemy import create _engine
->>>engine= create_engine('sq lite://Northwind.sqlite')
+ from sqlalchemy import create _engine
+engine= create_engine('sq lite://Northwind.sqlite')
 ```
 
 Use the table_name s() method to fetch a list of table names:
@@ -426,17 +426,17 @@ table_names = engine.table_names()
 **Querying Relational Databases**
 
 ```python
->>>con= engine.connect()
->>> rs= con.execute('SELECT* FROM Order s')
->>> df = pd.DataFrame(rs.fetchall())
->>> df.columns = rs.keys()
->>> con.close()
+con= engine.connect()
+ rs= con.execute('SELECT* FROM Order s')
+ df = pd.DataFrame(rs.fetchall())
+ df.columns = rs.keys()
+ con.close()
 ```
 
 Using the context manager with
 
 ```python
->>> with engine.connect() as con:
+ with engine.connect() as con:
 rs= con.execute('SELEC T OrderID FROM Order s')
                 df = pd.DataFrame(rs.fetchmany(size=5)) 
                 df.columns = rs.keys()
@@ -445,30 +445,30 @@ rs= con.execute('SELEC T OrderID FROM Order s')
 **Querying relational databases with pandas**
 
 ```
->>> df = pd.read_sql_query( ''SELECT*  FROM Orders'', engine)
+ df = pd.read_sql_query( ''SELECT*  FROM Orders'', engine)
 ```
 
 Pickled File
 
 ```python
->>> import pickle
->>> with open('pickled_fruit.pkl', 'rb' ) as file: pickled_data = pickle.load(file)
+ import pickle
+ with open('pickled_fruit.pkl', 'rb' ) as file: pickled_data = pickle.load(file)
 ```
 
 Matlab File
 
 ```
->>> import scipy.io
->>>filename= 1 workspace.m at 1
->>>mat= scipy.io.loadmat(filename)
+ import scipy.io
+filename= 1 workspace.m at 1
+mat= scipy.io.loadmat(filename)
 ```
 
 HDF5 Files
 
 ```python
->>> import h5py
->>>filename= 'file.hdf5'
->>>data= h5py.File(filename, 'r' )
+ import h5py
+filename= 'file.hdf5'
+data= h5py.File(filename, 'r' )
 ```
 
 ## Exploring Dictionaries
@@ -476,23 +476,23 @@ HDF5 Files
 **Querying relational databases with pandas**
 
 ```python
->>> print(mat.keys()) #Print dictionary keys
->>> for key in data.keys(): #Print dictionary keys
+ print(mat.keys()) #Print dictionary keys
+ for key in data.keys(): #Print dictionary keys
 print(key)
 meta quality strain
->>> pickled_data.values() #Return dictionary values
->>> print(mat.items()) #Returns items in list format of (key, value) tuple pairs
+ pickled_data.values() #Return dictionary values
+ print(mat.items()) #Returns items in list format of (key, value) tuple pairs
 ```
 
 **Accessing Data Items with Keys**
 
 ```python
->>> for key in data['meta'].keys() #Explore the HOF5
+ for key in data['meta'].keys() #Explore the HOF5
 structure
 print(key) Description DescriptionURL Detector
 Duration GPSstart Observatory Type UTCstart
 #Retrieve the value for a key
->>> print(data['meta']['Description'].value)
+ print(data['meta']['Description'].value)
 ```
 
 ### Navigating Your FileSystem
@@ -508,21 +508,21 @@ Duration GPSstart Observatory Type UTCstart
 **OS Library**
 
 ```python
->>> import os
->>> path = "/usr/tmp"
->>> wd = os.getcwd() #Store the name of current directory in a string
->>> os.listdir(wd) #Output contents of the directory in a list
->>> os.chdir(path) #Change current working directory
->>> os.rename( "testl.txt", #Rename a file
+ import os
+ path = "/usr/tmp"
+ wd = os.getcwd() #Store the name of current directory in a string
+ os.listdir(wd) #Output contents of the directory in a list
+ os.chdir(path) #Change current working directory
+ os.rename( "testl.txt", #Rename a file
  				"test2.txt" )
->>> os.remove( "test1. txt") #Oelete an existing file
->>> os.mkdir( "newdir") #Create a new directory
+ os.remove( "test1. txt") #Oelete an existing file
+ os.mkdir( "newdir") #Create a new directory
 ```
 
 **Pivot**
 
 ```python
->>> df3= df2.pivot(inde x='Date', #Spread rows into columns
+ df3= df2.pivot(inde x='Date', #Spread rows into columns
 col umns= 'Type' ,
 values='Value' )
 ```
@@ -532,15 +532,15 @@ values='Value' )
 **Pivot Table**
 
 ```python
->>> df4 = pd.pivot_table(df2, #Spread rows into
+ df4 = pd.pivot_table(df2, #Spread rows into
 columns values='Value', index='Date', columns='Type'])
 ```
 
 **Stack** / **Unstack**
 
 ```python
->>>stacked= df5.stack() #Pivot o level of column labels
->>> stacked.unstack() #Pivot o level of index labels
+stacked= df5.stack() #Pivot o level of column labels
+ stacked.unstack() #Pivot o level of index labels
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/2.jpg)
@@ -548,7 +548,7 @@ columns values='Value', index='Date', columns='Type'])
 **Melt**
 
 ```python
->>> pd.melt(df2, #Gather columns into rows
+ pd.melt(df2, #Gather columns into rows
 		id _vars=[°Date°],     
 		value_var s=['Type','Value'], 
 		value name=''Observations'')
@@ -559,17 +559,17 @@ columns values='Value', index='Date', columns='Type'])
 ### Iteration
 
 ```python
->>> df.iteritems() #{Column-index, Series) pairs
->>> df.iterrows() #{Row-index, Series) pairs
+ df.iteritems() #{Column-index, Series) pairs
+ df.iterrows() #{Row-index, Series) pairs
 
 ```
 
 ### Missing Data
 
 ```python
->>> df.dropna() #Drop NaN values
->>> df3.fillna(df3.mean()) #Fill NaN values with o predetermined value
->>> df2.replace("a" , "f") #Replace values with others
+ df.dropna() #Drop NaN values
+ df3.fillna(df3.mean()) #Fill NaN values with o predetermined value
+ df2.replace("a" , "f") #Replace values with others
 
 ```
 
@@ -578,38 +578,38 @@ columns values='Value', index='Date', columns='Type'])
 **Selecting**
 
 ```python
->>> df3.loc[:,(df3>1).any()] #Select cols with any vols >1
->>> df3.loc[:,(df3>1).all()] #Select cols with vols> 1
->>> df3.loc[:,df3.isnull().any()] #Select cols with NaN
->>> df3.loc[:,df3.notnull().all()] #Select cols without NaN
+ df3.loc[:,(df3>1).any()] #Select cols with any vols >1
+ df3.loc[:,(df3>1).all()] #Select cols with vols> 1
+ df3.loc[:,df3.isnull().any()] #Select cols with NaN
+ df3.loc[:,df3.notnull().all()] #Select cols without NaN
 ```
 
 **Indexing With** isin ()
 
 ```python
->>> df[(df.Country.isin(df2.Type))] #Find some elements
->>> df3.filter(iterns="a","b"]) #Filter on values
->>> df.select(lambda x: not x%5) #Select specific elements
+ df[(df.Country.isin(df2.Type))] #Find some elements
+ df3.filter(iterns="a","b"]) #Filter on values
+ df.select(lambda x: not x%5) #Select specific elements
 ```
 
 **Where**
 
 ```python
->>> s.where(s > 0) #Subset the data
+ s.where(s > 0) #Subset the data
 ```
 
 **Query**
 
 ```python
->>> df6.query('second > first') #Query DataFrame
+ df6.query('second > first') #Query DataFrame
 ```
 
 **Setting/Resetting Index**
 
 ```python
->>> df.set_index('Country' ) #Set the index
->>> df4 = df.reset_index() #Reset the index
->>> df = df.rename(index=str, #Rename
+ df.set_index('Country' ) #Set the index
+ df4 = df.reset_index() #Reset the index
+ df = df.rename(index=str, #Rename
 			DataFrame columns={	"Country":"cntry",
 								"Capital':"cptl",
 								"Population":pplt})
@@ -618,13 +618,13 @@ columns values='Value', index='Date', columns='Type'])
 **Reindexing**
 
 ```python
->>>s2=s.reindex(['a','c','d','e','b'])
+s2=s.reindex(['a','c','d','e','b'])
 ```
 
 **Forward Filling**
 
 ```python
->>> df.reindex(	range(4),
+ df.reindex(	range(4),
 				method= 'ffill')
 ```
 
@@ -641,7 +641,7 @@ columns values='Value', index='Date', columns='Type'])
 **Backward Filling**
 
 ```python
->>> s3 = s.reindex(	range(5),
+ s3 = s.reindex(	range(5),
 					method= 'bfill')
 ```
 
@@ -656,14 +656,14 @@ columns values='Value', index='Date', columns='Type'])
 **Multilndexing**
 
 ```python
->>>arrays= [np.array([l,2,3]),
+arrays= [np.array([l,2,3]),
 np.array([5,4,3])]
->>> df5 = pd.DataFrame(np.random.rand(3, 2), index=arrays)
->>>tuples= list(zip(*arrays))
->>>index= pd.Multilndex.from_tuples(tuples,
+ df5 = pd.DataFrame(np.random.rand(3, 2), index=arrays)
+tuples= list(zip(*arrays))
+index= pd.Multilndex.from_tuples(tuples,
 names= [ 'first' , 'second' ])
->>> df6 = pd.DataFrame(np.random.rand(3, 2), index=index)
->>> df2.set_index([ "Date", "Type"])
+ df6 = pd.DataFrame(np.random.rand(3, 2), index=index)
+ df2.set_index([ "Date", "Type"])
 ```
 
 
@@ -671,10 +671,10 @@ names= [ 'first' , 'second' ])
 ### Duplicate Data
 
 ```python
->>> s3.unique() #Return unique values
->>> df2.duplicated('Type') #Check duplicates
->>> df2.drop_dup licates( 'Type', keep='last') #Drop duplicates
->>> df.index.duplicated() #Check index duplicates
+ s3.unique() #Return unique values
+ df2.duplicated('Type') #Check duplicates
+ df2.drop_dup licates( 'Type', keep='last') #Drop duplicates
+ df.index.duplicated() #Check index duplicates
 ```
 
 ### Grouping Data
@@ -682,16 +682,16 @@ names= [ 'first' , 'second' ])
 **Aggregation**
 
 ```python
->>> df2.groupby(by=['Date','Type']).mean()
->>> df4.groupby(level=0).sum()
->>> df4.groupby(level=0).agg({ 'a':lambda x:sum(x)/len (x), 'b': np.sum})
+ df2.groupby(by=['Date','Type']).mean()
+ df4.groupby(level=0).sum()
+ df4.groupby(level=0).agg({ 'a':lambda x:sum(x)/len (x), 'b': np.sum})
 ```
 
 **Transformation**
 
 ```python
->>> customSum = lambda x: (x+x%2)
->>> df4.groupby(level=0).transform(customSum)
+ customSum = lambda x: (x+x%2)
+ df4.groupby(level=0).transform(customSum)
 ```
 
 ## Combining Data
@@ -701,7 +701,7 @@ names= [ 'first' , 'second' ])
 **Merge**
 
 ```python
->>> pd.merge(data1,
+ pd.merge(data1,
             data2,
             how = 'left' ,
             on='X1')
@@ -710,7 +710,7 @@ names= [ 'first' , 'second' ])
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/5.jpg)
 
 ```python
->>> pd.merge(data1,
+ pd.merge(data1,
             data2,
             how = 'right' ,
             on='X1')
@@ -719,7 +719,7 @@ names= [ 'first' , 'second' ])
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/6.jpg)
 
 ```python
->>> pd.merge(data1,
+ pd.merge(data1,
             data2,   
             how='inner',
             on='X1')
@@ -728,7 +728,7 @@ names= [ 'first' , 'second' ])
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/7.jpg)
 
 ```python
->>> pd.merge(data1,
+ pd.merge(data1,
 			data2,    
              how='outer',
              on='X1')
@@ -739,7 +739,7 @@ names= [ 'first' , 'second' ])
 **Join**
 
 ```python
->>> datal.join(data2, ho w='righ t')
+ datal.join(data2, ho w='righ t')
 ```
 
 **Concatenate**
@@ -747,34 +747,34 @@ names= [ 'first' , 'second' ])
 **Vertical**
 
 ```
->>> s.append(s2)
+ s.append(s2)
 ```
 
 **Horizontal/Vertical**
 
 ```python
->>> pd.concat([s,s2],axis=l, keys=['One' ,'Two'])
->>> pd.concat([data1, data2], axis=l, join='inner')
+ pd.concat([s,s2],axis=l, keys=['One' ,'Two'])
+ pd.concat([data1, data2], axis=l, join='inner')
 ```
 
 ### Dates
 
 ```python
->>> df2['Date']= pd.to_da tetime(d f2['Date'])
->>> df2['Date']= pd.da te_range( '2000-1-1',
+ df2['Date']= pd.to_da tetime(d f2['Date'])
+ df2['Date']= pd.da te_range( '2000-1-1',
 periods=6, freq='M' )
->>>dates= [datetime(2012,5,1), datetime(2012,5,2)]
->>>index= pd.Datetimelndex(dates)
->>>index= pd.date_range(datetime(2012,2,1), end, freq='BM' )
+dates= [datetime(2012,5,1), datetime(2012,5,2)]
+index= pd.Datetimelndex(dates)
+index= pd.date_range(datetime(2012,2,1), end, freq='BM' )
 
 ```
 
 ### Visualization
 
 ```python
->>> import matplotlib.pyplot as plt
->>> s.plot()
->>> plt.show()
+ import matplotlib.pyplot as plt
+ s.plot()
+ plt.show()
 ```
 
 
@@ -782,8 +782,8 @@ periods=6, freq='M' )
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/9.jpg)
 
 ```python
->> df2.plot()
->>> plt.show()
+df2.plot()
+ plt.show()
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/10.jpg)
@@ -799,7 +799,7 @@ The **Pandas** library is built on NumPy and provides easy-to-use **data structu
  **Use the following import convention:**
 
 ```python
->>> import pandas as pd
+ import pandas as pd
 ```
 
 
@@ -815,7 +815,7 @@ A **one-dimensional** labeled array
 capable of holding any data type
 
 ```python
->>>  s = pd.Series([3,-5,7, s], index=['a','b','c','d'])
+  s = pd.Series([3,-5,7, s], index=['a','b','c','d'])
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/11.jpg)
@@ -827,26 +827,26 @@ capable of holding any data type
 A **two-dimensional** labeled data structure with columns of potentially different types
 
 ```
->>> data = { 'Country' : ['Belgium' ,'India ',' Brazil'  ] ,
+ data = { 'Country' : ['Belgium' ,'India ',' Brazil'  ] ,
 			  'Capital': ['Brussels','New Delhi','Brasilia'] ,
 			'Population': [111908s6, 1303171035, 207847528]}
->>> df = pd.DataFrame(data,columns=[ 'Country' , 'Capital' , 'Population' ])
+ df = pd.DataFrame(data,columns=[ 'Country' , 'Capital' , 'Population' ])
 
 ```
 
 **Dropping**
 
 ```python
->>> s.drop(['a', 'c']) #Drop values from rows (axis=B)
->>> df.drop( 'Country', axis=l) #Drop values from columns(axis=l)
+ s.drop(['a', 'c']) #Drop values from rows (axis=B)
+ df.drop( 'Country', axis=l) #Drop values from columns(axis=l)
 ```
 
 **Sort & Rank**
 
 ```python
->>> df.sort_index() #Sort by labels along an axis
->>> df.sort_values( by='Country') #Sort by the values along on axis
->>> df.rank() #Assign ranks to entries
+ df.sort_index() #Sort by labels along an axis
+ df.sort_values( by='Country') #Sort by the values along on axis
+ df.rank() #Assign ranks to entries
 ```
 
 ### I/O
@@ -854,39 +854,39 @@ A **two-dimensional** labeled data structure with columns of potentially differe
 **Read and Write to CSV**
 
 ```python
->>> pd.read_csv('file.csv', header=None, nrows=5)
->>> df.to_csv('myDataFrame.csv')
+ pd.read_csv('file.csv', header=None, nrows=5)
+ df.to_csv('myDataFrame.csv')
 ```
 
 **Read and Write to Excel**
 
 ```python
->>> pd.read_excel( 'file.xlsx')
->>> df.to_excel('dir/myDataFrame.x lsx', sheet_name= 'Sheet1')
+ pd.read_excel( 'file.xlsx')
+ df.to_excel('dir/myDataFrame.x lsx', sheet_name= 'Sheet1')
 ```
 
 Read multiple sheets from the same file
 
 ```python
->>> xlsx = pd.ExcelFile('file.xls')
->>> df = pd.read_excel(xlsx, 'Sheet1')
+ xlsx = pd.ExcelFile('file.xls')
+ df = pd.read_excel(xlsx, 'Sheet1')
 ```
 
 **Read and Write to SQL Query or Database Table**
 
 ```python
->>> from sqlalchemy import create_engine
->>> engine = create_eng ine('sqlite:///:memory:' )
->>> pd.read_sql( "SELECT* FROM my_tabl e;", engine)
->>> pd.read_sql_ tabl e('my_ tabl e', engine)
->>> pd.read_sql_query( "SELECT * FROM my_table;", engine)
+ from sqlalchemy import create_engine
+ engine = create_eng ine('sqlite:///:memory:' )
+ pd.read_sql( "SELECT* FROM my_tabl e;", engine)
+ pd.read_sql_ tabl e('my_ tabl e', engine)
+ pd.read_sql_query( "SELECT * FROM my_table;", engine)
 
 ```
 
 read_sql() is a convenience wrapper around read_sql_table() and read_sql_query()
 
 ```
->>> df.to_sql('myDf',engine)
+ df.to_sql('myDf',engine)
 ```
 
 ### Selection
@@ -894,12 +894,12 @@ read_sql() is a convenience wrapper around read_sql_table() and read_sql_query()
 **Getting**
 
 ```python
->>> s['b'] #Get one element
+ s['b'] #Get one element
 -5
 ```
 
 ```python
->>> df[l:] #Get subset of a DataFrome
+ df[l:] #Get subset of a DataFrome
 Country Capital Population 1 India New Delhi 1303171035
 2 Brazil Brasilia 207847528
 ```
@@ -909,43 +909,43 @@ Country Capital Population 1 India New Delhi 1303171035
 **By Position**
 
 ```python
->>> df.iloc[[0],[0]] #Select single value by row & column
+ df.iloc[[0],[0]] #Select single value by row & column
 'Belgium'
->>> df.iat([0],[0])
+ df.iat([0],[0])
 'Belgium'
 ```
 
 **By Label**
 
 ```python
->>> df.loc[[0], [ 'Country']] #Select single value by row & column labels 'Belgium'
->>> df.at([0], [ 'Country ']) 'Belgium'
+ df.loc[[0], [ 'Country']] #Select single value by row & column labels 'Belgium'
+ df.at([0], [ 'Country ']) 'Belgium'
 ```
 
 **By Label/Position**
 
 ```python
->>> df.ix[2] #Select single row of subset of rows
+ df.ix[2] #Select single row of subset of rows
 Country Brazil Capital Brasilia Population 207847528
->>> df.ix[:,'Capital'] #Select a single column of subset of columns
+ df.ix[:,'Capital'] #Select a single column of subset of columns
 0	Brussels
 1	New Delhi
 2	Brasilia
->>> df.ix[1,'Capital'] #Select rows and columns 'New Delhi'
+ df.ix[1,'Capital'] #Select rows and columns 'New Delhi'
 ```
 
 **Boolean Indexing**
 
 ```py
->>> s[N(s > 1)] #Series s where value is not >l
->>> s[(s < -1) I (s > 2)] #s where value is f-1 or >2
->>> df[df['Population']>1200000000] #Use filter to adjust DataFrame
+ s[N(s > 1)] #Series s where value is not >l
+ s[(s < -1) I (s > 2)] #s where value is f-1 or >2
+ df[df['Population']>1200000000] #Use filter to adjust DataFrame
 ```
 
 **Setting**
 
 ```python
->>> s['a'] = 6 #Set index a of Series s to 6
+ s['a'] = 6 #Set index a of Series s to 6
 ```
 
 ### Retrieving Series/DataFrame Information
@@ -953,31 +953,31 @@ Country Brazil Capital Brasilia Population 207847528
 **Basic Information**
 
 ```python
->>> df.shape #(rows,columns)
->>> df.index #Describe index
->>> df.columns #Describe DataFrame columns
->>> df.info() #Info on DataFrame
->>> df.count() #Number of non-NA values
+ df.shape #(rows,columns)
+ df.index #Describe index
+ df.columns #Describe DataFrame columns
+ df.info() #Info on DataFrame
+ df.count() #Number of non-NA values
 ```
 
 **Summary**
 
 ```python
->>> df.sum() #Sum of values
->>> df.cumsum() #Cummulative sum of values
->>> df.min() /df.max() #11inimum/maximum values
->>> df.idxmin()/df.idxmax() #Minimum/Maximum index value
->>> df.describe() #Summary statistics
->>> df.mean() #11ean of values
->>> df.median() #Median of values
+ df.sum() #Sum of values
+ df.cumsum() #Cummulative sum of values
+ df.min() /df.max() #11inimum/maximum values
+ df.idxmin()/df.idxmax() #Minimum/Maximum index value
+ df.describe() #Summary statistics
+ df.mean() #11ean of values
+ df.median() #Median of values
 ```
 
 ### Applying Functions
 
 ```python
->>> f = lambda x: X*2
->>> df.apply(f) #Apply function
->>> df.applymap(f) #Apply function element-wise
+ f = lambda x: X*2
+ df.apply(f) #Apply function
+ df.applymap(f) #Apply function element-wise
 ```
 
 **Data Alignment**
@@ -985,8 +985,8 @@ Country Brazil Capital Brasilia Population 207847528
 **Internal Data Alignment**
 
 ```python
->>> s3 = pd.Series([7, -2, 31, index= ['a','c' ,'d'])
->>> s + s3
+ s3 = pd.Series([7, -2, 31, index= ['a','c' ,'d'])
+ s + s3
 a 10.0
 b NaN
 C 5.0
@@ -998,13 +998,13 @@ d 7.0
 **You can also do the internal data alignment yourself with the help of the fill methods:**
 
 ```python
->>> s.add(s3, fill_values=0) a 10.0
+ s.add(s3, fill_values=0) a 10.0
 b -5. 0
 C 5.0
 d 7.0
->>> s.sub(s3, fill_value=2)
->>> s.div(s3, fill_value=4)
->>> s.mul(s3, fill_value=3)
+ s.sub(s3, fill_value=2)
+ s.div(s3, fill_value=4)
+ s.mul(s3, fill_value=3)
 ```
 
 # Section 4
@@ -1020,15 +1020,15 @@ The NumPy library is the  core library  for scientific computing in Python.  It 
 **Use the  following import convention**
 
 ```py
->> import numpy as np
+import numpy as np
 ```
 
 **Creating Array**
 
 ```python
->>> a = np.array([l,2,3])
->>> b = np.array([(l.5,2,3), (4,5,6)], dtype = float)
->>> c = np.array([[(l.5,2,3), (4,5,6)],[(3,2,1), (4,5,6)]], dtype = float)
+ a = np.array([l,2,3])
+ b = np.array([(l.5,2,3), (4,5,6)], dtype = float)
+ c = np.array([[(l.5,2,3), (4,5,6)],[(3,2,1), (4,5,6)]], dtype = float)
 ```
 
 
@@ -1036,14 +1036,14 @@ The NumPy library is the  core library  for scientific computing in Python.  It 
 **Initial Placeholders**
 
 ```python
->>> np.zeros((3,4)) #Create an array af zeros
->>> np.ones((2,3,4),dtype=np.int16) #Create an array of ones
->>> d = np.arange(10,25,5) #Create an array of evenly spaced values (step value)
->>> np.linspace(0,2,9) #Create an array of evenly spaced values (number of samples)
->>> e = np.full((2,2),7) #Create a constant array
->>> f = np.eye(2) #Create a 2X2 identity matrix
->>> np.random.random((2,2)) #Create an array with random values
->>> np.empty((3,2)) #Create an empty array
+ np.zeros((3,4)) #Create an array af zeros
+ np.ones((2,3,4),dtype=np.int16) #Create an array of ones
+ d = np.arange(10,25,5) #Create an array of evenly spaced values (step value)
+ np.linspace(0,2,9) #Create an array of evenly spaced values (number of samples)
+ e = np.full((2,2),7) #Create a constant array
+ f = np.eye(2) #Create a 2X2 identity matrix
+ np.random.random((2,2)) #Create an array with random values
+ np.empty((3,2)) #Create an empty array
 
 ```
 
@@ -1052,41 +1052,41 @@ The NumPy library is the  core library  for scientific computing in Python.  It 
 **Saving** **&** **Loading On Disk**
 
 ```python
->>> np.save('my_array',a)
->>> np.save('array.npz',a, b)
->>> np.load('my_array.npy ')
+ np.save('my_array',a)
+ np.save('array.npz',a, b)
+ np.load('my_array.npy ')
 ```
 
 **Saving & Loading Text Files**
 
 ```python
->> np.loadtxt("myfile.txt")
->>> np.genfromtxt("my_file.csv", delimiter=',' )
->>> np.savetxt("myarray.txt" , a, delimiter=" " )
+ np.loadtxt("myfile.txt")
+ np.genfromtxt("my_file.csv", delimiter=',' )
+ np.savetxt("myarray.txt" , a, delimiter=" " )
 ```
 
 ### Inspecting  Your Array
 
 ```python
->>> a.shape #Array dimensions
->>> len(a) #Length of array
->>> b.ndim #Number of array dimensions
->>> e.size #Number of array elements
->>> b.dtype #Data type of array elements
->>> b.dtype.name #Name of data type
->>> b.astype(int) #Convert an array to a different type
+ a.shape #Array dimensions
+ len(a) #Length of array
+ b.ndim #Number of array dimensions
+ e.size #Number of array elements
+ b.dtype #Data type of array elements
+ b.dtype.name #Name of data type
+ b.astype(int) #Convert an array to a different type
 ```
 
 **Data Type**
 
 ```python
->>> np.int64 #Signed 64-bit integer types
->>> np.flaat32 #Standard double-precision floating paint
->>> np.complex #Complex numbers represented by 128 floats
->>> np.baol #Boolean type storing TRUE and FALSE values
->>> np.object #Python object type
->>> np.string _ #Fixed-length string type
->>> np.unicode_ #Fixed-length unicode type
+ np.int64 #Signed 64-bit integer types
+ np.flaat32 #Standard double-precision floating paint
+ np.complex #Complex numbers represented by 128 floats
+ np.baol #Boolean type storing TRUE and FALSE values
+ np.object #Python object type
+ np.string _ #Fixed-length string type
+ np.unicode_ #Fixed-length unicode type
 ```
 
 
@@ -1096,61 +1096,61 @@ The NumPy library is the  core library  for scientific computing in Python.  It 
 **Arithmetic Operations**
 
 ```python
->>> g = a - b #Subtraction
+ g = a - b #Subtraction
 array([[-0.5,0. , 0. ],
 		[-3. , -3. , -3. ]])
->>> np.subtract(a,b) #Subtraction
->>> b + a #Addition
+ np.subtract(a,b) #Subtraction
+ b + a #Addition
 array([[ 2.5, 4. , 6. ],
 		[5.,7.,9.]])
->>> np.add(b,a) Addition
->>> a / b #Division
+ np.add(b,a) Addition
+ a / b #Division
 array([[ 0.66666667, 1., 1.],
 		[ 0.25 , 0.4 , 0.5 ]])
->>> np.divide(a,b) #Division
->>> a * b #Multiplication
+ np.divide(a,b) #Division
+ a * b #Multiplication
 array([[ 1.5, 4. , 9. ],
 	[ 4. , 10. , 18. ]])
->>> np.multiply(a,b) #Multiplication
->>> np.exp(b) #Exponentiation
->>> np.sqrt(b) #Square root
->>> np.sin(a) #Print sines of an array
->>> np.cos(b) #Element-wise cosine
->>> np.log(a) #Element-wise natural logarithm
->>> e.dot(f) #Dot product
+ np.multiply(a,b) #Multiplication
+ np.exp(b) #Exponentiation
+ np.sqrt(b) #Square root
+ np.sin(a) #Print sines of an array
+ np.cos(b) #Element-wise cosine
+ np.log(a) #Element-wise natural logarithm
+ e.dot(f) #Dot product
 array([[ 7., 7.],
 ```
 
 **Comparison**
 
 ```python
->>>a == b #Element-wise comparison
+a == b #Element-wise comparison
 array([[False, True , True],
 [ False, False, False]], dtype=bool)
->>> a < 2 #Element-wise comparison
+ a < 2 #Element-wise comparison
 array([True , False, False], dtype=bool)
->>> np.array_equal(a, b) #Array-wise comparison
+ np.array_equal(a, b) #Array-wise comparison
 ```
 
 **Aggregate Functions**
 
 ```python
->>> a.sum() #Array-wise sum
->>> a.min() #Array-wise minimum value
->>> b.max(axis=0) #Maximum value of an array row
->>> b.cumsum(axis=l) #Cumulative sum of the elements
->>> a.mean() #Mean
->>> b.median() #Median
->>> a.corrcaef() #Correlation coefficient
->>> np.std(b) #Standard deviation
+ a.sum() #Array-wise sum
+ a.min() #Array-wise minimum value
+ b.max(axis=0) #Maximum value of an array row
+ b.cumsum(axis=l) #Cumulative sum of the elements
+ a.mean() #Mean
+ b.median() #Median
+ a.corrcaef() #Correlation coefficient
+ np.std(b) #Standard deviation
 ```
 
 ### Copying Array
 
 ```python
->>> h = a.view() #Create a view af the array with the some data
->>> np.capy(a) #Create a copy of the array
->>> h = a.copy() #Create a deep copy of the array
+ h = a.view() #Create a view af the array with the some data
+ np.capy(a) #Create a copy of the array
+ h = a.copy() #Create a deep copy of the array
 ```
 
 ### Sorting Array
@@ -1158,14 +1158,14 @@ array([True , False, False], dtype=bool)
 **Subsetting**
 
 ```python
->>> a[2] #Select the element at the 2nd index
+ a[2] #Select the element at the 2nd index
 3
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/12.jpg)
 
 ```python
->>> b[1,2] #Select the element at row 1 column 2 (equivalent to b[1][2])
+ b[1,2] #Select the element at row 1 column 2 (equivalent to b[1][2])
 6.0
 ```
 
@@ -1174,35 +1174,35 @@ array([True , False, False], dtype=bool)
 **Slicing**
 
 ```python
->>> a[0:2] #Select items at index 0 and 1
+ a[0:2] #Select items at index 0 and 1
 array([1, 2])
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/14.jpg)
 
 ```python
->>> b[0:2,1] #Select items at rows 0 and 1 in column 1
+ b[0:2,1] #Select items at rows 0 and 1 in column 1
 array([ 2., 5.])
 ```
 
 ```python
->>> b[:1] #Select all items at row 0 (equivalent to b[0:1, :])
+ b[:1] #Select all items at row 0 (equivalent to b[0:1, :])
 array([[1.5, 2., 3.]])
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/16.jpg)
 
 ```python
->>> c[1,... ] #Same as [1,:,:]
+ c[1,... ] #Same as [1,:,:]
 array([[[ 3., 2., 1.],
 [  4., 5.,	6.]]])
->>> a[: :-1] #Reversed array a array([3, 2, 1])
+ a[: :-1] #Reversed array a array([3, 2, 1])
 ```
 
 **Boolean Indexing**
 
 ```python
->>> a[a<2] #Select elements from a less than 2
+ a[a<2] #Select elements from a less than 2
 array([1])
 ```
 
@@ -1211,9 +1211,9 @@ array([1])
 **Fancy Indexing**
 
 ```python
->>> b[[l, 0, 1, 0],[0, 1, 2, 0]] #Select elements (1,0),(0,1),(1,2) and (0,0)
+ b[[l, 0, 1, 0],[0, 1, 2, 0]] #Select elements (1,0),(0,1),(1,2) and (0,0)
 array([ 4. , 2. , 6. , 1.5])
->>> b[[l, 0, 1, 0]][:,[0,1,2,0]] #Select a subset of the matrix's rows and columns array([[ 4. ,5. , 6. , 4. ],
+ b[[l, 0, 1, 0]][:,[0,1,2,0]] #Select a subset of the matrix's rows and columns array([[ 4. ,5. , 6. , 4. ],
             [ 1.5, 2.3,	1.5],
 ```
 
@@ -1224,15 +1224,15 @@ array([ 4. , 2. , 6. , 1.5])
 **Transposing Array**
 
 ```python
->>> i = np.transpose(b) #Permute array dimensions
->>> i.T #Permute array dimensions
+ i = np.transpose(b) #Permute array dimensions
+ i.T #Permute array dimensions
 ```
 
 **Changing Array Shape**
 
 ```python
->>> b.ravel() #Flatten the array
->>> g.reshape(3,-2) #Reshape, but don't change data
+ b.ravel() #Flatten the array
+ g.reshape(3,-2) #Reshape, but don't change data
 ```
 
 **Adding/Removing Elements**
@@ -1240,38 +1240,38 @@ array([ 4. , 2. , 6. , 1.5])
 
 
 ```python
->>> h.resize((2,6)) #Return a new array with shape (2,6)
->>> np.append(h,g) #Append items to an array
->>> np.insert(a, 1, 5) #Insert items in an array
->>> np.delete(a,[1]) #Delete items from an array
+ h.resize((2,6)) #Return a new array with shape (2,6)
+ np.append(h,g) #Append items to an array
+ np.insert(a, 1, 5) #Insert items in an array
+ np.delete(a,[1]) #Delete items from an array
 ```
 
 **Combining Arrays**
 
 ```python
->>> np.concatenate((a,d),axis=0) #Concatenate arrays array([ 1, 2, 3, 10, 15, 20])
->>> np.vstack((a,b)) #Stack arrays vertically (row-wise)
+ np.concatenate((a,d),axis=0) #Concatenate arrays array([ 1, 2, 3, 10, 15, 20])
+ np.vstack((a,b)) #Stack arrays vertically (row-wise)
 array([[ 1. , 2.	3. ],
         [ 1.5, 2. , 3. ],
         [   4.    ,   5.    ,   6.    ]])
->>> np.r_[e,f] #Stack arrays vertically (row -wise)
->>> np.hstack((e,f)) #Stack arrays horizontally (col umn-wise)
+ np.r_[e,f] #Stack arrays vertically (row -wise)
+ np.hstack((e,f)) #Stack arrays horizontally (col umn-wise)
 array([[ 7., 7., 1., 0.],
     [ 7., 7., 0., 1.]])
->>> np.column_stack((a,d)) #Create stacked column-wise arrays
+ np.column_stack((a,d)) #Create stacked column-wise arrays
 array([[ 1, 10],
     [ 2,  15],
     [ 3, 20]])
->>> np.c_[a ,d] #Create stacked column-wise arrays
+ np.c_[a ,d] #Create stacked column-wise arrays
 
 ```
 
 **Splitting Arrays**
 
 ```python
->>> np.hsplit(a,3) #Split the array horizontally at the 3rd index
+ np.hsplit(a,3) #Split the array horizontally at the 3rd index
 [array([1]),array([2]),array([3])]
->>> np.vsplit(c,2) #Split the array vertically at the 2nd index
+ np.vsplit(c,2) #Split the array vertically at the 2nd index
 [array([[[ 1.5, 2. , 1. ],
         [ 4. , 5. , 6. ]]]),
 array([[[ 3., 2., 3.],
@@ -1287,36 +1287,36 @@ Matplotlib is a Python 2D plotting library which produces publication-quality fi
 **1D Data**
 
 ```
->>> import numpy as np
->>> X = np.linspace(0, 10, 100)
->>> y = np.cos(x)
->>> z = np.sin(x)
+ import numpy as np
+ X = np.linspace(0, 10, 100)
+ y = np.cos(x)
+ z = np.sin(x)
 
 ```
 
 **2D Data or Images**
 
 ```python
->>> data= 2 * np.random.random((10, 10))
->>> data2 = 3 * np.random.random((10, 10))
->>> Y, X = np.mgrid[-3:3:100j, -3:3:100j]
->>> U = -1 - X**2 + Y
->>> V = 1 +  X - Y**2
->>> from matplotlib.cbook import get_sample_data
->>> img = np.load(g et_sample_data('axes_gr id/bivar iate_normal.npy '))
+ data= 2 * np.random.random((10, 10))
+ data2 = 3 * np.random.random((10, 10))
+ Y, X = np.mgrid[-3:3:100j, -3:3:100j]
+ U = -1 - X**2 + Y
+ V = 1 +  X - Y**2
+ from matplotlib.cbook import get_sample_data
+ img = np.load(g et_sample_data('axes_gr id/bivar iate_normal.npy '))
 ```
 
 ### Create Plot
 
 ```
->>>import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 ```
 
 **Figure**
 
 ```python
->>> fig = plt.figure()
->>> fig2 = plt.figure(figsize=plt.figaspect(2.0))
+ fig = plt.figure()
+ fig2 = plt.figure(figsize=plt.figaspect(2.0))
 ```
 
 **Axes**
@@ -1324,24 +1324,24 @@ Matplotlib is a Python 2D plotting library which produces publication-quality fi
 ll plotting is done with respect to an Axes. In most cases, a subplot will fit your needs.  A subplot is an axes on a grid system.
 
 ```
->>> fig.add_axes()
->>> ax1 = fig.add_subplot(221)#row-col-num
->>> ax3 = fig.add_subplot(212)
->>> fig3, axes= plt.subplots(nrows=2,ncols=2)
->>> fig4, axes2 = plt.subplots(ncols=3)
+ fig.add_axes()
+ ax1 = fig.add_subplot(221)#row-col-num
+ ax3 = fig.add_subplot(212)
+ fig3, axes= plt.subplots(nrows=2,ncols=2)
+ fig4, axes2 = plt.subplots(ncols=3)
 ```
 
 **Save Plot**
 
 ```
->>> plt.savefig( 'foe.png' J #Save figures
->>> plt.savefig( 'foo.png',transparent=True) #Save transparent figures
+ plt.savefig( 'foe.png' J #Save figures
+ plt.savefig( 'foo.png',transparent=True) #Save transparent figures
 ```
 
 **Show Plot**
 
 ```
->>> plt.show()
+ plt.show()
 ```
 
 ### Plotting Routines
@@ -1349,15 +1349,15 @@ ll plotting is done with respect to an Axes. In most cases, a subplot will fit y
 **1D Data**
 
 ```python
->>> fig, ax= plt.subp lots()
->>>lines= ax.plot(x,y) #Draw points with lines or markers connecting them
->>> ax.scatter(x,y) #Draw unconnected points, scaled or colored
->>> axes[0,0].bar([l,2,3],[3,4,5]) #Plot vertical rectangles (constant width)
->>> axes[l,0].barh([0.5,1,2.5],[0,1,2]) #Plot horiontol rectangles (constant height)
->>> axes[l,1].axhline(0.s5) #Draw a horizontal line across axes
->>> axes[0,1].axvline(0.65) #Draw a vertical line across axes
->>> ax.fill(x,y,color='blue') #Drow filled polygons
->>> ax.fill_between(x,y,color='yellow') #Fill between y-values and 0
+ fig, ax= plt.subp lots()
+lines= ax.plot(x,y) #Draw points with lines or markers connecting them
+ ax.scatter(x,y) #Draw unconnected points, scaled or colored
+ axes[0,0].bar([l,2,3],[3,4,5]) #Plot vertical rectangles (constant width)
+ axes[l,0].barh([0.5,1,2.5],[0,1,2]) #Plot horiontol rectangles (constant height)
+ axes[l,1].axhline(0.s5) #Draw a horizontal line across axes
+ axes[0,1].axvline(0.65) #Draw a vertical line across axes
+ ax.fill(x,y,color='blue') #Drow filled polygons
+ ax.fill_between(x,y,color='yellow') #Fill between y-values and 0
 
 ```
 
@@ -1366,35 +1366,35 @@ ll plotting is done with respect to an Axes. In most cases, a subplot will fit y
 
 
 ```
->>> fig, ax= plt.subplots()
->>> im = ax.imshow(img, #Colormapped or RGB arrays
+ fig, ax= plt.subplots()
+ im = ax.imshow(img, #Colormapped or RGB arrays
             cmap= 1 gist_ear th 1 ,
             interpolation= 1 neare st',
             vmin=-2,
             vmax =2)
->>> axes2[0].pcolor(data2) #Pseudocolor plot of 2D array
->>> axes2[0].pcolormesh(data) #Pseudocolor plot of 2D array
->>>CS= plt.contour(Y,X,U) #Plot contours
->>> axes2[2].contourf(datal) #Plot filled contours
->>> axes2[2]= ax.clabel(CS) #Lobel a contour plot
+ axes2[0].pcolor(data2) #Pseudocolor plot of 2D array
+ axes2[0].pcolormesh(data) #Pseudocolor plot of 2D array
+CS= plt.contour(Y,X,U) #Plot contours
+ axes2[2].contourf(datal) #Plot filled contours
+ axes2[2]= ax.clabel(CS) #Lobel a contour plot
 
 ```
 
 **Vector Fields**
 
 ```
->>> axes[0,1].arrow(0,0,0.5,0.5) #Add an arrow to the axes
->>> axes[l,l].quiver(y,z) #Plot a 2D field of arrows
->>> axes[0,1].streamplot(X,Y,U,V) #Plot a 2D field of arrows
+ axes[0,1].arrow(0,0,0.5,0.5) #Add an arrow to the axes
+ axes[l,l].quiver(y,z) #Plot a 2D field of arrows
+ axes[0,1].streamplot(X,Y,U,V) #Plot a 2D field of arrows
 
 ```
 
 **Data Distributions**
 
 ```
->>> axl.hist(y) #Plot a histogram
->>> ax3.boxplot(y) #Make a box and whisker plot
->>> ax3.violinplot(z) #Make a violin plot
+ axl.hist(y) #Plot a histogram
+ ax3.boxplot(y) #Make a box and whisker plot
+ ax3.violinplot(z) #Make a violin plot
 
 ```
 
@@ -1407,27 +1407,27 @@ The basic steps to creating plots with matplotlib are:
 
 
 ```python
->>> import matplotlib.pyplot as plt
->>> x = [1,2,3,s] #Step 1
->>> y = [ 10,20,25,30]
->>>fig= plt.figure() #Step 2
->>>ax= fig.add_subp lot(lll) #Step 3
->>> ax.plot(x, y, color='lightb lue', linewidth=3) #Step 3, 4
->>> ax.scatter([2,4,6],
+ import matplotlib.pyplot as plt
+ x = [1,2,3,s] #Step 1
+ y = [ 10,20,25,30]
+fig= plt.figure() #Step 2
+ax= fig.add_subp lot(lll) #Step 3
+ ax.plot(x, y, color='lightb lue', linewidth=3) #Step 3, 4
+ ax.scatter([2,4,6],
                 [5,15,25],
                 color='darkgreen ', 
                 marker='^')
->>> ax.set_xlim(l, 6.5)
->>> plt.savefig('foo.png' ) #Step 5
->>> plt.show() #Step 6
+ ax.set_xlim(l, 6.5)
+ plt.savefig('foo.png' ) #Step 5
+ plt.show() #Step 6
 ```
 
 **Close and Clear**
 
 ```python
->>> plt.cla() #Clear on axis
->>> plt.clf() #Clear the entire figure
->>> plt.close() #Close a window
+ plt.cla() #Clear on axis
+ plt.clf() #Clear the entire figure
+ plt.close() #Close a window
 ```
 
 
@@ -1437,37 +1437,37 @@ The basic steps to creating plots with matplotlib are:
 **Colors, Color Bars & Color Map**
 
 ```python
->>> plt.plot(x, x, x, X**2, x, X**3)
->>> ax.plot(x, y, alpha = 0.s)
->>> ax.plot(x, y, c='k' )
->>> fig.colorbar(im, orientation= 'horizontal')
->>> im = ax.imshow(img,cmap=  'seismic'  )
+ plt.plot(x, x, x, X**2, x, X**3)
+ ax.plot(x, y, alpha = 0.s)
+ ax.plot(x, y, c='k' )
+ fig.colorbar(im, orientation= 'horizontal')
+ im = ax.imshow(img,cmap=  'seismic'  )
 
 ```
 
 **Markers**
 
 ```
->>> fig, ax= plt.subplots()
->>> ax.scatter(x,y,marker="."   )
->>> ax.plot(x,y ,marker="o")
+ fig, ax= plt.subplots()
+ ax.scatter(x,y,marker="."   )
+ ax.plot(x,y ,marker="o")
 ```
 
 ​	**Linestyles**
 
 ```python
->>> plt.plot(x,y,linewidth=4.0)
->>> plt.plot(x,y,ls='solid')
->>> plt.plot(x,y,ls='--' )
->>> plt.plot(x, y,'-- 1 ,X**2,Y** 2, '-.')
->>> plt.setp(lines,color='r',linewidth= 4.0)
+ plt.plot(x,y,linewidth=4.0)
+ plt.plot(x,y,ls='solid')
+ plt.plot(x,y,ls='--' )
+ plt.plot(x, y,'-- 1 ,X**2,Y** 2, '-.')
+ plt.setp(lines,color='r',linewidth= 4.0)
 ```
 
 **Text** & **Annotations**
 
 ```
->>> ax.text(1,-2.1,'Example Graph' , style='italic')
->>> ax.annotate("Sine",
+ ax.text(1,-2.1,'Example Graph' , style='italic')
+ ax.annotate("Sine",
                 xy=(8, 0),
                 xycoords= 'data', 
                 xytext=(10.5, 0), 
@@ -1478,7 +1478,7 @@ The basic steps to creating plots with matplotlib are:
 **Mathtext**
 
 ```
->>> plt.title(r'$sigma_ i=15$', fontsize=20)
+ plt.title(r'$sigma_ i=15$', fontsize=20)
 ```
 
 **Limits, Legends and Layouts**
@@ -1486,10 +1486,10 @@ The basic steps to creating plots with matplotlib are:
 Limits & Autoscaling
 
 ```python
->>> ax.margins(x=0.0,y=0.1) #Add padding to a plot
->>> ax.axis('equa l') #Set the aspect ratio of the plot to 1
->>> ax.set(xlim=[0,10.5],ylim=[-1.5,l.5]) #Set limits for x-and y-axis
->>> ax.set_xlim(0,10.5) #Set limits for x-axis
+ ax.margins(x=0.0,y=0.1) #Add padding to a plot
+ ax.axis('equa l') #Set the aspect ratio of the plot to 1
+ ax.set(xlim=[0,10.5],ylim=[-1.5,l.5]) #Set limits for x-and y-axis
+ ax.set_xlim(0,10.5) #Set limits for x-axis
 ```
 
 **Legends**
@@ -1497,36 +1497,36 @@ Limits & Autoscaling
 
 
 ```python
->>> ax.set(	title='An Example Axe s', #Set a title and x-ond y-axis labels 
+ ax.set(	title='An Example Axe s', #Set a title and x-ond y-axis labels 
            ylabel='Y-Axis',
            xlabel='X-Axis')
->>> ax.legend( loc='best') #No overlapping plot elements
+ ax.legend( loc='best') #No overlapping plot elements
 ```
 
 **Ticks**
 
 ```python
->>> ax.xaxis.set(ticks=range(l,5), #Manually set x-ticks
+ ax.xaxis.set(ticks=range(l,5), #Manually set x-ticks
 ticklabels=[3,100,-12,"foo']')
      #Makey-ticks longer and go in and out 
->>> ax.tick_param s(axis='y',direction='inout ',length=10)
+ ax.tick_param s(axis='y',direction='inout ',length=10)
      
 ```
 
 **Subplot Spacing**
 
 ```python
->>> fig3.subplots_ad just(wspace=0.5, #Adjust the spacing between subplots
+ fig3.subplots_ad just(wspace=0.5, #Adjust the spacing between subplots
 hspace=0.3, left=0.125, right=0.9, top=0.9, bottom=0.1)
->>> fig.tight_layout() #Fit subplot(s) in to the figure area
+ fig.tight_layout() #Fit subplot(s) in to the figure area
 ```
 
 **Axis Spines**
 
 ```python
->>> axl.spines['top'].set_visible(False)
+ axl.spines['top'].set_visible(False)
 #Make the top axis line for a plot invisible
->>> axl.spines['bottom'].set_po sition(('outward' ,10))
+ axl.spines['bottom'].set_po sition(('outward' ,10))
 #Move the bottom axis line outward
 ```
 
@@ -1987,19 +1987,19 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Example**
 
 ```python
->>> from sklearn import neighbors, datasets, preprocessing
->>> from sklearn.model_selection import train_test_split
->>> from sklearn.metrics import accuracy_score
->>>iris= datasets.load_iris()
->>> X, y = iris.data[:, :2], iris.target
->>> X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=33)
->>>scaler= preprocessing.StandardScaler().fit(X_train)
->>> X_train = scaler.transform(X_train)
->>> X_test = scaler.transform(X_test)
->>> knn = neighbors.KNeighborsClassifier(n_neighbors=5)
->>> knn.fit(X_train, y_train)
->>> y_pred = knn.predict(X_test)
->>> accuracy_score(y _test, y_pred)
+ from sklearn import neighbors, datasets, preprocessing
+ from sklearn.model_selection import train_test_split
+ from sklearn.metrics import accuracy_score
+iris= datasets.load_iris()
+ X, y = iris.data[:, :2], iris.target
+ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=33)
+scaler= preprocessing.StandardScaler().fit(X_train)
+ X_train = scaler.transform(X_train)
+ X_test = scaler.transform(X_test)
+ knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+ knn.fit(X_train, y_train)
+ y_pred = knn.predict(X_test)
+ accuracy_score(y _test, y_pred)
 ```
 
 ### Loading The Data
@@ -2007,17 +2007,17 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Your data needs to be numeric and stored as NumPy arrays or SciPy sparse matrices. Other types that are convertible to numeric arrays, such as Pandas DataFrame, are also acceptable**
 
 ```python
->>> import numpy as np
->>> X = np.random.random((10,5))
->>> Y = np. array (['M', 'M' ,'F','F','M','F','M','M','F','F','F'])
->>> X[X < 0.7] = 0
+ import numpy as np
+ X = np.random.random((10,5))
+ Y = np. array (['M', 'M' ,'F','F','M','F','M','M','F','F','F'])
+ X[X < 0.7] = 0
 ```
 
 ### Training And Test Data
 
 ```python
->>> from sklearn.model_selection import train_test_split
->>> X_train, X_test, y_train, y_test = train_test_split(X,y, random_state=0)
+ from sklearn.model_selection import train_test_split
+ X_train, X_test, y_train, y_test = train_test_split(X,y, random_state=0)
 
 ```
 
@@ -2026,9 +2026,9 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Supervised learning**
 
 ```python
->>> lr.fit(X, y) #Fit the model to the data
->>> knn.fit(X_train, y_train)
->>> svc.fit(X_train, y_train)
+ lr.fit(X, y) #Fit the model to the data
+ knn.fit(X_train, y_train)
+ svc.fit(X_train, y_train)
 ```
 
 
@@ -2036,8 +2036,8 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Unsupervised Learning**
 
 ```python
->>> k_mean s.fit(X_train) #Fit the model to the data
->>> pca_model = pca.fit_transform(X_train) #Fit to data, then transform it
+ k_mean s.fit(X_train) #Fit the model to the data
+ pca_model = pca.fit_transform(X_train) #Fit to data, then transform it
 ```
 
 
@@ -2047,15 +2047,15 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Supervised Estimators**
 
 ```python
->>> y_pred = svc.predict(np.random.random((2,5))) #Predict labels
->>> y_pred = lr.predict(X_test) #Predict labels
->>> y_ pred = knn.predict_proba(X_test) #Estimate probability of a label
+ y_pred = svc.predict(np.random.random((2,5))) #Predict labels
+ y_pred = lr.predict(X_test) #Predict labels
+ y_ pred = knn.predict_proba(X_test) #Estimate probability of a label
 ```
 
 **Unsupervised Estimators**
 
 ```python
->>> y_pred = k_means.predict(X_test) #Predict labels in clustering algos
+ y_pred = k_means.predict(X_test) #Predict labels in clustering algos
 ```
 
 ### Preprocessing The Data
@@ -2063,10 +2063,10 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Standardization**
 
 ```python
->>> from sklearn.preprocessing import StandardScaler
->>> scaler= StandardScaler().fit(X_train)
->>> standardized_X = scaler.transform(X_train)
->>> standardized_X_test= scaler.transform(X _test)
+ from sklearn.preprocessing import StandardScaler
+ scaler= StandardScaler().fit(X_train)
+ standardized_X = scaler.transform(X_train)
+ standardized_X_test= scaler.transform(X _test)
 ```
 
 
@@ -2074,43 +2074,43 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Normalization**
 
 ```python
->>> from sklearn.preprocessing import Normalizer
->>>scaler= Normalizer().fit(X_train)
->>> normalized_X = scaler.transform(X _train)
->>> normalized_X_test = scaler.transform(X_test)
+ from sklearn.preprocessing import Normalizer
+scaler= Normalizer().fit(X_train)
+ normalized_X = scaler.transform(X _train)
+ normalized_X_test = scaler.transform(X_test)
 ```
 
 **Binarization**
 
 ```python
->>> from sklearn.preprocessing import Binarizer
->>> binarizer = Binarizer(threshold=0.0).fit(X)
->>> binary_X = binarizer.transform(X)
+ from sklearn.preprocessing import Binarizer
+ binarizer = Binarizer(threshold=0.0).fit(X)
+ binary_X = binarizer.transform(X)
 
 ```
 
 **Encoding Categorical Features**
 
 ```python
->>> from sklearn.preprocessing import LabelEncoder
->>>enc= LabelEncoder()
->>> y = enc.fit_transform(y)
+ from sklearn.preprocessing import LabelEncoder
+enc= LabelEncoder()
+ y = enc.fit_transform(y)
 ```
 
 **Imputing Missing Values**
 
 ```python
->>> from sklearn.preprocessing import Imputer
->>>imp= Imputer(missing_values=0, strategy='mean ', axis=0)
->>> imp.fit_transform(X_train)
+ from sklearn.preprocessing import Imputer
+imp= Imputer(missing_values=0, strategy='mean ', axis=0)
+ imp.fit_transform(X_train)
 ```
 
 **Generating Polynomial Features**
 
 ```python
->>> from sklearn.preprocessing import PolynomialFeatures
->>>poly= PolynomialFeatures(5)
->>> poly.fit_transform(X)
+ from sklearn.preprocessing import PolynomialFeatures
+poly= PolynomialFeatures(5)
+ poly.fit_transform(X)
 ```
 
 ## Create Your Model
@@ -2120,29 +2120,29 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Linear Regression**
 
 ```python
->>> from sklearn. linear m_ odel import LinearRegression
->>> lr = LinearRegression(normalize=True)
+ from sklearn. linear m_ odel import LinearRegression
+ lr = LinearRegression(normalize=True)
 ```
 
 **Support Vector Machines (SVM)**
 
 ```python
->>> from sklearn.svm import SVC
->>>SVC= SVC(kernel='linear')
+ from sklearn.svm import SVC
+SVC= SVC(kernel='linear')
 ```
 
 **Naive Bayes**
 
 ```python
->>> from sklearn.naive_bayes import GaussianNB
->>> gnb = GaussianNB()
+ from sklearn.naive_bayes import GaussianNB
+ gnb = GaussianNB()
 ```
 
 **KNN**
 
 ```python
->>> from sklearn import neighbors
->>> knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+ from sklearn import neighbors
+ knn = neighbors.KNeighborsClassifier(n_neighbors=5)
 ```
 
 ### Unsupervised Learning Estimators
@@ -2150,15 +2150,15 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Principal Component Analysis (PCA)**
 
 ```python
->>> from sklearn.decomposition import PCA
->>>pea= PCA(n_components=0.95)
+ from sklearn.decomposition import PCA
+pea= PCA(n_components=0.95)
 ```
 
 **K Means**
 
 ```python
->>> from sklearn.cluster import KMeans
->>> k_means = KMeans(n_clusters=3, random_state=0)
+ from sklearn.cluster import KMeans
+ k_means = KMeans(n_clusters=3, random_state=0)
 ```
 
 ## Evaluate Your Model’s Performance
@@ -2168,16 +2168,16 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Accuracy Score**
 
 ```python
->>> knn.score(X_test, y_test) #Estimator score method
->>> from sklearn.metrics import accuracy_score #Metric scoring functions
->>> accuracy_score(y_test, y_pred)
+ knn.score(X_test, y_test) #Estimator score method
+ from sklearn.metrics import accuracy_score #Metric scoring functions
+ accuracy_score(y_test, y_pred)
 ```
 
 **Classification Report**
 
 ```python
->>> from sklearn.metrics import classification_report #Precision, recall, fl-score and support
->>> print(classification_report(y_test, y_pred))
+ from sklearn.metrics import classification_report #Precision, recall, fl-score and support
+ print(classification_report(y_test, y_pred))
 ```
 
 
@@ -2185,8 +2185,8 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Confusion Matrix**
 
 ```python
->>> from sklearn.metrics import confusion_matrix
->>> print(confusion_matrix(y_test.y_pred))
+ from sklearn.metrics import confusion_matrix
+ print(confusion_matrix(y_test.y_pred))
 ```
 
 
@@ -2196,24 +2196,24 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Mean Absolute Error**
 
 ```python
->>> from sklearn.metrics import mean_absolute_error
->>> y_true = [3, -0.5,2]
->>> mean_absolute_error(y_true, y_pred)
+ from sklearn.metrics import mean_absolute_error
+ y_true = [3, -0.5,2]
+ mean_absolute_error(y_true, y_pred)
 
 ```
 
 **Mean Squared Error**
 
 ```python
->>> from sklearn.metrics import mean_squared_error
->>> mean_squared _error(y_test, y_ pred)
+ from sklearn.metrics import mean_squared_error
+ mean_squared _error(y_test, y_ pred)
 ```
 
 **R2 Score**
 
 ```python
->>> from sklearn.metrics import r2_score
->>> r2_score(y_true, y_ pred)
+ from sklearn.metrics import r2_score
+ r2_score(y_true, y_ pred)
 ```
 
 
@@ -2223,31 +2223,31 @@ Scikit-learn is an open source Python library that implements a range of machine
 **Adjusted Rand Index**
 
 ```python
->>> from sklearn.metrics import adjusted_rand_score
->>> adjusted_rand_score(y_true, y_pred)
+ from sklearn.metrics import adjusted_rand_score
+ adjusted_rand_score(y_true, y_pred)
 
 ```
 
 **Homogeneity**
 
 ```python
->>> from sklearn.metrics import homogeneity_score
->>> homogeneity_score(y_true, y_pred)
+ from sklearn.metrics import homogeneity_score
+ homogeneity_score(y_true, y_pred)
 ```
 
 **V-measure**
 
 ```python
->>> from sklearn.metrics import v_measure_score
->>>metrics.v_measure_score(y_true , y_pred)
+ from sklearn.metrics import v_measure_score
+metrics.v_measure_score(y_true , y_pred)
 ```
 
 ### Cross-Validation
 
 ```python
->>> from sklearn.cross_validation import cross_val_score
->>> print(cross_val_score(knn, X_train, y_train, cv=4))
->>> print(cross_val_score(lr, X, y, cv=2))
+ from sklearn.cross_validation import cross_val_score
+ print(cross_val_score(knn, X_train, y_train, cv=4))
+ print(cross_val_score(lr, X, y, cv=2))
 ```
 
 ## Tune Your Model
@@ -2257,25 +2257,25 @@ Scikit-learn is an open source Python library that implements a range of machine
 ### **Grid Search**
 
 ```python
->>> from sklearn.grid_search import GridSearchCV
->>> params = {"n_neighbors "  : np.arange(l,3),
+ from sklearn.grid_search import GridSearchCV
+ params = {"n_neighbors "  : np.arange(l,3),
 				"metric "	 : [ "euclidean" , "cityblock "] }
->>>grid= GridSearchCV(estimator=knn,
+grid= GridSearchCV(estimator=knn,
 					param_grid=params)
->>> grid.fit(X_train, y_train)
->>> print(grid.best_score_)
->>> print(grid.best_estimator_.n_neighbors)
+ grid.fit(X_train, y_train)
+ print(grid.best_score_)
+ print(grid.best_estimator_.n_neighbors)
 ```
 
 **Randomized Parameter Optimization**
 
 ```python
->>> from sklearn.grid _search import RandomizedSearchCV
->>> params = { "n_neighbors":range(l,5), "weights": ["unifomr","distance"]}
->>> rsearch = RandomizedSearchCV(estimator=knn, param_distributions=params,
+ from sklearn.grid _search import RandomizedSearchCV
+ params = { "n_neighbors":range(l,5), "weights": ["unifomr","distance"]}
+ rsearch = RandomizedSearchCV(estimator=knn, param_distributions=params,
                                 cv=4, n_iter=S, random_state=5)
->>> rsearch.fit(X_train, y_train)
->>> print(rsearch.best_score_)
+ rsearch.fit(X_train, y_train)
+ print(rsearch.best_score_)
 ```
 
 # Section 8
@@ -2287,72 +2287,72 @@ Scikit-learn is an open source Python library that implements a range of machine
 **The SciPy library is one of the core packages for scientific computing that provides mathematical algorithms and convenience functions built on the NumPy extension of Python.**
 
 ```python
->>> import numpy as np
->>> a= np.array([1,2,3])
->>> b = np.array([(1+5j,2j,3j), (4j,5j,6j)])
->>> c = np.array([[(1.5,2,3), (4,5,6)], [(3,2,1), (4,5,6)]])
+ import numpy as np
+ a= np.array([1,2,3])
+ b = np.array([(1+5j,2j,3j), (4j,5j,6j)])
+ c = np.array([[(1.5,2,3), (4,5,6)], [(3,2,1), (4,5,6)]])
 ```
 
 **Index Tricks**
 
 ```python
->>> np.mgrid[0:5,0:5] #Create a dense meshgrid
->>> np.ogrid[0:2,0:2] #Create an open meshgrid
->>> np.r_[[3,[0]*5,-1:1:10j] #Stack arrays vertically (row-wise)
->>> np.c_[b,c] #Create stocked column-wise arrays
+ np.mgrid[0:5,0:5] #Create a dense meshgrid
+ np.ogrid[0:2,0:2] #Create an open meshgrid
+ np.r_[[3,[0]*5,-1:1:10j] #Stack arrays vertically (row-wise)
+ np.c_[b,c] #Create stocked column-wise arrays
 ```
 
 **Shape Manipulation**
 
 ```python
->>> np.transpose(b) #Permute array dimensions
->>> b.flatten() #Flatten the array
->>> np.hstack((b,c)) #Stack arrays horizontally (column-wise)
->>> np.vstack((a,b)) #Stack arrays vertically (row-wise)
->>> np.hsplit(c,2) #Split the array horizontally at the 2nd index
->>> np.vpslit(d,2) #Split the array vertically at the 2nd index
+ np.transpose(b) #Permute array dimensions
+ b.flatten() #Flatten the array
+ np.hstack((b,c)) #Stack arrays horizontally (column-wise)
+ np.vstack((a,b)) #Stack arrays vertically (row-wise)
+ np.hsplit(c,2) #Split the array horizontally at the 2nd index
+ np.vpslit(d,2) #Split the array vertically at the 2nd index
 ```
 
 **Polynomials**
 
 ```python
->>> from numpy import polyld
->>> p = poly1d([3,4,5]) #Create a polynomial object
+ from numpy import polyld
+ p = poly1d([3,4,5]) #Create a polynomial object
 ```
 
 **Vectorizing Functions**
 
 ```
->>> def myfunc(a): if a< 0:
+ def myfunc(a): if a< 0:
         return a*2
         else:
         return a/2
->>> np.vectorize(myfunc) #Vectorize functions
+ np.vectorize(myfunc) #Vectorize functions
 
 ```
 
 **Type Handling**
 
 ```python
->>> np.real(c) #Return the real part of the array elements
->>> np.imag(c) #Return the imaginary part of the array elements
->>> np.real_if_close(c,tol=1000) #Return a real array if complex parts close to 0
->>> np.cast['f'](np.pi) #Cast object to a data type
+ np.real(c) #Return the real part of the array elements
+ np.imag(c) #Return the imaginary part of the array elements
+ np.real_if_close(c,tol=1000) #Return a real array if complex parts close to 0
+ np.cast['f'](np.pi) #Cast object to a data type
 ```
 
 **Other Useful Functions**
 
 ```python
->>> np.angle(b,d eg=True) #Return the angle of the complex argument
->>> g = np.linspace(0,np.pi,num=5) #Create an array of evenly spaced values(number of samples)
->>> g [3:] += np.pi
->>> np.unwrap(g) #Unwrap
->>> np.logspace(0,10,3) #Create an array of evenly spaced values (log scale)
->>> np.select([c<li],[c*2]) #Return values from a list of arrays depending on conditions
->>> misc.factorial(a) #Factorial
->>> misc.comb( 10,3,exact=True) #Combine N things taken at k time
->>> misc.central_diff_weights(3) #Weights for Np-point central derivative
->>> misc.derivative(myfunc,1.0) #Find then-th derivative of a function at a point
+ np.angle(b,d eg=True) #Return the angle of the complex argument
+ g = np.linspace(0,np.pi,num=5) #Create an array of evenly spaced values(number of samples)
+ g [3:] += np.pi
+ np.unwrap(g) #Unwrap
+ np.logspace(0,10,3) #Create an array of evenly spaced values (log scale)
+ np.select([c<li],[c*2]) #Return values from a list of arrays depending on conditions
+ misc.factorial(a) #Factorial
+ misc.comb( 10,3,exact=True) #Combine N things taken at k time
+ misc.central_diff_weights(3) #Weights for Np-point central derivative
+ misc.derivative(myfunc,1.0) #Find then-th derivative of a function at a point
 
 ```
 
@@ -2363,74 +2363,74 @@ Scikit-learn is an open source Python library that implements a range of machine
 You'll use the **linalg** and sparse modules. Note that **scipy. linalg** contains and expands on **numpy. linalg.**
 
 ```python
->>> from scipy import linalg, sparse
+ from scipy import linalg, sparse
 ```
 
 **Creating Matrices**
 
 ```python
->>> A = np.matrix(np.random.random((2,2)))
->>> B = np.asmatrix(b)
->>> C = np.mat(np.random.random((10,5)))
->>> D = n p.mat([[3,Ii],  [5,6]])
+ A = np.matrix(np.random.random((2,2)))
+ B = np.asmatrix(b)
+ C = np.mat(np.random.random((10,5)))
+ D = n p.mat([[3,Ii],  [5,6]])
 ```
 
 **Basic Matrix Routines**
 
 ```
->>> A.I #Inverse
->>> linalg.inv(A)  #Inverse
->>> A.T #Tranpose matrix
->>> A.H #Conjugate transposition
->>> np.trace(A) #Trace
+ A.I #Inverse
+ linalg.inv(A)  #Inverse
+ A.T #Tranpose matrix
+ A.H #Conjugate transposition
+ np.trace(A) #Trace
 ```
 
 **Norm**
 
 ```
->>> linalg.norm(A) #Frobenius norm
->>> linalg.norm(A,1) #Ll norm (max column sum)
->>> linalg.norm(A,np.inf) #L inf norm (max row sum)
+ linalg.norm(A) #Frobenius norm
+ linalg.norm(A,1) #Ll norm (max column sum)
+ linalg.norm(A,np.inf) #L inf norm (max row sum)
 ```
 
 **Rank**
 
 ```
->>> np.linalg.matrix_rank(C) #Matrix rank
+ np.linalg.matrix_rank(C) #Matrix rank
 ```
 
 **Determinant**
 
 ```
->>> linalg.det(A) #Determinant
+ linalg.det(A) #Determinant
 ```
 
 **Solving linear problems**
 
 ```
->>> linalg.solve(A,b) #Solver for dense matrices
->>> E = np.mat(a).T #Solver for dense matrices
->>> linalg.lstsq(D,E) #Le ast-squares solution to linear matrix equation
+ linalg.solve(A,b) #Solver for dense matrices
+ E = np.mat(a).T #Solver for dense matrices
+ linalg.lstsq(D,E) #Le ast-squares solution to linear matrix equation
 ```
 
 **Generalized inverse**
 
 ```
->>> linalg.pinv(C) #Compute the pseudo-inverse of a matrix (least-squares solver)
->>> linalg. pinv2(C) #Compute the pseudo-inverse of a matrix (SVD)
+ linalg.pinv(C) #Compute the pseudo-inverse of a matrix (least-squares solver)
+ linalg. pinv2(C) #Compute the pseudo-inverse of a matrix (SVD)
 ```
 
 ### **Creating Sparse Matrices**
 
 ```
->>> F = np.eye(3, k=l) #Create a 2X2 identity matrix
->>> G = np.mat(np.identity(2)) #Create a 2x2 identity matrix
->>> C[C > 0.5] = 0
->>> H = sparse.csr_matrix(C) #Compressed Sparse Row matrix
->>> I=	sparse.csc_matrix(D) #Compressed Sparse Column matrix
->>> J = sparse.dok_matrix(A) #Dictionary Of Keys matrix
->>> E.tadense() #Sparse matrix to full matrix
->>> sparse.isspmatrix_csc(A) 
+ F = np.eye(3, k=l) #Create a 2X2 identity matrix
+ G = np.mat(np.identity(2)) #Create a 2x2 identity matrix
+ C[C > 0.5] = 0
+ H = sparse.csr_matrix(C) #Compressed Sparse Row matrix
+ I=	sparse.csc_matrix(D) #Compressed Sparse Column matrix
+ J = sparse.dok_matrix(A) #Dictionary Of Keys matrix
+ E.tadense() #Sparse matrix to full matrix
+ sparse.isspmatrix_csc(A) 
 ```
 
 **Sparse Matrix Routines**
@@ -2438,32 +2438,32 @@ You'll use the **linalg** and sparse modules. Note that **scipy. linalg** contai
 **Inverse**
 
 ```
->>> sparse.linalg.inv(I) #Inverse
+ sparse.linalg.inv(I) #Inverse
 ```
 
 **Norm**
 
 ```
->>> sparse.linalg.norm(I) #Norm
+ sparse.linalg.norm(I) #Norm
 ```
 
 **Solving linear problems**
 
 ```
->>> sparse.linalg.spsolve(H,I) #Solver for sparse matrices
+ sparse.linalg.spsolve(H,I) #Solver for sparse matrices
 ```
 
 **Sparse Matrix Functions**
 
 ```
->>> sparse.linalg.expm(I) #Sparse matrix exponential
+ sparse.linalg.expm(I) #Sparse matrix exponential
 ```
 
 **Sparse Matrix Decompositions**
 
 ```
->>> la, v = sparse.linalg.eigs(F,1) #Eigenvalues and eigenvectors
->>> sparse.linalg.svds(H, 2) #SVD
+ la, v = sparse.linalg.eigs(F,1) #Eigenvalues and eigenvectors
+ sparse.linalg.svds(H, 2) #SVD
 ```
 
 ## Matrix Function
@@ -2471,103 +2471,103 @@ You'll use the **linalg** and sparse modules. Note that **scipy. linalg** contai
 **Addition**
 
 ```
->>> np.add(A,D) #Addition
+ np.add(A,D) #Addition
 ```
 
 **Subtraction**
 
 ```
->>> np.subtract(A,D) #Subtraction
+ np.subtract(A,D) #Subtraction
 ```
 
 **Division**
 
 ```
->>> np.divide(A,D) #Division
+ np.divide(A,D) #Division
 ```
 
 **Multiplication**
 
 ```python
->>> np.multiply(D,A) #Multiplication
->>> np.dot(A,D) #Dot product
->>> np.vdot(A,D) #Vector dot product
->>> np.inner(A,D) #Inner product
->>> np.outer(A,D) #Outer product
->>> np.tensardat(A,D) #Tensor dot product
->>> np.kron(A,D) #Kronecker product
+ np.multiply(D,A) #Multiplication
+ np.dot(A,D) #Dot product
+ np.vdot(A,D) #Vector dot product
+ np.inner(A,D) #Inner product
+ np.outer(A,D) #Outer product
+ np.tensardat(A,D) #Tensor dot product
+ np.kron(A,D) #Kronecker product
 ```
 
 **Exponential Functions**
 
 ```python
->>> linalg.expm(A) #Matrix exponential
->>> linalg.expm2(A) #Matrix exponential (Taylor Series)
->>> linalg.expm3(D) #Matrix exponential (eigenvalue decomposition)
+ linalg.expm(A) #Matrix exponential
+ linalg.expm2(A) #Matrix exponential (Taylor Series)
+ linalg.expm3(D) #Matrix exponential (eigenvalue decomposition)
 ```
 
 **Logarithm Function**
 
 ```
->>> linalg.lagm(A) #Matrix logarithm
+ linalg.lagm(A) #Matrix logarithm
 ```
 
 **Trigonometric Functions**
 
 ```
->>> linalg.sinm(D) Matrix sine
->>> linalg.cosm(D) Matrix cosine
->>> linalg.tanm(A) Matrix tangent
+ linalg.sinm(D) Matrix sine
+ linalg.cosm(D) Matrix cosine
+ linalg.tanm(A) Matrix tangent
 ```
 
 Hyperbolic Trigonometric Functions
 
 ```
->>> linalg.sinhm(D) #Hypberbolic matrix sine
->>> linalg.coshm(D) #Hyperbolic matrix cosine
->>> linalg.tanhm(A) #Hyperbolic matrix tangent
+ linalg.sinhm(D) #Hypberbolic matrix sine
+ linalg.coshm(D) #Hyperbolic matrix cosine
+ linalg.tanhm(A) #Hyperbolic matrix tangent
 ```
 
 **Matrix Sign Function**
 
 ```
->>> np.sigm(A) #Matrix sign function
+ np.sigm(A) #Matrix sign function
 ```
 
 Matrix Square Root
 
 ```
->>> linalg.sqrtm(A) #Matrix square root
+ linalg.sqrtm(A) #Matrix square root
 ```
 
 **Arbitrary Functions**
 
 ```
->>> linalg.funm(A, lambda x: X*X) #Evaluate matrix function
+ linalg.funm(A, lambda x: X*X) #Evaluate matrix function
 ```
 
 **Eigenvalues and Eigenvectors**
 
 ```
->>> la, v = linalg.eig(A) #Solve ordinary or generalized eigenvalue problem for square matrix
->>> l1, l2 = la #Unpack eigenvalues
->>> v[:,0] #First eigenvector
->>> v[:,1] #Second eigenvector
->>> linalg.eigvals(A) #Unpack eigenvalues
+ la, v = linalg.eig(A) #Solve ordinary or generalized eigenvalue problem for square matrix
+ l1, l2 = la #Unpack eigenvalues
+ v[:,0] #First eigenvector
+ v[:,1] #Second eigenvector
+ linalg.eigvals(A) #Unpack eigenvalues
 ```
 
 **Singular Value Decomposition**
 
 ```
->>> U,s,Vh = linalg.svd(B) #Singular Value Decomposition (SVD)
->>> M,N = B.shape
->>>Sig= linalg.diagsvd(s,M,N) #Construct sigma matrix in SVD
+ U,s,Vh = linalg.svd(B) #Singular Value Decomposition (SVD)
+ M,N = B.shape
+Sig= linalg.diagsvd(s,M,N) #Construct sigma matrix in SVD
 ```
 
 **LU Decomposition**
 
 ```
->>> P,L,U = linalg.lu(C) #LU Decomposition
+ P,L,U = linalg.lu(C) #LU Decomposition
 ```
 
 
@@ -2587,20 +2587,20 @@ Matrix Square Root
 **A Basic Example**
 
 ```python
->>> import numpy as np
->>> from keras.models import Sequential
->>> from keras.layers import Dense
->>>data= np.random.random((1000,100))
->>>labels= np.random.randint(2,size=(1000,1))
->>>model= Sequential()
->>> model.add(Dense(32,
+ import numpy as np
+ from keras.models import Sequential
+ from keras.layers import Dense
+data= np.random.random((1000,100))
+labels= np.random.randint(2,size=(1000,1))
+model= Sequential()
+ model.add(Dense(32,
                 	activation='relu', input_dim=100))
->>> model.add(Oense(1, activation='sigmoid'))
->>> model.compile(optimizer='rmsprop' ,
+ model.add(Oense(1, activation='sigmoid'))
+ model.compile(optimizer='rmsprop' ,
 					loss='binary_crossentropy', 
 					metrics=['accuracy' ])
->>> model.fit(data,labels,epochs=10,batch_size=32)
->>> predictions= model.predict(data)
+ model.fit(data,labels,epochs=10,batch_size=32)
+ predictions= model.predict(data)
 ```
 
 ### Data
@@ -2610,22 +2610,22 @@ Your data needs to be stored as NumPy arrays or as a list of NumPy arrays. Ideal
 **Keras Data Sets**
 
 ```python
->>> from keras.datasets import boston_housing, mnist, cifar10, imdb
->>> (x_train,y_train),(x_test,y_test) = mnist.load _data()
->>> (x_train2,y_train2),(x_test2,y_test2) = boston_housing.load_data()
->>> (x_train3,y_train3),(x_test3,y_test3) = cifar10.load_data()
->>> (x_train4,y_train4),(x_test4,y_test4) = imdb.load_data(num_words=20000)
->>> num_classes = 10
+ from keras.datasets import boston_housing, mnist, cifar10, imdb
+ (x_train,y_train),(x_test,y_test) = mnist.load _data()
+ (x_train2,y_train2),(x_test2,y_test2) = boston_housing.load_data()
+ (x_train3,y_train3),(x_test3,y_test3) = cifar10.load_data()
+ (x_train4,y_train4),(x_test4,y_test4) = imdb.load_data(num_words=20000)
+ num_classes = 10
 ```
 
 **Other**
 
 ```python
->>> from urllib.request import urlopen
->>> data =
+ from urllib.request import urlopen
+ data =
 np.loadtxt(urlopen( "http://archive.ics.uci.edu/ml/machine-learning-databa ses/pima-indians-dibetes/pima-indians-d iabetes.data')',delimiter=",")
->>> X = data[:,0:8]
->>> y = data [:,8]
+ X = data[:,0:8]
+ y = data [:,8]
 ```
 
 ### Preprocessing
@@ -2633,19 +2633,19 @@ np.loadtxt(urlopen( "http://archive.ics.uci.edu/ml/machine-learning-databa ses/p
 **Sequence Padding**
 
 ```python
->>> from keras.preprocessing import sequence
->>> x_train4 = sequence.pad_sequences(x _train4,maxlen=80)
->>> x test4 = sequence.pad_sequences(x_test4,maxlen=80)
+ from keras.preprocessing import sequence
+ x_train4 = sequence.pad_sequences(x _train4,maxlen=80)
+ x test4 = sequence.pad_sequences(x_test4,maxlen=80)
 ```
 
 **One-Hot Encoding**
 
 ```python
->>> from keras.utils import to_categorical
+ from keras.utils import to_categorical
 >>Y_train = to_categorical(y_train,num_classes)
->>> Y_test = to_categorical(y_test,num_classes)
->>> Y_train3 = to_categorical(y_train3,num_classes
->>> Y_test3 = to_categorical(y_test3,num_classes)
+ Y_test = to_categorical(y_test,num_classes)
+ Y_train3 = to_categorical(y_train3,num_classes
+ Y_test3 = to_categorical(y_test3,num_classes)
 ```
 
 ### Model Architecture
@@ -2653,10 +2653,10 @@ np.loadtxt(urlopen( "http://archive.ics.uci.edu/ml/machine-learning-databa ses/p
 **Sequential Model**
 
 ```python
->>> from keras.models import Sequential
->>> model= Sequential()
->>> model2 = Sequential()
->>> model3 = Sequential()
+ from keras.models import Sequential
+ model= Sequential()
+ model2 = Sequential()
+ model3 = Sequential()
 ```
 
 ### **Multilayer Perceptron (MLP)**
@@ -2664,99 +2664,99 @@ np.loadtxt(urlopen( "http://archive.ics.uci.edu/ml/machine-learning-databa ses/p
 **Binary Classification**
 
 ```python
->>> from keras.layers import Dense
->>> model.add(Dense(12,
+ from keras.layers import Dense
+ model.add(Dense(12,
 					input _dim=8, 
 					kernel_initializer='uniform',
             		activation='relu') )
->>> model.add(Dense(8,kernel_initialiezr='uniform',activation='relu'))
->>> model.add(Dense(l,kernel_initialiezr='uniform',activation='sigmoid'))
+ model.add(Dense(8,kernel_initialiezr='uniform',activation='relu'))
+ model.add(Dense(l,kernel_initialiezr='uniform',activation='sigmoid'))
 ```
 
 **Multi-Class Classification**
 
 ```python
->>> from keras.layers import Dropout
->>> model.add(Dense(512,activation='relu',input_shape=(784,)))
->>> model.add(Dropout(0.2))
->>> model.add(Dense(512,activation='relu'))
->>> model.add(Dropout(0.2))
->>> model.add(Dense(10,activation='softmax' ))
+ from keras.layers import Dropout
+ model.add(Dense(512,activation='relu',input_shape=(784,)))
+ model.add(Dropout(0.2))
+ model.add(Dense(512,activation='relu'))
+ model.add(Dropout(0.2))
+ model.add(Dense(10,activation='softmax' ))
 
 ```
 
 **Regression**
 
 ```python
->>> model.add(Dense(64,activation='relu',input_dim=train_data.shape[1]))
->>> model.add(Dense(1))
+ model.add(Dense(64,activation='relu',input_dim=train_data.shape[1]))
+ model.add(Dense(1))
 ```
 
 ## **Convolutional Neural Network (CNN)**
 
 ```python
->>> from keras.layers import Activation,Conv2D,MaxPooling20,Flatten
->>> model2.add(Conv20(32,(,3),padding= 'same',input _shape=x _train.shape[1:]))
->>> model2.add(Activation('relu'))
->>> model2.add(Conv20(32,(3,3)))
->>> model2.add(Activation('relu'))
->>> model2.add(MaxPooling2D( pool_size=(2,2)))
->>> model2.add(Dropout(0.25))
->>> model2.add(Conv20(64,(3,3), padding= 'same'))
->>> model2.add(Activation('relu'))
->>> model2.add(Conv20(64,(3, 3)))
->>> model2.add(Activation('relu'))
->>> model2.add(MaxPooling2D( pool_size=(2,2)))
->>> model2.add(Dropout(0.25))
->>> model2.add(Flatten())
->>> model2.add(Dense(512))
->>> model2.add(Activation('relu'))
->>> model2.add(Dropout(0.5))
->>> model2.add(Dense(num_classes))
->>> model2.add(Activation('softmax'))
+ from keras.layers import Activation,Conv2D,MaxPooling20,Flatten
+ model2.add(Conv20(32,(,3),padding= 'same',input _shape=x _train.shape[1:]))
+ model2.add(Activation('relu'))
+ model2.add(Conv20(32,(3,3)))
+ model2.add(Activation('relu'))
+ model2.add(MaxPooling2D( pool_size=(2,2)))
+ model2.add(Dropout(0.25))
+ model2.add(Conv20(64,(3,3), padding= 'same'))
+ model2.add(Activation('relu'))
+ model2.add(Conv20(64,(3, 3)))
+ model2.add(Activation('relu'))
+ model2.add(MaxPooling2D( pool_size=(2,2)))
+ model2.add(Dropout(0.25))
+ model2.add(Flatten())
+ model2.add(Dense(512))
+ model2.add(Activation('relu'))
+ model2.add(Dropout(0.5))
+ model2.add(Dense(num_classes))
+ model2.add(Activation('softmax'))
 
 ```
 
 ### **Recurrent Neural Network (RNN)**
 
 ```python
->>> from keras.klayers import Embedding,LSTM
->>> model3.add(Embedding(20000,128))
->>> model3.add(LSTM(128,dropout =0.2,recurrent_dropout=0.2))
->>> model3.add(Dense(l,activation='sigmoid'))
+ from keras.klayers import Embedding,LSTM
+ model3.add(Embedding(20000,128))
+ model3.add(LSTM(128,dropout =0.2,recurrent_dropout=0.2))
+ model3.add(Dense(l,activation='sigmoid'))
 ```
 
 ### Prediction
 
 ```python
->>> model3.predict(x_test4, ba tch_size=32)
->>> model3.predict_classes(x_test4,batch _size=32)
+ model3.predict(x_test4, ba tch_size=32)
+ model3.predict_classes(x_test4,batch _size=32)
 ```
 
 **Train and Test Sets**
 
 ```python
->>> from sklearn.mode l_selection import train_test_split
->>> X_train5,X_test5,y_train5,y_test5 = train_test_split(X, y,
+ from sklearn.mode l_selection import train_test_split
+ X_train5,X_test5,y_train5,y_test5 = train_test_split(X, y,
 														test_size=0.33, random_state=42)
 ```
 
 **Standardization/Normalization**
 
 ```python
->>> from sklearn.preprocessing import StandardScaler
->>> scaler= StandardScaler().fit(x_train2)
->>> standa rdized_X = scaler.transform(x _train2)
->>> standardized X test= scaler.transform(x_test2
+ from sklearn.preprocessing import StandardScaler
+ scaler= StandardScaler().fit(x_train2)
+ standa rdized_X = scaler.transform(x _train2)
+ standardized X test= scaler.transform(x_test2
 ```
 
 ###  Inspect Model
 
 ```python
->>> model.output_shape #Model output shape
->>> model.summary() #Model summary representation
->>> model.get_config() #Model configuration
->>> model.get_weights()#List all weight tensors in the model
+ model.output_shape #Model output shape
+ model.summary() #Model summary representation
+ model.get_config() #Model configuration
+ model.get_weights()#List all weight tensors in the model
 ```
 
 ### **Compile Model**
@@ -2764,7 +2764,7 @@ np.loadtxt(urlopen( "http://archive.ics.uci.edu/ml/machine-learning-databa ses/p
 **MLP: Binary Classification**
 
 ```python
->>> model.compile(optimizer='adam' ,
+ model.compile(optimizer='adam' ,
 				  loss= 'binary_crossentropy',
                   metrics=['accuracy'])
 ```
@@ -2772,7 +2772,7 @@ np.loadtxt(urlopen( "http://archive.ics.uci.edu/ml/machine-learning-databa ses/p
 **MLP: Multi-Class Classification**
 
 ```python
->>> model.compile(optimizer='rmsprop',
+ model.compile(optimizer='rmsprop',
 				loss='categorical_crossentropy   ,
 				metrics=[ 'accuracy'])
 ```
@@ -2780,7 +2780,7 @@ np.loadtxt(urlopen( "http://archive.ics.uci.edu/ml/machine-learning-databa ses/p
 **MLP: Regression**
 
 ```python
->>> model.compile(optimizer='rmsprop',
+ model.compile(optimizer='rmsprop',
 					loss= 'mse,' metrics=['mae'])
 ```
 
@@ -2806,7 +2806,7 @@ model3.fit(x_train4,
 **Evaluate Your Model's Performance**
 
 ```python
->> score = model3.evaluate(x_test,
+score = model3.evaluate(x_test,
                          y_test,
                          batch_size=32)
 ```
@@ -2814,9 +2814,9 @@ model3.fit(x_train4,
 **Save/ Reload Models**
 
 ```python
->>> from keras.models import load_model
->>> model3.save( )
->>> my_model = load_model( )
+ from keras.models import load_model
+ model3.save( )
+ my_model = load_model( )
 ```
 
 **Model Fine-tuning**
@@ -2824,9 +2824,9 @@ model3.fit(x_train4,
 Optimization Parameters
 
 ```python
->> from keras.optimizers import RMSprop
->>> opt = RMSprop(lr=0.0001, decay=1e-6)
->>> model2.compile(loss= , 'categorical_crossentropy'
+from keras.optimizers import RMSprop
+ opt = RMSprop(lr=0.0001, decay=1e-6)
+ model2.compile(loss= , 'categorical_crossentropy'
                  optimizer=opt,
                  metrics=[ 'accuracy'])
 ```
@@ -2834,9 +2834,9 @@ Optimization Parameters
 **Early Stopping**
 
 ```python
->>> from keras.callbacks import EarlyStopping
->>> early_stopping_monitor = EarlyStopping(patience=2)
->>> model3.fit(x_train4,
+ from keras.callbacks import EarlyStopping
+ early_stopping_monitor = EarlyStopping(patience=2)
+ model3.fit(x_train4,
  y_train4,
  batch_size=32,
  epochs=15,
@@ -2862,8 +2862,8 @@ PySpark SparkContext is an initial entry point of the spark functionality. It al
 
 
 ```
->>> from pyspark.sql import SparkSession
->>> spark = SparkSession \
+ from pyspark.sql import SparkSession
+ spark = SparkSession \
  .builder \
  .appName( ) \
  .config( , ) \
@@ -3033,29 +3033,29 @@ we count the number of elements in the spark RDDs. The output of this code is Co
 **From RDDs**
 
 ```
->>> from pyspark.sql.types import*
+ from pyspark.sql.types import*
 ```
 
 **Infer Schema**
 
 ```python
->> sc = spark.sparkContext
->>> lines = sc.textFile("people.txt" )
->>> parts = lines.map(lambda l: l.split(","))
->>> people = parts.map(lambda p: Row(name=p[0],age=int(p[1])))
->>> peopledf = spark.createDataFrame(people)
+sc = spark.sparkContext
+ lines = sc.textFile("people.txt" )
+ parts = lines.map(lambda l: l.split(","))
+ people = parts.map(lambda p: Row(name=p[0],age=int(p[1])))
+ peopledf = spark.createDataFrame(people)
 ```
 
 **Specify Schema**
 
 ```python
->>> people = parts.map(lambda p: Row(name=p[0],
+ people = parts.map(lambda p: Row(name=p[0],
  						age=int(p[1].strip())))
->>> schemaString = "name age"
->>> fields = [StructField(field_name, StringType(), True) for
+ schemaString = "name age"
+ fields = [StructField(field_name, StringType(), True) for
 field_name in schemaString.split()]
->>> schema = StructType(fields)
->>> spark.createDataFrame(people, schema).show()
+ schema = StructType(fields)
+ spark.createDataFrame(people, schema).show()
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/1-1623873782521.jpg)
@@ -3067,26 +3067,26 @@ field_name in schemaString.split()]
 **JSON**
 
 ```
->>> df = spark.read.json( "customer.json")			 
->>> df.show()
+ df = spark.read.json( "customer.json")			 
+ df.show()
 ```
 
 ![](../assets/images/posts/2021-06-06-What-all-should-a-data-scientist-know/2-1623873790932.jpg)
 
 ```python
->>> df2 = spark.read.load( "people.json" , format= "json")
+ df2 = spark.read.load( "people.json" , format= "json")
 ```
 
 **Parquet files**
 
 ```python
->>> df3 = spark.read.load("people.parquet" )
+ df3 = spark.read.load("people.parquet" )
 ```
 
 **TXT files**
 
 ```
->>> df4 = spark.read.text( "people.txt")
+ df4 = spark.read.text( "people.txt")
 ```
 
 ### Filter
@@ -3094,13 +3094,13 @@ field_name in schemaString.split()]
 Filter entries of age, only keep those records of which the values are >24
 
 ```
->>> df.filter(df["age"] >24).show() 
+ df.filter(df["age"] >24).show() 
 ```
 
 Duplicate Values
 
 ```
->>> df = df.dropDuplicates()
+ df = df.dropDuplicates()
 ```
 
 ### Queries
@@ -3111,15 +3111,15 @@ PySpark SQL is the most popular PySpark module that is used to process structure
 
 
 ```
->>> from pyspark.sql import functions as F
+ from pyspark.sql import functions as F
 ```
 **Select**
 
 ```python
->>> df.select( "firstName").show() #Show all entries in firstNome column
->>> df.select( "firstName","lastName") \
+ df.select( "firstName").show() #Show all entries in firstNome column
+ df.select( "firstName","lastName") \
 	   .show()
->>> df.select( "firstName", #Show all entries in firstNome, age and type
+ df.select( "firstName", #Show all entries in firstNome, age and type
 				"age" ,
 				explode(''phoneNumber'') \
 				.alias(''contactlnfo')') \
@@ -3127,20 +3127,20 @@ PySpark SQL is the most popular PySpark module that is used to process structure
 				"firstName",
 				"age" ) \
 		.show()
->>> df.select(df["firstName",df[ "age" ]+ 1)  #Show all entries in firstName and age,
+ df.select(df["firstName",df[ "age" ]+ 1)  #Show all entries in firstName and age,
 	   .show()	#add 1 to the entries of age            
->>> df.select(df['age'] > 24).show() #Show all entries where age >24
+ df.select(df['age'] > 24).show() #Show all entries where age >24
 
 ```
 
 **When**
 
 ```python
->>> df.select( "firstName", #Show firstName and 0 or 1 depending on age >30 
+ df.select( "firstName", #Show firstName and 0 or 1 depending on age >30 
 				F.when(df.age > 30, 1) \
 		.otherwise(0)) \
 		.show()
-    >>> df[ df.firstName.isin( "Jane" ,"Boris") ] #Show firstName if in the given options
+     df[ df.firstName.isin( "Jane" ,"Boris") ] #Show firstName if in the given options
 					.collect()
 ```
 
@@ -3148,7 +3148,7 @@ PySpark SQL is the most popular PySpark module that is used to process structure
 
 ```python
 #Show firstName, and lastName is TRUE if lastName is like Smith
->>> df.select( "firstName",
+ df.select( "firstName",
 				df.lastName .like(''Smith')') \
 	  .show()
 ```
@@ -3156,11 +3156,11 @@ PySpark SQL is the most popular PySpark module that is used to process structure
 **Startswith** - **Endswith**
 
 ```
->>> df.select( "firstName", #Show firstName, and TRUE if lastName starts with Sm
+ df.select( "firstName", #Show firstName, and TRUE if lastName starts with Sm
 df.lastName \
 	.startswith("Sm")) \
 	.show()
->>> df.select(df.lastName.endswith("th"))\ #Show last names ending in th
+ df.select(df.lastName.endswith("th"))\ #Show last names ending in th
 	.show()
 
 ```
@@ -3168,7 +3168,7 @@ df.lastName \
 **Substring**
 
 ```
->>> df.select(df.firstName.substr(l, 3) \ #Return substrings of firstName
+ df.select(df.firstName.substr(l, 3) \ #Return substrings of firstName
 	  .alias(''name')') \
 	  .collect()
 
@@ -3177,7 +3177,7 @@ df.lastName \
 **Between**
 
 ```
->>> df.select(df.age.between(22, 2s)) \ #Show age: values are TRUE if between 22 and 24
+ df.select(df.age.between(22, 2s)) \ #Show age: values are TRUE if between 22 and 24
 ```
 
 ### Add, Update & Remove Columns
@@ -3185,7 +3185,7 @@ df.lastName \
 **Adding Columns**
 
 ```
->>> df = df.withColumn( 'city',df.address.city) \
+ df = df.withColumn( 'city',df.address.city) \
             .withColumn( 'postalCade',df.address.pastalCode) \
             .withCalumn( 'state',df.address.state) \
             .withColumn( 'streetAddress',df.address.streetAddress) \
@@ -3197,22 +3197,22 @@ df.lastName \
 **Updating Columns**
 
 ```
->>> df=df.withColumnRenamed('telePhoneNumber ','phoneNumber' )
+ df=df.withColumnRenamed('telePhoneNumber ','phoneNumber' )
 ```
 
 **Removing Columns**
 
 ```
->>> df = df.drop ("address","phoneNumber")
->>> df = df.drop(df.address).drop(df.phoneNumber)
+ df = df.drop ("address","phoneNumber")
+ df = df.drop(df.address).drop(df.phoneNumber)
 ```
 
 ### Missing & Replacing Values
 
 ```python
->>> df.na.fill(50).show() #Replace null values
->>> df.na.drop().shaw() #Return new df omitting rows with null values
->>> df.na \ #Return new df replacing one value with another
+ df.na.fill(50).show() #Replace null values
+ df.na.drop().shaw() #Return new df omitting rows with null values
+ df.na \ #Return new df replacing one value with another
       .replace(10, 20) \
       .show()
 ```
@@ -3220,7 +3220,7 @@ df.lastName \
 ### GroupBy
 
 ```python
->>> df.groupBy("age")\ #Group by age, count the members in the groups
+ df.groupBy("age")\ #Group by age, count the members in the groups
       .count() \
       .show()
 ```
@@ -3228,52 +3228,52 @@ df.lastName \
 ### Sort
 
 ```python
->>> peopledf.sort(peopledf.age.desc()).collect()
->>> df.sort("age" , ascending=False).collect()
->>> df.orderBy([ "age", "city" ],ascending=[0,1])\
+ peopledf.sort(peopledf.age.desc()).collect()
+ df.sort("age" , ascending=False).collect()
+ df.orderBy([ "age", "city" ],ascending=[0,1])\
  	  .collect()
 ```
 
 ### Repartitioning
 
 ```python
->>> df.repartitian(10)\ #df with 10 partitions
+ df.repartitian(10)\ #df with 10 partitions
 	  .rdd \
 	  .getNumPartitions()
->>> df.coalesce(1).rdd.getNumPartitions() #df with 1 partition
+ df.coalesce(1).rdd.getNumPartitions() #df with 1 partition
 ```
 
 ### Running Queries Programmatically
 
 ```
->>> peopledf.createGlobalTempView( "people")
->>> df.createTempView ("customer") 
->>> df.createOrReplaceTempView( "customer")
+ peopledf.createGlobalTempView( "people")
+ df.createTempView ("customer") 
+ df.createOrReplaceTempView( "customer")
 ```
 
 **Query Views**
 
 ```python
->>> df5 = spark.sql("SELECT * FROM customer").show()
->>> peopledf2=spark.sql( "SELEC T* FROM global_ temp.people")\
+ df5 = spark.sql("SELECT * FROM customer").show()
+ peopledf2=spark.sql( "SELEC T* FROM global_ temp.people")\
 				    .show()
 ```
 
 ### **Inspect Data**
 
 ```python
->>> df.dtypes #Return df column names and data types
->>> df.show() #Display the content of df
->>> df.head() #Return first n raws
->>> df.first() #Return first row
->>> df.take(2) #Return the first n rows 
->>> df.schema Return the schema of df
->>> df.describe().show() #Compute summary statistics
->>> df.columns Return the columns of df
->>> df.count() #Count the number of rows in df
->>> df.distinct().count() #Count the number of distinct rows in df
->>> df.printSchema() #Print the schema of df
->>> df.explain() #Print the (logical and physical) plans
+ df.dtypes #Return df column names and data types
+ df.show() #Display the content of df
+ df.head() #Return first n raws
+ df.first() #Return first row
+ df.take(2) #Return the first n rows 
+ df.schema Return the schema of df
+ df.describe().show() #Compute summary statistics
+ df.columns Return the columns of df
+ df.count() #Count the number of rows in df
+ df.distinct().count() #Count the number of distinct rows in df
+ df.printSchema() #Print the schema of df
+ df.explain() #Print the (logical and physical) plans
 ```
 
 ### Output
@@ -3281,18 +3281,18 @@ df.lastName \
 **Data Structures**
 
 ```
->>> rddl = df.rdd #Convert df into an ROD
->>> df.taJSON().first() #Convert df into a ROD of string
->>> df.toPandas() #Return the contents of df as Pandas DataFrame
+ rddl = df.rdd #Convert df into an ROD
+ df.taJSON().first() #Convert df into a ROD of string
+ df.toPandas() #Return the contents of df as Pandas DataFrame
 ```
 
 **Write** & **Save to Files**
 
 ```python
->>> df.select( "firstName", "city")\
+ df.select( "firstName", "city")\
  .write \
  .save("nameAndCity.parquet" )
->>> df.select("firstName", "age") \
+ df.select("firstName", "age") \
  .write \
  .save( "namesAndAges.json",format="json")
 ```
@@ -3300,7 +3300,7 @@ df.lastName \
 ### **Stopping SparkSession**
 
 ```
->> spark.stop()
+spark.stop()
 ```
 
 ## **PySpark RDD** 
@@ -3310,25 +3310,25 @@ PySpark is the Spark Python API that exposes the Spark programming model to Pyth
 **Inspect SparkContext**
 
 ```python
->>> sc.version #Retrieve SparkContext version
->>> sc.pythonVer #Retrieve Python version
->>> sc.master #Master URL to connect to
->>> str(sc.sparkHome) #Path where Spark is installed an worker nodes
->>> str(sc.sparkUser()) #Retrieve name of the Spark User running SparkContext
->>> sc.appName #Return application name
->>> sc.applicationld #Retrieve application ID
->>> sc.defaultParallelism #Return default level of parallelism
->>> sc.defaultMinPartitions #Default minimum number of partitions for RDDs
+ sc.version #Retrieve SparkContext version
+ sc.pythonVer #Retrieve Python version
+ sc.master #Master URL to connect to
+ str(sc.sparkHome) #Path where Spark is installed an worker nodes
+ str(sc.sparkUser()) #Retrieve name of the Spark User running SparkContext
+ sc.appName #Return application name
+ sc.applicationld #Retrieve application ID
+ sc.defaultParallelism #Return default level of parallelism
+ sc.defaultMinPartitions #Default minimum number of partitions for RDDs
 
 ```
 **Configuration**
 ```
->>> from pyspark import SparkConf, SparkContext
->>> conf = (SparkConf()
+ from pyspark import SparkConf, SparkContext
+ conf = (SparkConf()
             .setMaster("local")
             .setAppName("My app")
             .set("spark.executor.memory","1g" ) )
->>> sc = SparkContext(conf = conf)
+ sc = SparkContext(conf = conf)
 ```
 
 **Using The Shell**
@@ -3347,10 +3347,10 @@ Set which master the context connects to with the --master argument, and add Pyt
 **Parallelized Collections**
 
 ```python
->>> rdd = sc.parallelize([('a',7),('a',2),('b',2)])
->>> rdd = sc.parallelize([('a',2),('d',1),('b',1)])
->>> rdd3 = sc.parallelize(range(100))
->>> rdd4 = sc.parallelize([("a",["x","y","z"]),
+ rdd = sc.parallelize([('a',7),('a',2),('b',2)])
+ rdd = sc.parallelize([('a',2),('d',1),('b',1)])
+ rdd3 = sc.parallelize(range(100))
+ rdd4 = sc.parallelize([("a",["x","y","z"]),
                             ("b",["p","r"])]
 ```
 
@@ -3359,8 +3359,8 @@ Set which master the context connects to with the --master argument, and add Pyt
 Read either one text file from HDFS.a local file system or or any Hadoop-supported file system URI with textFile(). or read in a directory of text files with wholeTextFiles()
 
 ```python
->>> textFile = sc.textFile("/my/directory/*.txt")
->>> textFile2 = sc.wholeTextFiles( "/my/directory/")
+ textFile = sc.textFile("/my/directory/*.txt")
+ textFile2 = sc.wholeTextFiles( "/my/directory/")
 ```
 
 ### Retrieving RDD Information
@@ -3368,16 +3368,16 @@ Read either one text file from HDFS.a local file system or or any Hadoop-support
 **Basic Information**
 
 ```python
->>> rdd.getNumPartitions() #List the number of partitions
->>> rdd.count() #Count ROD instances 3
->>> rdd.countByKey() #Count ROD instances by key
+ rdd.getNumPartitions() #List the number of partitions
+ rdd.count() #Count ROD instances 3
+ rdd.countByKey() #Count ROD instances by key
 defaultdict(<type 'int'>,{'a':2,'b' :1})
->>> rdd.countByValue() #Count ROD instances by value
+ rdd.countByValue() #Count ROD instances by value
 defaultdict(<type 'int'>,{('b',2):1,'(a',2):1,('a',7):1})
->>> rdd.collectAsMap() #Return (key,value) pairs as a dictionary
+ rdd.collectAsMap() #Return (key,value) pairs as a dictionary
 {'a':2,1b':2}
->>> rdd3.sum() #Sum of ROD elements 4950
->>> sc.parallelize([]).isEmpty() #Check whether ROD is empty
+ rdd3.sum() #Sum of ROD elements 4950
+ sc.parallelize([]).isEmpty() #Check whether ROD is empty
 True
 
 ```
@@ -3385,16 +3385,16 @@ True
 **Summary**
 
 ```python
->>> rdd3.max() #Maximum value of ROD elements 99
->>> rdd3.min() #Minimum value of ROD elements
+ rdd3.max() #Maximum value of ROD elements 99
+ rdd3.min() #Minimum value of ROD elements
 0
->>> rdd3.mean() #Mean value of ROD elements
+ rdd3.mean() #Mean value of ROD elements
 ,9.5
->>> rdd3.stdev() #Standard deviation of ROD elements 2a.8660700s772211a
->>> rdd3.variance() #Compute variance of ROD elements 833.25
->>> rdd3.histogram(3) #Compute histogram by bins
+ rdd3.stdev() #Standard deviation of ROD elements 2a.8660700s772211a
+ rdd3.variance() #Compute variance of ROD elements 833.25
+ rdd3.histogram(3) #Compute histogram by bins
 ([0,33,66,991,[33,33,3,])
->>> rdd3.stats() #Summary statistics (count, mean, stdev, max & min)
+ rdd3.stats() #Summary statistics (count, mean, stdev, max & min)
 
 ```
 
@@ -3402,14 +3402,14 @@ True
 
 ```python
 #Apply a function to each ROD element
->>> rdd.map(lambda x: x+(x[l],x[0])).callect()
+ rdd.map(lambda x: x+(x[l],x[0])).callect()
 [('a',7,7,'a'),('a',2,2,'a'),('b',2,2,'b')]
 #Apply a function to each ROD element and flatten the result
->>> rdd5 = rdd.flatMap(lambda x: x+(x[l],x[0]))
->>> rdd5.collect()
+ rdd5 = rdd.flatMap(lambda x: x+(x[l],x[0]))
+ rdd5.collect()
 ['a',7,7'a','a',2,2'a','b',2,2'b']
 #Apply a flatMap function to each (key,value) pair of rdd4 without changing the keys
->>> rdds.flatMapValues(lambda x: x).callect()
+ rdds.flatMapValues(lambda x: x).callect()
 [('a','x'),('a','y'),('a','z'),('b','p'),('b','r')]
 
 ```
@@ -3421,38 +3421,38 @@ True
 **Getting**
 
 ```python
->>> rdd.collect() #Return a list with all ROD elements
+ rdd.collect() #Return a list with all ROD elements
 [('a',7),('a',2),('b',2)]
->>> rdd.take(2) #Take first 2 ROD elements 
+ rdd.take(2) #Take first 2 ROD elements 
 [('a',7),('a',2)]
->>> rdd.first() #Toke first ROD element
+ rdd.first() #Toke first ROD element
 [('a',7),('a',2)]
->>> rdd.top(2) #Take top 2 ROD elements
+ rdd.top(2) #Take top 2 ROD elements
 [('b',2),('a',7)]
 ```
 
 **Sampling**
 
 ```python
->>> rdd3.sample(False, 0.15, 81).collect() #Return sampled subset of rdd3
+ rdd3.sample(False, 0.15, 81).collect() #Return sampled subset of rdd3
  [3,4,27,31,40,41,42,43,60,76,79,80,86,97]
 ```
 
 **Filtering**
 
 ```python
->>> rdd.filter(lambda x: "a" in x).collect() #Filter the ROD
+ rdd.filter(lambda x: "a" in x).collect() #Filter the ROD
 [( 'a',7),('a',2)]
->>> rdd5.distinct().callect() #Return distinct ROD values
+ rdd5.distinct().callect() #Return distinct ROD values
 ['a',2,'b',7]
->>> rdd.keys().collect() #Return (key,value) RDD's keys
+ rdd.keys().collect() #Return (key,value) RDD's keys
 ['a','a','b']
 
 ```
 
 ```python
->>> def g(x): print(x)
->>> rdd.foreach(g) #Apply a function to all ROD elements
+ def g(x): print(x)
+ rdd.foreach(g) #Apply a function to all ROD elements
 ('a',7)
 ('b',2)
 ('a',2)
@@ -3464,9 +3464,9 @@ True
 **Reducing**
 
 ```
->>> rdd.reduceByKey(lambda x,y : x+y).callect() #Merge the rdd values for each key
+ rdd.reduceByKey(lambda x,y : x+y).callect() #Merge the rdd values for each key
  [('a',9),('b',2)]
->>> rdd.reduce(lambda a, b: a+	b) #Merge the rdd values
+ rdd.reduce(lambda a, b: a+	b) #Merge the rdd values
 ('a',7,'a',2,'b',2)
 
 ```
@@ -3474,10 +3474,10 @@ True
 **Grouping by**
 
 ```python
->>> rdd3.groupBy(lambda x: x % 2) 
+ rdd3.groupBy(lambda x: x % 2) 
  .mapValues(list)
  .collect()
->>> rdd.groupByKey() 
+ rdd.groupByKey() 
  .mapValues(list)
  .collect()
 [('a',[7,2]),('b',[2])]
@@ -3486,57 +3486,57 @@ True
 **Aggregating**
 
 ```python
->>> seqOp = (lambda x,y: (x[0]+y,x[1]+1))
->>> combOp = (lambda x,y:(x[0]+y[0],x[1]+y[1]))
+ seqOp = (lambda x,y: (x[0]+y,x[1]+1))
+ combOp = (lambda x,y:(x[0]+y[0],x[1]+y[1]))
 #Aggregate RDD elements of each partition and then the results
->>> rdd3.aggregate((0,0),seqOp,combOp) 
+ rdd3.aggregate((0,0),seqOp,combOp) 
  (4950,100) 
  #Aggregate values of each RDD key
->>> rdd.aggregateByKey((0,0),seqop,combop).collect()
+ rdd.aggregateByKey((0,0),seqop,combop).collect()
  [('a',(9,2)),('b',(2,1))]
 #Aggregate the elements of each partition, and then the results
->>> rdd3.fold(0,add) 
+ rdd3.fold(0,add) 
  4950 
 #Merge the values for each key
->>> rdd.foldByKey(0, add).collect()
+ rdd.foldByKey(0, add).collect()
 [('a',9),('b',2)]
 #Create tuples of RDD elements by applying a function
->>> rdd3.keyBy(lambda x: x+x).collect() 
+ rdd3.keyBy(lambda x: x+x).collect() 
 ```
 
 ### Mathematical Operations
 
 ```
->>> rdd.subtract(rdd2).collect() #Return each rdd value not contained in rdd2
+ rdd.subtract(rdd2).collect() #Return each rdd value not contained in rdd2
 [('b',2),('a',7)]
 #Return each (key,value) pair of rdd2 with no matching key in rdd
->>> rdd2.subtractByKey(rdd).collect()
+ rdd2.subtractByKey(rdd).collect()
 [('d',1)l
->>> rdd.cartesian(rdd2).callect() #Return the Cartesian product of rdd and rdd2
+ rdd.cartesian(rdd2).callect() #Return the Cartesian product of rdd and rdd2
 ```
 
 **Sort**
 
 ```
->>> rdd2.sortBy(lambda x: x[l]).collect() #Sort ROD by given function
+ rdd2.sortBy(lambda x: x[l]).collect() #Sort ROD by given function
 [('d',1),('b',1),('a',2)]
->>> rdd2.sartByKey().collect() #Sort (key, value) ROD by key
+ rdd2.sartByKey().collect() #Sort (key, value) ROD by key
 [('a',2),('b',1),('d',1)]
 ```
 
 **Repartitioning** 
 
 ```python
->>> rdd.repartitian(4) #New ROD with 4 partitions
->>> rdd.caalesce(1) #Decrease the number of partitions in the ROD to 1
+ rdd.repartitian(4) #New ROD with 4 partitions
+ rdd.caalesce(1) #Decrease the number of partitions in the ROD to 1
 
 ```
 
 **Saving**
 
 ```python
->>> rdd .saveA sTextFile("rdd.txt")
->>> rdd.saveAsHadaapFile("hdfs://namenadehost/parent/child",
+ rdd .saveA sTextFile("rdd.txt")
+ rdd.saveAsHadaapFile("hdfs://namenadehost/parent/child",
 						  ’org.apache.hadoop.mapred.TextOutputFormat')
 
 ```
