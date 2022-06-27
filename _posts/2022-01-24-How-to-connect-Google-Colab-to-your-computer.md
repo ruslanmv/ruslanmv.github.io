@@ -138,7 +138,7 @@ conda remove -n colab --all
 
 
 
-# a)  Ubuntu method
+# b)  Ubuntu method
 
 If you want to have a fully features of **Google Colab,** you may require the Unix support,  then I suggest install Ubuntu or use **Windows with ubuntu.**
 
