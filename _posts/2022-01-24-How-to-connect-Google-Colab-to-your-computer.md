@@ -9,7 +9,9 @@ header:
   
 ---
 
-Hello everyone, today I will explain how to connect your **Google Colab** to your local computer.  When you are working on Google Colab sometimes you have  limitations such as memory time, resources, etc. And if you don't want to pay for the resources upgrade then I will explain  how to use your pc as a host in Google Colab.
+Hello everyone, today I will explain how to connect your **Google Colab** to your local computer.  
+
+When you are working on Google Colab sometimes you have  limitations such as memory time, resources, etc. And if you don't want to pay for the resources upgrade then I will explain  how to use your pc as a host in Google Colab.
 
 ## Introduction
 
