@@ -387,8 +387,6 @@ The command “**uname -r**” shows the version of the Linux kernel that you're
 
 we  add new cell
 
-https://stackoverflow.com/questions/59715317/mount-google-drive-in-kaggle-notebook
-
 ```
 !uname-r
 ```
@@ -411,9 +409,8 @@ There are different methods to  import data from local Colab , among them:
 
 - Mound Google Drive using Jupyter Lab ([more ](https://github.com/jupyterlab/jupyterlab-google-drive))
 
-- Mound Google Drive using APIs in GCP ([more](ttps://medium.com/@umdfirecoml/a-step-by-step-guide-on-how-to-download-your-google-drive-data-to-your-jupyter-notebook-using-the-52f4ce63c66c
-  h))
-
+- Mound Google Drive using APIs in GCP
+  
   You can mount the drive but it cost by using the API.
 
 I will use the simplest free methods 
