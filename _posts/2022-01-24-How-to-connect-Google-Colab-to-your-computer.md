@@ -128,7 +128,37 @@ to explorer your computer and work with your local files.
 
 
 
+## Reconnect to local runtime
+
 Next time you want to connect to a local runtime, you only need to run steps 3 and 5 above.
+
+Also you can automatize the method by creation a .bat file in notepad with the following code
+
+```
+echo Google Colab is startig!!
+cmd "/c conda activate colab && jupyter serverextension enable --py jupyter_http_over_ws && jupyter notebook --NotebookApp.allow_origin='https://colab.research.google.com' \ --port=9090 --no-browser && start chrome https://colab.research.google.com"
+cmd /k
+```
+
+then you can just save as **colab_local.bat**
+
+![image-20220629232726534](../assets/images/posts/2022-01-24-How-to-connect-Google-Colab-to-your-computer/image-20220629232726534.png)
+
+
+
+then you have your executable bat
+
+![image-20220629233002657](../assets/images/posts/2022-01-24-How-to-connect-Google-Colab-to-your-computer/image-20220629233002657.png)
+
+
+
+you click
+
+
+
+![image-20220629233110422](../assets/images/posts/2022-01-24-How-to-connect-Google-Colab-to-your-computer/image-20220629233110422.png)
+
+and copy the last value to your google colab .
 
 **Uninstall**
 
