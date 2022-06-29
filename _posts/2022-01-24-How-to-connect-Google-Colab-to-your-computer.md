@@ -168,7 +168,7 @@ If you dont need the enviroment you can delete by typing
 ```
 conda remove -n colab --all
 cd Desktop
-rm colab_local.bat
+del colab_local.bat
 ```
 
 
