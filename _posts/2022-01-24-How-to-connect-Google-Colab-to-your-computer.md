@@ -136,7 +136,8 @@ Also you can automatize the method by creation a .bat file in notepad with the f
 
 ```
 echo Google Colab is startig!!
-cmd "/c conda activate colab && jupyter serverextension enable --py jupyter_http_over_ws && jupyter notebook --NotebookApp.allow_origin='https://colab.research.google.com' \ --port=9090 --no-browser && start chrome https://colab.research.google.com"
+cmd "/c start chrome https://colab.research.google.com"
+cmd "/c conda activate colab && jupyter serverextension enable --py jupyter_http_over_ws && jupyter notebook --NotebookApp.allow_origin='https://colab.research.google.com' \ --port=9090 --no-browser"
 cmd /k
 ```
 
@@ -152,13 +153,13 @@ then you have your executable bat
 
 
 
-you click
+when you click, will be open two windows, one is the google colab an the other the screen where you have to copy the localhost address.
 
 
 
 ![image-20220629233110422](../assets/images/posts/2022-01-24-How-to-connect-Google-Colab-to-your-computer/image-20220629233110422.png)
 
-and copy the last value to your google colab .
+and copy the last values in red and paste in your google colab .
 
 **Uninstall**
 
@@ -166,6 +167,8 @@ If you dont need the enviroment you can delete by typing
 
 ```
 conda remove -n colab --all
+cd Desktop
+rm colab_local.bat
 ```
 
 
