@@ -11,7 +11,7 @@ header:
 
 Hello everyone, today I will explain how to connect your **Google Colab** to your local computer.  
 
-When you are working on Google Colab sometimes you have  limitations such as memory time, resources, etc. And if you don't want to pay for the resources upgrade then I will explain  how to use your pc as a host in Google Colab.
+When you are working on Google Colab sometimes you have  limitations such as memory, time, resources, etc. And if you don't want to pay for the resources upgrade then I will explain  how to use your pc as a host in Google Colab.
 
 ## Introduction
 
@@ -21,7 +21,7 @@ When you are working on Google Colab sometimes you have  limitations such as mem
 
 Colab allows you to create, run, and share Jupyter notebooks without having to download or install anything. Integration with GitHub means that you can work entirely in the cloud.
 
-There are two methods that you can connect  Google Colab with you computer:
+There are two methods that I will consider that you can connect Google Colab with you computer:
 
 - a) With **Windows** 
 - b) With **Ubuntu** or **Windows with Ubuntu** 
