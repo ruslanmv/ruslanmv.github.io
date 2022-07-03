@@ -220,6 +220,42 @@ clf.score(X,y)
 
     1.0
 
+Every estimator or model in Scikit-learn has a `score` method after being trained on the data, usually `X_train, y_train`.
+
+When you call `score` on classifiers like  RandomForestClassifier, or any other methods reviewed in this post, the method computes the accuracy score by default.
+
+ By default, the `score` method does not need the actual predictions. So, when you call:
+
+```
+clf.score(X_test, y_test)
+```
+
+it makes predictions using `X_test` under the hood and uses those predictions to calculate accuracy score.
+
+The score(self, X, y, sample_weight=None) returns the coefficient of determination $$R^2$$ of the prediction.
+
+ Think of `score` as a shorthand to calculate accuracy since it is such a common metric. It is also implemented to avoid calculating accuracy like this which involves more steps:
+
+```
+from sklearn.metrics import accuracy score
+preds = clf.predict(X_test)
+accuracy_score(y_test, preds)
+```
+
+For classifiers, `accuracy_score` and `score` are both the same - they are just different ways of calculating the same thing.
+
+When using `accuracy_score` you need ready predictions, i.e. the function does not generate prediction using the test set under the hood.
+
+When `score` is called on regressors, the coefficient of determination - $$R^2$$ is calculated by default. As in classifiers, the `score` method is simply a shorthand to calculate  $$R^2$$ since it is commonly used to assess the performance of a regressor.
+
+The coefficient $$R^2$$ is defined as (1 - u/v), where u is the residual sum of squares ((ytrue - ypred)^2).sum() and v is the total sum of squares ((ytrue - ytrue.mean())^2).sum().
+
+ The best possible score is 1.0 and it can be negative (because the model can be arbitrarily worse). A constant model that always predicts the expected value of y, disregarding the input features, would get a $$R^2 $$score of 0.0.
+
+The predictor clf.score(X,y) internally calculates y=clf.predict(X) and then compares  against y true to give an accuracy measure. 
+
+
+
 ## Bagging Classifier
 
  A Bagging classifier is an ensemble meta-estimator that fits base classifiers each on random subsets of the original dataset and then aggregate their individual predictions (either by voting or by averaging) to form a final prediction.
