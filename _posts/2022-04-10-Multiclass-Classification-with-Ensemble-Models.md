@@ -296,7 +296,7 @@ plot_decision_regions(X,y,bg)
 
 Bagging, also known as Bootstrap aggregating, is an ensemble learning technique that helps to improve the performance and accuracy of machine learning algorithms. It is used to deal with bias-variance trade-offs and reduces the variance of a prediction model
 
-Exmaples: Random forest
+Example: Random forest
 
 ## Decision tree
 
