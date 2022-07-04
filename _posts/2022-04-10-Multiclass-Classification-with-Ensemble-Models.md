@@ -614,6 +614,8 @@ Boosting and bagging are the two common ensemble methods that improve prediction
 
 You can download this notebook [here](https://github.com/ruslanmv/Multiclass_Classification_with_Ensemble_Models/blob/master/Multiclass_Classification_with_Ensemble_Models.ipynb).
 
-
+{% include advertisements.html %}
 
 **Congratulations!** We have discussed some of the most common ensemble models for multiclass classification.
+
+{% include article-adsense.html %}
