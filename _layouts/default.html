@@ -12,9 +12,6 @@
   <head>
     {% include head.html %}
     {% include head/custom.html %}
-    <!-- Google AdSense starts here-->
-    {% include advertisements.html %}
-    <!-- Google AdSense ends here-->
   </head>
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
@@ -34,6 +31,7 @@
 
     <div class="page__footer">
       <footer>
+        {% include advertisements.html %}
         {% include footer/custom.html %}
         {% include footer.html %}
       </footer>
