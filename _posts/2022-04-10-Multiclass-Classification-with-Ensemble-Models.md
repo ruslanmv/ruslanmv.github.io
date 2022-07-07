@@ -610,8 +610,10 @@ You might also find it challenging to use boosting for real-time implementation 
 
 Boosting and bagging are the two common ensemble methods that improve prediction accuracy. The main difference between these learning methods is the method of training. In bagging, data scientists improve the accuracy of weak learners by training several of them at once on multiple datasets. In contrast, boosting trains weak learners one after another.
 
+You can download this notebook [here](https://github.com/ruslanmv/Multiclass_Classification_with_Ensemble_Models/blob/master/Multiclass_Classification_with_Ensemble_Models.ipynb) or you can run it on Google Colab:
 
+[![Foo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ruslanmv/Multiclass_Classification_with_Ensemble_Models/blob/master/Multiclass_Classification_with_Ensemble_Models_colab.ipynb)
 
-You can download this notebook [here](https://github.com/ruslanmv/Multiclass_Classification_with_Ensemble_Models/blob/master/Multiclass_Classification_with_Ensemble_Models.ipynb).
+ 
 
 **Congratulations!** We have discussed some of the most common ensemble models for multiclass classification.
