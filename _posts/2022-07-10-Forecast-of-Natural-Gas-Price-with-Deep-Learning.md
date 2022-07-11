@@ -125,7 +125,9 @@ week_ago
 
 The search function allows the user to tune the parameters to adjust the search results to their needs, where both product types and countries from where the products are, can be specified.
 
-For this project we are looking for the price of **Natural Gas and Crude Oil**
+For this project we are looking for the price of **Natural Gas **but also can be used to predict prices of  **Crude Oil**, **Gold,** **Silver**, **Copper**, etc.
+
+In the text we write what we want to predict, in this project we use `Natural Gas`.
 
 
 ```python
@@ -384,10 +386,9 @@ ax = df['Close'].plot(figsize = (16,5), title = gas_result.name+' ('+ default_cu
 ax.set(xlabel='Dates', ylabel=' ('+ default_currency +')');
 ```
 
-
-​    
+   This is the plot of the prices of the Natural Gas 
 ![png](../assets/images/posts/2022-07-10-Forecast-of-Natural-Gas-Price-with-Deep-Learning/Forecast-of-Natural-Gas-Price-with-Deep-Learning_28_0.png)
-​    
+    
 
 
 ## Step 4 LSTM model training
