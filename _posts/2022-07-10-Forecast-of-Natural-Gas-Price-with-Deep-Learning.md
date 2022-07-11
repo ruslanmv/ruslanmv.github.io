@@ -125,7 +125,7 @@ week_ago
 
 The search function allows the user to tune the parameters to adjust the search results to their needs, where both product types and countries from where the products are, can be specified.
 
-For this project we are looking for the price of **Natural Gas **but also can be used to predict prices of  **Crude Oil**, **Gold,** **Silver**, **Copper**, etc.
+For this project we are looking for the price of **Natural Gas** but also can be used to predict prices of  **Crude Oil, Gold, Silver, Copper**, etc.
 
 In the text we write what we want to predict, in this project we use `Natural Gas`.
 
@@ -500,7 +500,7 @@ lstm_model.fit_generator(generator,epochs=20)
     80/80 [==============================] - 8s 96ms/step - loss: 0.0722
     Epoch 20/20
     80/80 [==============================] - 9s 107ms/step - loss: 0.0717
-
+    
     <keras.callbacks.History at 0x1bf63d0e518>
 
 
@@ -676,7 +676,7 @@ lstm_model.fit_generator(generator,epochs=20)
     80/80 [==============================] - 11s 133ms/step - loss: 0.0735
     Epoch 20/20
     80/80 [==============================] - 11s 139ms/step - loss: 0.0744
-
+    
     <keras.callbacks.History at 0x1bf6a9dae48>
 
 ### Step 7 -EarlyStopping y Validation Generator 
@@ -725,7 +725,7 @@ lstm_model.fit_generator(generator,epochs=20,
     80/80 [==============================] - ETA: 0s - loss: 0.0694
     Epoch 15: val_loss did not improve from 0.04324
     80/80 [==============================] - 9s 117ms/step - loss: 0.0694 - val_loss: 0.2474
-
+    
     <keras.callbacks.History at 0x1bf6a830160>
 
 #### Learning curve
@@ -893,7 +893,7 @@ model.fit_generator(generator,epochs=8)
     .
     Epoch 8/8
     123/123 [==============================] - 5s 39ms/step - loss: 0.0135
-
+    
     <keras.callbacks.History at 0x1c13b4f9b38>
 
 
