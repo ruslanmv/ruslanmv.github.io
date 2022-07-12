@@ -454,7 +454,7 @@ print(f'Predict this y: \n {y}')
 
 Long short-term memory is an artificial neural network used in the fields of artificial intelligence and deep learning. Unlike standard feedforward neural networks, LSTM has feedback connections. Such a recurrent neural network can process not only single data points, but also entire sequences of data.
 
-We are going to present two models of LST, one with a **Single LST** contribution and with **Double LSTM** contribution.
+We are going to present two models of LSTM, one with a **Single LSTM** contribution and with **Double LSTM** contribution.
 
 
 
@@ -1102,4 +1102,4 @@ You can download the notebook [here](https://github.com/ruslanmv/Times-Series-wi
 
 
 
-**Congratulations!** We have created a Neural Network by using LST and we have predict the Natural Gas for one week.
+**Congratulations!** We have created a Neural Network by using LSTM and we have predict the Natural Gas for one week.
