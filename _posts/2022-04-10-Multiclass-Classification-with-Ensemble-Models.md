@@ -542,7 +542,7 @@ Logistic regression estimates the probability of an event occurring, such as vot
 
 $$Logit(pi) = 1/(1+ exp(-pi))$$
 
-$$ln(pi/(1-pi)) = Beta_0 + Beta_1*X_1 + … + B_k*K_k$$
+$$ln(pi/(1-pi)) = \beta_0 + \beta_1*X_1 + … + \beta_k*K_k$$
 
 
 ```python
@@ -604,7 +604,7 @@ In practice, a stacking predictor predicts as good as the best predictor of the 
 Vulnerability to outlier data
 Boosting models are vulnerable to outliers or data values that are different from the rest of the dataset. Because each model attempts to correct the faults of its predecessor, outliers can skew results significantly.
 Real-time implementation
-You might also find it challenging to use boosting for real-time implementation because the algorithm is more complex than other processes. Boosting methods have high adaptability, so you can use a wide variety of model parameters that immediately affect the model's performance
+You might also find it challenging to use boosting for real-time implementation because the algorithm is more complex than other processes. Boosting methods have high adaptability, so you can use a wide variety of model parameters that immediately affect the model's performance.
 
 ## Boosting compared to bagging
 
