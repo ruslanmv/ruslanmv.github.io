@@ -110,17 +110,15 @@ $$\forall z\in\mathbb{R},\quad g(z)=\frac{1}{1+e^{-z}} \in [0,1]$$
 
 ### What is Logistic regresion?
 
-
-
 Logistic regression is a statistical model that in its basic form uses a logistic function to model a binary dependent variable, although many more complex extensions exist. In regression analysis, logistic regression is estimating the parameters of a logistic model (a form of binary regression).
 
-For example, assuming $$x|y ; \theta\sim\text{Bernoulli}(\phi)$$.
+For example, assuming 
+
+$$x|y ; \theta\sim\text{Bernoulli}(\phi)$$.
 
  We have the following form:
 
 $$\phi=p(y=1|x;\theta)=\frac{1}{1+\exp(-\theta^Tx)}=g(\theta^Tx)$$
-
-
 
 For example, for a student who studies 2 hours, entering the value the equation gives the estimated probability of passing the exam of 0.26:
 $$
