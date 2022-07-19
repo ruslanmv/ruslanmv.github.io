@@ -13,7 +13,7 @@ Hello, today we are going to create a neural  network with **Pytorch** to classi
 
 <img src="../assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/image-20220719211039962.png" alt="image-20220719211039962" style="zoom:50%;" />
 
-In the previous blog post we have studied this case by using **Tensorflow**  with **Convolutional Neural networks.**
+In the previous blog post we have studied this case by using **Tensorflow**  with **Convolutional Neural networks** [here](https://ruslanmv.com/blog/Speech-Recognition-with-Convolution-Neural-Networks).
 
 This time we will use **LSTM** (Long Short-Term Memory) is adopted for classification, which is a type of **Recurrent Neural Network**.
 
@@ -543,7 +543,7 @@ plt.show()
 
 ​    
 ![png](../assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/Speech-Recognition-with-RNN-Neural-Networks_30_0.png)
-   
+
 
 ```python
 #Load the audio file
