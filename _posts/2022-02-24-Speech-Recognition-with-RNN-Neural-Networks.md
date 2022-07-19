@@ -13,7 +13,7 @@ Hello, today we are going to create a neural  network with **Pytorch** to classi
 
 <img src="../assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/image-20220719211039962.png" alt="image-20220719211039962" style="zoom:50%;" />
 
-In the previous blog post we have studied this case by using **Tensorflow**  with Convolutional Neural networks.
+In the previous blog post we have studied this case by using **Tensorflow**  with **Convolutional Neural networks.**
 
 This time we will use **LSTM** (Long Short-Term Memory) is adopted for classification, which is a type of **Recurrent Neural Network**.
 
@@ -502,7 +502,7 @@ If I didn't do the pretraining on this dataset, the model will have poor perform
 
 ### 3.1.2. My dataset 
 
-We choose 11 target classes listed as follows:  
+We choose 10 target classes listed as follows:  
 
 
 ```python
@@ -576,6 +576,14 @@ Raw data goes through a serials of augmentation before training, including:
 This step is essential. Raw audios in Speech Commands Dataset are all about 1 second long, and have little background noise. It can easily causes certain overfitting.  
 
 We should try to diversify the data by data augmentation techniques, in order to get prepared for all kinds of real-world scenarios, including noise, variation of the audio length and loudness. 
+
+We need detect the perturbation. Which part of audio do we feed an speaker recognition input?  Well given by the Text-dependent: keyword/wakeword detection  or the  Text-independent: voice activity detection (VAD)
+
+![image-20220713213416530](assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/image-20220713213416530.png)
+
+![image-20220713213424689](assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/image-20220713213424689.png)
+
+For this classification we keep the most simple as possible.
 
 **Example of audio augmentation:**
 
@@ -1269,7 +1277,7 @@ plt.show()
 ![png](../assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/Speech-Recognition-with-RNN-Neural-Networks_81_0.png)
     
 
-You can download the notebook [here](https://github.com/ruslanmv/Speech-Recognition-with-RNN-Neural-Networks/raw/master/Speech-Recognition-with-RNN-Neural-Networks.ipynb) or you can run it on Google Colab
+You can download the notebook [here](https://github.com/ruslanmv/Speech-Recognition-with-RNN-Neural-Networks/blob/master/Speech-Recognition-with-RNN-Neural-Networks.ipynb) or you can run it on Google Colab
 
  [![Foo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ruslanmv/Speech-Recognition-with-RNN-Neural-Networks/blob/master/Speech_Recognition_with_RNN_Neural_Networks_colab.ipynb)
 
