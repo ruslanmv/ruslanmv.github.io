@@ -511,8 +511,7 @@ It stands for Receiver Operating Characteristic. It is basically a plot between 
 The ROC curve is a graphical representation of the contrast between true positive rates and false positive rates at various thresholds. It is often used as a proxy for the trade-off between the sensitivity(true positive rate) and false positive rate.
 
 # Part 2
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1311658216&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-2" title="Top Big Tech Data Science Questions Part 2" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 2</a></div>
-
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1312088017&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-5" title="Top Big Tech Data Science Questions Part 2" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 2</a></div>
 ### 50. What do you understand by a decision tree?
 
 
@@ -535,17 +534,17 @@ Binary trees only have two choices for each node. Trie's offer an unlimited numb
 
 ### 53. What is a recall?
 
-**Recall**: It is the set of all positive predictions out of the total number of positive instances. Recall helps us identify the misclassified positive predictions. 
-
-True positives over true positives + false nefatives.
-
-![recall](../assets/images/posts/2022-01-02-Top-Big-Tech-Data-Science-Questions/Recall.png)
+It is the set of all positive predictions out of the total number of positive instances. Recall helps us identify the misclassified positive predictions. 
 
 
 
-### 54. What is a recall?
+### 54. What is the definition of recall?
 
 A recall is a ratio of the true positive rate against the actual positive rate. It ranges from 0 to 1.
+
+The definition is True positives over true positives + false negatives.
+
+![recall](../assets/images/posts/2022-01-02-Top-Big-Tech-Data-Science-Questions/Recall.png)
 
 ### 55. What is the F1 score and how to calculate it?
 
