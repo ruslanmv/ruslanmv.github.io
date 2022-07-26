@@ -28,20 +28,17 @@ In the following sections we are going to answer several questions that are impo
 
 I have spited the set of questions in 4 parts: 
 
-[Part 1: Questions 1-49 ](#Part-1)
-
-[Part 2: Questions 50-100](#Part-2)
-
-[Part 3: Questions 101-149 ](#Part-3)
-
-[Part 4:  Questions 150-164](#Part-4)
+- [Part 1: Questions 1-49 ](#part-1)
+- [Part 2: Questions 50-100](#part-2)
+- [Part 3: Questions 101-149 ](#part-3)
+- [Part 4:  Questions 150-164](#part-4)
 
 
 
 # Part 1 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1311970306&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-1" title="Top Big Tech Data Science Questions Part 1" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 1</a></div>
 
-[back ](#Data-Science-Questions)
+[back ](#data-science-questions)
 
 ### 1. What is the difference between supervised and unsupervised machine learning and give examples of both?
 
@@ -526,7 +523,7 @@ The ROC curve is a graphical representation of the contrast between true positiv
 
 # Part 2
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1312088017&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-5" title="Top Big Tech Data Science Questions Part 2" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 2</a></div>
-[back ](#Data-Science-Questions)
+[back ](#data-science-questions)
 
 ### 50. What do you understand by a decision tree?
 
@@ -987,7 +984,7 @@ It assumes all features are independent and identically distributed.
 # Part 3
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1312183528&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-6" title="Top Big Tech Data Science Questions Part 3" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 3</a></div>
 
-[back ](#Data-Science-Questions)
+[back ](#data-science-questions)
 
 ### 101. What is Bayesian Logistic Regression?
 
@@ -1426,7 +1423,7 @@ Both UNION and UNION ALL operators combine rows from result sets into a single r
 # Part 4
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1311659401&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-4" title="Top Big Tech Data Science Questions Part 4" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 4</a></div>
 
-[back ](#Data-Science-Questions)
+[back ](#data-science-questions)
 
 ### 150. What tools and methods would you use to ensure version control when multiple data scientists are developing a single model?
 
@@ -1555,4 +1552,4 @@ which means that the odd ratio is the exponent of the regression coefficient.
 
 **Congratulations!** We have discussed some of the most common question in Data Science for the IT industry.
 
-[back ](#Data-Science-Questions)
+[back ](#data-science-questions)
