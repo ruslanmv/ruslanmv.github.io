@@ -27,8 +27,7 @@ Big Tech, also known as the Tech Giants, Big Four, or Big Five, is a name given 
 In the following sections we are going to answer several questions that are important in Data Science projects in the IT industry.
 
 # Part 1 
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1311652168&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top_big_tech_data_science_questions_part_1" title="Top Big Tech Data Science Questions Part 1" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 1</a></div>
-
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1311970306&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-1" title="Top Big Tech Data Science Questions Part 1" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 1</a></div>
 
 ### 1. What is the difference between supervised and unsupervised machine learning and give examples of both?
 
@@ -505,7 +504,7 @@ A recurrent neural network, or RNN for short, is a kind of Machine Learning algo
 
 ### 48. What is the ROC curve?
 
-It stands for Receiver Operating Characteristic. It is basically a plot between a true positive rate and a false positive rate, and it helps us to find out the right tradeoff between the true positive rate and the false positive rate for different probability thresholds of the predicted values. So, the closer the curve to the upper left corner, the better the model is. In other words, whichever curve has greater area under it that would be the better model. You can see this in the below graph: ![Data Science Interview Questions and Answers - Intellipaat](../assets/images/posts/2022-01-02-Top-Big-Tech-Data-Science-Questions/roc-curve.png)
+It stands for Receiver Operating Characteristic. It is basically a plot between a true positive rate and a false positive rate, and it helps us to find out the right tradeoff between the true positive rate and the false positive rate for different probability thresholds of the predicted values. So, the closer the curve to the upper left corner, the better the model is. In other words, whichever curve has greater area under it that would be the better model. You can see this in the below graph: ![](../assets/images/posts/2022-01-02-Top-Big-Tech-Data-Science-Questions/roc-curve.png)
 
 ### 49. Explain how a ROC curve works ?
 
