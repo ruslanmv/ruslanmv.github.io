@@ -969,8 +969,7 @@ The Naive Bayes Algorithm model is based on the Bayes Theorem. It describes the 
 It assumes all features are independent and identically distributed.
 
 # Part 3
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1311658894&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-3" title="Top Big Tech Data Science Questions Part 3" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 3</a></div>
-
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1312183528&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/top-big-tech-data-science-questions-part-6" title="Top Big Tech Data Science Questions Part 3" target="_blank" style="color: #cccccc; text-decoration: none;">Top Big Tech Data Science Questions Part 3</a></div>
 
 
 ### 101. What is Bayesian Logistic Regression?
@@ -1329,7 +1328,7 @@ Flipping a coin can be classified as a Bernoulli distribution problem and to sol
 
 $$P(X=k) = p^k(1-p)^{1-k}$$
 
-where k*k* is the outcome of the trial (it's either 0 or1) and p*p* is the probability of success (getting heads). In a fair coin, p*p* can be set to 0.5, but since we have a biased coin, then let's keep calling it p*p*.
+where k is the outcome of the trial (it's either 0 or1) and p is the probability of success (getting heads). In a fair coin, pcan be set to 0.5, but since we have a biased coin, then let's keep calling it p. 
 
 The Maximum Likelihood Estimation (MLE) aims to find the coefficient that maximizes p*p* given our data or trials. Let's say that we call our trials $$X_1*X*1, X_2*X*2,...,X_n$$, then our MLE equation would be:
 
