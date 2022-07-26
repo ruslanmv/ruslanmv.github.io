@@ -169,11 +169,11 @@ Intercept sign can give us insight into the probability of a positive outcome. T
 
 We also know that the coefficient of our feature (hours) is 1.5046. But what does this 1.5046 represent?
 
-In general, a logistic regression coefficient represents the change in log-odds ratio for having the outcome per unit change in our feature. In other words, increasing our feature by 1 unit increases the odds ratio by e^θ*e**θ*
+In general, a logistic regression coefficient represents the change in log-odds ratio for having the outcome per unit change in our feature. In other words, increasing our feature by 1 unit increases the odds ratio by $$e^θ$$.
 
 Using the example above, we know that the coefficient of our feature is 1.5046. Thus, we can compute the odds ratio as follows:
 
-e^{1.5046}=4.5
+$$e^{1.5046}=4.5$$
 
 And we have a positive sign, which means that an increase in the hours spent studying by 1 unit (let's say one 1 hour) multiplies the odds of the student passing the exam by 4.5.
 
