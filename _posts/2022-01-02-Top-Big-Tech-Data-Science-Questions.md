@@ -131,7 +131,7 @@ This is often called discretization and the resulting output variable is a class
 Feature engineering is a machine learning technique that leverages data to create new variables that aren’t in the training set. It can produce new features for both supervised and unsupervised learning. Feature engineering consists of the creation, transformation, extraction, and selection of features, also known as variables. The following list provides some typical ways to engineer useful features:
 
 1. Numerical transformations (like taking fractions or scaling)
-2. Category encoder like one-hot or target encoder (for categorical data)[5]
+2. Category encoder like one-hot or target encoder (for categorical data)
 3. Clustering
 4. Group aggregated values
 5. Principal component analysis (for numerical data)
