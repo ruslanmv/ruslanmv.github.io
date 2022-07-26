@@ -26,7 +26,7 @@ Big Tech, also known as the Tech Giants, Big Four, or Big Five, is a name given 
 
 In the following sections we are going to answer several questions that are important in Data Science projects in the IT industry.
 
-I have spited the set of questions in 4 parts: 
+There are four sections:  
 
 - [Part 1: Questions 1-49 ](#part-1)
 - [Part 2: Questions 50-100](#part-2)
