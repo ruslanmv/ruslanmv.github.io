@@ -347,11 +347,11 @@ Variance measures the spread between data points in a dataset with respect to it
 
 To calculate a sample variance, the following equation applies:
 
-$$s^2 = \frac{1}{n-1}\sum^n_{i=1}(x_i-\bar{x})^2s^2=n−11 \sum _{i=1}^n(x^i−x^ˉ)^2$$
+$$s^2 = \frac{1}{n-1}\sum^n_{i=1}(x_i-\bar{x})^2$$
 
 Meanwhile, for a population variance, the following equation applies:
 
-$$\sigma^2= \frac{1}{N}\sum^N_{i=1}(x_i-\mu)^2\sigma^2=N\sum_{i=1}^{N}(x^i−\mu)^2$$
+$$\sigma^2= \frac{1}{N}\sum^N_{i=1}(x_i-\mu)^2$$
 
 where:
 
@@ -366,7 +366,7 @@ If we take a look at both equations, there is a slight difference between a samp
 
 The main reason behind this is that the calculation of sample variance will contain a little bias. When we are working with sample data, normally we're working with a small subset of population data, hence any of our sample data points will be closer to ***x_bar*** instead of ***μ***. Thus, the sum of squares of sample variance would be lower than the sum of squares of the population variance, i.e
 
-$$\sum^n_{i=1}(x_i-\bar{x})^2 < \sum^N_{i=1}(x_i-\mu)^2\sum _{i=1}^n(x^−x^ˉ)^2<\sum_{i=1}^{N}(x^i−\mu)^2$$
+$$\sum^n_{i=1}(x_i-\bar{x})^2 < \sum^N_{i=1}(x_i-\mu)^2$$
 
 subtracting the denominator of sample variance with 1 would give a good adjustment and unbiased estimation in relation to population variance.
 
@@ -1347,7 +1347,7 @@ Taking the derivative with respect of p:
 
 $$\frac{dl}{dp} = \frac{\sum_{i=1}^N x_i}{p} - \frac{\sum_{i=1}^N (1-x_i)}{1-p}$$
 
-To maximize the likelihood, we set \frac{dl}{dp} to 00, so we have:
+To maximize the likelihood, we set $$\frac{dl}{dp}$$ to 0, so we have:
 
 $$(1-p) \sum_{i=1}^N x_i - p \sum_{i=1}^N (1-x_i)=0$$
 
