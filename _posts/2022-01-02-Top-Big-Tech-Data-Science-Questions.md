@@ -1330,9 +1330,9 @@ $$P(X=k) = p^k(1-p)^{1-k}$$
 
 where k is the outcome of the trial (it's either 0 or1) and p is the probability of success (getting heads). In a fair coin, pcan be set to 0.5, but since we have a biased coin, then let's keep calling it p. 
 
-The Maximum Likelihood Estimation (MLE) aims to find the coefficient that maximizes p*p* given our data or trials. Let's say that we call our trials $$X_1*X*1, X_2*X*2,...,X_n$$, then our MLE equation would be:
+The Maximum Likelihood Estimation (MLE) aims to find the coefficient that maximizes p*p* given our data or trials. Let's say that we call our trials $$X_1, X_2,...,X_n$$, then our MLE equation would be:
 
-$$L(p|X_1,X_2,...,X_n) = P(X = X_1) $$
+$$L(p|X_1,X_2,...,X_n) = P(X = X_1)  P(X = X_2)\cdots  P(X = X_n)$$
 
 $$L(p|X_1,X_2,...,X_n) = p^{\sum_{i=1}^N x_i} (1-p)^{\sum_{i=1}^N 1-x_i}$$
 
@@ -1343,6 +1343,7 @@ $$l = (\ln p)\sum_{i=1}^N x_i + (\ln(1-p))\sum_{i=1}^N (1-x_i)$$
 Taking the derivative with respect of p*p*:
 
 $$\frac{dl}{dp} = \frac{\sum_{i=1}^N x_i}{p} - \frac{\sum_{i=1}^N (1-x_i)}{1-p}$$
+
 To maximize the likelihood, we set $$\frac{dl}{dp}$$ to 0, so we have:
 
 $$(1-p) \sum_{i=1}^N x_i - p \sum_{i=1}^N (1-x_i)=0$$
