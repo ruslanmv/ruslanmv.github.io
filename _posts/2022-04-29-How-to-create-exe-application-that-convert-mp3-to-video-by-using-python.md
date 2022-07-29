@@ -49,7 +49,7 @@ You will have something like this:
 ```
 Microsoft Windows [Version 10.0.19044.1706]
 (c) Microsoft Corporation. All rights reserved.
-C:\Users\ruslanmv>conda activate keras
+C:\Users\ruslanmv>conda activate mp3-to-video
 (mp3-to-video) C:\Users\ruslanmv>
 ```
 
@@ -294,6 +294,10 @@ this is the result:
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/GmkeJfGvtLg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+You can download the exe application [here](https://github.com/ruslanmv/Convert-mp3-and-image-to-video-with-python-in-windows-exe/raw/master/mp3_to_video.exe)
 
 
 
