@@ -579,9 +579,9 @@ We should try to diversify the data by data augmentation techniques, in order to
 
 We need detect the perturbation. Which part of audio do we feed an speaker recognition input?  Well given by the Text-dependent: keyword/wakeword detection  or the  Text-independent: voice activity detection (VAD)
 
-![image-20220713213416530](assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/image-20220713213416530.png)
+![](../assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/image-20220713213416530.png)
 
-![image-20220713213424689](assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/image-20220713213424689.png)
+![](../assets/images/posts/2022-02-24-Speech-Recognition-with-RNN-Neural-Networks/image-20220713213424689.png)
 
 For this classification we keep the most simple as possible.
 
