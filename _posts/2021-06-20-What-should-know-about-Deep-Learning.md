@@ -1,7 +1,7 @@
 ---
 usemathjax: true
-title: " What should know about Deep Learning"
-excerpt: "Top questions that any Data Scientist working in Deep Learning should know"
+title: "Top Deep Learning Questions in Data Science "
+excerpt: "What should know about Deep Learning"
 
 header:
   image: "../assets/images/posts/2021-06-20-What-should-know-about-Deep-Learning/data5.jpg"
@@ -12,7 +12,26 @@ header:
 
 Hello I have wrote some questions about important concepts that every **Data Scientist** working in **Deep Learning** should know.
 
+# Deep Learning Questions
+
+In the following sections we are going to answer several questions that are important in Data Science projects in the IT industry for Deep Learning.
+
+There are three parts:  
+
+- [Part 1: Questions ](#part-1)
+- [Part 2: Questions](#part-2)
+- [Part 3: Questions](#part-3)
+
+
+
+# Part 1 
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1315172692&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/deep-learning-questions-in-data-science" title="Deep Learning questions in Data Science Part 1" target="_blank" style="color: #cccccc; text-decoration: none;">Deep Learning questions in Data Science Part 1</a></div>
+
+
+
 ### What type of predictive model correspond to the continuous regression outcome?
+
 The linear regression is the regression needed.
 ### What type of predictive model correspond to the class outcome?
 Logistic regression, SVM, Naive Bayes
@@ -485,6 +504,12 @@ There are five main steps that are used to initialize and use the gradient desce
 
 
 
+# Part 2
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1315177975&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/deep-learning-questions-in-data-science-part-2" title="Deep Learning questions in Data Science Part 2" target="_blank" style="color: #cccccc; text-decoration: none;">Deep Learning questions in Data Science Part 2</a></div>
+
+[back ](#deep-learning-questions)
+
 ###  Differentiate between a single-layer perceptron and a multi-layer perceptron.
 
 
@@ -828,6 +853,14 @@ On the next set of Deep Learning questions, let us look further into the topic.
 Leaky ReLU, also called LReL, is used to manage a function to allow the passing of small-sized negative values if the input value to the network is less than zero.
 
 
+
+# Part 3
+
+
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1315182172&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/deep-learning-questions-in-data-science-part-3" title="Deep Learning questions in Data Science Part 3" target="_blank" style="color: #cccccc; text-decoration: none;">Deep Learning questions in Data Science Part 3</a></div>
+
+[back ](#deep-learning-questions)
 
 ###  What are some of the examples of supervised learning algorithms in Deep Learning?
 
@@ -1189,8 +1222,6 @@ ARIMA forecasting is achieved by plugging in time series data for the variable o
 - **Autoregression**(AR): refers to a model that shows a changing variable that regresses on its own lagged, or prior, values.
 - **Integrated** (I): represents the differencing of raw observations to allow for the time series to become stationary (i.e., data values are replaced by the difference between the data values and the previous values).
 - **Moving average** (MA): incorporates the dependency between an observation and a residual error from a moving average model applied to lagged observations.
-
-
 
 **Congratulations** you have some of the concepts that any Data Scientist about Deep Learning should know. For sure there are a lot of more concepts that are missing  here but I wanted only to summarize some of basic elements that are needed to begin to work in this area.
 
