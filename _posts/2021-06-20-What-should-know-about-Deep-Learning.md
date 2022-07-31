@@ -103,7 +103,7 @@ $$\theta^{\textrm{opt}}=\underset{\theta}{\textrm{arg max }}L(\theta)$$
 
 Remark: in practice, we use the log-likelihood $$\ell(\theta)=\log(L(\theta))$$ which is easier to optimize.
 
-###  What is Newton's algorithm Newton's algorithm ?
+###  What is Newton's algorithm?
 
 Newton's algorithm Newton's algorithm is a numerical method that finds $$\theta$$ such that $$\ell'(\theta)=0$$. 
 Its update rule is as follows:
