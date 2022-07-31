@@ -22,9 +22,11 @@ Machine learning is the science of creating algorithms capable of learning based
         <li><a href="#ref5">Collaborative filtering   </a></li>
     </ol>
 </div>
-
-
 In the following sections, I  will  take a high-level look at each of these techniques. 
+
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1315145467&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/introduction-to-machine-learning-with-python" title="Introduction to Machine Learning with  Python" target="_blank" style="color: #cccccc; text-decoration: none;">Introduction to Machine Learning with  Python</a></div>
+
+
 
 ## Installation of Spark in Windows.
 

@@ -1,5 +1,5 @@
 ---
-title: "How to create exe application that convert mp3 to video by using python"
+title: "How to create exe application that converts mp3 to video by using python"
 excerpt: "Convert mp3 to mp4 with static image by using your own exe app in python"
 
 header:
@@ -11,7 +11,7 @@ header:
 
 Hello everyone, today I will explain  you how to create an executable Windows application with python.
 
-We are interested to create  program that convert a simple mp3 audio to mp3 static image, and create an executable .exe program.
+We are interested to create  program that converts a simple mp3 audio to mp3 static image, and create an executable .exe program.
 
 We want to create an application with  GUI window that converts a .mp3 audio file and an image into a .mp4 video
 
