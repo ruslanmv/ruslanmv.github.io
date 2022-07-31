@@ -12,8 +12,6 @@ header:
 
 Hello I have wrote some questions about important concepts that every **Data Scientist** working in **Deep Learning** should know.
 
-# Deep Learning Questions
-
 In the following sections we are going to answer several questions that are important in Data Science projects in the IT industry for Deep Learning.
 
 There are three parts:  
@@ -21,8 +19,6 @@ There are three parts:
 - [Part 1: Questions ](#part-1)
 - [Part 2: Questions](#part-2)
 - [Part 3: Questions](#part-3)
-
-
 
 # Part 1 
 
@@ -508,7 +504,7 @@ There are five main steps that are used to initialize and use the gradient desce
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1315177975&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/deep-learning-questions-in-data-science-part-2" title="Deep Learning questions in Data Science Part 2" target="_blank" style="color: #cccccc; text-decoration: none;">Deep Learning questions in Data Science Part 2</a></div>
 
-[back ](#deep-learning-questions)
+[back ](#part-1)
 
 ###  Differentiate between a single-layer perceptron and a multi-layer perceptron.
 
@@ -860,7 +856,7 @@ Leaky ReLU, also called LReL, is used to manage a function to allow the passing 
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1315182172&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/ruslanmv" title="Ruslan Magana Vsevolodovna" target="_blank" style="color: #cccccc; text-decoration: none;">Ruslan Magana Vsevolodovna</a> · <a href="https://soundcloud.com/ruslanmv/deep-learning-questions-in-data-science-part-3" title="Deep Learning questions in Data Science Part 3" target="_blank" style="color: #cccccc; text-decoration: none;">Deep Learning questions in Data Science Part 3</a></div>
 
-[back ](#deep-learning-questions)
+[back ](#part-1)
 
 ###  What are some of the examples of supervised learning algorithms in Deep Learning?
 
