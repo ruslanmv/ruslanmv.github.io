@@ -1623,6 +1623,20 @@ y = tweets_df['label']
 
  # Step 9. Train and evaluate a Naive Bayes Classifier Model
 
+In statistics, naive Bayes classifiers are a family of simple "probabilistic classifiers" based on applying Bayes' theorem with strong independence assumptions between the features. They are among the simplest Bayesian network models, but coupled with kernel density estimation, they can achieve high accuracy levels
+
+The fundamental Naive Bayes assumption is that each feature makes an:
+
+- independent
+- equal
+
+contribution to the outcome.
+
+With relation to our dataset, this concept can be understood as:
+
+- We assume that no pair of features are dependent. For example, the temperature being ‘Hot’ has nothing to do with the humidity or the outlook being ‘Rainy’ has no effect on the winds. Hence, the features are assumed to be **independent**.
+- Secondly, each feature is given the same weight(or importance). For example, knowing only temperature and humidity alone can’t predict the outcome accurately. None of the attributes is irrelevant and assumed to be contributing **equally** to the outcome.
+
 
 ```python
 X.shape
