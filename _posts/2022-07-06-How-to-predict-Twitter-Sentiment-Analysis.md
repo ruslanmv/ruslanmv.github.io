@@ -713,7 +713,7 @@ df_3 = df_important.iloc[2*size:s,:]
 df_4 = df_unimportant
 ```
 
-However we are dealing with very few messages we cannot proceed with this approach, however if you have larger dataset for sure you can proceed this way.
+However we are dealing with very few messages we cannot proceed with this approach, if you have larger dataset for sure you can proceed this way.
 
 
 ```python
