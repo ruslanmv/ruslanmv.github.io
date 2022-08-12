@@ -626,7 +626,7 @@ df_comments.shape
 
     (161, 5)
 
-# Step 5. Labeling the messages
+# Step 5. Labelling the messages
 
 In this part, we will consider the unimportant messages, that there are not likes, neither retweets or comments.
 
@@ -1676,9 +1676,8 @@ plt.ylabel('True',fontsize=14)
     Text(24.0, 0.5, 'True')
 
 
-​    
 ![png](../assets/images/posts/2022-07-06-How-to-predict-Twitter-Sentiment-Analysis/Twitter-Sentiment-Analysis-by-Geographical-Area_114_1.png)
-​    
+    
 
 ```python
 print(classification_report(y_test, y_predict_test))
