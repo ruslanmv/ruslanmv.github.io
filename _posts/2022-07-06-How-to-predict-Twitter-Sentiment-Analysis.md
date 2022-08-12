@@ -1634,8 +1634,8 @@ contribution to the outcome.
 
 With relation to our dataset, this concept can be understood as:
 
-- We assume that no pair of features are dependent. For example, the temperature being ‘Hot’ has nothing to do with the humidity or the outlook being ‘Rainy’ has no effect on the winds. Hence, the features are assumed to be **independent**.
-- Secondly, each feature is given the same weight(or importance). For example, knowing only temperature and humidity alone can’t predict the outcome accurately. None of the attributes is irrelevant and assumed to be contributing **equally** to the outcome.
+- We assume that no pair of features are dependent. For example, the  price being ‘Expensive’ has nothing to do with the White. Hence, the features are assumed to be **independent**.
+- Secondly, each feature is given the same weight(or importance). For example, knowing only price and oil alone can’t predict the outcome accurately. None of the attributes is irrelevant and assumed to be contributing **equally** to the outcome.
 
 
 ```python
