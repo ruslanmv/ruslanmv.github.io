@@ -1369,9 +1369,6 @@ print(text)
     
     The White House Gaslights on Gas | by @njhochman  
 
-
-   
-
 # Step 8. Create a pipeline to remove Punctuations, Stopwords and perform Count Vectorization
 
 Let's define a pipeline to clean up all the messages 
@@ -1433,8 +1430,6 @@ tweets_countvectorizer = vectorizer.fit_transform(tweets_df['tweet'])
 ```python
 print(vectorizer.get_feature_names())
 ```
-
-
 
 ```python
 print(tweets_countvectorizer.toarray())  
