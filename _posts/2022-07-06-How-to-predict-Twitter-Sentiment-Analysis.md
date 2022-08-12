@@ -697,7 +697,7 @@ size
 
     95
 
-It is possible split the the importance of the message may be splitten in
+It is possible split the the importance of the message may be splitted in
 
 1. Very Important   
 2. Fairly Important
@@ -706,10 +706,10 @@ It is possible split the the importance of the message may be splitten in
 
 
 ```python
-# splitting dataframe by row index
+s# splitting dataframe by row index
 df_1 = df_important.iloc[:size,:]
 df_2 = df_important.iloc[size:2*size,:]
-df_3 = df_important.iloc[2*size:,:]
+df_3 = df_important.iloc[2*size:s,:]
 df_4 = df_unimportant
 ```
 
