@@ -11,7 +11,7 @@ header:
 
 Hello, today we are going to perform  a **Twitter Sentiment Analysis** by a custom **Geographical Area**. In this blog post we are not use the Twitter Developer Account, instead I will use a simple and unlimited Twitter scraper with python.
 
- I am interested  to get top tweets with a **custom keyword** ,  **geolocated** less than 50 km from **White House** in the United States. I would like to analyze the word **"gas"** around the White House during on month since the **February 24 2022** .
+ I am interested  to get top tweets with a **custom keyword** ,  **geolocated** less than 50 km from **White House** in the United States. I would like to analyze the word **"gas"** around the White House  during one month since the **February 24 2022** .
 
 ![](../assets/images/posts/2022-07-06-How-to-predict-Twitter-Sentiment-Analysis/white_small.jpg)
 
