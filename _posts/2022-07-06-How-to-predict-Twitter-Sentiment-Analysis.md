@@ -3,7 +3,7 @@ title: "Twitter Sentiment Analysis by Geographical Area"
 excerpt: "How to predict Twitter Sentiment Analysis"
 
 header:
-  image: "../assets/images/posts/2022-07-06-How-to-predict-Twitter-Sentiment-Analysis/image.jpg"
+  image: "../assets/images/posts/2022-07-06-How-to-predict-Twitter-Sentiment-Analysis/image2.jpg"
   teaser: "../assets/images/posts/2022-07-06-How-to-predict-Twitter-Sentiment-Analysis/image.jpg"
   caption: "Errors using inadequate data are much less than those using no data at all.- Charles Babbage"
   
