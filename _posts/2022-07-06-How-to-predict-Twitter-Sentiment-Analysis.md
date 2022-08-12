@@ -799,7 +799,7 @@ plotdata.plot(kind="bar")
     
 
 
-but for simplicity we choose only the two types, imporant and not important messages.
+but for simplicity we choose only two types, important and not important messages.
 
 # Step 6. Let us consider only two classes important and not important 
 
