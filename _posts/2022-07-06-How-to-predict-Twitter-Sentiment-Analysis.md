@@ -573,8 +573,6 @@ df.head(10)
   </tbody>
 </table>
 
-
-
 We have created a single dataset of messages around the white house.
 
 # Step 4. Creation of the dataset 
@@ -713,7 +711,7 @@ df_3 = df_important.iloc[2*size:,:]
 df_4 = df_unimportant
 ```
 
-Howevee we are deling with very few messages we cannot proceed with this appoach, however if you have larger dataset for sure you can proceed this way.
+However we are dealing with very few messages we cannot proceed with this approach, however if you have larger dataset for sure you can proceed this way.
 
 
 ```python
