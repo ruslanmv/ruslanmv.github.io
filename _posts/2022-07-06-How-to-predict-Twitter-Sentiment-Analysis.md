@@ -639,6 +639,8 @@ df_unimportant.shape
 
     (135, 5)
 
+and the important messages with likes, retweets and comments,
+
 
 ```python
 df_important=df.loc[(df['Likes'] != 0) | (df['Retweets'] != 0)|(df['Comments'] != 0)]
