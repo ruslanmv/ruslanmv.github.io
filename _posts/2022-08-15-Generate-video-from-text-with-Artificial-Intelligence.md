@@ -17,7 +17,7 @@ This just an introduction of the amazing world of the generation of synthetic im
 
 The technique is based on generative adversarial network (GAN) is a machine learning (ML) model in which two neural networks compete with each other to become more accurate in their predictions.
 
-What we are going to to is create a pipeline that will convert a long text into small sentences that from them will create several pictures which later is processed to create a video with subtitles and synthetic voice.
+What we are going to create a pipeline that will convert a long text into small sentences that from them will create several pictures which later is processed to create a video with subtitles and synthetic voice.
 
  The story is summarized using DistillBART model. Then, then it is generated the images by using Dalle-mini and create subtitles with speech by using  gTTS  (Google Text-to-Speech). These are generated as a video.
 
@@ -38,6 +38,9 @@ This AI program will  produce the following video:
 <video width="256" height="256" controls="controls">
   <source src="../assets/images/posts/2022-08-15-Generate-video-from-text-with-Artificial-Intelligence/result_final.mp4" type="video/mp4">
 </video>
+The interesting point is that from the text that was inserted into the program, the **AI program** "analyzes the text" and summarizes them into sentences that will be used to generate **new images** based on generative adversarial networks and putting everything together in a video with subtitles and voice speech.
+
+From the point of view of creation, we may say that this is really an creation of knowledge based on what was learned before. This is a good example about what the AI may achieve.
 
 DistilBERT uses a technique called distillation, which approximates the Google's BERT, i.e. the large neural network by a smaller one. The idea is that once a large neural network has been trained, its full output distributions can be approximated using a smaller network.
 
