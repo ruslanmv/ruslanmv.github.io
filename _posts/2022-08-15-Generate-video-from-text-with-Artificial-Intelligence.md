@@ -19,7 +19,7 @@ The technique is based on generative adversarial network (GAN) is a machine lear
 
 What we are going to to is create a pipeline that will convert a long text into small sentences that from them will create several pictures which later is processed to create a video with subtitles and synthetic voice.
 
- The story is summarized using DistillBART model. Then, then it is generated the images by using Dalle-mini and created the subtitles and audio gtts. These are generated as a video
+ The story is summarized using DistillBART model. Then, then it is generated the images by using Dalle-mini and create subtitles with speech by using  gTTS  (Google Text-to-Speech). These are generated as a video.
 
 For example from the following text:
 
@@ -64,6 +64,7 @@ The application that we will use will perform a summary of the text that you wil
 !cat /etc/ImageMagick-6/policy.xml | sed 's/none/read,write/g'> /etc/ImageMagick-6/policy.xml
 !pip install mutagen
 !pip install gtts
+!pip install nltk
 #We reset the runtime
 #exit()
 ```
@@ -92,7 +93,7 @@ The application that we will use will perform a summary of the text that you wil
     Collecting min-dalle
       Downloading min-dalle-0.4.11.tar.gz (10 kB)
 
- 
+ Once the libraries were installed, we proceed to import the libraries,
 
 
 # Step 2 - Importing Libraries
@@ -116,7 +117,7 @@ import nltk
 nltk.download('punkt')
 ```
 
-
+If you could import all the previous libraries good!, you are now able to create the application.
 
 # Step 3- Creation of the application
 
@@ -126,6 +127,8 @@ In this part we need to write the text that we want to create our video story
 ```python
 text ='Once, there was a girl called Laura who went to the supermarket to buy the ingredients to make a cake. Because today is her birthday and her friends come to her house and help her to prepare the cake.'
 ```
+
+you can use any story that you want to test, this is the interesting part.
 
 
 ```python
@@ -161,7 +164,7 @@ plot = list(summary[0].split('.'))
 ```
 
 
-​    
+  now we need to create the main program that generate the images
 
 
 ```python
@@ -227,6 +230,8 @@ for senten in plot[:-1]:
   display(image)
   generated_images.append(image)
 ```
+
+and you will get the following output:
 
      Once, Laura went to the supermarket to buy the ingredients to make a cake 
     using device cuda
@@ -361,7 +366,7 @@ for senten in plot[:-1]:
 ![png](../assets/images/posts/2022-08-15-Generate-video-from-text-with-Artificial-Intelligence/Video_story_creator_full_17_7.png)
     
 
-
+You can identify now, which sentences the AI have been created
 
 ```python
 for senten in plot[:-1]:
@@ -378,10 +383,14 @@ sentences =plot[:-1]
 num_sentences=len(sentences)
 ```
 
+we just check if everything is okay
+
 
 ```python
 assert len(generated_images) == len(sentences) , print('Something is wrong')
 ```
+
+let us show all the pictures created by the AI with the sentences
 
 
 ```python
@@ -445,12 +454,12 @@ subtitles = [sent.text.strip() for sent in doc.sents]
 subtitles
 ```
 
-
+for example
 
 
     ['Her friends come to her house and help her to prepare the cake']
 
-
+let us create the subtitles with spacy
 
 
 ```python
@@ -522,7 +531,6 @@ print(add_subtitle)
 ```
 
 
-​    
 ![png](../assets/images/posts/2022-08-15-Generate-video-from-text-with-Artificial-Intelligence/Video_story_creator_full_32_0.png)
 ​    
 
@@ -786,6 +794,9 @@ HTML("""
 </video>
 
 
+Now is time to add sound to our video that we have been created,.. we will  use the gTTs. 
+
+gTTS  (Google Text-to-Speech), a Python library and CLI tool to interface with Google Translate text-to-speech API.
 
 # Step  7 - Creation of audio 
 
@@ -1112,10 +1123,7 @@ combine_audio(movie_name, export_path, movie_final) # i create a new file
     [MoviePy] >>>> Video ready: result_final.mp4 
 
 
-​    
-
-
-​    
+​    In ordering to reproduce mp4 on google Collab we use the following codes
 
 
 ```python
@@ -1146,7 +1154,7 @@ compress_video("result_final.mp4")
 
     result_final_compressed.mp4
 
-
+and finally we show the video
 
 ```python
 # Show video
