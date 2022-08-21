@@ -35,9 +35,9 @@ This AI program will  produce the following video:
 
 
 
-<video src="../assets/images/posts/2022-08-15-Generate-video-from-text-with-Artificial-Intelligence/result_final.mp4"></video>
-
-
+<video width="256" height="256" controls="controls">
+  <source src="../assets/images/posts/2022-08-15-Generate-video-from-text-with-Artificial-Intelligence/result_final.mp4" type="video/mp4">
+</video>
 
 DistilBERT uses a technique called distillation, which approximates the Google's BERT, i.e. the large neural network by a smaller one. The idea is that once a large neural network has been trained, its full output distributions can be approximated using a smaller network.
 
@@ -93,6 +93,7 @@ The application that we will use will perform a summary of the text that you wil
       Downloading min-dalle-0.4.11.tar.gz (10 kB)
 
  
+
 
 # Step 2 - Importing Libraries
 
