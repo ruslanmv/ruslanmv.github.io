@@ -17,7 +17,7 @@ This just an introduction of the amazing world of the generation of synthetic im
 
 The technique is based on generative adversarial network (GAN) is a machine learning (ML) model in which two neural networks compete with each other to become more accurate in their predictions.
 
-What we are going to to is create a pipeline that will convert a long text into small sentences that from them will create several pictures which will create.
+What we are going to to is create a pipeline that will convert a long text into small sentences that from them will create several pictures which later is processed to create a video with subtitles and synthetic voice.
 
  The story is summarized using DistillBART model. Then, then it is generated the images by using Dalle-mini and created the subtitles and audio gtts. These are generated as a video
 
@@ -25,11 +25,9 @@ For example from the following text:
 
 
 
-```html
 <blockquote>
-    <p>text ='Once, there was a girl called Laura who went to the supermarket to buy the ingredients to make a cake. Because today is her birthday and her friends come to her house and help her to prepare the cake.'</p>
+    <p>'Once, there was a girl called Laura who went to the supermarket to buy the ingredients to make a cake. Because today is her birthday and her friends come to her house and help her to prepare the cake.'</p>
 </blockquote>
-```
 
 
 
@@ -93,11 +91,8 @@ The application that we will use will perform a summary of the text that you wil
     Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
     Collecting min-dalle
       Downloading min-dalle-0.4.11.tar.gz (10 kB)
-    Requirement already satisfied: torch>=1.11 in /usr/local/lib/python3.7/dist-packages (from min-dalle) (1.12.1+cu113)
-    Requirement already satisfied: typing_extensions>=4.1 in /usr/local/lib/python3.7/dist-packages (from min-dalle) (4.1.1)
 
  
-    
 
 # Step 2 - Importing Libraries
 
@@ -918,11 +913,7 @@ mp3_names
 ```
 
 
-
-
     ['audio_0.mp3', 'audio_1.mp3', 'audio_2.mp3', 'audio_3.mp3']
-
-
 
 
 ```python
