@@ -4,7 +4,7 @@ excerpt: "Video Generator from stories with Artificial Intelligence with DALL-E 
 
 header:
   image: "../assets/images/posts/2022-08-15-Generate-video-from-text-with-Artificial-Intelligence/fondo-min2.jpg"
-  teaser: "../assets/images/posts/2022-08-15-Generate-video-from-text-with-Artificial-Intelligence/fondo-min2.jpg"
+  teaser: "../assets/images/posts/2022-08-15-Generate-video-from-text-with-Artificial-Intelligence/fondo-min.jpg"
   caption: "By far, the greatest danger of Artificial Intelligence is that people conclude too early that they understand it"
   
 ---
