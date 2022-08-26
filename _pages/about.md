@@ -13,7 +13,7 @@ header:
 
 # Hi there! I'm Ruslan Magana Vsevolodovna
 
-I'm a **Cloud Architect** a **Data Scientist** and a **Physicist**.
+I'm  a **Data Scientist**, a **Cloud Architect** and a **Physicist**.
 
 ## Scientifical  studies
 
