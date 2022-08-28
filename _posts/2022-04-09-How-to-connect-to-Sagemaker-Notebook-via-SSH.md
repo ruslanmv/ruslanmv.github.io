@@ -19,6 +19,12 @@ SageMaker enables developers to create, train, and deploy machine-learning model
 
 ## Introduction
 
+Amazon VPC enables you to launch AWS resources on a virtual private network that you have defined. The bastion host runs on an Amazon EC2 instance that is typically in a public subnet of your Amazon VPC. Linux instances are in a subnet that is not publicly accessible, and they are set up with a security group that allows SSH access from the security group attached to the underlying EC2 instance running the bastion host
+
+SSH tunneling is a method of transporting arbitrary networking data over an encrypted SSH connection. It can be used to add encryption to legacy applications. It can also be used to implement VPNs (Virtual Private Networks) and access intranet services across firewalls.
+
+[**SSH**](https://www.ssh.com/ssh/protocol/) is a standard for secure remote logins and file transfers over untrusted networks. It also provides a way to secure the data traffic of any given application using port forwarding, basically tunneling any [**TCP/IP**](https://en.wikipedia.org/wiki/Internet_protocol_suite) port over SSH. This means that the application data traffic is directed to flow inside an encrypted SSH connection so that it cannot be eavesdropped or intercepted while it is in transit. SSH tunneling enables adding network security to legacy applications that do not natively support encryption.
+
 AWS does not natively support SSH-ing into **SageMaker notebook instances**, but nothing really prevents you from setting up SSH yourself.
 
 The only problem is that these instances do not get a public IP address, which means you have to either create a reverse proxy or connect to it via bastion box.  
