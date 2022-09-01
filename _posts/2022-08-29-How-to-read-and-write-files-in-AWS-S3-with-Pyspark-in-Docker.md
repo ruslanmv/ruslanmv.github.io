@@ -484,7 +484,7 @@ spark.stop()
 
 You can download the notebook [here](https://github.com/ruslanmv/How-to-read-and-write-files-in-S3-from-Pyspark-Docker/blob/master/example/Pyspark-with-AWS.ipynb).   
 
-**Congratulations!** You have practiced practiced to read and write files in AWS S3 from your Container. 
+**Congratulations!** You have practiced to read and write files in **AWS S3** from your **Pyspark Container**. 
 
 
 
