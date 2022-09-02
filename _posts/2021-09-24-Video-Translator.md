@@ -9,11 +9,7 @@ header:
   
 ---
 
-
-
 In this post, I will show you how to translate a  video from a video recording file to another language such as Italian, Russian, Spanish or German.
-
-
 
 # Getting Started
 
@@ -37,8 +33,8 @@ If says ‘conda’ is not recognized as an internal or external command,
 Yu can tray this: for me, I installed anaconda3 into `C:\Users\Ruslan\anaconda3`. Therefore you need to add `C:\Users\Ruslan\anaconda3` as well as `C:\Users\Ruslan\anaconda3\Scripts\` to your path variable, e.g. `set PATH=%PATH%;C:\Users\Ruslan\anaconda3;C:\Users\Ruslan\anaconda3\Scripts\`.
 
 ```
-conda create -n gradio python==3.7
-conda activate gradio
+conda create -n video-translator python==3.8
+conda activate video-translator
 ```
 
 then in 
@@ -67,7 +63,7 @@ Hoping that you already have the video clip ready. Let’s copy the file inside 
 
 this will make it easier to define the video file. 
 
-For example let us consider the following video from Youtube
+For example let us consider the following video from **Youtube**
 
 
 
@@ -128,15 +124,33 @@ Then you can **play** it. Also you can download it.
 
 
 
-
-
 You can see the live program here:
 
 [https://gradio.app/hub/ruslanmv/Video-Translator](https://gradio.app/hub/ruslanmv/Video-Translator)
 
+## Example
+
+From the original in **English**
+
+<iframe src="https://player.vimeo.com/video/745605170?h=66e65935a8&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="496" height="279" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Obama English - Original"></iframe>
+
+For example this is the results :
+
+### Japanese
+
+<iframe src="https://player.vimeo.com/video/745605250?h=aeabc1abad&amp;title=0&amp;byline=0&amp;portrait=0&amp;speed=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="496" height="279" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="video_translated_ja"></iframe>
+
+### Spanish
+
+<iframe src="https://player.vimeo.com/video/745605213?h=24ab9d0f5a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="496" height="279" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="video_translated_es"></iframe>
+
+### German
 
 
 
+<iframe src="https://player.vimeo.com/video/745605189?h=509a784819&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="496" height="279" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="video_translated_de"></iframe>
 
-**Congratulations!.**  We have created a Gradio application that translate videos to different languages.
+
+
+**Congratulations!.**  We have created a **Gradio** application that translate videos to **different languages**.
 
