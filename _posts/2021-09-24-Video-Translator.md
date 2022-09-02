@@ -126,7 +126,7 @@ Then you can **play** it. Also you can download it.
 
 You can see the live program here:
 
-[https://gradio.app/hub/ruslanmv/Video-Translator](https://gradio.app/hub/ruslanmv/Video-Translator)
+[https://huggingface.co/spaces/ruslanmv/Video-Translator](https://huggingface.co/spaces/ruslanmv/Video-Translator)
 
 ## Example
 
