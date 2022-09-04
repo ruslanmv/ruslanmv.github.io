@@ -1,6 +1,6 @@
 ---
 title: "How to translate videos from YouTube with Python"
-excerpt: "Creation of a WebApp to translate Youtube Videos with Python "
+excerpt: "Creation of a WebApp to translate YouTube Videos with Python "
 
 header:
   image: "../assets/images/posts/2022-09-01-How-to-translate-videos-in-YouTube-with-Python/youtube1.jpg"
@@ -29,11 +29,11 @@ or even to **Japanese**.
 
 # Introduction 
 
-I have developed this program taking the **subscripts** of **YouTube** and **translate** them, if they do not exist, then it is extracted the audio and is  applied the technique of  **speech recognition** and then applied the technique of  **text to speech**  then  it is replaced the audio video with the translated audio.
+I have developed this program by taking the **subscripts** of **YouTube** and **translating** them, if they do not exist, then the audio is extracted, and is applied the technique of **speech recognition** and then applied the technique of **text to speech** then it is replaced the audio-video with the translated audio.
 
-Notice that this program is **not designed** to translate **musical videos** or **videos larger than 10 minutes**. Because there are limits of the **APIs** used in this program.  Moreover, the quality of the audio should be good.
+Notice that this program is **not designed** to translate **musical videos** or **videos larger than 10 minutes**. Because there are limits to the **APIs** used in this program. Moreover, the quality of the audio should be good.
 
-Well, is time to explain how to use this program, first at all we need to create our environment.
+Well, it is time to explain how to use this program, first of all, we need to create our environment.
 
 ## Step 1. Creation of the environment
 
@@ -70,19 +70,19 @@ conda install ipykernel
 python -m ipykernel install --user --name youtube-translator --display-name "Python (Youtube)"
 ```
 
-For this project we need to install the the following repository
+For this project, we need to install the following repository
 
 ```
 git clone https://github.com/ruslanmv/Youtube-Video-Translator.git
 ```
 
-then we enter to the directory
+then we enter the directory
 
 ```
 cd Youtube-Video-Translator.git
 ```
 
-then you enter to the folder that have been created
+then you enter the folder that has been created
 
 ```
 cd Youtube-Video-Translator
@@ -94,7 +94,7 @@ and for today, we  are going to run a simple WebApp so go to the folder gradio
 cd gradio
 ```
 
-and then we install al the requirements by typing
+and then we install all the requirements by typing
 
 ```
 pip install -r requirements.txt
@@ -118,9 +118,9 @@ and then  you will see
 
 ![](../assets/images/posts/2022-09-01-How-to-translate-videos-in-YouTube-with-Python/run.jpg)
 
-then copy the **local URL** and open your favorite **WebBrowser** and paste it,  
+then copy the **local URL** and open your favorite **web browser**and paste it,  
 
-or just click  [http://127.0.0.1:7860/](http://127.0.0.1:7860/) and will open somthing like
+or just click  [http://127.0.0.1:7860/](http://127.0.0.1:7860/) and it will open something like
 
 ![image-20220904210750257](../assets/images/posts/2022-09-01-How-to-translate-videos-in-YouTube-with-Python/image-20220904210750257.png)
 
@@ -134,11 +134,11 @@ Then just for example click over **the first example** and **click submit** , yo
 
 and then play.
 
-You can  choose **initial language** that  is the source **originally** and **final language** is the language that you want.
+You can choose the **initial language** that is the source **originally** and the **final language** is the language that you want.
+
+The previous **English** video also can be translated into **German**
 
 
-
-from **English** also you can translate to **German**
 
 <iframe src="https://player.vimeo.com/video/746346337?h=757bf0bf74&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Youtube Video Translator -  Video translated to German"></iframe>
 
