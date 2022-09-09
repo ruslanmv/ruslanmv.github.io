@@ -1,5 +1,5 @@
 ---
-title: "How to create a video with Artificial Intelligence from a text "
+title: "Text to video with Artificial Intelligence "
 excerpt: "Video Generator from stories with Artificial Intelligence with DALL-E and DistillBART model"
 
 header:
@@ -1183,6 +1183,6 @@ HTML("""
 
 
 
-Great!,  let us summarize all the previous steps into a single code [here](https://github.com/ruslanmv/Text-to-Video-Story/blob/master/python_code/text_to_video_single.py) . You can play with this code in **Google Collab** by  download the single code [here](https://colab.research.google.com/github/ruslanmv/Text-to-Video-Story/blob/master/video_story_colab_small.ipynb) or the full notebook code [here](https://colab.research.google.com/github/ruslanmv/Text-to-Video-Story/blob/master/Video_story_creator_full.ipynb).
+Great!,  let us summarize all the previous steps into a single code [here](https://github.com/ruslanmv/Text-to-Video-Story/blob/master/python_code/text_to_video_single.py) . You can play with this code in **Google Collab** by  download the single code [here](https://colab.research.google.com/github/ruslanmv/Text-to-Video-Story/blob/master/video_story_colab_small.ipynb) or the full notebook code [here](https://github.com/ruslanmv/Text-to-Video-Story/blob/master/video_story_creator_full.ipynb).
 
 **Congratulations!**  You have finished this project.
