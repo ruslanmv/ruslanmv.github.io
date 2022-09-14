@@ -1,6 +1,6 @@
 ---
 title: "How  to deploy a  WebApp on AWS Cloud SageMaker Notebook"
-excerpt: "How to run WebApp on SageMaker Notebook"
+excerpt: "How to run WebApp on SageMaker Notebook with Ngrok"
 
 header:
   image: "../assets/images/posts/2022-04-09-How-to-run-WebApp-on-SageMaker-Notebook/cloud.jpg"
