@@ -325,7 +325,7 @@ Now we are ready to test our enviroment.
 
 # Step 7- Testing Environment
 
-Open the  **hello_world.ipynb** , verify that you are in the kernel  Python 3 (text2video) 
+Open the  **hello_world.ipynb** , verify that you are in the kernel  Python 3 (Your Kernell) 
 
 ![image-20220829204601379](../assets/images/posts/2022-04-09-How-to-run-WebApp-on-SageMaker-Notebook/image-20220829204601379.png)
 
