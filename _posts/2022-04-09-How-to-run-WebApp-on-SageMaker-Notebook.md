@@ -1,5 +1,5 @@
 ---
-title: "How  to deploy a Machine Learning Model WebApp on AWS Cloud SageMaker Notebook"
+title: "How  to deploy a  WebApp on AWS Cloud SageMaker Notebook"
 excerpt: "How to run WebApp on SageMaker Notebook"
 
 header:
