@@ -15,7 +15,7 @@ With **Amazon Web Services** you can simply  create an instance with the adequat
 
 In this blog post I will show how to create a web application on **AWS SageMaker** Notebook and connect with from your computer.
 
-In particular we will create an application that will create a 
+In particular we will create a demo application by using **Gradio**, that is the fastest way to demo your machine learning model with a friendly web interface so that anyone can use it, anywhere.
 
 ## Architecture
 
