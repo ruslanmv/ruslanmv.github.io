@@ -331,7 +331,7 @@ Open the  **hello_world.ipynb** , verify that you are in the kernel  Python 3 (Y
 
 
 
-and run he first cell
+and run the first cell
 
 ```python
 import gradio as gr
@@ -415,7 +415,7 @@ and the output
 /home/ec2-user/anaconda3/envs/YourKernel
 ```
 
-However if we want to install to our enviroment by using our terminal we have to be careful, becase Sagemaker runs on their own container, then in the terminal of Sagemaker we have to load propertly the enviroment that we have created
+However if we want to install  new modules to our environment by using our terminal we have to be careful, because Sagemaker runs on their own container, then in the terminal of Sagemaker we have to load property the environment that we have created
 
 ```python
 Sagemaker = True
@@ -513,6 +513,8 @@ Currently supported shells are:
 See 'conda init --help' for more information and options.
 IMPORTANT: You may need to close and restart your shell after running 'conda init'.
 ```
+
+In conclusion, try to be always in your enviroment and avoid use the base kernell.
 
 ## Catch os.system exceptions with Python
 
