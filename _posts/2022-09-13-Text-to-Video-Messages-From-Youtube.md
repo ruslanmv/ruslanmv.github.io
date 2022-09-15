@@ -48,11 +48,11 @@ The web app that we want to to create is like this:
 
 
 
-where you can make **Albert Einstein** speaking about machine learning
+where you can make **Albert Einstein** speak about machine learning
 
 <iframe src="https://player.vimeo.com/video/749972567?h=d51b2598a2&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Albert Einstein - Generated with Artificial intelligence (AI).mp4"></iframe>
 
-or **Mark Zuckerberg**
+or  even **Mark Zuckerberg**.
 
 
 
