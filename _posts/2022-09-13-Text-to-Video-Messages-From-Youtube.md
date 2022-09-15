@@ -571,7 +571,6 @@ Here we create the modules needed for the web application.
 ```python
 def time_format_check(input1):
     timeformat = "%H:%M:%S"
-    #input1 = input("At what time did sensor 1 actuate? ")
     try:
         validtime = datetime.strptime(input1, timeformat)
         print("The time format is valid", input1)
@@ -581,6 +580,8 @@ def time_format_check(input1):
         print("The time {}  has not valid format hh:mm:ss".format(input1))
         return True
 ```
+
+We need to count the time in seconds, so we define the following
 
 
 ```python
@@ -593,7 +594,7 @@ def to_seconds(datetime_obj):
     return seconds
 ```
 
-
+and finally, we require to define the YouTube URL validator
 
 
 ```python
@@ -615,12 +616,6 @@ def validate_youtube(url):
 ```
 
 
-```python
-deltas=time_between("00:06:00","00:07:00" )
-len(str(deltas))
-```
-
-<img src="../assets/images/posts/2022-09-13-Text-to-Video-Messages-From-Youtube/try_again2.png" style="zoom:50%;" />
 
 
 
@@ -683,6 +678,8 @@ def validate_time(initial_time,final_time,video_length):
         return is_wrong
 ```
 
+ For example, given a period between the initial and final time of your trim is larger than your original video, you have to identify this issue,
+
 
 ```python
 validate_time("00:00:01","00:05:00", 200)
@@ -722,11 +719,15 @@ validate_youtube(URL)
 #video_generator(Text,URL,"00:00:01","00:00:10")
 ```
 
+The first case: Initial time > Final time
+
 
 ```python
 # Initial time > Final time
 video_generator(Text, URL,"00:00:10","00:00:01")
 ```
+
+you get
 
     Checking the url https://www.youtube.com/watch?v=xw5dvItD5zY
     Your video is less than 10 minutes
@@ -736,15 +737,15 @@ video_generator(Text, URL,"00:00:10","00:00:01")
     
     './demo/tryagain0.mp4'
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/fsZpjkdQEr8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
+Second case: Trim is larger than video
 
 
 ```python
 #Trim is larger than video
 video_generator(Text, URL,"00:00:01","00:05:00")
 ```
+
+you get
 
     Checking the url https://www.youtube.com/watch?v=xw5dvItD5zY
     Your video is less than 10 minutes
@@ -755,11 +756,15 @@ video_generator(Text, URL,"00:00:01","00:05:00")
     
     './demo/tryagain0.mp4'
 
+Third case: Trim is larger than the limit of 5 min
+
 
 ```python
-#Trim is larger than limit of 4 min
+#Trim is larger than limit of 5 min
 video_generator(Text, URL,"00:00:01","00:06:00")
 ```
+
+your output
 
     Checking the url https://www.youtube.com/watch?v=xw5dvItD5zY
     Your video is less than 10 minutes
@@ -770,9 +775,11 @@ video_generator(Text, URL,"00:00:01","00:06:00")
     
     './demo/tryagain0.mp4'
 
+Given those types of issues the program will show the following error message:
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fsZpjkdQEr8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Once we have created all the modules that allow us check if the source video are okay we create the final application with gradio.
+Once we have created all the modules that allow us check if the source video are okay we create the final application with Gradio.
 
 ## Step 13 - Gradio Web App creation
 
@@ -827,7 +834,11 @@ demo=gr.Interface(fn = video_generator,
             )
 ```
 
-You can run the following cell and in the text you can add the following quote:
+
+
+
+
+You can run the following cell and in the text ,you can add the following quote:
 
 > I am cloning your voice, Obama!. Just as electricity transformed almost everything 100 years ago, today I actually have a hard time thinking of an industry that I don’t think AI (Artificial Intelligence) will transform in the next several years
 
@@ -848,14 +859,7 @@ and you will get the following:
 
 ![](../assets/images/posts/2022-09-13-Text-to-Video-Messages-From-Youtube/image-20220915004702102.png)
 
-
-
-
-```
-(<gradio.routes.App at 0x7f975aab29d0>,
- 'http://127.0.0.1:7862/',
- 'https://18966.gradio.app')
-```
+with the video
 
 
 
@@ -863,18 +867,10 @@ and you will get the following:
 
 
 
-
-
-
-
 You can close the server
 
 ```python
 demo.close()
-```
-
-```
-Closing server running on port: 7862
 ```
 
 You can clean  the current directory
@@ -889,8 +885,7 @@ cleanup()
 
 Thank you for use this notebook. Don't forget delete your instance after use.
 
-The python version of this program is hosted the **HuggingFace** space Tex2Lip
+The python version of this program is hosted the **HuggingFace** space [Tex2Lip](https://huggingface.co/spaces/ruslanmv/Text2Lip)
 
-[![image-20220915010158326](../assets/images/posts/2022-09-13-Text-to-Video-Messages-From-Youtube/image-20220915010158326.png)](https://huggingface.co/spaces/ruslanmv/Text2Lip)
+**Congratulations!** You have created a Web App that creates a Video with Artificial Intelligence with SageMaker.
 
-For more demos and posts, please visit  [https://ruslanmv.com/](https://ruslanmv.com/)
