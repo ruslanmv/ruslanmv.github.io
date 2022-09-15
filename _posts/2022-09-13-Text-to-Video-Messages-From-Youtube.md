@@ -42,7 +42,25 @@ We are going to discuss the extended version to understand how things were done.
 
 The web app that we want to to create is like this:
 
-[![Web App](../assets/images/posts/2022-09-13-Text-to-Video-Messages-From-Youtube/image-20220915013637393.png)](https://huggingface.co/spaces/ruslanmv/Text2Lip)
+
+
+![image-20220915151632876](../assets/images/posts/2022-09-13-Text-to-Video-Messages-From-Youtube/image-20220915151632876.png)
+
+
+
+where you can make **Albert Einstein** speaking about machine learning
+
+<iframe src="https://player.vimeo.com/video/749972567?h=d51b2598a2&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Albert Einstein - Generated with Artificial intelligence (AI).mp4"></iframe>
+
+or **Mark Zuckerberg**
+
+
+
+<iframe src="https://player.vimeo.com/video/749747022?h=feff229ce0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Mark Zuckerberg - Generated with Artificial intelligence (AI).mp4"></iframe>
+
+
+
+
 
 ## Step 1 - Cloning the repository
 
@@ -859,11 +877,19 @@ and you will get the following:
 
 ![](../assets/images/posts/2022-09-13-Text-to-Video-Messages-From-Youtube/image-20220915004702102.png)
 
-with the video
+and with Barack Obama
 
 
 
 <iframe src="https://player.vimeo.com/video/749765456?h=92fcf3937a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Obama -Generated with Artificial intelligence (AI)"></iframe>
+
+
+
+You can try with   **Ronald Reagan**
+
+
+
+<iframe src="https://player.vimeo.com/video/749747057?h=baae0e29c7&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="500" height="281" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Ronald Reagan- Generated with Artificial intelligence (AI)"></iframe>
 
 
 
@@ -883,7 +909,7 @@ cleanup()
 
 ## Step 14 - Shutdown your instance and stop and delete instance
 
-Thank you for use this notebook. Don't forget delete your instance after use.
+Thank you being here. Don't forget delete your instance after use.
 
 The python version of this program is hosted the **HuggingFace** space [Tex2Lip](https://huggingface.co/spaces/ruslanmv/Text2Lip)
 
