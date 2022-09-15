@@ -38,7 +38,7 @@ There are two versions of this app.
 - The notebook version (.ipynb ) that is the extended version that we are going to see first,
 - The python version  (.py) that is the simplified version.
 
-We are going to discuss the extended version to understand how the things were done.
+We are going to discuss the extended version to understand how things were done.
 
 The web app that we want to to create is like this:
 
@@ -66,8 +66,7 @@ cd Video-Speech-Generator-from-Youtube
 
 ## Step 2 - Environment setup
 
-First at all, we need to install the environment to this application, that will be **VideoMessage**, that will be executed on **python=3.7.13** and it is required
-**ffmpeg** and **git-lfs**.
+First, we need to install the environment to this application, which will be **VideoMessage**, which will be executed on **python=3.7.13** and it is required **ffmpeg** and **git-lfs**.
 
 To do this task. open a terminal and type:
 
@@ -75,16 +74,15 @@ To do this task. open a terminal and type:
 sh-4.2$ sh install.sh
 ```
 
-after is done, you will git something like
+after it is done, you will get something like
 
 ![image-20220914231510362](../assets/images/posts/2022-09-13-Text-to-Video-Messages-From-Youtube/image-20220914231510362.png)
 
-You can open the  **Video-Message-Generator.ipynb** notebook and choose the kernell **VideoMessage**.
+You can open the **Video-Message-Generator.ipynb** notebook and choose the kernel **VideoMessage**.
 
 ## Step 3 - Definition of variables.
 
-In ordering to begin the construction of the application we require to manage well the environments of this Cloud Service.
-We can import the modules sys and and determine which environment we are using. 
+In order to begin the construction of the application, we require to manage well the environments of this Cloud Service. We can import the module sys and determine which environment we are using.
 
 
 ```python
@@ -94,8 +92,7 @@ print(sys.prefix)
 
     /home/ec2-user/anaconda3/envs/VideoMessage
 
-However, to install and import modules  to our environment from the terminal we should be careful, because Sagemaker runs on their own container,
-and we have to load property the environment that we have created.
+However, to install and import modules to our environment from the terminal we should be careful because Sagemaker runs on its own container, and we have to load properly the environment that we have created.
 
 
 ```python
@@ -108,11 +105,11 @@ else:
 
 ## Step 4. Setup of the dependencies
 
-In this part we have install all dependencies of our custom program.
+We are going to install the dependencies of our custom program.
 
 We will use the model Wav2Lip to synchronize the speech to the video.
 
-Due to we are going to install for first time, we define True otherwise False
+Due to we are going to install it for the first time, we define True otherwise False
 
 
 ```python
@@ -160,7 +157,7 @@ After the cell was executed, several modules will be installed:
     Installing collected packages: llvmlite, tqdm, threadpoolctl, pycparser, pillow, numpy, joblib, audioread, torch, scipy, opencv-python, opencv-contrib-python, numba, cffi, torchvision, soundfile, scikit-learn, resampy, librosa
     Successfully installed audioread-3.0.0 cffi-1.15.1 joblib-1.1.0 librosa-0.7.0 llvmlite-0.31.0 numba-0.48.0 numpy-1.17.1 opencv-contrib-python-4.6.0.66 opencv-python-4.1.0.25 pillow-9.2.0 pycparser-2.21 resampy-0.3.1 scikit-learn-1.0.2 scipy-1.7.3 soundfile-0.10.3.post1 threadpoolctl-3.1.0 torch-1.1.0 torchvision-0.3.0 tqdm-4.45.0
 
-Then we require download  some pretrained models that uses  Wav2Lip 
+Then we require to download some pre-trained models that use Wav2Lip.
 
 ```python
 from utils.default_models import ensure_default_models
@@ -178,7 +175,7 @@ ensure_default_models(Path("Wav2Lip"))
     Wav2Lip/checkpoints/wav2lip_gan.pth
     Wav2Lip/face_detection/detection/sfd/s3fd.pth
 
-After this, we require another program that will synthetize the voice from your text. We are going to use the  Coqui-TTS  that is needed for the  generation of voice.
+After this, we require another program that will synthesize the voice from your text. We are going to use the Coqui-TTS that is needed for the generation of voice.
 
 
 ```python
@@ -217,7 +214,7 @@ If the previous modules are loaded, then we have completed the first part of the
 
 ## Step 5. Definition de modules used in this program
 
-To manage all the information that contains our web application we require create some helper functions,
+To manage all the information that contains our web application we require to create some helper functions,
 
 
 ```python
@@ -253,7 +250,7 @@ the result is ok.
 
     '0:00:09'
 
-The next step is create the module to download videos from YouTube,  I have defined two versions, one given by pytube and the other youtube-dl
+The next step is to create the module to download videos from YouTube, I have defined two versions, one given by pytube and the other youtube-dl
 
 
 ```python
@@ -283,9 +280,7 @@ def download_youtube(url):
     os.system("{} youtube-dl -f  mp4 --output youtube.mp4 '{}'".format(env,url_download))
 ```
 
-the difference is that youtube-dl takes too much time, can be used to download YouTube videos with higher quality but I prefer for now, better performance.
-
-We can test both modules.
+the difference is that youtube-dl takes too much time and can be used to download YouTube videos with higher quality but I prefer, for now, better performance. We can test both modules.
 
 
 ```python
@@ -350,7 +345,7 @@ def clean_data():
         print("Current directory is-", os.getcwd())
 ```
 
-The next step is define a program that will trim the YouTube videos.
+The next step is to define a program that will trim the YouTube videos.
 
 
 ```python
@@ -380,7 +375,7 @@ def youtube_trim(url,start,end):
     return trimmed_video, trimmed_audio
 ```
 
-## Step 7- Simple check of pandas and numpy versions
+## Step 7- Simple check of pandas and NumPy versions
 
 
 ```python
@@ -411,7 +406,7 @@ os.system('{} pip show pandas numpy'.format(env))
     Requires: 
     Required-by: gradio, librosa, matplotlib, numba, opencv-contrib-python, opencv-python, pandas, resampy, scikit-learn, scipy, tensorboardX, torchvision, TTS, umap-learn
 
-I need to select a custom version OpenCV.
+I need to select a custom version of OpenCV.
 
 
 ```python
@@ -420,10 +415,9 @@ if is_first_time:
 ```
 
 
-## Step 8 - In this part we import the Libraries for voice recognition
+## Step 8 -  Libraries for voice recognition
 
-We need to clone the voice from the YouTube clip, in order to reproduce the most real possible the
-speech.
+We need to clone the voice from the YouTube clip, in order to reproduce the most real possible speech.
 
 
 ```python
@@ -433,21 +427,19 @@ VOICE_PATH = "utils/"
 sys.path.append(VOICE_PATH) # set this if VOICE is not installed globally
 ```
 
-Finally we will  import the last dependency with the following :
+Finally, we will import the last dependency with the following ::
 
 
 ```python
 from utils.voice import *
 ```
 
-If was imported, then we have loaded all the essential modules  required to run this program.
-
-The next step is the creation of the main program .
+If was imported, then we have loaded all the essential modules  required to run this program. The next step is the creation of the main program .
 
 
 ## Step 9 - Video creation
 
-In this part, we extract the trimmed audio and video,  from the trimmed audio we extract the embendings of the original sound, decode and decoude  the sound by using our input text. Then from this new sound spectrum, we detect all the faces of the trimmed video clip, and then replaced with a new mouth that is synchronized with the new sound spectrum. In few words, we replace the original sound speech with  the cloned voice  in the new video.
+In this part, we extract the trimmed audio and video, from the trimmed audio we extract the embeddings of the original sound, and decode and encode the sound by using our input text. Then from this new sound spectrum, we detect all the faces of the trimmed video clip, and then replaced it with a new mouth that is synchronized with the new sound spectrum. In a few words, we replace the original sound speech with the cloned voice in the new video.
 
 
 ```python
@@ -486,7 +478,7 @@ def create_video(Text,Voicetoclone):
 
 ## Step 10 - Test trimmed video 
 
-Now that we have finished write all the pieces of the program, let choose one example video, from the The King's Speech: King Charles III ,  we trim the video,
+Now that we have finished writing all the pieces of the program, let's choose one example video, from The King’s Speech: King Charles III, we trim the video,
 
 
 ```python
@@ -527,7 +519,7 @@ print("Dowload this video from", final_video)
 showVideo(final_video)
 ```
 
-During the creation, it was created the synthetized sound
+During its creation, it was created the synthesized sound
 
 
     /home/ec2-user/SageMaker/VideoMessageGen/sample_data/input_audio.mp3
@@ -535,8 +527,6 @@ During the creation, it was created the synthetized sound
     /home/ec2-user/SageMaker/VideoMessageGen/sample_data/input_audio.mp3
      > text:  I am clonning your voice. Charles!. Machine intelligence is the last invention that humanity will ever need to make.
     Generated Audio
-
-
 
 
 <audio  controls="controls" >
@@ -658,7 +648,7 @@ def video_generator(text_to_say,url,initial_time,final_time):
     return final_video
 ```
 
-
+Creation of the control of  the input time
 
 
 ```python
@@ -703,7 +693,9 @@ validate_time("00:00:01","00:05:00", 200)
     OK
     The trim is larger than video lenght
 
+Given an error you will get the following message:
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UB1yB577sIo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Step 14 - Unit Tests
 
@@ -744,7 +736,7 @@ video_generator(Text, URL,"00:00:10","00:00:01")
     
     './demo/tryagain0.mp4'
 
-<img src="../assets/images/posts/2022-09-13-Text-to-Video-Messages-From-Youtube/try_again0.png" style="zoom:50%;" />
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fsZpjkdQEr8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
