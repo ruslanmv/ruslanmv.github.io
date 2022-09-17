@@ -1068,7 +1068,7 @@ Azure Data Science Practice Questions Part 4.
 
      -Specify a tag named accuracy with the accuracy metric as a value when ·
      registering the model, and only register subsequent models if their accuracy is higher than the accuracy tag value of the currently registered model-
-
+{:start="181"}
 181. ### You must deploy the model as an Azure Machine Learning real-time web service using the Model.deploy method in the Azure Machine Learning SDK. The deployed web service must return real-time predictions of fraud based on transaction data input.
      You need to create the script that is specified as the entry_script parameter for the InferenceConfig class used to deploy the model.
      What should the entry script do?
@@ -1511,7 +1511,6 @@ Azure Data Science Practice Questions Part 6.
 <iframe src="https://player.rss.com/ruslanmv/621185" style="width: 100%" title="rss embed thingy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen><a href="https://rss.com/podcasts/ruslanmv/621185/">Azure Data Science Practice Questions - Part 6 | RSS.com</a></iframe>
 
 {:start="252"}
-
 252. ### You are preparing to carry out a parameter sweep of the model to tune hyperparameters. You have to make sure that the sweep allows for every possible combination of hyperparameters to be iterated. Also, the computing resources needed to carry out the sweep must be reduced. Which of the following actions should you take?
 
      You should consider making use of the Random grid sweep mode.
