@@ -743,14 +743,19 @@ Azure Data Science Practice Questions Part 3.
 116. ### You plan to use automated machine learning to create a time-series model that predicts temperature over the next seven days.
 
      1: You choose Forcasting
+	 
      Task: The type of task to run. Values can be 'classification', 'regression', or 'forecasting' depending on the type of automated ML problem to solve.
-     2: You select Temperature
+     
+	 2: You select Temperature
      The training data to be used within the experiment. It should contain both training features and a label column (optionally a sample weights column).
-     3: You choose Observation_time
+     
+	 3: You choose Observation_time
      time_column_name: The name of the time column. This parameter is required when forecasting to specify the datetime column in the input data used for building the time series and inferring its frequency. This setting is being deprecated. Please use forecasting_parameters instead.
-     4: You select 7 - "predicts temperature over the next seven days"
+     
+	 4: You select 7 - "predicts temperature over the next seven days"
      max_horizon: The desired maximum forecast horizon in units of time-series frequency. The default value is 1.
      Units are based on the time interval of your training data, e.g., monthly, weekly that the forecaster should predict out. When task type is forecasting, this parameter is required.
+	 
 	 5: You select 50 models - "For the initial round of training, you want to train a maximum of 50 different models
 
 {:start="118"}
@@ -1233,8 +1238,8 @@ Azure Data Science Practice Questions Part 5.
 
      1: Boosted Decision Tree Regression
      Mean absolute error (MAE) measures how close the predictions are to the actual outcomes; thus, a lower score is better.
-     2:
-     Online Gradient Descent: If you want the algorithm to find the best parameters for you, set Create trainer mode option to Parameter Range. You can then specify multiple values for the algorithm to try.
+     
+	 2:Online Gradient Descent: If you want the algorithm to find the best parameters for you, set Create trainer mode option to Parameter Range. You can then specify multiple values for the algorithm to try.
 
 206. ###  You need to select the bias and variance properties of the model with varying tree depth values.
 
@@ -1243,10 +1248,12 @@ Azure Data Science Practice Questions Part 5.
      In decision trees, the depth of the tree determines the variance. A complicated decision tree (e.g. deep) has low bias and high variance. Note: In statistics and machine learning, the bias  "variance tradeoff is the property of a set of predictive models whereby models with a lower bias in parameter estimation have a higher variance of the parameter estimates across samples, and vice versa. Increasing the bias will decrease the variance. Increasing the variance will decrease the bias.
 
 207. ### You need to identify a parameter set for the new model using Azure Machine Learning Studio. Which module you should use for each step? To answer, drag the appropriate modules to the correct steps. Each module may be used once or more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
-     1: Split data -
+     1: Split data.
 
-     2: Partition and Sample -
-     3: Two-Class Boosted Decision Tree
+     2: Partition and Sample.
+	 
+     3: Two-Class Boosted Decision Tree.
+	 
      4: Tune Model Hyperparameters
 
 208. ### You are analyzing the asymmetry in a statistical distribution. The following image contains two density curves that show the probability distribution of two datasets.
@@ -1322,7 +1329,8 @@ Azure Data Science Practice Questions Part 5.
      The model returns different performance metrics for people from different ethnic groups.
      You need to use Fairlearn to mitigate and minimize disparities for each category in the Ethnicity feature.
      Which technique and constraint should you use? To answer, select the appropriate options in the answer area.
-     1: Grid Search -
+     
+	 1: Grid Search -
      Fairlearn open-source package provides postprocessing and reduction unfairness mitigation algorithms: ExponentiatedGradient, GridSearch,
      and ThresholdOptimizer.
      
@@ -1522,9 +1530,12 @@ Azure Data Science Practice Questions Part 6.
      improve the performance of the model on new data, such as the holdout test set.
      Keras provides a weight regularization API that allows you to add a penalty for weight size to the loss function.
      Three different regularizer instances are provided; they are:
-     L1: Sum of the absolute weights.
-     L2: Sum of the squared weights.
-     L1L2: Sum of the absolute and the squared weights.
+     
+	 L1: Sum of the absolute weights.
+     
+	 L2: Sum of the squared weights.
+     
+	 L1L2: Sum of the absolute and the squared weights.
 
 
 256. ### You are planning to make use of Azure Machine Learning designer to train models.
@@ -1545,7 +1556,8 @@ Azure Data Science Practice Questions Part 6.
      
 259. ### Use video to detect penalty events
 
-     1: import pytorch as deeplearninglib
+     1: import pytorch as deeplearninglib.
+	 
      2: ..DistributedSampler(Sampler)..
      DistributedSampler(Sampler):
 
