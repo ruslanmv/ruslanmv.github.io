@@ -656,6 +656,7 @@ Azure Data Science Practice Questions Part 3.
 
      Use Dataset.Tabular_from_delimeted as the data isn't cleansed.
      
+
 {:start="104"}
 104. ### You need to configure the search space for the Hyperdrive experiment. Which two parameter expressions should you use?
 
@@ -739,11 +740,10 @@ Azure Data Science Practice Questions Part 3.
 
      The key for the endpoint.
      
-
 116. ### You plan to use automated machine learning to create a time-series model that predicts temperature over the next seven days.
 
      1: You choose Forcasting
-	 
+	
      Task: The type of task to run. Values can be 'classification', 'regression', or 'forecasting' depending on the type of automated ML problem to solve.
      
 	 2: You select Temperature
@@ -755,7 +755,7 @@ Azure Data Science Practice Questions Part 3.
 	 4: You select 7 - "predicts temperature over the next seven days"
      max_horizon: The desired maximum forecast horizon in units of time-series frequency. The default value is 1.
      Units are based on the time interval of your training data, e.g., monthly, weekly that the forecaster should predict out. When task type is forecasting, this parameter is required.
-	 
+	
 	 5: You select 50 models - "For the initial round of training, you want to train a maximum of 50 different models
 
 {:start="118"}
@@ -922,10 +922,12 @@ Azure Data Science Practice Questions Part 4.
 
      pipeline_run1 = Experiment(ws, 'Compare_Models_Exp').submit(pipeline1)
 
+     
+
 156. ### The Workspace.get method loads an existing workspace without using configuration files. ws = Workspace.get(name="myworkspace", subscription_id='<azure-subscription-id>', resource_group='myresourcegroup') 
 	 MLflow Tracking with Azure Machine Learning lets you store the logged metrics and artifacts from your local runs into your Azure Machine
      Learning workspace.
-	 
+	
      The get_mlflow_tracking_uri() method assigns a unique tracking URI address to the workspace, ws, and set_tracking_uri() points the MLflow
      tracking URI to that address.
 
@@ -989,12 +991,17 @@ Azure Data Science Practice Questions Part 4.
      from azureml.core.webservice import Webservice 
 	 The following code shows how to use the SDK to update the model, environment, 
 	 and entry script for a web service to Azure Container Instances:
-	 ```
-     from azureml.core import Environment 
+	
+     ```
+	from azureml.core import Environment 
 	 from azureml.core.webservice import Webservice 
-	 from azureml.core.model import Model, InferenceConfig 
-	 predictions = service.run(input_json) 
+	 from azureml.core.model import Mod
 	```
+	
+	el, InferenceConfig 
+	 predictions = service.run(input_json) 
+	
+
 {:start="166"}
 166. ### You need to ensure that the correct version of PyTorch can be identified for the inferencing environment when the model is deployed.
 
@@ -1076,6 +1083,7 @@ Azure Data Science Practice Questions Part 4.
 
      - Load the model and use it to predict labels from input data.
      
+
 {:start="182"}
 182. ### You need to create an entry script for the service that ensures that the model is loaded when the service starts and is used to score new data as it is received. Which functions should you include in the script?
 
@@ -1251,9 +1259,9 @@ Azure Data Science Practice Questions Part 5.
      1: Split data.
 
      2: Partition and Sample.
-	 
+	
      3: Two-Class Boosted Decision Tree.
-	 
+	
      4: Tune Model Hyperparameters
 
 208. ### You are analyzing the asymmetry in a statistical distribution. The following image contains two density curves that show the probability distribution of two datasets.
@@ -1320,7 +1328,7 @@ Azure Data Science Practice Questions Part 5.
      Step 1: Select a model feature to be evaluated.
      
 	 Step 2: Select a binary classification or regression model.
-	 
+	
      Register your models within Azure Machine Learning. For convenience, store the results in a dictionary, which maps the id of the registered
      model (a string in name:version format) to the predictor itself.
      
@@ -1556,7 +1564,7 @@ Azure Data Science Practice Questions Part 6.
 259. ### Use video to detect penalty events
 
      1: import pytorch as deeplearninglib.
-	 
+	
      2: ..DistributedSampler(Sampler)..
      DistributedSampler(Sampler):
 
@@ -1598,10 +1606,10 @@ Azure Data Science Practice Questions Part 6.
      Customize styles of ads served on mobile devices.
 
      Step 1: Implement a K-Means Clustering model.
-	 
+	
      Step 2: Use the cluster as a feature in a Decision jungle model.
      Decision jungles are non-parametric models, which can represent non-linear decision boundaries.
-	 
+	
      Step 3: Use the raw score as a feature in a Score Matchbox Recommender model
 
 265. ### Understand sentiment of mobile device users at sporting events based on audio from crowd reactions.
