@@ -991,16 +991,14 @@ Azure Data Science Practice Questions Part 4.
      from azureml.core.webservice import Webservice 
 	 The following code shows how to use the SDK to update the model, environment, 
 	 and entry script for a web service to Azure Container Instances:
-	
      ```
 	from azureml.core import Environment 
 	 from azureml.core.webservice import Webservice 
-	 from azureml.core.model import Mod
+	 from azureml.core.model import Mod	el, InferenceConfig 
+	predictions = service.run(input_json) 
 	```
 	
-	el, InferenceConfig 
-	 predictions = service.run(input_json) 
-	
+
 
 {:start="166"}
 166. ### You need to ensure that the correct version of PyTorch can be identified for the inferencing environment when the model is deployed.
