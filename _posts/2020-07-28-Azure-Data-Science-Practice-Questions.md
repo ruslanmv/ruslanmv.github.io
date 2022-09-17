@@ -979,7 +979,7 @@ Azure Data Science Practice Questions Part 4.
 163. ### You need to create the inferencing script for the ParallelRunStep pipeline step. Which two functions should you include?
 
      run(mini_batch)
-     ·init()
+     init()
 
 
 164. ### You need to troubleshoot the deployment failure by determining the actions that were performed during deployment and identifying the specific action that failed.
