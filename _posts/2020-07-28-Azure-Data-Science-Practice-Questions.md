@@ -5,7 +5,7 @@ excerpt: "Top questions about Data Science in Microsoft Azure."
 header:
   image: "../assets/images/posts/2020-07-28-Azure-Data-Science-Practice-Questions/linda2.jpg"
   teaser: "../assets/images/posts/2020-07-28-Azure-Data-Science-Practice-Questions/linda2.jpg"
-  caption: "We must address, individually and collectively, moral and ethical issues raised by cutting-edge research in artificial intelligence and biotechnology, which will enable significant life extension, designer babies, and memory extraction"
+  caption: "Data scientists are involved with gathering data, massaging it into a tractable form, making it tell its story, and presenting that story to others. – Mike Loukides"
 
 ---
 Hello everyone, today we are going to practice some  Azure Data Science Questions. In the following sections we are going to answer several questions that are important in Data Science projects in the IT industry by using
@@ -124,8 +124,11 @@ We have spited the questions and answers into six parts:[ 1 ](#part-1),   [ 2 ](
        otherwise Replace with mean.
     5. You need to register the container as a datastore in an Azure Machine Learning workspace.
 
+    ```
     datastore=Datastore.register_azure_blob_container
     create_if_not_exists = False
+    ```
+    
 
 {:start="21"}
 21. ### You plan to provision an Azure Machine Learning Basic edition workspace for a data science project.
@@ -138,10 +141,12 @@ We have spited the questions and answers into six parts:[ 1 ](#part-1),   [ 2 ](
 {:start="23"}
 23. a) You need to write code to access the datastore from a notebook. How should you code?
 
+    ```
     import azureml.core
     from azure.core import Workspace, Datastore
     ws = Workspace.from_config()
     datastore= Datastore.get(ws,'demo_datastore')
+    ```
 
     b). You must define a dataset that loads all of the sales data to date into a structure that can be easily converted to a dataframe where at the end of each month, a new folder with that month's sales file is added to the sales folder
 
@@ -195,27 +200,34 @@ We have spited the questions and answers into six parts:[ 1 ](#part-1),   [ 2 ](
 
     Replace using MICE: For each missing value, this option assigns a new value, which is calculated by using a method described in the statistical literature as "Multivariate Imputation using Chained Equations" or "Multiple Imputation by Chained Equations". With a multiple imputation method, each variable with missing data is modeled conditionally using the other variables in the data before filling in the missing values.
 
-34. ### You are building a regression model using the scikit-learn Python package. You need to transform the text data to be compatible with the scikit-learn Python package. What you should do?
+33. ### You are building a regression model using the scikit-learn Python package. You need to transform the text data to be compatible with the scikit-learn Python package. What you should do?
 
     - Use Pandas. Pandas takes data (like a CSV or TSV file, or a SQL database) and creates a Python object with rows and columns called data frame that looks very similar to table in a statistical software (think Excel or SPSS for example
-
     - And use  transpose. Reshape the data from the pandas Series to columns.
 
-35. ### Which Azure tool should you use to run Python-based data visualization code?
+ {:start="34"}
 
-  Azure Notebooks
+34. ### Which Azure tool should you use to run Python-based data visualization code?
+
+​	 Azure Notebooks
+
+{:start="36"}
 
 36. ### You must clean the missing values using an appropriate operation without affecting the dimensionality of the feature set. You need to analyze a full dataset to include all values.
 
-    Replace using MICE: For each missing value, this option assigns a new value, which is calculated by using a method described in the statistical literature as "Multivariate Imputation using Chained Equations" or "Multiple Imputation by Chained Equations". With a multiple imputation method, each variable with missing data is modeled conditionally using the other variables in the data before filling in the missing values.
-    
+    Replace using MICE: For each missing value, this option assigns a new value, which is calculated by using a method described in the statistical literature as "Multivariate Imputation using Chained Equations" or "Multiple Imputation by Chained Equations". 
+
+    With a multiple imputation method, each variable with missing data is modeled conditionally using the other variables in the data before filling in the missing values.
+
     Note: Multivariate imputation by chained equations (MICE), sometimes called fully conditional specification   or  sequential regression multiple imputation   has emerged in the statistical literature as one principled method of addressing missing data. Creating multiple imputations, as opposed to single imputations, accounts for the statistical uncertainty in the imputations. In addition, the chained equations approach is very flexible and can handle variables of varying types
     (e.g., continuous or binary) as well as complexities such as bounds or survey skip patterns.
 
 {:start="38"}
-38.  ### You have a small dataset that has missing values in many columns. The data does not require the application of predictors for each column. You will use the Clean Missing Data. Which method should you use?
+38. ### You have a small dataset that has missing values in many columns. The data does not require the application of predictors for each column. You will use the Clean Missing Data. Which method should you use?
 
-    Replace using Probabilistic PCA: Compared to other options, such as Multiple Imputation using Chained Equations (MICE), this option has the advantage of not requiring the application of predictors for each column. Instead, it approximates the covariance for the full dataset. Therefore, it might offer better performance for datasets that have missing values in many columns.
+    Replace using Probabilistic PCA: Compared to other options, such as Multiple Imputation using Chained Equations (MICE), this option has the advantage of not requiring the application of predictors for each column.
+	Instead, it approximates the covariance for the full dataset. 
+	Therefore, it might offer better performance for datasets that have missing values in many columns.
 
 39. ### You need to divide data into two distinct datasets with  Azure Machine Learning Studio.
     Which module should you use?
@@ -379,12 +391,12 @@ Azure Data Science Practice Questions Part 2.
     Step 1: Configure a DataTransferStep() to fetch new image data  
 
     Step 2: Configure a PythonScriptStep() to run image_resize.y on the cpu- compute compute target.
+
     Step 3: Configure the EstimatorStep() to run training script on the gpu_compute computer target.
 
 61. ###  You need to run a script that trains a deep neural network (DNN) model and logs the loss and accuracy metrics.
 
     Attach the ml vm virtual machine as a compute target in the Azure Machine Learning workspace. Install the Azure ML SDK on the Surface Book and run.
-
 
 62. ###  You plan to use Hyperdrive to optimize the hyperparameters selected when training a model. What is max_total_runs and Policy EarlyTerminationPolicy and Discrete hyperparameters?
 
@@ -406,88 +418,82 @@ Azure Data Science Practice Questions Part 2.
     to_path() gets a list of file paths for each file stream defined by the dataset.
 
     TabularDataset.to_pandas_dataframe loads all records from the dataset into a pandas DataFrame.
+    
     TabularDataset represents data in a tabular format created by parsing the provided file or list of files.
 
 {:start="69"}
 69. ###  You need to obtain the output from the pipeline execution. Where will you find the output?
 
-    a file named parallel_run_step.txt located in the output folder ·
-    Discussion
-
+    A file named parallel_run_step.txt located in the output folder 
+    
 70. ###  You need to use the Azure Machine Learning SDK to configure the schedule for the pipeline.Which four actions should you perform in sequence?
 
     Step 1: Publish the pipeline.
     To schedule a pipeline, you'll need a reference to your workspace, the identifier of your published pipeline, and the name of the experiment in which you wish to create the schedule.
+    
     Step 2: Retrieve the pipeline ID.
     Needed for the schedule.
+    
     Step 3: Create a ScheduleRecurrence..
 
 
-71.  ###  You create a script for training a machine learning model in Azure Machine Learning service. What is
-
-    Parameter source_directory,  script_params and the conda_packages ?
-
+71. ### You create a script for training a machine learning model in Azure Machine Learning service. What is Parameter source_directory,  script_params and the conda_packages ?
     Parameter source_directory is a local directory containing experiment configuration and code files needed for a training job.
-
+    
     script_params is a dictionary of command-line arguments to pass to the training script specified in entry_script.
     The conda_packages parameter is a list of strings representing conda packages to be added to the Python environment for the experiment.
 
+{:start="72"}
 72. ###  You need to use the pandas.melt() function in Python to perform the transformation. How you use melt?
-
     ```
     import pandas as pd
-    
     df=pd.melt(datframe),id_vars='feature',val_vars=list)
     ```
-
-    Example
-
+	Example
+		
+	```
+		df = pd.DataFrame({'A': {0: 'a', 1: 'b', 2: 'c'}, ... 'B': {0: 1, 1: 3, 2: 5},
+		... 'C': {0: 2, 1: 4, 2: 6}})
+		pd.melt(df, id_vars=['A'], value_vars=['B', 'C'])
     ```
-    df = pd.DataFrame({'A': {0: 'a', 1: 'b', 2: 'c'}, ... 'B': {0: 1, 1: 3, 2: 5},
-    ... 'C': {0: 2, 1: 4, 2: 6}})
-    pd.melt(df, id_vars=['A'], value_vars=['B', 'C'])
-    ```
+
 {:start="73"}
-    
-73.  ###  Which is the difference between  Categorical variables and continuous variables?
+73. ### Which is the difference between  Categorical variables and continuous variables?
 
-    Gender is categorical
-	Height and Weight is Continuous.
-	
-	
+    Gender is categorical.
+    Height and Weight is Continuous.
 
-74.  ###  You need to configure the Preprocess Text that  multiple related words from a single canonical form and Remove pipe characters from text and  Remove words to optimize information retrieval.
+74. ### You need to configure the Preprocess Text that  multiple related words from a single canonical form and Remove pipe characters from text and  Remove words to optimize information retrieval.
 
     Remove stop words: Select this option if you want to apply a predefined stopword list to the text column. Stop word removal is performed before any other processes.
 
-    Lemmatization converts multiple related words to a single canonical form
+    Lemmatization converts multiple related words to a single canonical form.
 
     Remove special characters
 
-75.  ###  The script uses modules from the scipy library as well as several Python packages that are not typically installed in a default conda environment
+    
 
+75. ###  The script uses modules from the scipy library as well as several Python packages that are not typically installed in a default conda environment
     Create and register an Environment that includes the required packages. Use ·
     this Environment for all experiment runs.
 
-76.  ###  You need to record the row count as a metric named row_count that can be returned using the get_metrics method of the run objetct after the experiment completes. Which code should you use?
-
+76. ###  You need to record the row count as a metric named row_count that can be returned using the get_metrics method of the run objetct after the experiment completes. Which code should you use?
     run.log('row_count', rows)
 
-77.  ###  You need to select an appropriate data sampling strategy to compensate for the class imbalance.
-
+77. ###  You need to select an appropriate data sampling strategy to compensate for the class imbalance.
     You use the Synthetic Minority Oversampling Technique (SMOTE) sampling mode.
 
-78.  ###  You need to identify outliers in the data. Which two visualizations can you use?
-
+78. ###  You need to identify outliers in the data. Which two visualizations can you use?
     Box plot
 
     Scatter plot
 
-79.  ###  You are evaluating a completed binary classification machine learning model. You need to use the precision as the evaluation metric.
+    
 
+79. ###  You are evaluating a completed binary classification machine learning model. You need to use the precision as the evaluation metric.
     Binary classification confusion matrix
 
-80.  ###  You need to define a primary metric to determine the hyperparameter values that result in the model with the best accuracy score
+80. ###  You need to define a primary metric to determine the hyperparameter values that result in the model with the best accuracy score
 
     Set the primary_metric_goal of the estimator used to run the ·
     bird_classifier_train.py script to maximize.
@@ -498,8 +504,7 @@ Azure Data Science Practice Questions Part 2.
     Add code to the bird_classifier_train.py script to calculate the validation accuracy ·
     of the model and log it as a float value with the key accuracy.
 
-81.  ###  You use the dataset to train a Support Vector Machine (SVM) binary classifier. You need to use the Permutation Feature Importance module in Azure Machine Learning Studio to compute a set of feature importance scores for the dataset.
-
+81. ###  You use the dataset to train a Support Vector Machine (SVM) binary classifier. You need to use the Permutation Feature Importance module in Azure Machine Learning Studio to compute a set of feature importance scores for the dataset.
     Add a Two-Class Support Vector Machine module to initialize the SVM classifier.
 
     Add a dataset to the experiment
@@ -510,27 +515,27 @@ Azure Data Science Practice Questions Part 2.
 
     Set the Metric for measuring performance property to Classification - Accuracy and then run the experiment.
 
-82.  ###  What is random sampling
+82. ###  What is random sampling
 
     In random sampling, hyperparameter values are randomly selected from the defined search space. Random sampling allows the search space to include both discrete and continuous hyperparameters.
 
-83.  ###  The dataset contains categorical features that are highly correlated to the output label column.
+83. ###  The dataset contains categorical features that are highly correlated to the output label column.
 
     Pearson's correlation statistic, or Pearson's correlation coefficient, is also known in statistical models as the r value. For any two variables, it returns a value that indicates the strength of the correlation
 
-84. a) ### What is True Positive
+84. a) **What is True Positive?**
 
     A true positive is an outcome where the model correctly predicts the positive class
 
-    b) ### What is True Negative
+    b) **What is True Negative?**
 
     A true negative is an outcome where the model correctly predicts the negative class.
 
-    c) ### What is False Positive
+    c) **What is False Positive?**
 
     A false positive is an outcome where the model incorrectly predicts the positive class.
 
-    d) ### What is  False Negative
+    d) **What is  False Negative?**
 
     A false negative is an outcome where the model incorrectly predicts the negative class.
 
@@ -538,7 +543,7 @@ Azure Data Science Practice Questions Part 2.
 
     In random sampling, hyperparameter values are randomly selected from the defined search space. Random sampling allows the search space to include both discrete and continuous hyperparameters.
     Example:
-    
+
     ```
     from azureml.train.hyperdrive import RandomParameterSampling param_sampling = RandomParameterSampling( {
     "learning_rate": **normal**(10, 3),
@@ -557,12 +562,11 @@ Azure Data Science Practice Questions Part 2.
 87. ### You need to use the designer to create a pipeline that includes steps to perform the following tasks:
     Select the training features using the pandas filter method. Train a model based on the naive_bayes.GaussianNB algorithm.
 
-    Two-Class Neural Network -
-    The Two-Class Neural Network creates a binary classifier using a neural network algorithm.
+    Two-Class Neural Network -The Two-Class Neural Network creates a binary classifier using a neural network algorithm.
     Train a model based on the naive_bayes.GaussianNB algorithm.
-
+    
     Execute python script -
-
+    
 88. ### You need to determine whether the feature values achieve the conditions to build a Poisson regression model.
 
     The label data must be whole numbers.
@@ -596,14 +600,15 @@ Azure Data Science Practice Questions Part 2.
     PCA(n_components = 10)
     Need to reduce the dimensionality of the feature set to 10 features in both training and testing sets.
     Example:
+
+    ```
     from sklearn.decomposition import PCA
     pca = PCA(n_components=2) ;2 dimensions
     principalComponents = pca.fit_transform(x)
+    ```
 
-    pca
-    fit_transform(X[, y]) fits the model with X and apply the dimensionality reduction on X.
-     transform(x_test)
-    transform(X) applies dimensionality reduction to X.
+    pca fit_transform(X[, y]) fits the model with X and apply the dimensionality reduction on X.
+    transform(x_test),transform(X) applies dimensionality reduction to X.
 
 95. ### The Poisson correlation coefficient (r-value) of X, Y, and Z features
 
@@ -647,12 +652,11 @@ Azure Data Science Practice Questions Part 3.
 
 
 {:start="101"}
-
 101. ### You need to create a dataset named training_data and load the data from all files into a single data frame
 
      Use Dataset.Tabular_from_delimeted as the data isn't cleansed.
-
-
+     
+{:start="104"}
 104. ### You need to configure the search space for the Hyperdrive experiment. Which two parameter expressions should you use?
 
      a uniform expression for learning_rate
@@ -661,15 +665,21 @@ Azure Data Science Practice Questions Part 3.
 
 105. ### You want to use automated machine learning to find the best regression model for predicting the price column.
 
-      training_data -
-     The training data to be used within the experiment. It should contain both training features and a label column (optionally a sample weights column). If training_data is specified, then the label_column_name parameter must also be specified.
+     - Training_data - The training data to be used within the experiment. It should contain both training features and a label column (optionally a sample weights column). If training_data is specified, then the label_column_name parameter must also be specified.
+     
+     -  Validation_data - Provide validation data: In this case, you can either start with a single data file and split it into training and validation sets or you can provide a separate data file for the validation set. Either way, the validation_data parameter in your AutoMLConfig object assigns which data to use as your validation set. 
+     
+       Example, the following code example explicitly defines which portion of the provided data in dataset to use for training and validation. 
 
-      validation_data -
-     Provide validation data: In this case, you can either start with a single data file and split it into training and validation sets or you can provide a separate data file for the validation set. Either way, the validation_data parameter in your AutoMLConfig object assigns which data to use as your validation set. Example, the following code example explicitly defines which portion of the provided data in dataset to use for training and validation. dataset = Dataset.Tabular.from_delimited_files(data) training_data, validation_data = dataset.random_split(percentage=0.8, seed=1) automl_config = AutoMLConfig(compute_target = aml_remote_compute, task = 'classification', primary_metric = 'AUC_weighted', training_data = training_data, validation_data = validation_data, label_column_name = 'Class' )
+       ```
+       dataset = Dataset.Tabular.from_delimited_files(data) 
+       training_data, validation_data = dataset.random_split(percentage=0.8, seed=1) 
+       automl_config = AutoMLConfig(compute_target = aml_remote_compute, task = 'classification', primary_metric = 'AUC_weighted', training_data = training_data, validation_data = validation_data, label_column_name = 'Class' )
+       ```
+     
+     - label_column_name 
 
-      label_column_name -
-
-
+{:start="106"}
 106. ### What are Hyperparameters in Bayesian Samplig?
 
      Hyperparameters are adjustable parameters you choose to train a model that govern the training process itself. Azure Machine Learning allows you to automate hyperparameter exploration in an efficient manner, saving you significant time and resources. You specify the range of hyperparameter values and a maximum number of training runs. uniform(low, high) -
@@ -694,6 +704,7 @@ Azure Data Science Practice Questions Part 3.
 110. ### Which values should you use in the REST request and to expect in the response?
 
      1: JSON containing an OAuth bearer token Specify your authentication header in the request. To run the pipeline from the REST endpoint, you need an OAuth2 Bearer-type authentication header.
+     
      2: JSON containing the experiment name
      Add a JSON payload object that has the experiment name.
 
@@ -703,7 +714,9 @@ Azure Data Science Practice Questions Part 3.
 112. ### The model must be optimized for area under the received operating characteristic curve performance metric, averaged for each class
 
      Step 1:Create and select a new dataset by uploading he command-delimited file of penguin data.
-     Step 2: Select the Classification task type
+
+     Step 2: Select the Classification task type.
+
      Step 3: Set the Primary metric configuration setting to Accuracy
 
 113. ### Choose the one which has lower training and validation error and also the closest match.
@@ -713,48 +726,43 @@ Azure Data Science Practice Questions Part 3.
      Which primary metric should you use?
 
      AUC_weighted is a Classification metric.
+     
      Note: AUC is the Area under the Receiver Operating Characteristic Curve. Weighted is the arithmetic mean of the score for each class, weighted by the number of true instances in each class.
-
-      normalized_mean_absolute_error is a regression metric, not a classification metric.
-
+     
+     normalized_mean_absolute_error is a regression metric, not a classification metric.
+     
      normalized_root_mean_squared_error is a regression metric, not a classification metric.
-
+     
 115. ### You publish the model as a real-time service on an Azure Kubernetes Service (AKS) inference compute cluster
 
      The URL of the endpoint.
 
      The key for the endpoint.
-     ··
+     
 
 116. ### You plan to use automated machine learning to create a time-series model that predicts temperature over the next seven days.
 
-     1: forcasting
+     1: You choose Forcasting
      Task: The type of task to run. Values can be 'classification', 'regression', or 'forecasting' depending on the type of automated ML problem to solve.
-
-     2: temperature
+     2: You select Temperature
      The training data to be used within the experiment. It should contain both training features and a label column (optionally a sample weights column).
-
-     3: observation_time
+     3: You choose Observation_time
      time_column_name: The name of the time column. This parameter is required when forecasting to specify the datetime column in the input data used for building the time series and inferring its frequency. This setting is being deprecated. Please use forecasting_parameters instead.
-
-     4: 7
-     "predicts temperature over the next seven days"
+     4: You select 7 - "predicts temperature over the next seven days"
      max_horizon: The desired maximum forecast horizon in units of time-series frequency. The default value is 1.
      Units are based on the time interval of your training data, e.g., monthly, weekly that the forecaster should predict out. When task type is forecasting, this parameter is required.
+	 5: You select 50 models - "For the initial round of training, you want to train a maximum of 50 different models
 
-     5: 50
-     "For the initial round of training, you want to train a maximum of 50 different models
-
-
+{:start="118"}
 118. ### The task will attempt to find the best performing model based on a metric named accuracy.
 
-     best_model = automl_run.get_output()[1]
+     best_model = automl_run.get_output()
 
 119. ### You need to configure the sampling method for the Hyperdrive experiment.
 
      Bayesian sampling is based on the Bayesian optimization algorithm and makes intelligent choices on the hyperparameter values to sample next. It picks the sample based on how the previous samples performed, such that the new sample improves the reported primary metric. Bayesian sampling does not support any early termination policy
 
-     Random sampling
+     Random sampling.
 
 120. ### Which two early termination policies should you use?
 
@@ -773,12 +781,20 @@ Azure Data Science Practice Questions Part 3.
 
      Step 1: Create and start a Compute Instance
      To train and deploy models using Azure Machine Learning designer, you need compute on which to run the training process, test the model, and host the model in a deployed service.
+
      There are four kinds of compute resource you can create:
+
      Compute Instances: Development workstations that data scientists can use to work with data and models.
+
      Compute Clusters: Scalable clusters of virtual machines for on-demand processing of experiment code.
+
      Inference Clusters: Deployment targets for predictive services that use your trained models.
+
      Attached Compute: Links to existing Azure compute resources, such as Virtual Machines or Azure Databricks clusters.
-     Step 2: Create and run a training pipeline.. After you've used data transformations to prepare the data, you can use it to train a machine learning model. Create and run a training pipeline Step 3: Create and run a real-time inference pipeline After creating and running a pipeline to train the model, you need a second pipeline that performs the same data transformations for new data, and then uses the trained model to inference (in other words, predict) label values based on its features. This pipeline will form the basis for a predictive service that you can publish for
+
+     Step 2: Create and run a training pipeline.. After you've used data transformations to prepare the data, you can use it to train a machine learning model. Create and run a training pipeline 
+
+     Step 3: Create and run a real-time inference pipeline After creating and running a pipeline to train the model, you need a second pipeline that performs the same data transformations for new data, and then uses the trained model to inference (in other words, predict) label values based on its features. This pipeline will form the basis for a predictive service that you can publish for
 
 123. ### You need to configure the Tune Model Hyperparameters module. Which two values should you use?
 
@@ -790,10 +806,13 @@ Azure Data Science Practice Questions Part 3.
 
      1: import mlflow -
      Import the mlflow and Workspace classes to access MLflow's tracking URI and configure your workspace.
+     
      2: mlflow.start_run()
      Set the MLflow experiment name with set_experiment() and start your training run with start_run().
+     
      3: mlflow.log_metric(' ..')
      Use log_metric() to activate the MLflow logging API and begin logging your training run metrics.
+     
      4: mlflow.end_run()
 
 {:start="139"}
@@ -808,10 +827,14 @@ Azure Data Science Practice Questions Part 3.
 
 141. ### You need to configure the run to ensure that the environment includes the required packages for model training. You have instantiated a variable named aml- compute that references the target compute cluster.
 
+     ```
      sk_est = Estimator(source_directory='./my-sklearn-proj', script_params=script_params,
      compute_target=compute_target,
      entry_script='train.py',
      conda_packages=['scikit-learn'])
+     ```
+
+     {:start="142"}
 
 142. ### You are performing clustering by using the K-means algorithm. You need to define the possible termination conditions
 
@@ -838,11 +861,10 @@ Azure Data Science Practice Questions Part 3.
      You need to evaluate the model performance.
      Which two metrics can you use?
 
-     precision
-     ·accuracy
-
+     Precision and accuracy.
+     
      The evaluation metrics available for binary classification models are: Accuracy, Precision, Recall, F1 Score, and AUC.
-
+     
 146. ### You need to use Azure Machine Learning to find the combination of batch size and learning rate that results in the model with the lowest validation loss.
      What should you do?
 
@@ -895,15 +917,14 @@ Azure Data Science Practice Questions Part 4.
 
      pipeline_run1 = Experiment(ws, 'Compare_Models_Exp').submit(pipeline1)
 
-156. ### The Workspace.get method loads an existing workspace without using configuration files. ws = Workspace.get(name="myworkspace",
-     subscription_id='<azure-subscription-id>', resource_group='myresourcegroup')
-
-     MLflow Tracking with Azure Machine Learning lets you store the logged metrics and artifacts from your local runs into your Azure Machine
+156. ### The Workspace.get method loads an existing workspace without using configuration files. ws = Workspace.get(name="myworkspace", subscription_id='<azure-subscription-id>', resource_group='myresourcegroup') 
+	 MLflow Tracking with Azure Machine Learning lets you store the logged metrics and artifacts from your local runs into your Azure Machine
      Learning workspace.
+	 
      The get_mlflow_tracking_uri() method assigns a unique tracking URI address to the workspace, ws, and set_tracking_uri() points the MLflow
      tracking URI to that address.
 
-      In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
+     In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
 
 157. ### You must specify a value for the ParallelRunConfig compute_target setting of the pipeline step
 
@@ -960,9 +981,16 @@ Azure Data Science Practice Questions Part 4.
 
 165. ### You need to invoke the deployed model using native SDK classes and methods
 
-     from azureml.core.webservice import Webservice The following code shows how to use the SDK to update the model, environment, and entry script for a web service to Azure Container Instances:
-     from azureml.core import Environment from azureml.core.webservice import Webservice from azureml.core.model import Model, InferenceConfig 2: predictions = service.run(input_json) Example: The following code demonstrates sending data to the service: import json test_sample = json.dumps({'data':
-
+     from azureml.core.webservice import Webservice 
+	 The following code shows how to use the SDK to update the model, environment, 
+	 and entry script for a web service to Azure Container Instances:
+	 ```
+     from azureml.core import Environment 
+	 from azureml.core.webservice import Webservice 
+	 from azureml.core.model import Model, InferenceConfig 
+	 predictions = service.run(input_json) 
+	```
+{:start="166"}
 166. ### You need to ensure that the correct version of PyTorch can be identified for the inferencing environment when the model is deployed.
 
      Register the model, specifying the model_framework and ·
@@ -1150,9 +1178,11 @@ Azure Data Science Practice Questions Part 4.
 
      Step 1: Use the Filter Based Feature Selection module Filter Based Feature Selection identifies the features in a dataset with the greatest predictive power.
      The module outputs a dataset that contains the best feature columns, as ranked by predictive power. It also outputs the names of the features and their scores from the selected metric.
-     Step 2: Build a counting transform
+     
+	 Step 2: Build a counting transform
      A counting transform creates a transformation that turns count tables into features, so that you can apply the transformation to multiple datasets.
-     Step 3: Test the hypothesis using t-Test
+     
+	 Step 3: Test the hypothesis using t-Test
 
 199. ### You must add a feature named CityName and populate the column value with the text London.
      You need to add the new feature to the dataset. Which Azure Machine Learning Studio module should you use?
@@ -1281,7 +1311,9 @@ Azure Data Science Practice Questions Part 5.
 215. ### You must use the Fairlearn dashboard to assess fairness in a selected model. Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and
      arrange them in the correct order.
      Step 1: Select a model feature to be evaluated.
-     Step 2: Select a binary classification or regression model.
+     
+	 Step 2: Select a binary classification or regression model.
+	 
      Register your models within Azure Machine Learning. For convenience, store the results in a dictionary, which maps the id of the registered
      model (a string in name:version format) to the predictor itself.
      
@@ -1303,7 +1335,6 @@ Azure Data Science Practice Questions Part 5.
      2: Demographic parity -
      The Fairlearn open-source package supports the following types of parity constraints: Demographic parity, Equalized odds, Equal opportunity,
      and Bounded group loss.
-
 
 
 219. ### You need to implement a Data Science Virtual Machine (DSVM) that supports the Caffe2 deep learning framework. Which of the following DSVM should you create?
@@ -1555,9 +1586,11 @@ Azure Data Science Practice Questions Part 6.
      Assess a user's tendency to respond to an advertisement.
      Customize styles of ads served on mobile devices.
 
-     Step 1: Implement a K-Means Clustering model
+     Step 1: Implement a K-Means Clustering model.
+	 
      Step 2: Use the cluster as a feature in a Decision jungle model.
      Decision jungles are non-parametric models, which can represent non-linear decision boundaries.
+	 
      Step 3: Use the raw score as a feature in a Score Matchbox Recommender model
 
 265. ### Understand sentiment of mobile device users at sporting events based on audio from crowd reactions.
@@ -1692,15 +1725,15 @@ Azure Data Science Practice Questions Part 6.
      from azureml.train.hyperdrive import BanditPolicy
 
 278. ### You must configure hyperparameters in the model learning process to speed the learning phase. In addition, this configuration should cancel the lowest performing runs at each evaluation interval, thereby directing effort and resources towards models that are more likely to be successful.
-      
+     
 	  Step 1: from azureml.train.hyperdrive
-      
+     
 	  Step 2: Import TruncationCelectionPolicy
       Truncation selection cancels a given percentage of lowest performing runs at each evaluation interval. Runs are compared based on their
       performance on the primary metric and the lowest X% are terminated.
-      
+     
 	  Step 3: early_terminiation_policy = TruncationSelectionPolicy..
-      
+     
 	  Example:
       from azureml.train.hyperdrive import TruncationSelectionPolicy early_termination_policy = TruncationSelectionPolicy(evaluation_interval=1,
       truncation_percentage=20, delay_evaluation=5)
@@ -1712,7 +1745,7 @@ Azure Data Science Practice Questions Part 6.
 279. ### You must set up the experiment to cross-validate the Linear Regression and Bayesian Linear Regression modules to evaluate performance. In each case, the predictor of the dataset is the column named MedianValue. You must ensure that the datatype of the MedianValue column of the Paris dataset matches the structure of the London dataset. You must prioritize the columns of data for predicting the outcome. You must use non-parametric statistics to measure relationships.You must use a feature selection algorithm to analyze the relationship between the MedianValue and AvgRoomsInHouse columns.
      
 	 Step 1: Augment the data -
-	 
+	
      Scenario: Columns in each dataset contain missing and null values. The datasets also contain many outliers.
      
 	 Step 2: Add the Bayesian Linear Regression module.
