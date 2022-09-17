@@ -1063,19 +1063,20 @@ Azure Data Science Practice Questions Part 4.
      Register the model with the same name as the existing model.
 
 180. ### You need to register the model and ensure that the models created by subsequent retraining experiments are registered only if their accuracy is higher than the currently registered model. What are two possible ways to achieve this goal?
-     -Specify the model framework version when registering the model, and only ·
+     - Specify the model framework version when registering the model, and only ·
      register subsequent models if this value is higher.
 
-     -Specify a tag named accuracy with the accuracy metric as a value when ·
+     - Specify a tag named accuracy with the accuracy metric as a value when ·
      registering the model, and only register subsequent models if their accuracy is higher than the accuracy tag value of the currently registered model-
+
 {:start="181"}
 181. ### You must deploy the model as an Azure Machine Learning real-time web service using the Model.deploy method in the Azure Machine Learning SDK. The deployed web service must return real-time predictions of fraud based on transaction data input.
      You need to create the script that is specified as the entry_script parameter for the InferenceConfig class used to deploy the model.
      What should the entry script do?
 
-     -Load the model and use it to predict labels from input data.
-     ·
-
+     - Load the model and use it to predict labels from input data.
+     
+{:start="182"}
 182. ### You need to create an entry script for the service that ensures that the model is loaded when the service starts and is used to score new data as it is received. Which functions should you include in the script?
 
      1: init()
@@ -1145,7 +1146,6 @@ Azure Data Science Practice Questions Part 4.
      Solution: Create a MimicExplainer.
 
      Instead use Permutation Feature Importance Explainer (PFI). Note 1: Mimic explainer is based on the idea of training global surrogate models to mimic blackbox models
-
 
 
 194. You train a classification model by using a logistic regression algorithm. You must be able to explain the model's predictions by calculating the importance of each feature, both as an overall global relative importance value and as a measure of local importance for a specific set of predictions. You need to create an explainer that you can use to retrieve the required global and local feature importance values.
