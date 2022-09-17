@@ -11,7 +11,7 @@ header:
 Hello everyone, today we are going to practice some  Azure Data Science Questions. In the following sections we are going to answer several questions that are important in Data Science projects in the IT industry by using
 Microsoft Azure.
 
-Microsoft Azure, formerly known as Windows Azure, is Microsoft's public [cloud computing](https://www.techtarget.com/searchcloudcomputing/definition/cloud-computing) platform. It provides a range of cloud services, including compute, analytics, storage and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications in the public cloud.
+Microsoft Azure, formerly known as Windows Azure, is Microsoft's public cloud computing platform. It provides a range of cloud services, including compute, analytics, storage and networking. Users can pick and choose from these services to develop and scale new applications, or run existing applications in the public cloud.
 
 We have spited the questions and answers into six parts:[ 1 ](#part-1),   [ 2 ](#part-2),   [ 3 ](#part-3),   [ 4 ](#part-4),   [ 5 ](#part-5),   [ 6 ](#part-6).
 
