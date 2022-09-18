@@ -106,29 +106,28 @@ We have spited the questions and answers into six parts:[ 1 ](#part-1),   [ 2 ](
     Cleaning Missing Data
     Partition and Sample
 
-18. ### You must create a subset of the data for testing purposes using a random sampling.
-    Which values should you select?
+18. ### You must create a subset of the data for testing purposes using a random sampling. Which values should you select?
 
-    Sampling
-    This is useful if you want to create a smaller representative sample dataset for testing.
+    Sampling - This is useful if you want to create a smaller representative sample dataset for testing.
 
     1. Add the Partition and Sample module to your experiment in Studio,  and connect the dataset.
 
     2. Partition or sample mode: Set this to Sampling.
-    3. Rate of sampling.
-       Rate of sampling. Random seed for sampling.
+    3. Rate of sampling. Random seed for sampling.
        The default value is 0, meaning that a starting seed is generated based on the system clock.
-    4. You have a dataset that contains null rows.
-       You need to use the Clean Missing Data module. Which parameter should you use?
-       You can remove the row if the missing value can be considered randomly missing
-       otherwise Replace with mean.
-    5. You need to register the container as a datastore in an Azure Machine Learning workspace.
+
+19. You have a dataset that contains null rows.
+    You need to use the Clean Missing Data module. Which parameter should you use?
+    You can remove the row if the missing value can be considered randomly missing
+    otherwise Replace with mean
+
+20. You need to register the container as a datastore in an Azure Machine Learning workspace.
 
     ```
     datastore=Datastore.register_azure_blob_container
     create_if_not_exists = False
     ```
-    
+
 
 {:start="21"}
 21. ### You plan to provision an Azure Machine Learning Basic edition workspace for a data science project.
@@ -155,7 +154,7 @@ We have spited the questions and answers into six parts:[ 1 ](#part-1),   [ 2 ](
 24. ### Which enviroment you should use to run an azure machine learning designer trainer pipeline and deploying a web service from Azure ML designer.  What you should do?
     Use the enviroment with computer instance (nb_server)  and Machine Learning Compute (mlc_cluster )
 
-25. ### What is ComputeTargetException class
+25. ### What is ComputeTargetException class?
 
     An exception related to failures when creating, interacting with, or configuring a compute target.
     This exception is commonly raised for failures attaching a compute target, missing headers, and unsupported configuration values.
@@ -164,14 +163,20 @@ We have spited the questions and answers into six parts:[ 1 ](#part-1),   [ 2 ](
 
     Any  virtual machine with GPUS, ie STANDARD_NC12 or  STANDARD_NC24
 
-27. ### Which  module should use under the scenario to replace missing  values removing row and colums
+27. ### a) Which  module should use under the scenario to replace missing  values removing row and columns?
 
     Clean Missing Data
-    Which  module should use under the scenario Increase the number of low incedence examples in the dataset
+
+    ### b) Which  module should use under the scenario Increase the number of low incedence examples in the dataset?
+
     SMOTE
-    Which  module should use under the scenario to convert a categorical feture into a binary indicator
+
+    ### c) Which  module should use under the scenario to convert a categorical feture into a binary indicator?
+
     Convert to Indicator Values
-    Which  module should use under the scenario to remove potential duplicates from a dataset
+
+    ### d) Which  module should use under the scenario to remove potential duplicates from a dataset?
+
     Remove Duplicate Rows
 
 28. ### You need to normalize values to produce a feature column grouped into bins. What you should do?
@@ -979,7 +984,7 @@ Azure Data Science Practice Questions Part 4.
 163. ### You need to create the inferencing script for the ParallelRunStep pipeline step. Which two functions should you include?
 
      run(mini_batch)
-	 
+	
      init()
 
 
