@@ -898,6 +898,7 @@ Azure Data Science Practice Questions Part 4.
 151. ###  You must specify an appropriate mode for the dataset argument. Which two modes can you use
 
      as_download()
+
      as_mount()
 
 152. ### You need to reference a Python class object from the SDK for the statement.
@@ -926,14 +927,22 @@ Azure Data Science Practice Questions Part 4.
 
      
 
-156. ### The Workspace.get method loads an existing workspace without using configuration files. ws = Workspace.get(name="myworkspace", subscription_id='<azure-subscription-id>', resource_group='myresourcegroup') 
-	 MLflow Tracking with Azure Machine Learning lets you store the logged metrics and artifacts from your local runs into your Azure Machine
-     Learning workspace.
-	
-     The get_mlflow_tracking_uri() method assigns a unique tracking URI address to the workspace, ws, and set_tracking_uri() points the MLflow
-     tracking URI to that address.
+156. You create an Azure Databricks workspace and a linked Azure Machine Learning workspace.
 
-     In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
+      a) By the following code a resource group and Azure Machine Learning workspace will be created?
+
+     	ws = Workspace.get(name="myworkspace",
+     					subscription_id='<azure-subscription-id>', 
+     					resource_group='myresourcegroup')
+
+      No, The Workspace.get method loads an existing workspace without using configuration files. 
+
+     b) An azure Databricks experiment will be tracked only in the Azure Machine Learning Workspace? 
+         Yes. MLflow Tracking with Azure Machine Learning lets you store the logged metrics and artifacts from your local runs into your Azure Machine
+     	Learning workspace.
+     	The get_mlflow_tracking_uri() method assigns a unique tracking URI address to the workspace, ws, and set_tracking_uri() points the MLflow tracking URI to that address.
+     c) The epoch loss metric is set to be tracked?
+     	Yes. In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
 
 157. ### You must specify a value for the ParallelRunConfig compute_target setting of the pipeline step
 
@@ -941,18 +950,17 @@ Azure Data Science Practice Questions Part 4.
 
 158. ### Which datasets should you use to configure the data drift monitor?
 
-     1: training-dataset -
+     1: training-dataset .
      Baseline dataset - usually the training dataset for a model.
 
-     2: predictions-dataset -
+     2: predictions-dataset .
      Target dataset - usually model input data - is compared over time to your baseline dataset. This comparison means that your target dataset
      must have a timestamp column specified.
      The monitor will compare the baseline and target datasets.
 
 159. ### You need to write code to define a ScriptRunConfig object for the experiment and pass the ds dataset as an argument.
 
-     If you have structured data not yet registered as a dataset, create a TabularDataset and use it directly in your training script for your local or
-     remote experiment.
+     If you have structured data not yet registered as a dataset, create a TabularDataset and use it directly in your training script for your local or remote experiment.
      To load the TabularDataset to pandas DataFrame
      df = dataset.to_pandas_dataframe()
 
@@ -981,7 +989,7 @@ Azure Data Science Practice Questions Part 4.
 163. ### You need to create the inferencing script for the ParallelRunStep pipeline step. Which two functions should you include?
 
      run(mini_batch)
-	
+
      init()
 
 
