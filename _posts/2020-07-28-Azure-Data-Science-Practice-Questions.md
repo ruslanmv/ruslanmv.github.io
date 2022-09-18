@@ -934,11 +934,14 @@ Azure Data Science Practice Questions Part 4.
       No, The Workspace.get method loads an existing workspace without using configuration files. 
 
      b) An azure Databricks experiment will be tracked only in the Azure Machine Learning Workspace? 
-         Yes. MLflow Tracking with Azure Machine Learning lets you store the logged metrics and artifacts from your local runs into your Azure Machine
+        
+		Yes. MLflow Tracking with Azure Machine Learning lets you store the logged metrics and artifacts from your local runs into your Azure Machine
      	Learning workspace.
      	The get_mlflow_tracking_uri() method assigns a unique tracking URI address to the workspace, ws, and set_tracking_uri() points the MLflow tracking URI to that address.
-     c) The epoch loss metric is set to be tracked?
-     	Yes. In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
+     
+	 c) The epoch loss metric is set to be tracked?
+     	
+		Yes. In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
 
 {:start="157"}
 157. ### You must specify a value for the ParallelRunConfig compute_target setting of the pipeline step
