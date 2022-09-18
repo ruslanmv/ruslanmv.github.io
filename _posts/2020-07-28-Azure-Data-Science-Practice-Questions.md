@@ -393,7 +393,7 @@ Azure Data Science Practice Questions Part 2.
 
 60. ###  You create a multi-class image classification deep learning experiment by using the PyTorch framework  Which three pipeline steps should you run in sequence?
 
-    Step 1: Configure a DataTransferStep() to fetch new image data  
+    Step 1: Configure a DataTransferStep() to fetch new image data . 
 
     Step 2: Configure a PythonScriptStep() to run image_resize.y on the cpu- compute compute target.
 
@@ -407,12 +407,10 @@ Azure Data Science Practice Questions Part 2.
 
     The maximum total number of runs to create. This is the upper bound; there may be fewer runs when the sample space is smaller than this value.
 
-    Policy EarlyTerminationPolicy -
-    The early termination policy to use. If None - the default, no early termination policy will be used.
-
+    Policy EarlyTerminationPolicy - The early termination policy to use. If None - the default, no early termination policy will be used.
+    
     Discrete hyperparameters are specified as a choice among discrete values.
-    choice can be:
-    one or more comma-separated values
+    choice can be: one or more comma-separated values.
 
 {:start="68"}
 68. ###  You plan to aggregate data for all of the TSV files together and then register the aggregated data as a dataset in an Azure.    What elements are FileDataset references  and  path and TabularDataset.to_pandas_dataframe?
@@ -474,7 +472,7 @@ Azure Data Science Practice Questions Part 2.
 
     Lemmatization converts multiple related words to a single canonical form.
 
-    Remove special characters
+    Remove special characters,
 
     
 
@@ -520,7 +518,7 @@ Azure Data Science Practice Questions Part 2.
 
     Set the Metric for measuring performance property to Classification - Accuracy and then run the experiment.
 
-82. ###  What is random sampling
+82. ###  What is random sampling?
 
     In random sampling, hyperparameter values are randomly selected from the defined search space. Random sampling allows the search space to include both discrete and continuous hyperparameters.
 
@@ -562,7 +560,7 @@ Azure Data Science Practice Questions Part 2.
 86. ### You need to configure automated machine learning to automatically impute missing values and encode categorical features as part of the training task. Which parameter and value pair should you use in the AutoMLConfig class?
 
     Featurization str or FeaturizationConfig
-    Values: 'auto' / 'off' / FeaturizationConfig Indicator for whether featurization step should be done automatically or not, or whether customized featurization should be used. Column type is automatically detected. Based on the detected column type preprocessing/featurization is done as
+    Values: 'auto' / 'off' / FeaturizationConfig Indicator for whether featurization step should be done automatically or not, or whether customized featurization should be used. Column type is automatically detected. Based on the detected column type preprocessing/featurization is done as.
 
 87. ### You need to use the designer to create a pipeline that includes steps to perform the following tasks:
     Select the training features using the pandas filter method. Train a model based on the naive_bayes.GaussianNB algorithm.
@@ -715,7 +713,9 @@ Azure Data Science Practice Questions Part 3.
      Add a JSON payload object that has the experiment name.
 
 
-111. ### You start by configuring a k parameter as the number of splits. Setting K = n (the number of observations) yields n-fold and is called leave-one out cross-validation (LOO), This is why the usual choice is K=5 or 10.
+111. ### You start by configuring a k parameter as the number of splits.
+
+      Setting K = n (the number of observations) yields n-fold and is called leave-one out cross-validation (LOO), This is why the usual choice is K=5 or 10.
 
 112. ### The model must be optimized for area under the received operating characteristic curve performance metric, averaged for each class
 
@@ -728,40 +728,38 @@ Azure Data Science Practice Questions Part 3.
 113. ### Choose the one which has lower training and validation error and also the closest match.
      Minimize variance (difference between validation error and train error).
 
-114. ### The training dataset that you are using is highly unbalanced. You need to evaluate the classification model.
-     Which primary metric should you use?
-
+114. ### The training dataset that you are using is highly unbalanced. You need to evaluate the classification model.  Which primary metric should you use?
      AUC_weighted is a Classification metric.
-     
+
      Note: AUC is the Area under the Receiver Operating Characteristic Curve. Weighted is the arithmetic mean of the score for each class, weighted by the number of true instances in each class.
-     
+
      normalized_mean_absolute_error is a regression metric, not a classification metric.
-     
+
      normalized_root_mean_squared_error is a regression metric, not a classification metric.
-     
+
 115. ### You publish the model as a real-time service on an Azure Kubernetes Service (AKS) inference compute cluster
 
      The URL of the endpoint.
 
      The key for the endpoint.
-     
+
 116. ### You plan to use automated machine learning to create a time-series model that predicts temperature over the next seven days.
 
-     1: You choose Forcasting
-	
+     1: You choose Forecasting
+
      Task: The type of task to run. Values can be 'classification', 'regression', or 'forecasting' depending on the type of automated ML problem to solve.
-     
-	 2: You select Temperature
+
+      2: You select Temperature
      The training data to be used within the experiment. It should contain both training features and a label column (optionally a sample weights column).
-     
-	 3: You choose Observation_time
+
+      3: You choose Observation_time
      time_column_name: The name of the time column. This parameter is required when forecasting to specify the datetime column in the input data used for building the time series and inferring its frequency. This setting is being deprecated. Please use forecasting_parameters instead.
-     
-	 4: You select 7 - "predicts temperature over the next seven days"
+
+      4: You select 7 - "predicts temperature over the next seven days"
      max_horizon: The desired maximum forecast horizon in units of time-series frequency. The default value is 1.
      Units are based on the time interval of your training data, e.g., monthly, weekly that the forecaster should predict out. When task type is forecasting, this parameter is required.
-	
-	 5: You select 50 models - "For the initial round of training, you want to train a maximum of 50 different models
+
+      5: You select 50 models - "For the initial round of training, you want to train a maximum of 50 different models
 
 {:start="118"}
 118. ### The task will attempt to find the best performing model based on a metric named accuracy.
