@@ -338,7 +338,7 @@ Azure Data Science Practice Questions Part 2.
     1. Use the Split data into partitions option when you want to divide the dataset into subsets of the data.    
     2. Add the Partition and Sample module to your experiment in Studio , and connect the dataset.
     3. For Partition or sample mode, select Assign to Folds.
-    4. Use replacement in the partitioning:
+    4. Use replacement in the partitioning.
 
 
 52. ###  You create a new Azure subscription. No resources are provisioned in the subscription.  You need You  to create an Azure Machine Learning workspace.  What methods you can do?
@@ -362,9 +362,9 @@ Azure Data Science Practice Questions Part 2.
 55. ###  You need to select performance metrics to correctly evaluate the regression model.
     Which two metrics can you use?
 
-    a Root Mean Square Error value that is low. Root mean squared error (RMSE) creates a single value that summarizes the error in the model.
+    A Root Mean Square Error value that is low. Root mean squared error (RMSE) creates a single value that summarizes the error in the model.
 
-    an R-Squared value close to 1. Coefficient of determination, often referred to as R2, represents the predictive power of the model as a value between 0 and 1. Zero means the model is random (explains nothing); 1 means there is a perfect fit.
+    An R-Squared value close to 1. Coefficient of determination, often referred to as R2, represents the predictive power of the model as a value between 0 and 1. Zero means the model is random (explains nothing); 1 means there is a perfect fit.
 
 
 56. ###  You need to add logging to the script to allow Hyperdrive to optimize hyperparameters for the AUC metric. What should you do?
