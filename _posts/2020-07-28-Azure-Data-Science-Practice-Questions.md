@@ -800,9 +800,9 @@ Azure Data Science Practice Questions Part 3.
 
      Attached Compute: Links to existing Azure compute resources, such as Virtual Machines or Azure Databricks clusters.
 
-     Step 2: Create and run a training pipeline.. After you've used data transformations to prepare the data, you can use it to train a machine learning model. Create and run a training pipeline 
+     Step 2: Create and run a training pipeline.. After you've used data transformations to prepare the data, you can use it to train a machine learning model. Create and run a training pipeline.
 
-     Step 3: Create and run a real-time inference pipeline After creating and running a pipeline to train the model, you need a second pipeline that performs the same data transformations for new data, and then uses the trained model to inference (in other words, predict) label values based on its features. This pipeline will form the basis for a predictive service that you can publish for
+     Step 3: Create and run a real-time inference pipeline After creating and running a pipeline to train the model, you need a second pipeline that performs the same data transformations for new data, and then uses the trained model to inference (in other words, predict) label values based on its features. This pipeline will form the basis for a predictive service that you can publish for.
 
 123. ### You need to configure the Tune Model Hyperparameters module. Which two values should you use?
 
@@ -824,15 +824,14 @@ Azure Data Science Practice Questions Part 3.
      4: mlflow.end_run()
 
 {:start="139"}
-139. ### Which parameter sweep mode should you use?-
+139. ### Which parameter sweep mode should you use?
 
      Maximum number of runs on random grid: This option also controls the number of iterations over a random sampling of parameter values, but the values are not generated randomly from the specified range; instead, a matrix is created of all possible combinations of parameter values and a random sampling is taken over the matrix. This method is more efficient and less prone to regional oversampling or undersampling.
 
 140. ### You need to identify whether the classification model is overfitted.
 
-     The training loss decreases while the validation loss increases when training the ·
-     model.
-
+     The training loss decreases while the validation loss increases when training the model.
+     
 141. ### You need to configure the run to ensure that the environment includes the required packages for model training. You have instantiated a variable named aml- compute that references the target compute cluster.
 
      ```
@@ -877,7 +876,7 @@ Azure Data Science Practice Questions Part 3.
      What should you do?
 
      Run the script in an experiment based on a HyperDriveConfig object ·
-     Discussion
+     
 
 147. ### You need to ensure the pipeline runs automatically whenever the data in the folder changes.
      What should you do?
