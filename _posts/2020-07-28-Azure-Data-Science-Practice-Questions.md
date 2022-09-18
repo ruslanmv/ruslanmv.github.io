@@ -841,7 +841,7 @@ Azure Data Science Practice Questions Part 3.
      conda_packages=['scikit-learn'])
      ```
 
-     {:start="142"}
+{:start="142"}
 
 142. ### You are performing clustering by using the K-means algorithm. You need to define the possible termination conditions
 
@@ -892,8 +892,6 @@ Azure Data Science Practice Questions Part 4.
 
 <iframe src="https://player.rss.com/ruslanmv/621181" style="width: 100%" title="rss embed thingy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen><a href="https://rss.com/podcasts/ruslanmv/621181/">Azure Data Science Practice Questions - Part 4 | RSS.com</a></iframe>
 
-
-
 {:start="151"}
 151. ###  You must specify an appropriate mode for the dataset argument. Which two modes can you use
 
@@ -925,8 +923,6 @@ Azure Data Science Practice Questions Part 4.
 
      pipeline_run1 = Experiment(ws, 'Compare_Models_Exp').submit(pipeline1)
 
-     
-
 156. You create an Azure Databricks workspace and a linked Azure Machine Learning workspace.
 
       a) By the following code a resource group and Azure Machine Learning workspace will be created?
@@ -943,6 +939,7 @@ Azure Data Science Practice Questions Part 4.
      	The get_mlflow_tracking_uri() method assigns a unique tracking URI address to the workspace, ws, and set_tracking_uri() points the MLflow tracking URI to that address.
      c) The epoch loss metric is set to be tracked?
      	Yes. In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
+
 {:start="157"}
 157. ### You must specify a value for the ParallelRunConfig compute_target setting of the pipeline step
 
