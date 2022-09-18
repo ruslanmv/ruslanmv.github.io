@@ -943,7 +943,7 @@ Azure Data Science Practice Questions Part 4.
      	The get_mlflow_tracking_uri() method assigns a unique tracking URI address to the workspace, ws, and set_tracking_uri() points the MLflow tracking URI to that address.
      c) The epoch loss metric is set to be tracked?
      	Yes. In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
-
+{:start="157"}
 157. ### You must specify a value for the ParallelRunConfig compute_target setting of the pipeline step
 
      AmlCompute
@@ -1033,7 +1033,7 @@ Azure Data Science Practice Questions Part 4.
 
 170. ### You need to write a script that uses the Azure Machine Learning SDK to deploy the model. The necessary modules have been imported
 
-      AksCompute -AksWebservice -
+      AksCompute -AksWebservice. 
 
 171. ### You need to improve performance of the image classification web service with minimal downtime and minimal administrative effort. What should you advise the IT Operations team to do?
 
@@ -1107,9 +1107,7 @@ Azure Data Science Practice Questions Part 4.
      Azure Machine Learning Compute Instance
      Azure Machine Learning compute cluster is a managed-compute infrastructure that allows you to easily create a single or multi-node compute.
 
-184. ### You create a real-time inference pipeline from the training pipeline. You observe that the schema for the generated web service input is based on the dataset and includes the label column that the model predicts. Client applications that use the service must not be required to submit this
-     value.
-
+184. ### You create a real-time inference pipeline from the training pipeline. You observe that the schema for the generated web service input is based on the dataset and includes the label column that the model predicts. Client applications that use the service must not be required to submit this value.
      Add a Select Columns in Dataset module to the inference pipeline after the dataset and use it to select all columns other than the label.
 
 185. ### You must deploy the real-time inference pipeline as a web service.
@@ -1125,7 +1123,7 @@ Azure Data Science Practice Questions Part 4.
 187. ### You need to detect data drift between a baseline dataset and a subsequent target dataset by using the DataDriftDetector class.
      How should you complete the code segment?
 
-     1: create_from_datasets -
+     1: create_from_datasets. 
      The create_from_datasets method creates a new DataDriftDetector object from a baseline tabular dataset and a target time series dataset.
 
      2: backfill -
@@ -1146,7 +1144,7 @@ Azure Data Science Practice Questions Part 4.
      You need to determine the extent to which each feature in the customer data is influencing predictions.
 
      Use the interpretability package to generate an explainer for the model.
-     ·
+     
 
 191. ### The run used the model interpretation support in Azure Machine Learning to generate and upload a model explanation.
      Business managers in your organization want to see the importance of the features in the model.
@@ -1157,7 +1155,7 @@ Azure Data Science Practice Questions Part 4.
      2: list_model_explanations -
      list_model_explanations returns a dictionary of metadata for all model explanations available.
 
-
+{:start="193"}
 193. ### You train a classification model by using a logistic regression algorithm. You must be able to explain the model's predictions by calculating the importance of each feature, both as an overall global relative importance value and as a measure of local importance for a specific set of predictions. You need to create an explainer that you can use to retrieve the required global and local feature importance values.
 
      Solution: Create a MimicExplainer.
