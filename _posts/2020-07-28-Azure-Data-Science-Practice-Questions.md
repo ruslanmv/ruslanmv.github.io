@@ -1410,11 +1410,11 @@ Azure Data Science Practice Questions Part 5.
      AzCopy.
      Python.
      SSIS.
-
-224. ### You have been tasked with designing a deep learning model, which accommodates the most recent edition of Python, to recognize language. You have to include a suitable deep learning framework in the Data Science Virtual Machine (DSVM).
+{:start="225"}
+225. ### You have been tasked with designing a deep learning model, which accommodates the most recent edition of Python, to recognize language. You have to include a suitable deep learning framework in the Data Science Virtual Machine (DSVM).
      You should consider including TensorFlow.
 
-225. ### You have been tasked with evaluating your model on a partial data sample via k-fold cross-validation.
+226. ### You have been tasked with evaluating your model on a partial data sample via k-fold cross-validation.
      You have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the
      usual value choice.
      Recommendation: You configure the use of the value k=3.
@@ -1422,7 +1422,7 @@ Azure Data Science Practice Questions Part 5.
 
      No
 
-226. ### You have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.
+227. ### You have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.
      Recommendation: You configure the use of the value k=10.
      Will the requirements be satisfied?
      yes- Leave One Out (LOO) cross-validation
@@ -1430,10 +1430,10 @@ Azure Data Science Practice Questions Part 5.
      approach.
      LOO CV is sometimes
 
-227. ### You would like to split data into two separate datasets. Which actions should you take?
+228. ### You would like to split data into two separate datasets. Which actions should you take?
      You should make use of the Group Data into Bins module.
 
-228. ### You have to makes sure that the pipeline trains a model using data in a comma-separated values (CSV) file that is published on a website. A dataset for the file for this file does not exist.
+229. ### You have to makes sure that the pipeline trains a model using data in a comma-separated values (CSV) file that is published on a website. A dataset for the file for this file does not exist.
      Data from the CSV file must be ingested into the designer pipeline with the least amount of administrative effort as possible.
      Which actions should you take?
      You should add the Dataset object to the pipeline.
@@ -1441,78 +1441,80 @@ Azure Data Science Practice Questions Part 5.
      The preferred way to provide data to a pipeline is a Dataset object. The Dataset object points to data that lives in or is accessible from a
      datastore or at a Web
 
-{:start="230"}
-230. ### You plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.
+{:start="232"}
+232. ### You plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.
      Recommendation: You make use of the Remove entire row option.
      Will the requirements be satisfied?
      Yes- Remove entire row: Completely removes any row in the dataset that has one or more missing values. This is useful if the missing value can be
      considered randomly missing.
 
-231. ### You need to consider the underlined segment to establish whether it is accurate.
+233. ### You need to consider the underlined segment to establish whether it is accurate.
      To transform a categorical feature into a binary indicator, you should make use of the Clean Missing Data module.
      Select  No adjustment required   if the underlined segment is accurate. If the underlined segment is inaccurate, select the accurate option.
 
      Convert to Indicator Values
 
-232. ### You need to consider the underlined segment to establish whether it is accurate.
+234. ### You need to consider the underlined segment to establish whether it is accurate.
      To improve the amount of low incidence cases in a dataset, you should make use of the SMOTE module.
 
      No adjustment required. - Use the SMOTE module in Azure Machine Learning Studio to increase the number of underrepresented cases in a dataset used for machine
      learning. SMOTE is a better way of increasing the number of rare cases than simply duplicating existing cases.
 
-233. ### You are planning to host practical training to acquaint learners with data visualization creation using Python. Learner devices are able to connect to the internet.
+235. ### You are planning to host practical training to acquaint learners with data visualization creation using Python. Learner devices are able to connect to the internet.
      The box-plot algorithm can be used to display outliers.
 
-234. ### Learner devices are currently NOT configured for Python development. Also, learners are unable to install software on their devices as they lack administrator permissions. Furthermore, they are unable to access Azure subscriptions.
+236. ### Learner devices are currently NOT configured for Python development. Also, learners are unable to install software on their devices as they lack administrator permissions. Furthermore, they are unable to access Azure subscriptions.
      It is imperative that learners are able to execute Python-based data visualization code.
      You should consider configuring the use of Azure Notebooks.
 
-235. ### Replace using Probabilistic PCA: Compared to other options, such as Multiple Imputation using Chained Equations (MICE), this option has the advantage of not requiring the application of predictors for each column. 
+237. ### Replace using Probabilistic PCA: Compared to other options, such as Multiple Imputation using Chained Equations (MICE), this option has the advantage of not requiring the application of predictors for each column. 
 
      Instead, it approximates the covariance for the full dataset. Therefore,
      it might offer better performance for datasets that have missing values in many columns.
 
-236. ### You have recently concluded the construction of a binary classification machine learning model. You are currently assessing the model. You want to make use of a visualization that allows for precision to be used as the measurement for the
+238. ### You have recently concluded the construction of a binary classification machine learning model. You are currently assessing the model. You want to make use of a visualization that allows for precision to be used as the measurement for the
      assessment. Which actions should you take?
      You should consider using the Binary classification confusion matrix visualization.
 
-237. ### You have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.
+239. ### You have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.
      Recommendation: You configure the use of the value k=1.
      Will the requirements be satisfied?
      No
-
-238. ### You are in the process of carrying out feature engineering on a dataset.
+	 
+{:start="241"}
+241. ### You are in the process of carrying out feature engineering on a dataset.
      You want to add a feature to the dataset and fill the column value.
      Recommendation: You must make use of the Join Data Azure Machine Learning Studio module.
      Will the requirements be satisfied?
 
      No
 
-239. ### You are in the process of carrying out feature engineering on a dataset. You want to add a feature to the dataset and fill the column value.
+242. ### You are in the process of carrying out feature engineering on a dataset. You want to add a feature to the dataset and fill the column value.
      Recommendation: You must make use of the Edit Metadata Azure Machine Learning Studio module.
      Will the requirements be satisfied?
      Yes - Typical metadata changes might include marking columns as features.
 
-240. ### You plan to perform a paired t-test.
+243. ### You plan to perform a paired t-test.
      Which conditions that must apply to use a paired t-test?
 
      You have a matched pairs of scores.
 
      The sampling distribution of d is normal.
 
-241. ### The classification model will be trained via the Automated Machine Learning interface using the Classification task type. You have been informed that only linear models need to be assessed by the Automated Machine Learning.
+244. ### The classification model will be trained via the Automated Machine Learning interface using the Classification task type. You have been informed that only linear models need to be assessed by the Automated Machine Learning.
      Which actions should you take?
      You should disable automatic featurization.
 
-242. ### You want to make sure that automated machine learning is configured as follows: missing values must be automatically imputed.
+245. ### You want to make sure that automated machine learning is configured as follows: missing values must be automatically imputed.
      categorical features must be encoded as part of the training task.
      Which actions should you take?
      You should make use of the featurization parameter with the 'auto' value pair.
 
-243. ### You perform an experiment to assess various algorithms. Which algorithm reduces the variances between actual and predicted values?
+246. ### You perform an experiment to assess various algorithms. Which algorithm reduces the variances between actual and predicted values?
      Boosted Decision Tree Regression - Mean absolute error (MAE) measures how close the predictions are to the actual outcomes; thus, a lower score is better.
 
-244. ### You have been tasked with constructing a machine learning model that translates language text into a different language text. The machine learning model must be constructed and trained to learn the sequence of the.
+{:start="246"}
+249. ### You have been tasked with constructing a machine learning model that translates language text into a different language text. The machine learning model must be constructed and trained to learn the sequence of the.
      Recommendation: You make use of Recurrent Neural Networks (RNNs).
      Will the requirements be satisfied?
      Yes - Note: RNNs are designed to take sequences of text as inputs or return sequences of text as outputs, or both. They TMre called recurrent
@@ -1521,7 +1523,7 @@ Azure Data Science Practice Questions Part 5.
      It allows contextual information to flow through the network so that relevant outputs from previous time steps can be applied to network
      operations at the current time step.
 
-245. ### You have been tasked with evaluating the performance of a binary classification model that you created.
+250. ### You have been tasked with evaluating the performance of a binary classification model that you created.
      You need to choose evaluation metrics to achieve your goal.
      Which metrics you would choose
 
