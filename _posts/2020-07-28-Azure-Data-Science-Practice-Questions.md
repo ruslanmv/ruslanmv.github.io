@@ -1554,8 +1554,6 @@ Azure Data Science Practice Questions Part 6.
      You need choose a suitable compute type.
      Recommendation: You choose Compute cluster.
 
-     yes
-
 257. ### After dividing a dataset into training and testing sets, you configure the algorithm to be Two-Class Boosted Decision Tree.
      You are preparing to ascertain the Area Under the Curve (AUC).
      Which of the following is a sequential combination of the models required to achieve your goal?
@@ -1642,8 +1640,7 @@ Azure Data Science Practice Questions Part 6.
      column containing age or dollar amounts, or even a percentage. For example, you might want to divide your data set depending on the cost of
      the items, group people by age ranges, or separate data by a calendar date.
 
-267. ### Set the threshold to 0.5 and retrain if weighted Kappa deviates +/- 5% from 0.45.
-
+{:start="268"}
 268. You need to replace the missing data in the AccessibilityToHighway columns.
      How should you configure the Clean Missing Data module?
 
