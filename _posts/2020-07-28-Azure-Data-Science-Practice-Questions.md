@@ -1564,7 +1564,7 @@ Azure Data Science Practice Questions Part 6.
      
 	 L1L2: Sum of the absolute and the squared weights.
 
-
+{:start="256"}
 256. ### You are planning to make use of Azure Machine Learning designer to train models.
      You need choose a suitable compute type.
      Recommendation: You choose Compute cluster.
@@ -1607,7 +1607,7 @@ Azure Data Science Practice Questions Part 6.
      C: The easiest way to treat the outliers in Azure ML is to use the Clip Values module. It can identify and optionally replace data values that are
 
 
-
+{:start="263"}
 263. ### The linear discriminant analysis method works only on continuous variables, not categorical or ordinal variables.
      Linear discriminant analysis is similar to analysis of variance (ANOVA) in that it works by comparing the means of the variables.
      Scenario:
@@ -1684,7 +1684,7 @@ Azure Data Science Practice Questions Part 6.
 
      Step 3: Evaluate Model
 
-
+{:start="271"}
 271. ### You are a data scientist for Fabrikam Residences, a company specializing in quality private and commercial property in the United States.
      Fabrikam Residences is considering expanding into Europe and has asked you to investigate prices for private residences in major European
      cities.
