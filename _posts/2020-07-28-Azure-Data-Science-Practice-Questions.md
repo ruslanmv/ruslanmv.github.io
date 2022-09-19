@@ -1375,7 +1375,7 @@ Azure Data Science Practice Questions Part 5.
      The Fairlearn open-source package supports the following types of parity constraints: Demographic parity, Equalized odds, Equal opportunity,
      and Bounded group loss.
 
-
+{:start="219"}
 219. ### You need to implement a Data Science Virtual Machine (DSVM) that supports the Caffe2 deep learning framework. Which DSVM should you create?
      Caffe2 is supported by Data Science Virtual Machine for Linux.
      Microsoft offers Linux editions of the DSVM on Ubuntu 16.04 LTS and CentOS 7.4.
