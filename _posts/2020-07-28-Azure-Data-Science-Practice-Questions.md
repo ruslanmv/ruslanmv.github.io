@@ -1377,7 +1377,7 @@ Azure Data Science Practice Questions Part 5.
      and Bounded group loss.
 
 
-219. ### You need to implement a Data Science Virtual Machine (DSVM) that supports the Caffe2 deep learning framework. Which of the following DSVM should you create?
+219. ### You need to implement a Data Science Virtual Machine (DSVM) that supports the Caffe2 deep learning framework. Which DSVM should you create?
      Caffe2 is supported by Data Science Virtual Machine for Linux.
      Microsoft offers Linux editions of the DSVM on Ubuntu 16.04 LTS and CentOS 7.4.
      However, only the DSVM on Ubuntu is preconfigured for Caffe2.
@@ -1405,7 +1405,7 @@ Azure Data Science Practice Questions Part 5.
      PostgreSQL is available for the following operating systems: Linux (all recent distributions), 64-bit installers available for macOS (OS X) version
      10.6 and newer "
 
-223. ### You have been tasked with moving data into Azure Blob Storage for the purpose of supporting Azure Machine Learning. Which of the following can be used to complete your task?
+223. ### You have been tasked with moving data into Azure Blob Storage for the purpose of supporting Azure Machine Learning. How can be completed your task?
      You can move data to and from Azure Blob storage using different technologies:
      Azure Storage-Explorer.
      AzCopy.
@@ -1431,12 +1431,12 @@ Azure Data Science Practice Questions Part 5.
      approach.
      LOO CV is sometimes
 
-227. ### You would like to split data into two separate datasets. Which of the following actions should you take?
+227. ### You would like to split data into two separate datasets. Which actions should you take?
      You should make use of the Group Data into Bins module.
 
 228. ### You have to makes sure that the pipeline trains a model using data in a comma-separated values (CSV) file that is published on a website. A dataset for the file for this file does not exist.
      Data from the CSV file must be ingested into the designer pipeline with the least amount of administrative effort as possible.
-     Which of the following actions should you take?
+     Which actions should you take?
      You should add the Dataset object to the pipeline.
 
      The preferred way to provide data to a pipeline is a Dataset object. The Dataset object points to data that lives in or is accessible from a
@@ -1474,7 +1474,7 @@ Azure Data Science Practice Questions Part 5.
      it might offer better performance for datasets that have missing values in many columns.
 
 236. ### You have recently concluded the construction of a binary classification machine learning model. You are currently assessing the model. You want to make use of a visualization that allows for precision to be used as the measurement for the
-     assessment. Which of the following actions should you take?
+     assessment. Which actions should you take?
      You should consider using the Binary classification confusion matrix visualization.
 
 237. ### You have already configured a k parameter as the number of splits. You now have to configure the k parameter for the cross-validation with the usual value choice.
@@ -1495,22 +1495,22 @@ Azure Data Science Practice Questions Part 5.
      Yes - Typical metadata changes might include marking columns as features.
 
 240. ### You plan to perform a paired t-test.
-     Which of the following are conditions that must apply to use a paired t-test?
+     Which conditions that must apply to use a paired t-test?
 
      You have a matched pairs of scores.
 
      The sampling distribution of d is normal.
 
 241. ### The classification model will be trained via the Automated Machine Learning interface using the Classification task type. You have been informed that only linear models need to be assessed by the Automated Machine Learning.
-     Which of the following actions should you take?
+     Which actions should you take?
      You should disable automatic featurization.
 
 242. ### You want to make sure that automated machine learning is configured as follows: missing values must be automatically imputed.
      categorical features must be encoded as part of the training task.
-     Which of the following actions should you take?
+     Which actions should you take?
      You should make use of the featurization parameter with the 'auto' value pair.
 
-243. ### You perform an experiment to assess various algorithms. Which of the following is an algorithm that reduces the variances between actual and predicted values?
+243. ### You perform an experiment to assess various algorithms. Which algorithm reduces the variances between actual and predicted values?
      Boosted Decision Tree Regression - Mean absolute error (MAE) measures how close the predictions are to the actual outcomes; thus, a lower score is better.
 
 244. ### You have been tasked with constructing a machine learning model that translates language text into a different language text. The machine learning model must be constructed and trained to learn the sequence of the.
@@ -1524,7 +1524,7 @@ Azure Data Science Practice Questions Part 5.
 
 245. ### You have been tasked with evaluating the performance of a binary classification model that you created.
      You need to choose evaluation metrics to achieve your goal.
-     Which of the following are the metrics you would choose
+     Which metrics you would choose
 
      The evaluation metrics available for binary classification models are: Accuracy, Precision, Recall, F1 Score, and AUC.
      Note: A very natural question is: ~Out of the individuals whom the model, how many were classified correctly (TP)? TM
@@ -1540,7 +1540,7 @@ Azure Data Science Practice Questions Part 6.
 <iframe src="https://player.rss.com/ruslanmv/621185" style="width: 100%" title="rss embed thingy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen><a href="https://rss.com/podcasts/ruslanmv/621185/">Azure Data Science Practice Questions - Part 6 | RSS.com</a></iframe>
 
 {:start="252"}
-252. ### You are preparing to carry out a parameter sweep of the model to tune hyperparameters. You have to make sure that the sweep allows for every possible combination of hyperparameters to be iterated. Also, the computing resources needed to carry out the sweep must be reduced. Which of the following actions should you take?
+252. ### You are preparing to carry out a parameter sweep of the model to tune hyperparameters. You have to make sure that the sweep allows for every possible combination of hyperparameters to be iterated. Also, the computing resources needed to carry out the sweep must be reduced. Which  actions should you take?
 
      You should consider making use of the Random grid sweep mode.
 
@@ -1550,7 +1550,7 @@ Azure Data Science Practice Questions Part 6.
 
 253. ### You notice that the CNN model you constructed displays hints of overfitting.
      You want to make sure that overfitting is minimized, and that the model is converged to an optimal fit.
-     Which of the following is TRUE with regards to achieving your goal?
+     How you can  achieve the goal?
 
      You have to add L1/L2 regularization, and reduce the amount of training data.--
 
@@ -1572,7 +1572,7 @@ Azure Data Science Practice Questions Part 6.
 
 257. ### After dividing a dataset into training and testing sets, you configure the algorithm to be Two-Class Boosted Decision Tree.
      You are preparing to ascertain the Area Under the Curve (AUC).
-     Which of the following is a sequential combination of the models required to achieve your goal?
+     Which sequential combination of the models required to achieve your goal?
 
      Train, Score, Evaluate.
 
