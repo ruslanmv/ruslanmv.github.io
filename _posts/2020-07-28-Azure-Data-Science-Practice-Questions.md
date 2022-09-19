@@ -1357,15 +1357,13 @@ Azure Data Science Practice Questions Part 5.
      Register your models within Azure Machine Learning. For convenience, store the results in a dictionary, which maps the id of the registered
      model (a string in name:version format) to the predictor itself.
      
-216. ### You create and train a binary classification model to support selection and admission of patients to the trial. The model includes the followingfeatures: Age,
-     Gender, and Ethnicity.
+216. ### You create and train a binary classification model to support selection and admission of patients to the trial. The model includes the followingfeatures: Age,Gender, and Ethnicity.
      The model returns different performance metrics for people from different ethnic groups.
      You need to use Fairlearn to mitigate and minimize disparities for each category in the Ethnicity feature.
      Which technique and constraint should you use? 
-     
-	 1: Grid Search .
+      1: Grid Search .
      Fairlearn open-source package provides postprocessing and reduction unfairness mitigation algorithms: ExponentiatedGradient, GridSearch,
-     and ThresholdOptimizer.
+	and ThresholdOptimizer.
      
      Note: The Fairlearn open-source package provides postprocessing and reduction unfairness mitigation algorithms types:
      
