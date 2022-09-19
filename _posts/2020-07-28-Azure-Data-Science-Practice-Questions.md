@@ -1351,7 +1351,7 @@ Azure Data Science Practice Questions Part 5.
      
      Step 1: Select a model feature to be evaluated.
      
-	Step 2: Select a binary classification or regression model.
+	 Step 2: Select a binary classification or regression model.
 	
      Register your models within Azure Machine Learning. For convenience, store the results in a dictionary, which maps the id of the registered
      model (a string in name:version format) to the predictor itself.
