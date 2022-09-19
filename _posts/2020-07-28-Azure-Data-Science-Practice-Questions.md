@@ -877,7 +877,6 @@ Azure Data Science Practice Questions Part 3.
 
      Run the script in an experiment based on a HyperDriveConfig object ·
      
-
 147. ### You need to ensure the pipeline runs automatically whenever the data in the folder changes.
      What should you do?
 
@@ -934,13 +933,14 @@ Azure Data Science Practice Questions Part 4.
       No, The Workspace.get method loads an existing workspace without using configuration files. 
 
      b) An azure Databricks experiment will be tracked only in the Azure Machine Learning Workspace? 
-        
+     
 		Yes. MLflow Tracking with Azure Machine Learning lets you store the logged metrics and artifacts from your local runs into your Azure Machine
      	Learning workspace.
      	The get_mlflow_tracking_uri() method assigns a unique tracking URI address to the workspace, ws, and set_tracking_uri() points the MLflow tracking URI to that address.
      
 	 c) The epoch loss metric is set to be tracked?
      	
+	
 		Yes. In Deep Learning, epoch means the total dataset is passed forward and backward in a neural network once.
 
 {:start="157"}
@@ -995,7 +995,7 @@ Azure Data Science Practice Questions Part 4.
 
 164. ### You need to troubleshoot the deployment failure by determining the actions that were performed during deployment and identifying the specific action that failed.
 
-     You can print out detailed Docker engine log messages from the service object. You can view the log for ACI, AKS, and Local deployments. The following example demonstrates how to print the logs. if you already have the service object handy print(service.get_logs())
+     You can print out detailed Docker engine log messages from the service object. You can view the log for ACI, AKS, and Local deployments.
 
 165. ### You need to invoke the deployed model using native SDK classes and methods
 
@@ -1045,7 +1045,7 @@ Azure Data Science Practice Questions Part 4.
 
 173. ### You plan to deploy the model as a real-time web service. Applications must use key-based authentication to use the model.
 
-     Web services deployed on AKS have key-based auth enabled by default. ACI- deployed services have key-based auth disabled by default, but you can enable it by setting auth_enabled = TRUE when creating the ACI web service. The following is an example of creating an ACI
+     Web services deployed on AKS have key-based auth enabled by default. ACI- deployed services have key-based auth disabled by default, but you can enable it by setting auth_enabled = TRUE when creating the ACI web service. 
 
 174. ### You train and register a machine learning model. You plan to deploy the model as a real-time web service
 
@@ -1146,7 +1146,6 @@ Azure Data Science Practice Questions Part 4.
 
      Use the interpretability package to generate an explainer for the model.
      
-
 191. ### The run used the model interpretation support in Azure Machine Learning to generate and upload a model explanation.
      Business managers in your organization want to see the importance of the features in the model.
 
@@ -1178,15 +1177,21 @@ Azure Data Science Practice Questions Part 4.
 196. ### You are performing feature scaling by using the scikit-learn Python library for x.1 x2, and x3 features.
      Original and scaled data is shown in the following image.
 
+     ![image-20220919130747555](../assets/images/posts/2020-07-28-Azure-Data-Science-Practice-Questions/image-20220919130747555.png)
+     
+     
+     
+     
+     
      StandardScaler -
      The StandardScaler assumes your data is normally distributed within each feature and will scale them such that the distribution is now centred around 0, with a standard deviation of 1.
 
      Min Max Scaler -
-
+     
      Notice that the skewness of the distribution is maintained but the 3 distributions are brought into the same scale so that they overlap.
-
+     
      Normalizer
-
+     
 197. ### Estimated values in one set of data may be more than or less than reference values in the other set of data. You must produce a distribution that has a constant
      Type I error as a function of the correlation.
      You need to produce the distribution.
@@ -1225,7 +1230,7 @@ Azure Data Science Practice Questions Part 5.
 
      Solution: Use the following metrics: Mean Absolute Error, Root Mean Absolute Error, Relative Absolute Error, Relative Squared Error, and the Coefficient of Determination.
      Does the solution meet the goal?
-	 
+
      The following metrics are reported for evaluating regression models. When you compare models, they are ranked by the metric you select for evaluation. Mean absolute error (MAE) measures how close the predictions are to the actual outcomes; thus, a lower score is better.
      Root mean squared error (RMSE) creates a single value that summarizes the error in the model.
 
@@ -1249,14 +1254,13 @@ Azure Data Science Practice Questions Part 5.
      Which evaluation metric should you use?
 
      AUC Curve -One can inspect the true positive rate vs. the false positive rate in the Receiver Operating Characteristic (ROC) curve and the corresponding Area Under the Curve (AUC) value. The closer this curve is to the upper left corner; the better the classifier's performance is (that is maximizing the true positive rate while minimizing the false positive rate). Curves that are close to the diagonal of the plot, result from classifiers that tend to make predictions that are close to random guessing.
-     
 
 205. ### You are developing a linear regression model in Azure Machine Learning Studio. You run an experiment to compare different algorithms. The following image displays the results dataset output:
 
      1: Boosted Decision Tree Regression
      Mean absolute error (MAE) measures how close the predictions are to the actual outcomes; thus, a lower score is better.
-     
-	 2:Online Gradient Descent: If you want the algorithm to find the best parameters for you, set Create trainer mode option to Parameter Range. You can then specify multiple values for the algorithm to try.
+
+      2:Online Gradient Descent: If you want the algorithm to find the best parameters for you, set Create trainer mode option to Parameter Range. You can then specify multiple values for the algorithm to try.
 
 206. ###  You need to select the bias and variance properties of the model with varying tree depth values.
 
@@ -1267,12 +1271,14 @@ Azure Data Science Practice Questions Part 5.
      1: Split data.
 
      2: Partition and Sample.
-	
+
      3: Two-Class Boosted Decision Tree.
-	
+
      4: Tune Model Hyperparameters
 
 208. ### You are analyzing the asymmetry in a statistical distribution. The following image contains two density curves that show the probability distribution of two datasets.
+
+     <img src="../assets/images/posts/2020-07-28-Azure-Data-Science-Practice-Questions/image-20220919131026515.png" alt="image-20220919131026515" style="zoom:50%;" />
 
      1: Positive skew -
      Positive skew values means the distribution is skewed to the right.
