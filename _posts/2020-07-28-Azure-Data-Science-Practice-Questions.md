@@ -1426,10 +1426,7 @@ Azure Data Science Practice Questions Part 5.
      The preferred way to provide data to a pipeline is a Dataset object. The Dataset object points to data that lives in or is accessible from a
      datastore or at a Web
 
-229. ### You are in the process of creating a machine learning model. Your dataset includes rows with null and missing values. You plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the
-     dataset.
-     No
-
+{:start="230"}
 230. ### You plan to make use of the Clean Missing Data module in Azure Machine Learning Studio to detect and fix the null and missing values in the dataset.
      Recommendation: You make use of the Remove entire row option.
      Will the requirements be satisfied?
