@@ -1224,7 +1224,8 @@ Azure Data Science Practice Questions Part 5.
      You start by creating a linear regression model. You need to evaluate the linear regression model.
 
      Solution: Use the following metrics: Mean Absolute Error, Root Mean Absolute Error, Relative Absolute Error, Relative Squared Error, and the Coefficient of Determination.
-
+     Does the solution meet the goal?
+	 
      The following metrics are reported for evaluating regression models. When you compare models, they are ranked by the metric you select for evaluation. Mean absolute error (MAE) measures how close the predictions are to the actual outcomes; thus, a lower score is better.
      Root mean squared error (RMSE) creates a single value that summarizes the error in the model.
 
@@ -1237,7 +1238,7 @@ Azure Data Science Practice Questions Part 5.
 
 202. ### You are creating a model to predict the price of a student's artwork depending on the following variables: the student's length of education, degree type, and art form.
      You start by creating a linear regression model. You need to evaluate the linear regression model. Solution: Use the following metrics: Relative Squared Error, Coefficient of Determination, Accuracy, Precision, Recall, F1 score, and AUC.
-
+     Does the solution meet the goal?
      Relative Squared Error, Coefficient of Determination are good metrics to evaluate the linear regression model, but the others are metrics for classification models.
 
 203. ### You are a data scientist creating a linear regression model. You need to determine how closely the data fits the regression line. Which metric should you review?
@@ -1259,11 +1260,10 @@ Azure Data Science Practice Questions Part 5.
 
 206. ###  You need to select the bias and variance properties of the model with varying tree depth values.
 
-     ###  Which properties should you select for each tree depth? To answer, select the appropriate options in the answer area
-
+     ###  Which properties should you select for each tree depth? 
      In decision trees, the depth of the tree determines the variance. A complicated decision tree (e.g. deep) has low bias and high variance. Note: In statistics and machine learning, the bias  "variance tradeoff is the property of a set of predictive models whereby models with a lower bias in parameter estimation have a higher variance of the parameter estimates across samples, and vice versa. Increasing the bias will decrease the variance. Increasing the variance will decrease the bias.
 
-207. ### You need to identify a parameter set for the new model using Azure Machine Learning Studio. Which module you should use for each step? To answer, drag the appropriate modules to the correct steps. Each module may be used once or more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+207. ### You need to identify a parameter set for the new model using Azure Machine Learning Studio. Which module you should use for each step? 
      1: Split data.
 
      2: Partition and Sample.
@@ -1280,7 +1280,7 @@ Azure Data Science Practice Questions Part 5.
      2: Negative skew -
      Negative skewness values mean the distribution is skewed to the left.
 
-209. ### The CNN model you build shows signs of overfitting. You need to reduce overfitting and converge the model to an optimal fit. Which two actions should you perform? Each correct answer presents a complete solution
+209. ### The CNN model you build shows signs of overfitting. You need to reduce overfitting and converge the model to an optimal fit. Which two actions should you perform? 
 
      Add L1/L2 regularization.
 
@@ -1299,7 +1299,7 @@ Azure Data Science Practice Questions Part 5.
       D: Because a fully connected layer occupies most of the parameters, it is prone to overfitting. One method to reduce overfitting is dropout. At each training stage, individual nodes are either "dropped out" of the net with probability 1-p or kept with probability p, so that a reduced network is left; incoming and outgoing edges to a dropped-out node are also removed.
       By avoiding training all nodes on all training data, dropout decreases overfitting.
 
-210. ### The CNN model you build shows signs of overfitting. You need to reduce overfitting and converge the model to an optimal fit. Which two actions should you perform? Each correct answer presents a complete solution
+210. ### The CNN model you build shows signs of overfitting. You need to reduce overfitting and converge the model to an optimal fit. Which two actions should you perform? 
 
      Add L1/L2 regularization.
 
@@ -1312,7 +1312,7 @@ Azure Data Science Practice Questions Part 5.
      Note: Mean Absolute Error, Root Mean Absolute Error, Relative Absolute Error are OK for the linear regression model.
 
 212. ### The training set is imbalanced between two classes. You need to resolve the data imbalance.
-     What are three possible ways to achieve this goal? Each correct answer presents a complete solution
+     What are three possible ways to achieve this goal? 
      Penalize the classification
 
      Resample the dataset using undersampling or oversampling 
@@ -1331,7 +1331,7 @@ Azure Data Science Practice Questions Part 5.
 
 
 
-215. ### You must use the Fairlearn dashboard to assess fairness in a selected model. Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and
+215. ### You must use the Fairlearn dashboard to assess fairness in a selected model. Which three actions should you perform in sequence? 
      arrange them in the correct order.
      Step 1: Select a model feature to be evaluated.
      
@@ -1344,7 +1344,7 @@ Azure Data Science Practice Questions Part 5.
      Gender, and Ethnicity.
      The model returns different performance metrics for people from different ethnic groups.
      You need to use Fairlearn to mitigate and minimize disparities for each category in the Ethnicity feature.
-     Which technique and constraint should you use? To answer, select the appropriate options in the answer area.
+     Which technique and constraint should you use? 
      
 	 1: Grid Search -
      Fairlearn open-source package provides postprocessing and reduction unfairness mitigation algorithms: ExponentiatedGradient, GridSearch,
