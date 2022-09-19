@@ -1334,15 +1334,16 @@ Azure Data Science Practice Questions Part 5.
 213. ### The variable feature_names is a list of all feature names, and class_names is a list of all class names.
 
      ```
-     from interpret.ext.blackbox import TabularExplainer explainer = TabularExplainer(model, x_train, features=feature_names, classes=class_names) 
+     from interpret.ext.blackbox import TabularExplainer 
+     explainer = TabularExplainer(model, x_train, features=feature_names, classes=class_names) 
      ```
-
+     
      ### You need to explain the predictions made by the model for all classes by determining the importance of all features.
-
+     
      1:TabularExplainer calls one of the three SHAP explainers underneath (TreeExplainer, DeepExplainer, or KernelExplainer).
-
+     
      2: To make your explanations and visualizations more informative, you can choose to pass in feature names and output class names if doing classification.
-
+     
      3: TabularExplainer automatically selects the most appropriate one for your use case, but you can call each of its three underlying explainers underneath (TreeExplainer, DeepExplainer, or KernelExplainer) directly.
 
 
