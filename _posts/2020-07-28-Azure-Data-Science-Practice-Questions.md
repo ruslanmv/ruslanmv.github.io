@@ -1257,10 +1257,16 @@ Azure Data Science Practice Questions Part 5.
 
 205. ### You are developing a linear regression model in Azure Machine Learning Studio. You run an experiment to compare different algorithms. The following image displays the results dataset output:
 
-     1: Boosted Decision Tree Regression
+     ![image-20220919142048729](../assets/images/posts/2020-07-28-Azure-Data-Science-Practice-Questions/image-20220919142048729.png)
+
+     Which algorithm minimizes differences between actual and predict values? 
+
+     Boosted Decision Tree Regression
      Mean absolute error (MAE) measures how close the predictions are to the actual outcomes; thus, a lower score is better.
 
-      2:Online Gradient Descent: If you want the algorithm to find the best parameters for you, set Create trainer mode option to Parameter Range. You can then specify multiple values for the algorithm to try.
+     Which approach should you use to find the best parameters for a Linear Regression model for Online Gradient Descent method.? 
+
+     Online Gradient Descent: If you want the algorithm to find the best parameters for you, set Create trainer mode option to Parameter Range. You can then specify multiple values for the algorithm to try.
 
 206. ###  You need to select the bias and variance properties of the model with varying tree depth values.
 
@@ -1352,7 +1358,7 @@ Azure Data Science Practice Questions Part 5.
      You need to use Fairlearn to mitigate and minimize disparities for each category in the Ethnicity feature.
      Which technique and constraint should you use? 
      
-	 1: Grid Search -
+	 1: Grid Search .
      Fairlearn open-source package provides postprocessing and reduction unfairness mitigation algorithms: ExponentiatedGradient, GridSearch,
      and ThresholdOptimizer.
      
@@ -1362,7 +1368,7 @@ Azure Data Science Practice Questions Part 5.
      models using a sequence of re-weighted training datasets.
      Post-processing: These algorithms take an existing classifier and the sensitive feature as input.
      
-     2: Demographic parity -
+     2: Demographic parity .
      The Fairlearn open-source package supports the following types of parity constraints: Demographic parity, Equalized odds, Equal opportunity,
      and Bounded group loss.
 
@@ -1397,10 +1403,10 @@ Azure Data Science Practice Questions Part 5.
 
 223. ### You have been tasked with moving data into Azure Blob Storage for the purpose of supporting Azure Machine Learning. Which of the following can be used to complete your task?
      You can move data to and from Azure Blob storage using different technologies:
-     Azure Storage-Explorer
-     AzCopy
-     Python
-     SSIS
+     Azure Storage-Explorer.
+     AzCopy.
+     Python.
+     SSIS.
 
 224. ### You have been tasked with designing a deep learning model, which accommodates the most recent edition of Python, to recognize language. You have to include a suitable deep learning framework in the Data Science Virtual Machine (DSVM).
      You should consider including TensorFlow.
