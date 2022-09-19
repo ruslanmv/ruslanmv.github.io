@@ -969,7 +969,7 @@ Azure Data Science Practice Questions Part 4.
      1: ds-workstation notebook VM
      An authenticated connection must not be required for testing. On a Microsoft Azure virtual machine (VM), including a Data Science Virtual Machine (DSVM), you create local user accounts while provisioning the VM. Users then authenticate to the VM by using these credentials.
 
-     2: gpu-compute cluster -
+     2: gpu-compute cluster. 
      Image classification is well suited for GPU compute clusters
 
 161. ### You need to configure compute resources for model inferencing.
@@ -1014,7 +1014,7 @@ Azure Data Science Practice Questions Part 4.
 {:start="166"}
 166. ### You need to ensure that the correct version of PyTorch can be identified for the inferencing environment when the model is deployed.
 
-     Register the model, specifying the model_framework and ·
+     Register the model, specifying the model_framework and 
      model_framework_version properties.
 
 167. ### You must deploy the model as a real-time inference service for testing.
@@ -1028,7 +1028,7 @@ Azure Data Science Practice Questions Part 4.
 
 169. ### You deploy a real-time inference service for a trained model.
 
-     Enable Azure Application Insights for the service endpoint and view logged data ·
+     Enable Azure Application Insights for the service endpoint and view logged data 
      in the Azure portal.
 
 170. ### You need to write a script that uses the Azure Machine Learning SDK to deploy the model. The necessary modules have been imported
@@ -1037,7 +1037,7 @@ Azure Data Science Practice Questions Part 4.
 
 171. ### You need to improve performance of the image classification web service with minimal downtime and minimal administrative effort. What should you advise the IT Operations team to do?
 
-     Increase the node count of the compute cluster where the web service is ·
+     Increase the node count of the compute cluster where the web service is 
      deployed.
 
 172. ### You need to publish the inference pipeline as a web service. Which compute type should you use?
@@ -1050,7 +1050,8 @@ Azure Data Science Practice Questions Part 4.
 174. ### You train and register a machine learning model. You plan to deploy the model as a real-time web service
 
      Key-based authentication.
-     Web services deployed on AKS have key-based auth enabled by default. ACI- deployed services have key-based auth disabled by default, but you can enable it by setting auth_enabled = TRUE when creating the ACI web service.
+     Web services deployed on AKS have key-based auth enabled by default. 
+	 ACI- deployed services have key-based auth disabled by default, but you can enable it by setting auth_enabled = TRUE when creating the ACI web service.
 
 175. ### You need to use the Python SDK in the notebook to determine the events that occurred during service deployment an initialization.
 
@@ -1061,17 +1062,17 @@ Azure Data Science Practice Questions Part 4.
 
      Set the regenerate_outputs property of the pipeline to True.
 
-     Set the allow_reuse property of each step in the pipeline to False.·
+     Set the allow_reuse property of each step in the pipeline to False.
 
 177. ### You are ready to deploy the model as a real-time web service. You deploy the model to an Azure Kubernetes Service (AKS) inference cluster, but the deployment fails because an error occurs when the service runs the entry script that is associated with the model deployment. You need to debug the error by iteratively modifying the code and reloading the service, without requiring a re-deployment of the service for each code update.  What should you do?
 
-     Create an Azure Container Instances (ACI) web service deployment ·
+     Create an Azure Container Instances (ACI) web service deployment 
      configuration and deploy the model on ACI.
 
 178. ### You use Azure Machine Learning designer to create a training pipeline for a regression model.
      You need to prepare the pipeline for deployment as an endpoint that generates predictions asynchronously for a dataset of input data values.
 
-     Create a real-time inference pipeline from the training pipeline.·
+     Create a real-time inference pipeline from the training pipeline.
 
 179. ### You need to register the new version of a model while keeping the current version of the model in the registry.
      What should you do?
@@ -1079,10 +1080,10 @@ Azure Data Science Practice Questions Part 4.
      Register the model with the same name as the existing model.
 
 180. ### You need to register the model and ensure that the models created by subsequent retraining experiments are registered only if their accuracy is higher than the currently registered model. What are two possible ways to achieve this goal?
-     - Specify the model framework version when registering the model, and only ·
+     - Specify the model framework version when registering the model, and only 
      register subsequent models if this value is higher.
 
-     - Specify a tag named accuracy with the accuracy metric as a value when ·
+     - Specify a tag named accuracy with the accuracy metric as a value when 
      registering the model, and only register subsequent models if their accuracy is higher than the accuracy tag value of the currently registered model-
 
 {:start="181"}
@@ -1194,7 +1195,7 @@ Azure Data Science Practice Questions Part 4.
      Paired t-test with a two-tail option
 
 198. ### Several independent variables are highly correlated. You need to select appropriate methods for conducting effective feature engineering on all the data.
-     Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+     Which three actions should you perform in sequence?
 
      Step 1: Use the Filter Based Feature Selection module Filter Based Feature Selection identifies the features in a dataset with the greatest predictive power.
      The module outputs a dataset that contains the best feature columns, as ranked by predictive power. It also outputs the names of the features and their scores from the selected metric.
@@ -1247,7 +1248,7 @@ Azure Data Science Practice Questions Part 5.
      Which evaluation metric should you use?
 
      AUC Curve -One can inspect the true positive rate vs. the false positive rate in the Receiver Operating Characteristic (ROC) curve and the corresponding Area Under the Curve (AUC) value. The closer this curve is to the upper left corner; the better the classifier's performance is (that is maximizing the true positive rate while minimizing the false positive rate). Curves that are close to the diagonal of the plot, result from classifiers that tend to make predictions that are close to random guessing.
-     ·
+     
 
 205. ### You are developing a linear regression model in Azure Machine Learning Studio. You run an experiment to compare different algorithms. The following image displays the results dataset output:
 
@@ -1314,7 +1315,7 @@ Azure Data Science Practice Questions Part 5.
      What are three possible ways to achieve this goal? Each correct answer presents a complete solution
      Penalize the classification
 
-     Resample the dataset using undersampling or oversampling ·
+     Resample the dataset using undersampling or oversampling 
 
      Generate synthetic samples in the minority class
 
