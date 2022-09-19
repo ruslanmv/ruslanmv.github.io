@@ -1331,23 +1331,27 @@ Azure Data Science Practice Questions Part 5.
 
      Generate synthetic samples in the minority class
 
-213. ### The variable feature_names is a list of all feature names, and class_names is a list of all class names. from interpret.ext.blackbox import TabularExplainer explainer = TabularExplainer(model, x_train, features=feature_names, classes=class_names) You need to explain the predictions made by the model for all classes by determining the importance of all features.
-     1: Yes -
-     TabularExplainer calls one of the three SHAP explainers underneath (TreeExplainer, DeepExplainer, or KernelExplainer).
+213. ### The variable feature_names is a list of all feature names, and class_names is a list of all class names.
 
-     2: Yes -
-     To make your explanations and visualizations more informative, you can choose to pass in feature names and output class names if doing classification.
+     ```
+     from interpret.ext.blackbox import TabularExplainer explainer = TabularExplainer(model, x_train, features=feature_names, classes=class_names) 
+     ```
 
-     3: No -
-     TabularExplainer automatically selects the most appropriate one for your use case, but you can call each of its three underlying explainers underneath (TreeExplainer, DeepExplainer, or KernelExplainer) directly.
+     ### You need to explain the predictions made by the model for all classes by determining the importance of all features.
+
+     1:TabularExplainer calls one of the three SHAP explainers underneath (TreeExplainer, DeepExplainer, or KernelExplainer).
+
+     2: To make your explanations and visualizations more informative, you can choose to pass in feature names and output class names if doing classification.
+
+     3: TabularExplainer automatically selects the most appropriate one for your use case, but you can call each of its three underlying explainers underneath (TreeExplainer, DeepExplainer, or KernelExplainer) directly.
 
 
-
+{:start="215"}
 215. ### You must use the Fairlearn dashboard to assess fairness in a selected model. Which three actions should you perform in sequence? 
-     arrange them in the correct order.
+     
      Step 1: Select a model feature to be evaluated.
      
-	 Step 2: Select a binary classification or regression model.
+	Step 2: Select a binary classification or regression model.
 	
      Register your models within Azure Machine Learning. For convenience, store the results in a dictionary, which maps the id of the registered
      model (a string in name:version format) to the predictor itself.
