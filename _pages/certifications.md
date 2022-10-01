@@ -26,6 +26,7 @@ header:
 <p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
 <img src="../assets/images/microsoft-logo.jpg" width="120" alt="homepage" /></a></p>
 
+- Microsoft Certified: **Azure Data Scientist Associate** -  Issuing authority Microsoft Corporation,  Oct 2022
 - Microsoft Certified: **Azure Fundamentals** -  Issuing authority Microsoft Corporation,  Jan 2022
 
 ## Professional Certifications
