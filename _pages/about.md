@@ -23,7 +23,7 @@ I am Data Scientist and Data Engineer at [Capgemini](https://www.capgemini.com/)
 
 I  was committed to provide high quality computations for nuclear physics,  and I love to engage my colleagues into new technologies such as Machine Learning. Checkout my curriculum vitae [here](https://cloud-data-science.com/).
 
-## Cloud Architect  & Data Scientist
+## Data Scientist  & Cloud Architect 
 
 
 
