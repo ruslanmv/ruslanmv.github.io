@@ -29,11 +29,11 @@ header:
 
 
 
-- **Transfer reactions between odd-odd and even-even nuclei by using the interacting boson fermion fermion model and 0 ν β β decay in closure approximation**
+- ### Transfer reactions between odd-odd and even-even nuclei by using the interacting boson fermion fermion model and 0 ν β β decay in closure approximation
   
   Physical Review C 
   
-  DOI:[10.1103/PhysRevC.106.044307](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.105.044607)
+  DOI:[10.1103/PhysRevC.106.044307](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.106.044307)
   
 - ### Analysis of the one-neutron transfer reaction in 18O+76Se collisions at 275 MeV
   
