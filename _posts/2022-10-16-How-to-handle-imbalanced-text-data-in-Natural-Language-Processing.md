@@ -40,6 +40,10 @@ I will create an environment called **nlp**, because I am interested in  the **N
 
 NLP enables computers to understand natural language as humans do. Whether the language is spoken or written, natural language processing uses artificial intelligence to take real-world input, process it, and make sense of it in a way a computer can understand.
 
+First you need to install anaconda at this [link](https://www.anaconda.com/products/individual)
+
+then after is installed type in your terminal
+
 ```
 conda create -n nlp python==3.8
 ```
