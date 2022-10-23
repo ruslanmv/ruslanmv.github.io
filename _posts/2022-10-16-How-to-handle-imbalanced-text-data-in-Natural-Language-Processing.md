@@ -11,14 +11,13 @@ header:
 
 
 
-Hello everyone today we are going to discuss  an interesting problem about imbalanced text data.
+Hello everyone today we are going to discuss an interesting problem with imbalanced text data.
 
-We are interested to **classify  messages**  that are **spam.**  
+We are interested to **classify messages** that are **spam.** 
 
-We are going to test different classification models such as **Multinomial Naive Bayes** , **Random Forest** (RF) , **XGBoost** ,**Support Vector Machines** (SVM) and different sampling and under sampling methods such as **Random over sampling**, **SMOTE** and derivations,  **Random under sampling** techniques.
-        
+We are going to test different classification models such as **Multinomial Naive Bayes**, **Random Forest** (RF), **XGBoost**, **Support Vector Machines** (SVM), and different sampling and under-sampling methods such as **Random over-sampling**, **SMOTE**, and derivations, **Random under-sampling** techniques. 
 
-This example is helpful to show how to deal this type of problems for your custom **NLP problems**.
+This example is helpful to show how to deal with this type of problem for your custom **NLP problems**.
 
 ## What is Imbalanced Data?
 
@@ -1297,7 +1296,7 @@ run_model_sampling(X,y,mlmodel,sampling)
     avg / total       0.97      0.97      0.82      0.97      0.89      0.80      1672
 
 
-   
+
 
 
     0.9736842105263158
@@ -1323,7 +1322,7 @@ run_model_sampling(X,y,mlmodel)
 
     0.9766746411483254
 
-As we see the oversampling/ downsampling  in general, does not provide a better accuracy for this current set of data. What we learned that is better choose a better machine learning model than apply sampling methods. And also the cleaning of the data provides a big improvement of the nlp accuracy.
+As we see the oversampling/ downsampling in general, does not provide better accuracy for this current set of data. What we have learned is that is better to choose a better machine learning model than apply sampling methods. And also the cleaning of the data provides a big improvement in the NLP accuracy
 
 You can download this notebook [here](https://github.com/ruslanmv/How-to-handled-imbalanced-text-data/blob/master/nlp.ipynb) 
 
