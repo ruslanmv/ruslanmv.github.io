@@ -778,6 +778,8 @@ Actually NLP is one of the most common areas in which resampling of data is need
 
 # Step 6. Oversampling
 
+Synthetic Minority Oversampling Technique (SMOTE) is a statistical technique for increasing the number of cases in your dataset in a balanced way. The component works by generating new instances from existing minority cases that you supply as input.
+
 
 ```python
 X_tf.shape
@@ -959,6 +961,11 @@ over_models.sort_values(by='Accuracy_score', ascending=False)
 ![png](../assets/images/posts/2022-10-16-How-to-handle-imbalanced-text-data-in-Natural-Language-Processing/nlp_74_1.png)
     
 
+- Some researchers have investigated whether SMOTE is effective on high-dimensional or sparse data, such as data used in text classification or genomics datasets. This paper has a good summary of the effects and of the theoretical validity of applying SMOTE in such cases: [Blagus and Lusa: SMOTE for high-dimensional class-imbalanced data](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-106).
+- If SMOTE is not effective other approaches that you might consider include:
+  - Methods for oversampling the minority cases or undersampling the majority cases.
+  - Ensemble techniques that help the learner directly by using clustering, bagging, or adaptive boosting.
+
 
 # Step 7.  Downsampling
 
@@ -1058,7 +1065,6 @@ under_models.sort_values(by='Accuracy_score', ascending=False)
 
 ![png](../assets/images/posts/2022-10-16-How-to-handle-imbalanced-text-data-in-Natural-Language-Processing/nlp_81_1.png)
     
-
 
 # Step 8.  Oversampling Pipeline
 
