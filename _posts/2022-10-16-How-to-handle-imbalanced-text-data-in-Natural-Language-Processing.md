@@ -85,7 +85,7 @@ We are interested to work in the problem of **Spam Detection by using NLP**.
 
 In this project we are going to use a dataset contains messages that are spam and not.
 
-You can download the dataset [here](https://github.com/ruslanmv/How-to-handled-imbalanced-text-data/blob/master/spam.csv).
+You can download the dataset [here](https://github.com/ruslanmv/How-to-handle-imbalanced-text-data/blob/master/spam.csv).
 
 ## Step 2. Load libraries
 
@@ -1294,7 +1294,7 @@ run_model_sampling(X,y,mlmodel,sampling)
         class 1       1.00      0.79      1.00      0.88      0.89      0.77       211
     
     avg / total       0.97      0.97      0.82      0.97      0.89      0.80      1672
-
+    
     0.9736842105263158
 
 
@@ -1326,10 +1326,10 @@ On one side SMOTE works with KNN and on the other hand, feature spaces for NLP p
 
 Do not care about the real text representation of new synthetic samples. You need to balance the distribution for your classifier not for a reader of text data. In principle we can use SMOTE as traditional with some Dimensionality Reduction step.
 1) Lets assume you want to make your data samples from minor class double using K-NN. 
-  Ignore the major class(es) and keep only minor class samples.
+    Ignore the major class(es) and keep only minor class samples.
 2) Ignore the major class. Get a length distribution of all documents in minor class so that we generate new samples according the the true document length (number of words/phrases). 
 
-Well I hope was helpful the discussion, you can download this notebook [here](https://github.com/ruslanmv/How-to-handled-imbalanced-text-data/blob/master/nlp.ipynb) 
+Well I hope was helpful the discussion, you can download this notebook [here](https://github.com/ruslanmv/How-to-handle-imbalanced-text-data/blob/master/nlp.ipynb) 
 
 **Congratulations!** You have practiced how to classify messages by using different NLP methods.
 
