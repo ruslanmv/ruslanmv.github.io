@@ -1295,10 +1295,6 @@ run_model_sampling(X,y,mlmodel,sampling)
     
     avg / total       0.97      0.97      0.82      0.97      0.89      0.80      1672
 
-
-
-
-
     0.9736842105263158
 
 
@@ -1324,7 +1320,16 @@ run_model_sampling(X,y,mlmodel)
 
 As we see the oversampling/ downsampling in general, does not provide better accuracy for this current set of data. What we have learned is that is better to choose a better machine learning model than apply sampling methods. And also the cleaning of the data provides a big improvement in the NLP accuracy
 
-You can download this notebook [here](https://github.com/ruslanmv/How-to-handled-imbalanced-text-data/blob/master/nlp.ipynb) 
+Actually NLP is one of the most common areas in which resampling of data is needed as there are many text classification tasks dealing with imbalanced problem but SMOTE seem to be problematic here for some reasons: SMOTE works in feature space. It means that the output of SMOTE is not a synthetic data which is a real representative of a text inside its feature space.
+On one side SMOTE works with KNN and on the other hand, feature spaces for NLP problem are dramatically huge. KNN will easily fail in those huge dimensions.
+
+
+Do not care about the real text representation of new synthetic samples. You need to balance the distribution for your classifier not for a reader of text data. In principle we can use SMOTE as traditional with some Dimensionality Reduction step.
+1) Lets assume you want to make your data samples from minor class double using K-NN. 
+  Ignore the major class(es) and keep only minor class samples.
+2) Ignore the major class. Get a length distribution of all documents in minor class so that we generate new samples according the the true document length (number of words/phrases). 
+
+Well I hope was helpful the discussion, you can download this notebook [here](https://github.com/ruslanmv/How-to-handled-imbalanced-text-data/blob/master/nlp.ipynb) 
 
 **Congratulations!** You have practiced how to classify messages by using different NLP methods.
 
