@@ -17,23 +17,19 @@ I'm  a **Data Scientist**, a **Cloud Architect** and a **Physicist**.
 
 ## Scientifical  studies
 
-I am a self-motivated and ambitious data scientist with specialised knowledge in database applications analyses, data analyses and reports generation to propel project success.
+I am a self-motivated and ambitious data scientist with specialized knowledge in database applications analyses, data analyses and reports generation to propel project success.
 
-I am Data Scientist and Data Engineer at [Capgemini](https://www.capgemini.com/).  I was Data Engineer  at  [Reply](https://www.reply.com/it/topics/big-data-and-analytics/)  I was a Postdoctoral Researcher at National Institute for Nuclear Physics (INFN) at Genova [INFN](https://www.ge.infn.it) developing theoretical models for nuclear research.  My main role was to develop libraries and tools for the Nuclear Physics Community. 
+I am Data Scientist specialized in Artificial Intelligence  at [IBM](https://www.ibm.com/it-it). I was Data Scientist and Data Engineer at [Capgemini](https://www.capgemini.com/) and Data Engineer  at  [Reply](https://www.reply.com/it/topics/big-data-and-analytics/)  I was a Postdoctoral Researcher at National Institute for Nuclear Physics (INFN) at Genova [INFN](https://www.ge.infn.it) developing theoretical models for nuclear research.  My main role was to develop libraries and tools for the Nuclear Physics Community. 
 
 I  was committed to provide high quality computations for nuclear physics,  and I love to engage my colleagues into new technologies such as Machine Learning. Checkout my curriculum vitae [here](https://cloud-data-science.com/).
 
 ## Data Scientist  & Cloud Architect 
 
-
-
 My professional background includes crafting algorithms, making use of machine learning to mine, make sense of data, and using data visualization to present it to decision-makers. I am instrumental in analyzing and delivering quantitative and qualitative research based solutions that reduce redundancy, improve accuracy and efficiency, and achieve organizational objectives. 
 
 I have the ability to expand existing data delivery platforms and creating data systems that optimize data management, capturing, and quality. 
 
-Please feel free to contact me at [contact@ruslanmv.com](mailto:contact@ruslanmv.com) with any thoughts, comments, or questions about my work—I’m always interested in making new professional acquaintances.  You can checkout some of  the projects that I have at [Github](https://github.com/ruslanmv?tab=repositories)  in addition you can visit  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
-
-
+Please feel free to contact me at [contact@ruslanmv.com](mailto:contact@ruslanmv.com) with any thoughts, comments, or questions about my work — I’m always interested in making new professional acquaintances.  You can checkout some of  the projects that I have at [Github](https://github.com/ruslanmv?tab=repositories)  in addition you can visit  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
 
 ## Free time
 
