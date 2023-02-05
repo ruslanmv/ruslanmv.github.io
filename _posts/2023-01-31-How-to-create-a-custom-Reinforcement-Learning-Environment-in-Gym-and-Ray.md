@@ -13,7 +13,9 @@ Hello everyone today we are going to discuss how to create a custom **Reinforcem
 
 **Ray** is a high-performance distributed execution framework targeted at large-scale machine learning and reinforcement learning applications. It achieves scalability and fault tolerance by abstracting the control state of the system in a global control store and keeping all other components stateless.
 
-<img src="../assets/images/posts/2023-01-31-How-to-create-a-custom-Reinforcement-Learning-Environment-in-Gym-and-Ray/image-20230205165008723.png" alt="image-20230205165008723" style="zoom:0%;" />
+
+
+<img src="../assets/images/posts/2023-01-31-How-to-create-a-custom-Reinforcement-Learning-Environment-in-Gym-and-Ray/logo-ray.png" style="zoom:13%;" />
 
 We are interested to understand the building blocks tha allow us create any custom environment applied to any software that we want to create by using the strategy of RL.
 
@@ -436,8 +438,12 @@ To define a format, the observation_space and action_space variables need to be 
 
 Spaces can differ in their dimensionality and their value range. Continuous and discrete spaces are both possible.
 
+The structure of the **init** in the class inside the environment is 
+
+```
 self.observation_space = <gym.space>
 self.action_space = <gym.space>
+```
 
 
 We are going to consider an enviroment where there are two
@@ -462,8 +468,6 @@ Before we continue le us check some examples of spaces in order to understand ho
 ## Box
 
 Box - Supports continuous (and discrete) vectors or matrices, used for vector observations, images, etc
-
-
 
 
 ```python
@@ -629,41 +633,6 @@ observation_space = Dict({"position": Box(-1, 1, shape=(2,)), "color": Discrete(
 observation_space.sample()
 ```
 
-
-```python
-import pandas as pd
-```
-
-
-```python
-df1=pd.read_csv('seats_dataset.csv')
-```
-
-
-```python
-df1.head()
-```
-
-
-```python
-#id  x, y z 
-```
-
-
-```python
-df2 = pd.read_pickle("./employees.pkl")  
-```
-
-
-```python
-df2.head()
-```
-
-
-```python
-df1.head()
-```
-
 # Tuple
 
 
@@ -748,7 +717,27 @@ while True:
 
 
 
-[https://docs.ray.io/en/latest/rllib/rllib-algorithms.html?highlight=%20APPOConfig()#appo](https://docs.ray.io/en/latest/rllib/rllib-algorithms.html?highlight=%20APPOConfig()#appo    )    
+## Reinforcement Learning Algorithms in Ray
+
+There are different algorithms that can be used in Ray among them we choose the PP0
+
+![image-20230205175452152](../assets/images/posts/2023-01-31-How-to-create-a-custom-Reinforcement-Learning-Environment-in-Gym-and-Ray/image-20230205175452152.png)
+
+[More Algorithms ](https://docs.ray.io/en/latest/rllib/rllib-algorithms.html?highlight= APPOConfig()#ppo)
+
+
+
+### Proximal Policy Optimization (PPO)
+
+PPO’s clipped objective supports multiple SGD passes over the same batch of experiences. RLlib’s multi-GPU optimizer pins that data in GPU memory to avoid unnecessary transfers from host memory, substantially improving performance over a naive implementation. PPO scales out using multiple workers for experience collection, and also to multiple GPUs for SGD.
+
+
+
+![image-20230205180130945](../assets/images/posts/2023-01-31-How-to-create-a-custom-Reinforcement-Learning-Environment-in-Gym-and-Ray/image-20230205180130945.png)
+
+PPO architecture 
+
+[more details](https://docs.ray.io/en/latest/rllib/rllib-algorithms.html?highlight= APPOConfig()#ppo)
 
 # Custom Example of Environment with Pygame Ray and Gym
 
