@@ -21,15 +21,15 @@ An anomaly can be seen as data that deviates substantially from the norm. Anomal
 ##  Fraud Detection
 
 - Fraud detection is the process of detecting anomalous financial records from within a broader set of normal transactions.
-- The data is typically tabular in nature i.e. data sets with rows and columns
-- It is important to have access to histrorical instances of confirmed fraudulent behaviour i.e. labels or our target variable, which are often issued by a bank or third party
-- Because fraud is by definition less frequent than normal behaviour within a financial services ecosystem, there will be far less confirmed historical instances of fraudulent behaviour compared with the known good/normal behaviour, leading to an imbalance between the fraudulent and non-fraudulent samples
+- The data is typically tabular in nature i.e. data sets with rows and columns.
+- It is important to have access to histrorical instances of confirmed fraudulent behaviour i.e. labels or our target variable, which are often issued by a bank or third party.
+- Because fraud is by definition less frequent than normal behaviour within a financial services ecosystem, there will be far less confirmed historical instances of fraudulent behaviour compared with the known good/normal behaviour, leading to an imbalance between the fraudulent and non-fraudulent samples.
 
-- Feature engineering is crucial, as it involves converting domain knowledge from fraud analysts and investigators into data that can be used to detect suspicious behaviours
-- The features/data is typically aggregated at the customer-level, or at the transaction-level, depending on the use-case. Some approaches even combine the two
-- Network data i.e. how users within a system are connected to one another (if at all), is normally a strong indicator of fraudulent behaviour
+- Feature engineering is crucial, as it involves converting domain knowledge from fraud analysts and investigators into data that can be used to detect suspicious behaviours.
+- The features/data is typically aggregated at the customer-level, or at the transaction-level, depending on the use-case. Some approaches even combine the two.
+- Network data i.e. how users within a system are connected to one another (if at all), is normally a strong indicator of fraudulent behaviour.
 
-- Data sets for fraud detection are notoriously difficulty to access, due to various issues related to data privacy. There are some popular data sets available online, one of which is the ULB Machine Learning Group credit card fraud data set on Kaggle that we'll be using throughout this course
+- Data sets for fraud detection are notoriously difficulty to access, due to various issues related to data privacy. There are some popular data sets available online, one of which is the ULB Machine Learning Group credit card fraud data set on Kaggle that we'll be using throughout this blog.
 
 ## Step 1. Installation of Conda
 
