@@ -96,7 +96,7 @@ and simple there you can create a simple notebooks with
 jupyter notebook 
 ```
 
-and open anew Python Fraud Detector notebook.
+and open a new Python Fraud Detector notebook.
 
 ![image-20230218224116304](../assets/images/posts/2023-02-17-Fraud-Detection-Model-with-Machine-Learning/image-20230218224116304.png)
 
