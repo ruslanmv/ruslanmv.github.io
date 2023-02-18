@@ -127,7 +127,7 @@ from sklearn.metrics import accuracy_score
 
 ## Step 4. Data exploration
 
-The dataset that we are goiing to use is the follow
+The dataset that we are going to use is the follow:
 
 - https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 
