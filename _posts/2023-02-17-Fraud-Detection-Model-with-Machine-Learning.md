@@ -9,7 +9,7 @@ header:
   
 ---
 
-Hello, today we are going to create a machine learning model to detect  credit cards frauds. We are interested to  create a model to detect frauds from financial records.
+Hello, today we are going to create a machine learning model to detect  credit cards frauds. We are interested to  create a model to detect frauds from financial records. The models that we are us in this project are:
 
 - Logistic Regression
 - XGBoost
