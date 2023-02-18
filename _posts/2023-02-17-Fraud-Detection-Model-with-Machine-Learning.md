@@ -129,14 +129,14 @@ from sklearn.metrics import accuracy_score
 
 The dataset that we are going to use is the follow:
 
-- https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+- [https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
 
 
 The dataset contains transactions made by credit cards in September 2013 by European cardholders. This dataset presents transactions that occurred in two days, where we have 492 frauds out of 284,807 transactions. The dataset is highly unbalanced, the positive class (frauds) account for 0.172% of all transactions.
 
 It contains only numerical input variables which are the result of a PCA transformation. Unfortunately, due to confidentiality issues, we cannot provide the original features and more background information about the data. Features V1, V2, … V28 are the principal components obtained with PCA, the only features which have not been transformed with PCA are 'Time' and 'Amount'. Feature 'Time' contains the seconds elapsed between each transaction and the first transaction in the dataset. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-sensitive learning. Feature 'Class' is the response variable and it takes value 1 in case of fraud and 0 otherwise.
 
-Given the class imbalance ratio, we recommend measuring the accuracy using the Area Under the Precision-Recall Curve (AUPRC). Confusion matrix accuracy is not meaningful for unbalanced classification.
+Given the class imbalance ratio, we measuring the accuracy using the Area Under the Precision-Recall Curve (**AUPRC**). **Confusion matrix accuracy is not meaningful for unbalanced classification**.
 
 Due to in GitHub you cannot have files bigger then 25 mb I will load my splited dataset 
 
@@ -619,7 +619,7 @@ print("Fraud in y_test", len(np.where(y_test == 1)[0]))
 
 ## Step 6 - First model  Logistic Regression Model 
 
-- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+- [https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
 
 
 ```python
@@ -669,10 +669,26 @@ plot_confusion_matrix(confusion_mtx)
 ```
 
 
-​    
 ![png](../assets/images/posts/2023-02-17-Fraud-Detection-Model-with-Machine-Learning/Fraud-Detector-Notebook_26_0.png)
 ​    
 
+```python
+# AUROC/AUC = Area under the Receiver Operating Characteristic curve
+roc_auc_score(y_test, y_pred)
+```
+
+```
+0.9455546639027023
+```
+
+```python
+# AUPRC = Area under the Precision-Recall curve
+average_precision_score(y_test, y_pred)
+```
+
+```
+0.05053865257057752
+```
 
 ### Interpreting the Logistic Regression Model
 
@@ -744,7 +760,7 @@ shap.summary_plot(shap_values, X)
 
 ##  Step 7. - Second model  XGBoost
 
-- https://xgboost.readthedocs.io/en/stable/get_started.html
+- [https://xgboost.readthedocs.io/en/stable/get_started.html](https://xgboost.readthedocs.io/en/stable/get_started.html)
 
  XGBoost is a popular and efficient open-source implementation of the gradient boosted trees algorithm. 
  Gradient boosting is a supervised learning algorithm, which attempts to accurately predict a target 
@@ -772,7 +788,35 @@ plot_confusion_matrix(confusion_mtx)
 ![png](../assets/images/posts/2023-02-17-Fraud-Detection-Model-with-Machine-Learning/Fraud-Detector-Notebook_38_0.png)
 ​    
 
-### Improving the XGBoost Model through Hyperparameter Selection
+
+
+
+
+```python
+# AUROC/AUC = Area under the Receiver Operating Characteristic curve
+roc_auc_score(y_test, y_pred)
+```
+
+```
+0.9081280936685311
+```
+
+```python
+# AUPRC = Area under the Precision-Recall curve
+average_precision_score(y_test, y_pred)
+```
+
+```
+0.777769838818772
+```
+
+
+
+
+
+
+
+### Improving the XGBoost Model through Hyperparameter Selection 1
 
 - https://xgboost.readthedocs.io/en/stable/python/index.html
 
@@ -797,9 +841,34 @@ confusion_mtx=confusion_matrix(y_test, y_pred)
 plot_confusion_matrix(confusion_mtx)
 ```
 
-
 ![png](../assets/images/posts/2023-02-17-Fraud-Detection-Model-with-Machine-Learning/Fraud-Detector-Notebook_42_0.png)
     
+
+
+
+```python
+# AUROC/AUC = Area under the Receiver Operating Characteristic curve
+roc_auc_score(y_test, y_pred)
+```
+
+```
+
+```
+
+```python
+# AUPRC = Area under the Precision-Recall curve
+average_precision_score(y_test, y_pred)
+```
+
+```
+
+```
+
+
+
+### Improving the XGBoost Model through Hyperparameter Selection 2
+
+
 
 ```python
 model = xgb.XGBClassifier(max_depth=5, scale_pos_weight=100) 
@@ -812,9 +881,29 @@ plot_confusion_matrix(confusion_mtx)
 ```
 
 
-​    
 ![png](../assets/images/posts/2023-02-17-Fraud-Detection-Model-with-Machine-Learning/Fraud-Detector-Notebook_43_0.png)
 ​    
+
+
+
+```python
+# AUROC/AUC = Area under the Receiver Operating Characteristic curve
+roc_auc_score(y_test, y_pred)
+```
+
+```
+0.9387227527476945
+```
+
+```python
+# AUPRC = Area under the Precision-Recall curve
+average_precision_score(y_test, y_pred)
+```
+
+```
+0.8205300988809707
+```
+
 
 
 ### Interpreting the XGBoost Model
@@ -842,14 +931,11 @@ model.feature_importances_
            0.01525105, 0.0066182 , 0.01258562, 0.00372731, 0.00570192,
            0.01185634, 0.00590739, 0.00518408], dtype=float32)
 
-
-
 ##  Accuracy
 
 
 ```python
 from sklearn.metrics import accuracy_score
-
 y_pred_acc = np.zeros(len(y_test))
 print('Accuracy Score:', round(accuracy_score(y_test, y_pred_acc), 5))
 ```
@@ -964,8 +1050,6 @@ y_pred
 
     array([1.0238165e-05, 1.4227397e-05, 5.2480987e-06, ..., 2.7707663e-06,
            1.6304925e-06, 8.0974127e-07], dtype=float32)
-
-
 
 
 ```python
@@ -1130,10 +1214,6 @@ threshold_df.loc[(threshold_df['AUPRC'] >= 0.82)]
     </tr>
   </tbody>
 </table>
-
-
-
-
 
 ### Threshold Optimization using Total Cost of Fraud
 
@@ -1302,6 +1382,24 @@ print('Accuracy Score:', round(accuracy_score(y_test, y_pred_acc), 5))
     Accuracy Score: 0.99828
 
 ```python
+# AUROC/AUC = Area under the Receiver Operating Characteristic curve
+roc_auc_score(y_test, y_pred)
+```
+
+```
+0.947379282326324
+```
+
+```python
+# AUPRC = Area under the Precision-Recall curve
+average_precision_score(y_test, y_pred)
+```
+
+```
+0.2928437340160444
+```
+
+```python
 # Classification report summarizes the classification metrics at the class and overall level
 print(classification_report(y_test, y_pred))
 ```
@@ -1314,6 +1412,20 @@ print(classification_report(y_test, y_pred))
         accuracy                           1.00     28481
        macro avg       0.66      0.95      0.74     28481
     weighted avg       1.00      1.00      1.00     28481
+
+## Summary
+
+Considering  AUROC/AUC  :Area under the Receiver Operating Characteristic curve and AUPRC:      Area under the Precision-Recall curve we got the following results:
+
+| Model                                                  | AUROC/AUC  | AUPRC      |
+| ------------------------------------------------------ | ---------- | ---------- |
+| Logistic Regression                                    | 0.9456     | 0.0505     |
+| XGBoost                                                | 0.9081     | 0.7778     |
+| XGBoost  Model      through Hyperparameter Selection 1 | 0.9183     | 0.7461     |
+| XGBoost  Model      through Hyperparameter Selection 2 | 0.9387     | **0.8205** |
+| Up-sampling  the Minority      Class with SMOTE        | **0.9474** | 0.2928     |
+
+Therefore the best model with higher  Area under the Precision-Recall curve is  XGBoost  Model      through Hyperparameter Selection 2 .
 
 **Congratulations!** We have practiced how to create a fraud detector by using XGBoost and Logistic Regression models.
 
