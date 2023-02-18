@@ -692,7 +692,7 @@ average_precision_score(y_test, y_pred)
 
 ### Interpreting the Logistic Regression Model
 
-- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+- [https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)
 
 
 ```python
@@ -784,13 +784,8 @@ plot_confusion_matrix(confusion_mtx)
 ```
 
 
-​    
 ![png](../assets/images/posts/2023-02-17-Fraud-Detection-Model-with-Machine-Learning/Fraud-Detector-Notebook_38_0.png)
 ​    
-
-
-
-
 
 ```python
 # AUROC/AUC = Area under the Receiver Operating Characteristic curve
@@ -810,15 +805,9 @@ average_precision_score(y_test, y_pred)
 0.777769838818772
 ```
 
-
-
-
-
-
-
 ### Improving the XGBoost Model through Hyperparameter Selection 1
 
-- https://xgboost.readthedocs.io/en/stable/python/index.html
+- [https://xgboost.readthedocs.io/en/stable/python/index.html](https://xgboost.readthedocs.io/en/stable/python/index.html)
 
 
 ```python
@@ -844,15 +833,13 @@ plot_confusion_matrix(confusion_mtx)
 ![png](../assets/images/posts/2023-02-17-Fraud-Detection-Model-with-Machine-Learning/Fraud-Detector-Notebook_42_0.png)
     
 
-
-
 ```python
 # AUROC/AUC = Area under the Receiver Operating Characteristic curve
 roc_auc_score(y_test, y_pred)
 ```
 
 ```
-
+0.9182794178447969
 ```
 
 ```python
@@ -861,10 +848,8 @@ average_precision_score(y_test, y_pred)
 ```
 
 ```
-
+0.7460661596437196
 ```
-
-
 
 ### Improving the XGBoost Model through Hyperparameter Selection 2
 
@@ -903,8 +888,6 @@ average_precision_score(y_test, y_pred)
 ```
 0.8205300988809707
 ```
-
-
 
 ### Interpreting the XGBoost Model
 
