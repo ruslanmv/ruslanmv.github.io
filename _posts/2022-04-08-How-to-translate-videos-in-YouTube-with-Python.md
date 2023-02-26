@@ -130,7 +130,7 @@ Then just for example click over **the first example** and **click submit** , yo
 
 
 
-![image-20220904210907983](../assets/images/posts/2022-09-01-How-to-translate-videos-in-YouTube-with-Python/image-20220904210907983.png)
+![Youtube Video Translator - Video translated into Spanish](../assets/images/posts/2022-09-01-How-to-translate-videos-in-YouTube-with-Python/image-20220904210907983.png)
 
 and then play.
 
