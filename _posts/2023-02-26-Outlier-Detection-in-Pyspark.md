@@ -1163,9 +1163,10 @@ df.printSchema()
      |-- label: integer (nullable = true)
 
 
-​    
 
  ## Encoding string values into numeric values in Spark DataFrame
+
+
 
  Let us assume that we are interested to encoding the columns that are strings.
 
