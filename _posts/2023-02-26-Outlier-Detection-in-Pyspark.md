@@ -1164,11 +1164,9 @@ df.printSchema()
 
 
 
- ## Encoding string values into numeric values in Spark DataFrame
+## Encoding string values into numeric values in Spark DataFrame
 
-
-
- Let us assume that we are interested to encoding the columns that are strings.
+Let us assume that we are interested to encoding the columns that are strings.
 
 StringIndexer encodes a string column of labels to a column of label indices. StringIndexer can encode multiple columns. 
 
