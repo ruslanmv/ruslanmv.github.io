@@ -1598,8 +1598,6 @@ pandasDFb.head()
   </tbody>
 </table>
 
-</div>
-
 
 
 
