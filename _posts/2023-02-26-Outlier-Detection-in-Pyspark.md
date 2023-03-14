@@ -83,11 +83,7 @@ then we install the following libraries used to the data analysis
 pip install wget seaborn matplotlib requests tqdm
 ```
 
-If you are in colab
-
-```
-pip install pyspark and go to the step 3
-```
+If you are in Google Colab `pip install pyspark`  and go to the step 4.
 
 
 
