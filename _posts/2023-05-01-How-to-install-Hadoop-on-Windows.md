@@ -62,13 +62,13 @@ After the unzip command is completed we have to install the Java.
 
 
 
-## Step 2 -Java  installation
+## Step 3 - Java  installation
 
 Java is required to run Hadoop. If you have not installed Java , please install it.
 
 You can install Java 8 from the following link [here](https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247948_0ae14417abb444ebb02b9815e2103550), different versions may be downloaded  [here](https://www.oracle.com/it/java/technologies/javase/javase8-archive-downloads.html#license-lightbox).
 
- I am choosing the Java **SE Runtime Environment** and I choose the Windows X64 version by 
+ I am choosing the Java **SE Runtime Environment** and I choose the Windows X64 version.
 
 After finishing the file download we open a new command prompt, we should unpack the package
 
@@ -93,7 +93,7 @@ tar -xvzf  jre-8u361-windows-x64.tar.gz -C C:\Java\
 
 
 
-## Step 3 - Install Hadoop native IO binary
+## Step 4 - Install Hadoop native IO binary
 
 Hadoop on Linux includes optional Native IO support. However Native IO is mandatory on Windows and without it you will not be able to get your installation working. The Windows native IO libraries are not included as part of Apache Hadoop release. Thus we need to build and install it.
 
@@ -120,7 +120,7 @@ copy *.*  C:\Hadoop\hadoop-3.3.0\bin
 ```
 
 
-## Step 4 - Configure environment variables
+## Step 5 - Configure environment variables
 
 Now we've downloaded and unpacked all the artefacts we need to configure two important environment variables.
 
@@ -223,7 +223,7 @@ winutils.exe
 
 
 
-## Step 5 - Configure Hadoop
+## Step 6 - Configure Hadoop
 
 Now we are ready to configure the most important part - Hadoop configurations which involves Core, YARN, MapReduce, HDFS configurations. 
 
@@ -322,7 +322,7 @@ Edit file **yarn-site.xml** in %HADOOP_HOME%\etc\hadoop folder.
 
 
 
-### Step 6 - Initialise HDFS 
+### Step 7 - Initialise HDFS 
 
 Run the following command in Command Prompt 
 
@@ -334,7 +334,7 @@ The following is an example when it is formatted successfully:
 
 ![image-20230507133808803](../assets/images/posts/2023-05-01-How-to-install-Hadoop-on-Windows/image-20230507133808803.png)
 
-### Step 7 - Start HDFS daemons 
+### Step 8 - Start HDFS daemons 
 
 Run the following command to start HDFS daemons in Command Prompt:
 
@@ -363,7 +363,7 @@ You can also navigate to a data node UI:
 
 ![image-20230507134148506](../assets/images/posts/2023-05-01-How-to-install-Hadoop-on-Windows/image-20230507134148506.png)
 
-### Step 8 - Start YARN daemons
+### Step 9 - Start YARN daemons
 
 warning You may encounter permission issues if you start YARN daemons using normal user. To ensure you don't encounter any issues. Please open a Command Prompt window using Run as administrator.
 
