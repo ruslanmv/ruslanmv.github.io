@@ -134,9 +134,7 @@ First you click the windows button and type environment
 
 We configure **JAVA_HOME** environment variable
 
-by adding new  environment variable
-
-
+by adding new  environment variable:
 
 Variable name : `JAVA_HOME`
 Variable value:  `C:\Java\jre1.8.0_361`
@@ -145,9 +143,7 @@ Variable value:  `C:\Java\jre1.8.0_361`
 
 ![image-20230507121225400](../assets/images/posts/2023-05-01-How-to-install-Hadoop-on-Windows/image-20230507121225400.png)
 
-the same with  **HADOOP_HOME** environment variable
-
-
+the same with  **HADOOP_HOME** environment variable:
 
 Variable name : `HADOOP_HOME`
 Variable value:  `C:\Hadoop\hadoop-3.3.0`
@@ -235,7 +231,7 @@ For my environment, the actual path is C:\Hadoop\hadoop-3.3.0\etc\hadoop
 
 Replace configuration element with the following:
 
-```
+```xml
 <configuration>
    <property>
      <name>fs.default.name</name>
@@ -263,7 +259,7 @@ mkdir C:\hadoop\hadoop-3.3.0\data\namenode
 
 Replace configuration element with the following (remember to replace the highlighted paths accordingly):
 
-```
+```xml
 <configuration>
    <property>
      <name>dfs.replication</name>
@@ -288,7 +284,7 @@ Edit file **mapred-site.xml** in %HADOOP_HOME%\etc\hadoop folder.
 
 Replace configuration element with the following:
 
-```
+```xml
 <configuration>
     <property>
         <name>mapreduce.framework.name</name>
@@ -303,7 +299,7 @@ Replace configuration element with the following:
 
 Edit file **yarn-site.xml** in %HADOOP_HOME%\etc\hadoop folder. 
 
-```
+```xml
 <configuration>
     <property>
         <name>yarn.nodemanager.aux-services</name>
