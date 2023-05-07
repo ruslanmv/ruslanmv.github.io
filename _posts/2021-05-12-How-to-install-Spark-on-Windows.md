@@ -141,7 +141,10 @@ the same with  **SPARK_HOME** environment variable:
 Variable name : `SPARK_HOME`
 Variable value:  `C:\Spark\spark-3.3.2-bin-hadoop3`
 
+and finally with  **HADOOP_HOME** environment variable:
 
+Variable name : `HADOOP_HOME`
+Variable value:  `C:\Hadoop\hadoop-3.3.0`
 
 ###  b) Configure PATH environment variable
 
@@ -156,6 +159,7 @@ If PATH environment exists in your system, you can also manually add the followi
 ```
 %JAVA_HOME%/bin
 %SPARK_HOME%/bin
+%HADOOP_HOME%/bin
 ```
 
 
@@ -167,6 +171,27 @@ If PATH environment exists in your system, you can also manually add the followi
 
 
 
+
+
+
+## c) Spark with winutils.exe on Windows
+
+To run Apache Spark on windows, you need `winutils.exe` as it uses POSIX like file access operations in windows using windows API.
+
+winutils.exe enables Spark to use Windows-specific services including running shell commands on a windows environment.
+
+We create the folder
+
+```
+mkdir C:\Hadoop\hadoop-3.3.0\
+```
+
+[Download winutils.exe for Hadoop 3.3](https://github.com/ruslanmv/How-to-install-Hadoop-on-Windows/raw/master/winutils/hadoop-3.3.0/bin/winutils.exe) and copy it to `%HADOOP_HOME%\bin` folder. 
+
+```
+cd Downloads
+copy winutils.exe C:\Hadoop\hadoop-3.3.0\bin
+```
 
 ### Verification of Installation
 
@@ -217,23 +242,6 @@ scala> 23/05/07 21:37:04 WARN ProcfsMetricsGetter: Exception when trying to comp
 spark-shell is a CLI utility that comes with Apache Spark distribution.
 
 Spark-shell also creates a [Spark context web UI](https://sparkbyexamples.com/spark/spark-web-ui-understanding/) and by default, it can access from [http://localhost:4041](http://localhost:4041/).
-
-## Spark with winutils.exe on Windows
-
-Many beginners think Apache Spark needs a Hadoop cluster installed to run but that’s not true, Spark can run on AWS by using S3, Azure by using blob storage without Hadoop and HDFSe.t.c.
-
-To run Apache Spark on windows, you need `winutils.exe` as it uses POSIX like file access operations in windows using windows API.
-
-winutils.exe enables Spark to use Windows-specific services including running shell commands on a windows environment.
-
-[Download winutils.exe for Hadoop 3.3](https://github.com/ruslanmv/How-to-install-Hadoop-on-Windows/raw/master/winutils/hadoop-3.3.0/bin/winutils.exe) and copy it to `%SPARK_HOME%\bin` folder. 
-
-```
-cd Downloads
-copy winutils.exe C:\Spark\spark-3.3.2-bin-hadoop3\bin
-```
-
-
 
 ## Testing Spark
 
