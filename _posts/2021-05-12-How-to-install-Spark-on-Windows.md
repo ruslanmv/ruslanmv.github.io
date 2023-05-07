@@ -9,7 +9,7 @@ header:
   
 ---
 
-Hello everyone, today we are going to install Spark on Windows.
+Hello everyone, today we are going to install Spark on Windows 11.
 
 Apache Spark is an open-source unified analytics engine for large-scale data processing. Spark provides an interface for programming clusters with implicit data parallelism and fault tolerance.
 
