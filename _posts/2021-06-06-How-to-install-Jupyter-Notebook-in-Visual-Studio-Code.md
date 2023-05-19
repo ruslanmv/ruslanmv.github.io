@@ -5,7 +5,7 @@ excerpt: "Installation of Visual Studio Code with support of Jupyter Notebook."
 header:
   image: "../assets/images/posts/2021-06-06-How-to-install-Jupyter-Notebook-in-Visual-Studio-Code/clement.jpg"
   teaser: "../assets/images/posts/2021-06-06-How-to-install-Jupyter-Notebook-in-Visual-Studio-Code/clement.jpg"
-  caption: "Without big data analytics, companies are blind and deaf, wandering out onto the web like deer on a freeway.”- Geoffrey Moore"
+  caption: "Without big data analytics, companies are blind and deaf, wandering out onto the web like deer on a freeway.- Geoffrey Moore"
   
 ---
 
