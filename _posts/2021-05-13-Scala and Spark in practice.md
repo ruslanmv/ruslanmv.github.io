@@ -8,9 +8,6 @@ header:
   caption: "Scala Programming with Spark"
   
 ---
-
-
-
 Hi everyone, today I  am going to introduce the basis of Spark and Scala from a perspective of a python programmer.
 
 ### Why it is important Apache Spark?
@@ -101,11 +98,6 @@ The next step is create new folder from the root  ***src/main/scala/com.ruslanmv
 you will have something like
 
 ![](../assets/images/posts/2021-15-13-Scala%20and%20Spark%20in%20practice/4a.jpg)
-
-
-
-
-
 
 
 The first thing that we are going to do is do the My first  Hello World in Scala with Spark.
@@ -909,12 +901,6 @@ object DataSet2 extends App {
 }
 ```
 
-
-
-
-
-
-
 RDD Transformations are lazy operations meaning none of the transformations get executed until you call an action on Spark RDD. Since RDD’s are immutable, any transformations on it result in a new RDD leaving the current one unchanged.
 
 ## RDD Transformation Types
@@ -926,6 +912,29 @@ There are two types are transformations.
 Narrow transformations are the result of [map()]() and [filter()]() functions and these compute data that live on a single partition meaning there will not be any data movement between partitions to execute narrow transformations.
 
 Functions such as `map()`, `mapPartition()`, `flatMap()`, `filter()`, `union()` are some examples of narrow transformation
+
+For example,  we create an input RDD with ten integers, and then we apply the filter operation with the predicate x % 2 != 0 to select only the odd numbers. The resulting filteredRDD will contain the elements 1, 3, 5, 7, 9.
+
+```scala
+import org.apache.spark.sql.SparkSession
+// Create SparkSession
+val spark = SparkSession.builder()
+        .appName("Creating DataFrame")
+        .master("local[*]")
+        .getOrCreate()
+
+// Create RDD
+val inputRDD = spark.sparkContext
+        .parallelize(Seq(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+
+// RDD filter() usage
+val filteredRDD = inputRDD.filter(x => x % 2 != 0)
+
+// printing results 1, 3, 5, 7, 9.
+filteredRDD.collect().foreach(println)
+```
+
+
 
 ### Wider Transformation
 
