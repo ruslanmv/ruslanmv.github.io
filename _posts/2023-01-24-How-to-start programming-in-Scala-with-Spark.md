@@ -107,10 +107,10 @@ This is one of the **most difficult part of spark when you are starting**. Becau
 
 Creating spark session can be done in many ways:
 
-1) Directly using SparkSession
-2) SparkConf→ spark Context → SparkSession
-3) SparkConf → SparkSession
-4) SparkConf→spark context
+1. Directly using SparkSession
+2. SparkConf→ SparkContext → SparkSession
+3. SparkConf → SparkSession
+4. SparkConf→SparkContext
 
 Let practice the different methods:
 
@@ -127,7 +127,7 @@ spark-shell
 then copy the following commands and paste into the terminal
 
 
-```
+```scala
 // Create SparkSession object
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.builder().master("local[1]").appName("MyApp").getOrCreate()
@@ -149,7 +149,7 @@ you will get the Session with the number after the @ like in this example **@599
 
 You can get the existing SparkSession in Scala programmatically using the below example
 
-```
+```scala
 // Get existing SparkSession 
 import org.apache.spark.sql.SparkSession
 val spark = SparkSession.builder().getOrCreate()
@@ -166,7 +166,7 @@ as you see we got the same session  `org.apache.spark.sql.SparkSession@599e81bd`
 
 Setting spark conf and then passing it into sparksession)
 
-```
+```scala
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 val conf = new SparkConf()
@@ -181,14 +181,14 @@ you will get
 
 ### 3. SparkConf→SparkContext→SparkSession
 
-```
+```scala
 // If you already have SparkContext stored in `sc`
 val spark = SparkSession.builder.config(sc.getConf).getOrCreate()
 ```
 
 ![image-20230609225027799](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230609225027799.png)
 
-```
+```scala
 // Another example which builds a SparkConf, SparkContext and SparkSession
 import org.apache.spark.{SparkConf, SparkContext}
 val conf = new SparkConf().setAppName("sparktest").setMaster("local[2]")
@@ -200,21 +200,21 @@ val spark = SparkSession.builder.config(sc.getConf).getOrCreate()
 
 ### 4. SparkConf→SparkContext
 
-```
+```scala
 import org.apache.spark.{SparkConf, SparkContext}
 val conf = new SparkConf().setAppName("appName").setMaster("local[*]")
 val sc = new SparkContext(conf)
 ```
 Please remember that  we can access spark context and other contexts using the spark session object
 
-```
+```scala
 scala> spark.sparkContext
 res2: org.apache.spark.SparkContext = org.apache.spark.SparkContext@6803b02d
 ```
 
 and
 
-```
+```scala
 scala> spark.sqlContext
 res3: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@74037f9b
 ```
@@ -254,7 +254,7 @@ Once we have understood those differences is time to create **Dataframes**
 
 Let us first create a listt of data and then we create a dataframe by using spark, so we can copy and paste the following commands
 
-```
+```scala
 // Create DataFrame
 val data = List(("Scala", 25000), ("Spark", 35000), ("PHP", 21000))
 val df = spark.createDataFrame(data)
@@ -282,7 +282,7 @@ Now let us discover another tool in Spark called  **Spark SQL**.  Due to the lon
 Using **SparkSession** you can access Spark SQL capabilities in Apache Spark.  In order to use SQL features first, you need to create a temporary view in Spark.
 Once you have a temporary view you can run any ANSI SQL queries using spark.sql() method.
 
-```
+```scala
 // Spark SQL
 df.createOrReplaceTempView("sample_table")
 val df2 = spark.sql("SELECT _1,_2 FROM sample_table")
@@ -291,7 +291,7 @@ df2.show()
 
 ![image-20230609233651083](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230609233651083.png)
 
-```
+```scala
 // Create Hive table & query it.  
 spark.table("sample_table").write.saveAsTable("sample_hive_table")
 val df3 = spark.sql("SELECT _1,_2 FROM sample_hive_table")
@@ -325,7 +325,7 @@ To read a csv file you can use the  structure `spark.read.csv("path")` or `spark
 
 Let us consider that you have an environment variable of spark ,caleed SPARK_HOME and there you have a csv that you want to read.
 
-```
+```scala
 val SPARK_HOME=sys.env("SPARK_HOME")
 val FILE ="\\python\\test_support\\sql\\ages.csv" \\ Windows
 //val FILE ="/python/test_support/sql/ages.csv" \\ Unix
@@ -348,7 +348,7 @@ you will get something like
 
 That means that you could read the file, you can verify by typing
 
-```
+```scala
 df.show()
 ```
 
@@ -375,7 +375,7 @@ val dfWithHeader = df.toDF(colum_names:_*)
 
 During the first versions of spark we can create an SQLContext in Spark shell by passing a default SparkContext object (sc) as a parameter to the SQLContext constructor.
 
-```
+```scala
 val sqlcontext = new org.apache.spark.sql.SQLContext(sc)
 ```
 
@@ -388,7 +388,7 @@ val sqlContext = spark.sqlContext
 
 for example reading a csv with sqlContext
 
-```
+```scala
 val sqlContext = spark.sqlContext
 //read csv with options
 val df = sqlContext.read.options(Map("inferSchema"->"true","delimiter"->",","header"->"true")).csv(PATH)
@@ -398,7 +398,7 @@ df.printSchema()
 
 ![image-20230610125558018](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610125558018.png)
 
-```
+```scala
 df.createOrReplaceTempView("TAB")
 sqlContext.sql("select * from TAB").show(false)
 ```
@@ -411,7 +411,7 @@ Here we will create an empty dataframe with does not have any schema/columns. Fo
 
  Lets us see an example below.
 
-```
+```scala
 val df: DataFrame =spark.emptyDataFrame
 ```
 
@@ -419,7 +419,7 @@ val df: DataFrame =spark.emptyDataFrame
 
 Here we will create an empty dataframe with schema. We will make use of createDataFrame method for creation of dataframe. Just like emptyDataframe here we will make use of emptyRDD[Row] tocreate an empty rdd . We will also create a strytype schema variable. Let us see an example.
 
-```
+```scala
   val schema = new StructType()
     .add("fnm",StringType,false)
     .add("lnm",StringType,false)
@@ -431,7 +431,7 @@ Here we will create an empty dataframe with schema. We will make use of createDa
 
 To determine the class of a Scala object, you can use `.getClass` ,method
 
-```
+```scala
    df.getClass
 ```
 
@@ -443,25 +443,25 @@ Use Spark DataFrameReader’s orc() method to read ORC file into DataFrame. This
 
 Spark 2.x:
 
-```
+```scala
 spark.read.orc("/tmp/orc/data.orc")
 ```
 
 In order to read ORC files from Amazon S3, use the below prefix to the path along with third-party dependencies and credentials.
 
-s3:\\ = > First gen
-s3n:\\ => second Gen
-s3a:\\ => Third gen
+- s3:\\ = > First gen
+- s3n:\\ => second Gen
+- s3a:\\ => Third gen
 
 Spark 1.6:
 
-```
+```scala
 hiveContext.read.orc('tmp/orc/data.orc')
 ```
 
 ### How to use if conditional in scala
 
-```
+```scala
 if(Boolean_expression) {
    // Statements will execute if the Boolean expression is true
 }
@@ -469,7 +469,7 @@ if(Boolean_expression) {
 
 ### How to match multiple conditions (patterns) with one case statement
 
-```
+```scala
 val cmd = "stop"
 cmd match {
     case "start" | "go" => println("starting")
@@ -480,7 +480,7 @@ cmd match {
 
 ### Scala If-Else-If Ladder Example
 
-```
+```scala
 var number:Int = 85  
 if(number>=0 && number<50){  
     println ("fail")  
@@ -505,15 +505,15 @@ else println ("Invalid")
 
 ### Merge Multiple Data Frames in Spark
 
-```
-      // Approach 1
-      val mergeDf = empDf1.union(empDf2).union(empDf3)
-      mergeDf.show()
+```scala
+// Approach 1
+val mergeDf = empDf1.union(empDf2).union(empDf3)
+mergeDf.show()
 
-      // Approach 2
-      val dfSeq = Seq(empDf1, empDf2, empDf3)
-      val mergeSeqDf = dfSeq.reduce(_ union _)
-      mergeSeqDf.show()
+// Approach 2
+val dfSeq = Seq(empDf1, empDf2, empDf3)
+val mergeSeqDf = dfSeq.reduce(_ union _)
+mergeSeqDf.show()
 ```
 
 ## Creating a Sequence in Scala
@@ -524,7 +524,7 @@ Syntax:
 
 1. ### Creating an empty sequence,
 
-   ```
+   ```scala
    var emptySeq: Seq[data_type] = Seq();
    ```
 
@@ -532,7 +532,7 @@ Syntax:
 
 2. ### Creating an Sequence with defining the data type,
 
-   ```
+   ```scala
    var mySeq: Seq[data_type] = Seq(element1, element2, ...)
    ```
 
@@ -540,7 +540,7 @@ Syntax:
 
 3. ### Creating an Sequence without defining the data type,
 
-   ```
+   ```scala
    var mySeq = Seq(element1, element2, ...)
    ```
 
@@ -548,19 +548,19 @@ Syntax:
 
 ## How to initialize a Sequence with 3 elements
 
-```
+```scala
 val seq1: Seq[String] = Seq("Plain Donut","Strawberry Donut","Chocolate Donut")
 ```
 
 ow to add elements to Sequence using :+
 
-```
+```scala
 val seq2: Seq[String] = seq1 :+ "Vanilla Donut"
 ```
 
 The code below shows how to initialize an empty Sequence.
 
-```
+```scala
 val emptySeq: Seq[String] = Seq.empty[String]
 ```
 
@@ -581,14 +581,14 @@ Companions has special access control properties, which is covered under Scala
 
 A simple example of an **object**:
 
-```
+```scala
 object SimpleObject
 val a = SimpleObject
 ```
 
 The members of objects are similar to the members of classes.  An example of **members in an object:**
 
-```
+```scala
 object MembersObject {
   val someValue = "test"
   def someMethod(a:Int) = a*a
@@ -597,7 +597,7 @@ object MembersObject {
 
 For example
 
-```
+```scala
 println("someValue is: " + MembersObject.someValue) 
 ```
 
@@ -615,7 +615,7 @@ Prints "someMethod(3) gives: 9".
 
 A third use of objects is to create the entry point to a Scala program. This is done by defining a "main" method with a specific signature:
 
-```
+```scala
 object ProgramEntryPoint {
   def main(args:Array[String]) = {
     println("Program execution start.")
@@ -634,7 +634,7 @@ and you can execute this Program by giving the argument for example `Array("Hell
 
 A function, that does not return anything can return a **Unit** and indicates that function does not return anything and are called procedures.
 
-```
+```scala
 object Hello{
    def printMe( ) : Unit = {
       println("Hello, Scala!")
@@ -648,7 +648,7 @@ Scala provides a number of syntactic variations for invoking methods. Following 
 
 ![image-20230610141439536](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610141439536.png)
 
-```
+```scala
 object Demo {
    def main(args: Array[String]) {
       println( "Returned Value : " + addInt(5,7) );
@@ -708,14 +708,19 @@ val convertUDF = udf(convertCase)
 
 ```scala
 //Using with DataFrame
-df.select(col("Seqno").convertUDF(col("Quote")).as("Quote") )
+val new_df=df.withColumn("Upper Quote",convertUDF(col("Quote")))
+
 ```
+
+![image-20230612215735151](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230612215735151.png)
+
+
 
 ## How to add elements in a sequence in Scala?
 
 Remember that Vector and Seq are immutable, so you can’t modify them. Therefore, during the append or prepend operations, you need to assign the result to a new variable.
 
-```
+```scala
 object MyClass {
     def main(args: Array[String]){
     val a = Seq("Apple", "Orange", "Mango")
@@ -728,7 +733,7 @@ object MyClass {
 ![image-20230610144105893](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610144105893.png)
 
 
-```
+```scala
 object MyClass {
     def main(args: Array[String]){
     val fruits = Seq("Apple", "Orange", "Mango")
@@ -743,14 +748,14 @@ object MyClass {
 
 ## How to delete elements from a list in Scala?
 
-```
+```scala
 var progLang = List("C++", "Java", "Scala", "Python")
 println("Programming Languages: " + progLang)
 var newLang = progLang.filter(_<"P")
 println("Programming Languages: " + newLang)
 ```
 
-```
+```scala
 import scala.collection.mutable.ListBuffer
 var progLang = ListBuffer("C", "C++", "Java", "Scala", "Python", "JavaScript")
 println("Programming Languages: " + progLang)
@@ -766,13 +771,13 @@ println("Programming Languages: " + progLang)
 
 Use the mkString method to print a collection as a String. Given a simple collection:
 
-```
+```scala
 val a = Array("apple", "banana", "cherry")
 ```
 
 you can print the collection elements using mkString:
 
-```
+```scala
 a.mkString(", ")
 ```
 
@@ -784,24 +789,24 @@ To use an array in a program, you must declare a variable to reference the array
 
 The following is the syntax for declaring an array variable.
 
-```
+```scala
 var z:Array[String] = new Array[String](3)
 ```
 
 or
 
-```
+```scala
 var z = new Array[String](3)
 ```
 
 Here, z is declared as an array of Strings that may hold up to three elements. Values can be assigned to individual elements or get access to individual elements, it can be done by using commands like the following −
 
-```
+```scala
 z(0) = "Zara"; z(1) = "Nuha"; z(4/2) = "Ayan"
 ```
 
 
-```
+```scala
 import scala.collection.mutable.ArrayBuffer
 val ab = ArrayBuffer[String]()
 ab += "hello"
