@@ -9,8 +9,6 @@ header:
   
 ---
 
-
-
 Hello Everyone, today we are going to discuss how to start programming in **Scala** with **Spark**.
 
 ## Introduction
@@ -93,10 +91,7 @@ If you are in a Linux System you can load spark 2.0 with the following command
 ```
 SPARK_MAJOR_VERSION=2 spark-shell
 ```
-
-If you dont have older versions , just you can type `spark-shell`.
-
-To exit of the terminal you can type 
+If you dont have older versions , just you can type `spark-shell`. To exit of the terminal you can type 
 
 ```
 :quit
@@ -169,7 +164,6 @@ as you see we got the same session  `org.apache.spark.sql.SparkSession@599e81bd`
 
 ### 2. SparkConf→SparkSession
 
-
 Setting spark conf and then passing it into sparksession)
 
 ```
@@ -194,8 +188,6 @@ val spark = SparkSession.builder.config(sc.getConf).getOrCreate()
 
 ![image-20230609225027799](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230609225027799.png)
 
-
-
 ```
 // Another example which builds a SparkConf, SparkContext and SparkSession
 import org.apache.spark.{SparkConf, SparkContext}
@@ -213,9 +205,6 @@ import org.apache.spark.{SparkConf, SparkContext}
 val conf = new SparkConf().setAppName("appName").setMaster("local[*]")
 val sc = new SparkContext(conf)
 ```
-
-
-
 Please remember that  we can access spark context and other contexts using the spark session object
 
 ```
@@ -228,6 +217,25 @@ and
 ```
 scala> spark.sqlContext
 res3: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@74037f9b
+```
+## How to find Spark's installation directory?
+
+From the spark shwll spark-shell you can type
+
+```
+sc.getConf.get("spark.home")
+```
+
+another way is by searching for spark-shell instead, in linux you type
+
+```
+whereis spark-shell
+```
+
+and in windows
+
+```
+where spark-shell
 ```
 
 # Data Manipulation
@@ -293,8 +301,6 @@ df3.show()
 ![image-20230609233719964](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230609233719964.png)
 
 
-
-
 ### Getting the first value from spark.sql
 
 ```
@@ -307,7 +313,7 @@ df.first
 val df = spark.emptyDataFrame
 ```
 
-### Create empty DataFrame with schema (StructType)
+
 
 
 
