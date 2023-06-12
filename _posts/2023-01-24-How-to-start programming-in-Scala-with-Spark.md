@@ -220,7 +220,7 @@ res3: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@74037f9b
 ```
 ## How to find Spark's installation directory?
 
-From the spark shwll spark-shell you can type
+From the spark-shell you can type
 
 ```
 sc.getConf.get("spark.home")
