@@ -737,7 +737,6 @@ object MyClass {
 
 ![image-20230610144105893](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610144105893.png)
 
-
 ```scala
 object MyClass {
     def main(args: Array[String]){
@@ -751,6 +750,22 @@ object MyClass {
 
 ![image-20230610144208260](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610144208260.png)
 
+
+## Adding elements by using ListBuffer
+There is a simple way to add elements to a List. That is using ListBuffer
+
+```scala
+import scala.collection.mutable.ListBuffer
+var fruits = new ListBuffer[String]()
+fruits += "Apple"
+fruits += "Banana"
+fruits += "Orange"
+val fruitsList = fruits.toList
+```
+and you get
+```
+fruitsList: List[String] = List(Apple, Banana, Orange)
+```
 ## How to delete elements from a list in Scala?
 
 ```scala
@@ -759,7 +774,7 @@ println("Programming Languages: " + progLang)
 var newLang = progLang.filter(_<"P")
 println("Programming Languages: " + newLang)
 ```
-
+## Removing  elements by using ListBuffer
 ```scala
 import scala.collection.mutable.ListBuffer
 var progLang = ListBuffer("C", "C++", "Java", "Scala", "Python", "JavaScript")
