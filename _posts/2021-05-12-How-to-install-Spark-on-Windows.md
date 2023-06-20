@@ -304,7 +304,7 @@ and change the variable `rootLogger.level = info` to `WARN`
 rootLogger.level = WARN
 ```
 
-![image-20230620112701625](assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620112701625.png)
+![image-20230620112701625](../assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620112701625.png)
 
 then save and each time you run spark you will see only the warnings and errors.
 
@@ -350,7 +350,7 @@ SPARK_LOCAL_DIRS=file:/C:/spark-tmp/tmp
 
 and save.
 
-![image-20230620115837908](assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620115837908.png)
+![image-20230620115837908](../assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620115837908.png)
 
 we save and finally on windows you will have to make those environment variables by adding the key value pair 
 
@@ -358,9 +358,11 @@ we save and finally on windows you will have to make those environment variables
 SPARK_LOCAL_DIRS -> C:\spark-tmp\tmp
 ```
 
-![image-20230620115322873](assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620115322873.png)
+![image-20230620115322873](../assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620115322873.png)
 
 and click ok.
+
+You can check by typing spark-shell
 
 
 
