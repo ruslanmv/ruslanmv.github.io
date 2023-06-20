@@ -96,12 +96,29 @@ If you dont have older versions , just you can type `spark-shell`. To exit of th
 ```
 :quit
 ```
+# Learning Scala
+In **Scala** is not possible to change the value of variable with different datatype during the runtime.
+This is a very important feature of Scala language. Scala is indeed a **statically typed language**. You can't reassign the data type at runtime. The concept is called **type safety** and a lot people value it deeply. It is a matter of preference however.
+There are different datatypes in scala:
+```scala
+// var keyword is used to  declare variables in Scala
+var int: Int = 50
+var short: Short = 40
+var long: Long = 80
+var string: String = "Hello World!"
+var bool: Boolean = true
+var char: Char = 'H'
+var float: Float = 3.142f
+var double: Double = 3.141592653589793
+```
+There are more datatypes, but those are some of the most common.
+During you trip in Scala, you will learn more.
 
 ## What is Spark Session?
 
-This is one of the **most difficult part of spark when you are starting**. Because is not enough know **Scala**, you need to know  more about how  **Apache Spark** works and use properly. 
+This is one of the **most difficult part of Spark when you are starting**. Because is not enough know **Scala**, you need to know  more about how  **Apache Spark** works and use properly. 
 
-**Spark session** is a unified entry point of a spark application from Spark 2.0.  It provides a way to interact with various spark’s functionality.  Instead of having a spark context, hive context, SQL context as in previous version, now all of it is encapsulated in a **spark session**
+**Spark session** is a unified entry point of a spark application from Spark 2.0.  It provides a way to interact with various spark’s functionality.  Instead of having a spark context, hive context, SQL context as in previous version, now all of it is encapsulated in a **Spark session**
 
 ## How do I create a Spark session?
 
@@ -313,15 +330,9 @@ df.first
 val df = spark.emptyDataFrame
 ```
 
-
-
-
-
 ## How to read a csv with Spark.
 
 To read a csv file you can use the  structure `spark.read.csv("path")` or `spark.read.format("csv").load("path")` you can read a CSV file with fields delimited by pipe, comma, tab  into a Spark DataFrame.
-
-
 
 Let us consider that you have an environment variable of spark ,caleed SPARK_HOME and there you have a csv that you want to read.
 
@@ -366,8 +377,6 @@ As we see, this csv does not have header  and we did not  indicated which delimi
 val colum_names = Seq("name","id")// this is example define exact number of columns
 val dfWithHeader = df.toDF(colum_names:_*)
 ```
-
-
 
 ![image-20230610125333106](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610125333106.png)
 
@@ -516,6 +525,8 @@ val mergeSeqDf = dfSeq.reduce(_ union _)
 mergeSeqDf.show()
 ```
 
+
+
 ## Creating a Sequence in Scala
 
 First see how to create a sequence in Scala. The following syntax is used to create a list in Scala,
@@ -527,24 +538,18 @@ Syntax:
    ```scala
    var emptySeq: Seq[data_type] = Seq();
    ```
-
-   
-
+  
 2. ### Creating an Sequence with defining the data type,
 
    ```scala
    var mySeq: Seq[data_type] = Seq(element1, element2, ...)
    ```
-
-   
-
+ 
 3. ### Creating an Sequence without defining the data type,
 
    ```scala
    var mySeq = Seq(element1, element2, ...)
    ```
-
-   
 
 ## How to initialize a Sequence with 3 elements
 
@@ -732,7 +737,6 @@ object MyClass {
 
 ![image-20230610144105893](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610144105893.png)
 
-
 ```scala
 object MyClass {
     def main(args: Array[String]){
@@ -746,6 +750,22 @@ object MyClass {
 
 ![image-20230610144208260](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610144208260.png)
 
+
+## Adding elements by using ListBuffer
+There is a simple way to add elements to a List. That is using ListBuffer
+
+```scala
+import scala.collection.mutable.ListBuffer
+var fruits = new ListBuffer[String]()
+fruits += "Apple"
+fruits += "Banana"
+fruits += "Orange"
+val fruitsList = fruits.toList
+```
+and you get
+```
+fruitsList: List[String] = List(Apple, Banana, Orange)
+```
 ## How to delete elements from a list in Scala?
 
 ```scala
@@ -754,7 +774,7 @@ println("Programming Languages: " + progLang)
 var newLang = progLang.filter(_<"P")
 println("Programming Languages: " + newLang)
 ```
-
+## Removing  elements by using ListBuffer
 ```scala
 import scala.collection.mutable.ListBuffer
 var progLang = ListBuffer("C", "C++", "Java", "Scala", "Python", "JavaScript")
