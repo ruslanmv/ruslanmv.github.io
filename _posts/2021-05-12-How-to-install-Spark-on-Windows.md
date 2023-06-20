@@ -277,6 +277,91 @@ rdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at 
 
 ```
 
+## Cleaning Logs of Spark
+
+When you are running programs with spark you can see that you have too many logs.  You can choose the type of logs that  you want to see during the spark execution.
+
+Go to your Spark directory
+
+```
+cd %SPARK_HOME%/conf
+```
+
+then we copy the following file
+
+```
+copy log4j2.properties.template log4j2.properties
+```
+
+```
+code log4j2.properties
+```
+
+and change the variable `rootLogger.level = info` to `WARN`
+
+```
+# Set everything to be logged to the console
+rootLogger.level = WARN
+```
+
+![image-20230620112701625](assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620112701625.png)
+
+then save and each time you run spark you will see only the warnings and errors.
+
+## Changing Temp Directory
+
+When you are worsking in windows I suggest change the temporary directory spark , for example, we create a temporary folder  `spark-tmp`
+
+```
+mkdir C:\spark-tmp
+```
+
+then we create a file of configuration of spark by typing
+
+```
+copy  %SPARK_HOME%\conf\spark-defaults.conf.template %SPARK_HOME%\conf\spark-defaults.conf
+```
+
+we edit the file and we add the following lines
+
+```
+spark.eventLog.enabled           true
+spark.eventLog.dir               file:/C:/spark-tmp/log
+spark.local.dir                  file:/C:/spark-tmp/tmp
+```
+
+then  create another conffile
+
+```
+copy  %SPARK_HOME%\conf\spark-env.sh.template %SPARK_HOME%\conf\spark-env.sh
+```
+
+we edit the file
+
+```
+code %SPARK_HOME%\conf\spark-env.sh
+```
+
+we add the following line
+
+```
+SPARK_LOCAL_DIRS=file:/C:/spark-tmp/tmp
+```
+
+and save.
+
+![image-20230620115837908](assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620115837908.png)
+
+we save and finally on windows you will have to make those environment variables by adding the key value pair 
+
+```
+SPARK_LOCAL_DIRS -> C:\spark-tmp\tmp
+```
+
+![image-20230620115322873](assets/images/posts/2021-05-12-How-to-install-Spark-on-Windows/image-20230620115322873.png)
+
+and click ok.
+
 
 
 **Congratulations!** You have installed Apache Spark on **Windows 11.**
