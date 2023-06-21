@@ -522,15 +522,10 @@ Spark 1.6:
 hiveContext.read.orc('tmp/orc/data.orc')
 ```
 ### Difference between ShuffledRDD, MapPartitionsRDD and ParallelCollectionRDD
-- ShuffledRDD : ShuffledRDD is created while the data is shuffled over the cluster. If you use any transformation(e.g. join,groupBy,repartition, etc.) which shuffles your data it will create a shuffledRDD.
-
-- MapPartitionsRDD : MapPartitionsRDD will be created when you use mapPartition transformation.
-
-- ParallelCollectionRDD : ParallelCollectionRDD is created when you create the RDD with the collection object.
-
-
-
-
+- ShuffledRDD is created while the data is shuffled over the cluster.
+  If you use any transformation(e.g. join,groupBy,repartition, etc.) which shuffles your data it will create a shuffledRDD.
+- MapPartitionsRDD will be created when you use mapPartition transformation.
+- ParallelCollectionRDD is created when you create the RDD with the collection object.
 ### How to use if conditional in scala
 
 ```scala
