@@ -389,7 +389,7 @@ val dfWithHeader = df.toDF(colum_names:_*)
 
 ![image-20230610125333106](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610125333106.png)
 
-## Older way to read  csv files
+## Other way to read  csv files
 
 During the first versions of spark we can create an SQLContext in Spark shell by passing a default SparkContext object (sc) as a parameter to the SQLContext constructor.
 
@@ -422,6 +422,51 @@ sqlContext.sql("select * from TAB").show(false)
 ```
 
 ![image-20230610125640119](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230610125640119.png)
+
+## Read CSV files from a directory into RDD 
+
+```scala
+  val rddFromFile = spark.sparkContext.textFile(PATH)
+  println(rddFromFile.getClass)
+```
+### Get data Using collect
+```scala
+  rddFromFile.collect().foreach(f=>{
+    println(f)
+  })
+```
+### Get the first line
+```scala
+scala> rddFromFile.first()
+
+```
+you obtain
+```
+res8: String = Joe,20
+```
+
+If you are interested to convert to each row as array
+
+```scala
+scala> var rdd = rddFromFile.map(p => p.replace("\\n","").split(",",-1))
+
+```
+you got
+```
+rdd: org.apache.spark.rdd.RDD[Array[String]] = MapPartitionsRDD[15] at map at <console>:27
+```
+As you see you have created a MapPartitionsRDD becuase you used a  mapPartition transformation.
+and finally you get the each array for each row.
+
+```scala
+rdd.first()
+```
+like this
+```
+res7: Array[String] = Array(Joe, 20)
+```
+
+
 
 ## Empty Dataframe with no schema
 
@@ -476,6 +521,15 @@ Spark 1.6:
 ```scala
 hiveContext.read.orc('tmp/orc/data.orc')
 ```
+### Difference between ShuffledRDD, MapPartitionsRDD and ParallelCollectionRDD
+- ShuffledRDD : ShuffledRDD is created while the data is shuffled over the cluster. If you use any transformation(e.g. join,groupBy,repartition, etc.) which shuffles your data it will create a shuffledRDD.
+
+- MapPartitionsRDD : MapPartitionsRDD will be created when you use mapPartition transformation.
+
+- ParallelCollectionRDD : ParallelCollectionRDD is created when you create the RDD with the collection object.
+
+
+
 
 ### How to use if conditional in scala
 
@@ -495,6 +549,7 @@ cmd match {
     case _ => println("doing nothing")
 }
 ```
+
 
 ### Scala If-Else-If Ladder Example
 
