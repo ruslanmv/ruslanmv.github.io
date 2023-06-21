@@ -347,8 +347,8 @@ Let us consider that you have an environment variable of spark ,caleed SPARK_HOM
 
 ```scala
 val SPARK_HOME=sys.env("SPARK_HOME")
-val FILE ="\\python\\test_support\\sql\\ages.csv" \\ Windows
-//val FILE ="/python/test_support/sql/ages.csv" \\ Unix
+val FILE ="\\python\\test_support\\sql\\ages.csv" // Windows
+//val FILE ="/python/test_support/sql/ages.csv" // Unix
 val PATH =SPARK_HOME+FILE
 ```
 
