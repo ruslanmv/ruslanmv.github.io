@@ -39,12 +39,14 @@ and you will have something like
 
 ![image-20230608211722623](../assets/images/posts/2023-01-24-How-to-start%20programming-in-Scala-with-Spark/image-20230608211722623.png)
 
-## How to run and compile Scala program?
+## How to run and compile a Scala program?
 
 There are different ways to run an scala program.
 The simplest way to run a scala code is given by writing the scala code inside the **spark-shell**.
+
 The second way is by compiling the scala code and generate a **.jar** file and
-execute it for example **scala scala-1.0.jar** 
+execute it for example **scala scala-1.0.jar**.
+
 For this method first we require generate the jar file, that can be generated in different ways. Such as by using **Maven** or **SBT**.
 
 **Maven** is a powerful project management tool that is based on **POM** (project object model). It is used for projects build, dependency and documentation. and **SBT**  is another a build tool that helps one manage their Scala project, which includes building, compiling, testing, as well as managing libraries and dependencies. But  in ordering to learn **Spark**, let first start with **spark shell** and discuss how to use it.
