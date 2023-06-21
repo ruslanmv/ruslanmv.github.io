@@ -498,27 +498,33 @@ cmd match {
 
 ### Scala If-Else-If Ladder Example
 
+
+ 
+
+
+You can also write that statement like this:
 ```scala
-var number:Int = 85  
-if(number>=0 && number<50){  
-    println ("fail")  
-}  
-else if(number>=50 && number<60){  
-    println("D Grade")  
-}  
-else if(number>=60 && number<70){  
-    println("C Grade")  
-}  
-else if(number>=70 && number<80){  
-    println("B Grade")  
-}  
-else if(number>=80 && number<90){  
-    println("A Grade")  
-}  
-else if(number>=90 && number<=100){  
-    println("A+ Grade")  
-}  
-else println ("Invalid")  
+if (a == b) {
+    doSomething()
+}
+```
+The if/else construct looks like this:
+```scala
+if (a == b) {
+    doSomething()
+} else {
+    doSomethingElse()
+}
+```
+The complete Scala if/else-if/else expression looks like this:
+```scala
+if (test1) {
+    doX()
+} else if (test2) {
+    doY()
+} else {
+    doZ()
+}
 ```
 
 ### Merge Multiple Data Frames in Spark
