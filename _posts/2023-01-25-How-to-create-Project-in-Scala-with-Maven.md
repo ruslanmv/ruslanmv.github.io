@@ -15,9 +15,9 @@ If you are starting to work in a project where you require develop a software in
 
 ## Introduction
 
-Developers describe **Apache Maven** as "*Apache build manager for Java projects*". Maven allows a project to build using its project object model (POM) and a set of plugins that are shared by all projects using Maven, providing a uniform build system. Once you familiarize yourself with how one Maven project builds you automatically know how all Maven projects build saving you immense amounts of time when trying to navigate many projects. On the other hand, **SBT** is detailed as "*An open-source build tool for Scala and Java projects*". It is similar to Java's Maven and Ant. Its main features are: Native support for compiling Scala code and integrating with many Scala test frameworks.
+Developers describe **Apache Maven** as "*Apache build manager for Java projects*". Maven allows a project to build using its project object model (POM) and a set of plugins that are shared by all projects using Maven, providing a uniform build system. 
 
-In this demo we will focus on **Apache Maven**
+Once you familiarize yourself with how one Maven project builds you automatically know how all Maven projects build saving you immense amounts of time when trying to navigate many projects. On the other hand, **SBT** is detailed as "*An open-source build tool for Scala and Java projects*". It is similar to Java's Maven and Ant. Its main features are: Native support for compiling Scala code and integrating with many Scala test frameworks. In this demo we will focus on **Apache Maven**
 
 
 ### Installing Apache Maven
@@ -215,9 +215,7 @@ or in a simplified way
 
 - non interactive / batch (change info in the last line) :
 
-
-
-```undefined
+```
 mvn archetype:generate -DarchetypeGroupId=net.alchim31.maven -DarchetypeArtifactId=scala-archetype-simple -DarchetypeVersion=1.7 -DgroupId=com.company -DartifactId=project -Dversion=0.1-SNAPSHOT -Dpackage=com.company
 ```
 
