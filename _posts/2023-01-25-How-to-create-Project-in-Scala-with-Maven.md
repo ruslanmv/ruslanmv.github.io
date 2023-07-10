@@ -332,7 +332,58 @@ mvn scala:run `-DmainClass=com.company.App
 
 By default, the jar created by the Scala Maven Plugin doesn’t include a `Main-Class` attribute in the manifest. You cab add the [Maven Assembly Plugin](https://maven.apache.org/plugins/maven-assembly-plugin/) to`pom.xml` in order to specify custom attributes in the manifest. You can check the latest version of this plugin at the [project summary](https://maven.apache.org/plugins/maven-assembly-plugin/summary.html) 
 
-If you have installed Apache Spark you can run this application with
+
+## Adding Spark dependency
+
+In **MAVEN** you can add new packages from internet adding dependencies in the  **pom.xml** file, for example, if we want to include Apache Spark 3.3.2 we can add new properties the pom file
+```
+  <!-- Begin New properties -->
+    <scala.tools.version>2.12</scala.tools.version>
+    <spark.version>3.3.2</spark.version>
+  <!-- End New properties -->    
+
+```
+Then you can add the dependencies that you will going to use, for exmapèle
+```
+ <!-- Begin New dependency -->
+  	<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_${scala.tools.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-sql_${scala.tools.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-hive_${scala.tools.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
+		</dependency>
+    <dependency>
+        <groupId>org.apache.hadoop</groupId>
+        <artifactId>hadoop-client</artifactId>
+        <version>3.3.0</version>
+    </dependency>    
+ <!-- End New dependency -->
+```
+For additional dependencies you can find them in this site:
+[https://mvnrepository.com/](https://mvnrepository.com/)
+
+and then you can include them in your App.scala file
+
+```
+package com.company
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.hive.HiveContext
+```
+
+Then if you have installed Apache Spark you can run this application with
 
 ```
 spark-submit --class com.company.App "c:\project\target\project2-0.1-SNAPSHOT.jar"
