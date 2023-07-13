@@ -40,8 +40,6 @@ Extract distribution archive in any directory
 ```
 unzip apache-maven-3.9.1-bin.zip
 ```
-
-
 or
 
 ```
@@ -96,18 +94,17 @@ cd \
   mvn archetype:generate
 ```
 
-Then we should  choose a number or apply filter : 
+Then we should find a number where appears **net.alchim31.maven:scala-archetype-simple**, you can scroll up and find it the correct number, depends on the version of maven you are working with, in my case corresponds to the following number: 
 
 ```
 1764
 ```
 
-then we choose **net.alchim31.maven:scala-archetype-simple** version:
+then we choose the version of  **net.alchim31.maven:scala-archetype-simple** :
 
 ```
 4
 ```
-
 
 Next, Maven will ask you for a **archetype**, **DarchetypeArtifactId,** **groupId**, **artifactId,** and **package**. You can read the [guide to naming conventions](https://maven.apache.org/guides/mini/guide-naming-conventions.html),
 
@@ -142,8 +139,6 @@ Confirm properties configuration:
 ```
 Y
 ```
-
-
 You will have something like:
 
 ```
@@ -208,9 +203,6 @@ package: com.company
 [INFO] ------------------------------------------------------------------------
 
 ```
-
-
-
 or in a simplified way
 
 - non interactive / batch (change info in the last line) :
@@ -218,8 +210,6 @@ or in a simplified way
 ```
 mvn archetype:generate -DarchetypeGroupId=net.alchim31.maven -DarchetypeArtifactId=scala-archetype-simple -DarchetypeVersion=1.7 -DgroupId=com.company -DartifactId=project -Dversion=0.1-SNAPSHOT -Dpackage=com.company
 ```
-
-
 
 If this is your first time, you’ll notice that Maven is downloading many jar files. Maven resolves dependencies and downloads them as needed (and only once). Right now, Maven is downloading its core plugins.
 
@@ -229,8 +219,6 @@ This *archetype:generate* goal created a simple project based upon a [maven-arch
 ### The POM
 
 The `pom.xml` file is the core of a project's configuration in Maven. It is a single configuration file that contains the majority of information required to build a project in just the way you want. The POM is huge and can be daunting in its complexity, but it is not necessary to understand all of the intricacies just yet to use it effectively. 
-
-
 
 ### Build the Project
 
@@ -248,10 +236,7 @@ and type
 mvn package
 ```
 
-
-
 ![1](../assets/images/posts/2023-01-25-How-to-create-Project-in-Scala-with-Maven/1.png)
-
 
 
 In your project root, you’ll see a `pom.xml`, `src` folder, and `target` folder (target folder only appears after building). *Note: this archetype also includes a `.gitignore`*
@@ -279,7 +264,6 @@ Example structure:
 Again, you can read more about the Scala Maven Plugin at its [website](https://davidb.github.io/scala-maven-plugin).
 
 
-
 ## Running Scala 
 
 To  compile/run (run 'mvn scala:help' for full command list) :
@@ -296,11 +280,7 @@ and run
 
 ![2](../assets/images/posts/2023-01-25-How-to-create-Project-in-Scala-with-Maven/2.png)
 
-
-
 If you do modifications and you want to re run the code you should clean
-
-
 
 ```
 mvn clean install -Dmaven.test.skip.exec=true
@@ -327,8 +307,6 @@ mvn scala:run `-DmainClass=com.company.App
 ```
 
 ![image-20230505145633938](../assets/images/posts/2023-01-25-How-to-create-Project-in-Scala-with-Maven/image-20230505145633938.png)
-
-
 
 By default, the jar created by the Scala Maven Plugin doesn’t include a `Main-Class` attribute in the manifest. You cab add the [Maven Assembly Plugin](https://maven.apache.org/plugins/maven-assembly-plugin/) to`pom.xml` in order to specify custom attributes in the manifest. You can check the latest version of this plugin at the [project summary](https://maven.apache.org/plugins/maven-assembly-plugin/summary.html) 
 
