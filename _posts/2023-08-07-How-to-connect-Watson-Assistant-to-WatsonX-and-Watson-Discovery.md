@@ -12,15 +12,15 @@ header:
 Today we are going to setup **Watson Assistant** with **Watson Discovery** and **WatsonX.**
 We are going to use the standard toolkit of **IBM Developer.**
 
-
-
 ![im-778762](../assets/images/posts/2023-08-07-How-to-connect-Watson-Assistant-to-WatsonX-and-Watson-Discovery/im-778762.png)
+
+**Generative artificial intelligence** is artificial intelligence capable of generating text, images, or other media. Generative AI models learn the patterns and structure of their input training data and then generate new data that has similar characteristics
 
 # Step 1 - Create services in IBM Cloud.
 
 First we need to login to IBM Cloud
 
-https://cloud.ibm.com/
+[https://cloud.ibm.com/](https://cloud.ibm.com/)
 
 We need to create the following services
 
