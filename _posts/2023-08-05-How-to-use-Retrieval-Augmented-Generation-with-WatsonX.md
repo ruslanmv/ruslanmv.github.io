@@ -9,9 +9,9 @@ header:
   
 ---
 
-Hello everyone, today we are going to ask questions to **WatsonX** by using a custom set of data by using the **Retrieval Augmented Generation (RAG)**
+Hello everyone, today we are going to ask questions to **WatsonX** by using a custom set of data by using the **Retrieval Augmented Generation (RAG)**.
 
-We are interested to explain  how to use **Foundational Models** with new data **without retrain** all the data.
+We are interested to explain  how to use **Foundational Models** with new data **without retrain** all the model.
 
 The **Retrieval Augmented Generation**  is one of the most common use cases by using foundation models.  Essentially **question answering**.
 
@@ -927,5 +927,5 @@ In case the missing package error occurs, it can be installed by adding code cel
 
 
 
-**Congratulations!** You have executed a demo of how to use RAG with WatsonX
+**Congratulations!** You have executed a demo of how to use **RAG** with **WatsonX**
 
