@@ -3,8 +3,8 @@ title: "How to download files or folders in google drive in python"
 excerpt: "How to download files or folders in google drive in python"
 
 header:
-  image: "../assets/images/posts/2020-07-27-How-to-download-files-or-folders-in-gdrive-in-python/firmbee-com-eMemmpUojlw-unsplash.jpg"
-  teaser: "../assets/images/posts/2020-07-27-How-to-download-files-or-folders-in-gdrive-in-python/firmbee-com-eMemmpUojlw-unsplash.jpg"
+  image: "../assets/images/posts/2020-07-27-How-to-download-files-or-folders-in-gdrive-in-python/firmbee.jpg"
+  teaser: "../assets/images/posts/2020-07-27-How-to-download-files-or-folders-in-gdrive-in-python/firmbee.jpg"
   caption: "The goal is to turn data into information, and information into insight"
   
 ---
