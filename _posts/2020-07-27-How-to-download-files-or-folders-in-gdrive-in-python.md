@@ -3,13 +3,13 @@ title: "How to download files or folders in google drive in python"
 excerpt: "How to download files or folders in google drive in python"
 
 header:
-  image: "../assets/images/posts/2020-07-27-How-to-download-files-or-folders-in-gdrive-in-python/firmbee.jpg"
-  teaser: "../assets/images/posts/2020-07-27-How-to-download-files-or-folders-in-gdrive-in-python/firmbee.jpg"
+  image: "../assets/images/posts/2020-07-27-how-to-download-files-or-folders-in-gdrive-in-python/firmbee.jpg"
+  teaser: "../assets/images/posts/2020-07-27-how-to-download-files-or-folders-in-gdrive-in-python/firmbee.jpg"
   caption: "The goal is to turn data into information, and information into insight"
   
 ---
 
-Hello, today we are going to  download files and folders with Python from Google Drive
+Hello, today we are going to  download files and folders with Python from Google Drive.
 
 ## 1. Get a Direct Link for Your Google Drive Files
 
