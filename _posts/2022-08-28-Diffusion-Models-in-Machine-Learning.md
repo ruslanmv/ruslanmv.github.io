@@ -136,7 +136,8 @@ at any arbitrary timestep. This will be our target later on to calculate our tra
 
 The variance parameter $$\beta_t$$ can be fixed to a constant or chosen as a schedule over the T timesteps. In fact, one can define a variance schedule, which can be linear, quadratic, cosine etc. The original DDPM authors utilized a linear schedule increasing from $$\beta_1= 10^{-4}$$ to $$\beta_T = 0.02$$ [Nichol et al. 2021](https://arxiv.org/abs/2102.09672) showed that employing a cosine schedule works even better.
 
-[![variance-schedule](../assets/images/posts/2022-08-28-Diffusion-Models-in-Machine-Learning/variance-schedule.png)]*Latent samples from linear (top) and cosine (bottom) schedules respectively. Source: [Nichol & Dhariwal 2021](https://arxiv.org/abs/2102.09672)*
+[![variance-schedule](../assets/images/posts/2022-08-28-Diffusion-Models-in-Machine-Learning/variance-schedule.png)]
+*Latent samples from linear (top) and cosine (bottom) schedules respectively. Source: [Nichol & Dhariwal 2021](https://arxiv.org/abs/2102.09672)*
 
 ## Reverse diffusion
 
@@ -273,13 +274,16 @@ The diffusion timestep t is specified by adding a sinusoidal [position embedding
 
 A crucial aspect of image generation is conditioning the sampling process to manipulate the generated samples. Here, this is also referred to as guided diffusion. There have even been methods that incorporate image embeddings into the diffusion in order to guide the generation.  
 
-Mathematically, guidance refers to conditioning a prior data distribution $$p(x)$$ with a condition $$y$$, i.e. the class label or an image/text embedding, resulting in $$p(x|y)$$.
+Mathematically, guidance refers to conditioning a prior data distribution $$p(x)$$ with a condition $$y$$,
+i.e. the class label or an image/text embedding, resulting in p(x|y).
 
-To turn a diffusion model $$p_\theta$$ into a conditional diffusion model, we can add conditioning information $$y$$ at each diffusion step.
+To turn a diffusion model $$p_\theta$$ into a conditional diffusion model,
+we can add conditioning information $$y$$ at each diffusion step.
 
 $$p_\theta(x_{0:T} \vert y) = p_\theta(x_T) \prod^T_{t=1} p_\theta(x_{t-1} \vert x_t, y)$$
 
-The fact that the conditioning is being seen at each timestep may be a good justification for the excellent samples from a text prompt. In general, guided diffusion models aim to learn
+The fact that the conditioning is being seen at each timestep may be a good justification for the excellent samples from a text prompt.
+In general, guided diffusion models aim to learn
 
  $$\nabla \log p_\theta(x_t \vert y)$$.
 
@@ -295,38 +299,29 @@ Using this formulation, let's make a distinction between classifier and classifi
 
 ### Classifier guidance
 
-[Sohl-Dickstein et al](https://arxiv.org/abs/1503.03585). and later [Dhariwal and Nichol](https://arxiv.org/abs/2105.05233) showed that we can use a second model, a classifier $$f_\phi(y \vert x_t, t)$$, to guide the diffusion toward the target class $$y$$ during training. To achieve that, we can train a classifier $$f_\phi(y \vert x_t, t)$$ on the noisy image $$x_t$$ to predict its class $$y$$. Then we can use the gradients  $$\nabla \log (f_\phi( y \vert x_t ))$$
+[Sohl-Dickstein et al](https://arxiv.org/abs/1503.03585). and later [Dhariwal and Nichol](https://arxiv.org/abs/2105.05233) showed that we can use a second model, a classifier $$f_\phi(y \vert x_t, t)$$, to guide the diffusion toward the target class $$y$$ during training.
+To achieve that, we can train a classifier $$f_\phi(y \vert x_t, t)$$ on the noisy image $$x_t$$ to predict its class $$y$$.
+Then we can use the gradients  $$\nabla \log (f_\phi( y \vert x_t ))$$
 to guide the diffusion. How?
-
 We can build a class-conditional diffusion model with mean
-
-$$\mu_\theta(x_t|y)$$
-
+$$\mu_\theta (x_t|y)$$
 and variance
-
-$$\Sigma_\theta(x_t |y)$$.
-
+$$\Sigma_\theta (x_t|y)$$.
 Since
-
 $$p_\theta \sim \mathcal{N}(\mu_{\theta}, \Sigma_{\theta})$$,
-
 we can show using the guidance formulation from the previous section that the mean is perturbed by the gradients of
-
 $$\log f_\phi(y|x_t)$$ of class $$y$$, resulting in:
-
 $$\hat{\mu}(x_t |y) =\mu_\theta(x_t |y) + s \cdot \boldsymbol{\Sigma}_\theta(x_t |y) \nabla_{x_t} logf_\phi(y \vert x_t, t)$$
 
-In the famous [GLIDE paper by Nichol et al](https://arxiv.org/abs/2112.10741), the authors expanded on this idea and use [CLIP embeddings](https://theaisummer.com/vision-language-models/#clip) to guide the diffusion. CLIP as proposed by [Saharia et al.](https://arxiv.org/abs/2205.11487), consists of an image encoder g and a text encoder h. It produces an image and text embeddings g(x_t) and h(c), respectively, wherein c*c* is the text caption.
+In the famous [GLIDE paper by Nichol et al](https://arxiv.org/abs/2112.10741), the authors expanded on this idea and use [CLIP embeddings](https://theaisummer.com/vision-language-models/#clip) to guide the diffusion. CLIP as proposed by [Saharia et al.](https://arxiv.org/abs/2205.11487), consists of an image encoder g and a text encoder h. It produces an image and text embeddings g(x_t) and h(c), respectively, wherein c is the text caption.
 
 Therefore, we can perturb the gradients with their dot product:
 
 $$\hat{\mu}(x_t |c) =\mu(x_t |c) + s \cdot \boldsymbol{\Sigma}_\theta(x_t |c) \nabla_{x_t} g(x_t) \cdot h(c)$$
 
-
 As a result, they manage to "steer" the generation process toward a user-defined text caption.
 
 [![classifier-guidance](../assets/images/posts/2022-08-28-Diffusion-Models-in-Machine-Learning/classifier-guidance.png)](https://theaisummer.com/static/671ddf9d25d76db9371deac995a52642/1c1a4/classifier-guidance.png)
-
 
 *Algorithm of classifier guided diffusion sampling. Source: [Dhariwal & Nichol 2021](https://arxiv.org/abs/2105.05233)*
 
@@ -342,10 +337,10 @@ $$\epsilon_\theta (x_t|y)$$
 
 together with an unconditional model
 
-$$\epsilon_\theta (x_t|0)$$.
+$$\epsilon_\theta (x_t| 0 )$$.
 
- In fact, they use the exact same neural network. During training, they randomly set the class $y$ to 0,
- so that the model is exposed to both the conditional and unconditional setup:
+In fact, they use the exact same neural network. During training, they randomly set the class $$y$$ to 0,
+so that the model is exposed to both the conditional and unconditional setup:
 
 $$\begin{aligned} \hat{\epsilon}_\theta(x_t |y) & = s \cdot \epsilon_\theta(x_t |y) + (1-s) \cdot \epsilon_\theta(x_t |0) \\ &= \epsilon_\theta(x_t |0) + s \cdot (\epsilon_\theta(x_t |y) -\epsilon_\theta(x_t |0) ) \end{aligned}$$
 
@@ -476,7 +471,7 @@ and Langevin dynamics. The training objective is a continuous combination of Fis
 $$\mathbb{E}_{t \in \mathcal{U}(0, T)}\mathbb{E}_{p_t(\mathbf{x})}[\lambda(t) \| \nabla_\mathbf{x} \log p_t(\mathbf{x}) - \mathbf{s}_\theta(\mathbf{x}, t) \|_2^2]$$
 
 where $$\mathcal{U}(0, T)$$ denotes a uniform distribution over the time interval, and $\lambda$ is a positive weighting function.
-Once we have the score function, we can plug it into the reverse SDE and solve it in order to sample $\mathbf{x}(0)$
+Once we have the score function, we can plug it into the reverse SDE and solve it in order to sample $$\mathbf{x}(0)$$
 from the original data distribution $$p_0(\mathbf{x})$$.
 
 > There are a number of options to solve the reverse SDE which we won't analyze here.
@@ -875,12 +870,15 @@ md("![](%s)"%(gif))
 ```
 
 The results for MNIST:
+
 ![pred-mnist](../assets/images/posts/2022-08-28-Diffusion-Models-in-Machine-Learning/pred-mnist.gif)
 
 CIFAR:
+
 ![pred-cifar](../assets/images/posts/2022-08-28-Diffusion-Models-in-Machine-Learning/pred-cifar.gif)
 
 Fashion-MNIST:
+
 ![pred-fashion](../assets/images/posts/2022-08-28-Diffusion-Models-in-Machine-Learning/pred-fashion.gif)
 
 # Denoising Diffusion Probabilistic Model, in Pytorch
