@@ -368,7 +368,7 @@ iface.launch(inline=False, share=False, debug=False)
 iface.launch()
 ```
 
-<div><iframe src="http://127.0.0.1:7860/" width="100%" height="500" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div>
+![image-20230903101038715](../assets/images/posts/2023-05-02-How-to-run-Large-Language-Model-FLAN-T5-and-GPT-locally/image-20230903101038715.png)
 
 
 
