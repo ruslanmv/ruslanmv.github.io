@@ -207,7 +207,7 @@ Let's analyze these terms:
 It is evident that through the ELBO, maximizing the likelihood boils down to learning the denoising steps $$L_t$$.
 
 > **Important note**: Even though $$q(\mathbf{x}_{t-1} \vert \mathbf{x}_{t})$$ is intractable
-> [Sohl-Dickstein et al](https://arxiv.org/abs/1503.03585) illustrated that by additionally conditioning on $\textbf{x}_0$
+> [Sohl-Dickstein et al](https://arxiv.org/abs/1503.03585) illustrated that by additionally conditioning on $$\textbf{x}_0$$
 > makes it tractable.
 
 Intuitively, a painter (our generative model) needs a reference image ($$\textbf{x}_0$$)
@@ -301,12 +301,12 @@ Using this formulation, let's make a distinction between classifier and classifi
 
 [Sohl-Dickstein et al](https://arxiv.org/abs/1503.03585). and later [Dhariwal and Nichol](https://arxiv.org/abs/2105.05233) showed that we can use a second model, a classifier $$f_\phi(y \vert x_t, t)$$, to guide the diffusion toward the target class $$y$$ during training.
 To achieve that, we can train a classifier $$f_\phi(y \vert x_t, t)$$ on the noisy image $$x_t$$ to predict its class $$y$$.
+
 Then we can use the gradients  $$\nabla \log (f_\phi( y \vert x_t ))$$
 to guide the diffusion. How?
-We can build a class-conditional diffusion model with mean
-$$\mu_\theta (x_t|y)$$
-and variance
-$$\Sigma_\theta (x_t|y)$$.
+
+We can build a class-conditional diffusion model with mean $$\mu_\theta (x_t|y)$$
+and variance $$\Sigma_\theta (x_t|y)$$.
 Since
 $$p_\theta \sim \mathcal{N}(\mu_{\theta}, \Sigma_{\theta})$$,
 we can show using the guidance formulation from the previous section that the mean is perturbed by the gradients of
@@ -335,9 +335,7 @@ Guidance can be achieved without a second classifier model as proposed by [Ho & 
 
 $$\epsilon_\theta (x_t|y)$$
 
-together with an unconditional model
-
-$$\epsilon_\theta (x_t| 0 )$$.
+together with an unconditional model with simply y=0.
 
 In fact, they use the exact same neural network. During training, they randomly set the class $$y$$ to 0,
 so that the model is exposed to both the conditional and unconditional setup:
@@ -483,7 +481,7 @@ from the original data distribution $$p_0(\mathbf{x})$$.
 
 Let’s do a quick sum-up of the main points we learned in this blogpost:
 
-- Diffusion models work by gradually adding gaussian noise through a series of $T$ steps into the original image, a process known as diffusion.
+- Diffusion models work by gradually adding gaussian noise through a series of  $$T$$ steps into the original image, a process known as diffusion.
 - To sample new data, we approximate the reverse diffusion process using a neural network.
 - The training of the model is based on maximizing the evidence lower bound (ELBO).
 - We can condition the diffusion models on image labels or text embeddings in order to “guide” the diffusion process.
