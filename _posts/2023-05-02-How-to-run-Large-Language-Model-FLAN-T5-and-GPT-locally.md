@@ -55,7 +55,7 @@ conda 23.1.0
 
 The environments supported that I will consider is Python 3.10,
 
-I will create an environment called **analysis**, but you can put the name that you like.
+I will create an environment called **LLM**, but you can put the name that you like.
 
 ```
 conda create -n LLM python==3.10
@@ -455,7 +455,7 @@ jupyter kernelspec list
 To remove a kernel execute
 
 ```
-jupyter kernelspec remove llm
+jupyter kernelspec remove LLM
 ```
 
 and to remove the environment 
