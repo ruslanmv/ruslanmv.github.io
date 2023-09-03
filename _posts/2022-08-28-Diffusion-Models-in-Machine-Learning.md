@@ -34,7 +34,7 @@ We are going to discuss the **Theory** and **Application** of Denoising Diffusio
 
 # Introduction
 
-One of the greatest ideas that allows the Artificial Intelligence build images from a text is the Markov chain. **Andrey Markov** studied **Markov processes** in the early 20th century, publishing his first paper on the topic in 1906. Important people contributed to his research such Heinri Poincare , Ehrenfest , **Andrey Kolmogorov.** Kolmogorov was partly inspired by **Louis Bachelier's** 1900 work on fluctuations in the stock market as well as **Norbert Wiener's** work on **Einstein's** model of **Brownian movement**.
+One of the greatest ideas that allows the Artificial Intelligence build images from a text is the Markov chain. **Andrey Markov** studied **Markov processes** in the early 20th century, publishing his first paper on the topic in 1906. Important people contributed to his research such **Heinri Poincare** , **Ehrenfest** , **Andrey Kolmogorov.** Kolmogorov was partly inspired by **Louis Bachelier's** 1900 work on fluctuations in the stock market as well as **Norbert Wiener's** work on **Einstein's** model of **Brownian movement**.
 
 
 A Markov chain or **Markov process** is a stochastic model describing a sequence of possible events in which the probability of each event depends only on the state attained in the previous event.
@@ -46,7 +46,7 @@ Diffusion models are a new class of state-of-the-art generative models that gene
 > But what is the main principle behind them?
 >
 
-Le tus deep dive in the theory in Denoising Diffusion Probabilistic Models.
+Let us deep dive in the theory in Denoising Diffusion Probabilistic Models.
 
 # Denoising Diffusion Probabilistic Models
 
@@ -573,7 +573,7 @@ pip install  torch pytorch_lightning  imageio torchvision
 
 ## Step 3
 
-Use the provided [`entry-MNIST.ipynb`](./entry-MNIST.ipynb) notebook to train model and sample generated images.
+Use the provided [`entry-MNIST.ipynb`](https://github.com/ruslanmv/Diffusion-Models-in-Machine-Learning/blob/master/entry-MNIST.ipynb) notebook to train model and sample generated images.
 
 That supports MNIST, Fashion-MNIST and CIFAR datasets.
 
@@ -581,23 +581,9 @@ Then you select the Kernel **Python (diffusion)**
 
 ![image-20221009135950860](../assets/images/posts/2022-08-28-Diffusion-Models-in-Machine-Learning/image-20221009135950860.png)
 
-If you want uninstall you enviroment
+And you can run the notebook.
 
-```
-conda env remove -n  diffusion
-```
 
-List all kernels and grap the name of the kernel you want to remove
-
-```
-jupyter kernelspec list
-```
-
-Remove it
-
-```
-jupyter kernelspec remove diffusion
-```
 
 
 
@@ -892,7 +878,27 @@ trainer = Trainer(
 trainer.train()
 ```
 
-Samples and model checkpoints will be logged to `./results` periodically
+Samples and model checkpoints will be logged to `./results` periodically.
+
+## Troubleshootings
+
+If you want uninstall you enviroment
+
+```
+conda env remove -n  diffusion
+```
+
+List all kernels and grap the name of the kernel you want to remove
+
+```
+jupyter kernelspec list
+```
+
+Remove it
+
+```
+jupyter kernelspec remove diffusion
+```
 
 References can be found [here](https://github.com/ruslanmv/Diffusion-Models-in-Machine-Learning/blob/master/references.md).
 
