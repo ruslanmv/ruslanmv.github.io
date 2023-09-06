@@ -1,5 +1,5 @@
 ---
-title: "How to create a CodeBot with Watsonx.ai in Django"
+title: "How to create a CodeBot with Watsonx in Django"
 excerpt: "How to Generate and Fix Programming code with WatsonX in Django "
 
 header:
@@ -172,7 +172,9 @@ To get his, first you need to go to your **WatsonX** account.
 
 Then you can open the **Experiment** with the foundation models with **Prompt Lab**.
 
-Let us choose an simple example like Let us choose an simple example like **Marketing Generation** et us choose an simple example like **Marketing Generation** <img src="../assets/images/posts/2023-09-04-How-to-Generate-a-Code-with-WatsonX-with-Django/20230802221906.png" alt="img" style="zoom:50%;" />
+Let us choose an simple example like Let us choose an simple example like **Marketing Generation** 
+
+<img src="../assets/images/posts/2023-09-04-How-to-Generate-a-Code-with-WatsonX-with-Django/20230802221906.png" alt="img" style="zoom:50%;" />
 
 
 
@@ -253,12 +255,11 @@ and click `Submit``
 
 
 
-but also you ask to generate code by suggest you can type
+but also you ask to generate code by suggest you can type:
 
-```
-Write a Python function, which generates sequence of prime numbers. The function 'primes' will take the argument 'n', an int. It will return a list which contains all primes less than 'n'.
+`Write a Python function, which generates sequence of prime numbers. The function 'primes' will take the argument 'n', an int. It will return a list which contains all primes less than 'n'.`
 
-```
+
 
 ![](../assets/images/posts/2023-09-04-How-to-Generate-a-Code-with-WatsonX-with-Django/20230906120721.png)
 
