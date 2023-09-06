@@ -14,7 +14,7 @@ We are going to build a simple **Django Application** where we can generate prog
 
 ![image-20230906113631419](../assets/images/posts/2023-09-04-How-to-Generate-a-Code-with-WatsonX-with-Django/image-20230906113631419.png)
 
-We are interested to **generate ** and  **fix**  codes in for different programming languages.
+We are interested to **generate** and  **fix**  codes in for different programming languages.
 
 ## Step 1: Install Python
 
@@ -22,7 +22,7 @@ First we need to install python in our computer ,  in this demo I will use **Pyt
 
 [https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe)
 
-During the installation I should suggest add python.exe to PATH and install Now
+During the installation I should suggest add python.exe to PATH and install Now.
 
 With Python already installed, you should have pip already installed. Be sure to use a pip that corresponds with Python 3 by using pip3 or checking your pip executable with `pip –version`.
 
@@ -333,11 +333,11 @@ Supported parameters  for  `GenParams.` are
 
 For example, you can add `GenParams.REPETITION_PENALTY =1` to avid repetitions.
 
-In this demo example of codebot, we have used the `FLAN_UL2` for fix the codes and `STARCODER` for code generation. The length  of the answer can be tunned by changing `MAX_NEW_TOKENS` parameter from `50` up to `1000`. For example if you want  small anwers you can put 50 tokens.
+In this demo example of codebot, we have used the `FLAN_UL2` for fix the codes and `STARCODER` for code generation. The length  of the answer can be tunned by changing `MAX_NEW_TOKENS` parameter from `50` up to `1000`. For example if you want  small answers you can put 50 tokens.
 
 ![image-20230906212233901](../assets/images/posts/2023-09-04-How-to-Generate-a-Code-with-WatsonX-with-Django/image-20230906212233901.png)
 
-As a rough rule of thumb, **1 token is approximately 4 characters or 0.75 words for English text**. One limitation to keep in mind is that for a Foundation Models the prompt and the generated output combined must be no more than the model's maximum context length. For example 100 tokens are ~=75 words. You can play around with different combinations to get the best fit to your needs.
+As a rough rule of thumb, **1 token is approximately 4 characters or 0.75 words for English text**. One limitation to keep in mind is that for a Foundation Models the prompt and the generated output combined must be no more than the model's maximum context length. For example **100 tokens are ~=75 words.** You can play around with different combinations to get the best fit to your needs.
 
 ### Troubleshooting's
 
