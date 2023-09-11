@@ -210,7 +210,7 @@ by using   **CodeLlama-7b-Instruct-hf** developed by **Facebook**
 
 ![image-20230911205521481](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230911205521481.png)
 
-Let us now go  **GPT-J 6B **  developed by  **EleutherAI** we got the following result
+Let us now go  **GPT-J 6B**  developed by  **EleutherAI** we got the following result
 
 ![image-20230911205420536](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230911205420536.png)
 
