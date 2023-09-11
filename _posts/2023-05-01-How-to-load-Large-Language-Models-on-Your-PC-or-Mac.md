@@ -58,7 +58,7 @@ FLAN-T5 is a pre-trained encoder-decoder model that can perform various text-to-
 
 First we need to install **Conda**
 
-https://docs.conda.io/en/latest/miniconda.html
+[https://docs.conda.io/en/latest/miniconda.html](https://docs.conda.io/en/latest/miniconda.html)
 
 then we create a new conda environment
 
@@ -80,7 +80,7 @@ we require   Install  Pytorch, depending on you system you can choose the approp
 
 For example, I am using a laptop with a Nvidia 2070 RTX.  First I have installed  cuda
 
-https://developer.nvidia.com/cuda-11-7-0-download-archive
+[https://developer.nvidia.com/cuda-11-7-0-download-archive](https://developer.nvidia.com/cuda-11-7-0-download-archive)
 
 and later
 
@@ -88,7 +88,7 @@ and later
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
 ```
 
-The up-to-date commands can be found here: https://pytorch.org/get-started/locally/.
+The up-to-date commands can be found here: [https://pytorch.org/get-started/locally/.](https://pytorch.org/get-started/locally/.)
 
 Then we  Install the web UI
 
