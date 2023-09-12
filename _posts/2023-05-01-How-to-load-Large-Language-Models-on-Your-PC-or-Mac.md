@@ -218,13 +218,13 @@ Solution with  **flan-t5-large** developed by **Google** you got:
 
 ![image-20230911211237315](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230911211237315.png)
 
-and finally with **mpt-7b-instruct2** developed by **IBM** you got
-
-![image-20230911224411009](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230911224411009.png)
-
 And finally **gpt2-xl** developed by **OpenAI** .
 
 ![image-20230911232319508](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230911232319508.png)
+
+and finally with **mpt-7b-instruct2** 
+
+![image-20230913005020758](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230913005020758.png)
 
 As you see, different models gives different results.
 
@@ -232,11 +232,14 @@ As you see, different models gives different results.
 
 We have tested different models among the and we rank them:
 
-1. flan-t5-large 
-2. GPT-J 6B
-3. CodeLlama-7b-Instruct-hf
-4. mpt-7b-instruct2
-5. gpt2-xl
+| Model                | Comments                                |
+| -------------------- | --------------------------------------- |
+| 1. **FLAN-T5 LARGE** | Load fast and give good results         |
+| 2. **LLaMA-7B**      | Load fast and give excellent results    |
+| 3. **GPT-J 6B**      | Load is slow but give standard results  |
+| 4. **gpt2-xl**       | Load super fast but results are general |
+| 5. **MPT-7B**        | Load is slow and results are poor       |
+| 6. **LLaMA2-7B**     | Cannot load properlty                   |
 
  The most accurate model that answer to our question was  **flan-t5-large**, also is fast,  the second place is for **GPT-J 6B**, is also very concrete.  
 
@@ -244,7 +247,21 @@ The third **CodeLlama-7b-Instruct-hf** the results are very good but due to the 
 
 Unfortunately due to our laptop that was used for the test has low specs, we cannot run the latest models with more than 13 billions of parameters. The Llama-2-13b-hf for example has 13 billions ran slow with our testing laptop.
 
-For more references  about how to download more models, you can visit this  [site](https://www.reddit.com/r/ChatGPT/comments/znayz7/downloading_gpt/).
+Additional test done by  [Baichuan Group](https://huggingface.co/baichuan-inc/Baichuan2-13B-Chat)  maked an English evaluation dataset comprising 57 tasks, encompassing elementary math, American history, computer science, law, etc [MMLU](https://arxiv.org/abs/2009.03300) . The difficulty ranges from high school level to expert level. It's a mainstream LLM evaluation dataset. With the [open-source](https://github.com/hendrycks/test) evaluation approach.
+
+### 7B Model Results
+
+| Model             | **MMLU** |
+| ----------------- | -------- |
+|                   | 5-shot   |
+| **GPT-4**         | 83.93    |
+| **GPT-3.5 Turbo** | 68.54    |
+| **LLaMA-7B**      | 35.10    |
+| **LLaMA2-7B**     | 45.73    |
+| **MPT-7B**        | 27.93    |
+| **Falcon-7B**     | 26.03    |
+
+For more references  about how to download more models, you can visit this  [site](https://www.reddit.com/r/ChatGPT/comments/znayz7/downloading_gpt/). If you are interested to see the latest benchmarks of llm models  you can see this [site](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard).
 
 **Congratulations!** We have tested some foundational models by using our local computer.
 
