@@ -218,15 +218,15 @@ Solution with  **flan-t5-large** developed by **Google** you got:
 
 ![image-20230911211237315](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230911211237315.png)
 
-And finally **gpt2-xl** developed by **OpenAI** .
+and for **gpt2-xl** developed by **OpenAI** .
 
 ![image-20230911232319508](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230911232319508.png)
 
-and finally with **mpt-7b-instruct2** 
+and finally with **mpt-7b-instruct2**, we got the following results:
 
 ![image-20230913005020758](../assets/images/posts/2023-05-01-How-to-load-Large-Language-Models-on-Your-PC-or-Mac/image-20230913005020758.png)
 
-As you see, different models gives different results.
+as you see, different models gives different results.
 
 ## Conclusions.
 
@@ -241,9 +241,9 @@ We have tested different models among the and we rank them:
 | 5. **MPT-7B**        | Load is slow and results are poor       |
 | 6. **LLaMA2-7B**     | Cannot load properlty                   |
 
- The most accurate model that answer to our question was  **flan-t5-large**, also is fast,  the second place is for **GPT-J 6B**, is also very concrete.  
+ The most accurate model that answer to our question was  **flan-t5-large**, also is fast,  the second place is for **CodeLlama-7b-Instruct-hf**, is also very concrete.  
 
-The third **CodeLlama-7b-Instruct-hf** the results are very good but due to the performance is not really fast lost the first position. If you dont take care about the performance so this model is a good fit for you. The **mpt-7b-instruct2** and **gpt2-xl** at least for our questions does not give accurate results.
+The second **CodeLlama-7b-Instruct-hf** the results are very good but due to the performance is not really fast lost the first position. If you dont take care about the performance so this model is a good fit for you. The **mpt-7b-instruct2** and **gpt2-xl** at least for our questions does not give accurate results.
 
 Unfortunately due to our laptop that was used for the test has low specs, we cannot run the latest models with more than 13 billions of parameters. The Llama-2-13b-hf for example has 13 billions ran slow with our testing laptop.
 
