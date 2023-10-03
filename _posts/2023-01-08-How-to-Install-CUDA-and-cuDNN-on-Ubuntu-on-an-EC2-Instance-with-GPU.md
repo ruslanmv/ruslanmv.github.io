@@ -25,7 +25,7 @@ In summary, leveraging EC2 instances with GPUs provides users with the ability t
 
 First we need to login to our AWS Account
 
-[AWS Account](https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin)
+Login to your [AWS Account](https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin).
 
 Then go to your menu and click Services Quotas
 
@@ -315,11 +315,7 @@ pip3 install torch torchvision torchaudio
 
 ![image-20231002231403794](../assets/images/posts/2023-01-08-How-to-Install-CUDA-and-cuDNN-on-Ubuntu-on-an-EC2-Instance-with-GPU/image-20231002231403794.png)
 
-
-
 ### Open Python and execute a test
-
-
 
 ```
 import torch
@@ -339,32 +335,22 @@ print(t.device) # should be CUDA
 
 In ordering to save our EC2 Instance Setup that we have done before  got to **Amazon EC2 Instances** view, you can create Amazon Machine Images (AMIs) from either running or stopped instances. 
 
-*To create an AMI from an instance*
+To create an AMI from an instance we Right-click the instance you want to use as the basis for your AMI, and choose **Create Image** from the context menu.
 
-1. Right-click the instance you want to use as the basis for your AMI, and choose **Create Image** from the context menu.
+![image-20231002231900549](../assets/images/posts/2023-01-08-How-to-Install-CUDA-and-cuDNN-on-Ubuntu-on-an-EC2-Instance-with-GPU/image-20231002231900549.png)
 
-   ![image-20231002231900549](../assets/images/posts/2023-01-08-How-to-Install-CUDA-and-cuDNN-on-Ubuntu-on-an-EC2-Instance-with-GPU/image-20231002231900549.png)
+Then we **Create Image** context menu. In the **Create Image** dialog box, type a unique name and description, and then choose **Create Image**. By default, Amazon EC2 shuts down the instance, takes snapshots of any attached volumes, creates and registers the AMI, and then reboots the instance. Choose **No reboot**if you don't want your instance to be shut down.
 
-   **Create Image** context menu
+**Warning** : If you choose **No reboot**, we can't guarantee the file system integrity of the created image.
 
-2. In the **Create Image** dialog box, type a unique name and description, and then choose **Create Image**. By default, Amazon EC2 shuts down the instance, takes snapshots of any attached volumes, creates and registers the AMI, and then reboots the instance. Choose **No reboot**if you don't want your instance to be shut down.
+![image-20231002232421856](../assets/images/posts/2023-01-08-How-to-Install-CUDA-and-cuDNN-on-Ubuntu-on-an-EC2-Instance-with-GPU/image-20231002232421856.png)
 
-   
-
-   ###### Warning
-
-   If you choose **No reboot**, we can't guarantee the file system integrity of the created image.
-
-   ![image-20231002232421856](../assets/images/posts/2023-01-08-How-to-Install-CUDA-and-cuDNN-on-Ubuntu-on-an-EC2-Instance-with-GPU/image-20231002232421856.png)
-
-   **Create Image** dialog box
-
-It may take a few minutes for the AMI to be created. After it is created, it will appear in the **AMIs** view in AWS Explorer. To display this view, double-click the **Amazon EC2 | AMIs** node in AWS Explorer. To see your AMIs, from the **Viewing** drop-down list, choose **Owned By Me**. You may need to choose **Refresh** to see your AMI. When the AMI first appears, it may be in a pending state, but after a few moments, it transitions to an available state.
+Then **Create Image** dialog box. It may take a few minutes for the AMI to be created. After it is created, it will appear in the **AMIs** view in AWS Explorer. To display this view, double-click the **Amazon EC2 | AMIs** node in AWS Explorer. To see your AMIs, from the **Viewing** drop-down list, choose **Owned By Me**. You may need to choose **Refresh** to see your AMI. When the AMI first appears, it may be in a pending state, but after a few moments, it transitions to an available state.
 
 Now you can **Terminate your Instance** and next time you can load your new GPU instance 
 
 ![image-20231003000820052](../assets/images/posts/2023-01-08-How-to-Install-CUDA-and-cuDNN-on-Ubuntu-on-an-EC2-Instance-with-GPU/image-20231003000820052.png)
 
-Remember thant the GPU instances are expensive
+Remember that the GPU instances are expensive. Please terminate the instances after you finish this demo.
 
 **Congratulations!** You have created an **EC2 instance** with **GPU** and installed **CUDA** and **AMI**.
