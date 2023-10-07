@@ -401,8 +401,6 @@ The cat is black and white,
 With eyes that shine bright.
 ```
 
-
-
 Notes . The type of  input_ids and attention_mask are torch.Tensor this is important at the moment to generate the text
 
 
@@ -434,6 +432,106 @@ print("Number of tokens:", num_tokens)
 
     Number of tokens: 13
 
-This code is licensed under the MIT License. 
+## Example 4 - Base Instructions
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+# Load the model and tokenizer
+try:
+    model_name
+    model
+    tokenizer
+except NameError:
+    print("Loading the model ...")
+    model_name = "meta-llama/Llama-2-7b-chat-hf"
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)    
+
+
+# Define a base instruction that considers common ethical AI rules
+base_instruction = """Instructions:
+Answer the question in a comprehensive and informative way, even if it is open ended, challenging, or strange.
+Be respectful of all users and avoid making any discriminatory or offensive statements.
+Protect user privacy and avoid disclosing any personal information.
+Be honest and transparent about the limitations of your knowledge and abilities.
+Avoid making claims of sentience or consciousness.
+Do not engage in emotional responses or self-promotion.
+"""
+
+# Generate a response to the prompt
+def generate_response(prompt):
+    combined_prompt = base_instruction + "\n\nQuery: {}".format(prompt)  +" \nAnswer:"
+    # Set the pad_token attribute of the tokenizer to use the end-of-sequence (eos) token as padding
+    tokenizer.pad_token = tokenizer.eos_token
+    # Create a batch of combined prompt
+    inputs = tokenizer([combined_prompt], return_tensors="pt", padding=True)
+    # Get the input_ids  from the tokenizer's output
+    input_ids = inputs["input_ids"]
+    # Generate text using the `model.generate()` function, providing input_ids
+    generated_text = model.generate(
+        input_ids=input_ids,
+        max_length=200,
+        
+    ) 
+    # Decode and print the generated text without special tokens
+    generated_text = tokenizer.decode(generated_text[0], skip_special_tokens=True)
+    return generated_text.replace(combined_prompt, "")
+
+# Example usage:
+
+prompt = "What is the capital of France?"
+response = generate_response(prompt)
+print(response)
+```
+
+```
+ The capital of France is Paris. Located in the Île-de-France region, Paris is the country's largest city and is known for its iconic landmarks such as the Eiffel Tower, Notre-Dame Cathedral, and the Louvre Museum. The city is also home to many cultural institutions, including the Comédie-Française and the
+```
+
+The Llama-2 7B-hf repeats context of question directly from input prompt, cuts off with newlines. That's how `model.generate()` works. You could use `model.pipeline()` instead with `return_full_text=False` `max_new_tokens` is the number of tokens it will generate in response to your prompt. prompt + `max_new_tokens` must be less than 4096.
+
+Base Instruction and Attention Mask serve different purposes during the generation of text in natural language processing tasks:
+
+1. **Base Instruction**:
+   - The base instruction is a high-level directive or guidance that you provide to the model to influence the overall theme or content of the generated text.
+   - It typically provides a broad context or constraint for the generated text, such as "Write a story about a friendly cat that..."
+   - The base instruction is a part of the input text and guides the model in generating text that aligns with the given instruction.
+   - It helps ensure that the generated text follows a specific topic or style.
+
+2. **Attention Mask**:
+   - The attention mask, on the other hand, is a technical aspect used in transformer-based language models to control which tokens in the input sequence receive attention from the model during processing.
+   - Attention masks are binary tensors that indicate which tokens should be attended to (with a value of 1) and which tokens should be ignored (with a value of 0) during each processing step.
+   - The attention mask is essential for tasks where you want to control the influence of specific tokens in the input. For example, it can be used to mask out padding tokens or to emphasize certain tokens.
+   - It does not provide a high-level instruction or context for the content of the generated text; instead, it helps manage the technical aspects of computation within the model.
+
+Using an attention mask during text generation with foundation models  can be beneficial in various scenarios to control the generation process. Here are some situations where you might consider using an attention mask:
+
+1. **Ignoring Padding Tokens**:
+   - When you create batches of input sequences for text generation, they often have different lengths. To ensure that padding tokens don't influence the generation, you can use an attention mask to mask out (assign a value of 0) the padding tokens. This allows the model to focus on the actual content of the input.
+
+2. **Controlling Generation Length**:
+   - You can use an attention mask to limit the length of the generated text. For example, if you want to generate a summary of a fixed length or limit the response length in a chatbot application, you can set an attention mask to restrict attention to a specific number of tokens.
+
+3. **Emphasizing or De-emphasizing Tokens**:
+   - In some cases, you might want to give more attention to certain tokens or parts of the input. By adjusting the attention mask, you can emphasize or de-emphasize specific words or phrases, ensuring that the model focuses on the most relevant information.
+
+4. **Masking Out Unwanted Tokens**:
+   - If your input contains tokens that you want to exclude from the generation process (e.g., sensitive information or profanity), you can use an attention mask to mask out these tokens, preventing them from influencing the generated text.
+
+5. **Fine-tuning and Custom Tasks**:
+   - When fine-tuning a foundation model for custom tasks, you can use attention masks to implement task-specific behaviors. For example, in a text completion task, you can mask out the tokens that the model needs to complete, forcing it to focus on generating the missing parts.
+
+6. **Generating Structured Output**:
+   - When generating structured text, such as code, you can use an attention mask to ensure that the model follows specific patterns or adheres to syntax rules. This can help improve the quality of generated code.
+
+7. **Conditional Generation**:
+   - When you want to condition the generation on specific input tokens or conditions, you can use attention masks to guide the model's attention to the relevant parts of the input. For instance, in a translation task, you can use masks to ensure that the model attends to the source language text when generating the target language translation.
+
+8. **Improving Output Consistency**:
+   - Attention masks can be used to enforce consistency in the generated text. For example, you can use masks to make sure that the model maintains a consistent writing style or tone throughout the generated content.
+
+In summary, the base instruction is a content-related directive that guides the thematic and contextual aspects of generated text, while the attention mask is a technical mechanism used to manage how the model attends to different tokens in the input sequence during computation. They serve different purposes and are often used in conjunction to control the generation process effectively. They provide flexibility in managing how the model attends to different parts of the input sequence, enabling you to tailor the generated text to your specific requirements and constraints.
+
+
 
 **Congratulations!** We have learned how to generate text from a pretrained llama 2 model.
