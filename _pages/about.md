@@ -15,9 +15,11 @@ header:
 
 I'm  a **Data Scientist**, a **Cloud Architect** and a **Physicist**.
 
-## Scientifical  studies
+## About me
 
-I am a self-motivated and ambitious data scientist with specialized knowledge in database applications analyses, data analyses and reports generation to propel project success.
+I am a motivated and ambitious data scientist specializing in Artificial Intelligence, with a particular focus on Neural Networks. My expertise lies in Generative AI and prompt engineering. I possess a strong aptitude for accuracy and have extensive experience in various domains, including Data Extraction, Statistical Modeling, Data Mining, Machine Learning, Data Visualization, and Infrastructure Cloud Deployment. I am highly skilled in Deep Learning with Neural Networks, Reinforcement Learning, and Generative AI.
+
+Throughout my career, I have honed my ability to translate requirements into manageable data formats and analytical models. I excel in algorithm design, prompt engineering, model creation, and the development of scalable data mining and reporting solutions that handle vast amounts of structured and unstructured data. I am proficient in all phases of the engineering project life cycle, actively contributing to their success.
 
 I am Data Scientist specialized in Artificial Intelligence  at [IBM](https://www.ibm.com/it-it). I was Data Scientist and Data Engineer at [Capgemini](https://www.capgemini.com/) and Data Engineer  at  [Reply](https://www.reply.com/it/topics/big-data-and-analytics/)  I was a Postdoctoral Researcher at National Institute for Nuclear Physics (INFN) at Genova [INFN](https://www.ge.infn.it) developing theoretical models for nuclear research.  My main role was to develop libraries and tools for the Nuclear Physics Community. 
 
