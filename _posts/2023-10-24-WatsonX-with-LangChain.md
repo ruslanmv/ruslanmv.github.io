@@ -87,7 +87,7 @@ pip install langchain ibm-watson-machine-learning
 
 and we install some additional packages,
 
-First, make sure you have chromadb, TensorFlow and TensorFlow Hub installed:
+First, make sure you have  TensorFlow and TensorFlow Hub installed:
 
 ```
 pip install python-dotenv chromadb openai tiktoken  tensorflow tensorflow-hub tensorflow_text
@@ -371,10 +371,11 @@ We are going to read a text document from arxiv
 
 ```python
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.llms import OpenAI
 from langchain.chains import ConversationalRetrievalChain
+#If you want use Chroma or OpenAI uncomment the following lines
+#from langchain.vectorstores import Chroma 
+#from langchain.llms import OpenAI 
 ```
 
 
@@ -430,16 +431,12 @@ you got the following result
 
     'Provided proper attribution is provided, Google hereby grants permission to reproduce the tables and figures in this paper solely for use in journalistic or scholarly works.\nAttention Is All You Need\nAshish Vaswani Google Brain avaswani@google.com\n \nNoam Shazeer Google Brain noam@google.com\n \nNiki Parmar Google Research nikip@google.com\nJakob Uszkoreit Google Research usz@google.com\n Llion Jones Google Research llion@google.com\n \nAidan N. Gomez † University of Toronto aidan@cs.toronto.edu\nukasz Kaiser\nGoogle Brain\nlukaszkaiser@google.com\nIllia Polosukhin ‡\nillia.polosukhin@gmail.com\nAbstract'
 
-
-
 We have created 45 pieces of text, in the next part we are going to create the embeddings of this text.
 
 ```
 len(documents)
 45
 ```
-
-
 
 ## Embeddings
 
@@ -546,13 +543,9 @@ In the above example, we used a Memory object to track chat history. We can also
 ```python
 qa = ConversationalRetrievalChain.from_llm(llm=llama_model.to_langchain(),
                                            retriever=vectorstore.as_retriever())
-
-
 ```
 
 Here's an example of asking a question with no chat history with Watsonx
-
-
 
 ```python
 chat_history = []
@@ -599,8 +592,6 @@ you got the result
 
     [('What is the topic  about',
       ' The topic is about the Transformer model in natural language processing, specifically discussing the use of self-attention and multi-head attention in the model.')]
-
-
 
 **Congratulations!** You have finished this tutorial of WatsonX with LangChain.
 
