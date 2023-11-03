@@ -215,7 +215,7 @@ The default theme color is the Google color,  called mode4
 
 ![image-20231103223543150](../assets/images/posts/2023-07-29-Speech-to-Text-by-using-React/image-20231103223543150-16990494129295.png)
 
-```javascript
+```
 const mode4 =(
   <div style={{ background: '#E0E0E0', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontFamily: 'Roboto, sans-serif' }}>
     <h1 style={{ fontSize: '48px', color: '#3F51B5', marginBottom: '40px' }}>Speech to Text</h1>
@@ -233,7 +233,7 @@ The next theme is the Matrix color  named mode3
 
 ![image-20231103222732178](../assets/images/posts/2023-07-29-Speech-to-Text-by-using-React/image-20231103222732178-16990494129296.png)
 
-```javascript
+```
 const mode3 = (
   <div style={{ background: 'black', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontFamily: 'monospace' }}>
     <h1 style={{ fontSize: '48px', color: '#00ff00', marginBottom: '40px' }}>Speech to Text</h1>
@@ -251,7 +251,7 @@ then the next theme multicolors  named mode2
 
 ![image-20231103224925912](../assets/images/posts/2023-07-29-Speech-to-Text-by-using-React/image-20231103224925912.png)
 
-```javascript
+```
 const mode2 = (
 <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif', background: 'linear-gradient(45deg, #a8edea 0%, #fed6e3 100%)', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 <h1 style={{ fontSize: '48px', color: '#4b6cb7', marginBottom: '40px' }}>Speech to Text</h1>
@@ -269,7 +269,7 @@ and finally the simplest theme the mode1
 
 ![image-20231103224819419](../assets/images/posts/2023-07-29-Speech-to-Text-by-using-React/image-20231103224819419.png)
 
-```javascript
+```
 const mode1 = (
     <div>
       <h1>Speech to Text</h1>
