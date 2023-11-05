@@ -312,9 +312,7 @@ In the terminal, run the following command to start the React development server
 npm start
    ```
 
-The application should automatically open in your default web browser. If it doesn't, open your browser and navigate to `http://localhost:3000`.
-
-This will launch the application in your default web browser at `http://localhost:3000`. You should see the interface for speaking with ChatGPT.
+The application should automatically open in your default web browser. If it doesn't, open your browser and navigate to `http://localhost:3000`. You should see the interface for speaking with ChatGPT.
 
 ## Step 7: Interact with ChatGPT:
 
