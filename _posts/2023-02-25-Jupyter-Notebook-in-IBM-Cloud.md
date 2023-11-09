@@ -115,7 +115,21 @@ you should choose the edpoints, if you are working in a public bucket you should
 
 Python support is provided through a fork of the boto3 library with features to make the most of IBM Cloud Object Storage.
 
-The package that we will use is the ibm-cos-sdk that should be installed in the default notebook, otherwise you can install by using pip install ibm-cos-sdk.
+The package that we will use is the ibm-cos-sdk that should be installed in the default notebook, 
+If you are in your local computer, in this demo we have used  python 3.10.11 that you can download  [here](https://www.python.org/downloads/windows/) and you can  install by creating the following `requirements.txt` file in the project directory
+
+```
+ibm-cloud-sdk-core==3.16.5
+ibm-cos-sdk==2.12.0
+ibm-cos-sdk-core==2.12.0
+ibm-cos-sdk-s3transfer==2.12.0
+ibm-watson-machine-learning==1.0.326
+pandas==1.4.3
+```
+and then type
+```
+pip install -r requirements.txt
+```
 
 Let us return back you your notebook that you create and first let us load the following libraries.
 
@@ -144,7 +158,8 @@ cos_credentials={
 
 # Constants for IBM COS values
 auth_endpoint = 'https://iam.cloud.ibm.com/identity/token' # Current list avaiable at https://control.cloud-object-storage.cloud.ibm.com/v2/endpoints
-service_endpoint = 'https://s3.private.eu-de.cloud-object-storage.appdomain.cloud'
+service_endpoint = 'https://s3.eu-de.cloud-object-storage.appdomain.cloud' #Outside IBM Cloud
+#service_endpoint = 'https://s3.private.eu-de.cloud-object-storage.appdomain.cloud' # Inside IBM Cloud
 ```
 
 ## Step 6. Client operations
