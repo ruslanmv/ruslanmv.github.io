@@ -32,7 +32,7 @@ To begin with, we need to set up our development environment. Make sure you have
 
 Our application is built on **IBM Code Engine**, a powerful platform that simplifies the deployment and management of containerized applications. With the help of **WatsonX.ai**, we will incorporate a **Language Model** (LLM) to analyze and generate answers to exam questions. This generative AI technology enables the application to provide accurate and reliable solutions, making it an invaluable tool for students in need of assistance during their exams.
 
-1. Let us first create our working directory 
+Let us first create our working directory 
 
 ```
 mkdir Code-Engine-Application
@@ -46,8 +46,7 @@ prompt $E[32mCode-Engine-Application$E[37m$G
 
 ```
 
-
-2. For the development section of this application, we are going to use **Python 3.10.11**. Visit the [Python 3.10.11 download page](https://www.python.org/downloads/release/python-31011/) and download the appropriate installer for your system (Windows installer, 32-bit or 64-bit). Run the installer. In the installation window, check the box for "Add Python 3.10 to PATH" and click on "Install Now."  After the installation is complete, open a new Command Prompt or PowerShell window and verify the installation by running the following command:
+For the development section of this application, we are going to use **Python 3.10.11**. Visit the [Python 3.10.11 download page](https://www.python.org/downloads/release/python-31011/) and download the appropriate installer for your system (Windows installer, 32-bit or 64-bit). Run the installer. In the installation window, check the box for "Add Python 3.10 to PATH" and click on "Install Now."  After the installation is complete, open a new Command Prompt or PowerShell window and verify the installation by running the following command:
 
 ```
  python --version
@@ -56,7 +55,7 @@ prompt $E[32mCode-Engine-Application$E[37m$G
 ![](../assets/images/posts/2023-11-24-How-to-create-an-Application-with-Code-Engine-and-WatsonX/2023-11-25-12-14-12.png)
 
 
-3.Then, create a virtual environment by running the following command:
+Then, create a virtual environment by running the following command:
 
 ```
 python -m venv .venv
@@ -358,7 +357,7 @@ PROJECT_ID='1234567890abcdef'
 we have to copy the previous  `.env` file and have `secrets.env` without strings. Make sure to replace the values with your own IBM Cloud Object Storage and WatsonX credentials.
 
 
-Once you have created all the files, you can test your program, you can upload this example of  [questions.txt](questions.txt)
+Once you have created all the files, you can test your program, you can upload this example of  [questions.txt](https://github.com/ruslanmv/Code-Engine-Application/blob/master/questions.txt)
 
 ```
 streamlit run app.py
