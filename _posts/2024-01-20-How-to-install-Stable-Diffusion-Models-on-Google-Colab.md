@@ -1,19 +1,19 @@
 ---
-title: "How to install Stable Diffusion Models on Google Collab and play."
+title: "How to install Stable Diffusion Models on Google Colab and play."
 excerpt: "How to generate images from a prompt text by using Generative AI"
 
 header:
-  image: "../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/foto.jpg"
-  teaser: "../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/foto2.jpg"
+  image: "../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/foto.jpg"
+  teaser: "../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/foto2.jpg"
   caption: "Generative AI is the most powerful tool for creativity that has ever been created. It has the potential to unleash a new era of human innovation - Elon Musk."
 
 ---
 
-Hello everyone, today we are going to learn how to install some of the amazing models of **Generative AI** to generation of images. In particular install the models on **Google Collab**.
+Hello everyone, today we are going to learn how to install some of the amazing models of **Generative AI** to generation of images. In particular install the models on **Google Colab**.
 
 We are going to build some pictures by using **Diffusion Models** like the following pictures:
 
-![8d19rv](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/8d19rv.gif)
+![8d19rv](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/8d19rv.gif)
 
 There are tons of models out there to generate images from a text, the name of those models due to the architecture where comes from are called **Stable Diffusion Models.** More information visit this blog [here](https://ruslanmv.com/blog/Diffusion-Models-in-Machine-Learning).
 
@@ -23,11 +23,11 @@ Among the most famous sites to download the models are:
 
 [https://huggingface.co/](https://huggingface.co/models?pipeline_tag=text-to-image&sort=trending)
 
-![image-20240120164352061](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120164352061.png)
+![image-20240120164352061](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120164352061.png)
 
 https://civitai.com/
 
-![image-20240120163623435](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120163623435.png)
+![image-20240120163623435](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120163623435.png)
 
 In this tutorial we are going to learn how to download the models and how to run the models.
 
@@ -46,7 +46,7 @@ First let us open the following notebook [here](https://colab.research.google.co
 
 Once you opened it, click on **Copy to Drive**
 
-![image-20240120165943044](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120165943044.png)
+![image-20240120165943044](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120165943044.png)
 
 Then will be requested to log in your Google Drive Account (your mobile may be required for confirmation)
 
@@ -54,27 +54,27 @@ Then will be requested to log in your Google Drive Account (your mobile may be r
 
 In the top left menu of the notebook we click the  small down arrow icon and click change Runtime Type.
 
-![image-20240120172034789](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120172034789.png)
+![image-20240120172034789](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120172034789.png)
 
-We choose a reasonable Hardware accelerator appropriate for the model that we are going to run, in this demo we will choose the simplest **T4 GPU**, In this demo I am using **Collab Pro** and you can choose up to **A100 GPU** with **High Ram** if you want a great specs for your Images Generation.
+We choose a reasonable Hardware accelerator appropriate for the model that we are going to run, in this demo we will choose the simplest **T4 GPU**, In this demo I am using **Colab Pro** and you can choose up to **A100 GPU** with **High Ram** if you want a great specs for your Images Generation.
 
-![image-20240120172336587](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120172336587.png)
+![image-20240120172336587](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120172336587.png)
 
 More info about GPUs [here](https://research.google.com/colaboratory/faq.html#gpu-availability).
 
 ## Step 3 - Running the Notebook
 
-When you run the first cell will ask to access to you Google Drive files, we will require you permission to connect your Collab Notebook to your Drive account
+When you run the first cell will ask to access to you Google Drive files, we will require you permission to connect your Colab Notebook to your Drive account
 
-![image-20240120171402221](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120171402221.png)
+![image-20240120171402221](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120171402221.png)
 
 and we connect with our google drive
 
-![image-20240120171554263](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120171554263.png)
+![image-20240120171554263](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120171554263.png)
 
 then you can run the cell Install Update Automatic and Requirements
 
-![image-20240120173221311](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120173221311.png)
+![image-20240120173221311](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120173221311.png)
 
 ## Step 4 Model Download
 
@@ -82,7 +82,7 @@ The Model Download block needs special attention, since this is where you can cu
 
 Due to I would like to do a simple test let us use Temp Storage.
 
-![image-20240120174014434](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120174014434.png)
+![image-20240120174014434](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120174014434.png)
 
 If would want use the default model, you can choose, one of the previous models listed there.
 
@@ -94,7 +94,7 @@ If you want to add other models, you can now re-run this Model block , to add ot
 
 You can download your models from Hugging face , you may search by name or scroll all of them. [here](https://huggingface.co/models?pipeline_tag=text-to-image&sort=downloads)
 
-![image-20240121004458118](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240121004458118.png)
+![image-20240121004458118](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240121004458118.png)
 
 Choose a model that you like, look for a big file. It can have a lot of variant name ending with fp16, fp32, safetensor, DM++. These models are designed to convert textual information into images or generate images based on textual input. They fall under the broader category of generative models, where the goal is to generate new data samples that resemble a given input.
 
@@ -111,11 +111,11 @@ There are different formats among them
 
 
 
-![image-20240121010141856](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240121010141856.png)
+![image-20240121010141856](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240121010141856.png)
 
 Then you can download the latest version
 
-![image-20240121010306723](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240121010306723.png)
+![image-20240121010306723](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240121010306723.png)
 
 You also can download some of the **Hugging Face** models in from **Civitai.**
 
@@ -123,11 +123,11 @@ You also can download some of the **Hugging Face** models in from **Civitai.**
 
 There different models that you can choose, choose the one that you like, you can  choose a nice model in the library. It's categorized by theme.
 
-![image-20240120180316243](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120180316243.png)
+![image-20240120180316243](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120180316243.png)
 
 Click on the model that you would like use to create and download it. Read the information about the Model, and if it suits you, Download it.
 
-![image-20240120181108235](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120181108235.png)
+![image-20240120181108235](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120181108235.png)
 
 If you want to automatize the downloading procedure  of your favorite models, you can use `civitdl` by installing it
 
@@ -137,7 +137,7 @@ pip3 install civitdl
 
 We can type this after the cell of requirements
 
-![image-20240120210102854](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120210102854.png)
+![image-20240120210102854](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120210102854.png)
 
 This program can be executed by this syntaxy's  `civitdl batchfile <txt file path> <destination model folder path>`
 
@@ -149,7 +149,7 @@ For example  assuming that you have a model like this:
 civitdl batchstr "https://civitai.com/models/4384/dreamshaper," ./Models
 ```
 
-![image-20240120201907208](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120201907208.png)
+![image-20240120201907208](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120201907208.png)
 
 Or if you want to download multiple models for example you can  a create a **batchfile.txt** with a list of the models that you want to download and use , for example
 
@@ -175,7 +175,7 @@ civitdl batchfile batchfile.txt ./Models
 
 Now go back to your Colab space (it should be the tab before) , and right-click on the Model Folder to copy the full path of the folder
 
-![image-20240120202240482](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120202240482.png)
+![image-20240120202240482](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120202240482.png)
 
 We copy the path of the folder Model.
 
@@ -183,19 +183,19 @@ Now you can fill the required field **Path_to_MODEL** in the block `Model Downlo
 
 It will load all the models that are in the Model folder. You're done with the Models import.
 
-![image-20240120210615089](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120210615089.png)
+![image-20240120210615089](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120210615089.png)
 
 then you run the latest two cells without changing something
 
-![image-20240120210901487](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120210901487.png)
+![image-20240120210901487](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120210901487.png)
 
 and finally
 
-![image-20240120211806890](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120211806890.png)
+![image-20240120211806890](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120211806890.png)
 
 and you got
 
-![image-20240120211913623](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120211913623.png)
+![image-20240120211913623](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120211913623.png)
 
 ## Step 7 Playground Generation - Prompting
 
@@ -213,15 +213,15 @@ Let us just to reproduce the following image for yours, let use the model `albed
 
 as follows:
 
-![image-20240120222512076](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120222512076.png)
+![image-20240120222512076](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120222512076.png)
 
 Then when we click Generate
 
-![image-20240120222751431](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120222751431.png)
+![image-20240120222751431](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120222751431.png)
 
 we got the following picture
 
-![](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image1.png)
+![](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image1.png)
 
 ```
 An woman wearing an ais-metal bikini, standing on a tropical beach
@@ -232,7 +232,7 @@ as you see is not perfect the imagen and is blurred is not great picture, howeve
 
 Below of the picture you can  see the properties of the picture to be generated
 
-![image-20240120223508644](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120223508644.png)
+![image-20240120223508644](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120223508644.png)
 
 
 
@@ -242,25 +242,25 @@ Let us try to improve this part.
 
 First let ass improve the previous model with another model called **Metallic Iridescence SDXL** you can download [here](https://civitai.com/models/270394/metallic-iridescence-sdxl?modelVersionId=304805)
 
-![[image-20240120223800707](https://civitai.com/models/270394/metallic-iridescence-sdxl?modelVersionId=304805)](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120223800707.png)
+![[image-20240120223800707](https://civitai.com/models/270394/metallic-iridescence-sdxl?modelVersionId=304805)](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120223800707.png)
 
 With this model we can download it `Metallic_Iridescence_SDXL.safetensors`
 
 and paste into the path `/content/gdrive/MyDrive/sd/stable-diffusion-webui/models/Lora`, by uploading
 
-![image-20240120224252581](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120224252581.png)
+![image-20240120224252581](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120224252581.png)
 
 once you uploaded this model, you can  go to the Lora menu and then refresh and you install the add on.
 
-![image-20240120224355885](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120224355885.png)
+![image-20240120224355885](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120224355885.png)
 
 you return back to your Generation menu and change the **Sampling method** to **DPM++ 3M SDE Karras**
 
-![image-20240120224549882](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120224549882.png)
+![image-20240120224549882](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120224549882.png)
 
 then you change the following parameters:  **Sampling steps** = **42**
 
-![image (10)](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image%20(10).png)
+![image (10)](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image%20(10).png)
 
 ```
 A woman wearing an ais-metal bikini, standing on a tropical beach
@@ -273,7 +273,7 @@ Still you don't see something good, we just changed the Sampler, let us now add 
 A woman wearing an ais-metal bikini, standing on a tropical beach <lora:Metallic_Iridescence_SDXL:0.5>
 ```
 
-![image (11)](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image%20(11).png)
+![image (11)](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image%20(11).png)
 
 ```
 A woman wearing an ais-metal bikini, standing on a tropical beach <lora:Metallic_Iridescence_SDXL:0.5>
@@ -284,7 +284,7 @@ As you see now **Metallic_Iridescence_SDXL** add some special effects to the pre
 
 ## Step 8  - Upscaling and Refiner
 
-![image-20240120233241272](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image-20240120233241272.png)
+![image-20240120233241272](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image-20240120233241272.png)
 
 Finally the last  improvment that we will show is the upscaling we enable **Hires. fix** and we add the following parameters:
 
@@ -302,7 +302,7 @@ we enable **Refiner** and we add the following parameters:
 
 **CFG Scale**: 6
 
-![image (12)](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image%20(12).png)
+![image (12)](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image%20(12).png)
 
 ```
 A woman wearing an ais-metal bikini, standing on a tropical beach <lora:Metallic_Iridescence_SDXL:0.5>
@@ -315,7 +315,7 @@ And finally if you want you can change the resolution
 
 **Height:**768
 
-![image (14)](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image%20(14).png)
+![image (14)](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image%20(14).png)
 
 ```
 A woman wearing an ais-metal bikini, standing on a tropical beach <lora:Metallic_Iridescence_SDXL:0.5>
@@ -330,7 +330,7 @@ Or just if you want to remove the metalic effect you can change the prompt:
 A  woman in, sexy bikini standing on a tropical beach
 ```
 
-![image (16)](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image%20(16).png)
+![image (16)](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image%20(16).png)
 
 Or just try with this prompt
 
@@ -338,7 +338,7 @@ Or just try with this prompt
 A  woman , sexy bikini standing on a tropical beach
 ```
 
-![image (20)](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image%20(20).png)
+![image (20)](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image%20(20).png)
 
 Moreover you can return back with your favorite metal design as follows:
 
@@ -346,7 +346,7 @@ Moreover you can return back with your favorite metal design as follows:
 A woman , sexy metalicl bikini standing on a tropical beach <lora:Metallic_Iridescence_SDXL:0.5>
 ```
 
-![image (18)](../assets/images/posts/2024-01-20-How-to-install-Stable-Difussion-Models-on-Google-Collab/image%20(18).png)
+![image (18)](../assets/images/posts/2024-01-20-How-to-install-Stable-Diffusion-Models-on-Google-Colab/image%20(18).png)
 
 ```
 A woman , sexy metalicl bikini standing on a tropical beach <lora:Metallic_Iridescence_SDXL:0.5>
@@ -355,8 +355,8 @@ Steps: 42, Sampler: DPM++ 3M SDE Karras, CFG scale: 6, Seed: 1922608063, Size: 1
 
 As you see we can improve our pictures by fine tunning the parameters.
 
-You can download this notebook [here](https://colab.research.google.com/github/ruslanmv/How-to-install-Stable-Difussion-Models-on-Google-Collab/blob/master/fast_stable_diffusion_AUTOMATIC1111_ruslanmv.ipynb)
+You can download this notebook [here](https://colab.research.google.com/github/ruslanmv/How-to-install-Stable-Diffusion-Models-on-Google-Colab/blob/master/fast_stable_diffusion_AUTOMATIC1111_ruslanmv.ipynb)
 
 
 
-**Congratulations!** You have learned how to create amazing pictures by using **Diffusion  Models** in **Google Collab.**
+**Congratulations!** You have learned how to create amazing pictures by using **Diffusion  Models** in **Google Colab.**
