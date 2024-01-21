@@ -355,7 +355,7 @@ Steps: 42, Sampler: DPM++ 3M SDE Karras, CFG scale: 6, Seed: 1922608063, Size: 1
 
 As you see we can improve our pictures by fine tunning the parameters.
 
-You can download this notebook [here](https://colab.research.google.com/github/ruslanmv/How-to-install-Stable-Diffusion-Models-on-Google-Colab/blob/master/fast_stable_diffusion_AUTOMATIC1111_ruslanmv.ipynb)
+You can download this notebook [here](https://colab.research.google.com/github/ruslanmv/How-to-install-Stable-Difussion-Models-on-Google-Collab/blob/master/fast_stable_diffusion_AUTOMATIC1111_ruslanmv.ipynb)
 
 
 
