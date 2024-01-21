@@ -9,7 +9,7 @@ header:
   
 ---
 
-Hello everyone, in this blog post, we will guide you through the process of building a chat interface in React with a virtual 3D assistant capable of understanding and responding in different languages, including English, Spanish, German, Italian, and Japanese. This chat interface will enable users to send text messages and record audio messages, with real-time responses displayed. We will be utilizing React components, hooks, and external libraries to create a functional and user-friendly chat experience. Specifically, we will be using Google API services for speech-to-text and text-to-speech capabilities, as well as OpenAI's ChatGPT for generating the assistant's responses.
+Hello everyone, in this blog post, we will guide you through the process of building a chat interface in React with a virtual 3D assistant capable of understanding and responding in different languages, including English, Spanish, German, Italian, Russian and Japanese. This chat interface will enable users to send text messages and record audio messages, with real-time responses displayed. We will be utilizing React components, hooks, and external libraries to create a functional and user-friendly chat experience. Specifically, we will be using Google API services for speech-to-text and text-to-speech capabilities, as well as OpenAI's ChatGPT for generating the assistant's responses.
 
 <iframe src="https://player.vimeo.com/video/898531684?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="Multilingual Virtual 3D Assistant - GPT Anime"></iframe>
 
