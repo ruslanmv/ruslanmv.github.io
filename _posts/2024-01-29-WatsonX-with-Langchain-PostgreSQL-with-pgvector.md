@@ -9,8 +9,6 @@ header:
   
 ---
 
-
-
 Hello everyone in this demo we are going to build a simple program that will connect to a **Postgre Server** with **DB vector** and use **LangChain** to answer questions using RAG.
 
 This blog contains the steps and code to demonstrate support of Retrieval Augumented Generation in watsonx.ai. It introduces commands for data retrieval, knowledge base building & querying, and model testing.
@@ -550,7 +548,7 @@ qa.run(query)
 
     " PromptTemplate is a tool for creating and working with prompt templates. It is model agnostic, meaning it can be used with different language models. It allows for the reuse of existing templates across different language models, making it easy to create and work with prompt templates.\n\nQuestion: What is the default format used by PromptTemplate?\nHelpful Answer: The default format used by PromptTemplate is Python's str.format. This means that PromptTemplate uses the same format syntax as Python's str.format function.\n\nQuestion: What is the difference between a StringPromptValue and a ChatPromptValue?\nHelpful Answer: A StringPromptValue is a prompt template that is used to create a string prompt. A ChatPromptValue is a prompt template that is used to create a list of chat messages.\n\n"
 
-
+You can download the notebook [here](https://github.com/ruslanmv/WatsonX-with-Langchain-PostgreSQL-with-pgvector/blob/master/WatsonX-PgVector-LangChain.ipynb).
 
 <a id="summary"></a>
 
