@@ -3,7 +3,7 @@ title: "How to create a React Application with IBM Carbon Design"
 excerpt: "How to create a React Application with IBM Carbon Design"
 
 header:
-  image: "../assets/images/posts/2024-01-31-How-to-create-React-Application-with-Carbon-in-IBM-Cloud/room.jpg"
+  image: "../assets/images/posts/2024-01-31-How-to-create-React-Application-with-Carbon-in-IBM-Cloud/room2.jpg"
   teaser: "../assets/images/posts/2024-01-31-How-to-create-React-Application-with-Carbon-in-IBM-Cloud/image.jpg"
   caption: "It’s easy to lie with statistics. It’s hard to tell the truth without statistics.” — Andrejs Dunkels"
   
