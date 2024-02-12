@@ -73,6 +73,13 @@
         </li>
       {% endif %}
 
+      {% if author.hf %}
+        <li>
+          <a href="https://huggingface.co/{{ author.keybase }}" itemprop="sameAs">
+            <i class="fa fa-smile" aria-hidden="true"></i> HuggingFace
+          </a>
+        </li>
+      {% endif %}      
       {% if author.twitter %}
         <li>
           <a href="https://twitter.com/{{ author.twitter }}" itemprop="sameAs">
