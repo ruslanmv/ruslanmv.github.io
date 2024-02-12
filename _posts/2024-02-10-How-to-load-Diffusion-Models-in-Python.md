@@ -802,6 +802,10 @@ table += '</table>'
 HTML(table)
 ```
 
+
+
+
+
 |                                                              |                                                              |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="../assets/images/posts/2024-02-10-How-to-load-Diffusion-Models-in-Python/image_1.png" width="100%"><br><sub>sexy woman, flowing blonde hair, white dress with a red floral pattern, has red lipstick, serious expression. , portrait, studio portrait, fantasy, detailed illustration, hd, 4k, digital art, overdetailed art, concept art, by</sub> | <img src="../assets/images/posts/2024-02-10-How-to-load-Diffusion-Models-in-Python/image_2.png" width="100%"><br><sub>sexy woman, flowing blonde hair, white dress with a red floral pattern, has red lipstick, serious expression. , background is a red sunset on fire, background of outer space by Beksinski, wojtek fus, Hiroshi Yoshida and Magic the Gathering.</sub> |
