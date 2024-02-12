@@ -114,7 +114,7 @@ PLATFORMS
 
 DEPENDENCIES
   gemoji (~> 3.0, >= 3.0.1)
-  jekyll (>= 3.9.4)
+  jekyll (>= 3.7.4)
   jekyll-feed
   minimal-mistakes-jekyll
   nokogiri (>= 1.8.5)
