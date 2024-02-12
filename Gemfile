@@ -9,16 +9,24 @@ source "https://rubygems.org"
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 
-# gem "github-pages", group: :jekyll_plugins
+ #gem "github-pages", group: :jekyll_plugins
+
+ gem "github-pages", "=228"
 
 # To upgrade, run `bundle update`.
 
-gem "jekyll", ">= 3.7.4"
-gem "nokogiri", ">= 1.8.5"
+#gem "jekyll", ">= 3.7.4"
+#gem "nokogiri", ">= 1.8.5"
+#gem "minimal-mistakes-jekyll"
+#gem 'gemoji', '~> 3.0', '>= 3.0.1'
+#gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+gem "jekyll", "= 3.9.3"
+gem "nokogiri"
 gem "minimal-mistakes-jekyll"
-gem "rouge", "~> 3.2.1"
-gem 'gemoji', '~> 3.0', '>= 3.0.1'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem "rouge", ">= 3.2.1"
+gem 'gemoji', '>= 3.0.1'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "webrick", "~> 1.7"
 gem 'jekyll-feed'
