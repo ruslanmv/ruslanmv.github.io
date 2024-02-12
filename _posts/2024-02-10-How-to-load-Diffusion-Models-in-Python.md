@@ -233,8 +233,6 @@ We will explore the fascinating world of diffusion models and their capability t
 - **Dreamshaper xl v2 turbo**
 
 
-
-
 Get started on this journey as we uncover the principles behind these diffusion models and witness their remarkable image generation capabilities.
 
 ## Checking System Requirements
@@ -290,7 +288,6 @@ print("Python executable path:", sys.executable)
 
 The world of AI-powered image generation has taken a leap forward with the arrival of Stable Diffusion XL, or stable-diffusion-xl-base-1.0. This isn't just another text-to-image model; it's a groundbreaking ensemble of experts, meticulously orchestrated to translate your textual whims into stunning visuals. But beneath the artistic facade lies a complex, two-stage pipeline employing innovative techniques like latent diffusion.
 
-### Step 1 - Packages Installation
 
 We have already installed the packages but we can assure that our packages are already installed. 
 
@@ -752,8 +749,6 @@ def save_images(prompt="sexy woman", steps=2, use_cuda=False, num_images=1000, f
         df = pd.DataFrame(data, columns=columns)
         df.to_csv(df_path, index=False)
         clear_output()
-
-
 ```
 
 
@@ -818,4 +813,4 @@ If you want to see more pictures generated  visit this collection [here](https:/
 
 You can play with this program [here](https://huggingface.co/spaces/ruslanmv/Text-to-Multiple-Images-SDXL) in Hugging Face or if you liked this blog post you can download the notebook [here](https://github.com/ruslanmv/How-to-load-Diffusion-Models-in-Python/blob/master/image-generator.ipynb).
 
-**Congratulations!** You have practiced how to load  diffusion models and generate images in python.
+**Congratulations!** You have practiced how to load  diffusion models and generate images in Python.
