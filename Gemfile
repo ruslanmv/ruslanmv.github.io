@@ -13,7 +13,6 @@ source "https://rubygems.org"
 
 # To upgrade, run `bundle update`.
 
-
 gem "jekyll", ">= 3.7.4"
 gem "nokogiri", ">= 1.8.5"
 gem "minimal-mistakes-jekyll"
