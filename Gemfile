@@ -14,7 +14,6 @@ source "https://rubygems.org"
  gem "github-pages", "=228"
 
 # To upgrade, run `bundle update`.
-
 #gem "jekyll", ">= 3.7.4"
 #gem "nokogiri", ">= 1.8.5"
 #gem "minimal-mistakes-jekyll"
@@ -29,4 +28,4 @@ gem 'gemoji','>= 3.0.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "webrick", "~> 1.7"
-gem 'jekyll-feed'
+gem 'jekyll-feed'   
