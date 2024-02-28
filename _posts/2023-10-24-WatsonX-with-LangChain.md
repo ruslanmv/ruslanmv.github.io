@@ -161,6 +161,17 @@ credentials = {
 }
 ```
 
+IBM Cloud for WatsonX typically has several regions available for deploying services. Some of the common regions include:1. US South (Dallas) - us-south
+2. US East (Washington, DC) - us-east
+3. Europe (Frankfurt) - eu-de
+4. Europe (London) - eu-gb
+5. Asia Pacific (Tokyo) - jp-tok
+6. Asia Pacific (Sydney) - au-syd
+
+To determine the URL for a Watson service in a specific region, you can follow this pattern:`https://REGION_ID.ml.cloud.ibm.com`
+
+For example, if your region is US South (Dallas), the URL would be:`https://us-south.ml.cloud.ibm.com`
+
 ## Foundation Models on watsonx.ai
 
 
