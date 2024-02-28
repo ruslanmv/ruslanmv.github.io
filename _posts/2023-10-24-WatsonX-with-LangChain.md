@@ -15,6 +15,26 @@ We are going to use the Foundational Models from WatsonX.ai and we will show how
 
 <img src="../assets/images/posts/2023-10-24-WatsonX-with-LangChain/logos2.png" style="zoom:75%;" />
 
+## Introduction
+LangChain is rapidly becoming the de facto standard for developing Language Model (LLM) applications, thanks to its open-source nature and user-friendly approach. This popular framework simplifies the implementation of various LLM-related tasks, including prompt templates, output parsing, LLM call sequencing, session state maintenance, and the systematic execution of RAG use cases. 
+
+While LangChain doesn't introduce new LLM capabilities, it serves as a complementary framework for constructing well-structured LLM applications in Python and JavaScript.
+
+One of LangChain's key features is its vendor and LLM-neutral API, which ensures compatibility with LLMs developed and hosted by different vendors.
+For instance, creating a chain (comprising a model and a prompt) for several LLM types supported by LangChain is as simple as: 
+
+```python
+chain = LLMChain(llm=llm, prompt=prompt).
+```
+Watsonx.ai has extended its support for LangChain through the WML (Watson Machine Learning) API, which currently incorporates several LangChain APIs like 
+
+- LLMChain
+- SimpleSequentialChain
+- SequentialChain 
+- TransformChain 
+- ConversationBufferMemory.
+
+
 
 
 ## Step 1 . Environment Setup
@@ -356,8 +376,8 @@ llm_chain('sunflower')
 
 
 
-The ConversationalRetrievalQA chain builds on RetrievalQAChain to provide a chat history component.
 
+The ConversationalRetrievalQA chain builds on RetrievalQAChain to provide a chat history component.
 It first combines the chat history (either explicitly passed in or retrieved from the provided memory) and the question into a standalone question, then looks up relevant documents from the retriever, and finally passes those documents and the question to a question-answering chain to return a response.
 
 To create one, you will need a retriever. In the below example, we will create one from a vector store, which can be created from embeddings.
@@ -437,8 +457,12 @@ We have created 45 pieces of text, in the next part we are going to create the e
 len(documents)
 45
 ```
+RetrievalQA employs an in-memory vector database, which might not be ideal for every RAG use case. Utilizing an in-memory vector database entails loading data each time, which could prove inefficient for handling extensive documents that consume significant memory resources. As a result, RetrievalQA is better suited for managing smaller documents and prototyping the RAG pattern.
+
 
 ## Embeddings
+
+
 
 There are different ways to embedding our text,  in this demo we want to use
 Tensorflow embenddings.
@@ -471,6 +495,8 @@ vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
 
 ```
 
+## LangChain's memory implementation
+LangChain's memory implementation addresses the stateless nature of LLMs by appending both input and output to the prompt. While this approach is easy to comprehend and implement, it's essential to consider the LLM token limit and token costs for hosted instances. To mitigate these concerns, LangChain offers various memory types like `ConversationBufferWindowMemory`, `ConversationSummaryBufferMemory`, and `ConversationTokenBufferMemory`, which employ different strategies for managing interactions and token limits.
 We can now create a memory object, which is necessary to track the inputs/outputs and hold a conversation.
 
 
@@ -592,6 +618,9 @@ you got the result
 
     [('What is the topic  about',
       ' The topic is about the Transformer model in natural language processing, specifically discussing the use of self-attention and multi-head attention in the model.')]
+
+
+
 
 **Congratulations!** You have finished this tutorial of WatsonX with LangChain.
 
