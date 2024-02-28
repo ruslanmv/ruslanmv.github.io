@@ -28,12 +28,16 @@ chain = LLMChain(llm=llm, prompt=prompt).
 ```
 Watsonx.ai has extended its support for LangChain through the WML (Watson Machine Learning) API, which currently incorporates several LangChain APIs like 
 
-- LLMChain
-- SimpleSequentialChain
-- SequentialChain 
-- TransformChain 
-- ConversationBufferMemory.
 
+- LLMChain: A combination of a prompt and an LLM, providing a fundamental structure for working with language models.
+
+- SimpleSequentialChain: A linear process with single input/output per step, where the output of one step serves as the input for the next.
+
+- SequentialChain: A more advanced version of the sequential process that allows multiple inputs/outputs per step.
+
+- TransformChain: Incorporates a custom transform() function within the chain, typically used for altering LLM input/output.
+
+- ConversationBufferMemory: Stores previous prompts and responses to maintain a history of interactions in a conversation
 
 
 
