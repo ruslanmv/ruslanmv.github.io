@@ -26,19 +26,14 @@ For instance, creating a chain (comprising a model and a prompt) for several LLM
 ```python
 chain = LLMChain(llm=llm, prompt=prompt).
 ```
-Watsonx.ai has extended its support for LangChain through the WML (Watson Machine Learning) API, which currently incorporates several LangChain APIs like 
 
+Watsonx.ai has extended its support for LangChain through the WML (Watson Machine Learning) API, which currently incorporates several LangChain APIs like:
 
 - LLMChain: A combination of a prompt and an LLM, providing a fundamental structure for working with language models.
-
 - SimpleSequentialChain: A linear process with single input/output per step, where the output of one step serves as the input for the next.
-
 - SequentialChain: A more advanced version of the sequential process that allows multiple inputs/outputs per step.
-
 - TransformChain: Incorporates a custom transform() function within the chain, typically used for altering LLM input/output.
-
 - ConversationBufferMemory: Stores previous prompts and responses to maintain a history of interactions in a conversation
-
 
 
 ## Step 1 . Environment Setup
@@ -161,12 +156,14 @@ credentials = {
 }
 ```
 
-IBM Cloud for WatsonX typically has several regions available for deploying services. Some of the common regions include:1. US South (Dallas) - us-south
-2. US East (Washington, DC) - us-east
-3. Europe (Frankfurt) - eu-de
-4. Europe (London) - eu-gb
-5. Asia Pacific (Tokyo) - jp-tok
-6. Asia Pacific (Sydney) - au-syd
+IBM Cloud for WatsonX typically has several regions available for deploying services. Some of the common regions include:
+
+- US South (Dallas) - us-south
+- US East (Washington, DC) - us-east
+- Europe (Frankfurt) - eu-de
+- Europe (London) - eu-gb
+- Asia Pacific (Tokyo) - jp-tok
+- Asia Pacific (Sydney) - au-syd
 
 To determine the URL for a Watson service in a specific region, you can follow this pattern:`https://REGION_ID.ml.cloud.ibm.com`
 
