@@ -1178,5 +1178,8 @@ How to maintain good indoor air quality?
 
 <img src="../assets/images/posts/2024-03-10-WatsonX-Assistant-with-Milvus-as-Vector-Database/2024-03-13-12-43-13.png" style="zoom:50%;" />
 
-**Congratulations!** you've successfully created a Watson assistant that leverages a custom extension to interact with an external API (MedicX). This empowers your assistant to access valuable data and functionalities from external sources, enhancing its capabilities and user experience.
+Finally you can check the full demo here:
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5QxbArTtWC4?si=PzdaQPGgr7upGBYe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+**Congratulations!** you've successfully created a Watson assistant that leverages a custom extension to interact with an external API (MedicX). This empowers your assistant to access valuable data and functionalities from external sources, enhancing its capabilities and user experience.
