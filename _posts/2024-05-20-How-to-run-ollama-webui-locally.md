@@ -4,7 +4,7 @@ excerpt: "How to Run Chatbot Ollama WebUI Locally Offline"
 
 header:
   image: "../assets/images/posts/2024-05-20-How-to-run-a-ollama-webui-locally/pexels.jpg"
-  teaser: "../assets/images/posts/2024-05-20-How-to-run-a-ollama-webui-locally/pexeuls.jpg"
+  teaser: "../assets/images/posts/2024-05-20-How-to-run-a-ollama-webui-locally/pexels.jpg"
   caption: "Potentially, we are talking about the end of human history—the end of the period dominated by human beings-Yuval Noah Harari"
   
 ---
