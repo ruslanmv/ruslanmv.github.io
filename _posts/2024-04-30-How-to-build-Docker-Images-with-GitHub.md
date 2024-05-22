@@ -3,8 +3,8 @@ title: "Automating Docker Image Builds and Pushes with GitHub Actions"
 excerpt: "Automating Docker Image Builds and Pushes with GitHub Actions"
 
 header:
-  image: "../assets/images/posts/2024-04-30-How-to-build-Docker-Images-with-GitHub/images/docker.jpg"
-  teaser: "../assets/images/posts/2024-04-30-How-to-build-Docker-Images-with-GitHub/images/docker.jpg"
+  image: "../assets/images/posts/2024-04-30-How-to-build-Docker-Images-with-GitHub/docker.jpg"
+  teaser: "../assets/images/posts/2024-04-30-How-to-build-Docker-Images-with-GitHub/docker.jpg"
   caption: "Automation is driving the decline of banal and repetitive tasks. Amber Rudd"
   
 ---
