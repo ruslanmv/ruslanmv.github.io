@@ -1,6 +1,6 @@
 ---
-title: "How to Run Chatbot Ollama WebUI Locally Offline"
-excerpt: "How to Run Chatbot Ollama WebUI Locally Offline"
+title: "How to Run Ollama WebUI Chatbot Locally Offline"
+excerpt: "How to Install and Run the Ollama WebUI Chatbot Locally Offline"
 
 header:
   image: "../assets/images/posts/2024-05-20-How-to-run-a-ollama-webui-locally/pexels.jpg"
