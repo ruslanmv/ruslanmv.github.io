@@ -62,7 +62,7 @@ To run these models effectively, you will need a computer with the following min
 
 ## Getting Started ✅
 
-To get started with Ollama WebUI, you'll first need to ensure you have Python installed on your system. Once that's done, you can proceed with downloading Ollama and cloning the repository.
+To get started with Ollama WebUI, you'll first need to ensure you have Python installed on your system. Once that's done, you can proceed with downloading Ollama [here](https://ollama.com/download) and cloning the repository.
 
 ### Cloning the Repository 📥
 
