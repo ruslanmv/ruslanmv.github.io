@@ -784,7 +784,7 @@ In the search management click create a index
 ![](./../assets/images/posts/2024-06-10-Develop-generative-AI-solutions-with-Azure-OpenAI/2024-06-12-10-29-24-1718199084044-73.png)
 
 Keep that is enabled searchable.
-Optionally, you can  add the index by using the json file [here](index.json)
+Optionally, you can  add the index by using the json file [here](https://github.com/ruslanmv/Develop-generative-AI-solutions-with-Azure-OpenAI/blob/main/index.json)
 ![](./../assets/images/posts/2024-06-10-Develop-generative-AI-solutions-with-Azure-OpenAI/2024-06-12-14-35-28-1718199084045-74.png)
 with their respective url.
 ![](./../assets/images/posts/2024-06-10-Develop-generative-AI-solutions-with-Azure-OpenAI/2024-06-12-14-36-23-1718199084045-75.png)
