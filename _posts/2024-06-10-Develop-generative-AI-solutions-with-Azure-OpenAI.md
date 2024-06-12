@@ -806,7 +806,7 @@ To complete the .env file we requiere add additional credentials to our envirome
 
 1. **Obtaining the Azure Search API Key:**
 
-   - Log in to the Azure portal (https://portal.azure.com).
+   - Log in to the Azure portal [https://portal.azure.com](https://portal.azure.com).
    - Navigate to your Azure Search resource. In this case, it's the `aisearch4rag` resource.
    - Once you're in the Azure Search resource, go to the "Keys" section. You can find this in the left-hand menu under "Settings."
    - In the "Keys" section, you'll see two keys: a primary key and a secondary key. Either key will work, but it's recommended to use the primary key.
@@ -815,7 +815,7 @@ To complete the .env file we requiere add additional credentials to our envirome
 
 2. **Obtaining the Blob Storage Connection String:**
 
-   - Log in to the Azure portal (https://portal.azure.com).
+   - Log in to the Azure portal [https://portal.azure.com](https://portal.azure.com).
    - Navigate to your Azure Storage account. .
    - Once you're in the Storage account, go to the "Access keys" section. You can find this in the left-hand menu under "Settings."
    - In the "Access keys" section, you'll see two keys: a key1 and a key2. Again, either key will work, but it's recommended to use key1.
