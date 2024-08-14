@@ -1,11 +1,11 @@
 ---
- title: "Building a Hybrid Chatbot with Multimodal Capabilities and LLMs for Hotel Recommendations"
+title: "Building a Hybrid Chatbot with Multimodal Capabilities and LLMs for Hotel Recommendations"
 excerpt: "How to Create a Hybrid Chatbot by Integrating Multimodal Systems with Large Language Models"
 
 header:
   image: "./../assets/images/posts/2024-08-13-Hybrid-Chatbot-with-Multimodal-and-LLM/mike.jpg"
   teaser: "./../assets/images/posts/2024-08-13-Hybrid-Chatbot-with-Multimodal-and-LLM/li-yang.jpg"
-  caption: "Generative models are changing the way we think about machine intelligence and creativity, and have the potential to transform industries from media to finance to healthcare. ~Oriol Vinyals"
+  caption: "Generative models are changing the way we think about machine intelligence and creativity, and have the potential to transform industries from media to finance to healthcare.  Oriol Vinyals"
   
 ---
 
@@ -433,11 +433,9 @@ you will obtain a list of different hotels with their photos and descriptions of
 [![Image 3](./../assets/images/posts/2024-08-13-Hybrid-Chatbot-with-Multimodal-and-LLM/2024-08-14-15-22-40.png)](./../assets/images/posts/2024-08-13-Hybrid-Chatbot-with-Multimodal-and-LLM/2024-08-14-15-22-40.png)
 
 
-
 With the final results:
 
 [![Final Result](./../assets/images/posts/2024-08-13-Hybrid-Chatbot-with-Multimodal-and-LLM/2024-08-14-15-21-30.png)](./../assets/images/posts/2024-08-13-Hybrid-Chatbot-with-Multimodal-and-LLM/2024-08-14-15-21-30.png)
-
 
 
 
