@@ -508,7 +508,7 @@ In ordering to reproduce the previos code follow the next steps.
 
 ## Architecture 
 
-![](./../assets/images/posts/2024-08-20-How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python/mermaid-diagram-2024-08-22-094843.png)
+[![Image 2](./../assets/images/posts/2024-08-20-How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python/mermaid-diagram-2024-08-22-094843.png)](./../assets/images/posts/2024-08-20-How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python/mermaid-diagram-2024-08-22-094843.png)
 
 In this diagram:
 
