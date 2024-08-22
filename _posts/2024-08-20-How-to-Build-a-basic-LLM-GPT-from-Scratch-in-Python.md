@@ -523,7 +523,9 @@ In this diagram:
 - **Transformer Block:** The `TransformerBlock` class combines a multi-head self-attention layer with feed-forward neural networks and layer normalization to create the fundamental building block of the GPT model.
 - **GPT Model:** The `GPT` class assembles multiple transformer blocks along with an embedding layer and output layer to form the complete GPT model.
 
-This visual flow should help clarify how the components of the GPT-like architecture fit together!
+This visual flow should help clarify how the components of the GPT-like architecture fit together! 
+
+For more details about the Mathematical Aspects of this Architecture please visit this post [Mathematical Foundations of Building a Basic Generative Pretrained Transformer](https://ruslanmv.com/blog/Mathematics-of-a-Basic-Generative-Pretrained-Transformer).
 
 ## Conclusion
 
