@@ -516,6 +516,13 @@ In this diagram:
 - The encoded input is passed through several **Transformer Blocks**, each containing **Multi-Head Self Attention**, **Feedforward**, and **Add & Norm** layers.
 - Finally, the output from the last Transformer block is passed through a **Linear Layer (FC Out)**, which predicts the next token.
 
+**Key architectural components present in the code:**
+
+- **Multi-Head Self-Attention:**  The `MultiHeadSelfAttention` class implements the core attention mechanism of the Transformer. It allows the model to weigh the importance of different parts of the input sequence when making predictions.
+- **Positional Encoding:** The `PositionalEncoding` class adds information about the position of words in the sequence to the model's input embeddings. This is crucial because Transformers don't inherently understand word order.
+- **Transformer Block:** The `TransformerBlock` class combines a multi-head self-attention layer with feed-forward neural networks and layer normalization to create the fundamental building block of the GPT model.
+- **GPT Model:** The `GPT` class assembles multiple transformer blocks along with an embedding layer and output layer to form the complete GPT model.
+
 This visual flow should help clarify how the components of the GPT-like architecture fit together!
 
 ## Conclusion
