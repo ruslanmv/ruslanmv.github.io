@@ -11,7 +11,13 @@ header:
 
 
 
-In this tutorial, we will go through the entire process of creating a simple microphone recorder app using Gradio, running it on an EC2 instance, setting up SSL using Nginx with a self-signed certificate, and accessing it via a web browser over HTTPS.
+Have you built an awesome Gradio web app with microphone recording, deployed it on an AWS EC2 instance, only to find out your browser won't let you use your mic?  You're not alone! This frustrating issue often pops up due to security restrictions that browsers place on microphone access.  The solution? **HTTPS**.
+
+Modern web browsers require a secure connection (HTTPS) to allow access to sensitive hardware like microphones.  If your Gradio app is running on HTTP, your browser will likely block microphone access, leading to errors and a less than stellar user experience.
+
+In this tutorial, we'll guide you through the process of securing your Gradio web app with HTTPS, enabling smooth and secure microphone recording. We'll cover everything from setting up an EC2 instance and deploying your Gradio app to configuring Nginx with a self-signed SSL certificate. By the end, you'll have a fully functional Gradio app with microphone recording capabilities, accessible securely over HTTPS.
+
+
 
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
