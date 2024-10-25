@@ -453,7 +453,7 @@ These example calls demonstrate how the system processes different queries:
 - **"Fetch the bitcoin price over the past 5 days."** triggers the Researcher agent.
 - **"Explain what Bitcoin is."** triggers the Creator agent.
 
-
+For the complete code you can go [here](https://github.com/ruslanmv/How-to-build-multiagent-system-with-WatsonX/blob/master/model.ipynb).
 
 ### Conclusion
 
