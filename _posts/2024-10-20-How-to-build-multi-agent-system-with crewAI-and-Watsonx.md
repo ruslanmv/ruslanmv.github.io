@@ -4,7 +4,7 @@ excerpt: "How to build multi-agent system with  crewAI and WatsonX"
 
 header:
   image: "./../assets/images/posts/2024-10-20-How-to-build-multi-agent-system-with crewAI-and-Watsonx/image.jpeg"
-  teaser: "./../assets/images/posts/2024-10-20-How-to-build-multi-agent-system-with crewAI-and-Watsonx/image.jpeg"
+  teaser: "./../assets/images/posts/2024-10-20-How-to-build-multi-agent-system-with crewAI-and-Watsonx/crew.jpeg"
   caption: "Multimodal agents represent a significant step towards creating truly intelligent AI systems that can seamlessly integrate into our lives. Watsonx.ai"
   
 ---

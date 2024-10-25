@@ -462,7 +462,7 @@ While Langraph is a powerful tool for building multi-agent systems, another appr
 - **Agents and Function Calling with Watsonx.ai**: crewAI integrates seamlessly with Watsonx.ai, allowing you to use Mixtral Agents and Llama models for multi-turn conversations. This integration supports defining agents with specialized roles and skills, enhancing collaboration within an AI system.
 - **Python Functions and Tool Usage**: Agents in crewAI can call Python functions—such as performing internet searches—using defined tools. This capability enables agents to autonomously perform specific actions and share their results with other agents.
 
-For a detailed guide on setting up multi-agent systems using crewAI, including code examples and workflow implementation, check out the separate blog post: [Building Multi-Agent Systems with crewAI and Watsonx.ai](https://ruslanmv.com/blog/How-to-build-multi-agent-system-with crewAI-and-Watsonx).
+For a detailed guide on setting up multi-agent systems using crewAI, including code examples and workflow implementation, check out the separate blog post: [Building Multi-Agent Systems with crewAI and Watsonx.ai](https://ruslanmv.com/blog/How-to-build-multi-agent-system-with-crewAI-and-Watsonx).
 
 This alternative post provides a comprehensive breakdown of how crewAI leverages Watsonx.ai and Python tools, demonstrating another robust way to construct dynamic multi-agent systems.
 
