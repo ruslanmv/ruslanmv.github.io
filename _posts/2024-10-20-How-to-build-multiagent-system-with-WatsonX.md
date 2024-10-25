@@ -452,6 +452,22 @@ These example calls demonstrate how the system processes different queries:
 
 For the complete code you can go [here](https://github.com/ruslanmv/How-to-build-multiagent-system-with-WatsonX/blob/master/model.ipynb).
 
+
+
+### 13. Exploring an Alternative Approach for Multi-Agent Systems: Using crewAI
+
+While Langraph is a powerful tool for building multi-agent systems, another approach worth exploring is **crewAI**. crewAI offers powerful tools for integrating agents and function calling in AI applications. Here's a brief overview:
+
+- **Definition of Agents**: In crewAI, an agent is an autonomous unit that performs tasks, makes decisions, and communicates with other agents. These agents can have various roles like ‘Researcher’, ‘Writer’, or ‘Customer Support’, each contributing to the overall goal of the system.
+- **Agents and Function Calling with Watsonx.ai**: crewAI integrates seamlessly with Watsonx.ai, allowing you to use Mixtral Agents and Llama models for multi-turn conversations. This integration supports defining agents with specialized roles and skills, enhancing collaboration within an AI system.
+- **Python Functions and Tool Usage**: Agents in crewAI can call Python functions—such as performing internet searches—using defined tools. This capability enables agents to autonomously perform specific actions and share their results with other agents.
+
+For a detailed guide on setting up multi-agent systems using crewAI, including code examples and workflow implementation, check out the separate blog post: [Building Multi-Agent Systems with crewAI and Watsonx.ai](https://ruslanmv.com/blog/How-to-build-multi-agent-system-with crewAI-and-Watsonx).
+
+This alternative post provides a comprehensive breakdown of how crewAI leverages Watsonx.ai and Python tools, demonstrating another robust way to construct dynamic multi-agent systems.
+
+
+
 ### Conclusion
 
 Langraph provides a powerful way to orchestrate multi-agent systems, offering flexibility and modularity. By defining workflows, nodes, and transitions, you can build complex, intelligent systems efficiently. 
