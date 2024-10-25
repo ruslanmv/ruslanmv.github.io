@@ -361,16 +361,13 @@ Define edges and transitions
 ```python
 def extract_selected_agent(state) -> str:
     return state["selected_agent"]
-
+# Add conditional edges based on the Router agent's response
 workflow.add_conditional_edges("Router", extract_selected_agent, {"Researcher": "Researcher", "Creator": "Creator"})
 ```
 
 Adds conditional transitions based on the Router’s response, directing the flow to either the Researcher or Creator node.
 
 ```python
-# Add conditional edges based on the Router agent's response
-workflow.add_conditional_edges("Router", extract_selected_agent, {"Researcher": "Researcher", "Creator": "Creator"})
-
 # After either Researcher or Creator is done, the program ends
 workflow.add_conditional_edges("Researcher", lambda state: "__end__", {"__end__": END})
 workflow.add_conditional_edges("Creator", lambda state: "__end__", {"__end__": END})
