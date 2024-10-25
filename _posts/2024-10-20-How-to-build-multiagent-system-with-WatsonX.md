@@ -341,6 +341,11 @@ The Creator agent uses the language model to generate a response to the user que
 Define the graph and its nodes (Workflow)
 
 ```python
+# Define nodes for each agent
+research_node = functools.partial(researcher_agent_node, name="Researcher")
+creator_node = functools.partial(creator_agent_node, name="Creator")
+
+# Define the graph and its nodes
 workflow = StateGraph(AgentState)
 workflow.add_node("Router", functools.partial(router_agent_node, name="Router"))
 workflow.add_node("Researcher", research_node)
@@ -361,6 +366,17 @@ workflow.add_conditional_edges("Router", extract_selected_agent, {"Researcher": 
 ```
 
 Adds conditional transitions based on the Router’s response, directing the flow to either the Researcher or Creator node.
+
+```python
+# Add conditional edges based on the Router agent's response
+workflow.add_conditional_edges("Router", extract_selected_agent, {"Researcher": "Researcher", "Creator": "Creator"})
+
+# After either Researcher or Creator is done, the program ends
+workflow.add_conditional_edges("Researcher", lambda state: "__end__", {"__end__": END})
+workflow.add_conditional_edges("Creator", lambda state: "__end__", {"__end__": END})
+# Set entry point
+workflow.set_entry_point("Router")
+```
 
 ### 9. Compiling the Workflow
 
