@@ -498,7 +498,7 @@ $$
 \text{Diversity} = \frac{\text{Unique N-grams}}{\text{Total N-grams}}
 $$
 
-**Extended Explanation**  
+****  
 The diversity score measures the variety in generated text, ensuring the model avoids repetitive patterns. It is particularly useful for creative writing tasks, such as story generation or poetry, where repetition can degrade quality.
 
 **Python Implementation**:
@@ -571,7 +571,7 @@ A high coherence score indicates that the response is contextually and semantica
 
 #### 12. **Bias Detection**
 
-**Extended Explanation**  
+****  
 Bias detection ensures that the model avoids generating prejudiced or unfair content. This metric helps identify and mitigate harmful stereotypes or discriminatory outputs.
 
 **Python Implementation**:
@@ -603,7 +603,7 @@ Lower scores are desirable, indicating minimal bias or harmful content in the te
 
 #### 13. **Knowledge Retention**
 
-**Extended Explanation**  
+****  
 Knowledge retention measures the ability of a model to recall factual information over time. This metric is crucial for evaluating whether fine-tuning or retraining has degraded the model's understanding of previously learned knowledge.
 
 **Python Implementation**:
