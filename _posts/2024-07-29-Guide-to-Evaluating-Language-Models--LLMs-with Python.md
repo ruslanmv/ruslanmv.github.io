@@ -37,7 +37,7 @@ This blog starts from the basics and dives deep into evaluation metrics, explain
 | **ROUGE**                              | Measures overlap in generated and reference texts. | Token Overlap Ratios                                         | Summarization tasks.        |
 | **BLEU**                               | Evaluates translation accuracy.                    | N-gram Overlap Ratios                                        | Machine translation.        |
 | **Toxicity Detection**                 | Detects harmful outputs.                           | Detoxify Framework                                           | Content moderation.         |
-| **Perplexity**                         | Measures fluency and confidence.                   | \(-\frac{1}{n} \sum_{i=1}^n \log(P(x_i))\)                   | Evaluates language fluency. |
+| **Perplexity**                         | Measures fluency and confidence.                   | $$-\frac{1}{n} \sum_{i=1}^n \log(P(x_i))$$                   | Evaluates language fluency. |
 
 ---
 
