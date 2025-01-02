@@ -34,29 +34,29 @@ Our model combines a CNN encoder with an LSTM decoder. Let's break down the math
 For text, the input is a sequence of words representing the caption. Each word is first mapped to a unique token ID. Then, these tokens are converted into dense vector representations called **word embeddings**.
 
 *   **Tokenization:**
-    *   Let \( c_i \) be the \( i \)-th word in the input caption.
-    *   Let \( V \) be the vocabulary (set of all unique words).
-    *   Let \( \text{Tokenize}(c_i) \) be a function that maps \( c_i \) to its corresponding token ID \( t_i \in \{1, 2, ..., |V|\} \).
+    *   Let $$ c_i $$ be the $$ i $$-th word in the input caption.
+    *   Let $$ V $$ be the vocabulary (set of all unique words).
+    *   Let $$ \text{Tokenize}(c_i) $$ be a function that maps $$ c_i $$ to its corresponding token ID $$ t_i \in \{1, 2, ..., |V|\} $$.
 *   **Word Embeddings:**
-    *   Let \( E \in \mathbb{R}^{|V| \times d_e} \) be the embedding matrix, where \( d_e \) is the embedding dimension.
-    *   The embedding \( e_i \) for token \( t_i \) is obtained by looking up the \( t_i \)-th row of \( E \):
-        \[ e_i = E_{t_i} \]
+    *   Let $$ E \in \mathbb{R}^{|V| \times d_e} $$ be the embedding matrix, where $$ d_e $$ is the embedding dimension.
+    *   The embedding $$ e_i $$ for token $$ t_i $$ is obtained by looking up the $$ t_i $$-th row of $$ E $$:
+        $$ e_i = E_{t_i} $$
 
 #### **2.1.2 Image Input (for Encoder)**
 
 Images are processed through a pre-trained ResNet50 model to extract visual features. These features represent a high-level, semantically rich encoding of the image content.
 
 *   **Feature Extraction (using ResNet50):**
-    *   Let \( I \in \mathbb{R}^{H \times W \times C} \) be the input image, where \( H \) is the height, \( W \) is the width, and \( C \) is the number of channels (3 for RGB).
-    *   Let \( \text{ResNet50}(I) \) be the output of the pre-trained ResNet50 model applied to the image \( I \). We use the output of the layer just before the final classification layer.
-    *   \( \text{ResNet50}(I) = f \in \mathbb{R}^{d_f} \), where \( d_f \) is the feature dimension (2048 for ResNet50).
+    *   Let $$ I \in \mathbb{R}^{H \times W \times C} $$ be the input image, where $$ H $$ is the height, $$ W $$ is the width, and $$ C $$ is the number of channels (3 for RGB).
+    *   Let $$ \text{ResNet50}(I) $$ be the output of the pre-trained ResNet50 model applied to the image $$ I $$. We use the output of the layer just before the final classification layer.
+    *   $$ \text{ResNet50}(I) = f \in \mathbb{R}^{d_f} $$, where $$ d_f $$ is the feature dimension (2048 for ResNet50).
 *   **Linear Projection:**
-    *   The ResNet50 features \( f \) are linearly projected to match the embedding dimension \( d_e \) used in the decoder:
-        \[ f' = f W^p + b^p \]
-        where \( W^p \in \mathbb{R}^{d_f \times d_e} \) and \( b^p \in \mathbb{R}^{d_e} \) are learnable parameters.
+    *   The ResNet50 features $$ f $$ are linearly projected to match the embedding dimension $$ d_e $$ used in the decoder:
+        $$ f' = f W^p + b^p $$
+        where $$ W^p \in \mathbb{R}^{d_f \times d_e} $$ and $$ b^p \in \mathbb{R}^{d_e} $$ are learnable parameters.
 *   **Batch Normalization:**
     *   Batch normalization is applied to the projected features:
-        \[ f'' = \text{BatchNorm}(f') \]
+        $$ f'' = \text{BatchNorm}(f') $$
 
 ### **2.2 Core Model Components**
 
@@ -64,9 +64,9 @@ Images are processed through a pre-trained ResNet50 model to extract visual feat
 
 The ResNet50 architecture is based on residual blocks that learn residual functions with reference to the layer inputs, instead of learning unreferenced functions. Each block can be represented as:
 
-\[ y = F(x, \{W_i\}) + x \]
+$$ y = F(x, \{W_i\}) + x $$
 
-where \( x \) is the input, \( y \) is the output, and \( F(x, \{W_i\}) \) is the residual mapping to be learned. This residual learning helps to address the vanishing gradient problem in deep networks.
+where $$ x $$ is the input, $$ y $$ is the output, and $$ F(x, \{W_i\}) $$ is the residual mapping to be learned. This residual learning helps to address the vanishing gradient problem in deep networks.
 
 *Note: The provided code freezes the weights of ResNet, so no equations for backpropagation through the encoder are needed during the training phase.*
 
@@ -75,30 +75,30 @@ where \( x \) is the input, \( y \) is the output, and \( F(x, \{W_i\}) \) is th
 The LSTM is the core of our decoder. It processes the encoded image features and generates the caption word by word.
 
 *   **LSTM Cell:**
-    *   At each time step \( t \), the LSTM cell takes the current word embedding \( e_t \), the previous hidden state \( h_{t-1} \), and the previous cell state \( c_{t-1} \) as inputs.
+    *   At each time step $$ t $$, the LSTM cell takes the current word embedding $$ e_t $$, the previous hidden state $$ h_{t-1} $$, and the previous cell state $$ c_{t-1} $$ as inputs.
     *   **Forget Gate:**
-        \[ f_t = \sigma(W_{f} \cdot [h_{t-1}, e_t] + b_f) \]
+        $$ f_t = \sigma(W_{f} \cdot [h_{t-1}, e_t] + b_f) $$
     *   **Input Gate:**
-        \[ i_t = \sigma(W_{i} \cdot [h_{t-1}, e_t] + b_i) \]
+        $$ i_t = \sigma(W_{i} \cdot [h_{t-1}, e_t] + b_i) $$
     *   **Candidate Cell State:**
-        \[ \tilde{C}_t = \tanh(W_{C} \cdot [h_{t-1}, e_t] + b_C) \]
+        $$ \tilde{C}_t = \tanh(W_{C} \cdot [h_{t-1}, e_t] + b_C) $$
     *   **New Cell State:**
-        \[ C_t = f_t * C_{t-1} + i_t * \tilde{C}_t \]
+        $$ C_t = f_t * C_{t-1} + i_t * \tilde{C}_t $$
     *   **Output Gate:**
-        \[ o_t = \sigma(W_{o} \cdot [h_{t-1}, e_t] + b_o) \]
+        $$ o_t = \sigma(W_{o} \cdot [h_{t-1}, e_t] + b_o) $$
     *   **New Hidden State:**
-        \[ h_t = o_t * \tanh(C_t) \]
-        where \( \sigma \) is the sigmoid function, \( W \) and \( b \) are learnable weight matrices and biases, and \( * \) denotes element-wise multiplication.
+        $$ h_t = o_t * \tanh(C_t) $$
+        where $$ \sigma $$ is the sigmoid function, $$ W $$ and $$ b $$ are learnable weight matrices and biases, and $$ * $$ denotes element-wise multiplication.
 
 *   **Initialization with Image Features:**
-    *   The initial hidden state \( h_0 \) and cell state \( c_0 \) of the LSTM are typically initialized with the encoded image features (or a transformation of them). In our code this is implicit, as the features are concatenated with the first embedded word.
+    *   The initial hidden state $$ h_0 $$ and cell state $$ c_0 $$ of the LSTM are typically initialized with the encoded image features (or a transformation of them). In our code this is implicit, as the features are concatenated with the first embedded word.
 
 *   **Word Prediction:**
-    *   At each time step, the LSTM's hidden state \( h_t \) is passed through a linear layer to produce a score for each word in the vocabulary:
-        \[ \text{scores}_t = h_t W^d + b^d \]
-        where \( W^d \in \mathbb{R}^{d_h \times |V|} \) and \( b^d \in \mathbb{R}^{|V|} \) are learnable parameters.
+    *   At each time step, the LSTM's hidden state $$ h_t $$ is passed through a linear layer to produce a score for each word in the vocabulary:
+        $$ \text{scores}_t = h_t W^d + b^d $$
+        where $$ W^d \in \mathbb{R}^{d_h \times |V|} $$ and $$ b^d \in \mathbb{R}^{|V|} $$ are learnable parameters.
     *   A softmax function is applied to obtain a probability distribution over the vocabulary:
-        \[ P(y_t | y_{<t}, f'') = \text{softmax}(\text{scores}_t) \]
+        $$ P(y_t | y_{<t}, f'') = \text{softmax}(\text{scores}_t) $$
 
 ### **2.3 Loss Function**
 
@@ -106,11 +106,11 @@ The LSTM is the core of our decoder. It processes the encoded image features and
 
 The standard loss function for caption generation is the cross-entropy loss. It measures the difference between the predicted probability distribution and the true distribution (one-hot encoding of the ground truth word) for each word in the caption.
 
-*   The loss for a single time step \( t \) is:
-    \[ \mathcal{L}_{CE}(t) = - \log P(y^*_t | y^*_{<t}, f'') \]
-    where \( y^*_t \) is the ground truth word at time step \( t \).
+*   The loss for a single time step $$ t $$ is:
+    $$ \mathcal{L}_{CE}(t) = - \log P(y^*_t | y^*_{<t}, f'') $$
+    where $$ y^*_t $$ is the ground truth word at time step $$ t $$.
 *   The total loss for a caption is the sum of the losses over all time steps:
-    \[ \mathcal{L}_{CE} = \sum_t \mathcal{L}_{CE}(t) \]
+    $$ \mathcal{L}_{CE} = \sum_t \mathcal{L}_{CE}(t) $$
 
 ### **2.4 Optimization**
 
@@ -119,15 +119,15 @@ The standard loss function for caption generation is the cross-entropy loss. It 
 The Adam optimizer is used to update the model's parameters during training. It combines the benefits of AdaGrad and RMSProp.
 
 *   **First Moment (Mean):**
-    \[ m_t = \beta_1 \cdot m_{t-1} + (1 - \beta_1) \cdot g_t \]
+    $$ m_t = \beta_1 \cdot m_{t-1} + (1 - \beta_1) \cdot g_t $$
 *   **Second Moment (Uncentered Variance):**
-    \[ v_t = \beta_2 \cdot v_{t-1} + (1 - \beta_2) \cdot g_t^2 \]
+    $$ v_t = \beta_2 \cdot v_{t-1} + (1 - \beta_2) \cdot g_t^2 $$
 *   **Bias Correction:**
-    \[ \hat{m}_t = \frac{m_t}{1 - \beta_1^t} \]
-    \[ \hat{v}_t = \frac{v_t}{1 - \beta_2^t} \]
+    $$ \hat{m}_t = \frac{m_t}{1 - \beta_1^t} $$
+    $$ \hat{v}_t = \frac{v_t}{1 - \beta_2^t} $$
 *   **Parameter Update:**
-    \[ \theta_t = \theta_{t-1} - \alpha \cdot \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon} \]
-    where \( g_t \) is the gradient at time step \( t \), \( \alpha \) is the learning rate, \( \beta_1 \) and \( \beta_2 \) are exponential decay rates, \( \epsilon \) is a small constant for numerical stability, and \( \theta \) represents the model parameters.
+    $$ \theta_t = \theta_{t-1} - \alpha \cdot \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon} $$
+    where $$ g_t $$ is the gradient at time step $$ t $$, $$ \alpha $$ is the learning rate, $$ \beta_1 $$ and $$ \beta_2 $$ are exponential decay rates, $$ \epsilon $$ is a small constant for numerical stability, and $$ \theta $$ represents the model parameters.
 
 
 
