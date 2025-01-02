@@ -65,17 +65,18 @@ Input representations transform raw text and image data into feature embeddings 
 
 Textual inputs are sequences of words that are tokenized, embedded, and enriched with positional encodings to capture sequential information.
 
-#### **Tokenization**
+### **Tokenization**
 
 Each word $$ x_i $$ in the input sentence is mapped to a unique token ID $$ t_i $$ using a tokenizer:
 
 $$
 T = [t_1, t_2, \ldots, t_n]
 $$
+
 Where $$ T $$ is the sequence of token IDs corresponding to the words in the sentence.
 
 
-#### **Word Embedding**
+### **Word Embedding**
 
 Tokens are converted into dense vector representations using an embedding matrix:
 
@@ -83,14 +84,14 @@ $$
 E \in \mathbb{R}^{|V| \times d_e}
 $$
 
-where $$ |V| $$ is the vocabulary size and $$ d_e $$ is the embedding dimension:
+where $$ \| V  \| $$ is the vocabulary size and $$ d_e $$ is the embedding dimension:
 
 $$
 e_i = E_{t_i}, \quad e_i \in \mathbb{R}^{d_e}
 $$
 
 
-#### **Positional Encoding**
+### **Positional Encoding**
 
 To encode positional information, a positional encoding $$ PE \in \mathbb{R}^{L \times d_e} $$ is added to the word embeddings:
 
@@ -103,7 +104,7 @@ Here:
 - $$ pos $$: The position in the sequence.
 - $$ j $$: The embedding dimension index.
 
-#### **Combined Text Representation**
+### **Combined Text Representation**
 
 The final representation of each word is the sum of its embedding and positional encoding:
 
@@ -119,7 +120,7 @@ This vector is the input to the transformer layers for textual processing.
 
 Images are divided into patches, transformed into embeddings using a Vision Transformer (ViT), and enriched with positional encodings to preserve spatial information.
 
-#### **Patch Extraction**
+### **Patch Extraction**
 
 The input image $$ I \in \mathbb{R}^{H \times W \times C} $$ is divided into $$ N $$ non-overlapping patches of size $$ P \times P $$:
 
@@ -129,7 +130,7 @@ $$
 
 Each patch $$ p_i $$ has dimensions $$ P \times P \times C $$.
 
-#### **Patch Embedding**
+### **Patch Embedding**
 
 Patches are flattened and projected into a $$ d_f $$-dimensional feature space using a linear transformation $$ W^p $$:
 
@@ -137,7 +138,7 @@ $$
 f_i = p_i \cdot W^p, \quad f_i \in \mathbb{R}^{d_f}
 $$
 
-#### **Positional Encoding**
+### **Positional Encoding**
 
 Each patch embedding is combined with a positional encoding $$ PE^v $$ to provide spatial context:
 
@@ -145,7 +146,7 @@ $$
 z^v_{0_i} = f_i + PE^v_i
 $$
 
-#### **Image Representation**
+### **Image Representation**
 
 The set of patch embeddings forms the initial representation of the image:
 
@@ -165,7 +166,7 @@ The core of the transformer architecture includes multi-head attention, feedforw
 
 Self-attention enables the model to learn relationships between elements in a sequence.
 
-#### **Query, Key, Value Projections**
+### **Query, Key, Value Projections**
 
 For input $$ z_i $$, compute queries $$ Q $$, keys $$ K $$, and values $$ V $$ using learned weight matrices 
 
@@ -175,7 +176,7 @@ $$
 q_i = z_i W^Q, \quad k_i = z_i W^K, \quad v_i = z_i W^V
 $$
 
-#### **Scaled Dot-Product Attention**
+### **Scaled Dot-Product Attention**
 
 The attention scores are computed as:
 
@@ -195,7 +196,7 @@ Where:
 
 Cross-attention fuses information from text and image modalities.
 
-#### **Text Attending to Image**
+### **Text Attending to Image**
 
 Textual queries attend to image features as keys and values:
 
@@ -219,7 +220,7 @@ Where $$ W_1, W_2 $$ are learned weight matrices and $$ b_1, b_2 $$ are biases.
 
 ### **2.2.4 Layer Normalization and Residual Connections**
 
-#### **Layer Normalization**
+### **Layer Normalization**
 
 Normalize inputs to stabilize training:
 
@@ -227,7 +228,7 @@ $$
 \text{LayerNorm}(z) = \gamma \odot \frac{z - \mu}{\sigma} + \beta
 $$
 
-#### **Residual Connections**
+### **Residual Connections**
 
 Add residual connections to improve gradient flow:
 
