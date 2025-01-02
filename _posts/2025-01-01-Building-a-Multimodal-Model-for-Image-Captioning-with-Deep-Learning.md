@@ -33,21 +33,19 @@ For text, the input is a sequence of words representing the caption. Each word i
 
 * **Tokenization:**
 
-  Let $$ c_i $$ be the $$ i $$-th word in the input caption.  
-  Let $$ V $$ be the vocabulary (set of all unique words).  
+  Let \( c_i \) be the \( i \)-th word in the input caption.  
+  Let \( V \) be the vocabulary (set of all unique words).  
 
-  Let $$ \text{Tokenize}(c_i) $$ be a function that maps $$ c_i $$ to its corresponding token ID $$ t_i \in \{1, 2, ..., |V|\} $$.
+  Let \( \text{Tokenize}(c_i) \) be a function that maps \( c_i \) to its corresponding token ID \( t_i \in \{1, 2, \dots, |V|\} \).
 
-  
+* **Word Embeddings:**
 
-*   **Word Embeddings:**
+  Let \( E \in \mathbb{R}^{|V| \times d_e} \) be the embedding matrix, where \( d_e \) is the embedding dimension.  
 
-    Let $$ E \in \mathbb{R}^{|V| \times d_e} $$ be the embedding matrix, where $$ d_e $$ is the embedding dimension.  
-
-    The embedding $$ e_i $$ for token $$ t_i $$ is obtained by looking up the $$ t_i $$-th row of $$ E $$:
-    $$
-    e_i = E_{t_i}
-    $$
+  The embedding \( e_i \) for token \( t_i \) is obtained by looking up the \( t_i \)-th row of \( E \):
+  $$
+  e_i = E_{t_i}
+  $$
 
 
 #### **2.1.2 Image Input (for Encoder)**

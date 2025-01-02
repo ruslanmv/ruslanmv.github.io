@@ -74,13 +74,21 @@ T = [t_1, t_2, \ldots, t_n]
 $$
 Where $$ T $$ is the sequence of token IDs corresponding to the words in the sentence.
 
+
 #### **Word Embedding**
 
-Tokens are converted into dense vector representations using an embedding matrix $$ E \in \mathbb{R}^{|V| \times d_e} $$, where $$ |V| $$ is the vocabulary size and $$ d_e $$ is the embedding dimension:
+Tokens are converted into dense vector representations using an embedding matrix:
+
+$$
+E \in \mathbb{R}^{|V| \times d_e}
+$$
+
+where $$ |V| $$ is the vocabulary size and $$ d_e $$ is the embedding dimension:
 
 $$
 e_i = E_{t_i}, \quad e_i \in \mathbb{R}^{d_e}
 $$
+
 
 #### **Positional Encoding**
 
