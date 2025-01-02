@@ -446,10 +446,6 @@ This section provided a detailed overview of the mathematical foundations of mul
 * **`PositionalEncoding`:** This module adds positional encodings to the input embeddings. Positional encodings are essential in transformer models as they provide information about the order of words in a sequence, which is not inherently captured by the self-attention mechanism.
 
   ```python
-  
-  ```
-
-
     class PositionalEncoding(nn.Module):
         def __init__(self, embed_size, dropout_p=0.1, max_len=5000):
             super().__init__()
