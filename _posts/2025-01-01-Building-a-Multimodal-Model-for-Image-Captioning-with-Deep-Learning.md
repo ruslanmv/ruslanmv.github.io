@@ -10,8 +10,6 @@ header:
   
 ---
 
-
-
 Image captioning, the task of automatically generating textual descriptions for images, stands at the intersection of computer vision and natural language processing. This blog post dives into the development of an image captioning model using deep learning techniques, specifically leveraging the power of Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs), particularly LSTMs, as implemented in our Python code. We will first delve into the theoretical foundations of our model, including relevant mathematical equations, and then we will be able to see how these components work together to understand and describe images in natural language.
 
 ## **1. Introduction to Our Image Captioning Model**
@@ -33,27 +31,43 @@ Our model combines a CNN encoder with an LSTM decoder. Let's break down the math
 
 For text, the input is a sequence of words representing the caption. Each word is first mapped to a unique token ID. Then, these tokens are converted into dense vector representations called **word embeddings**.
 
-*   **Tokenization:**
-    *   Let $$ c_i $$ be the $$ i $$-th word in the input caption.
-    *   Let $$ V $$ be the vocabulary (set of all unique words).
-    *   Let $$ \text{Tokenize}(c_i) $$ be a function that maps $$ c_i $$ to its corresponding token ID $$ t_i \in \{1, 2, ..., |V|\} $$.
+* **Tokenization:**
+
+  Let $$ c_i $$ be the $$ i $$-th word in the input caption.  
+  Let $$ V $$ be the vocabulary (set of all unique words).  
+
+  Let $$ \text{Tokenize}(c_i) $$ be a function that maps $$ c_i $$ to its corresponding token ID $$ t_i \in \{1, 2, ..., |V|\} $$.
+
+  
+
 *   **Word Embeddings:**
-    *   Let $$ E \in \mathbb{R}^{|V| \times d_e} $$ be the embedding matrix, where $$ d_e $$ is the embedding dimension.
-    *   The embedding $$ e_i $$ for token $$ t_i $$ is obtained by looking up the $$ t_i $$-th row of $$ E $$:
-        $$ e_i = E_{t_i} $$
+
+    Let $$ E \in \mathbb{R}^{|V| \times d_e} $$ be the embedding matrix, where $$ d_e $$ is the embedding dimension.  
+
+    The embedding $$ e_i $$ for token $$ t_i $$ is obtained by looking up the $$ t_i $$-th row of $$ E $$:
+    $$
+    e_i = E_{t_i}
+    $$
+
 
 #### **2.1.2 Image Input (for Encoder)**
 
 Images are processed through a pre-trained ResNet50 model to extract visual features. These features represent a high-level, semantically rich encoding of the image content.
 
 *   **Feature Extraction (using ResNet50):**
-    *   Let $$ I \in \mathbb{R}^{H \times W \times C} $$ be the input image, where $$ H $$ is the height, $$ W $$ is the width, and $$ C $$ is the number of channels (3 for RGB).
-    *   Let $$ \text{ResNet50}(I) $$ be the output of the pre-trained ResNet50 model applied to the image $$ I $$. We use the output of the layer just before the final classification layer.
-    *   $$ \text{ResNet50}(I) = f \in \mathbb{R}^{d_f} $$, where $$ d_f $$ is the feature dimension (2048 for ResNet50).
+    * Let $$ I \in \mathbb{R}^{H \times W \times C} $$ be the input image, where $$ H $$ is the height, $$ W $$ is the width, and $$ C $$ is the number of channels (3 for RGB).
+    
+    * Let $$ \text{ResNet50}(I) $$ be the output of the pre-trained ResNet50 model applied to the image $$ I $$. We use the output of the layer just before the final classification layer.
+    
+    * $$ \text{ResNet50}(I) = f \in \mathbb{R}^{d_f} $$, where $$ d_f $$ is the feature dimension (2048 for ResNet50).
+    
+      
+    
 *   **Linear Projection:**
     *   The ResNet50 features $$ f $$ are linearly projected to match the embedding dimension $$ d_e $$ used in the decoder:
         $$ f' = f W^p + b^p $$
         where $$ W^p \in \mathbb{R}^{d_f \times d_e} $$ and $$ b^p \in \mathbb{R}^{d_e} $$ are learnable parameters.
+    
 *   **Batch Normalization:**
     *   Batch normalization is applied to the projected features:
         $$ f'' = \text{BatchNorm}(f') $$
@@ -623,5 +637,12 @@ While this is a simplified implementation, it demonstrates the fundamental princ
 *   **Using more advanced CNN and RNN architectures:** Exploring different pre-trained CNNs or more complex RNNs like GRUs.
 *   **Training on larger datasets:** Using datasets like COCO Captions for improved performance.
 
+
+
 By understanding these core concepts, you can further explore the exciting field of image captioning and develop more sophisticated models for a variety of applications. The theoretical foundations we laid out at the beginning, including the mathematical formulations of multimodal fusion, provide a strong basis for further development and research in this area.
 
+
+
+If you liked this blog, you can give me a star and download the notebook in this repository [here](https://github.com/ruslanmv/Multimodal-Image-Captioning).
+
+**Congratulations!** You have learned how to create multimodal models with deep learning.
