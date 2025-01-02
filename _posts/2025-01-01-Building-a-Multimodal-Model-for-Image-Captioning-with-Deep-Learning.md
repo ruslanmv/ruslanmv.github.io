@@ -10,7 +10,8 @@ header:
   
 ---
 
-Image captioning, the task of automatically generating textual descriptions for images, stands at the intersection of computer vision and natural language processing. This blog post dives into the development of an image captioning model using deep learning techniques, specifically leveraging the power of Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs), particularly LSTMs, as implemented in our Python code. We will first delve into the theoretical foundations of our model, including relevant mathematical equations, and then we will be able to see how these components work together to understand and describe images in natural language.
+
+Hello everyone today we are going to build a simple  CNN-LSTM Deep Learning Model for Multimodal Model. Image captioning, the task of automatically generating textual descriptions for images, stands at the intersection of computer vision and natural language processing. This blog post dives into the development of an image captioning model using deep learning techniques, specifically leveraging the power of Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs), particularly LSTMs, as implemented in our Python code. We will first delve into the theoretical foundations of our model, including relevant mathematical equations, and then we will be able to see how these components work together to understand and describe images in natural language.
 
 ## **1. Introduction to Our Image Captioning Model**
 
@@ -637,7 +638,9 @@ While this is a simplified implementation, it demonstrates the fundamental princ
 By understanding these core concepts, you can further explore the exciting field of image captioning and develop more sophisticated models for a variety of applications. The theoretical foundations we laid out at the beginning, including the mathematical formulations of multimodal fusion, provide a strong basis for further development and research in this area.
 
 
-
 If you liked this blog, you can give me a star and download the notebook in this repository [here](https://github.com/ruslanmv/Multimodal-Image-Captioning).
+
+If you're interested in exploring another approach using Transformers, take a look at this blog: [Building a Multimodal Model for Image Captioning with Transformers](https://ruslanmv.com/blog/Building-a-Multimodal-Model-for-Image-Captioning-with-Transformers).
+
 
 **Congratulations!** You have learned how to create multimodal models with deep learning.

@@ -1287,4 +1287,7 @@ This blog explored the development of a multimodal image captioning model levera
 
 If you liked this blog, you can give me a star and download the notebook in this repository [here](https://github.com/ruslanmv/Multimodal-Image-Captioning).
 
+If you're curious about exploring a different method with Deep Learning, you can check out this blog post: [Creating a Robust Multimodal System for Image Captioning Using Deep Learning](https://ruslanmv.com/blog/Building-a-Multimodal-Model-for-Image-Captioning-with-Deep-Learning).
+
+
 **Congratulations!**With this framework, you are equipped to further innovate in the field of multimodal learning. Explore, experiment, and push the boundaries of what's possible!
