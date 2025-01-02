@@ -96,36 +96,36 @@ Textual inputs are sequences of words that are tokenized, embedded, and enriched
 
 #### **Tokenization**
 
-Each word \( x_i \) in the input sentence is mapped to a unique token ID \( t_i \) using a tokenizer:
-\[
+Each word $$ x_i $$ in the input sentence is mapped to a unique token ID $$ t_i $$ using a tokenizer:
+$$
 T = [t_1, t_2, \ldots, t_n]
-\]
-Where \( T \) is the sequence of token IDs corresponding to the words in the sentence.
+$$
+Where $$ T $$ is the sequence of token IDs corresponding to the words in the sentence.
 
 #### **Word Embedding**
 
-Tokens are converted into dense vector representations using an embedding matrix \( E \in \mathbb{R}^{|V| \times d_e} \), where \( |V| \) is the vocabulary size and \( d_e \) is the embedding dimension:
-\[
+Tokens are converted into dense vector representations using an embedding matrix $$ E \in \mathbb{R}^{|V| \times d_e} $$, where $$ |V| $$ is the vocabulary size and $$ d_e $$ is the embedding dimension:
+$$
 e_i = E_{t_i}, \quad e_i \in \mathbb{R}^{d_e}
-\]
+$$
 
 #### **Positional Encoding**
 
-To encode positional information, a positional encoding \( PE \in \mathbb{R}^{L \times d_e} \) is added to the word embeddings:
-\[
+To encode positional information, a positional encoding $$ PE \in \mathbb{R}^{L \times d_e} $$ is added to the word embeddings:
+$$
 PE_{(pos, 2j)} = \sin\left(\frac{pos}{10000^{2j/d_e}}\right), \quad PE_{(pos, 2j+1)} = \cos\left(\frac{pos}{10000^{2j/d_e}}\right)
-\]
+$$
 Here:
 
-- \( pos \): The position in the sequence.
-- \( j \): The embedding dimension index.
+- $$ pos $$: The position in the sequence.
+- $$ j $$: The embedding dimension index.
 
 #### **Combined Text Representation**
 
 The final representation of each word is the sum of its embedding and positional encoding:
-\[
+$$
 z^t_{0_i} = e_i + PE_i
-\]
+$$
 This vector is the input to the transformer layers for textual processing.
 
 ---
@@ -136,32 +136,32 @@ Images are divided into patches, transformed into embeddings using a Vision Tran
 
 #### **Patch Extraction**
 
-The input image \( I \in \mathbb{R}^{H \times W \times C} \) is divided into \( N \) non-overlapping patches of size \( P \times P \):
-\[
+The input image $$ I \in \mathbb{R}^{H \times W \times C} $$ is divided into $$ N $$ non-overlapping patches of size $$ P \times P $$:
+$$
 N = \frac{H \times W}{P^2}
-\]
-Each patch \( p_i \) has dimensions \( P \times P \times C \).
+$$
+Each patch $$ p_i $$ has dimensions $$ P \times P \times C $$.
 
 #### **Patch Embedding**
 
-Patches are flattened and projected into a \( d_f \)-dimensional feature space using a linear transformation \( W^p \):
-\[
+Patches are flattened and projected into a $$ d_f $$-dimensional feature space using a linear transformation $$ W^p $$:
+$$
 f_i = p_i \cdot W^p, \quad f_i \in \mathbb{R}^{d_f}
-\]
+$$
 
 #### **Positional Encoding**
 
-Each patch embedding is combined with a positional encoding \( PE^v \) to provide spatial context:
-\[
+Each patch embedding is combined with a positional encoding $$ PE^v $$ to provide spatial context:
+$$
 z^v_{0_i} = f_i + PE^v_i
-\]
+$$
 
 #### **Image Representation**
 
 The set of patch embeddings forms the initial representation of the image:
-\[
+$$
 Z^v_0 = [z^v_{0_1}, z^v_{0_2}, \ldots, z^v_{0_N}]
-\]
+$$
 
 ---
 
@@ -177,23 +177,23 @@ Self-attention enables the model to learn relationships between elements in a se
 
 #### **Query, Key, Value Projections**
 
-For input \( z_i \), compute queries \( Q \), keys \( K \), and values \( V \) using learned weight matrices \( W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k} \):
-\[
+For input $$ z_i $$, compute queries $$ Q $$, keys $$ K $$, and values $$ V $$ using learned weight matrices $$ W^Q, W^K, W^V \in \mathbb{R}^{d \times d_k} $$:
+$$
 q_i = z_i W^Q, \quad k_i = z_i W^K, \quad v_i = z_i W^V
-\]
+$$
 
 #### **Scaled Dot-Product Attention**
 
 The attention scores are computed as:
-\[
+$$
 \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{Q K^\top}{\sqrt{d_k}}\right) V
-\]
+$$
 Where:
 
-- \( Q \): Queries matrix.
-- \( K \): Keys matrix.
-- \( V \): Values matrix.
-- \( d_k \): Dimensionality of the keys.
+- $$ Q $$: Queries matrix.
+- $$ K $$: Keys matrix.
+- $$ V $$: Values matrix.
+- $$ d_k $$: Dimensionality of the keys.
 
 ---
 
@@ -204,19 +204,19 @@ Cross-attention fuses information from text and image modalities.
 #### **Text Attending to Image**
 
 Textual queries attend to image features as keys and values:
-\[
+$$
 \text{Attention}(Q^t, K^v, V^v) = \text{softmax}\left(\frac{Q^t (K^v)^\top}{\sqrt{d_k}}\right) V^v
-\]
+$$
 
 ---
 
 ### **2.2.3 Feedforward Network**
 
 Each transformer block includes a position-wise feedforward network:
-\[
+$$
 \text{FFN}(z) = \text{ReLU}(z W_1 + b_1) W_2 + b_2
-\]
-Where \( W_1, W_2 \) are learned weight matrices and \( b_1, b_2 \) are biases.
+$$
+Where $$ W_1, W_2 $$ are learned weight matrices and $$ b_1, b_2 $$ are biases.
 
 ---
 
@@ -225,16 +225,16 @@ Where \( W_1, W_2 \) are learned weight matrices and \( b_1, b_2 \) are biases.
 #### **Layer Normalization**
 
 Normalize inputs to stabilize training:
-\[
+$$
 \text{LayerNorm}(z) = \gamma \odot \frac{z - \mu}{\sigma} + \beta
-\]
+$$
 
 #### **Residual Connections**
 
 Add residual connections to improve gradient flow:
-\[
+$$
 z' = \text{LayerNorm}(z + \text{SubLayer}(z))
-\]
+$$
 
 ---
 
@@ -245,9 +245,9 @@ To integrate text and image features, the model uses fusion mechanisms such as c
 ### **2.3.1 Concatenation**
 
 Combine text and image features early:
-\[
+$$
 z_0 = [z^t_0; z^v_0]
-\]
+$$
 
 ### **2.3.2 Cross-Attention**
 
@@ -256,12 +256,13 @@ Attend to one modality using features from another.
 ### **2.3.3 Gated Fusion**
 
 Learn a gating function to weigh contributions from each modality:
-\[
+$$
 g = \sigma(W_g [z^t; z^v] + b_g)
-\]
-\[
+$$
+
+$$
 z_{fused} = g \odot z^t + (1 - g) \odot z^v
-\]
+$$
 
 ---
 
@@ -270,9 +271,9 @@ z_{fused} = g \odot z^t + (1 - g) \odot z^v
 ### **2.4.1 Caption Generation**
 
 For image captioning, use autoregressive decoding to predict one word at a time:
-\[
+$$
 P(y_t | y_{<t}, I) = \text{softmax}(h_t W^O + b^O)
-\]
+$$
 
 ---
 
@@ -281,9 +282,9 @@ P(y_t | y_{<t}, I) = \text{softmax}(h_t W^O + b^O)
 ### **Cross-Entropy Loss**
 
 Compute the cross-entropy loss for caption generation:
-\[
+$$
 \mathcal{L}_{CE} = - \sum_t \log P(y^*_t | y^*_{<t}, I)
-\]
+$$
 
 ---
 
