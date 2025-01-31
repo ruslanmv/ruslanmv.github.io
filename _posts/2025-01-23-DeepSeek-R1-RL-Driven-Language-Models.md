@@ -13,11 +13,8 @@ header:
 Hello AI enthusiasts! Today, we’re diving into **DeepSeek-R1** – the cutting-edge language model making waves in conversational AI. 
 
 👉 **What You’ll Get From This Guide**:
-
 1. **DeepSeek-R1 Breakdown**: Understand its unique RL+SFT training pipeline
-2. **Hands-On Project**: Build a domain-specific chatbot 
-
-
+2. **Hands-On Project**: Build a chatbot 
 
 ![2025-01-29-00-44-39](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/1.png)
 
@@ -81,8 +78,6 @@ An astounding outcome of training purely via RL was the **spontaneous appearance
 
 > It’s the **first open research** confirming that large-scale RL alone can foster deep reasoning. This reduces the need for expensive supervised data collection and highlights new ways to train LLMs **with minimal human intervention**.
 
-
-
 ## 2. Challenges and the Evolution to DeepSeek-R1
 
 ###  DeepSeek-R1-Zero’s Limitations
@@ -135,9 +130,7 @@ Significantly, the entire **DeepSeek-R1** family (including **DeepSeek-R1-Zero**
 > **Full openness** gives developers and researchers **unrestricted** ability to experiment, fine-tune, or even fork the project. It’s a major departure from closed, proprietary ecosystems.
 
 
-
 <img src="./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/5a.png" alt="5a" style="zoom:70%;" />
-
 
 
 ## 4. A Novel Pipeline with Multiple RL and SFT Stages  
@@ -337,86 +330,7 @@ pip install transformers torch accelerate datasets
 
 #### Step 2: Distillation Code (Python)
 
-```python
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
-from datasets import load_dataset
-
-# Load teacher (DeepSeek-R1) and student (Granite-8B)
-teacher_name = "deepseek-ai/deepseek-llm-7b-base"  # Replace with actual DeepSeek-R1 HF path
-student_name = "ibm-granite/granite-3.1-8b-instruct"
-
-# Load models and tokenizers
-teacher = AutoModelForCausalLM.from_pretrained(teacher_name, torch_dtype=torch.bfloat16)
-student = AutoModelForCausalLM.from_pretrained(student_name, torch_dtype=torch.bfloat16)
-tokenizer = AutoTokenizer.from_pretrained(teacher_name)  # Use teacher’s tokenizer
-
-# Align tokenizers (critical for distillation)
-if tokenizer.pad_token is None:
-    tokenizer.pad_token = tokenizer.eos_token
-
-# Move models to GPU
-device = "cuda" if torch.cuda.is_available() else "cpu"
-teacher.to(device)
-student.to(device)
-
-# Freeze teacher weights
-for param in teacher.parameters():
-    param.requires_grad = False
-
-# Load dataset (example: C4 dataset)
-dataset = load_dataset("c4", "en", split="train", streaming=True).take(1000)  # Small subset
-
-def process(batch):
-    # Tokenize with teacher's tokenizer
-    return tokenizer(batch["text"], truncation=True, max_length=512, padding="max_length")
-
-dataset = dataset.map(process, batched=True, remove_columns=["text", "timestamp", "url"])
-
-# Distillation loss function
-def distillation_loss(student_logits, teacher_logits, temperature=2.0):
-    return torch.nn.functional.kl_div(
-        torch.nn.functional.log_softmax(student_logits / temperature, dim=-1),
-        torch.nn.functional.softmax(teacher_logits / temperature, dim=-1),
-        reduction="batchmean",
-    ) * (temperature ** 2)
-
-# Training loop
-training_args = TrainingArguments(
-    output_dir="./distill_results",
-    per_device_train_batch_size=1,  # Reduce if OOM
-    gradient_accumulation_steps=4,
-    learning_rate=5e-5,
-    fp16=True,  # Use mixed precision
-    max_steps=1000,  # Example limit
-    logging_steps=10,
-)
-
-class DistillationTrainer(Trainer):
-    def compute_loss(self, student, inputs, return_outputs=False):
-        inputs = {k: v.to(device) for k, v in inputs.items()}
-        
-        # Get teacher logits
-        with torch.no_grad():
-            teacher_outputs = teacher(**inputs)
-        
-        # Get student logits
-        student_outputs = student(**inputs)
-        
-        # Calculate KL divergence loss
-        loss = distillation_loss(student_outputs.logits, teacher_outputs.logits)
-        return (loss, student_outputs) if return_outputs else loss
-
-# Start training
-trainer = DistillationTrainer(
-    model=student,
-    args=training_args,
-    train_dataset=dataset,
-    tokenizer=tokenizer,
-)
-
-trainer.train()
-```
+<script src="https://gist.github.com/ruslanmv/c54118a085adcc00906dbdd14d867dae.js"></script>
 
 ## How to Use the Distilled Model
 
@@ -630,159 +544,7 @@ This example will guide you through:
 
 Let’s dive in!
 
-```python
-import gradio as gr
-import os
-import spaces
-from transformers import GemmaTokenizer, AutoModelForCausalLM
-from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
-from threading import Thread
-
-# Set an environment variable
-HF_TOKEN = os.environ.get("HF_TOKEN", None)
-
-# Custom HTML for the header and footer
-DESCRIPTION = '''
-<div style="text-align: center;">
-    <h1 style="font-size: 32px; font-weight: bold; color: #1565c0;">DeepSeek-R1-Distill-Qwen-32B-bnb-4bit</h1>
-    <p style="font-size: 16px; color: #555;">Developed by <a href="https://ruslanmv.com/" target="_blank" style="color: #1565c0; text-decoration: none;">RuslanMV</a></p>
-</div>
-'''
-
-FOOTER = '''
-<div style="text-align: center; margin-top: 20px; padding: 10px; background-color: #f5f5f5; border-radius: 8px;">
-    <p style="font-size: 14px; color: #777;">Powered by Gradio and Hugging Face Transformers</p>
-</div>
-'''
-
-PLACEHOLDER = '''
-<div style="padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center;">
-    <h1 style="font-size: 28px; margin-bottom: 2px; opacity: 0.55;">DeepSeek-R1-Distill-Qwen-32B-bnb-4bit</h1>
-    <p style="font-size: 18px; margin-bottom: 2px; opacity: 0.65;">Ask me anything...</p>
-</div>
-'''
-
-# Custom CSS for better styling
-css = """
-h1 {
-    text-align: center;
-    display: block;
-    font-weight: bold;
-    color: #1565c0;
-}
-#duplicate-button {
-    margin: auto;
-    color: white;
-    background: #1565c0;
-    border-radius: 100vh;
-}
-.chatbot {
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.accordion {
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    padding: 10px;
-}
-"""
-
-# Load the tokenizer and model
-tokenizer = AutoTokenizer.from_pretrained("unsloth/DeepSeek-R1-Distill-Qwen-32B-bnb-4bit")
-tokenizer.chat_template = "{% if not add_generation_prompt is defined %}{% set add_generation_prompt = false %}{% endif %}{% set ns = namespace(is_first=false, is_tool=false, is_output_first=true, system_prompt='') %}{%- for message in messages %}{%- if message['role'] == 'system' %}{% set ns.system_prompt = message['content'] %}{%- endif %}{%- endfor %}{{bos_token}}{{ns.system_prompt}}{%- for message in messages %}{%- if message['role'] == 'user' %}{%- set ns.is_tool = false -%}{{'<|user|>' + message['content']}}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is none %}{%- set ns.is_tool = false -%}{%- for tool in message['tool_calls']%}{%- if not ns.is_first %}{{'<|assistant|>' + tool['type'] + ':' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '}}\\n'}}{%- set ns.is_first = true -%}{%- else %}{{'\\n' + '<|assistant|>' + tool['type'] + ':' + tool['function']['name'] + '\\n' + '```json' + '\\n' + tool['function']['arguments'] + '\\n' + '```' + '}}\\n'}}{{'}}\\n'}}{%- endif %}{%- endfor %}{%- endif %}{%- if message['role'] == 'assistant' and message['content'] is not none %}{%- if ns.is_tool %}{{'<|assistant|>' + message['content'] + '}}\\n'}}{%- set ns.is_tool = false -%}{%- else %}{% set content = message['content'] %}{% if '</think>' in content %}{% set content = content.split('</think>')[-1] %}{% endif %}{{'<|assistant|>' + content + '}}\\n'}}{%- endif %}{%- endif %}{%- if message['role'] == 'tool' %}{%- set ns.is_tool = true -%}{%- if ns.is_output_first %}{{'<|tool|>' + message['content'] + '}}\\n'}}{%- set ns.is_output_first = false %}{%- else %}{{'\\n<|tool|>' + message['content'] + '}}\\n'}}{%- endif %}{%- endif %}{%- endfor -%}{% if ns.is_tool %}{{'<|assistant|>'}}{% endif %}{% if add_generation_prompt and not ns.is_tool %}{{'<|assistant|>'}}{% endif %}"
-
-model = AutoModelForCausalLM.from_pretrained("unsloth/DeepSeek-R1-Distill-Qwen-32B-bnb-4bit", device_map="auto")
-terminators = [
-    tokenizer.eos_token_id,
-]
-
-@spaces.GPU(duration=120)
-def chat_llama3_8b(message: str, history: list, temperature: float, max_new_tokens: int) -> str:
-    """
-    Generate a streaming response using the llama3-8b model.
-    Args:
-        message (str): The input message.
-        history (list): The conversation history used by ChatInterface.
-        temperature (float): The temperature for generating the response.
-        max_new_tokens (int): The maximum number of new tokens to generate.
-    Returns:
-        str: The generated response.
-    """
-    conversation = []
-    for user, assistant in history:
-        conversation.extend([{"role": "user", "content": user}, {"role": "assistant", "content": assistant}])
-    conversation.append({"role": "user", "content": message})
-
-    input_ids = tokenizer.apply_chat_template(conversation, return_tensors="pt", add_generation_prompt=True).to(model.device)
-    streamer = TextIteratorStreamer(tokenizer, timeout=10.0, skip_prompt=True, skip_special_tokens=True)
-
-    generate_kwargs = dict(
-        input_ids=input_ids,
-        streamer=streamer,
-        max_new_tokens=max_new_tokens,
-        do_sample=True,
-        temperature=temperature,
-        eos_token_id=terminators,
-    )
-    if temperature == 0:
-        generate_kwargs['do_sample'] = False
-
-    t = Thread(target=model.generate, kwargs=generate_kwargs)
-    t.start()
-
-    outputs = []
-    for text in streamer:
-        if "<think>" in text:
-            text = text.replace("<think>", "[think]").strip()
-        if "</think>" in text:
-            text = text.replace("</think>", "[/think]").strip()
-        outputs.append(text)
-        yield "".join(outputs)
-
-# Gradio block
-chatbot = gr.Chatbot(height=450, placeholder=PLACEHOLDER, label='Chat with DeepSeek-R1')
-
-with gr.Blocks(fill_height=True, css=css) as demo:
-    gr.Markdown(DESCRIPTION)
-    gr.ChatInterface(
-        fn=chat_llama3_8b,
-        chatbot=chatbot,
-        fill_height=True,
-        additional_inputs_accordion=gr.Accordion(label="⚙️ Parameters", open=False, render=False),
-        additional_inputs=[
-            gr.Slider(minimum=0, maximum=1, step=0.1, value=0.5, label="Temperature", render=False),
-            gr.Slider(minimum=128, maximum=4096, step=1, value=1024, label="Max new tokens", render=False),
-        ],
-
-        
-        examples=[
-            ['Write a short poem about a lonely robot finding a friend.'],
-            ['Explain quantum mechanics as if I’m a beginner in high school physics.'],
-            ['If you have three apples and cut each into four pieces, how many pieces do you have?'],
-            ['Make up a funny conversation between a cat and a goldfish.'],
-            ['Convince me that dragons could exist in some form.'],
-            ['What is the square root of 3,456 rounded to two decimal places?'],
-            ['If humans had three arms, how would it change sports like basketball?'],
-            ['Do you think artificial intelligence can ever truly be creative? Why or why not?'],
-            ['Imagine a futuristic city powered entirely by renewable energy. What would it look like?'],
-            ['Write a sentence where every word starts with the letter "S".'],
-            ['Describe a traditional dish from Japan and how it is made.'],
-            ['Is it ethical to use cloning to bring back extinct species? Why or why not?'],
-            ['Write a Python function to reverse a string.'],
-            ['Give me a motivational speech for finishing a challenging project.'],
-            ['If dogs ruled the world, what laws would they make?']
-        ]
-        
-        
-        ,
-        cache_examples=False,
-    )
-    gr.Markdown(FOOTER)
-
-if __name__ == "__main__":
-    demo.launch()
-    
-```
+<script src="https://gist.github.com/ruslanmv/ff6cae033da2b18f780163b0131c5a80.js"></script>
 
 ### What the Code Does
 
