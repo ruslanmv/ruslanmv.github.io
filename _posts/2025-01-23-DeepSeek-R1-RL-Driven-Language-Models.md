@@ -157,7 +157,7 @@ $$
 $$
 **Implementation**:  
 - A **reward model** (trained on human feedback) scores candidate responses.  
-- The LLM acts as a *policy network* generating text actions \(a_t\).  
+- The LLM acts as a *policy network* generating text actions $$a_t$$.  
 - **PPO (Proximal Policy Optimization)** updates model weights to maximize rewards.  
 
 **Purpose**: Discover high-reward reasoning paths through trial and error.  
@@ -560,7 +560,7 @@ Technically, this reflection process can be viewed as an **internal attention me
 
 #### Mathematical Foundations of Self-Verification and Reflection
 
-The self-verification process can be formalized using the following mathematical framework. Let \( \mathbf{h}_t \) represent the hidden state of the model at time step \( t \), and \( \mathbf{a}_t \) denote the attention weights over previous tokens. The model generates an intermediate output \( \mathbf{o}_t \) at each step, which is then verified for consistency.
+The self-verification process can be formalized using the following mathematical framework. Let $$ \mathbf{h}_t $$ represent the hidden state of the model at time step $$ t $$, and $$ \mathbf{a}_t $$ denote the attention weights over previous tokens. The model generates an intermediate output $$ \mathbf{o}_t $$ at each step, which is then verified for consistency.
 
 The attention mechanism computes the relevance of previous tokens to the current step as:
 
@@ -568,27 +568,27 @@ $$
 \mathbf{a}_t = \text{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^T}{\sqrt{d_k}}\right) \mathbf{V},
 $$
 
-where \( \mathbf{Q} \), \( \mathbf{K} \), and \( \mathbf{V} \) are the query, key, and value matrices, respectively, and \( d_k \) is the dimensionality of the key vectors. The softmax function ensures that the attention weights sum to 1, allowing the model to focus on the most relevant parts of the input.
+where $$ \mathbf{Q} $$, $$ \mathbf{K} $$, and $$ \mathbf{V} $$ are the query, key, and value matrices, respectively, and $$ d_k $$ is the dimensionality of the key vectors. The softmax function ensures that the attention weights sum to 1, allowing the model to focus on the most relevant parts of the input.
 
-During the verification phase, the model evaluates the intermediate output \( \mathbf{o}_t \) by comparing it to an expected value \( \mathbf{e}_t \), computed using a learned function \( f \):
+During the verification phase, the model evaluates the intermediate output $$ \mathbf{o}_t $$ by comparing it to an expected value $$ \mathbf{e}_t $$, computed using a learned function $$ f $$:
 
 $$
 \mathbf{e}_t = f(\mathbf{h}_t, \mathbf{a}_t).
 $$
 
-The discrepancy between \( \mathbf{o}_t \) and \( \mathbf{e}_t \) is measured using a loss function \( \mathcal{L} \), such as the mean squared error (MSE):
+The discrepancy between $$ \mathbf{o}_t $$ and $$ \mathbf{e}_t $$ is measured using a loss function $$ \mathcal{L} $$, such as the mean squared error (MSE):
 
 $$
 \mathcal{L}_t = \|\mathbf{o}_t - \mathbf{e}_t\|^2.
 $$
 
-The model then refines its output by minimizing this loss, updating its parameters \( \theta \) using gradient descent:
+The model then refines its output by minimizing this loss, updating its parameters $$ \theta $$ using gradient descent:
 
 $$
 \theta \leftarrow \theta - \eta \nabla_\theta \mathcal{L}_t,
 $$
 
-where \( \eta \) is the learning rate. This iterative refinement process continues until the model converges to a satisfactory solution.
+where $$ \eta $$ is the learning rate. This iterative refinement process continues until the model converges to a satisfactory solution.
 
 ### Illustration of Internal “Thought Chains”
 
