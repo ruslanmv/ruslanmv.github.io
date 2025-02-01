@@ -79,7 +79,6 @@ An astounding outcome of training purely via RL was the **spontaneous appearance
 > It’s the **first open research** confirming that large-scale RL alone can foster deep reasoning. This reduces the need for expensive supervised data collection and highlights new ways to train LLMs **with minimal human intervention**.
 
 
-
 ## 2. Overcoming Challenges: The Evolution from DeepSeek-R1-Zero to DeepSeek-R1
 
 ### Learning from Early Limitations
@@ -142,8 +141,6 @@ In a significant departure from proprietary ecosystems, the entire **DeepSeek-R1
 DeepSeek-R1 represents a major advancement in AI, balancing efficiency, scalability, and open-source accessibility. It’s designed to handle complex tasks with optimized resource usage and a commitment to transparency. This analysis explores its architecture, training, and performance, using figures to highlight key insights.
 
 
-
-
 **Architecture and Foundations**
 
 | ![1b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/1b.png) | ![2b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/2b.png) | ![3b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/3b.png) |
@@ -168,8 +165,6 @@ Early challenges included **repetition, readability, coherence, and multilingual
 |---|---|
 
 
-
-
 The **Supervised Fine-Tuning (SFT)** phase reduced **cross-entropy loss** over time (**Fig. 5**), confirming its learning progress. In the **Reinforcement Learning (RL)** phase, **reward scores steadily increased** (**Fig. 6**), showing optimization based on feedback.
 
 ![7b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/7b.png)
@@ -187,12 +182,9 @@ The **Supervised Fine-Tuning (SFT)** phase reduced **cross-entropy loss** over t
 DeepSeek-R1 excels in **mathematics** (**Fig. 9**), outperforming the hypothetical "OpenAI-o1" model. Similarly, in **coding** (**Fig. 10**) and **multi-step reasoning** (**Fig. 11**), it demonstrates superior accuracy and problem-solving skills.
 
 
-
 ![12b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/12b.png)
 
 A consolidated **performance overview** across tasks (**Fig. 12**) further highlights its strengths, positioning DeepSeek-R1 as a top-tier AI model.
-
-
 
 
 ### **Efficiency and Open-Source Impact**
@@ -211,14 +203,14 @@ DeepSeek-R1 optimizes **parameter utilization** (**Fig. 13**) to balance total v
 
 The impact of **open-source AI** is evident in **Fig. 15**, which shows how openness fosters innovation compared to proprietary models. The final **performance summary** (**Fig. 16**) consolidates its strengths across various domains
 
----
+
 
 ## 4. A Novel Pipeline with Multiple RL and SFT Stages  
 ### How Reinforcement Learning Shapes LLM Behavior  
 
 Reinforcement learning (RL) is **not part of the transformer’s core architecture** (e.g., self-attention layers), but rather a **training strategy** applied after initial pre-training. In DeepSeek-R1, RL refines the model’s outputs by rewarding desirable behaviors like helpfulness, correctness, and alignment with human preferences.  
 
----
+
 
 ### Two RL Stages + Two SFT Stages: A Symphony of Training Techniques  
 
@@ -234,7 +226,7 @@ $$
 
 **Purpose**: Discover high-reward reasoning paths through trial and error.  
 
----
+
 
 #### **2. SFT Stage 1** (Kickstart Phase)  
 $$
@@ -244,7 +236,7 @@ $$
 - Supervised fine-tuning on high-quality demonstration data.  
 - Anchors the model to retain baseline capabilities after RL’s exploratory phase.  
 
----
+
 
 #### **3. RL Stage 2** (Post-Kickstart RL)  
 $$
@@ -253,7 +245,7 @@ $$
 - Reuses the reward model but focuses on **narrower exploration** around high-quality regions identified in Stage 1.  
 - Often employs **KL divergence constraints** to prevent over-optimization.  
 
----
+
 
 #### **4. SFT Stage 2** (Human Preference Alignment)  
 $$
@@ -262,7 +254,7 @@ $$
 - Hybrid loss balancing RL rewards with supervised alignment.  
 - Typically uses human-curated preference datasets (e.g., ranked responses).  
 
----
+
 
 ### RL in Action: Fine-Tuning a Model with PPO  
 Here’s a simplified example using the TRL library to implement RL fine-tuning:  
@@ -323,7 +315,7 @@ for epoch in range(3):
 2. **Reward Model**: Now uses a more realistic heuristic instead of rewarding response length.  
 3. **PPO**: Balances reward maximization with policy stability through KL penalties.  
 
----
+
 
 ### Where RL Operates in the Training Stack  
 | Component                    | RL Interaction                                             |
@@ -332,7 +324,7 @@ for epoch in range(3):
 | **Training Pipeline**        | Applied after SFT phases to refine outputs                 |
 | **Reward Signal**            | External model or human feedback                           |
 
----
+
 
 > **Why This Matters**: RL allows models to **optimize for complex, non-differentiable objectives** (e.g., "helpfulness") that can’t be directly captured by supervised loss functions. The alternating RL/SFT stages in DeepSeek-R1 prevent catastrophic forgetting while enabling iterative refinement.  
 
@@ -363,7 +355,7 @@ Notably, some distilled variants—such as **DeepSeek-R1-Distill-Qwen-32B**—ca
 
 > Distilled models run faster, consume fewer resources, and can even outperform bigger models that haven’t been fine-tuned or distilled as effectively.
 
-------
+
 
 ## Distillation in LLMs: Creating Smaller, Faster Models
 
@@ -397,7 +389,6 @@ Large language models like GPT-4 and Gemini are powerful but come with a hefty p
 - **Edge computing:** Providing local inference capabilities in remote or bandwidth-constrained environments.
 - **Specialized tasks:** Crafting smaller, task-specific models (e.g., customer service chatbots, translation).
 
-------
 
 ## Example: Using DeepSeek with Granite 8B in Python
 
@@ -426,8 +417,6 @@ tokenizer.save_pretrained("./distilled_granite_deepseek")
 distilled_model = AutoModelForCausalLM.from_pretrained("./distilled_granite_deepseek")
 ```
 
-------
-
 ## Notes
 
 1. **Hardware Requirements**
@@ -440,7 +429,6 @@ distilled_model = AutoModelForCausalLM.from_pretrained("./distilled_granite_deep
    - **Temperature Tuning:** Experiment with larger temperature at the start of training.
 
 Distillation makes large models more **accessible** by reducing their size and computational demands. Techniques like KL divergence and temperature scaling enable a smaller, “student” model to mimic a larger, “teacher” model effectively. As AI continues to evolve, this approach will help **democratize** access to advanced language models, enabling their deployment in real-time applications, resource-constrained environments, and specialized domains. By leveraging distilled models such as Granite 8B, developers and researchers can build faster, cheaper, and more efficient AI systems without sacrificing accuracy.
-
 
 
 ## 6. Record-Setting Benchmarks
@@ -491,9 +479,6 @@ In contrast, **DeepSeek-R1** highlights the potential of **pure RL** (particular
 Where **DeepSeek-R1** stands out is in its **pure RL** innovation, extensive multi-stage pipeline, and **massive context window**. The open-source release of DeepSeek-R1 also provides **complete access** to training recipes and model weights—similar in spirit to Llama 2’s openness but with an even deeper focus on **RL-driven** approaches.
 
 
-
-
-
 ![2a](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/3a1.png)
 
 ### Key Takeaways
@@ -505,7 +490,7 @@ Where **DeepSeek-R1** stands out is in its **pure RL** innovation, extensive mul
 
 > Overall, **DeepSeek-R1** bridges a unique gap: fully open-source, ultra-large context windows, and a novel RL-first methodology—driving new frontiers in the LLM space.
 
----
+
 
 ![4a](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/4a1.png)
 
@@ -536,9 +521,6 @@ Below is a simple comparison table to illustrate the benefits of DeepSeek-R1’s
 | Context Window    | 128K tokens  | 128K tokens  | 4K tokens    | 8K tokens    |
 | Open-Source Tools | Provided     | Limited      | Provided     | Provided     |
 | Collaboration     | Strong Focus | Limited      | Moderate     | Moderate     |
-
----
-
 
 
 ## 9. Behind the Scenes: The “Human-Like” Learning Process
@@ -605,8 +587,6 @@ For non-technical readers, seeing how the model **“thinks”** step by step ca
 
 This process mirrors how a human student might approach the problem, incrementally computing and verifying results. The added transparency not only improves performance but also inspires trust (and sometimes a little astonishment!) as we watch an AI system **deliberate** before answering.
 
-
-
 ## Simple Python Code for a DeepSeek-R1-Inspired Chatbot
 
 Building an interactive AI-powered chatbot is easier than you think, thanks to frameworks like **Hugging Face Transformers** and **Gradio**. Below is a Python implementation inspired by **DeepSeek-R1**, demonstrating how to load a **state-of-the-art distilled model** and deploy it as a chatbot interface.
@@ -615,7 +595,6 @@ This walkthrough focuses on key components like model loading, custom chat templ
 
 Here’s a breakdown of the process and how the code is structured to achieve the desired functionality.
 
----
 
 This example will guide you through:  
 - **Setting up the environment** with proper imports and configurations.  
@@ -647,11 +626,9 @@ Let’s dive in!
 
 6. **Launching the App**: Finally, the script launches the Gradio interface locally or on a web-hosted platform when executed, making it easy for users to test and interact with the model.
 
----
+
 
 You can have something like this![2025-01-29-00-46-52](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/2025-01-29-00-46-52.png)
-
-
 You can execute the previous code on Google Colab with the A100 GPU [here](https://colab.research.google.com/github/ruslanmv/DeepSeek-R1-RL-Driven-Language-Models/blob/master/app.ipynb)
 
 ### Key Takeaways
@@ -669,7 +646,6 @@ This project is a great starting point for experimenting with LLMs and creating 
 DeepSeek-R1 represents more than a significant technical advancement; it redefines how we conceive, train, and deploy large language models. By showcasing the emergent reasoning power of purely RL-driven training (DeepSeek-R1-Zero) and then illustrating the gains from a minimal, targeted dose of supervised instruction (DeepSeek-R1), this series challenges traditional SFT-heavy approaches while expanding what’s possible in AI research. Its unprecedented scale—exceeding 600 billion parameters—and extended context length of 128K tokens pave the way for real-world applications that demand both depth and breadth of understanding. Equally important, the ability to distill these capabilities into more compact models ensures that powerful AI is no longer the exclusive domain of resource-rich deployments.
 
 By placing open-source collaboration at the forefront, DeepSeek-R1 invites researchers, practitioners, and enthusiasts worldwide to explore, refine, and extend its capabilities. In doing so, it not only democratically broadens access to state-of-the-art AI methods but also underscores the need for ongoing ethical and alignment work. The journey of DeepSeek-R1 continues to merge technical rigor with a forward-looking vision of AI’s social and philosophical dimensions—a synergy that will shape the models we build and the principles that guide us in building them.
-
 
 ## References and Data Sources
 
@@ -689,6 +665,5 @@ By placing open-source collaboration at the forefront, DeepSeek-R1 invites resea
 
 8. DeepSeek-AI. (2024). *DeepSeek-Coder: When the Large Language Model Meets Programming -- The Rise of Code Intelligence*. (Report). Retrieved from [https://github.com/deepseek-ai/DeepSeek-Coder/blob/main/report/DeepSeek-Coder-V1.5.pdf](https://www.google.com/search?q=https://github.com/deepseek-ai/DeepSeek-Coder/blob/main/report/DeepSeek-Coder-V1.5.pdf)
 
-   
 
 **Congratulations!** I hope this extended and detailed overview has enriched your understanding of how DeepSeek-R1 fits into the broader AI landscape. Whether you’re an **AI researcher**, a **developer**, or simply an **enthusiast**, there’s never been a more exciting time to dive into **RL-based LLMs**—and DeepSeek-R1 is leading the charge!
