@@ -464,9 +464,7 @@ These models:
 
 ![](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/1a.png)
 
----
 
-Here’s the updated section of the blog with the latest models (Llama 2 70B, GPT-3.5 Turbo, and GPT-4o) incorporated, along with updated analysis and benchmarks. The MathJax format is preserved, and the analysis reflects the latest performance data and context window comparisons.
 
 ---
 
@@ -696,6 +694,5 @@ By placing open-source collaboration at the forefront, DeepSeek-R1 invites resea
 8. DeepSeek-AI. (2024). *DeepSeek-Coder: When the Large Language Model Meets Programming -- The Rise of Code Intelligence*. (Report). Retrieved from [https://github.com/deepseek-ai/DeepSeek-Coder/blob/main/report/DeepSeek-Coder-V1.5.pdf](https://www.google.com/search?q=https://github.com/deepseek-ai/DeepSeek-Coder/blob/main/report/DeepSeek-Coder-V1.5.pdf)
 
    
-
 
 **Congratulations!** I hope this extended and detailed overview has enriched your understanding of how DeepSeek-R1 fits into the broader AI landscape. Whether you’re an **AI researcher**, a **developer**, or simply an **enthusiast**, there’s never been a more exciting time to dive into **RL-based LLMs**—and DeepSeek-R1 is leading the charge!
