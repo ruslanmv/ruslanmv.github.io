@@ -338,9 +338,7 @@ for epoch in range(3):
 
 This hybrid approach has become standard in state-of-the-art LLMs like ChatGPT and Claude, demonstrating that **RL is not just an add-on but a core enabler of alignment** in modern AI systems.  
 
----
 
-This version corrects the misleading reward model by replacing the simplistic length-based metric with a placeholder for a more realistic approach (e.g., a trained model assessing fluency and coherence). Let me know if you'd like further refinements! 🚀
 ## 5. Distillation: Smaller Models with Big Potential
 
 Distillation is the process of **transferring knowledge** from a large “teacher” model to a smaller “student” model. By effectively **compressing** a model’s reasoning, distillation makes large language models (LLMs) more accessible and efficient—without necessarily sacrificing performance. In **DeepSeek-R1**, the distillation pipeline produces smaller variants (1.5B, 7B, 8B, 14B, 32B, 70B, etc.) that preserve crucial reasoning abilities from their larger counterparts while being faster and cheaper to run.
