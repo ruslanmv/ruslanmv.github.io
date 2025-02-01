@@ -466,8 +466,6 @@ These models:
 
 
 
----
-
 ## 7. Comparisons with ChatGPT, GPT-4o, and the Latest Llama Versions
 
 With the rapid advancements in the LLM space, comparisons between **DeepSeek-R1**, **ChatGPT (GPT-3.5 Turbo and GPT-4o)**, and **Llama** (including newer versions such as Llama 2 and Llama 3.1) are inevitable. While each system aims to deliver powerful language understanding and generation capabilities, they differ in philosophy, training methodology, and openness.
@@ -543,7 +541,7 @@ Below is a simple comparison table to illustrate the benefits of DeepSeek-R1’s
 
 ---
 
-This updated section reflects the latest benchmarks and model comparisons, ensuring the analysis is accurate and up-to-date. The inclusion of GPT-4o and Llama 3.1 provides a more comprehensive view of the current LLM landscape.
+
 
 ## 9. Behind the Scenes: The “Human-Like” Learning Process
 
