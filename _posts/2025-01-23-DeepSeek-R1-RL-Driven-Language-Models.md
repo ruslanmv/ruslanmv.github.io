@@ -10,11 +10,7 @@ header:
   
 ---
 
-Hello AI enthusiasts! Today, we’re diving into **DeepSeek-R1** – the cutting-edge language model making waves in conversational AI. 
-
-👉 **What You’ll Get From This Guide**:
-1. **DeepSeek-R1 Breakdown**: Understand its unique RL+SFT training pipeline
-2. **Hands-On Project**: Build a chatbot 
+**Hey AI enthusiasts!** Today, we’re diving into **DeepSeek-R1**, a powerful new language model that’s shaping the future of conversational AI. We’ll break down how it works, explore its unique RL+SFT training process, and even walk through a hands-on project where you can build your own chatbot.
 
 ![2025-01-29-00-44-39](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/1.png)
 
@@ -140,11 +136,17 @@ In a significant departure from proprietary ecosystems, the entire **DeepSeek-R1
 
 DeepSeek-R1 represents a major advancement in AI, balancing efficiency, scalability, and open-source accessibility. It’s designed to handle complex tasks with optimized resource usage and a commitment to transparency. This analysis explores its architecture, training, and performance, using figures to highlight key insights.
 
-
 **Architecture and Foundations**
+
+
+
+
+
 
 | ![1b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/1b.png) | ![2b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/2b.png) | ![3b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/3b.png) |
 |---|---|---|
+
+
 
 
 DeepSeek-R1 prioritizes efficiency. **Fig. 1** illustrates its **parameter usage**, showing that out of 671 billion total parameters, only 37 billion are active. This selective activation, likely achieved through Mixture-of-Experts (MoE), enhances computational efficiency.
@@ -161,8 +163,11 @@ Early challenges included **repetition, readability, coherence, and multilingual
 
 ### **Training Process: How DeepSeek-R1 Learns**
 
+
 | ![5b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/5b.png) | ![6b](./../assets/images/posts/2025-01-23-DeepSeek-R1-RL-Driven-Language-Models/6b.png) |
 |---|---|
+
+
 
 
 The **Supervised Fine-Tuning (SFT)** phase reduced **cross-entropy loss** over time (**Fig. 5**), confirming its learning progress. In the **Reinforcement Learning (RL)** phase, **reward scores steadily increased** (**Fig. 6**), showing optimization based on feedback.
