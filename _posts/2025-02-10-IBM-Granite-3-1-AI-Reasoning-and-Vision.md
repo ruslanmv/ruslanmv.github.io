@@ -37,8 +37,6 @@ The demo highlights two main components of the IBM Granite 3.1 models:
 
 
 
-
-
 ### How to Load the Granite 3.1 8B Reasoning Model Locally
 
 If you’re impressed by the reasoning capabilities of the Granite 3.1 8B model and want to run it on your local machine, follow these steps:
@@ -51,6 +49,7 @@ First, ensure you have the necessary Python libraries installed. Run the followi
 pip install torch torchvision torchaudio
 pip install accelerate
 pip install transformers
+pip install bitsandbytes
 ```
 
 These libraries include PyTorch for deep learning, accelerate for optimized performance, and transformers for working with Hugging Face models.
