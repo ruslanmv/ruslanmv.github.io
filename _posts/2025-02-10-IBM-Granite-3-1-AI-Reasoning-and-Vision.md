@@ -15,7 +15,7 @@ Artificial Intelligence continues to evolve at a rapid pace, and IBM's Granite 3
 
 ### Interactive Demo: Experience IBM Granite 3.1 in Action
 
-Before diving into the technical details, you can experience the capabilities of IBM Granite 3.1 firsthand through an interactive Gradio demo created by **Ruslan Magana Vsevolodovna**. This demo showcases the reasoning and vision capabilities of the models.
+Before diving into the technical details, you can experience the capabilities of IBM Granite 3.1 firsthand through an interactive Gradio demo. This demo showcases the reasoning and vision capabilities of the models.
 
 ➡️ **Try the Demo Here:** [IBM Granite 3.1 Demo](https://huggingface.co/spaces/ruslanmv/Granite-Vision-Chatbot)
 
