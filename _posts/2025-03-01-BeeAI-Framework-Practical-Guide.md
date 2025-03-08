@@ -17,7 +17,7 @@ Further, you'll gain expertise in enforcing **Structured Outputs** using robust 
 
 The tutorial advances into sophisticated areas such as developing **ReAct Agents and Tools**, which empowers your AI agents with reasoning and actionable capabilities through seamless integration of external tools. Finally, you will master **Workflows**, effectively orchestrating multiple steps and complex agent interactions into streamlined, dynamic processes, including the sophisticated management of multi-agent systems.
 
-Below is a comprehensive table of contents for easy navigation through your journey with the BeeAI Framework.
+Below is a comprehensive table of contents for easy navigation through your journey with the **BeeAI Framework**.
 
 ## Table of Contents
 
@@ -89,6 +89,162 @@ I will present some examples to  demonstrate the fundamental usage patterns of B
 
 
 
+## Setup Environment
+
+This section outlines the steps to set up your environment for running BeeAI Framework Python code examples on Windows and Ubuntu 22.04.
+
+### Prerequisites
+
+- **Python 3.12+**:  Required for BeeAI Framework.
+- **Anaconda or Miniconda (Recommended)**: For easier environment management.
+
+### Step-by-step Setup
+
+Follow the instructions for your operating system.
+
+#### Windows
+
+1. Install Python 3.12+:
+
+   - Download from [python.org](https://www.python.org/downloads/windows/).
+   - **Important:** Check "Add Python 3.12 to PATH" during installation.
+
+2. Install Anaconda/Miniconda:
+
+   - Download from [Anaconda](https://www.anaconda.com/download) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+   - Run the installer with default settings.
+
+3. **Open Anaconda Prompt**: Search in Start Menu.
+
+4. Create Virtual Environment:
+
+   ```bash
+   python -m venv venv
+   ```
+
+5. Activate Virtual Environment:
+
+   ```bash
+   venv\Scripts\activate
+   ```
+
+6. Install BeeAI Framework & Dependencies:
+
+   ```bash
+   pip install beeai-framework
+   # Install additional dependencies if needed by examples (e.g., visualization libraries)
+   # pip install pandas networkx matplotlib plotly scikit-learn
+   ```
+
+7. Install Ollama:
+
+   - Download the Windows installer from [ollama.com](https://ollama.com/download).
+   - Run the installer.
+
+8. Start Ollama Server: Open a new Anaconda Prompt and run:
+
+   ```bash
+   ollama serve &
+   ```
+
+9. Download Ollama Model:
+
+   ```bash
+   ollama pull granite3.1-dense:8b
+   ```
+
+10. Watsonx.ai Credentials (If using Watsonx):
+
+    - Obtain Project ID, API Key, and API Endpoint URL from your Watsonx.ai service.
+
+    - Set environment variables in Anaconda Prompt (or system-wide):
+
+      ```bash
+      set WATSONX_PROJECT_ID=YOUR_WATSONX_PROJECT_ID
+      set WATSONX_API_KEY=YOUR_WATSONX_API_KEY
+      set WATSONX_API_URL=YOUR_WATSONX_API_ENDPOINT_URL
+      ```
+
+#### Ubuntu 22.04
+
+1. Install Python 3.12+:
+
+   ```bash
+   sudo apt update
+   sudo apt install python3.12 python3.12-venv
+   ```
+
+2. Install Anaconda/Miniconda:
+
+   - Download the Linux installer from [Anaconda](https://www.anaconda.com/download) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
+   - Run the `.sh` installer in your terminal.
+
+3. **Activate Anaconda**: Close and reopen terminal or `source ~/.bashrc` / `source ~/.zshrc`.
+
+4. Create Virtual Environment:
+
+   ```bash
+   python3.12 -m venv venv
+   ```
+
+5. Activate Virtual Environment:
+
+   ```bash
+   source venv/bin/activate
+   ```
+
+6. Install BeeAI Framework & Dependencies:
+
+   ```bash
+   pip install beeai-framework
+   # Install additional dependencies if needed by examples
+   # pip install pandas networkx matplotlib plotly scikit-learn
+   ```
+
+7. Install Ollama:
+
+   
+
+   ```bash
+   curl -fsSL [https://ollama.com/install.sh](https://ollama.com/install.sh) | sh
+   ```
+
+8. Start Ollama Server: In a new terminal, run:
+
+   
+
+   ```bash
+   ollama serve &
+   ```
+
+9. Download Ollama Model:
+
+   
+
+   ```bash
+   ollama pull granite3.1-dense:8b
+   ```
+
+10. Watsonx.ai Credentials (If using Watsonx):
+
+    - Obtain Watsonx.ai credentials.
+
+    - Set environment variables in your terminal (or shell config file):
+
+      ```bash
+      export WATSONX_PROJECT_ID=YOUR_WATSONX_PROJECT_ID
+      export WATSONX_API_KEY=YOUR_WATSONX_API_KEY
+      export WATSONX_API_URL=YOUR_WATSONX_API_ENDPOINT_URL
+      ```
+
+**Notes:**
+
+- **Virtual Environments**:  Always activate your virtual environment.
+- **Ollama Server**: Keep Ollama server running in background.
+- **Watsonx Credentials**: Securely manage your Watsonx API keys using environment variables.
+- **Troubleshooting**: Double-check each step if you encounter issues. Refer to BeeAI documentation for further assistance.
+
+Your environment is now configured to run **BeeAI Framework examples.**
 
 ### 1. Prompt Templates
 
@@ -1531,8 +1687,6 @@ Throughout this BeeAI journey, you've developed critical skills:
 - **Embedding Models**: Enhancing applications with semantic understanding.
 
 You're now equipped to architect advanced, intelligent systems that deeply understand and interact with the world. BeeAI Framework empowers you to turn your AI visions into reality.
-
-Join our thriving community to continue innovating and building the future of intelligent applications together.
 
 ### Connect:
 
