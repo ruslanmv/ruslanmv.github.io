@@ -341,7 +341,7 @@ prompt = search_template.render(
 print(prompt)
 ```
 
----
+
 
 ### 3. The ChatModel
 
@@ -371,7 +371,7 @@ output: ChatModelOutput = await model.create(ChatModelInput(messages=[user_messa
 print(output.get_text_content())
 ```
 
----
+
 
 ### 4. Memory Handling
 
@@ -400,7 +400,7 @@ output: ChatModelOutput = await model.create(ChatModelInput(messages=memory.mess
 print(output.get_text_content())
 ```
 
----
+
 
 ### 5. Combining Templates and Messages
 
@@ -426,7 +426,7 @@ output: ChatModelOutput = await model.create(ChatModelInput(messages=[UserMessag
 print(output.get_text_content())
 ```
 
----
+
 
 ### 6. Structured Outputs
 
@@ -458,7 +458,7 @@ response = await model.create_structure(ChatModelStructureInput(schema=Character
 print(response.object)
 ```
 
----
+
 
 ### 7. System Prompts
 
@@ -480,7 +480,7 @@ output: ChatModelOutput = await model.create(ChatModelInput(messages=[system_mes
 print(output.get_text_content())
 ```
 
----
+
 
 ## BeeAI ReAct Agents
 
@@ -524,7 +524,7 @@ result: BeeRunOutput = await agent.run(
 ).observe(observer)
 ```
 
----
+
 
 ### 2. Using Tools with the Agent
 
@@ -548,7 +548,7 @@ result: BeeRunOutput = await agent.run(
 ).observe(observer)
 ```
 
----
+
 
 ### 3. Imported Tools
 
@@ -601,7 +601,11 @@ result: BeeRunOutput = await agent.run(
 ).observe(observer)
 ```
 
+
+
 #### Example: Shorter Form Using the `@tool` Decorator
+
+
 
 ```python
 from langchain_community.tools import WikipediaQueryRun  # noqa: F811
@@ -637,7 +641,7 @@ result: BeeRunOutput = await agent.run(
 ).observe(observer)
 ```
 
----
+
 
 ## BeeAI Workflows 
 
@@ -1061,11 +1065,9 @@ This pattern demonstrates:
 - Bidirectional memory updating (reading recent messages, storing responses)
 - Clean separation between the persistent memory and workflow-specific state
 
----
-
 ## ⚙️ Backend
 
-## Overview
+
 
 Backend is an umbrella module that encapsulates a unified way to work with the following functionalities:
 
@@ -1077,7 +1079,6 @@ Backend is an umbrella module that encapsulates a unified way to work with the f
 BeeAI framework's backend is designed with a provider-based architecture, allowing you to switch between different AI service providers while maintaining a consistent API.
 
 
----
 
 ## Supported providers
 
@@ -1098,11 +1099,6 @@ The table below lists supported providers, their dependencies, and required envi
 | xAI              | ✅            |                       | `XAI_CHAT_MODEL`,`XAI_API_KEY`                               |
 
 
-
-
-> If you don't see your provider raise an issue [here](https://github.com/i-am-bee/beeai-framework/discussions).
-
----
 
 ### Backend initialization
 
@@ -1252,9 +1248,9 @@ if __name__ == "__main__":
 
 
 
----
-
 ## Chat model
+
+
 
 The ChatModel class represents a Chat Large Language Model and provides methods for text generation, streaming responses, and more. You can initialize a chat model in multiple ways:
 
@@ -1274,11 +1270,7 @@ from beeai_framework.adapters.ollama.backend.chat import OllamaChatModel
 ollama_chat_model = OllamaChatModel("llama3.1")
 ```
 
-### Chat model configuration
 
-You can configure various parameters for your chat model:
-
-*Coming soon*
 
 ### Text generation
 
@@ -1300,6 +1292,8 @@ print(response.get_text_content())
 >
 > Execution parameters (those passed to model.create({...})) are superior to ones defined via config.
 
+
+
 ### Streaming responses
 
 For applications requiring real-time responses:
@@ -1312,6 +1306,8 @@ llm = OllamaChatModel("llama3.1")
 user_message = UserMessage("How many islands make up the country of Cape Verde?")
 response = await llm.create(messages=[user_message], stream=True)
 ```
+
+
 
 ### Structured generation
 
@@ -1365,6 +1361,8 @@ if __name__ == "__main__":
         traceback.print_exc()
         sys.exit(e.explain())
 ```
+
+
 
 ### Tool calling
 
@@ -1438,11 +1436,13 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 ```
 
----
+
 
 ## Embedding model
 
 The `EmbedingModel` class provides functionality for generating vector embeddings from text.
+
+
 
 ### Embedding model initialization
 
@@ -1608,7 +1608,7 @@ if __name__ == "__main__":
         sys.exit(e.explain())
 ```
 
-**Source:** `/examples/backend/providers/langchain.py`
+
 
 To run this example, the optional packages:
 
@@ -1625,7 +1625,11 @@ Common issues and their solutions:
 -   **Model not found**: Verify that the model ID is correct and available for the selected provider. Double-check the model name and provider compatibility.
 -   **Package dependencies**: For LangChain integration, make sure you have installed the necessary LangChain packages (`langchain-core`, `langchain-community`, and any provider-specific LangChain integrations like `langchain-openai`).
 
+
+
 ## Embedding Model
+
+
 
 The `EmbedingModel` class represents an Embedding Model and can be initiated in one of the following ways.
 
@@ -1671,7 +1675,11 @@ console.log(response.values);
 console.log(response.embeddings);
 ```
 
+
+
 ## Conclusion
+
+
 
 **Congratulations!** You've learned how to turn text into powerful numerical representations, enabling AI to understand context, meaning, and relationships with accuracy. You're now capable of building intelligent applications that go beyond simple keyword matching and embrace semantic relevance.
 
