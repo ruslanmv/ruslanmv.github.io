@@ -290,56 +290,11 @@ The `PromptTemplate` class also supports more complex structures. For example, y
 
 #### Example: Template with a List of Search Results
 
-```python
-from pydantic import BaseModel
-from beeai_framework.utils.templates import PromptTemplate
 
-# Individual search result schema.
-class SearchResult(BaseModel):
-    title: str
-    url: str
-    content: str
 
-# Input specification for the template.
-class SearchTemplateInput(BaseModel):
-    question: str
-    results: list[SearchResult]
+<script src="https://gist.github.com/ruslanmv/45a946a43ea39f070dc9c458c8ad4261.js"></script>
 
-# Define the template that iterates over the search results.
-search_template: PromptTemplate = PromptTemplate(
-    schema=SearchTemplateInput,
-    template="""
-Search results:
-{{#results.0}}
-{{#results}}
-Title: {{title}}
-Url: {{url}}
-Content: {{content}}
-{{/results}}
-{{/results.0}}
 
-Question: {{question}}
-Provide a concise answer based on the search results provided.""",
-)
-
-# Render the template with sample data.
-prompt = search_template.render(
-    SearchTemplateInput(
-        question="What is the capital of France?",
-        results=[
-            SearchResult(
-                title="France",
-                url="[https://en.wikipedia.org/wiki/France](https://en.wikipedia.org/wiki/France)",
-                content="France is a country in Europe. Its capital city is Paris, known for its culture and history.",
-            )
-        ],
-    )
-)
-
-# Print the rendered prompt.
-print(prompt)
-
-```
 
 
 ### 3. The ChatModel
