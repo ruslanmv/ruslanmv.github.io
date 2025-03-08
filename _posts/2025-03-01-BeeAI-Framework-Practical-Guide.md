@@ -283,7 +283,6 @@ prompt = rag_template.render(
 print(prompt)
 ```
 
----
 
 ### 2. More Complex Templates
 
@@ -339,8 +338,8 @@ prompt = search_template.render(
 
 # Print the rendered prompt.
 print(prompt)
-```
 
+```
 
 
 ### 3. The ChatModel
@@ -490,6 +489,7 @@ The BeeAI ReAct agent implements the “Reasoning and Acting” pattern, separat
 
 #### Example: Setting Up a Basic ReAct Agent
 
+
 ```python
 from typing import Any
 from beeai_framework.agents.bee.agent import BeeAgent
@@ -547,7 +547,6 @@ result: BeeRunOutput = await agent.run(
     run_input=BeeRunInput(prompt="What's the current weather in London?")
 ).observe(observer)
 ```
-
 
 
 ### 3. Imported Tools
@@ -802,7 +801,7 @@ This workflow demonstrates several powerful concepts:
 - Sign handling through state transformation
 - Type-safe step transitions using Literal types
 
----
+
 
 ### Advanced Features
 
@@ -947,6 +946,7 @@ This pattern demonstrates:
 
 To demonstrate the versatility of BeeAI workflows, let's adapt the multi-agent workflow example to use Watsonx.ai as the backend LLM provider. First, ensure you have configured the Watsonx provider as described in the Backend section. Then, modify the `ChatModel.from_name` call to use a Watsonx model:
 
+
 ```python
 import asyncio
 import sys
@@ -1065,7 +1065,7 @@ This pattern demonstrates:
 - Bidirectional memory updating (reading recent messages, storing responses)
 - Clean separation between the persistent memory and workflow-specific state
 
-## ⚙️ Backend
+##  Backend
 
 
 
@@ -1088,16 +1088,15 @@ The table below lists supported providers, their dependencies, and required envi
 
 | Provider         | Chat Support | Dependency            | Required Environment Variables                               |
 | ---------------- | ------------ | --------------------- | ------------------------------------------------------------ |
-| Ollama           | ✅            | ollama-ai-provider    | `OLLAMA_CHAT_MODEL`,`OLLAMA_BASE_URL`                        |
-| OpenAI           | ✅            | openai                | `OPENAI_CHAT_MODEL`,`OPENAI_API_BASE`,`OPENAI_API_KEY`,`OPENAI_ORGANIZATION` |
-| Watsonx          | ✅            | @ibm-cloud/watsonx-ai | `WATSONX_CHAT_MODEL`,`WATSONX_API_KEY`,`WATSONX_PROJECT_ID`,`WATSONX_SPACE_ID`,`WATSONX_VERSION`,`WATSONX_REGION` |
-| Groq             | ✅            |                       | `GROQ_CHAT_MODEL`,`GROQ_API_KEY`                             |
-| Amazon Bedrock   | ✅            | boto3                 | `AWS_CHAT_MODEL`,`AWS_ACCESS_KEY_ID`,`AWS_SECRET_ACCESS_KEY`,`AWS_REGION_NAME` |
-| Google Vertex AI | ✅            |                       | `VERTEXAI_CHAT_MODEL`,`VERTEXAI_PROJECT`,`GOOGLE_APPLICATION_CREDENTIALS`,`GOOGLE_APPLICATION_CREDENTIALS_JSON`,`GOOGLE_CREDENTIALS` |
-| Azure OpenAI     | ❌            | Coming soon!          | `AZURE_OPENAI_CHAT_MODEL`,`AZURE_OPENAI_API_KEY`,`AZURE_OPENAI_API_ENDPOINT`,`AZURE_OPENAI_API_RESOURCE`,`AZURE_OPENAI_API_VERSION` |
-| Anthropic        | ✅            |                       | `ANTHROPIC_CHAT_MODEL`,`ANTHROPIC_API_KEY`                   |
-| xAI              | ✅            |                       | `XAI_CHAT_MODEL`,`XAI_API_KEY`                               |
-
+| Ollama           | Yes            | ollama-ai-provider    | `OLLAMA_CHAT_MODEL`,`OLLAMA_BASE_URL`                        |
+| OpenAI           | Yes            | openai                | `OPENAI_CHAT_MODEL`,`OPENAI_API_BASE`,`OPENAI_API_KEY`,`OPENAI_ORGANIZATION` |
+| Watsonx          | Yes           | @ibm-cloud/watsonx-ai | `WATSONX_CHAT_MODEL`,`WATSONX_API_KEY`,`WATSONX_PROJECT_ID`,`WATSONX_SPACE_ID`,`WATSONX_VERSION`,`WATSONX_REGION` |
+| Groq             | Yes            |                       | `GROQ_CHAT_MODEL`,`GROQ_API_KEY`                             |
+| Amazon Bedrock   | Yes            | boto3                 | `AWS_CHAT_MODEL`,`AWS_ACCESS_KEY_ID`,`AWS_SECRET_ACCESS_KEY`,`AWS_REGION_NAME` |
+| Google Vertex AI | Yes            |                       | `VERTEXAI_CHAT_MODEL`,`VERTEXAI_PROJECT`,`GOOGLE_APPLICATION_CREDENTIALS`,`GOOGLE_APPLICATION_CREDENTIALS_JSON`,`GOOGLE_CREDENTIALS` |
+| Azure OpenAI     | No            | Coming soon!          | `AZURE_OPENAI_CHAT_MODEL`,`AZURE_OPENAI_API_KEY`,`AZURE_OPENAI_API_ENDPOINT`,`AZURE_OPENAI_API_RESOURCE`,`AZURE_OPENAI_API_VERSION` |
+| Anthropic        | Yes            |                       | `ANTHROPIC_CHAT_MODEL`,`ANTHROPIC_API_KEY`                   |
+| xAI              | Yes           |                       | `XAI_CHAT_MODEL`,`XAI_API_KEY`                               |
 
 
 ### Backend initialization
@@ -1247,9 +1246,7 @@ if __name__ == "__main__":
 ```
 
 
-
 ## Chat model
-
 
 
 The ChatModel class represents a Chat Large Language Model and provides methods for text generation, streaming responses, and more. You can initialize a chat model in multiple ways:
@@ -1675,11 +1672,7 @@ console.log(response.values);
 console.log(response.embeddings);
 ```
 
-
-
 ## Conclusion
-
-
 
 **Congratulations!** You've learned how to turn text into powerful numerical representations, enabling AI to understand context, meaning, and relationships with accuracy. You're now capable of building intelligent applications that go beyond simple keyword matching and embrace semantic relevance.
 
@@ -1699,6 +1692,5 @@ You're now equipped to architect advanced, intelligent systems that deeply under
 ### Connect:
 
 **Email**: [contact@ruslanmv.com](mailto:contact@ruslanmv.com)
-
 
 Special thanks to the contributors, researchers, supporters, and the open-source community!
