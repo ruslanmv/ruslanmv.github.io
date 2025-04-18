@@ -184,7 +184,7 @@ sudo apt-get install -y nodejs
 
 **Option 2: Using the `install.sh` Script**
 
-For a more automated setup, you can use the provided `install.sh` script.
+For a more automated setup, you can use the provided `install.sh` script. Can be downloaded [here](https://github.com/ruslanmv/Simple-MCP-Server-with-Python/blob/master/install.sh).
 
 1. **Save the script:** Ensure the script you provided earlier is saved as `install.sh` in your project directory.
 
