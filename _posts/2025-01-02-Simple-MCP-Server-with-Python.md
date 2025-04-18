@@ -563,6 +563,10 @@ Result of add tool: meta=None content=[TextContent(type='text', text='7', annota
 
 This demonstrates how a Python client can connect to your server and invoke tools programmatically.
 
+You can download the full codes [here](https://github.com/ruslanmv/Simple-MCP-Server-with-Python/tree/master/mcp-server).
+
+
+
 ## Conclusion
 
 In this tutorial, we built a simple MCP server in Python using the MCP Python SDK. We:
