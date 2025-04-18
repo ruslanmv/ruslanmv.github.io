@@ -127,7 +127,7 @@ pip install numpy pymilvus
 Download hello_milvus.py directly or with the following command.
 
 ```
-wget https://raw.githubusercontent.com/milvus-io/pymilvus/master/examples/hello_milvus.py
+wget https://raw.githubusercontent.com/ruslanmv/Watsonx-Assistant-with-Milvus-as-Vector-Database/refs/heads/master/notebooks/hello_milvus.py
 ```
 
 and then we proceed with the following actions
