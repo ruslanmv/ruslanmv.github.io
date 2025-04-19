@@ -624,27 +624,7 @@ In the next step to do is the simple front end part of the html files to be crea
 
 A single file to handle the wallpaper and layout for all pages.
 
-```html
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>{% block title %}{% endblock %}</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-image: url('{{ url_for("static", filename="assets/watsonx-wallpaper.jpg") }}');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-  </style>
-</head>
-<body class="min-h-screen flex items-center justify-center p-4">
-  {% block content %}{% endblock %}
-</body>
-</html>
-```
+<script src="https://gist.github.com/ruslanmv/d85cfdb35f4a451443cb467d8dee4910.js"></script>
 
 
 
@@ -652,20 +632,9 @@ We load the wallpaper as a full‑screen background. Use Tailwind utility classe
 
 ## Step 3: Home Page (`home.html`)
 
-```html
-{% extends "base.html" %}
-{% block title %}Medical Chatbot – Welcome{% endblock %}
-{% block content %}
-  <div class="bg-white bg-opacity-80 p-8 rounded shadow-md w-full max-w-md">
-    <h1 class="text-2xl mb-4 font-bold">Welcome to Your Medical Assistant</h1>
-    <form method="post">
-      <label class="block mb-2">What’s your name?</label>
-      <input name="name" required class="w-full p-2 border rounded mb-4" placeholder="e.g. Angela"/>
-      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Continue</button>
-    </form>
-  </div>
-{% endblock %}
-```
+
+
+<script src="https://gist.github.com/ruslanmv/678d2fe46ac7d916705afc72f501d625.js"></script>
 
 
 
@@ -675,21 +644,7 @@ Extends `base.html` to inherit the background. Simple form to collect `name`.
 
 ## Step 4: Symptoms Page (`symptoms.html`)
 
-```html
-{% extends "base.html" %}
-{% block title %}Medical Chatbot – Symptoms{% endblock %}
-{% block content %}
-  <div class="bg-white bg-opacity-80 p-8 rounded shadow-md w-full max-w-md">
-    <h2 class="text-xl mb-4">{{ greeting }}</h2>
-    <form method="post">
-      <label class="block mb-2">Please describe your symptoms:</label>
-      <textarea name="symptoms" rows="4" required class="w-full p-2 border rounded mb-4"
-                placeholder="Headache, fever, coughing..."></textarea>
-      <button type="submit" class="w-full bg-green-500 text-white py-2 rounded">Get Assessment</button>
-    </form>
-  </div>
-{% endblock %}
-```
+<script src="https://gist.github.com/ruslanmv/5668711d1fd3c94f5f0cedb35b30c01a.js"></script>
 
 
 
@@ -699,27 +654,9 @@ Displays the greeting fetched from MCP. Collects `symptoms` text.
 
 ## Step 5: Diagnosis Page (`diagnosis.html`)
 
-```html
-{% extends "base.html" %}
-{% block title %}Medical Chatbot – Assessment{% endblock %}
-{% block content %}
-  <div class="bg-white bg-opacity-80 p-8 rounded shadow-md w-full max-w-lg whitespace-pre-wrap">
-    <h2 class="text-xl mb-4 font-bold">Assessment & Recommendations</h2>
-    {{ diagnosis }}
-    <div class="mt-6">
-      <a 
-        href="{{ url_for('home') }}" 
-        class="w-full block bg-blue-500 text-white py-2 rounded text-center"
-      >
-        Start Over
-      </a>
-    </div>
-  </div>
-{% endblock %}
-
-```
 
 
+<script src="https://gist.github.com/ruslanmv/c65f08a4767eb1978a30e92960d04ddd.js"></script>
 
 Renders the AI’s advice with preserved line breaks (`whitespace-pre-wrap`).
 
