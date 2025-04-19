@@ -109,9 +109,6 @@ pip install -r requirements.txt
      __pycache__/
      ```
 
-
-Here’s the updated blog excerpt with everything in one place, including a new **Prompts** section showing how to expose resources and add reusable prompt templates (here illustrated with a simple medical‑chatbot example).
-
 ## Writing the Chatbot Server (`server.py`)
 
 Open `server.py` and follow these sections.
