@@ -1,6 +1,6 @@
 ---
 title: "Building a Watsonx.ai Chatbot RAG Server with MCP"
-excerpt: "How to build a full-featured Retrieval-Augmented Generation (RAG) server using IBM Watsonx.ai, ChromaDB with MCP and Cloude Desktop"
+excerpt: "How to build a full-featured Retrieval-Augmented Generation (RAG) server using IBM Watsonx.ai, ChromaDB with MCP and Claude Desktop"
 
 header:
   image: "./../assets/images/posts/2025-04-20-watsonx-rag-mcp-server/watsonx-rag-mcp-server.png"
