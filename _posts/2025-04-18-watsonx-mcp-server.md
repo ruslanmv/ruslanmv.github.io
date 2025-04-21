@@ -337,7 +337,6 @@ What is watsonx in IBM?
 ![](./../assets/images/posts/2025-04-18-watsonx-mcp-server/2025-04-18-14-35-39.png)
 
 
-Here's the corrected English and Markdown formatting for your text:
 
 ## Prompt via the MCP Inspector
 
