@@ -84,7 +84,7 @@ For this demo, we will refer to the official documentation of the [**DJI Air 2S*
 
 ## Step 3: Server Implementation (`server.py`)
 
-We're diving deep into the engine room of a Retrieval-Augmented Generation (RAG) chatbot. This Python script, `server.py`, is responsible for handling PDF documents, managing a vector database, interacting with IBM's Watsonx.ai large language model (LLM), and exposing the chat functionality through an MCP (Meta Compute Protocol) server.
+We're diving deep into the engine room of a Retrieval-Augmented Generation (RAG) chatbot. This Python script, `server.py`, is responsible for handling PDF documents, managing a vector database, interacting with IBM's Watsonx.ai large language model (LLM), and exposing the chat functionality through an MCP (Model Context Protocol) server.
 
 The goal is to create a system that can answer questions based *specifically* on the content of provided PDF documents (like drone manuals, in this example). Let's break down how `server.py` achieves this.
 
@@ -653,7 +653,7 @@ The script begins by calling **`initialize_vector_db`**, ensuring the vector dat
 
 In the previous section, we built the powerful `server.py` backend for our RAG chatbot. But how do we actually *use* it? That's where `client.py` comes in. This script acts as the user interface (albeit a simple command-line one for now), responsible for starting the server, sending a question, and displaying the answer received from our RAG system.
 
-It uses the Meta Compute Protocol (MCP) client library, specifically configured to communicate over standard input/output (STDIO), which is a perfect fit for interacting with the `FastMCP` server we set up in `server.py`.
+It uses the Model Context Protocol (MCP) client library, specifically configured to communicate over standard input/output (STDIO), which is a perfect fit for interacting with the `FastMCP` server we set up in `server.py`.
 
 Here's the complete `client.py` code:
 
