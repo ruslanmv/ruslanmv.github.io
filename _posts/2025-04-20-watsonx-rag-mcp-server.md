@@ -78,7 +78,7 @@ mkdir documents
 
 For this demo, we will refer to the official documentation of the [**DJI Air 2S**](https://github.com/ruslanmv/watsonx-rag-mcp-server/blob/master/documents/DJI_Air_2S_User_Manual_v1.0_enIV.pdf) drone.
 
-[![DJI Air 2S Manual Preview](./../assets/images/posts/2025-04-20-watsonx-rag-mcp-server/image-20250421142431811.png)](https://github.com/ruslanmv/watsonx-rag-mcp-server/blob/master/documents/DJI_Air_2S_User_Manual_v_ 
+[![DJI Air 2S Manual Preview](./../assets/images/posts/2025-04-20-watsonx-rag-mcp-server/image-20250421142431811.png)](https://github.com/ruslanmv/watsonx-rag-mcp-server/blob/master/documents/DJI_Air_2S_User_Manual_v1.0_enIV.pdf )
 
 
 
@@ -391,7 +391,7 @@ def build_new_vector_db(client: chromadb.PersistentClient, docs_folder: Path) ->
 
 
 
-## 🧩 Document Indexing: From Text to Vectors
+### 🧩 Document Indexing: From Text to Vectors
 
 The indexing workflow begins by calling the **`pdf_to_text`** function to extract raw text from PDF documents. It then loops through each document’s content and uses the **`chunk_text`** function to split the text into smaller segments. This prepares the data for vector storage and retrieval.
 
@@ -483,7 +483,7 @@ except Exception as e:
 
 
 
-## 🔐 Connecting to Watsonx.ai
+### 🔐 Connecting to Watsonx.ai
 
 The connection to **Watsonx.ai** starts by creating **`Credentials`** using the API key and URL from the `.env` file. An **`APIClient`** is also initialized for general access to the platform, though it’s not directly involved in generating responses in this case.
 
