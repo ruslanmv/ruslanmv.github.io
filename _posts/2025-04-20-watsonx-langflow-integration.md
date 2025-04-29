@@ -9,8 +9,6 @@ header:
   
 ---
 
-
-
 This tutorial provides a comprehensive and structured guide to integrating **IBM watsonx.ai** foundation models into the **Langflow** visual programming environment using custom components.  You will learn how to install Langflow, configure IBM watsonx.ai, develop chatbot and agent flows, and implement vector-based Retrieval-Augmented Generation (RAG) systems.
 
 ## Project Structure Overview
@@ -45,7 +43,6 @@ Below is a basic illustration of how Langflow integrates with vector stores to p
 This modular structure allows you to easily extend, modify, or embed the components into a Langflow-based application for your specific needs.
 
 
-
 ## Features of the Integration
 
 - Custom components fully compatible with Langflow's architecture.
@@ -54,8 +51,6 @@ This modular structure allows you to easily extend, modify, or embed the compone
 - Automatic dynamic retrieval of available IBM watsonx.ai models.
 - Embedding generation support for use in RAG and vector search pipelines.
 - Example integration of agent flows leveraging Langflow’s tool-calling framework.
-
-
 
 ## Installation and Environment Setup
 
@@ -246,7 +241,6 @@ Press **Run** at the top-right corner of Langflow, ask something like “How do 
 ### Building an Agent-Style Flow  
 
 Langflow can also orchestrate tool-enabled agents. Start a new flow and choose **Simple Agent** as the template. Replace the default LLM with the **IBM watsonx.ai LLM** you configured earlier, optionally drop in tools such as a URL reader or calculator, connect *Chat Input* to the agent and the agent to *Chat Output*, then run a prompt like “Create a tabletop RPG character.” The agent decides which tools to invoke and drafts a coherent reply via watsonx.ai.
-
 
 
 ### Putting the Finished Flow to Work  
