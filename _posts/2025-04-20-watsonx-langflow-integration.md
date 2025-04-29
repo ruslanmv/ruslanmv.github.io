@@ -5,7 +5,7 @@ excerpt: "IBM watsonx.ai Integration with Langflow"
 header:
   image: "./../assets/images/posts/2025-04-20-watsonx-langflow-integration/watsonx.langflow.jpg"
   teaser: "./../assets/images/posts/2025-04-20-watsonx-langflow-integration/watsonx.langflow.jpg"
-  caption: "Focus on being productive instead of busy" - Tim Ferriss."
+  caption: "Focus on being productive instead of busy - Tim Ferriss."
   
 ---
 
