@@ -78,8 +78,6 @@ mcpgateway --host 0.0.0.0 --port 4444 &
 
 You should see log messages indicating that the MCP Gateway is up and running. Our workshop is now open for business\! We have our central hub running, and we're ready for our first project: building the simple "Hello World" agent that will teach us the ropes.
 
-
-
 ## The Keys to the Kingdom: Generating Your First Admin JWT
 
 Before we can build our first agent and introduce it to the MCP Gateway, we need to learn how to talk to the Gateway as an administrator. Think of the Gateway as a busy workshop. While anyone can knock on the front door, only those with the right keys can access the control room—the place where you can see all the tools, register new ones, and manage the floor.
@@ -107,9 +105,9 @@ source ./mcpgateway/.venv/bin/activate
 
 Next, we need to have our main key and the secret ingredient for our passcode ready. We'll load our admin credentials into our terminal's environment.
 
-Bash
 
-```
+
+```Bash
 export BASIC_AUTH_USER="${BASIC_AUTH_USER:-admin}"
 export BASIC_AUTH_PASSWORD="${BASIC_AUTH_PASSWORD:-changeme}"
 export JWT_SECRET_KEY="${JWT_SECRET_KEY:-my-test-key}"
@@ -196,6 +194,18 @@ python3 -m mcpgateway.utils.create_jwt_token \
 ```
 
 
+
+Now, let's take a peek inside the Gateway's control room. Point your browser to 
+
+[http://localhost:4444/admin/](http://localhost:4444/admin/)  and log in with the username **admin** and password **changeme**.
+
+
+![](./../assets/images/posts/2025-07-01-watsonx-agent-to-mcp-gateway/2025-07-04-11-13-29.png)
+and you will get
+
+![](./../assets/images/posts/2025-07-01-watsonx-agent-to-mcp-gateway/2025-07-04-11-12-05.png)
+
+You'll land on the main dashboard. As you can see, it's a blank slate for now. Our list of agents is empty because we haven't introduced any to the Gateway yet
 
 ## Your First Agent: From Silence to "Hello, World!"
 
@@ -409,6 +419,8 @@ Under **Tools** you’ll see the combined toolset:
 hello-world-dev-echo   Echo back whatever you send (str or int)
 watsonx-agent-chat     Chat with IBM watsonx.ai (dummy)
 ```
+
+
 
 ### 6 Calling your Virtual Server from the CLI
 
@@ -1104,7 +1116,7 @@ Now, you can take this code, drop it into your project, and let your own fronten
 
 ### The Complete Code
 
-```;python
+```python
 #!/usr/bin/env python3
 """
 frontend.py – FastAPI micro-frontend for MCP Gateway
@@ -1249,7 +1261,17 @@ This is the final result:
 
 
 
+This project is just the beginning. You can easily extend this chatbot with more advanced features, such as building an **agent selector** or implementing custom **orchestrators**.
+
+To explore these concepts and access the complete, feature-rich code, visit the full project repository:
+
+[https://github.com/ruslanmv/watsonx-agent-to-mcp-gateway](https://github.com/ruslanmv/watsonx-agent-to-mcp-gateway)
+
+
+
 ## Where We Go From Here: Your Journey with MCP
+
+
 
 And just like that, we’ve reached the end of our journey for today. Take a moment and look back at the ground we've covered together. What started with a simple idea has blossomed into a fully-realized, end-to-end AI application.
 
