@@ -1,6 +1,6 @@
 ---
 title: "Watsonx.ai Agent to MCP Gateway"
-excerpt: "From "Hello World" to Watsonx: Building a Full-Stack AI App with MCP Gateway"
+excerpt: "From Hello World to Watsonx Building a Full-Stack AI App with MCP Gateway"
 
 header:
   image: "./../assets/images/posts/2025-07-01-watsonx-agent-to-mcp-gateway/2025-07-04-01-33-39.png"
@@ -91,8 +91,6 @@ Getting into this control room requires a special kind of two-factor security. I
 
 To perform administrative tasks, like telling the Gateway about a new agent we've built, we need to present both of these at the same time. Let's walk through the ritual of creating this temporary passcode.
 
-
-
 ### The Four Steps to Gaining Admin Access
 
 #### Step 1: Enter the Workshop (Activate the Environment)
@@ -123,9 +121,9 @@ export JWT_SECRET_KEY="${JWT_SECRET_KEY:-my-test-key}"
 
 Now for the exciting part. We'll use a built-in utility from the `mcpgateway` library to generate our JWT. This command creates a token that's valid for just 60 seconds and saves it into a variable called `ADMIN_TOKEN`.
 
-Bash
 
-```
+
+```bash
 ADMIN_TOKEN=$(
   python3 -m mcpgateway.utils.create_jwt_token \
     --username "$BASIC_AUTH_USER" \
@@ -143,13 +141,15 @@ echo "🔑 Generated Admin JWT"
 
 With both our main key and our temporary passcode in hand, we can finally make an authenticated request. We'll use `curl` to ask the Gateway to list all the servers it knows about. We provide our Basic Auth credentials with the `-u` flag and our JWT passcode in an `Authorization: Bearer ...` header.
 
-Bash
 
-```
+
+```bash
 curl -u "$BASIC_AUTH_USER:$BASIC_AUTH_PASSWORD" \
   -H "Authorization: Bearer $ADMIN_TOKEN" \
   http://localhost:4444/servers | jq .
 ```
+
+
 
 Success! The Gateway recognizes our authority and responds with the information we requested. We've successfully entered the control room.
 
@@ -231,8 +231,6 @@ mcp = FastMCP(name="hello-world-agent", port=PORT)
 Think of the `FastMCP` line as giving our agent its name and a dedicated phone number (`PORT`). Now, it has an identity.
 
 Next, we need to teach our agent its first skill. We'll use the `@mcp.tool` decorator to define a simple `echo` function. This is the "trick" our agent will tell the Gateway it can do.
-
-
 
 ```python
 @mcp.tool(description="Echo back whatever you send (str or int)")
@@ -411,8 +409,6 @@ Under **Tools** you’ll see the combined toolset:
 hello-world-dev-echo   Echo back whatever you send (str or int)
 watsonx-agent-chat     Chat with IBM watsonx.ai (dummy)
 ```
-
-
 
 ### 6 Calling your Virtual Server from the CLI
 
@@ -1261,6 +1257,6 @@ We began with the basics, teaching a humble **"Hello World" agent** to speak the
 
 From there, we built a bridge for our users, crafting a sleek **FastAPI frontend** that acts as a secure proxy, allowing browser-based applications to tap into the power of our backend tools. Finally, we put all these skills to the test by graduating from our simple echo agent to integrating a powerful, real-world model with the **Watsonx.ai agent**.
 
-This pattern—an SSE agent, federated through the Gateway, and exposed via a lightweight proxy UI—is more than just a one-off tutorial; it's a **blueprint**. It's a playbook you can use to integrate any AI service or tool into a unified, secure, and observable system. Whether you're wrapping a massive cloud LLM, an on-premise data tool, or even a legacy script, the MCP Gateway provides the consistent architecture you need to compose and share those capabilities with the world.
+This pattern an SSE agent, federated through the Gateway, and exposed via a lightweight proxy UI—is more than just a one-off tutorial; it's a **blueprint**. It's a playbook you can use to integrate any AI service or tool into a unified, secure, and observable system. Whether you're wrapping a massive cloud LLM, an on-premise data tool, or even a legacy script, the MCP Gateway provides the consistent architecture you need to compose and share those capabilities with the world.
 
 **Congratulations!** on building, testing, and integrating a powerful AI agent into your MCP Gateway. The tangled mess of APIs is now a clean, organized, and powerful ecosystem. The workshop is yours, and you now have the skills to build anything you can imagine. Happy coding!
