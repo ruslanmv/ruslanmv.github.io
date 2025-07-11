@@ -383,13 +383,13 @@ Copy the API key and store it securely - this will be your WO_API_KEY value
 
 ## Step 5: Set WO_DEVELOPER_EDITION_SOURCE
 
-For Option 2, ` set WO_DEVELOPER_EDITION_SOURCE=orchestrate`
+For Option 2, set 
 
-Important Notes:
+```
+WO_DEVELOPER_EDITION_SOURCE=orchestrate
+```
 
-API keys are not retrievable and can't be edited or deleted
-Store your API key in a safe location immediately after generation
-You're limited to 10 API keys in this environment
+Important Notes: API keys are not retrievable and can't be edited or deleted. Store your API key in a safe location immediately after generation. You're limited to 10 API keys in this environment
 
 ## Getting Credentials for IBM Cloud using watsonx.ai Account (Option 1)
 
@@ -450,8 +450,7 @@ Go to this page
 
 ![](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/2025-07-05-23-41-03.png)
 
-Locate your space ID - this will be your WATSONX_SPACE_ID value
-You can also create a new space if needed from this page
+Locate your space ID - this will be your **WATSONX_SPACE_ID** value. You can also create a new space if needed from this page
 
 
 ## Step 3: Get watsonx.ai API Key (WATSONX_APIKEY)
@@ -632,76 +631,218 @@ Or authenticate interactively
 orchestrate env activate my-ibm-cloud-env
 ```
 
-You'll be prompted: Please enter WXO API key:
 
-## Working with Agents and Tools
 
-Once your environment is set up and activated, you can work with agents and tools:
+# Working with Agents and Tools
 
-Import tools
+When building AI-powered solutions with IBM watsonx Orchestrate ADK, understanding the different types of agents and their integration possibilities is crucial for creating effective automation workflows. This section explores the various agent types available and how you can integrate external systems to extend your agent capabilities.
 
-```bash
-orchestrate tools import -k python -f tools/calculator_tool.py
+## Types of Agents
+
+### Native Agents
+
+Native agents are the fundamental components of watsonx Orchestrate, created right inside the platform with the ADK framework. They’re designed to work together—sharing tools and collaborating with other agents—and can adopt different styles (default, react, or planner) to suit various workflows. Without extra setup, they break down complex tasks into smaller steps and then combine the results, using large language models to guide their reasoning and choices for multi-step processes.
+
+Agent Styles:
+
+- Default: Standard conversational agent behavior
+- React: Reasoning and acting pattern for complex problem-solving
+- Planner: Advanced planning capabilities for multi-step tasks
+
+**Example Configuration:**
+
+```yaml
+spec_version: v1
+kind: native
+name: customer_service_agent
+description: Handles customer inquiries and support requests
+style: react
+llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
+instructions: |
+  You are a helpful customer service agent...
+tools:
+  - search_knowledge_base
+  - create_ticket
+collaborators:
+  - billing_agent
+  - technical_support_agent
 ```
 
-Import agents
+**Example Use Cases:**
 
-```bash
-orchestrate agents import -f agents/greeter.yaml
+- Customer service agents that can access multiple systems
+- HR assistants that help with employee onboarding
+- IT support agents that can troubleshoot and resolve issues
+
+**When to Use:** Use native agents when you’re starting fresh—building new agents from scratch—and need deep integration with all of watsonx Orchestrate’s features. They’re ideal if you want to take full advantage of the platform’s built-in capabilities and need precise control over how your agents behave and use tools.
+
+
+
+## External Agents
+
+External agents let you bring in and work with agents built on other platforms directly inside your watsonx Orchestrate setup. This means you can reuse the agents you’ve already invested in, tap into specialized capabilities from different frameworks, combine multiple AI tools into hybrid solutions, and keep developing your agent logic in whichever environment you prefer.
+
+### Agent Integration Options:
+
+**1. watsonx.ai Platform Integration**
+
+Perfect for organizations already using IBM's [watsonx.ai](http://watsonx.ai/) platform for agent development.
+
+```yaml
+spec_version: v1
+kind: external 
+name: analytics_agent
+title: Data Analytics Agent
+provider: wx.ai
+description: Specialized agent for data analysis and reporting tasks
+api_url: "https://us-south.ml.cloud.ibm.com/ml/v4/deployments/<id>/ai_service_stream"
+auth_scheme: API_KEY
+auth_config:
+  token: "<your_api_key>"
 ```
 
-List imported agents and tools
 
-```bash
-orchestrate agents list
-orchestrate tools list
+
+**2. Custom External Chat Agents**
+
+Ideal for integrating agents built with popular frameworks like LangGraph, CrewAI, or custom solutions
+
+```yaml
+spec_version: v1
+kind: external 
+name: custom_agent
+provider: external_chat
+description: Custom agent built with LangGraph for document processing
+api_url: "https://your-agent-endpoint.com"
+auth_scheme: BEARER_TOKEN
+auth_config:
+  token: "your_bearer_token"
 ```
 
-Start the chat UI
+**When to Use:** You have custom agents hosted on your own infrastructure or built with third-party frameworks.
 
-```bash
-orchestrate chat start
+**3. Salesforce Agent Integration**
+
+Seamlessly connect your Salesforce Agentforce agents with watsonx Orchestrate workflows.
+
+```yaml
+name: salesforce_support_agent
+kind: external 
+provider: salesforce
+title: Customer Support Agent
+description: Salesforce agent specialized in customer support and case management
+api_url: "https://api.salesforce.com/einstein/ai-agent/v1"
+chat_params:
+  agent_id: "your_salesforce_agent_id"
+  client_id: "your_client_id"
+  domain_url: "https://your-domain.salesforce.com"
 ```
 
-The chat UI will be available at: http://localhost:3000/chat-lite
+**When to Use:** You want to leverage Salesforce's customer relationship management capabilities within your orchestration workflows.
 
-Complete Workflow Example
-Here's a complete workflow from setup to running:
+**4. A2A Protocol Agents**
 
-```bash
-# 1. Activate Python virtual environment
-source venv/bin/activate
+For agents that implement the Agent-to-Agent communication protocol, enabling structured inter-agent communication.
 
-# 2. Verify ADK installation
-orchestrate --version
-
-# 3. Create .env file with your credentials (choose one option from above)
-cat > .env << EOF
-WO_DEVELOPER_EDITION_SOURCE=orchestrate
-WO_INSTANCE=https://api.us-south.watson-orchestrate.cloud.ibm.com/instances/your-instance-id
-WO_API_KEY=your-api-key
-EOF
-
-# 4. Start Developer Edition
-orchestrate server start --env-file=.env
-
-# 5. In another terminal, activate Python environment and local watsonx environment
-source venv/bin/activate
-orchestrate env activate local
-
-# 6. Now you can work with agents and tools
-orchestrate agents list
-orchestrate tools list
-
-# 7. Start chat UI
-orchestrate chat start
+```yaml
+spec_version: v1
+kind: external
+name: a2a_specialist
+provider: external_chat/A2A/0.2.1
+description: Specialized agent following A2A protocol for structured communication
+api_url: "https://your-a2a-agent.com"
 ```
 
-### Create and Validate Your Agents
+**When to Use:** You need structured, protocol-based communication between agents for complex multi-agent scenarios.
 
-The project you cloned contains all the agent definitions. Let's review them and learn how to validate them before use.
+**5. MCP Integration: Toolkit Support**
 
-A best practice is to run `orchestrate validate -f <your-file.yaml>` before importing anything. This command checks for typos, incorrect model IDs, and other common errors.
+When integrating **MCP with watsonx Orchestrate**, it's important to understand that the ADK currently supports MCP through **toolkits only**, not standalone MCP agents. This functionality is available in watsonx Orchestrate Developer Edition (version 1.2.0 and later), allowing you to import MCP servers as toolkits that provide tools for your native agents.
+
+**How to Import MCP Toolkits:**
+
+The `orchestrate toolkits import` command supports several approaches for importing MCP toolkits:
+
+```
+# Basic import from local package
+orchestrate toolkits import \
+    --kind mcp \
+    --name toolkit_name \
+    --description "helps you talk to the manager" \
+    --package-root /path/to/folder \
+    --command '["node", "dist/index.js", "--transport", "stdio"]' \
+    --tools "*" \
+    --app-id "my_app_id"
+```
+
+
+
+```
+# Import from NPM package
+orchestrate toolkits import \
+    --kind=mcp \
+    --name=mcp-github-toolkit \
+    --language=node \
+    --description='GitHub integration toolkit' \
+    --package='@modelcontextprotocol/server-github' \
+    --tools="list-repositories, get-user" \
+    --app-id=github
+```
+
+**Key Import Options:**
+
+- `--tools "*"` - Import all available tools
+- `--tools "tool1,tool2"` - Import specific tools
+- `--package` - Use NPM or Python packages directly
+- `--package-root` - Use local MCP server directory
+- `--app-id` - Associate with a connection (only `key_value` connections supported)
+
+**Alternative Agent Integration Options**
+
+If you need to integrate complete agents (not just tools), use these external agent patterns:
+
+- **External Chat Agents** - For agents hosted externally that follow chat completion protocols
+- **watsonx.ai External Agents** - For agents built on the watsonx.ai platform
+- **Salesforce Agents** - For Salesforce Agentforce integration
+
+
+
+**Current Integration Approach**
+
+MCP integration in watsonx Orchestrate is **toolkit-focused rather than agent-focused**. This means:
+
+**Supported**: Importing MCP servers as toolkits to provide tools for native agents **Not Supported**: Integrating complete MCP agents as standalone conversational agents
+
+If you have an MCP server that provides tools, you can integrate those tools into watsonx Orchestrate native agents through the toolkit system. For complete agent integration, use the external agent patterns described above.
+
+**Best Practices**
+
+- Start with native agents and enhance them with MCP toolkits for the best development experience
+- Use MCP toolkits to extend your native agents with specialized external tools and services
+- Consider your existing infrastructure and requirements when choosing between native agents with MCP toolkits versus external agent integration
+- Remember that MCP integration is currently limited to the Developer Edition environment.
+
+
+
+# Real World Example.
+
+Let's continue with our practical example using a **Native Agents** . Once your environment is set up and activated, you can work with agents and tools.
+
+### Create and Validate Your Agents.
+
+Let us first create the following files for this hands on example.
+
+```
+├── agents/              # YAML definitions
+│   ├── greeting_agent.yaml
+│   ├── echo_agent.yaml
+│   ├── calculator_agent.yaml
+│   └── orchestrator_agent.yaml
+├── tools/
+│   └── calculator_tool.py
+```
+
+Let first create your first agent.
 
 #### **Agent 1: The Greeting Agent (`greeting_agent.yaml`)**
 
@@ -724,6 +865,8 @@ instructions: |
 tools: []
 
 ```
+
+A best practice is to run `orchestrate validate -f <your-file.yaml>` before importing anything. This command checks for typos, incorrect model IDs, and other common errors.
 
 *Validate it:* `orchestrate validate -f greeting_agent.yaml`
 
@@ -911,7 +1054,7 @@ tools:
 
 *Validate it:* `orchestrate validate -f calculator_agent.yaml`
 
------
+
 
 ### **Import and Test Your Multi-Agent System**
 
@@ -956,29 +1099,28 @@ orchestrate chat start --agents orchestrator_agent
 orchestrate agents list
 ```
 
-5. Try Different Agent Styles
-   If the issue persists, try changing the style from react to default in your agent configurations, as mentioned in the known issues documentation.
+## The Final Performance: Putting Your Multi-Agent System to the Test
 
-6. Test Individual Agents First
-   Before testing the orchestrator, try testing individual agents directly to ensure they work.
+It's time for the moment of truth. With our agents built and our server running, let's open the chat interface at `http://localhost:3000/chat-lite` and witness our creation in action.
 
 ## How to Test Individual Agents
 
-1. Using the Chat Interface with Agent Selection
-   When you start the chat interface, you can select specific agents to test:
+Using the Chat Interface with Agent Selection. When you start the chat interface, you can select specific agents to test:
 
-Start the chat interface:
+**1. Start the chat interface:**
 
+```
 orchestrate chat start
+```
 
-Access the chat UI:
+**2. Access the chat UI:**
 Navigate to http://localhost:3000/chat-lite in your browser
 
-Select a specific agent:
+**3. Select a specific agent:**
 In the chat interface, you'll see a list of available agents. You can select the specific agent you want to test from this list.
 
-2. Testing Individual Agents via CLI Commands
-   You can also test agents individually using CLI commands:
+**Testing Individual Agents via CLI Commands**
+You can also test agents individually using CLI commands:
 
 List all available agents
 
@@ -990,12 +1132,13 @@ Test a specific agent directly (if supported)
 
 This would show you which agents are available for testing
 
-3. Testing Each of Your Agents
-   For your specific project, test each agent individually:
+**4. Testing Each of Your Agents**
+For your specific project, test each agent individually:
 
-### Test the Greeting Agent:
+### Test the Greeting Agent
 
 Select greeting_agent in the chat interface
+
 Type: "hello"
 Expected response: "Hello! I am the Greeting Agent."
 
@@ -1026,16 +1169,14 @@ Try different inputs to test routing:
 You can analyze the reasoning
 ![](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/2025-07-07-22-36-34.png)
 
-
-
-
+Watch closely. The Orchestrator understands this isn't a greeting; it's a request for calculation. It awakens the `calculator_agent`, which in turn knows it needs to call the `add` function from our Python tool. The tool does the heavy lifting, and the agent presents the final, correct answer.
 
 
 ## Choosing the Right "Brain": A World of LLM Possibilities
 
 We've successfully tested our agents, and they work beautifully. But what gives them their spark? The answer is the **Large Language Model (LLM)**, the "brain" behind each agent's reasoning. One of the greatest strengths of the watsonx Orchestrate ADK is its flexibility. You are not locked into a single provider; you are given the keys to a whole universe of AI models.
 
-At the core, you have seamless integration with **watsonx.ai**, giving you access to powerful, enterprise-ready models like the **Llama 3 series** and IBM's own high-performance **Granite** models. The `llm: watsonx/meta-llama/llama-3-8b-instruct` we used is just one of many excellent choices.
+At the core, you have seamless integration with **watsonx.ai**, giving you access to powerful, enterprise-ready models like the **Llama 3 series** and IBM's own high-performance **Granite** models. The `llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct` we used is just one of many excellent choices.
 
 You can see the full roster of available models in your own environment at any time. Just open your terminal and run:
 
@@ -1044,19 +1185,6 @@ orchestrate models list
 ```
 
 This command empowers you to choose the perfect intelligence for any task, ensuring your agents are not just functional, but truly smart.
-
-## The Final Performance: Putting Your Multi-Agent System to the Test
-
-It's time for the moment of truth. With our agents built and our server running, let's open the chat interface at `http://localhost:3000/chat-lite` and witness our creation in action.
-
-First, a simple greeting. Type in **`hello there`**.
-Instantly, you'll see the Orchestrator Agent spring to life. It recognizes the intent, and instead of answering itself, it passes the baton to the specialist. The `greeting_agent` takes over and delivers its perfectly crafted line: `Hello! I am the Greeting Agent.`
-
-Now for something more challenging. Let's test its tool-using capability with **`what is 11 plus 54?`**.
-Watch closely. The Orchestrator understands this isn't a greeting; it's a request for calculation. It awakens the `calculator_agent`, which in turn knows it needs to call the `add` function from our Python tool. The tool does the heavy lifting, and the agent presents the final, correct answer.
-
-Finally, let's give it a query that fits no specific category, like **`This is a test`**.
-The Orchestrator, seeing no match for greetings or math, wisely defaults to its fallback plan. It delegates the task to the `echo_agent`, which dutifully reports back: `The Echo Agent heard you say: This is a test.`
 
 ###  The Responsible Hero: Cleaning Up Your Workspace
 
@@ -1107,8 +1235,6 @@ From a simple idea to a collaborating team of specialized AI agents, you've gone
   * **Forge an Unbreakable System with Unit Tests:** For production-grade reliability, the ADK includes a Python SDK that lets you write **unit tests** for your agents' behavior. This is perfect for integrating your agent development into a professional CI/CD pipeline.
 
 You can download the full project [here](https://github.com/ruslanmv/hello-watsonx-orchestrate). 
-
-
 
 **Congratulations!** Today, you didn't just build a simple AI; you learned how to **orchestrate intelligence**. You created a system where different agents, each with a unique skill, collaborate under the direction of a manager to solve problems more effectively than a single agent ever could. This "manager-worker" pattern is a cornerstone of creating scalable, reliable, and powerful AI solutions.
 
