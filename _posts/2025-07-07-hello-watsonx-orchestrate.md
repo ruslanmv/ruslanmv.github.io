@@ -641,7 +641,7 @@ When building AI-powered solutions with IBM watsonx Orchestrate ADK, understandi
 
 ### Native Agents
 
-Native agents are the fundamental components of watsonx Orchestrate, created right inside the platform with the ADK framework. They’re designed to work together—sharing tools and collaborating with other agents—and can adopt different styles (default, react, or planner) to suit various workflows. Without extra setup, they break down complex tasks into smaller steps and then combine the results, using large language models to guide their reasoning and choices for multi-step processes.
+Native agents are the fundamental components of **watsonx Orchestrate**, created right inside the platform with the ADK framework. They’re designed to work together—sharing tools and collaborating with other agents—and can adopt different styles (default, react, or planner) to suit various workflows. Without extra setup, they break down complex tasks into smaller steps and then combine the results, using large language models to guide their reasoning and choices for multi-step processes.
 
 Agent Styles:
 
@@ -653,7 +653,6 @@ Agent Styles:
 
 ```yaml
 spec_version: v1
-kind: native
 name: customer_service_agent
 description: Handles customer inquiries and support requests
 style: react
@@ -686,37 +685,34 @@ External agents let you bring in and work with agents built on other platforms d
 
 **1. watsonx.ai Platform Integration**
 
-Perfect for organizations already using IBM's [watsonx.ai](http://watsonx.ai/) platform for agent development.
+Perfect for organizations already using IBM's watsonx.ai platform for agent development.
 
-```yaml
-spec_version: v1
-kind: external 
-name: analytics_agent
-title: Data Analytics Agent
-provider: wx.ai
-description: Specialized agent for data analysis and reporting tasks
-api_url: "https://us-south.ml.cloud.ibm.com/ml/v4/deployments/<id>/ai_service_stream"
-auth_scheme: API_KEY
-auth_config:
-  token: "<your_api_key>"
+```bash
+orchestrate agents create \
+--name analytics_agent \
+--kind external \
+--title "Data Analytics Agent" \
+--description "Specialized agent for data analysis" \
+--api "https://your-api-endpoint.com" \
+--provider wx.ai
 ```
 
 
 
 **2. Custom External Chat Agents**
 
-Ideal for integrating agents built with popular frameworks like LangGraph, CrewAI, or custom solutions
+Ideal for integrating agents built with popular frameworks like **LangGraph, CrewAI**, or custom solutions
 
-```yaml
-spec_version: v1
-kind: external 
-name: custom_agent
-provider: external_chat
-description: Custom agent built with LangGraph for document processing
-api_url: "https://your-agent-endpoint.com"
-auth_scheme: BEARER_TOKEN
-auth_config:
-  token: "your_bearer_token"
+```bash
+orchestrate agents create \
+--name custom_agent \
+--kind external \
+--title "Custom Agent" \
+--description "Custom agent built with LangGraph" \
+--api "https://your-agent-endpoint.com" \
+--provider external_chat \
+--auth-scheme BEARER_TOKEN \
+--auth-config '{"token": "your_bearer_token"}'
 ```
 
 **When to Use:** You have custom agents hosted on your own infrastructure or built with third-party frameworks.
@@ -725,17 +721,15 @@ auth_config:
 
 Seamlessly connect your Salesforce Agentforce agents with watsonx Orchestrate workflows.
 
-```yaml
-name: salesforce_support_agent
-kind: external 
-provider: salesforce
-title: Customer Support Agent
-description: Salesforce agent specialized in customer support and case management
-api_url: "https://api.salesforce.com/einstein/ai-agent/v1"
-chat_params:
-  agent_id: "your_salesforce_agent_id"
-  client_id: "your_client_id"
-  domain_url: "https://your-domain.salesforce.com"
+```bash
+orchestrate agents create \
+--name salesforce_support_agent \
+--kind external \
+--title "Customer Support Agent" \
+--description "Salesforce agent specialized in customer support" \
+--api "https://api.salesforce.com/einstein/ai-agent/v1" \
+--provider salesforce \
+--chat-params '{"agent_id": "your_salesforce_agent_id", "client_id": "your_client_id", "domain_url": "https://your-domain.salesforce.com"}'
 ```
 
 **When to Use:** You want to leverage Salesforce's customer relationship management capabilities within your orchestration workflows.
@@ -744,13 +738,14 @@ chat_params:
 
 For agents that implement the Agent-to-Agent communication protocol, enabling structured inter-agent communication.
 
-```yaml
-spec_version: v1
-kind: external
-name: a2a_specialist
-provider: external_chat/A2A/0.2.1
-description: Specialized agent following A2A protocol for structured communication
-api_url: "https://your-a2a-agent.com"
+```bash
+orchestrate agents create \
+--name a2a_specialist \
+--kind external \
+--title "A2A Specialist" \
+--description "Specialized agent following A2A protocol" \
+--api "https://your-a2a-agent.com" \
+--provider "external_chat/A2A/0.2.1"
 ```
 
 **When to Use:** You need structured, protocol-based communication between agents for complex multi-agent scenarios.
@@ -764,7 +759,6 @@ When integrating **MCP with watsonx Orchestrate**, it's important to understand 
 The `orchestrate toolkits import` command supports several approaches for importing MCP toolkits:
 
 ```bash
-# Basic import from local package
 orchestrate toolkits import \
     --kind mcp \
     --name toolkit_name \
@@ -813,7 +807,7 @@ If you need to integrate complete agents (not just tools), use these external ag
 
 MCP integration in watsonx Orchestrate is **toolkit-focused rather than agent-focused**. This means:
 
-**Supported**: Importing MCP servers as toolkits to provide tools for native agents **Not Supported**: Integrating complete MCP agents as standalone conversational agents
+**Supported**: Importing MCP servers as toolkits to provide tools for native agents **Not Supported**: Integrating complete MCP agents as standalone conversational agents.
 
 If you have an MCP server that provides tools, you can integrate those tools into watsonx Orchestrate native agents through the toolkit system. For complete agent integration, use the external agent patterns described above.
 
