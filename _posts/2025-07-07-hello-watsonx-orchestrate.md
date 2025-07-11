@@ -41,11 +41,10 @@ To make things easier, all the code for this tutorial is ready for you. Let's cl
 
 ### **Clone the Project Files**
 
-    Open your terminal and run the following command to download all the necessary YAML and Python files.
+Open your terminal and run the following command to download all the necessary YAML and Python files.
 
 ```bash
 git clone https://github.com/ruslanmv/hello-watsonx-orchestrate.git
-
 ```
 
 we change the directory to
@@ -72,22 +71,161 @@ On Linux/macOS:
 source venv/bin/activate  
 ```
 
-On Windows:
+
+
+## Step 2. Docker Installation
+
+**Why Docker (or Colima) Matters for Multi-Agent Orchestration?** When you’re coordinating a suite of AI agents like a greeter, an echo responder, a calculator, and the central orchestrator that routes their tasks it’s crucial to have a uniform, self-contained environment. 
+
+That’s exactly what Docker provides: everyone on the team and any continuous integration server can launch the same runtime, ensuring your code behaves identically everywhere. 
+
+By packaging your Python tools, YAML-defined agents, and even your web server together, you get rock-solid isolation, so one component can’t accidentally interfere with another. And whether you’re deploying to a Linux cluster, spinning up VMs in the cloud, or just working on a Mac laptop, Docker makes it feel like you’re always in the same development playground putting an end to those frustrating “it works on my machine” moments.
+
+## Installing Docker Engine & Compose on Ubuntu 22.04
+
+Set up Docker in five quick steps.
+
+1. **Prerequisites**
+
+*Update package lists so you pull the latest package metadata:*
 
 ```bash
-venv\Scripts\activate     
+sudo apt-get update -qq
 ```
 
-## Step 2: Watsonx Orchestrate ADK Installation
+*Install base utilities for HTTPS downloads and key management:*
+
+```bash
+sudo apt-get install -y ca-certificates curl gnupg lsb-release
+```
+
+1. **Add Docker’s official GPG key and repository**
+
+*Create a dedicated keyring directory (owned by root, 0755 permissions):*
+
+```bash
+sudo install -m 0755 -d /etc/apt/keyrings
+```
+
+*Fetch Docker’s GPG key, convert it to binary format, and place it in the keyring:*
+
+```bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+  sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+*Configure the stable Docker repository for your CPU architecture and Ubuntu release:*
+
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+*Refresh package lists again so APT sees the Docker repo:*
+
+```bash
+sudo apt-get update -qq
+```
+
+1. **Install Docker Engine, CLI, and plugins**
+
+*Install the daemon, command‑line client, containerd runtime, Buildx, and Compose v2 plugin in one shot:*
+
+```bash
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io \
+  docker-buildx-plugin docker-compose-plugin
+```
+
+1. **Post‑installation**
+
+*Give your user permission to run Docker commands without `sudo`:*
+
+```bash
+sudo usermod -aG docker "$USER"
+```
+
+*Enable Docker to start on boot and start it immediately:*
+
+```bash
+sudo systemctl enable --now docker
+```
+
+> **Tip:** Log out and back in (or run `newgrp docker`) so that your current shell picks up the new group membership.
+
+1. **Verify the installation**
+
+*Check the Docker Engine version string:*
+
+```bash
+docker --version
+```
+
+![image-20250711113253321](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/image-20250711113253321.png)
+
+*Check the Compose plugin version:*
+
+```bash
+docker compose version
+```
+
+
+
+![image-20250711113316498](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/image-20250711113316498.png)
+
+*Run Docker’s "hello‑world" test container to confirm a full round‑trip pull + run:*
+
+```bash
+docker run hello-world
+```
+
+
+
+You can also use the script ready for your to install docker  [here](https://github.com/ruslanmv/hello-watsonx-orchestrate/blob/main/scripts/ubuntu/install_docker.sh)
+
+
+
+##  Installing Colima + Docker CLI on macOS
+
+For our CLI-first, lightweight approach:
+
+1. Homebrew (if missing)
+
+```
+which brew >/dev/null \
+  || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+2. Install Colima + Docker tools
+
+```
+brew install colima docker docker-compose
+```
+
+3. Start Colima
+
+```
+colima start --cpu 4 --memory 8 --disk 60
+```
+
+4. Verify
+
+```bash
+docker --version
+docker compose version
+docker run hello-world
+```
+
+You can also use the script ready for your to install docker  [here](https://github.com/ruslanmv/hello-watsonx-orchestrate/blob/main/scripts/mac/install_docker.sh).
+
+## Step 3: Watsonx Orchestrate ADK Installation
 
 Now, we'll install the IBM watsonx Orchestrate Agent Developer Kit (ADK) and start the local development server.
 
 **Install the ADK**
     Use `pip` to install the core `orchestrate` library.
 
-    ```bash
     pip install --upgrade ibm-watsonx-orchestrate==1.6.2
-    ```
 
 ### File Configuration Options
 
@@ -874,15 +1012,12 @@ Try different inputs to test routing:
 "hello" → should route to greeting_agent
 "add 2 and 2" → should route to calculator_agent
 ![](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/2025-07-07-22-35-46.png)
-You can analize the reasoning
+You can analyze the reasoning
 ![](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/2025-07-07-22-36-34.png)
 
 
 
-"anything else" → should route to echo_agent
-Available LLM Models
-Your LLM Configuration is Correct
-Yes, llm: watsonx/meta-llama/llama-3-8b-instruct is a correct and valid LLM specification.
+
 
 
 ## Choosing the Right "Brain": A World of LLM Possibilities
@@ -960,9 +1095,7 @@ From a simple idea to a collaborating team of specialized AI agents, you've gone
 
   * **Forge an Unbreakable System with Unit Tests:** For production-grade reliability, the ADK includes a Python SDK that lets you write **unit tests** for your agents' behavior. This is perfect for integrating your agent development into a professional CI/CD pipeline.
 
-
-
-You can download the full project [here](https://github.com/ruslanmv/hello-watsonx-orchestrate)
+You can download the full project [here](https://github.com/ruslanmv/hello-watsonx-orchestrate). 
 
 
 
