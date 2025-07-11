@@ -645,14 +645,15 @@ Native agents are the fundamental components of **watsonx Orchestrate**, created
 
 Agent Styles:
 
-- Default: Standard conversational agent behavior
-- React: Reasoning and acting pattern for complex problem-solving
-- Planner: Advanced planning capabilities for multi-step tasks
+- **Default**: Standard conversational agent behavior
+- **React**: Reasoning and acting pattern for complex problem-solving
+- **Planner**: Advanced planning capabilities for multi-step tasks that support structured output and custom join tools
 
 **Example Configuration:**
 
 ```yaml
 spec_version: v1
+kind: native  # This field is required
 name: customer_service_agent
 description: Handles customer inquiries and support requests
 style: react
@@ -694,7 +695,9 @@ orchestrate agents create \
 --title "Data Analytics Agent" \
 --description "Specialized agent for data analysis" \
 --api "https://your-api-endpoint.com" \
---provider wx.ai
+--provider wx.ai \
+--auth-scheme API_KEY \
+--auth-config '{"token": "your_api_key"}'
 ```
 
 
@@ -772,14 +775,13 @@ orchestrate toolkits import \
 
 
 ```bash
-# Import from NPM package
 orchestrate toolkits import \
     --kind=mcp \
     --name=mcp-github-toolkit \
     --language=node \
     --description='GitHub integration toolkit' \
     --package='@modelcontextprotocol/server-github' \
-    --tools="list-repositories, get-user" \
+    --tools="list-repositories,get-user" \
     --app-id=github
 ```
 
