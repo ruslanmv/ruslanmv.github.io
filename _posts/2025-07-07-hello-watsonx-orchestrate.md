@@ -81,9 +81,17 @@ That’s exactly what Docker provides: everyone on the team and any continuous i
 
 By packaging your Python tools, YAML-defined agents, and even your web server together, you get rock-solid isolation, so one component can’t accidentally interfere with another. And whether you’re deploying to a Linux cluster, spinning up VMs in the cloud, or just working on a Mac laptop, Docker makes it feel like you’re always in the same development playground putting an end to those frustrating “it works on my machine” moments.
 
-## Installing Docker Engine & Compose on Ubuntu 22.04
 
-Set up Docker in five quick steps.
+
+Before we dive in, pick the instructions that match your operating system.
+
+### Windows - via WSL 2
+
+If you’re on Windows 10 or 11, the smoothest path is Windows Subsystem for Linux (WSL 2) plus Ubuntu 22.04. Follow the step-by-step guide **[here](https://github.com/ruslanmv/Setup-Your-Workspace-Guide)**, then return here to install Docker inside that fresh WSL environment.
+
+### Linux 
+
+On Ubuntu 22.04, Docker Engine and Compose come together in just five streamlined steps. Whether you’re building containers locally or orchestrating multi-service stacks, this quick setup gets you up and running without fuss. Let’s dive in.
 
 1. **Prerequisites**
 
@@ -99,7 +107,7 @@ sudo apt-get update -qq
 sudo apt-get install -y ca-certificates curl gnupg lsb-release
 ```
 
-1. **Add Docker’s official GPG key and repository**
+2. **Add Docker’s official GPG key and repository**
 
 *Create a dedicated keyring directory (owned by root, 0755 permissions):*
 
@@ -128,7 +136,7 @@ https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
 sudo apt-get update -qq
 ```
 
-1. **Install Docker Engine, CLI, and plugins**
+3. **Install Docker Engine, CLI, and plugins**
 
 *Install the daemon, command‑line client, containerd runtime, Buildx, and Compose v2 plugin in one shot:*
 
@@ -137,7 +145,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io \
   docker-buildx-plugin docker-compose-plugin
 ```
 
-1. **Post‑installation**
+4. **Post‑installation**
 
 *Give your user permission to run Docker commands without `sudo`:*
 
@@ -153,7 +161,7 @@ sudo systemctl enable --now docker
 
 > **Tip:** Log out and back in (or run `newgrp docker`) so that your current shell picks up the new group membership.
 
-1. **Verify the installation**
+5. **Verify the installation**
 
 *Check the Docker Engine version string:*
 
@@ -179,15 +187,13 @@ docker compose version
 docker run hello-world
 ```
 
+![image-20250711135333397](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/image-20250711135333397.png)
 
+Good! Now we are ready to go on. You can also use the script ready for your to install docker  [here](https://github.com/ruslanmv/hello-watsonx-orchestrate/blob/main/scripts/ubuntu/install_docker.sh)
 
-You can also use the script ready for your to install docker  [here](https://github.com/ruslanmv/hello-watsonx-orchestrate/blob/main/scripts/ubuntu/install_docker.sh)
+### macOS
 
-
-
-##  Installing Colima + Docker CLI on macOS
-
-For our CLI-first, lightweight approach:
+On macOS, Docker Desktop bundles everything you need—including the Docker Engine, CLI, and Kubernetes—in a single app. Lets Installing Colima + Docker CLI on macOS. For our CLI-first, lightweight approach:
 
 1. Homebrew (if missing)
 
@@ -223,7 +229,8 @@ You can also use the script ready for your to install docker  [here](https://git
 Now, we'll install the IBM watsonx Orchestrate Agent Developer Kit (ADK) and start the local development server.
 
 **Install the ADK**
-    Use `pip` to install the core `orchestrate` library.
+
+ Use `pip` to install the core `orchestrate` library.
 
     pip install --upgrade ibm-watsonx-orchestrate==1.6.2
 
@@ -348,7 +355,9 @@ Go to the API details tab
 
 Copy the service instance URL from the API details tab. This will be in the format:
 
+```
 https://api.<region>.watson-orchestrate.ibm.com/instances/<wxo_instance_id>
+```
 
 Save this value for the WO_INSTANCE variable in your .env file.
 
@@ -374,7 +383,7 @@ Copy the API key and store it securely - this will be your WO_API_KEY value
 
 ## Step 5: Set WO_DEVELOPER_EDITION_SOURCE
 
-For Option 2, set WO_DEVELOPER_EDITION_SOURCE=orchestrate
+For Option 2, ` set WO_DEVELOPER_EDITION_SOURCE=orchestrate`
 
 Important Notes:
 
@@ -581,6 +590,9 @@ And similar for aws
 
 ```bash
 orchestrate env add -n my-aws-env -u https://your-service-instance-url --type mcsp --activate
+```
+
+and
 
 ```bash
 orchestrate env list
