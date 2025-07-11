@@ -93,7 +93,7 @@ If you’re on Windows 10 or 11, the smoothest path is Windows Subsystem for Lin
 
 On Ubuntu 22.04, Docker Engine and Compose come together in just five streamlined steps. Whether you’re building containers locally or orchestrating multi-service stacks, this quick setup gets you up and running without fuss. Let’s dive in.
 
-1. **Prerequisites**
+**1. Prerequisites**
 
 *Update package lists so you pull the latest package metadata:*
 
@@ -107,7 +107,7 @@ sudo apt-get update -qq
 sudo apt-get install -y ca-certificates curl gnupg lsb-release
 ```
 
-2. **Add Docker’s official GPG key and repository**
+**2. Add Docker’s official GPG key and repository**
 
 *Create a dedicated keyring directory (owned by root, 0755 permissions):*
 
@@ -136,7 +136,7 @@ https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
 sudo apt-get update -qq
 ```
 
-3. **Install Docker Engine, CLI, and plugins**
+**3. Install Docker Engine, CLI, and plugins**
 
 *Install the daemon, command‑line client, containerd runtime, Buildx, and Compose v2 plugin in one shot:*
 
@@ -145,7 +145,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io \
   docker-buildx-plugin docker-compose-plugin
 ```
 
-4. **Post‑installation**
+**4. Post‑installation**
 
 *Give your user permission to run Docker commands without `sudo`:*
 
@@ -161,7 +161,7 @@ sudo systemctl enable --now docker
 
 > **Tip:** Log out and back in (or run `newgrp docker`) so that your current shell picks up the new group membership.
 
-5. **Verify the installation**
+**5. Verify the installation**
 
 *Check the Docker Engine version string:*
 
@@ -195,26 +195,26 @@ Good! Now we are ready to go on. You can also use the script ready for your to i
 
 On macOS, Docker Desktop bundles everything you need—including the Docker Engine, CLI, and Kubernetes—in a single app. Lets Installing Colima + Docker CLI on macOS. For our CLI-first, lightweight approach:
 
-1. Homebrew (if missing)
+**1. Homebrew** (if missing)
 
 ```
 which brew >/dev/null \
   || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-2. Install Colima + Docker tools
+**2. Install Colima + Docker tools**
 
 ```
 brew install colima docker docker-compose
 ```
 
-3. Start Colima
+**3. Start Colima**
 
 ```
 colima start --cpu 4 --memory 8 --disk 60
 ```
 
-4. Verify
+**4. Verify**
 
 ```bash
 docker --version
