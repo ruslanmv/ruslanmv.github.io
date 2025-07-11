@@ -763,7 +763,7 @@ When integrating **MCP with watsonx Orchestrate**, it's important to understand 
 
 The `orchestrate toolkits import` command supports several approaches for importing MCP toolkits:
 
-```
+```bash
 # Basic import from local package
 orchestrate toolkits import \
     --kind mcp \
@@ -777,7 +777,7 @@ orchestrate toolkits import \
 
 
 
-```
+```bash
 # Import from NPM package
 orchestrate toolkits import \
     --kind=mcp \
@@ -802,12 +802,14 @@ orchestrate toolkits import \
 If you need to integrate complete agents (not just tools), use these external agent patterns:
 
 - **External Chat Agents** - For agents hosted externally that follow chat completion protocols
+
 - **watsonx.ai External Agents** - For agents built on the watsonx.ai platform
-- **Salesforce Agents** - For Salesforce Agentforce integration
 
+- **Salesforce Agents** - For Salesforce Agent integration
 
+  
 
-**Current Integration Approach**
+## **Current Integration Approach**
 
 MCP integration in watsonx Orchestrate is **toolkit-focused rather than agent-focused**. This means:
 
