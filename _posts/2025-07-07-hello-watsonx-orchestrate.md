@@ -229,7 +229,7 @@ Now, we'll install the IBM watsonx Orchestrate Agent Developer Kit (ADK) and sta
 
 ### File Configuration Options
 
-There are different ways to login [watson orchestratehere](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=orchestrate-logging-in-watsonx). In particular we are going to login via cli via Orchestrate Developer Edition.
+There are different ways to login [watson orchestrate](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=orchestrate-logging-in-watsonx). In particular we are going to login via cli via Orchestrate Developer Edition.
 
 The watsonx Orchestrate Developer Edition can be configured using three main approaches. Choose the one that matches your setup:
 
@@ -320,7 +320,7 @@ Click Launch watsonx Orchestrate to access the service page and start using the 
 
 ![](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/2025-07-06-00-00-40.png)
 
-Navigate to Resource list
+Navigate to Resource list.
 Find your watsonx Orchestrate product under the AI/Machine Learning resource category
 
 ![](./../assets/images/posts/2025-07-07-hello-watsonx-orchestrate/2025-07-09-12-50-28.png)
