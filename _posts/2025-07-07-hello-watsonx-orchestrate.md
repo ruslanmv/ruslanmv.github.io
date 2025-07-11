@@ -723,7 +723,6 @@ instructions: |
       **I only handle greetings. Please say "hello".**
 tools: []
 
-
 ```
 
 *Validate it:* `orchestrate validate -f greeting_agent.yaml`
