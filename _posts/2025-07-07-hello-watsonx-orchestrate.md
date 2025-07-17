@@ -1060,7 +1060,7 @@ tools:
   - divide
 ```
 
-*Validate it:* `orchestrate validate -f calculator_agent.yaml`
+*Validate it:* `python validate.py agents/calculator_agent.yaml`
 
 
 
