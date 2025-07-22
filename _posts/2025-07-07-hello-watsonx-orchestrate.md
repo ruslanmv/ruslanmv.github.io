@@ -1093,10 +1093,10 @@ orchestrate agents import -f agents/orchestrator_agent.yaml
 
 4. **Start the Chat\!**
 
-   This command launches the chat UI. We point it to our `orchestrator_agent`, which will be the entry point. Note the plural `--agents` flag.
+This command launches the chat UI in your browser.
 
 ```bash
-orchestrate chat start --agents orchestrator_agent
+orchestrate chat start
 ```
 
 
