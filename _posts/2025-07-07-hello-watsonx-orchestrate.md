@@ -831,6 +831,7 @@ Let's continue with our practical example using a **Native Agents** . Once your 
 Let us first create the following files for this hands on example.
 
 ```
+├── validate.py
 ├── agents/              # YAML definitions
 │   ├── greeting_agent.yaml
 │   ├── echo_agent.yaml
@@ -839,6 +840,9 @@ Let us first create the following files for this hands on example.
 ├── tools/
 │   └── calculator_tool.py
 ```
+
+We begin the python code validator of agents validate.py a simple check tool that you can copy from here:
+[validate.py](https://github.com/ruslanmv/hello-watsonx-orchestrate/blob/main/validate.py)
 
 Let first create your first agent.
 
@@ -864,9 +868,15 @@ tools: []
 
 ```
 
-A best practice is to run `orchestrate validate -f <your-file.yaml>` before importing anything. This command checks for typos, incorrect model IDs, and other common errors.
+A best practice is to run `python validate.py validate  <your-file.yaml>` before importing anything. This command checks for typos, incorrect model IDs, and other common errors.
 
-*Validate it:* `orchestrate validate -f greeting_agent.yaml`
+*Validate it:* `python validate.py agents/greeting_agent.yaml`
+
+You will  get this message:
+
+```bash
+✅ Validation passed! No errors or warnings foun
+```
 
 #### **Agent 2: The Echo Agent (`echo_agent.yaml`)**
 
@@ -889,7 +899,7 @@ tools: []
 
 ```
 
-*Validate it:* `orchestrate validate -f echo_agent.yaml`
+*Validate it:* `python validate.py agents/echo_agent.yaml`
 
 
 #### **The Collaborator Pattern**
@@ -952,7 +962,7 @@ instructions: |
 tools: []
 ```
 
-*Validate it:* `orchestrate validate -f orchestrator_agent.yaml` (This will fail for now, as it doesn't know about `calculator_agent` yet. We'll fix that next\!)
+*Validate it:* `python validate.py agents/orchestrator_agent.yaml` It contol the yaml file however to make it working we need add the calculator_agent. (In production this will fail for now, as it doesn't know about `calculator_agent` yet. We'll fix that next\!)
 
 -----
 
@@ -1050,7 +1060,7 @@ tools:
   - divide
 ```
 
-*Validate it:* `orchestrate validate -f calculator_agent.yaml`
+*Validate it:* `python validate.py agents/calculator_agent.yaml`
 
 
 
@@ -1083,10 +1093,10 @@ orchestrate agents import -f agents/orchestrator_agent.yaml
 
 4. **Start the Chat\!**
 
-   This command launches the chat UI. We point it to our `orchestrator_agent`, which will be the entry point. Note the plural `--agents` flag.
+This command launches the chat UI in your browser.
 
 ```bash
-orchestrate chat start --agents orchestrator_agent
+orchestrate chat start
 ```
 
 
