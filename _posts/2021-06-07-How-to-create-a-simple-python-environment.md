@@ -71,36 +71,89 @@ sudo apt update
 sudo apt install -y git python3.11 python3.11-venv make
 ```
 
-#### For Windows Users 🪟
+### For Windows Users 🪟
 
-The best way to get a Linux-like experience on Windows is with **Git Bash**.
+The recommended setup is to use **Git Bash** for running commands and install the required tools using PowerShell. Using the correct terminal (**Regular** vs. **Administrator**) for each step is crucial.
 
-1.  **Install Git for Windows**: Download and install it from [git-scm.com](https://git-scm.com/download/win). This provides the **Git Bash** terminal, which you should use for all commands.
-2.  **Install Python 3.11**: Download from the [official Python website](https://www.python.org/downloads/windows/). **Crucially, check the box that says "Add Python to PATH"** during installation.
-3.  **Install GNU Make**: Open **PowerShell as an Administrator** and use a package manager like Scoop (recommended) or Chocolatey.
-      * **With Scoop**:
-        ```powershell
-        Set-ExecutionPolicy RemoteSigned -Scope CurrentUser # Run this first if you get an error
-        irm get.scoop.sh | iex
-        scoop install make
-        ```
-      * **Or with Chocolatey**:
-        ```powershell
-        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-        choco install make
-        ```
+-----
 
-#### Clone the Project
+###  Step 1: Install Git and Python
 
-With the prerequisites ready, open your terminal (**Git Bash** on Windows) and clone the project repository:
+You can install these quickly using `winget` in a standard PowerShell terminal.
 
-```bash
-git clone https://github.com/ruslanmv/simple-environment.git
-cd simple-environment
+1.  Open **Windows PowerShell** (not as Administrator).
+
+2.  Run the following commands:
+
+    ```powershell
+    # Install Git (which includes the Git Bash terminal)
+    winget install -e --id Git.Git
+
+    # Install Python 3.11
+    winget install -e --id Python.Python.3.11
+    ```
+
+    > **Note:** If you install Python manually from [python.org](https://www.python.org/downloads/windows/), it is essential that you check the box that says **“Add Python to PATH”** during installation.
+
+-----
+
+###  Step 2: Install GNU Make (Choose ONE Method)
+
+Pick only one of the following package managers. The easiest method is using `winget`.
+
+#### Method A: Winget (Easiest)
+
+In a **REGULAR PowerShell**, run:
+
+```powershell
+winget install -e --id GnuWin32.Make
 ```
 
-You now have all the configuration files you need to get started.
+#### Method B: Scoop (User-Level Install)
 
+This must be done in a **REGULAR PowerShell** (not Admin).
+
+```powershell
+# 1. Allow script execution for your user
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+
+# 2. Install Scoop
+irm get.scoop.sh | iex
+
+# 3. Install Make
+scoop install make
+```
+
+#### Method C: Chocolatey (System-Wide Install)
+
+This must be done in an **ADMINISTRATOR PowerShell** 🛡️.
+
+```powershell
+# 1. Install Chocolatey (if you don't have it)
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iwr https://community.chocolatey.org/install.ps1 -UseBasicParsing | iex
+
+# 2. Install Make (in a new Admin terminal)
+choco install make -y
+```
+
+-----
+
+###  Step 3: Verify and Clone
+
+1.  **Important:** Close all terminal windows and open a new **Git Bash** terminal to ensure all changes are applied.
+2.  Verify the installations:
+    ```bash
+    git --version
+    python --version
+    make --version
+    ```
+3.  Clone the project repository and navigate into the directory:
+    ```bash
+    git clone https://github.com/ruslanmv/simple-environment.git
+    cd simple-environment
+    ```
+
+You now have all the necessary tools and project files to get started.
 -----
 
 ### The Main Path: Your Local Virtual Environment Workflow 🐍
@@ -148,37 +201,102 @@ This will launch the server and open the Jupyter dashboard in your browser. You'
 
 -----
 
+Of course. Here is the updated section with the additional explanation about `uv`'s capabilities.
+
+-----
+
 ### The Future is Fast: An Optional Boost with `uv` ⚡️
 
-For those who crave speed, there's a new tool called `uv`. It's an extremely fast Python package installer and resolver, written in Rust, that can serve as a drop-in replacement for `pip`.
+For those who crave speed, there's a new tool called **`uv`**. It's an extremely fast Python package installer and project manager, written in Rust, that can replace `pip` and `venv`.
 
-  * **Why use it?** Speed. `uv` can be 10-100x faster than `pip`, making environment creation and updates nearly instantaneous.
+  * **Why use it?** **Speed**. `uv` can be **10-100x faster** than `pip` + `venv`, making environment creation and dependency installation nearly instantaneous.
 
-#### Using `uv` with this Project
+#### How to Use `uv` with this Project
 
-1.  **Install `uv`**:
-      * **macOS/Linux**: `curl -LsSf https://astral.sh/uv/install.sh | sh`
-      * **Windows**: `irm https://astral.sh/uv/install.ps1 | iex`
-2.  **Create the environment with `uv`**:
+Since this project already has a `pyproject.toml` file, switching to `uv` is incredibly simple.
+
+1.  **Install `uv`** (if you haven't already):
+
+      * **macOS / Linux / Git Bash**:
+        ```bash
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        ```
+      * **Windows (PowerShell)**:
+        ```powershell
+        irm https://astral.sh/uv/install.ps1 | iex
+        ```
+
+2.  **Create the Environment & Install Dependencies**:
+    The `uv sync` command does everything in one step: it creates the `.venv` virtual environment (if it doesn't exist) and installs all dependencies specified in `pyproject.toml`.
+
     ```bash
-    # Create the virtual environment
-    uv venv
-    # Activate it (same commands as before)
-    source .venv/bin/activate
-    # Install dependencies using uv
-    uv pip sync pyproject.toml
+    # Run this single command in the project's root directory
+    uv sync
     ```
 
-You can even add a new target to your `Makefile` for this:
+3.  **Activate the Environment** (Optional):
+    To use the environment in your interactive shell, activate it just like you would with a normal `venv`:
+
+      * **macOS / Linux / Git Bash**:
+        ```bash
+        source .venv/bin/activate
+        ```
+      * **Windows (PowerShell)**:
+        ```powershell
+        .venv\Scripts\Activate.ps1
+        ```
+
+You can also add a simple, clean target to your `Makefile` for this:
 
 ```makefile
-# In your Makefile
-install-uv:
-	uv venv
-	. .venv/bin/activate && uv pip sync pyproject.toml
+# In your Makefile, you could add this target:
+uv-install: ## Create environment and install all dependencies with uv
+	@echo "⚡️ Creating environment and syncing dependencies with uv..."
+	@uv sync
+	@echo "✅ Done! To activate, run: source .venv/bin/activate"
 ```
+	Now you can just run `make install-uv` for a blazing-fast setup.
+-----
 
-Now you can just run `make install-uv` for a blazing-fast setup.
+#### A Glimpse of `uv`'s Full Power
+
+Beyond just syncing an environment, `uv` is a complete, all-in-one toolchain that simplifies your entire Python workflow. Here are a few other common tasks you can manage with it:
+
+  * **Add & Remove Packages**: `uv` can modify your `pyproject.toml` file for you, just like Poetry or PDM.
+
+    ```bash
+    # Add a new dependency
+    uv add requests
+
+    # Add a development-only dependency
+    uv add --dev pytest
+
+    # Remove a dependency
+    uv remove requests
+    ```
+
+  * **Run Commands Without Activating**: `uv` can execute commands within the virtual environment without you needing to run `source .venv/bin/activate` first.
+
+    ```bash
+    # Run a Python script
+    uv run python my_script.py
+
+    # Run an installed tool like pytest or ruff
+    uv run pytest
+    uv run ruff check .
+    ```
+
+  * **Manage Python Versions**: It even has a built-in Python version manager, replacing the need for tools like `pyenv`.
+
+    ```bash
+    # Install a specific Python version
+    uv python install 3.12
+
+    # List all installed versions
+    uv python list
+    ```
+
+In short, `uv` consolidates many different tools (`pip`, `venv`, `pip-tools`, `pyenv`) into a single, lightning-fast binary.
 
 -----
 
