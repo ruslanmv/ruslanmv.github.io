@@ -1215,7 +1215,210 @@ orchestrate tools delete add
 orchestrate server stop
 ```
 
+
+## Ship It: Exporting Your Local watsonx Orchestrate Agent to the Cloud (Step‑by‑Step)
+
+> **Where this goes:** place this section right **before** *Choosing the Right “Brain”: A World of LLM Possibilities*.
+
+Moving an agent from your **local (Developer Edition)** to your **cloud (SaaS) tenant** is straightforward if you follow the right order. Here’s the clean, copy‑paste path with commands that work end‑to‑end.
+
+---
+
+### Prereqs
+
+* Local Developer Edition is running and your agent works.
+* You have a **cloud service instance URL** and an **API key** (from your Orchestrate UI → **Settings → API details**).
+* ADK CLI is installed (`pip install -U ibm-watsonx-orchestrate`).
+
+Optional but handy:
+
+```bash
+# Confirm you’re on your local environment
+orchestrate env activate local
+# See your local agents
+orchestrate agents list -v
+```
+
+---
+
+### Export from Local
+
+Export **either** just the agent spec (YAML) **or** a full bundle (ZIP) with dependent assets.
+
+**Option A: Agent‑only (YAML)**
+
+```bash
+# list to confirm the agent name
+orchestrate agents list -v
+
+# export only the agent spec (YAML)
+orchestrate agents export \
+  -n <agent-name> \
+  -k <native|external> \
+  --agent-only \
+  -o agents/<agent-name>.yaml
+```
+
+**Option B: Full bundle (ZIP)**
+
+```bash
+# includes agent + referenced tools/KBs when possible
+orchestrate agents export \
+  -n <agent-name> \
+  -k <native|external> \
+  -o agent_bundle.zip
+```
+
+> **Note:** The ZIP is a convenience bundle. You **don’t** import the ZIP directly as an agent; you’ll import the assets inside it (tools, knowledge bases), then the agent YAML.
+
+---
+
+### Point the CLI at Your Cloud
+
+Add your SaaS environment and activate it with your API key.
+
+**IBM Cloud‑hosted tenant**
+
+```bash
+orchestrate env add -n prod -u <SERVICE_INSTANCE_URL> --type ibm_iam --activate
+orchestrate env activate prod --api-key <API_KEY>
+```
+
+**AWS‑hosted tenant**
+
+```bash
+orchestrate env add -n prod -u <SERVICE_INSTANCE_URL> --type mcsp --activate
+orchestrate env activate prod --api-key <API_KEY>
+```
+
+Verify:
+
+```bash
+orchestrate env list
+# look for: prod  <SERVICE_INSTANCE_URL>  (active)
+```
+
+---
+
+###  Import into Cloud (the **right** way)
+
+With `prod` active, choose **A** or **B** depending on what you exported.
+
+**A) If you exported agent‑only (YAML):**
+
+```bash
+# import the agent spec directly
+orchestrate agents import -f agents/<agent-name>.yaml
+```
+
+**B) If you exported a full bundle (ZIP):**
+
+1. Unzip the bundle and cd into it.
+
+```bash
+unzip -q agent_bundle.zip -d agent_bundle
+cd agent_bundle
+ls -1
+# you should see folders like: tools/  knowledge-bases/  agents/
+```
+
+2. Import **tools** (before agents). Adjust `-k` if your tool kind isn’t Python.
+
+```bash
+# import python tools (.py). If you have packaged tool archives, import those accordingly.
+if [ -d tools ]; then
+  find tools -type f -name "*.py" -print0 | while IFS= read -r -d '' f; do
+    echo "Importing tool: $f"
+    orchestrate tools import -k python -f "$f"
+  done
+fi
+```
+
+3. Import **knowledge bases** (if any):
+
+```bash
+if [ -d knowledge-bases ]; then
+  for kb in knowledge-bases/*.yaml; do
+    [ -e "$kb" ] || continue
+    echo "Importing KB: $kb"
+    orchestrate knowledge-bases import -f "$kb"
+  done
+fi
+```
+
+4. Import the **agent YAML** last:
+
+```bash
+# import all agent YAMLs (often just one)
+for a in agents/*.yaml agents/**/*.yaml; do
+  [ -e "$a" ] || continue
+  echo "Importing agent: $a"
+  orchestrate agents import -f "$a"
+done
+```
+
+> **Why not `agents import -f agent_bundle.zip`?** Because the import command expects **YAML/JSON/Python** for agents. Use the ZIP only as a container to move multiple assets, then import the pieces.
+
+---
+
+### Re‑create/Bind Connections (if your agent uses them)
+
+Exports don’t carry production credentials. In your **cloud UI → Settings → Connections**, (re)create the needed connections and bind them (via `app_id` or the UI) to the tools/agents that require them.
+
+Quick checks:
+
+```bash
+# see agent details in cloud
+orchestrate agents list -v
+# optional: some assets expose app IDs; attach them in UI as needed
+```
+
+---
+
+### Deploy to “Live”
+
+Once the agent and its dependencies are in, publish it so end users can talk to it.
+
+```bash
+# move Draft → Live
+orchestrate agents deploy -n <agent-name>
+```
+
+Verification:
+
+```bash
+# confirm status
+orchestrate agents list -v
+```
+
+You can also deploy from the Agent UI (Deploy → set to **Live**).
+
+---
+
+###  Smoke Test
+
+Use your cloud chat or the ADK chat against `prod` to validate responses.
+
+```bash
+# optional local chat pointed at prod if supported in your setup
+orchestrate env activate prod
+orchestrate chat start
+```
+
+> In SaaS, you can also test directly from the agent’s page in the UI.
+
+---
+
+### Rollback (optional)
+
+```bash
+# take the agent back to draft
+orchestrate agents undeploy -n <agent-name>
+```
+
+
 -----
+
 
 ###  When Heroes Stumble: A Troubleshooting Guide
 
