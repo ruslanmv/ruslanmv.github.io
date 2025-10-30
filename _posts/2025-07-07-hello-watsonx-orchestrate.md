@@ -1313,7 +1313,7 @@ orchestrate agents import -f agents/<agent-name>.yaml
 
 **B) If you exported a full bundle (ZIP):**
 
-1. Unzip the bundle and cd into it.
+Unzip the bundle and cd into it.
 
 ```bash
 unzip -q agent_bundle.zip -d agent_bundle
@@ -1322,7 +1322,7 @@ ls -1
 # you should see folders like: tools/  knowledge-bases/  agents/
 ```
 
-2. Import **tools** (before agents). Adjust `-k` if your tool kind isn’t Python.
+Import **tools** (before agents). Adjust `-k` if your tool kind isn’t Python.
 
 ```bash
 # import python tools (.py). If you have packaged tool archives, import those accordingly.
@@ -1334,7 +1334,7 @@ if [ -d tools ]; then
 fi
 ```
 
-3. Import **knowledge bases** (if any):
+Import **knowledge bases** (if any):
 
 ```bash
 if [ -d knowledge-bases ]; then
@@ -1346,7 +1346,7 @@ if [ -d knowledge-bases ]; then
 fi
 ```
 
-4. Import the **agent YAML** last:
+Import the **agent YAML** last:
 
 ```bash
 # import all agent YAMLs (often just one)
