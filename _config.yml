@@ -11,7 +11,7 @@
 
 # theme                    : "minimal-mistakes-jekyll"
 # remote_theme             : "mmistakes/minimal-mistakes"
-# minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "en"
@@ -23,7 +23,7 @@ url                      : "https://ruslanmv.com"
 # baseurl                  : "/"
 repository               : "ruslanmv/ruslanmv.github.io"
 teaser                   : "assets/images/og_default_header.jpg"
-# breadcrumbs            : false # true, false (default)
+breadcrumbs            : true # true, false (default)
 words_per_minute         : 220
 comments:
   provider               : "disqus" # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "staticman_v2" "custom"
