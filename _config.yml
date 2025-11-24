@@ -11,19 +11,19 @@
 
 # theme                    : "minimal-mistakes-jekyll"
 # remote_theme             : "mmistakes/minimal-mistakes"
-# minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "en"
 title                    : "Ruslan Magana Vsevolodovna"
 title_separator          : "-"
 name                     : "Ruslan Magana Vsevolodovna"
-description              : "Personal website of Ruslan Magana. We talk about Cloud Data Science, Public Speaking and Community."
+description              : "Enterprise solutions in AI, Machine Learning, and Cloud Architecture. Technical insights, news, and innovation in data-driven technologies."
 url                      : "https://ruslanmv.com"
 # baseurl                  : "/"
 repository               : "ruslanmv/ruslanmv.github.io"
 teaser                   : "assets/images/og_default_header.jpg"
-# breadcrumbs            : false # true, false (default)
+breadcrumbs            : true # true, false (default)
 words_per_minute         : 220
 comments:
   provider               : "disqus" # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "staticman_v2" "custom"
