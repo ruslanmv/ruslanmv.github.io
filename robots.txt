@@ -1,0 +1,14 @@
+# Robots.txt for ruslanmv.com
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ruslanmv.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow crawling of specific paths if needed
+# Disallow: /assets/tools/

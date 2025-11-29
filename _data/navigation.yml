@@ -2,6 +2,8 @@
 main:
 #  - title: "Blog"
 #    url: /blog
+  - title: "News"
+    url: https://ruslanmv.com/news-and-trends/
   - title: "Projects"
     url: /projects
   - title: "Certifications"
@@ -11,6 +13,9 @@ main:
     url: /publications
   - title: "Talks"
     url: /talks
+
+  - title: "The Best"
+    url: https://ruslanmv.com/Best-of-the-Best/
 
   - title: "About"
     url: /about
