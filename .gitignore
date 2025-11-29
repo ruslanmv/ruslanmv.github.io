@@ -1,9 +1,63 @@
+# -------------------------------------------------------------------
+# Jekyll / GitHub Pages build artifacts
+# -------------------------------------------------------------------
 _site/
-.sass-cache/
 .jekyll-cache/
+.sass-cache/
 .jekyll-metadata
-CNAME
+
+# -------------------------------------------------------------------
+# Ruby / Bundler
+# -------------------------------------------------------------------
+/vendor/
+/vendor/bundle/
+/.bundle/
+
+# If you prefer not to track Gemfile.lock, uncomment the next line.
+# For most GitHub Pages setups, it's fine (and often preferable) to track it.
+# Gemfile.lock
+
+# -------------------------------------------------------------------
+# Node / front-end tooling (if used)
+# -------------------------------------------------------------------
+/node_modules/
+/npm-debug.log*
+/yarn.lock
+/package-lock.json
+
+# -------------------------------------------------------------------
+# OS / Editor cruft
+# -------------------------------------------------------------------
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE / editor folders
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# -------------------------------------------------------------------
+# Logs / temp / backups
+# -------------------------------------------------------------------
+*.log
+log/
+tmp/
+backup/
+/backup/
+
+# -------------------------------------------------------------------
+# Project-specific ignores
+# -------------------------------------------------------------------
 assets/test/
 assets/images/posts/2020-09-17-How-to-download-and-save-HuggingFace-models-to-custom-path/hugging face.webp
 ruby.exe
+
+# -------------------------------------------------------------------
+# GitHub Pages custom domain
+# -------------------------------------------------------------------
+# CNAME
+# (Usually you WANT to track CNAME in the repo; keep it commented out here.)
+Gemfile.lock

@@ -1,31 +1,29 @@
 source "https://rubygems.org"
 
-# Hello! This is where you manage which Jekyll version is used to run.
-# When you want to use a different version, change it below, save the
-# file and run `bundle install`. Run Jekyll with `bundle exec`, like so:
+# Gemfile for ruslanmv.github.io
 #
-#     bundle exec jekyll serve
-#
-# This will help ensure the proper Jekyll version is running.
-# Happy Jekylling!
+# This setup mirrors the GitHub Pages environment as closely as possible.
+# - `github-pages` pins Jekyll and all core plugins to the same versions
+#   that GitHub Pages uses in production.
+# - Additional gems are limited to those that GitHub Pages supports and
+#   that are required for local development.
 
- #gem "github-pages", group: :jekyll_plugins
+# Use the same stack as GitHub Pages
+# Check https://pages.github.com/versions/ for the current version.
+gem "github-pages", "= 228", group: :jekyll_plugins
 
- gem "github-pages", "=228"
+# Required by the Minimal Mistakes theme when used as a remote_theme
+# Make sure `_config.yml` includes:
+#   remote_theme: "mmistakes/minimal-mistakes"
+#   plugins:
+#     - jekyll-include-cache
+gem "jekyll-include-cache", group: :jekyll_plugins
 
-# To upgrade, run `bundle update`.
-#gem "jekyll", ">= 3.7.4"
-#gem "nokogiri", ">= 1.8.5"
-#gem "minimal-mistakes-jekyll"
-#gem 'gemoji', '~> 3.0', '>= 3.0.1'
-#gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+# Required to run `bundle exec jekyll serve` with Ruby 3.x locally
+gem "webrick", "~> 1.8"
 
-gem "jekyll", "= 3.9.3"
-gem "nokogiri"
-gem "minimal-mistakes-jekyll"
-gem "rouge"
-gem 'gemoji','>= 3.0.1'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# Timezone data for Windows and JRuby environments
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "webrick", "~> 1.7"
-gem 'jekyll-feed'   
+# For Faraday v2 retry middleware (used by some plugins / GitHub API)
+gem "faraday-retry"
