@@ -2,20 +2,17 @@
 main:
 #  - title: "Blog"
 #    url: /blog
+  - title: "The Best"
+    url: https://ruslanmv.com/Best-of-the-Best/
   - title: "News"
     url: https://ruslanmv.com/news-and-trends/
   - title: "Projects"
     url: /projects
   - title: "Certifications"
     url: /certifications
-
   - title: "Publications"
     url: /publications
   - title: "Talks"
     url: /talks
-
-  - title: "The Best"
-    url: https://ruslanmv.com/Best-of-the-Best/
-
   - title: "About"
     url: /about
