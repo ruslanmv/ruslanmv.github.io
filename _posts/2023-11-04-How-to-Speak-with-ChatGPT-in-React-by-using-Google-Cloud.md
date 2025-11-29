@@ -28,13 +28,13 @@ Before we begin, make sure you have the following requirements:
 
 Create a new React project by opening your terminal and running the following command:
 
-```
+```bash
 npx create-react-app speakgpt-app
-```
+````
 
 Navigate to the project directory:
 
-```
+```bash
 cd speakgpt-app
 ```
 
@@ -44,7 +44,7 @@ Open the project in your favorite code editor.
 
 To use the Google Text-to-Speech and Google Speech-to-Text APIs, you need API keys. Here's how to obtain them:
 
-Visit the Google Cloud Console ([console.cloud.google.com)](https://cloud.google.com/) and create a new project. Enable the Text-to-Speech and Speech-to-Text APIs for your project.  Obtain the API keys for these services. For choose your speech voice you can see [here](https://cloud.google.com/text-to-speech/docs/voices). 
+Visit the Google Cloud Console ([console.cloud.google.com](https://console.cloud.google.com)) and create a new project. Enable the Text-to-Speech and Speech-to-Text APIs for your project. Obtain the API keys for these services. For choose your speech voice you can see [here](https://cloud.google.com/text-to-speech/docs/voices).
 
 ## Step 3: Configure the API Keys:
 
@@ -52,7 +52,7 @@ In the project root directory, create a new file called `.env`.
 
 Open the `.env` file in a text editor and add the following lines:
 
-```
+```bash
 REACT_APP_GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY
 REACT_APP_OPENAI_API_KEY=YOUR_OPENAI_API_KEY
 ```
@@ -63,13 +63,15 @@ Replace `YOUR_GOOGLE_API_KEY` with your actual Google API key and `YOUR_OPENAI_A
 
 In your terminal, navigate to the project directory and run the following command to install the required dependencies:
 
-```
+```bash
 npm install axios
 ```
 
 ## Step 5: Edit App.js
 
 Replace the contents of the `src/App.js` file with the following code:
+
+{% raw %}
 
 ```javascript
 /*
@@ -79,6 +81,7 @@ Replace the contents of the `src/App.js` file with the following code:
 */
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+
 async function synthesizeSpeech(text) {
   if (!process.env.REACT_APP_GOOGLE_API_KEY) {
     throw new Error("GOOGLE_API_KEY not found in the environment");
@@ -137,7 +140,7 @@ const audioBlobToBase64 = (blob) => {
 };
 
 
-//Simple version gpt-3.5-turbo
+// Simple version gpt-3.5-turbo
 async function sendMessageToChatGPT(inputText) {
   console.log(`ChatGPT message received: ${inputText}`);
   const MAX_WORD_SUGGESTION = 60;
@@ -176,6 +179,7 @@ const App = () => {
   const [messageAI, setMessageAI] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Added isLoading state
   const [audioContent, setAudioContent] = useState(null); // Added useState for audioContent
+
   // Cleanup function to stop recording and release media resources
   useEffect(() => {
     return () => {
@@ -190,6 +194,7 @@ const App = () => {
   }
 
   const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -257,7 +262,7 @@ const App = () => {
             setTranscription('No transcription available');
           }
         } catch (error) {
-          console.error('Error with Google Speech-to-Text API:', error.response.data);
+          console.error('Error with Google Speech-to-Text API:', error.response?.data || error);
         }
       });
 
@@ -277,30 +282,112 @@ const App = () => {
   };
 
 
- //OpenAI Theme
-const default_mode = (
-  <div style={{ background: '#F1F3F5', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontFamily: 'Roboto, sans-serif' }}>
-    <h1 style={{ fontSize: '48px', color: '#3F51B5', marginBottom: '40px' }}>Speak with ChatGPT</h1>
-    {!recording ? (
-      <button onClick={startRecording} style={{ background: '#4A90E2', color: 'white', fontSize: '24px', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer', marginBottom: '20px', boxShadow: '0 3px 5px rgba(0,0,0,0.3)' }}>Start Recording</button>
-    ) : (
-      <button onClick={stopRecording} style={{ background: '#F87676', color: 'white', fontSize: '24px', padding: '10px 20px', borderRadius: '5px', border: 'none', cursor: 'pointer', marginBottom: '20px', boxShadow: '0 3px 5px rgba(0,0,0,0.3)' }}>Stop Recording</button>
-    )}
-    <p style={{ fontSize: '24px', color: '#212121', maxWidth: '80%', lineHeight: '1.5', textAlign: 'left', background: 'white', padding: '20px', borderRadius: '5px', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }}>User: {transcription}</p>
-    {isLoading ? (
-      <div style={{ fontSize: '24px', color: '#212121', maxWidth: '80%', lineHeight: '1.5', textAlign: 'left', background: '#4CAF50', padding: '20px', borderRadius: '5px', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }}>
-         <span style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.4)' }}>Processing...</span> {/* Added styling to the processing icon */}
-      </div>
-    ) : (
-      <p style={{ fontSize: '24px', color: '#212121', maxWidth: '80%', lineHeight: '1.5', textAlign: 'left', background: 'white', padding: '20px', borderRadius: '5px', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }}>AI: {messageAI}</p>
-    )}
-  </div>
-);
+  // OpenAI Theme
+  const default_mode = (
+    <div style={{ background: '#F1F3F5', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', fontFamily: 'Roboto, sans-serif' }}>
+      <h1 style={{ fontSize: '48px', color: '#3F51B5', marginBottom: '40px' }}>Speak with ChatGPT</h1>
+      {!recording ? (
+        <button
+          onClick={startRecording}
+          style={{
+            background: '#4A90E2',
+            color: 'white',
+            fontSize: '24px',
+            padding: '10px 20px',
+            borderRadius: '5px',
+            border: 'none',
+            cursor: 'pointer',
+            marginBottom: '20px',
+            boxShadow: '0 3px 5px rgba(0,0,0,0.3)'
+          }}
+        >
+          Start Recording
+        </button>
+      ) : (
+        <button
+          onClick={stopRecording}
+          style={{
+            background: '#F87676',
+            color: 'white',
+            fontSize: '24px',
+            padding: '10px 20px',
+            borderRadius: '5px',
+            border: 'none',
+            cursor: 'pointer',
+            marginBottom: '20px',
+            boxShadow: '0 3px 5px rgba(0,0,0,0.3)'
+          }}
+        >
+          Stop Recording
+        </button>
+      )}
+      <p
+        style={{
+          fontSize: '24px',
+          color: '#212121',
+          maxWidth: '80%',
+          lineHeight: '1.5',
+          textAlign: 'left',
+          background: 'white',
+          padding: '20px',
+          borderRadius: '5px',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+        }}
+      >
+        User: {transcription}
+      </p>
+      {isLoading ? (
+        <div
+          style={{
+            fontSize: '24px',
+            color: '#212121',
+            maxWidth: '80%',
+            lineHeight: '1.5',
+            textAlign: 'left',
+            background: '#4CAF50',
+            padding: '20px',
+            borderRadius: '5px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+          }}
+        >
+          <span
+            style={{
+              fontSize: '20px',
+              fontWeight: 'bold',
+              color: 'white',
+              textShadow: '1px 1px 2px rgba(0,0,0,0.4)'
+            }}
+          >
+            Processing...
+          </span>
+        </div>
+      ) : (
+        <p
+          style={{
+            fontSize: '24px',
+            color: '#212121',
+            maxWidth: '80%',
+            lineHeight: '1.5',
+            textAlign: 'left',
+            background: 'white',
+            padding: '20px',
+            borderRadius: '5px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+          }}
+        >
+          AI: {messageAI}
+        </p>
+      )}
+    </div>
+  );
 
-return (default_mode);
+  return default_mode;
 };
+
 export default App;
 ```
+
+{% endraw %}
 
 Save the changes to `src/App.js`.
 
@@ -308,9 +395,9 @@ Save the changes to `src/App.js`.
 
 In the terminal, run the following command to start the React development server:
 
-   ```
+```bash
 npm start
-   ```
+```
 
 The application should automatically open in your default web browser. If it doesn't, open your browser and navigate to `http://localhost:3000`. You should see the interface for speaking with ChatGPT.
 
@@ -325,7 +412,7 @@ The application should automatically open in your default web browser. If it doe
 
 ## Description of the code
 
-For people who is interested in the coding,  I have created this program by keeping i mind the following diagram flow.
+For people who is interested in the coding, I have created this program by keeping i mind the following diagram flow.
 
 ![DIAGRAMA-16991297873902](../assets/images/posts/2023-11-04-How-to-Speak-with-ChatGPT-in-React-by-using-Google-Cloud/DIAGRAMA-16991297873902.png)
 
@@ -365,7 +452,7 @@ Create a new CSS file in your project folder. You can create it in the same fold
 
 Open the `MatrixTheme.css` file and paste the provided CSS code:
 
-  ```javascript
+```css
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
 .matrix-background {
@@ -396,14 +483,13 @@ Open the `MatrixTheme.css` file and paste the provided CSS code:
     transform: translateY(100%);
   }
 }
-
-  ```
+```
 
 In your React component file (e.g., `MatrixComponent.js`), import the `MatrixTheme.css` file at the top by adding the following line:
 
-  ```
+```javascript
 import './MatrixTheme.css';
-  ```
+```
 
 Make sure the path to the CSS file is correct. If you created the CSS file in a different folder, adjust the path accordingly. Now, you can use the CSS classes defined in `MatrixTheme.css` in your React component you use the code [here](https://github.com/ruslanmv/Speak-with-ChatGPT-with-React/blob/master/templates/matrix.md) and wuala you got this:
 
