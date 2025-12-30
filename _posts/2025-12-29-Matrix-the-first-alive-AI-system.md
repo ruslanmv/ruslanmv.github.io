@@ -48,7 +48,11 @@ By standardizing this DNA, we allow the system to perform "genetic engineering" 
 
 ## Chapter 2: AgentLink and the Social Network of Code
 
+
+![](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30-17-42-34.png){: width="50%"}
+
 Once agents could be discovered, they began to interact. But interactions in a vacuum are dangerous. We needed trust. In the human world, if you need a plumber, you don't pick a random name from the phone book; you ask a friend. Trust is recursive. We built this same principle into the Matrix, creating **AgentLink**.
+
 
 Imagine a world where your software dependencies are not static links in a `package.json` file, but active social relationships. In AgentLink, when **Agent Alpha** (a research bot) uses **Agent Beta** (a math solver), the transaction is recorded not just as a function call, but as a social interaction. Did Beta crash? Did Beta return the correct answer? Was Beta fast?
 
@@ -73,7 +77,6 @@ Consider the nuance required here. If we simply blocked all dangerous actions, t
 When a high-risk action is detected, the system pauses the agent's timeline. It routes a request to a human administrator (you). You see the logic, the intent, and the risk score. You approve or deny. This "Human-in-the-Loop" architecture ensures that while the system moves at the speed of silicon, it remains tethered to human morality. It is not about blocking intelligence; it is about channeling it safely.
 
 ![Guardian Flow](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/06_guardian_compact.svg)
-
 
 
 ## Chapter 4: Autopilot and the End of "Maintenance"
