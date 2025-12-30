@@ -127,8 +127,8 @@ In an Alive System, knowing where code came from is vital. The provenance block 
 
 ## Chapter 3: AgentLink and the Social Network of Code
 
-
 ![](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30-17-42-34.png)
+*Agentic Social Network. Explore the [Demo Concept here](https://agentlink-drab.vercel.app/).*
 
 Once agents could be discovered, they began to interact. But interactions in a vacuum are dangerous. We needed trust. In the human world, if you need a plumber, you don't pick a random name from the phone book; you ask a friend. Trust is recursive. We built this same principle into the Matrix, creating **AgentLink**.
 
@@ -143,6 +143,8 @@ This recursive trust graph solves the "hallucination problem" at the structural 
 
 
 ## Chapter 4: The Guardian (Immune System)
+
+![](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30 19-40-30.gif)
 
 A living system that cannot distinguish between food and poison will die. As we allowed agents to call other agents recursively, we introduced the risk of cascading failure—or worse, malicious execution. We needed an immune system. We call it **The Guardian**.
 
@@ -225,7 +227,7 @@ matrix do financial-analyst "Here is my Q3 report. Find the variance in EBITDA."
 
 ## Demo Execution
 ![Evolution Cycle](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/matrix_cli_demo_watsonx.gif)
-
+*Explore the [Package here](https://pypi.org/project/matrix-cli/).*
 
 ### Phase 3: Governance (The Guardian)
 
