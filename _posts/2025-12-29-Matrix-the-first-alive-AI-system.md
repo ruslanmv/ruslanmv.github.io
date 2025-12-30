@@ -4,8 +4,8 @@ excerpt: "From AI Agents to Alive Systems: A New Architecture for Autonomous Int
 
 
 header:
-  image: "./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30 19-40-30.webm"
-  teaser: "./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30 19-40-30.webm"
+  image: "./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30-19-55-42.png"
+  teaser: "./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30 19-54-08.gif"
   caption: "The Dawn of the Agentic Era - Agent-Matrix "
   
 ---
