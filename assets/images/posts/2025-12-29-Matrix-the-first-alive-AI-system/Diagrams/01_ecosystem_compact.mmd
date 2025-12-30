@@ -1,0 +1,8 @@
+graph LR
+    Dev[Developer] --> CLI
+    CLI --> Hub{Matrix Hub}
+    Hub <--> DB[(Vector DB)]
+    Hub --> Planner[Installer]
+    Planner --> Runtime
+    Planner --> Gateway[MCP Gateway]
+    style Hub fill:#f9f,stroke:#333

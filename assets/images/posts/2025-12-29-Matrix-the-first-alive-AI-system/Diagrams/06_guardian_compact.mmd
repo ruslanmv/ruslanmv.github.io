@@ -1,0 +1,6 @@
+flowchart LR
+    Request --> Risk{Risk?}
+    Risk -->|Low| Run[✅ Execute]
+    Risk -->|High| Human[👤 Review]
+    Human -->|Approve| Run
+    Human -->|Deny| Block[❌ Stop]
