@@ -3,15 +3,14 @@ title: "Welcome to the Matrix: Introducing the World’s First Alive AI System"
 excerpt: "Agent-Matrix: The Architecture Behind the First Alive Autonomous AI System"
 
 header:
-  image: "/assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30-16-53-09.png"
-  teaser: "/assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30-16-53-09.png"
+  image: "./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30-16-53-09.png"
+  teaser: "./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30-16-53-09.png"
   caption: "The Dawn of the Agentic Era - Agent-Matrix "
   
 ---
 
-## From Static Software to Digital Organism
-
 ## Introduction: The Death of the "Tool"
+### From Static Software to Digital Organism
 
 For the last fifty years, software has been dead matter. A compiler does not "care" if it is used. A database does not "worry" about its disk space. We, the humans, have been the life support system for our tools. We patch them, we feed them data, we reboot them when they crash. We are the biological crutch for an inert digital world.
 
@@ -44,7 +43,7 @@ Every cell in your body contains instructions for its function. Every agent in t
 
 By standardizing this DNA, we allow the system to perform "genetic engineering" on itself—installing, connecting, and upgrading agents without human friction.
 
-![Ecosystem Architecture](./assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/01_ecosystem_compact.svg)
+![Ecosystem Architecture](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/01_ecosystem_compact.svg)
 ---
 
 ## Chapter 2: AgentLink and the Social Network of Code
@@ -57,8 +56,7 @@ If Beta performs well, Alpha "endorses" it. This creates a reputation score that
 
 This recursive trust graph solves the "hallucination problem" at the structural level. An agent that consistently provides false data will see its trust score plummet, causing other agents to disconnect from it. It is social ostracization applied to neural networks.
 
-![AgentLink Network](./assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/05_agentlink_compact.svg)
-
+![AgentLink Network](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/05_agentlink_compact.svg)
 
 
 ## Chapter 3: The Guardian (Immune System)
@@ -74,7 +72,7 @@ Consider the nuance required here. If we simply blocked all dangerous actions, t
 
 When a high-risk action is detected, the system pauses the agent's timeline. It routes a request to a human administrator (you). You see the logic, the intent, and the risk score. You approve or deny. This "Human-in-the-Loop" architecture ensures that while the system moves at the speed of silicon, it remains tethered to human morality. It is not about blocking intelligence; it is about channeling it safely.
 
-![Guardian Flow](./assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/06_guardian_compact.svg)
+![Guardian Flow](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/06_guardian_compact.svg)
 
 
 
@@ -99,7 +97,7 @@ When a Scout sees a new Python library for Quantum Chemistry getting traction, i
 
 It then deploys this new agent to the Staging Area. By the time a human scientist thinks, "I wonder if there's an AI tool for Quantum Chemistry," the Matrix has already birthed one, tested it, and indexed it. The system anticipates our needs, growing its own capabilities in response to the shifting landscape of global software development.
 
-![Evolution Cycle](./assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/02_evolution_cycle.svg)
+![Evolution Cycle](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/Diagrams/02_evolution_cycle.svg)
 
 
 ## Chapter 6: Protocol — Interfacing with the Organism
@@ -142,6 +140,10 @@ matrix run financial-analyst
 # Speak to it
 matrix do financial-analyst "Here is my Q3 report. Find the variance in EBITDA."
 ```
+
+## Demo Execution
+![Evolution Cycle](./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/matrix_cli_demo_watsonx.gif)
+
 
 ### Phase 3: Governance (The Guardian)
 
