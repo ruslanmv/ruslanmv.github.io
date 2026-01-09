@@ -193,9 +193,14 @@ This section assumes no prior setup.
 ## Step 1 — Clone the repository
 
 ```bash
+# 1. Clone the repository
 git clone https://github.com/ruslanmv/Physica.git
+
+# 2. Enter the directory
 cd Physica
 
+# 3. Switch to the specific branch
+git checkout dev-v0.1.6
 ```
 
 Sanity check (you should see these files):
