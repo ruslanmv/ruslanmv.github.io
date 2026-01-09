@@ -193,7 +193,7 @@ This section assumes no prior setup.
 ## Step 1 — Clone the repository
 
 ```bash
-git clone [https://github.com/ruslanmv/Physica.git](https://github.com/ruslanmv/Physica.git)
+git clone https://github.com/ruslanmv/Physica.git
 cd Physica
 
 ```
