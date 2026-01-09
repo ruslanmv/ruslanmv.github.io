@@ -142,7 +142,7 @@ This creates a new form of trust: not “the model sounds confident”, but “t
 
 ---
 
-## What’s actually in the repository
+## What’s actually is this project
 
 Physica is a working system with three pillars:
 
