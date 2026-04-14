@@ -3,8 +3,8 @@ title: "How to enter in DarkWeb by using OnWorks"
 excerpt: "How to enter in DarkWeb by using free VPN in a safe way"
 
 header:
-  image: "../assets/images/posts/2020-07-27-How-to-enter-to-Darkweb-safely/foto.jpg"
-  teaser: "../assets/images/posts/2020-07-27-How-to-enter-to-Darkweb-safely/foto.jpg"
+  image: "../assets/images/posts/2020-07-27-How-to-enter-to-Darkweb-safely/iceberg.png"
+  teaser: "../assets/images/posts/2020-07-27-How-to-enter-to-Darkweb-safely/iceberg.png"
   caption: "Darkweb"
   
 ---
