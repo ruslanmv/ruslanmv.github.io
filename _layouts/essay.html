@@ -1,0 +1,252 @@
+---
+layout: default
+---
+
+<style>
+/* =========================================================================
+   Premium editorial essay layout  (scoped to body.layout--essay)
+   Direction: MIT Tech Review + research lab + clean academic portfolio.
+   ========================================================================= */
+body.layout--essay {
+  --es-bg:    #faf9f5;
+  --es-card:  #ffffff;
+  --es-ink:   #1e2421;
+  --es-muted: #6f766f;
+  --es-faint: #97a09a;
+  --es-line:  #e7e8e2;
+  --es-green: #0a7d4f;
+  --es-green-deep: #0b3a27;
+  --es-green-wash: #eef7f1;
+  --es-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  background: var(--es-bg);
+}
+
+/* keep the site's default DARK masthead; only the body uses the warm canvas */
+body.layout--essay .initial-content,
+body.layout--essay .page__content { background: var(--es-bg); }
+body.layout--essay .page__hero--overlay { display: none; }
+
+.essay { position: relative; }
+
+/* ---- Hero: centered & ceremonial, full-width with faint science art ---- */
+.essay__herowrap { position: relative; overflow: hidden; }
+.essay__art { position: absolute; top: 0; bottom: 0; width: 38%; pointer-events: none; opacity: 0.5; color: var(--es-faint); }
+.essay__art--l { left: 0; }
+.essay__art--r { right: 0; }
+.essay__art svg { width: 100%; height: 100%; }
+@media (max-width: 980px) { .essay__art { display: none; } }
+
+.essay__hero {
+  position: relative; z-index: 1;
+  max-width: 760px; margin: 0 auto; text-align: center;
+  padding: 3.5rem 1.5rem 2rem;
+}
+.essay__eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--es-green); margin: 0 0 1.3rem;
+}
+.essay__title {
+  font-family: var(--es-serif); font-weight: 700; color: var(--es-ink);
+  font-size: clamp(34px, 5.5vw, 58px); line-height: 1.06; letter-spacing: -0.015em;
+  margin: 0;
+}
+.essay__title .es-sub {
+  display: block; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.14;
+  color: var(--es-ink); font-weight: 400; margin-top: 0.3rem; font-family: var(--es-serif);
+}
+.essay__thesis {
+  font-size: 1.2rem; line-height: 1.55; color: var(--es-muted);
+  margin: 1.5rem auto 0; max-width: 46ch;
+}
+
+/* author row: portrait + name/role + read time, centered */
+.essay__byline {
+  display: inline-flex; align-items: center; gap: 1rem; margin: 2.2rem auto 0;
+}
+.essay__byline .es-photo { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 1px solid var(--es-line); flex: 0 0 auto; }
+.essay__byline .es-who { text-align: left; }
+.essay__byline .es-name { font-weight: 700; color: var(--es-ink); font-size: 1rem; line-height: 1.25; }
+.essay__byline .es-role { color: var(--es-muted); font-size: 0.88rem; line-height: 1.3; }
+.essay__byline .es-sep { width: 1px; height: 38px; background: var(--es-line); }
+.essay__byline .es-read { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--es-muted); font-size: 0.9rem; }
+.essay__byline .es-read svg { width: 16px; height: 16px; opacity: 0.7; }
+
+/* divider under the hero */
+.essay__rule { max-width: 1080px; margin: 1.75rem auto 0; padding: 0 1.5rem; }
+.essay__rule hr { border: 0; border-top: 1px solid var(--es-line); margin: 0; }
+
+/* ---- Main: article + TOC, raised to align with first section ---------- */
+.essay__main {
+  max-width: 1080px; margin: 0 auto; padding: 2.25rem 1.5rem 4.5rem;
+  display: grid; grid-template-columns: minmax(0, 1fr);
+}
+.essay__toc { display: none; }
+@media (min-width: 1040px) {
+  .essay__main { grid-template-columns: minmax(0, 720px) 248px; gap: 3rem; justify-content: center; align-items: start; }
+  .essay__summary { grid-column: 1; }
+  .essay__body { grid-column: 1; }
+  .essay__toc { display: block; grid-column: 2; grid-row: 1 / span 3; position: sticky; top: 96px; align-self: start; }
+}
+
+/* TOC card */
+.essay__toc-card { background: var(--es-card); border: 1px solid var(--es-line); border-radius: 16px; padding: 1.3rem 1.4rem; }
+.essay__toc-head { display: flex; align-items: center; gap: 0.65rem; margin: 0 0 1rem; }
+.essay__toc-head .ic { width: 34px; height: 34px; border-radius: 50%; background: var(--es-green-deep); color: #fff; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.essay__toc-head .ic svg { width: 17px; height: 17px; }
+.essay__toc-head .lbl { font-family: var(--es-serif); font-size: 1.15rem; color: var(--es-ink); }
+.essay__toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.essay__toc li { position: relative; counter-increment: toc; }
+.essay__toc li + li { border-top: 1px solid var(--es-line); }
+.essay__toc a { display: flex; align-items: baseline; gap: 0.8rem; padding: 0.7rem 0; color: var(--es-ink); text-decoration: none; font-size: 0.95rem; line-height: 1.3; }
+.essay__toc a:before { content: counter(toc, decimal-leading-zero); color: var(--es-green); font-variant-numeric: tabular-nums; font-size: 0.92rem; flex: 0 0 auto; }
+.essay__toc a:hover { color: var(--es-green); }
+
+/* ---- "In this essay" intro card ---------------------------------------- */
+.essay__summary {
+  max-width: 720px; margin: 0 0 2.25rem; width: 100%;
+  background: var(--es-card); border: 1px solid var(--es-line);
+  border-left: 3px solid var(--es-green); border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+.essay__summary .es-sum-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--es-green); margin: 0 0 0.5rem;
+}
+.essay__summary p { font-size: 1.05rem; line-height: 1.6; color: var(--es-ink); margin: 0; }
+
+/* ---- Reading column ---------------------------------------------------- */
+.essay__body { max-width: 720px; margin: 0; width: 100%; }
+.essay__body p,
+.essay__body li {
+  font-size: 1.2rem; line-height: 1.72; color: var(--es-ink); margin: 0 0 1.5rem; font-family: var(--es-serif);
+}
+.essay__body h2 {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--es-green); margin: 2.75rem 0 1rem; border: 0; scroll-margin-top: 90px; font-family: inherit;
+}
+.essay__body a { color: var(--es-green); text-decoration: none; border-bottom: 1px solid rgba(10,125,79,0.32); }
+.essay__body a:hover { border-bottom-color: var(--es-green); }
+
+/* component bits reused from the article body */
+.essay__body .ae-pull { border-left: 3px solid var(--es-green); padding: 0.25rem 0 0.25rem 1.4rem; margin: 2.25rem 0; }
+.essay__body .ae-pull p { font-family: var(--es-serif); font-size: 1.5rem; line-height: 1.45; font-style: italic; color: var(--es-green-deep); margin: 0; }
+.essay__body .ae-proof { background: var(--es-green-wash); border: 1px solid #d3eade; border-radius: 14px; padding: 1.9rem 1.6rem; margin: 2.5rem 0; text-align: center; }
+.essay__body .ae-proof h2 { color: var(--es-green-deep); margin-top: 0; }
+.essay__body .ae-proof p { font-size: 1.1rem; color: var(--es-green-deep); margin: 0 0 1.1rem; font-family: var(--es-serif); }
+.essay__body .ae-cta { display: inline-block; background: var(--es-green); color: #fff; font-weight: 600; font-size: 1rem; padding: 0.8rem 1.7rem; border-radius: 10px; text-decoration: none; border: 0; box-shadow: 0 6px 18px rgba(10,125,79,0.26); font-family: var(--es-bg); }
+.essay__body .ae-cta:hover { background: var(--es-green-deep); color: #fff; }
+.essay__body .ae-continue { margin-top: 3.25rem; padding-top: 1.9rem; border-top: 1px solid var(--es-line); }
+.essay__body .ae-continue h2 { margin-top: 0; }
+.essay__body .ae-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.essay__body .ae-card { display: block; background: var(--es-card); border: 1px solid var(--es-line); border-radius: 12px; padding: 0.9rem 1rem; text-decoration: none; }
+.essay__body .ae-card:hover { border-color: var(--es-green); }
+.essay__body .ae-card .t { font-size: 0.9rem; font-weight: 600; color: var(--es-ink); margin: 0; font-family: var(--es-bg); }
+.essay__body .ae-card .u { font-size: 0.8rem; color: var(--es-muted); margin: 3px 0 0; }
+
+/* footer social row (links moved out of the hero) */
+.essay__footlinks { max-width: 720px; margin: 2.5rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--es-line); font-size: 0.9rem; }
+.essay__footlinks a { color: var(--es-green); text-decoration: none; border-bottom: 1px solid rgba(10,125,79,0.3); }
+.essay__footlinks a:hover { border-bottom-color: var(--es-green); }
+.essay__footlinks .es-dot { color: var(--es-faint); margin: 0 0.5rem; }
+</style>
+
+<article class="essay">
+
+  <div class="essay__herowrap">
+    <!-- faint physics orbit (left) -->
+    <div class="essay__art essay__art--l" aria-hidden="true">
+      <svg viewBox="0 0 460 520" fill="none" stroke="currentColor" stroke-width="1">
+        <ellipse cx="250" cy="250" rx="170" ry="60" transform="rotate(-20 250 250)"/>
+        <ellipse cx="250" cy="250" rx="170" ry="60" transform="rotate(35 250 250)"/>
+        <ellipse cx="250" cy="250" rx="170" ry="60" transform="rotate(90 250 250)"/>
+        <circle cx="250" cy="250" r="10" fill="currentColor" stroke="none" opacity="0.6"/>
+        <circle cx="250" cy="250" r="20"/>
+        <g fill="currentColor" stroke="none" opacity="0.7">
+          <circle cx="92" cy="195" r="4"/><circle cx="408" cy="300" r="4"/>
+          <circle cx="300" cy="118" r="3.5"/><circle cx="185" cy="392" r="4"/>
+        </g>
+        <text x="86" y="150" font-size="20" font-style="italic" fill="currentColor" stroke="none" opacity="0.6">e⁻</text>
+        <text x="250" y="262" font-size="15" fill="currentColor" stroke="none" opacity="0.7">p</text>
+        <text x="392" y="360" font-size="18" font-style="italic" fill="currentColor" stroke="none" opacity="0.6">n</text>
+      </svg>
+    </div>
+    <!-- faint AI/network graph (right) -->
+    <div class="essay__art essay__art--r" aria-hidden="true">
+      <svg viewBox="0 0 460 520" fill="none" stroke="currentColor" stroke-width="1">
+        <g opacity="0.8">
+          <line x1="120" y1="160" x2="240" y2="120"/><line x1="240" y1="120" x2="350" y2="190"/>
+          <line x1="240" y1="120" x2="220" y2="250"/><line x1="350" y1="190" x2="380" y2="320"/>
+          <line x1="220" y1="250" x2="320" y2="300"/><line x1="220" y1="250" x2="130" y2="320"/>
+          <line x1="320" y1="300" x2="380" y2="320"/><line x1="130" y1="320" x2="200" y2="400"/>
+          <line x1="320" y1="300" x2="280" y2="400"/>
+        </g>
+        <g fill="currentColor" stroke="none">
+          <circle cx="120" cy="160" r="5"/><circle cx="240" cy="120" r="7"/><circle cx="350" cy="190" r="5"/>
+          <circle cx="220" cy="250" r="8"/><circle cx="380" cy="320" r="5"/><circle cx="320" cy="300" r="6"/>
+          <circle cx="130" cy="320" r="5"/><circle cx="200" cy="400" r="4"/><circle cx="280" cy="400" r="4"/>
+        </g>
+        <text x="300" y="470" font-size="17" font-style="italic" fill="currentColor" stroke="none" opacity="0.55">ψ(t+1)=𝒰ψ(t)</text>
+      </svg>
+    </div>
+
+    <header class="essay__hero">
+      <p class="essay__eyebrow">{{ page.eyebrow | default: "Essay" }}</p>
+      <h1 class="essay__title">
+        {{ page.headline | default: page.title }}
+        {% if page.subtitle %}<span class="es-sub">{{ page.subtitle }}</span>{% endif %}
+      </h1>
+      {% if page.thesis %}<p class="essay__thesis">{{ page.thesis }}</p>{% endif %}
+      <div class="essay__byline">
+        <img class="es-photo" src="{{ site.author.avatar | relative_url }}" alt="{{ page.author_name | default: site.author.name }}">
+        <div class="es-who">
+          <div class="es-name">{{ page.author_name | default: site.author.name }}</div>
+          {% if page.author_role %}<div class="es-role">{{ page.author_role }}</div>{% endif %}
+        </div>
+        {% if page.read_time %}
+        <span class="es-sep"></span>
+        <span class="es-read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{{ page.read_time }}</span>
+        {% endif %}
+      </div>
+    </header>
+  </div>
+
+  <div class="essay__rule"><hr></div>
+
+  <div class="essay__main">
+
+    {% if page.toc and page.toc_items %}
+    <nav class="essay__toc" aria-label="On this page">
+      <div class="essay__toc-card">
+        <div class="essay__toc-head">
+          <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h11a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H4z"/><path d="M4 5v12"/></svg></span>
+          <span class="lbl">On this page</span>
+        </div>
+        <ol>
+          {% for item in page.toc_items %}
+          <li><a href="#{{ item.id }}">{{ item.title }}</a></li>
+          {% endfor %}
+        </ol>
+      </div>
+    </nav>
+    {% endif %}
+
+    {% if page.summary %}
+    <aside class="essay__summary">
+      <p class="es-sum-label">In this essay</p>
+      <p>{{ page.summary }}</p>
+    </aside>
+    {% endif %}
+
+    <div class="essay__body">
+      {{ content }}
+
+      {% if page.author_links %}
+      <p class="essay__footlinks">
+        {% for l in page.author_links %}{% unless forloop.first %}<span class="es-dot">·</span>{% endunless %}<a href="{{ l.url }}"{% if l.url contains 'http' %} target="_blank" rel="noopener"{% endif %}>{{ l.label }}</a>{% endfor %}
+      </p>
+      {% endif %}
+    </div>
+
+  </div>
+
+</article>

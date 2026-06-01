@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<link rel="stylesheet" href="{{ '/assets/css/contact.css' | relative_url }}">
+
+<!-- Hero -->
+<header class="ct-hero">
+  <img class="ct-hero__bg" src="{{ '/assets/images/essays-hero.svg' | relative_url }}" alt="" aria-hidden="true">
+  <div class="ct-hero__inner">
+    <span class="ct-hero__kicker">{{ page.hero_kicker | default: "CONTACT" }}</span>
+    <h1 class="ct-hero__title">{{ page.hero_title | default: "Contact" }}</h1>
+    <p class="ct-hero__sub">{{ page.hero_sub }}</p>
+  </div>
+</header>
+
+<div class="ct" data-endpoint="{{ page.contact_endpoint }}" data-turnstile-key="{{ page.turnstile_site_key }}">
+  {{ content }}
+</div>
+
+{% if page.turnstile_site_key and page.turnstile_site_key != "" %}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>{% endif %}
+<script src="{{ '/assets/js/contact.js' | relative_url }}" defer></script>

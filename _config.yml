@@ -140,8 +140,12 @@ include:
   - .htaccess
   - _pages
 exclude:
+  - contact-backend
   - .idea
   - create-blogpost
+  # copy-paste starters — reference only, never built or listed
+  - _pages/_essay-template.md
+  - _pages/_blog-template.md
   - "*.sublime-project"
   - "*.sublime-workspace"
   - vendor
@@ -208,6 +212,7 @@ sass:
 
 # Outputting
 permalink: /blog/:title
+future: true # publish posts dated in the future (essays scheduled ahead)
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: "Europe/Berlin"

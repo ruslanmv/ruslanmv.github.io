@@ -1,35 +1,77 @@
+{% comment %} Active-section detection from the current page URL {% endcomment %}
+{% assign u = page.url %}
+{% assign sect = "home" %}
+{% if u contains "/about" or u contains "/certifications" or u contains "/personas-and-memory" %}{% assign sect = "About" %}
+{% elsif u contains "/projects" or u contains "/labs" or u contains "/alive-system" %}{% assign sect = "Work" %}
+{% elsif u contains "/essays" or u contains "/blog" %}{% assign sect = "Writing" %}
+{% elsif u contains "/publications" %}{% assign sect = "Publications" %}
+{% elsif u contains "/talks" %}{% assign sect = "Talks" %}
+{% elsif u contains "/news" %}{% assign sect = "News" %}
+{% endif %}
+
 <div class="masthead">
   <div class="masthead__inner-wrap">
-    <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
-        {% if page.url != "/" %}
-          <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-        {% endif %}
-        <ul class="visible-links">
-          {% for link in site.data.navigation.main %}
-            {% if link.url contains 'http' %}
-              {% assign domain = '' %}
-            {% else %}
-              {% assign domain = site.url | append: site.baseurl %}
-            {% endif %}
-            <li class="masthead__menu-item">
-              <a href="{{ domain }}{{ link.url }}" {% if link.description %}title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
+    <nav id="site-nav" class="rmv-nav" aria-label="Main navigation">
+
+      <a class="rmv-nav__brand" href="/">{{ site.title }}</a>
+
+      <ul class="rmv-nav__links">
+        {% for link in site.data.navigation.main %}
+          {% if link.title == sect %}{% assign active = "is-active" %}{% else %}{% assign active = "" %}{% endif %}
+          {% if link.children %}
+            <li class="rmv-nav__item rmv-nav__item--has-children {{ active }}">
+              <a class="rmv-nav__toplink" href="{{ link.url }}" aria-haspopup="true" aria-expanded="false"{% if active != "" %} aria-current="page"{% endif %}>{{ link.title }} <span class="rmv-caret" aria-hidden="true">▾</span></a>
+              <ul class="rmv-submenu">
+                {% for child in link.children %}
+                  <li><a href="{{ child.url }}"{% if child.url contains '://' %} target="_blank" rel="noopener"{% endif %}{% if child.url == page.url %} class="is-active" aria-current="page"{% endif %}>{{ child.title }}</a></li>
+                {% endfor %}
+              </ul>
             </li>
-          {% endfor %}
-        </ul>
+          {% else %}
+            <li class="rmv-nav__item {{ active }}">
+              <a class="rmv-nav__toplink" href="{{ link.url }}"{% if link.url contains '://' %} target="_blank" rel="noopener"{% endif %}{% if active != "" %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      <div class="rmv-nav__actions">
         {% if site.search == true %}
-        <button class="search__toggle" type="button">
-          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+        <button class="search__toggle rmv-nav__search" type="button" aria-label="Toggle search">
+          <svg class="icon" width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16" aria-hidden="true">
             <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
           </svg>
         </button>
         {% endif %}
-        <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</span>
-          <div class="navicon"></div>
+        <button class="rmv-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="rmv-drawer">
+          <span class="rmv-burger__bars" aria-hidden="true">
+            <span class="rmv-burger__bar"></span>
+            <span class="rmv-burger__bar"></span>
+            <span class="rmv-burger__bar"></span>
+          </span>
         </button>
-        <ul class="hidden-links hidden"></ul>
-      </nav>
-    </div>
+      </div>
+    </nav>
   </div>
 </div>
+
+<!-- Full-site slide-out drawer (all devices) -->
+<div class="rmv-drawer-overlay" hidden></div>
+<aside id="rmv-drawer" class="rmv-drawer" aria-hidden="true" aria-label="Site menu">
+  <div class="rmv-drawer__head">
+    <span class="rmv-drawer__brand">{{ site.title }}</span>
+    <button class="rmv-drawer__close" type="button" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="rmv-drawer__nav" aria-label="Full site">
+    <ul>
+      {% for link in site.data.navigation.burger %}
+        <li{% if link.indent %} class="is-indent"{% endif %}><a href="{{ link.url }}"{% if link.url contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  <div class="rmv-drawer__social">
+    {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>{% endif %}
+    {% if site.author.linkedin %}<a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>{% endif %}
+    <a href="mailto:contact@ruslanmv.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+  </div>
+</aside>

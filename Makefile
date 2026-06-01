@@ -53,15 +53,12 @@ install:
 # Internal target to handle OS-specific script execution
 install-os-dep:
 ifeq ($(OS),Darwin)
-	@chmod +x scripts/install_macos.sh
-	@./scripts/install_macos.sh
+	@tr -d '\r' < scripts/install_macos.sh | bash
 else ifeq ($(OS),Linux)
 	@if [ -f /etc/debian_version ]; then \
-		chmod +x scripts/install_ubuntu.sh; \
-		./scripts/install_ubuntu.sh; \
+		tr -d '\r' < scripts/install_ubuntu.sh | bash; \
 	elif [ -f /etc/redhat-release ]; then \
-		chmod +x scripts/install_fedora.sh; \
-		./scripts/install_fedora.sh; \
+		tr -d '\r' < scripts/install_fedora.sh | bash; \
 	else \
 		echo "⚠️  Linux distro not auto-detected. Please run script manually."; \
 	fi

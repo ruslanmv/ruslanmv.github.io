@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Autonomous robots building on the Moon under a self-consistency loop">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#05070f"/><stop offset="0.5" stop-color="#0a1020"/><stop offset="1" stop-color="#0e1626"/>
+    </linearGradient>
+    <radialGradient id="earth" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#3a7bd5"/><stop offset="0.6" stop-color="#1c4a8a"/><stop offset="1" stop-color="#0d2347"/>
+    </radialGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2d33"/><stop offset="1" stop-color="#15171b"/>
+    </linearGradient>
+    <radialGradient id="loop" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7dffd0" stop-opacity="0.9"/><stop offset="1" stop-color="#0a7d4f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <!-- stars -->
+  <g fill="#cfe3ff" opacity="0.8">
+    <circle cx="180" cy="120" r="1.6"/><circle cx="420" cy="80" r="1.2"/><circle cx="760" cy="140" r="1.8"/>
+    <circle cx="1040" cy="90" r="1.3"/><circle cx="1320" cy="160" r="1.6"/><circle cx="1480" cy="100" r="1.2"/>
+    <circle cx="300" cy="220" r="1.2"/><circle cx="900" cy="240" r="1.4"/><circle cx="1200" cy="300" r="1.2"/>
+    <circle cx="600" cy="300" r="1.1"/><circle cx="120" cy="340" r="1.3"/>
+  </g>
+  <!-- Earth -->
+  <circle cx="1280" cy="230" r="86" fill="url(#earth)"/>
+  <ellipse cx="1255" cy="215" rx="34" ry="18" fill="#4f93e0" opacity="0.5"/>
+  <ellipse cx="1305" cy="255" rx="22" ry="12" fill="#5fa0e8" opacity="0.45"/>
+  <!-- lunar ground -->
+  <path d="M0 640 Q 400 590 760 630 T 1600 610 L1600 900 L0 900 Z" fill="url(#ground)"/>
+  <ellipse cx="280" cy="720" rx="60" ry="14" fill="#000" opacity="0.25"/>
+  <ellipse cx="900" cy="760" rx="80" ry="16" fill="#000" opacity="0.22"/>
+  <ellipse cx="1300" cy="700" rx="50" ry="12" fill="#000" opacity="0.25"/>
+
+  <!-- printed habitat dome (in progress) -->
+  <g>
+    <path d="M700 660 a150 150 0 0 1 300 0 Z" fill="#1b2630" stroke="#34e0a0" stroke-width="2" opacity="0.9"/>
+    <g stroke="#2a6f55" stroke-width="1" opacity="0.7">
+      <path d="M724 632 a128 128 0 0 1 252 0"/><path d="M744 612 a108 108 0 0 1 212 0"/>
+      <path d="M768 594 a84 84 0 0 1 164 0"/>
+    </g>
+  </g>
+
+  <!-- three robot agents (simple iconic forms) -->
+  <g fill="#cdd7e0" stroke="#34e0a0" stroke-width="1.5">
+    <!-- ExcavatorBot -->
+    <g transform="translate(300,660)"><rect x="-26" y="-30" width="52" height="34" rx="5" fill="#222e38"/><circle cx="0" cy="14" r="14" fill="#2c3a46"/><path d="M22 -22 L52 -38" stroke-width="3"/></g>
+    <!-- PrinterBot near dome -->
+    <g transform="translate(640,640)"><rect x="-22" y="-34" width="44" height="34" rx="5" fill="#222e38"/><path d="M0 -34 L0 -58" stroke-width="3"/><circle cx="0" cy="-60" r="5" fill="#7dffd0" stroke="none"/></g>
+    <!-- AssemblerBot -->
+    <g transform="translate(1120,700)"><rect x="-24" y="-30" width="48" height="32" rx="5" fill="#222e38"/><path d="M-20 -28 L-40 -46" stroke-width="3"/><path d="M20 -28 L40 -46" stroke-width="3"/></g>
+  </g>
+
+  <!-- the self-consistency loop, overlaid as an orbiting cycle -->
+  <g transform="translate(800,420)">
+    <circle r="120" fill="url(#loop)" opacity="0.35"/>
+    <circle r="92" fill="none" stroke="#34e0a0" stroke-width="2.5" stroke-dasharray="6 7" opacity="0.85"/>
+    <g fill="#7dffd0" font-family="Trebuchet MS, sans-serif" font-size="17" font-weight="700" text-anchor="middle">
+      <text x="0" y="-70">EXECUTE</text>
+      <text x="82" y="36">VERIFY</text>
+      <text x="-82" y="36">CORRECT</text>
+    </g>
+    <g fill="#34e0a0"><circle cx="0" cy="-92" r="5"/><circle cx="80" cy="46" r="5"/><circle cx="-80" cy="46" r="5"/></g>
+  </g>
+</svg>

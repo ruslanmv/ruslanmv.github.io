@@ -1,0 +1,49 @@
+---
+layout: default
+---
+
+<style>
+/* All Projects archive — same warm canvas + hero as /projects, single column */
+body.layout--projects-all {
+  --pa-bg:#f6f7f6; --pa-line:#e7e5de; --pa-ink:#1f2523; --pa-muted:#6c716c;
+  --pa-accent:#0f766e; --pa-accent-deep:#0b5a54; --pa-serif:Georgia,"Times New Roman",serif;
+  background:var(--pa-bg);
+}
+body.layout--projects-all .initial-content, body.layout--projects-all .page__content { background:var(--pa-bg); }
+body.layout--projects-all .page__hero--overlay { display:none; }
+
+.pa-hero { position:relative; background:#0a3a66; overflow:hidden; }
+.pa-hero__bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 35%; }
+.pa-hero__scrim { position:absolute; inset:0; background:linear-gradient(90deg, rgba(8,28,48,0.55) 0%, rgba(8,28,48,0.15) 55%, rgba(8,28,48,0) 100%); }
+.pa-hero__inner { position:relative; z-index:1; max-width:880px; margin:0 auto; padding:3rem 1.5rem; }
+.pa-hero__title { font-family:'Montserrat',sans-serif; font-weight:800; color:#fff; font-size:clamp(36px,6vw,60px); line-height:1; margin:0; text-shadow:0 2px 14px rgba(0,0,0,0.25); }
+.pa-hero__sub { color:#eaf2fb; font-size:clamp(15px,2vw,18px); line-height:1.5; margin:0.9rem 0 0; max-width:34rem; text-shadow:0 1px 8px rgba(0,0,0,0.3); }
+
+.pa-back { max-width:880px; margin:0 auto; padding:1.25rem 1.5rem 0; }
+.pa-back a { color:var(--pa-accent); text-decoration:none; font-weight:600; font-size:0.95rem; }
+.pa-back a:hover { color:var(--pa-accent-deep); }
+
+.pa-body { max-width:880px; margin:0 auto; padding:0.5rem 1.5rem 4.5rem; color:var(--pa-ink); }
+.pa-body h2 { font-family:var(--pa-serif); font-size:1.7rem; color:var(--pa-ink); margin:2.5rem 0 0.6rem; }
+.pa-body p { font-size:1.05rem; line-height:1.7; color:var(--pa-ink); margin:0 0 1.1rem; }
+.pa-body em { color:var(--pa-muted); }
+.pa-body a { color:var(--pa-accent); }
+.pa-body hr { border:0; border-top:1px solid var(--pa-line); margin:2.5rem 0; }
+.pa-body img { max-width:100%; height:auto; border-radius:10px; }
+.pa-body p > a > img { max-width:320px; }
+</style>
+
+<header class="pa-hero">
+  <img class="pa-hero__bg" src="{{ page.hero_image | default: '/assets/images/header-projects.jpg' | relative_url }}" alt="" aria-hidden="true">
+  <div class="pa-hero__scrim"></div>
+  <div class="pa-hero__inner">
+    <h1 class="pa-hero__title">{{ page.hero_title | default: "All Projects" }}</h1>
+    <p class="pa-hero__sub">{{ page.pj_intro }}</p>
+  </div>
+</header>
+
+<nav class="pa-back"><a href="{{ '/projects' | relative_url }}">← Back to Projects</a></nav>
+
+<div class="pa-body">
+  {{ content }}
+</div>

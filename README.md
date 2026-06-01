@@ -5,7 +5,9 @@
 Just my personal website.
 
 <p align="center">
-    <img src="https://i.imgur.com/AhCYXcC.jpg">
+    <a href="https://ruslanmv.com">
+        <img src="assets/images/readme/landing.jpg" alt="ruslanmv.com — landing page" width="820">
+    </a>
 </p>
 
 # IMPORTANT

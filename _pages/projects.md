@@ -1,165 +1,163 @@
 ---
 title: "Projects"
-layout: single
-excerpt: "List of projects and open source contributions I've done."
+layout: projects
+excerpt: "Open-source platforms, live AI products, and research I've built and shipped."
 sitemap: true
 permalink: /projects
-author_profile: true
-toc: true
-toc_label: "Projects"
-toc_icon: "cog"
+canonical_url: https://ruslanmv.com/projects
+hero_image: /assets/images/all-header-projects.jpg
 header:
-    overlay_filter: "0.0"
-    overlay_image: "/assets/images/header-projects.jpg"
-    show_overlay_excerpt: false
+  og_image: /assets/images/all-header-projects.jpg
+
+pj_intro: "Applied AI systems, infrastructure tools, and research prototypes."
+
+# ---- Premium project cards (with quick-details modal) ----
+featured:
+  - title: "MatrixHub"
+    desc: "Unified access to data, models, and agents across projects."
+    long: "MatrixHub is the catalog and installer at the heart of Agent-Matrix — a package manager for agents and tools, with hybrid search, lockfile-style reproducibility, and native MCP registration, backed by a live cloud instance."
+    status: "Live"
+    category: "Agent Infrastructure"
+    role: "Founder & Builder"
+    stack: "Python, FastAPI, LangGraph, Docker, PostgreSQL"
+    launched: "2024"
+    chips: ["Infrastructure", "Agents", "API"]
+    group: "Infrastructure"
+    image: /assets/images/posts/projects/matrixhub.png
+    gallery:
+      - "/assets/images/posts/projects/gallery/matrixcloud-live.png"
+    glance_title: "MatrixHub at a glance"
+    glance: "The control layer for Agent-Matrix. MatrixHub provides unified access to a catalog, installer, and registry for AI agents, MCP servers, and tools across teams and projects."
+    capabilities:
+      - "Discover and search agents, MCP servers, and tools."
+      - "Install and manage packages with lockfile reproducibility."
+      - "Register and expose MCP servers across projects."
+    url: "https://www.matrixhub.io"
+    github: "https://github.com/agent-matrix/matrix-hub"
+    docs: "https://cloud.matrixhub.io"
+    essay: "/alive-system/"
+  - title: "OllaBridge"
+    desc: "A unified gateway for local and cloud LLMs behind one OpenAI-compatible API."
+    long: "OllaBridge unifies every language model you run — local Ollama, spare GPUs, free clouds, paid APIs — behind one OpenAI-compatible endpoint, dialing outward over WebSockets so it works behind NAT and firewalls."
+    status: "Production"
+    category: "LLM Infrastructure"
+    role: "Creator"
+    stack: "Python, WebSockets, MCP, Apache 2.0"
+    launched: "2024"
+    chips: ["Infrastructure", "LLM Gateway"]
+    group: "Infrastructure"
+    image: /assets/images/posts/projects/ollabridge.png
+    gallery:
+      - "/assets/images/posts/projects/gallery/ollabridge-live.png"
+      - "/assets/images/posts/projects/gallery/ollabridge-2.png"
+      - "/assets/images/posts/projects/gallery/ollabridge-3.png"
+      - "/assets/images/posts/projects/gallery/ollabridge-4.png"
+    glance_title: "OllaBridge at a glance"
+    glance: "One OpenAI-compatible gateway for every model you run — local Ollama, spare GPUs, free clouds, and paid APIs — with nothing to port-forward."
+    capabilities:
+      - "Unify local and cloud LLMs behind one endpoint."
+      - "Outbound WebSocket nodes work behind NAT and firewalls."
+      - "Smart router, admin dashboard, and model catalog."
+    url: "https://ollabridge.com"
+    github: "https://github.com/ruslanmv"
+    docs: "https://pypi.org/project/ollabridge/"
+  - title: "MedOS"
+    desc: "A private, multilingual medical assistant aligned with WHO, CDC, and NHS guidance."
+    long: "MedOS is a worldwide medical assistant offering private, multilingual health guidance aligned with published WHO, CDC, and NHS recommendations — built to inform and orient rather than diagnose, grounding every answer in recognised public-health guidance."
+    status: "Live"
+    category: "Health AI"
+    role: "Creator"
+    stack: "Python, RAG, LLMs"
+    launched: "2024"
+    chips: ["AI Assistants", "Health AI"]
+    group: "AI Assistants"
+    image: /assets/images/posts/projects/medos.png
+    gallery:
+      - "/assets/images/posts/projects/gallery/medos-live.png"
+    glance_title: "MedOS at a glance"
+    glance: "A private, multilingual medical assistant that gives source-aligned health guidance, available any hour and designed to inform rather than diagnose."
+    capabilities:
+      - "Guidance aligned with WHO, CDC, and NHS sources."
+      - "Multilingual — ask in your own language."
+      - "Privacy-first; built to orient, not to diagnose."
+    url: "https://ai-medical-chabot.com"
+  - title: "LearnAI"
+    desc: "An adaptive AI tutor that tunes every lesson to the learner's age, pace, and goals."
+    long: "LearnAI is a personal AI tutor built on a single pedagogical loop that adapts across distinct learning worlds — from a child learning to count to a professional studying cloud and AI — and extends into an organizations tier with dashboards and learning paths."
+    status: "Live"
+    category: "Education AI"
+    role: "Creator"
+    stack: "Python, LLMs, React"
+    launched: "2024"
+    chips: ["AI Assistants", "Education AI"]
+    group: "AI Assistants"
+    image: /assets/images/posts/projects/learnai.png
+    gallery:
+      - "/assets/images/posts/projects/gallery/learnai-live.png"
+      - "/assets/images/posts/projects/gallery/learnai-2.png"
+      - "/assets/images/posts/projects/gallery/learnai-3.png"
+      - "/assets/images/posts/projects/gallery/learnai-4.png"
+    glance_title: "LearnAI at a glance"
+    glance: "One adaptive teacher for every learner — a single pedagogical engine that reshapes itself for a child, a student, or a working professional."
+    capabilities:
+      - "Adapts lessons to age, pace, and goals."
+      - "Distinct learning worlds on one engine."
+      - "Organizations tier with dashboards and learning paths."
+    url: "https://learnskillsai.com"
+    docs: "https://learnskillsai.com/organizations"
+  - title: "HomePilot Avatar"
+    desc: "An embodied 3D and VR avatar you can speak to, for home and personal AI."
+    long: "HomePilot is a modular application for building AI personas with a live, embodied browser-based 3D and VR avatar, multi-provider language-model support, and real-time speech — where I explore what a genuinely useful personal AI system looks like with real tools and a face."
+    status: "Active"
+    category: "Personal AI"
+    role: "Creator"
+    stack: "FastAPI, React, CrewAI, LangGraph"
+    launched: "2023"
+    chips: ["AI Assistants", "Personal AI"]
+    group: "AI Assistants"
+    image: /assets/images/posts/projects/homepilot.png
+    gallery:
+      - "/assets/images/posts/projects/gallery/homepilot-live.png"
+    glance_title: "HomePilot at a glance"
+    glance: "A modular platform for AI personas with a live, embodied 3D/VR avatar you can speak to — exploring what a useful personal AI looks like with real tools and a face."
+    capabilities:
+      - "Browser-based 3D and VR avatar with real-time speech."
+      - "Multi-provider language-model support."
+      - "Persona engine with persistent memory."
+    url: "https://yourfriend.online"
+    github: "https://github.com/ruslanmv/HomePilot"
+    essay: "/personas-and-memory/"
+  - title: "Best of the Best"
+    desc: "An autonomous AI digest that surfaces the best papers, code, and tools every day."
+    long: "Best of the Best is an autonomous system that curates the AI ecosystem daily — monitoring where new work appears, ranking what it finds, and surfacing the most important models, repositories, and papers without my involvement. A self-contained demonstration of the alive-system philosophy."
+    status: "Curated"
+    category: "AI Digest"
+    role: "Creator"
+    stack: "Python, autonomous agents"
+    launched: "2024"
+    chips: ["Agents", "AI Digest"]
+    group: "Infrastructure"
+    image: /assets/images/posts/projects/best-of-the-best.png
+    gallery:
+      - "/assets/images/posts/projects/gallery/bestofthebest-live.png"
+      - "/assets/images/posts/projects/gallery/bestofthebest-2.png"
+      - "/assets/images/posts/projects/gallery/bestofthebest-3.png"
+      - "/assets/images/posts/projects/gallery/bestofthebest-4.png"
+    glance_title: "Best of the Best at a glance"
+    glance: "An autonomous curator that scans the AI ecosystem every day and surfaces the most important models, repositories, and papers — a working demonstration of the alive-system idea."
+    capabilities:
+      - "Monitors GitHub, Hugging Face, and new papers daily."
+      - "Ranks and surfaces what matters most."
+      - "Runs autonomously on a schedule."
+    url: "https://ruslanmv.com/Best-of-the-Best/"
+
+# ---- Compact index (right sidebar) ----
+index_items:
+  - { title: "Agent-Matrix", url: "https://agent-matrix.github.io" }
+  - { title: "MatrixHub", url: "https://www.matrixhub.io" }
+  - { title: "OllaBridge", url: "https://ollabridge.com" }
+  - { title: "MedOS", url: "https://ai-medical-chabot.com" }
+  - { title: "LearnAI", url: "https://learnskillsai.com" }
+  - { title: "HomePilot Avatar", url: "https://yourfriend.online" }
+  - { title: "Best of the Best", url: "https://ruslanmv.com/Best-of-the-Best/" }
 ---
-
-
-
-My work is based on analysis data for actionable insights. Devising and applying **models** and **algorithms** to mine the stores of big data. Analyzing the data to identify **patterns** and **trends**.
-
-
-
-## Cloud Solutions
-
-<p><a href="https://www.capgemini.com/" title="Redirect Capgemini">  
-<img src="../assets/images/posts/projects/capgemini.png" width="190" alt="homepage" /></a></p>
-
-I am responsible for Analyzing a company's IT system and  **cloud** infrastructure of a client. Diagnosing IT system problems, inefficiencies, and weaknesses. Planning a timeline for **completion of projects**. Understanding a client's business needs. Implementing a **cloud solution** to meet business needs. Analyzing and determining security threats. Providing advice on technology best practices. Collaborating with the **technical** in-house team to ensure familiarity with **cloud** technology.
-
-<p><a href="https://reply.it" title="Redirect Reply">  
-<img src="../assets/images/reply.png" width="190" alt="homepage" /></a></p>
-I  have **built** and maintained an organization's data infrastructure, particularly for cloud services in AWS, including relational databases and non-relational databases, **data warehouses**, and data pipelines. The infrastructure is deployed by using **Terraform** and the data transformation through **Scala** and **Spark**.
-
-<p><a href="https://www.youracclaim.com/users/ruslan-idelfonso-magana-vsevolodovna/badges" title="Redirect Acclaim">  
-<img src="../assets/images/awslogo.png" width="120" alt="homepage" /></a></p>
-
-
-
-My professional background includes crafting **algorithms**, making use of **machine learning** to mine, make sense of data, and using **data visualization** to present it to decision-makers. I am instrumental in analysing and delivering quantitative and qualitative research based solutions that reduce redundancy, improve accuracy and efficiency, and achieve organisational objectives. I have the ability to expand existing data delivery platforms and creating data systems that optimise data management, capturing, and quality. I develop advanced cloud-based solutions and migrate existing workloads to the cloud. [Read more...](https://cloud-data-science.com/index.php/services/)
-
-##  Cloud Data Science
-
-<p><a href="https://cloud-data-science.com" title="Redirect Cloud Data Science">  
-<img src="../assets/images/logo_small.png" width="120" alt="homepage" /></a></p>
-
-I perform **data mining, analysis, synthesis, visualization**, and data conversion into reportable formats for presentations, reports writing, and disseminate findings. I determine research methodology by collecting and evaluating data to ensure completeness and accuracy of information. I develop and implement extensive research plans and deliver detailed reports for informed decision-making. [Read more...](https://cloud-data-science.com)
-
-
-
-## Data Analysis at  NUMEN 
-<p><a href="https://web.infn.it/NUMEN/index.php/it/collaboration" title="Redirect NUMEN collaboration">  
-<img src="../assets/images/NUMEN.jpg" width="170" alt="homepage" /></a></p>
-
-
-
-I am part of the experimental [NUMEN](https://web.infn.it/NUMEN/index.php/it/collaboration) collaboration. In the NUMEN project, nuclear reactions of double charge-exchange (DCE) will be used as a tool to extract information on the ββ nuclear matrix elements (NME). Nuclear matrix elements for neutrinoless double beta decay and double charge exchange in the scheme of microscopic Interacting Boson Model are important allowing me belong to the NUMEN collaboration.
-
-My research provides insights to compute accurate nuclear matrix elements that serve to improve the nuclear reactions calculations that can be compared with the current experimental data. By using **machine learning** techniques, such as regression and classification techniques it was possible develop an accurate method to fit parameters to construct the nuclear wave functions for complex nuclei allowing present the results by using plots in Python or R, which helps to understand the complex quantum structure of the nuclei. The implementation of **new technologies** is part of the aim of my future work
-
-
-
-
-
-## Virial Expansion of Nuclear Equation
-
-
-
-<p><a href="https://cyclotron.tamu.edu/" title="Redirect TAMU">  
-<img src="../assets/images/texas.png" width="120" alt="homepage" /></a></p>
-
-
-Texas A&M University and Cyclotron Institute
-College Station, Texas (United States).
-Programming Language: Python with Mathematica
-
-I have developed a **model** to study the transition between mater and plasma. This may help to understand the external conditions of nature to materialize the matter. This provides insight into how was created our universe in terms of thermodynamics. I have proposed a function in terms of energy and with my team, we expanded the energy per particle (E/A) of symmetric infinite nuclear matter in powers of the density to take into account 2, 3, . . . , N-body forces.
-
-Here we have used a **Machine Learning** technique of **Regression** in Python and used it in Mathematica to check our results.
-
-The new model is proposed by fitting ground state properties of nuclear matter (binding energy, compressibility, and pressure) and assuming that at high densities a second-order phase transition to the quark-gluon plasma (QGP) occurs.
-
-This work helped to understand the nature of the nuclear matter and research more interesting properties of the plasma such are the sun and how under certain conditions the matter if created.
-
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%201.jpg" style="zoom:70%;" />
-
-This work was published in [World Scientifc](https://www.worldscientific.com/doi/abs/10.1142/S0218301312500061) as: Int.J.Mod.Phys. E21 (2012) 1250006
-
-
-
-## Classification of the nuclei by knowing their spectrum and perform analysis of nuclear reactions
-
-<p><a href="https://www.ge.infn.it/wordpress/" title="Redirect INFN Genova">  
-<img src="../assets/images/infn.jpg" width="170" alt="homepage" /></a></p>
-
-National Institute for Nuclear Physics
-Genova (Italy)
-Programming Language: Python with Fortran
-
-In this project, my task was to provide accurate wavefunctions of the 64Ni and 66Ni. To do that I required to compute the best parameters of the model which reproduce the experimental data coming from the [Database](https://www.nndc.bnl.gov/nudat2/ ) Nndc - Brookhaven National Laboratory. With this data, I have created a data set of all even-even nuclei which we have labeled the parameters. The parameters of the 66Ni and 66Ni were obtained by using a classification program in Python and by using the results I could determine the spectrum which are helpful to perform the analysis. The model is written in Fortran, but I was able to use python to get the coefficients. This work helped to study short-range correlations of sequential and direct reactions.
-
-
-
-![](https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%202.jpg)
-
-This work was published [Physical Review](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.96.044612) C 96, 044612 (2017)
-
-
-
-## Analysis and development of a model of the nuclear reaction of Double Charge Exchange
-
-<p><a href="https://www.ge.infn.it/wordpress/" title="Redirect INFN Genova">  
-<img src="../assets/images/infn.jpg" width="170" alt="homepage" /></a></p>
-
-National Institute for Nuclear Physics
-Genova (Italy)
-Programming Language: Python, Wolfram Mathematica, Matlab, C
-
-In this project, I have proposed a model to try to explain a nuclear reaction of a double charge exchange that allows determining the nature of the neutrinos. Find constraints to determine if the neutrinos are antiparticles and particles at the same time. My main role was to give the idea of the process and perform the calculation.
-
-I have performed the calculation by using sophisticated numeric and algebraic methods. We found correlations between neutrinoless double beta decay and double charge exchange and this opens the nuclear physicist community put constraints in the research of the masses of the neutrinos and explorer the new physics.
-
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image%204.jpg" style="zoom:60%;" />
-
-
-
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/image5.jpg" style="zoom:75%;" />
-
-This work was published in [Physical Review](https://journals.aps.org/prc/abstract/10.1103/PhysRevC.98.061601)  Phys. Rev. C 98, 061601(R)
-
-## HPC CUDA Developments
-
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/nvdia.png" style="zoom:55%;" />
-
-
-
-I have developed software in CUDA language that used in clusters to perform heavy calculations.
-
-
-
-## Developing of CUDA software for the analysis of flooding of a geographical area.
-
-<p><a href="https://www.redrisk.com/" title="Redirect REC">  
-<img src="../assets/images/reca.jpg" width="120" alt="homepage" /></a></p>
-
-
-RED Risk Engineering + Development
-Pavia (Italy)
-Programming Language,C,C++ ,Fortran, CUDA
-
- In this project, the Italian Association of Insurers enquired RED about some flood model results previously obtained for Italy and the South East of Europe in a different project. RED carried out an exhaustive analysis to evaluate the consistency of the flood event generation process, in the case of both defended and undefended areas, thus taking into account the asset vulnerability. Methodological and technical improvements were suggested to obtain a more accurate representation of the flood hazard in Italy, the results of the G-Cat model were analyzed for the 2014 flood of Modena (Italy), for residential buildings, using an exposure dataset. My role in this project was to help the software developers the porting of the code to CUDA and setup the GPUs ready to the servers for debugging on-premises servers. This program is useful to determine the risk of flooding for some geographical areas.
-
-
-
-<img src="https://github.com/ruslanmv/ruslanmv.github.io/raw/master/assets/images/rec.jpg" style="zoom:75%;" />
-
-The code is private and belong to the [RED Risk Engineering](https://www.redrisk.com/)
-
-
-
-
-
-
-
-
-<script async defer src="https://buttons.github.io/buttons.js"></script>

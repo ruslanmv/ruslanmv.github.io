@@ -1,0 +1,13 @@
+name = "ruslanmv-contact"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Non-secret config. Safe to keep in the repo.
+# Domain ruslanmv.com is verified in Resend (DKIM + SPF), so we send from it.
+# CONTACT_TO_EMAIL is a comma-separated list — every address gets the notification.
+[vars]
+CONTACT_TO_EMAIL = "contact@ruslanmv.com, ruslan.mv@gmail.com"
+CONTACT_FROM_EMAIL = "Ruslan Magana Vsevolodovna <contact@ruslanmv.com>"
+
+# Secrets are NOT stored here. Set the Resend API key with:
+#   wrangler secret put RESEND_API_KEY

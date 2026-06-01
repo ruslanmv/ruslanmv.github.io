@@ -41,7 +41,7 @@ Example: `ssh username@xx.xx.xx.xx -NL 1234:localhost:1234` (for Unix)
 
 Look at the above example, `1234:localhost:1234` is the important part. What does it mean? It means that any network request you send to port `1234` in your current system will be automatically forwarded to `localhost:1234` *from the remote system*.
 
-![Image for post](../assets/images/posts/2020-12-18-How-to-run-Programs-on-Remote-Server/1*uGLPZIeLPkvvaRkVG1-tkw-20201219214913992.png)
+![Image for post](../assets/images/posts/2020-12-18-How-to-run-Programs-on-Remote-Server/1-uGLPZIeLPkvvaRkVG1-tkw-20201219214913992.png)
 
 You might have gotten some inkling on how it is possible to use SSH tunneling to access jupyter notebook from the above diagram. Let’s make it clear.
 

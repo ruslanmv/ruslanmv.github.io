@@ -1,18 +1,91 @@
-# main links
+# =========================================================================
+#  Site navigation
+#  Rendered by _includes/masthead.html (custom self-contained nav).
+#  - `main`   : the desktop top bar (items with `children` are dropdowns)
+#  - `burger` : the full slide-out sitemap (always available, all devices)
+# =========================================================================
+
 main:
-#  - title: "Blog"
-#    url: /blog
-  - title: "The Best"
-    url: https://ruslanmv.com/Best-of-the-Best/
+  - title: "About"
+    url: /about
+    children:
+      - title: "Bio"
+        url: /about
+      - title: "Certifications"
+        url: /certifications
+      - title: "Contact"
+        url: /contact/
+
+  - title: "Work"
+    url: /projects
+    children:
+      - title: "Projects"
+        url: /projects
+      - title: "Labs"
+        url: /labs/
+      - title: "Alive System"
+        url: /alive-system/
+      - title: "MatrixHub"
+        url: "https://www.matrixhub.io"
+      - title: "OllaBridge"
+        url: "https://ollabridge.com"
+      - title: "MedOS"
+        url: "https://ai-medical-chabot.com"
+      - title: "LearnAI"
+        url: "https://learnskillsai.com"
+
+  - title: "Writing"
+    url: /essays/
+    children:
+      - title: "Essays"
+        url: /essays/
+      - title: "Blog"
+        url: /blog
+
+  - title: "Publications"
+    url: /publications
+
+  - title: "Talks"
+    url: /talks
+
   - title: "News"
     url: https://ruslanmv.com/news-and-trends/
+
+  - title: "Contact"
+    url: /contact/
+
+# Full sitemap shown inside the burger slide-out (every device).
+burger:
+  - title: "Home"
+    url: /
+  - title: "About"
+    url: /about
+  - title: "Work"
+    url: /projects
   - title: "Projects"
     url: /projects
-  - title: "Certifications"
-    url: /certifications
+    indent: true
+  - title: "Labs"
+    url: /labs/
+    indent: true
+  - title: "Alive System"
+    url: /alive-system/
+    indent: true
+  - title: "Writing"
+    url: /essays/
+  - title: "Essays"
+    url: /essays/
+    indent: true
+  - title: "Blog"
+    url: /blog
+    indent: true
   - title: "Publications"
     url: /publications
   - title: "Talks"
     url: /talks
-  - title: "About"
-    url: /about
+  - title: "News"
+    url: https://ruslanmv.com/news-and-trends/
+  - title: "Certifications"
+    url: /certifications
+  - title: "Contact"
+    url: /contact/

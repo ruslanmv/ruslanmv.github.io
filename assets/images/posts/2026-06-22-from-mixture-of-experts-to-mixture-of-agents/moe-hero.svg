@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="From mixture of experts to mixture of agents — sparse routing">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1020"/><stop offset="0.55" stop-color="#0d1b33"/><stop offset="1" stop-color="#081019"/>
+    </linearGradient>
+    <radialGradient id="gate" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#9fd6ff"/><stop offset="1" stop-color="#2f7fd9"/>
+    </radialGradient>
+    <radialGradient id="expActive" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7dffd0"/><stop offset="1" stop-color="#0a7d4f"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity="0.08" stroke="#9fd0ff"><path d="M0 300 H1600 M0 600 H1600 M533 0 V900 M1066 0 V900"/></g>
+
+  <!-- token stream entering from the left -->
+  <g fill="#cfe3ff" opacity="0.85">
+    <rect x="80" y="430" width="44" height="22" rx="4"/><rect x="135" y="430" width="44" height="22" rx="4" opacity="0.6"/><rect x="190" y="430" width="44" height="22" rx="4" opacity="0.35"/>
+  </g>
+  <text x="150" y="492" fill="#7fa7cf" font-family="Trebuchet MS, sans-serif" font-size="15" text-anchor="middle">tokens / tasks</text>
+
+  <!-- the gate -->
+  <g transform="translate(470,441)">
+    <circle r="46" fill="url(#gate)"/>
+    <text x="0" y="5" fill="#0b1020" font-family="Trebuchet MS, sans-serif" font-size="17" font-weight="800" text-anchor="middle">GATE</text>
+  </g>
+  <line x1="234" y1="441" x2="420" y2="441" stroke="#6ea8d8" stroke-width="2.5"/>
+  <text x="470" y="372" fill="#9fd6ff" font-family="Trebuchet MS, sans-serif" font-size="14" text-anchor="middle">top-k routing</text>
+
+  <!-- experts on the right; two active (top-2), rest dim -->
+  <g font-family="Trebuchet MS, sans-serif" font-size="14" text-anchor="middle">
+    <!-- active 1 -->
+    <g transform="translate(950,230)"><circle r="40" fill="url(#expActive)"/><text y="5" fill="#04130c" font-weight="700">E2</text></g>
+    <!-- active 2 -->
+    <g transform="translate(950,650)"><circle r="40" fill="url(#expActive)"/><text y="5" fill="#04130c" font-weight="700">E6</text></g>
+    <!-- dim experts -->
+    <g fill="#26384a" stroke="#3a5168" stroke-width="1.5">
+      <g transform="translate(900,360)"><circle r="32"/><text y="5" fill="#6b8198" stroke="none">E3</text></g>
+      <g transform="translate(900,520)"><circle r="32"/><text y="5" fill="#6b8198" stroke="none">E5</text></g>
+      <g transform="translate(1080,150)"><circle r="30"/><text y="5" fill="#6b8198" stroke="none">E1</text></g>
+      <g transform="translate(1110,440)"><circle r="30"/><text y="5" fill="#6b8198" stroke="none">E4</text></g>
+      <g transform="translate(1080,740)"><circle r="30"/><text y="5" fill="#54677d" stroke="none" opacity="0.7">E8</text></g>
+    </g>
+  </g>
+
+  <!-- routed (bright) connections to the two active experts -->
+  <g stroke="#34e0a0" stroke-width="3" fill="none">
+    <path d="M516 441 C 700 360, 800 270, 910 240"/>
+    <path d="M516 441 C 700 520, 800 610, 910 645"/>
+  </g>
+  <!-- faint unused routes -->
+  <g stroke="#3a5168" stroke-width="1.2" fill="none" opacity="0.5" stroke-dasharray="4 5">
+    <path d="M516 441 C 680 420, 780 380, 868 360"/>
+    <path d="M516 441 C 680 470, 780 510, 868 520"/>
+    <path d="M516 441 C 720 320, 900 200, 1050 155"/>
+    <path d="M516 441 C 740 441, 920 441, 1080 441"/>
+  </g>
+
+  <!-- caption strip -->
+  <text x="800" y="850" fill="#7fa7cf" font-family="Trebuchet MS, sans-serif" font-size="18" text-anchor="middle">One gate, many experts — and the same idea, one level up: many models, many agents.</text>
+</svg>

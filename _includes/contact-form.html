@@ -1,0 +1,129 @@
+{% assign A = site.author %}
+<div class="ct-grid">
+
+  <!-- Left: profile card -->
+  <aside class="ct-profile">
+    {% if A.avatar %}<img class="ct-profile__img" src="{{ A.avatar | relative_url }}" alt="{{ A.name }}">{% endif %}
+    <h2 class="ct-profile__name">{{ A.name }}</h2>
+    <p class="ct-profile__role">Machine Learning Engineer · Data Scientist · Physicist</p>
+    <div class="ct-profile__divider"></div>
+    <ul class="ct-profile__list">
+      <li><i class="fas fa-map-marker-alt"></i><span>{{ A.location | default: "Genoa, Italy" }}</span></li>
+      <li><a href="mailto:contact@ruslanmv.com"><i class="fas fa-envelope"></i><span>contact@ruslanmv.com</span></a></li>
+      {% if A.linkedin %}<li><a href="https://www.linkedin.com/in/{{ A.linkedin }}/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i><span>LinkedIn</span></a></li>{% endif %}
+      {% if A.github %}<li><a href="https://github.com/{{ A.github }}" target="_blank" rel="noopener"><i class="fab fa-github"></i><span>GitHub</span></a></li>{% endif %}
+      {% if A.youtube %}<li><a href="{{ A.youtube }}" target="_blank" rel="noopener"><i class="fab fa-youtube"></i><span>YouTube</span></a></li>{% endif %}
+    </ul>
+    <div class="ct-profile__focus">
+      <p class="ct-profile__focus-label">Focus</p>
+      <p class="ct-profile__focus-text">Autonomous AI, agents, ML systems, scientific computing, and applied AI products.</p>
+    </div>
+    <div class="ct-profile__office">
+      <p class="ct-profile__focus-label">Office</p>
+      <p class="ct-profile__office-text">{{ A.location | default: "Genoa, Italy" }}<br>Available for remote collaborations worldwide.</p>
+    </div>
+  </aside>
+
+  <!-- Right: form -->
+  <section class="ct-formwrap">
+    <h2 class="ct-formwrap__title">Send a Message</h2>
+    <p class="ct-formwrap__lead">Use the form below and I will get back to you as soon as possible.<br>Typical response time: <strong>1–2 business days.</strong></p>
+
+    <form id="ct-form" class="ct-form" novalidate>
+      <div class="ct-field">
+        <label for="ct-name">Your Name <span class="req">*</span></label>
+        <input type="text" id="ct-name" name="name" placeholder="John Doe" required autocomplete="name">
+      </div>
+
+      <div class="ct-field">
+        <label for="ct-email">Email Address <span class="req">*</span></label>
+        <input type="email" id="ct-email" name="email" placeholder="john@example.com" required autocomplete="email">
+      </div>
+
+      <div class="ct-field">
+        <label for="ct-topic">Topic <span class="req">*</span></label>
+        <div class="ct-select">
+          <select id="ct-topic" name="topic" required>
+            <option value="" disabled selected>Select a topic</option>
+            <option>Collaboration</option>
+            <option>Consulting</option>
+            <option>Research</option>
+            <option>Speaking</option>
+            <option>Project inquiry</option>
+            <option>Other</option>
+          </select>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div class="ct-field">
+        <label for="ct-message">Message <span class="req">*</span></label>
+        <textarea id="ct-message" name="message" rows="6" placeholder="Tell me about your project, idea, or how we can work together…" required minlength="20" maxlength="4000"></textarea>
+      </div>
+
+      <!-- Honeypot: must stay empty. Hidden from users + assistive tech. -->
+      <div class="ct-hp" aria-hidden="true">
+        <label for="ct-company">Company</label>
+        <input type="text" id="ct-company" name="company" tabindex="-1" autocomplete="off">
+      </div>
+
+      <!-- Cloudflare Turnstile renders here only when a site key is configured. -->
+      <div class="ct-turnstile" id="ct-turnstile"></div>
+
+      <div class="ct-formfoot">
+        <label class="ct-consent">
+          <input type="checkbox" id="ct-consent" required>
+          <span>I agree to the <a href="/privacy/" target="_blank" rel="noopener">privacy policy</a>.</span>
+        </label>
+        <button type="submit" class="ct-submit">
+          <i class="fas fa-paper-plane" aria-hidden="true"></i>
+          <span class="ct-submit__label">Send Message</span>
+        </button>
+      </div>
+
+      <p class="ct-status" id="ct-status" role="status" aria-live="polite"></p>
+      <p class="ct-secure"><i class="fas fa-lock" aria-hidden="true"></i> Your message is sent securely through a serverless endpoint. Don't include secrets or passwords.</p>
+    </form>
+  </section>
+</div>
+
+<!-- Other ways to connect -->
+<section class="ct-other">
+  <h2 class="ct-other__title">Other Ways to Connect</h2>
+  <div class="ct-other__grid">
+    <div class="ct-channel">
+      <span class="ct-channel__ic ct-ic-email"><i class="fas fa-envelope"></i></span>
+      <h3>Email</h3>
+      <p>Direct email for general inquiries and proposals.</p>
+      <a href="mailto:contact@ruslanmv.com">contact@ruslanmv.com <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="ct-channel">
+      <span class="ct-channel__ic ct-ic-linkedin"><i class="fab fa-linkedin"></i></span>
+      <h3>LinkedIn</h3>
+      <p>Best for professional networking.</p>
+      <a href="https://www.linkedin.com/in/{{ A.linkedin }}/" target="_blank" rel="noopener">View Profile <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="ct-channel">
+      <span class="ct-channel__ic ct-ic-github"><i class="fab fa-github"></i></span>
+      <h3>GitHub</h3>
+      <p>Explore code, projects, and open-source work.</p>
+      <a href="https://github.com/{{ A.github }}" target="_blank" rel="noopener">Visit GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="ct-channel">
+      <span class="ct-channel__ic ct-ic-youtube"><i class="fab fa-youtube"></i></span>
+      <h3>YouTube</h3>
+      <p>Talks, presentations, and technical videos.</p>
+      <a href="{{ A.youtube }}" target="_blank" rel="noopener">View Channel <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Collaboration CTA -->
+<section class="ct-cta">
+  <div class="ct-cta__icon"><i class="fas fa-users"></i></div>
+  <div class="ct-cta__body">
+    <h3>Interested in Collaboration?</h3>
+    <p>I work on long-term research, AI systems, and open problems in autonomous intelligence. If you have a project, idea, or opportunity in mind, let's discuss how we can build it together.</p>
+  </div>
+  <a class="ct-cta__btn" href="mailto:contact@ruslanmv.com">Let's Build Something <i class="fas fa-arrow-right"></i></a>
+</section>

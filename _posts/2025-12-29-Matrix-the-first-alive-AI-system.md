@@ -7,7 +7,12 @@ header:
   image: "./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30 19-54-08.gif"
   teaser: "./../assets/images/posts/2025-12-29-Matrix-the-first-alive-AI-system/2025-12-30-19-55-42b.jpg"
   caption: "The Dawn of the Agentic Era - Agent-Matrix "
-  
+
+essay: true
+essay_date: "2025-12-29"
+read_time: "12 min read"
+card_image: /assets/images/essays/agent-matrix.svg
+card_excerpt: "A new architecture where agents don't just act — they live, coordinate, remember, and evolve toward goals."
 ---
 
 Welcome to the **Matrix: Introducing the World’s First Alive AI System**. 
@@ -54,7 +59,7 @@ When you ask the Matrix for help, you aren't querying a database; you are signal
 Every cell in your body contains instructions for its function. Every agent in the Matrix contains a Manifest. This JSON-based genome describes:
 - **Identity:** Who am I?
 - **Capabilities:** What tools do I expose via the Model Context Protocol (MCP)?
-- **Metabolism:** What resources (API keys, memory, CPU) do I consume?
+- **Metabolism:** What resources (API keys, memory, CPU) do I consume? *(We turn this appetite into a metered, payable account in [MXU: The Currency of a Self-Sustaining Agent Economy](/blog/MXU-the-currency-of-a-self-sustaining-agent-economy).)*
 - **Lifecycle:** Am I young (beta), mature (stable), or dying (deprecated)?
 
 By standardizing this DNA, we allow the system to perform "genetic engineering" on itself—installing, connecting, and upgrading agents without human friction.
@@ -305,6 +310,8 @@ The vision is ambitious but achievable: a world where AI capabilities are as eas
 
 The future of AI is not fragmented tools and isolated agents. It is an interconnected ecosystem where capabilities discover each other, where integration is automatic, and where intelligence builds upon intelligence. Agent-Matrix is making this future real, one capability at a time.
 
+
+📖 Further reading: [MXU — The Currency of a Self-Sustaining Agent Economy](/blog/MXU-the-currency-of-a-self-sustaining-agent-economy) — how the organism pays its own bills, powered by the [Matrix Treasury](https://github.com/agent-matrix/matrix-treasury).
 
 🌐 Official site: [https://agent-matrix.github.io/](https://agent-matrix.github.io/)
 

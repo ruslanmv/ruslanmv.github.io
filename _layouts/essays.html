@@ -1,0 +1,183 @@
+---
+layout: default
+---
+
+<style>
+/* =========================================================================
+   Essays archive — sibling of the blog, more curated/premium
+   Scoped to body.layout--essays
+   ========================================================================= */
+body.layout--essays {
+  --ea-bg:#f6f6f3; --ea-card:#fff; --ea-line:#e7e6df; --ea-ink:#1c2320;
+  --ea-muted:#6c726c; --ea-faint:#98a09a; --ea-accent:#0a7d4f; --ea-accent-deep:#0b5a3f;
+  --ea-serif:Georgia,"Times New Roman",serif;
+  background:var(--ea-bg);
+}
+body.layout--essays .initial-content, body.layout--essays .page__content { background:var(--ea-bg); }
+body.layout--essays .page__hero--overlay { display:none; }
+
+/* ---- hero ---- */
+.ea-hero { position:relative; background:#08120d; overflow:hidden; }
+.ea-hero__bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.ea-hero__inner { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:3.5rem 1.5rem; }
+.ea-hero__title { font-family:'Montserrat',sans-serif; font-weight:800; color:#fff; font-size:clamp(44px,7vw,76px); line-height:1; margin:0; letter-spacing:-0.01em; }
+.ea-hero__sub { color:#cfe9dc; font-size:clamp(15px,2vw,18px); line-height:1.5; margin:1rem 0 0; max-width:34rem; }
+
+/* ---- layout: sidebar + archive ---- */
+.ea { max-width:1180px; margin:0 auto; padding:2.5rem 1.5rem 4.5rem; display:grid; grid-template-columns:1fr; gap:2.5rem; }
+@media (min-width:920px) { .ea { grid-template-columns:240px minmax(0,1fr); gap:3rem; } }
+
+/* author sidebar */
+.ea-author { text-align:left; }
+@media (min-width:920px) { .ea-author { position:sticky; top:1.5rem; align-self:start; } }
+.ea-author__photo { width:120px; height:120px; border-radius:50%; object-fit:cover; border:1px solid var(--ea-line); }
+.ea-author__name { font-family:var(--ea-serif); font-size:1.5rem; color:var(--ea-ink); margin:1rem 0 0.4rem; line-height:1.15; }
+.ea-author__role { color:var(--ea-muted); font-size:0.95rem; line-height:1.45; margin:0 0 1rem; }
+.ea-author__links { list-style:none; margin:0; padding:0; }
+.ea-author__links li { margin:0 0 0.1rem; }
+.ea-author__links a { display:flex; align-items:center; gap:0.6rem; min-height:40px; color:var(--ea-ink); text-decoration:none; font-size:0.95rem; }
+.ea-author__links a:hover { color:var(--ea-accent); }
+.ea-author__links .ic { width:18px; text-align:center; color:var(--ea-faint); }
+.ea-author__links a:hover .ic { color:var(--ea-accent); }
+
+/* year filter row */
+.ea-years { display:flex; gap:1.5rem; border-bottom:1px solid var(--ea-line); margin:0 0 1.75rem; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.ea-year { background:none; border:0; cursor:pointer; padding:0 0 0.9rem; display:inline-flex; align-items:baseline; gap:0.4rem; white-space:nowrap; position:relative; color:var(--ea-muted); }
+.ea-year .yr { font-size:1.05rem; font-weight:700; }
+.ea-year .ct { font-size:0.8rem; color:var(--ea-faint); }
+.ea-year.is-active { color:var(--ea-ink); }
+.ea-year.is-active:after { content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--ea-accent); }
+
+/* essay cards */
+.ea-list { display:flex; flex-direction:column; }
+.ea-card {
+  display:grid; grid-template-columns:1fr; align-items:stretch;
+  border:1px solid var(--ea-line); border-radius:16px; overflow:hidden; background:var(--ea-card);
+  text-decoration:none; color:inherit; margin:0 0 1.1rem; transition:border-color .15s, box-shadow .15s, transform .15s;
+}
+.ea-card:hover { border-color:var(--ea-accent); box-shadow:0 12px 28px rgba(0,0,0,0.06); transform:translateY(-1px); }
+@media (min-width:620px) { .ea-card { grid-template-columns:320px minmax(0,1fr) 60px; min-height:210px; } }
+
+/* fixed, consistent thumbnail area — source dimensions never drive card height */
+.ea-card__media {
+  position:relative; width:100%; aspect-ratio:16/10; overflow:hidden; background:#071410;
+}
+@media (min-width:620px) { .ea-card__media { aspect-ratio:auto; height:100%; min-height:210px; } }
+.ea-card__media img {
+  width:100%; height:100%; object-fit:cover;
+  object-position:var(--thumb-pos, center center);
+  display:block; transition:transform 300ms ease;
+}
+.ea-card:hover .ea-card__media img { transform:scale(1.035); }
+.ea-card__media::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.04), rgba(0,0,0,0.12));
+}
+.ea-card__body { padding:1.4rem 1.5rem; display:flex; flex-direction:column; justify-content:center; }
+.ea-card__meta { display:flex; align-items:center; gap:0.7rem; color:var(--ea-muted); font-size:0.85rem; margin:0 0 0.6rem; }
+.ea-card__meta .rt { display:inline-flex; align-items:center; gap:0.35rem; }
+.ea-card__meta .rt svg { width:14px; height:14px; opacity:0.7; }
+.ea-card__meta .dot { color:var(--ea-faint); }
+.ea-card__title { font-family:var(--ea-serif); font-size:1.4rem; line-height:1.2; color:var(--ea-ink); margin:0 0 0.5rem; }
+.ea-card__excerpt { color:var(--ea-muted); font-size:0.98rem; line-height:1.5; margin:0; }
+.ea-card__arrow { display:none; align-items:center; justify-content:center; color:var(--ea-accent); font-size:1.3rem; }
+@media (min-width:620px) { .ea-card__arrow { display:flex; } }
+.ea-card:hover .ea-card__arrow { color:var(--ea-accent-deep); }
+
+.ea-empty { color:var(--ea-muted); font-size:1rem; padding:2rem 0; }
+</style>
+
+{% assign A = site.author %}
+
+<header class="ea-hero">
+  <img class="ea-hero__bg" src="{{ '/assets/images/essays-hero.svg' | relative_url }}" alt="" aria-hidden="true">
+  <div class="ea-hero__inner">
+    <h1 class="ea-hero__title">{{ page.hero_title | default: "Essays" }}</h1>
+    <p class="ea-hero__sub">{{ page.hero_sub }}</p>
+  </div>
+</header>
+
+<div class="ea">
+
+  <aside class="ea-author">
+    {% if A.avatar %}<img class="ea-author__photo" src="{{ A.avatar | relative_url }}" alt="{{ A.name }}">{% endif %}
+    <h2 class="ea-author__name">{{ A.name }}</h2>
+    <p class="ea-author__role">Machine Learning Engineer &amp; Data Scientist &amp; Physicist</p>
+    <ul class="ea-author__links">
+      {% if A.location %}<li><a><span class="ic"><i class="fas fa-map-marker-alt"></i></span>{{ A.location }}</a></li>{% endif %}
+      <li><a href="mailto:contact@ruslanmv.com"><span class="ic"><i class="fas fa-envelope"></i></span>Email</a></li>
+      {% if A.linkedin %}<li><a href="https://www.linkedin.com/in/{{ A.linkedin }}/" target="_blank" rel="noopener"><span class="ic"><i class="fab fa-linkedin"></i></span>LinkedIn</a></li>{% endif %}
+      {% if A.github %}<li><a href="https://github.com/{{ A.github }}" target="_blank" rel="noopener"><span class="ic"><i class="fab fa-github"></i></span>GitHub</a></li>{% endif %}
+      {% if A.youtube %}<li><a href="{{ A.youtube }}" target="_blank" rel="noopener"><span class="ic"><i class="fab fa-youtube"></i></span>YouTube</a></li>{% endif %}
+    </ul>
+  </aside>
+
+  <main class="ea-main">
+    {%- comment -%}
+      Auto-collect every post AND page tagged `essay: true`, newest first.
+      Sorting/dating use `essay_date` ("YYYY-MM-DD") so posts and pages order together.
+    {%- endcomment -%}
+    {% assign post_e = site.posts | where: "essay", true %}
+    {% assign page_e = site.pages | where: "essay", true %}
+    {% assign essays = post_e | concat: page_e | sort: "essay_date" | reverse %}
+
+    {%- comment -%} unique years (descending) {%- endcomment -%}
+    {% assign yrs = "" %}
+    {% for e in essays %}{% assign y = e.essay_date | append: " 12:00" | date: "%Y" %}{% unless yrs contains y %}{% assign yrs = yrs | append: y | append: "," %}{% endunless %}{% endfor %}
+    {% assign years = yrs | split: "," %}
+
+    <div class="ea-years" role="tablist" aria-label="Filter essays by year">
+      <button class="ea-year is-active" data-year="all"><span class="yr">All</span><span class="ct">{{ essays | size }}</span></button>
+      {% for y in years %}
+        {% assign n = 0 %}{% for e in essays %}{% assign ey = e.essay_date | append: " 12:00" | date: "%Y" %}{% if ey == y %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
+        <button class="ea-year" data-year="{{ y }}"><span class="yr">{{ y }}</span><span class="ct">{{ n }}</span></button>
+      {% endfor %}
+    </div>
+
+    <div class="ea-list">
+      {% for e in essays %}
+      {% assign card_img = e.card_image | default: e.image %}
+      {% assign card_ex = e.card_excerpt | default: e.excerpt | strip_html | strip | truncate: 170 %}
+      <a class="ea-card" href="{{ e.url }}" data-year="{{ e.essay_date | append: " 12:00" | date: '%Y' }}">
+        <div class="ea-card__media"{% if e.thumbnail_position %} style="--thumb-pos: {{ e.thumbnail_position }}"{% endif %}>{% if card_img %}<img src="{{ card_img | relative_url }}" alt="{{ e.title }}" decoding="async"{% if forloop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>{% endif %}</div>
+        <div class="ea-card__body">
+          <div class="ea-card__meta">
+            {% if e.read_time %}<span class="rt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{{ e.read_time }}</span>
+            <span class="dot">·</span>{% endif %}
+            <span class="date">{{ e.essay_date | append: " 12:00" | date: "%d %b %Y" }}</span>
+          </div>
+          <h3 class="ea-card__title">{{ e.title }}</h3>
+          <p class="ea-card__excerpt">{{ card_ex }}</p>
+        </div>
+        <div class="ea-card__arrow" aria-hidden="true">→</div>
+      </a>
+      {% endfor %}
+    </div>
+    <p class="ea-empty" id="ea-empty" style="display:none;">No essays from this year yet.</p>
+  </main>
+
+</div>
+
+<script>
+(function(){
+  function ready(fn){ if(document.readyState!=='loading'){fn();} else {document.addEventListener('DOMContentLoaded',fn);} }
+  ready(function(){
+    var years = document.querySelectorAll('.ea-year');
+    var cards = document.querySelectorAll('.ea-card');
+    var empty = document.getElementById('ea-empty');
+    years.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        years.forEach(function(x){ x.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        var y = btn.getAttribute('data-year'); var shown = 0;
+        cards.forEach(function(c){
+          var match = (y === 'all' || c.getAttribute('data-year') === y);
+          c.style.display = match ? '' : 'none';
+          if (match) shown++;
+        });
+        empty.style.display = shown ? 'none' : '';
+      });
+    });
+  });
+})();
+</script>

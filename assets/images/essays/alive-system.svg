@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Alive system waves">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06160f"/><stop offset="1" stop-color="#0a2117"/>
+    </linearGradient>
+    <linearGradient id="w" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0a7d4f" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#2fd996" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#7dffd0" stop-opacity="0.95"/>
+    </linearGradient>
+    <radialGradient id="glow2" cx="0.6" cy="0.5" r="0.6">
+      <stop offset="0" stop-color="#15a86d" stop-opacity="0.4"/><stop offset="1" stop-color="#15a86d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="b2"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg2)"/>
+  <rect width="1200" height="750" fill="url(#glow2)"/>
+  <g filter="url(#b2)" fill="none">
+    <path d="M-50 420 C 250 300, 450 540, 700 380 S 1100 320, 1260 430" stroke="url(#w)" stroke-width="3" opacity="0.95"/>
+    <path d="M-50 470 C 250 360, 450 590, 700 430 S 1100 380, 1260 480" stroke="url(#w)" stroke-width="2" opacity="0.7"/>
+    <path d="M-50 370 C 250 250, 450 490, 700 330 S 1100 270, 1260 380" stroke="url(#w)" stroke-width="2" opacity="0.65"/>
+    <path d="M-50 520 C 250 420, 450 640, 700 490 S 1100 440, 1260 540" stroke="url(#w)" stroke-width="1.5" opacity="0.5"/>
+    <path d="M-50 320 C 250 210, 450 440, 700 290 S 1100 230, 1260 330" stroke="url(#w)" stroke-width="1.5" opacity="0.45"/>
+  </g>
+  <g fill="#7dffd0">
+    <circle cx="700" cy="380" r="4" opacity="0.95"/><circle cx="430" cy="430" r="3" opacity="0.8"/>
+    <circle cx="950" cy="350" r="3.5" opacity="0.85"/><circle cx="250" cy="350" r="3" opacity="0.7"/>
+    <circle cx="1080" cy="400" r="3" opacity="0.8"/><circle cx="560" cy="330" r="2.5" opacity="0.7"/>
+  </g>
+</svg>
