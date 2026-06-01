@@ -129,6 +129,83 @@ body.layout--contact .page__hero--overlay { display:none; }
   .ct-cta__btn { width:100%; justify-content:center; }
 }
 
-/* ---- Cloudflare Turnstile widget ---- */
-.ct-turnstile { display:flex; justify-content:center; margin:0 0 1.2rem; }
+/* ---- Cloudflare Turnstile widget ----
+   Light theme, left-aligned — feels like part of the form, not a separate block. */
+.ct-field--turnstile { margin:0 0 1.2rem; }
+.ct-turnstile { display:flex; justify-content:flex-start; min-height:0; }
 .ct-turnstile:not(:empty) { min-height:65px; }
+
+/* ---- Submit button: loading spinner state ---- */
+.ct-submit__spinner { display:none; width:16px; height:16px; border-radius:50%;
+  border:2px solid rgba(255,255,255,0.4); border-top-color:#fff;
+  animation:ct-spin 0.7s linear infinite; flex:0 0 auto; }
+.ct-submit.is-loading .ct-submit__spinner { display:inline-block; }
+.ct-submit.is-loading .ct-submit__icon { display:none; }
+@keyframes ct-spin { to { transform:rotate(360deg); } }
+
+/* ---- Inline persistent success banner (shows after the modal closes) ---- */
+.ct-banner { display:flex; align-items:center; gap:0.7rem;
+  background:var(--ct-accent-wash); border:1px solid #cfe9de; color:var(--ct-accent-deep);
+  border-radius:12px; padding:0.85rem 1rem; margin:0 0 1.25rem; animation:ct-fade 0.25s ease-out; }
+.ct-banner i.fa-check-circle { font-size:1.25rem; color:var(--ct-accent); flex:0 0 auto; }
+.ct-banner p { margin:0; color:var(--ct-ink); font-size:0.95rem; flex:1; }
+.ct-banner p strong { color:var(--ct-accent-deep); }
+.ct-banner__close { background:transparent; border:0; cursor:pointer; font-size:1.5rem;
+  line-height:1; color:var(--ct-muted); padding:0 0.3rem; }
+.ct-banner__close:hover { color:var(--ct-ink); }
+@keyframes ct-fade { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
+
+/* ---- Success modal ---- */
+.ct-modal { position:fixed; inset:0; z-index:10000; display:none; }
+.ct-modal[aria-hidden="false"] { display:flex; align-items:center; justify-content:center; }
+.ct-modal__overlay { position:absolute; inset:0; background:rgba(8,18,13,0.55);
+  backdrop-filter:blur(2px); animation:ct-fade 0.18s ease-out; }
+.ct-modal__card { position:relative; background:var(--ct-card); border:1px solid var(--ct-line);
+  border-radius:20px; box-shadow:0 24px 64px rgba(0,0,0,0.25), 0 2px 6px rgba(0,0,0,0.06);
+  width:min(92vw, 460px); padding:2rem 1.75rem 1.5rem; text-align:center;
+  animation:ct-pop 0.22s cubic-bezier(.2,.9,.3,1.2); }
+@keyframes ct-pop { from { opacity:0; transform:scale(0.94) translateY(8px); } to { opacity:1; transform:none; } }
+.ct-modal__x { position:absolute; top:0.7rem; right:0.9rem; background:transparent; border:0;
+  font-size:1.7rem; line-height:1; color:var(--ct-faint); cursor:pointer; padding:0.15rem 0.4rem;
+  border-radius:8px; }
+.ct-modal__x:hover { color:var(--ct-ink); background:#f0efe9; }
+
+/* Animated check */
+.ct-modal__check { width:72px; height:72px; border-radius:50%;
+  background:var(--ct-accent-wash); display:flex; align-items:center; justify-content:center;
+  margin:0.2rem auto 1rem; }
+.ct-modal__check svg { width:46px; height:46px; }
+.ct-modal__check svg circle { stroke:var(--ct-accent); stroke-width:2; stroke-dasharray:166;
+  stroke-dashoffset:166; animation:ct-circle 0.45s ease-out forwards; }
+.ct-modal__check svg path { stroke:var(--ct-accent); stroke-dasharray:48; stroke-dashoffset:48;
+  animation:ct-tick 0.35s 0.35s ease-out forwards; }
+@keyframes ct-circle { to { stroke-dashoffset:0; } }
+@keyframes ct-tick   { to { stroke-dashoffset:0; } }
+
+.ct-modal__title { font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.5rem;
+  color:var(--ct-ink); margin:0 0 0.7rem; }
+.ct-modal__body { color:var(--ct-ink); font-size:0.98rem; line-height:1.55; margin:0 0 0.7rem; }
+.ct-modal__body--muted { color:var(--ct-muted); font-size:0.93rem; }
+.ct-modal__body strong { color:var(--ct-accent-deep); }
+.ct-modal__safe { color:var(--ct-faint); font-size:0.85rem; margin:0.4rem 0 1.3rem; }
+
+.ct-modal__actions { display:flex; flex-wrap:wrap; gap:0.7rem; justify-content:center; margin:0 0 0.6rem; }
+.ct-modal__actions .ct-submit { box-shadow:none; padding:0.7rem 1.15rem; font-size:0.95rem; }
+.ct-modal__close { background:#fff; border:1px solid var(--ct-line); color:var(--ct-ink);
+  font-weight:600; font-size:0.95rem; padding:0.7rem 1.4rem; border-radius:11px; cursor:pointer;
+  transition:border-color .15s, color .15s; }
+.ct-modal__close:hover { border-color:var(--ct-accent); color:var(--ct-accent-deep); }
+.ct-modal__home { display:inline-block; margin-top:0.4rem; color:var(--ct-accent);
+  text-decoration:none; font-size:0.92rem; font-weight:600; }
+.ct-modal__home:hover { color:var(--ct-accent-deep); text-decoration:underline; }
+
+/* Mobile: bottom-sheet style */
+@media (max-width:560px) {
+  .ct-modal[aria-hidden="false"] { align-items:flex-end; }
+  .ct-modal__card { width:100%; border-radius:20px 20px 0 0; padding:1.6rem 1.25rem 1.5rem;
+    animation:ct-sheet 0.25s ease-out; }
+  @keyframes ct-sheet { from { transform:translateY(100%); } to { transform:none; } }
+  .ct-modal__actions { flex-direction:column; }
+  .ct-modal__actions .ct-submit, .ct-modal__close { width:100%; justify-content:center; }
+}
+body.ct-modal-open { overflow:hidden; }

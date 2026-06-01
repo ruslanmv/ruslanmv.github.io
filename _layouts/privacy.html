@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<link rel="stylesheet" href="{{ '/assets/css/contact.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/privacy.css' | relative_url }}">
+
+<header class="ct-hero">
+  <img class="ct-hero__bg" src="{{ '/assets/images/essays-hero.svg' | relative_url }}" alt="" aria-hidden="true">
+  <div class="ct-hero__inner">
+    <span class="ct-hero__kicker">{{ page.hero_kicker | default: "PRIVACY" }}</span>
+    <h1 class="ct-hero__title">{{ page.hero_title | default: "Privacy Policy" }}</h1>
+    <p class="ct-hero__sub">{{ page.hero_sub }}</p>
+    {% if page.updated %}<p class="pv-updated">Last updated: <strong>{{ page.updated }}</strong></p>{% endif %}
+  </div>
+</header>
+
+<main class="pv">
+  <article class="pv-prose">
+    {{ content }}
+  </article>
+</main>
