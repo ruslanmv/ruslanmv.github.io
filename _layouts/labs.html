@@ -1,0 +1,267 @@
+---
+layout: default
+---
+
+<style>
+/* =========================================================================
+   Ruslan Labs — premium "portfolio of shipped systems"
+   Scoped to body.layout--labs
+   ========================================================================= */
+body.layout--labs {
+  --lb-bg:     #f8f8f5;
+  --lb-card:   #ffffff;
+  --lb-line:   #e7e5de;
+  --lb-ink:    #1f2523;
+  --lb-muted:  #6c716c;
+  --lb-faint:  #97a09a;
+  --lb-accent: #0f766e;
+  --lb-accent-deep: #0b5a54;
+  --lb-accent-wash: #e9f4f1;
+  --lb-live:   #16a34a;
+  --lb-serif:  Georgia, "Iowan Old Style", "Times New Roman", serif;
+  background: var(--lb-bg);
+}
+
+/* ---- Navbar: keep the site's default DARK masthead ---------------------
+   (Only the page body uses the warm canvas; the top nav stays dark.) */
+body.layout--labs .initial-content,
+body.layout--labs .page__content { background: var(--lb-bg); }
+body.layout--labs .page__hero--overlay { display: none; }
+
+.labs { max-width: 1180px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+/* ---- Hero -------------------------------------------------------------- */
+.labs__hero { position: relative; margin: 0 0 3rem; }
+.labs__hero-inner { max-width: 640px; position: relative; z-index: 2; }
+.labs__title {
+  font-family: var(--lb-serif); font-weight: 700; color: var(--lb-ink);
+  font-size: clamp(40px, 7vw, 72px); line-height: 1.02; letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+.labs__subtitle {
+  color: var(--lb-accent); font-weight: 600;
+  font-size: clamp(18px, 2.4vw, 23px); line-height: 1.35; margin: 0 0 1rem;
+}
+.labs__intro {
+  color: var(--lb-muted); font-size: 1.12rem; line-height: 1.6;
+  max-width: 34rem; margin: 0 0 1.6rem;
+}
+.labs__cta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0 0 1.8rem; }
+.labs__btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-weight: 600; font-size: 0.97rem; padding: 0.7rem 1.3rem;
+  border-radius: 11px; text-decoration: none; transition: all 0.15s ease;
+}
+.labs__btn--primary { background: var(--lb-accent-deep); color: #fff; box-shadow: 0 6px 18px rgba(11,90,84,0.22); }
+.labs__btn--primary:hover { background: var(--lb-accent); color: #fff; }
+.labs__btn--ghost { background: var(--lb-card); color: var(--lb-ink); border: 1px solid var(--lb-line); }
+.labs__btn--ghost:hover { border-color: var(--lb-accent); color: var(--lb-accent-deep); }
+
+.labs__author { display: flex; align-items: center; gap: 0.8rem; }
+.labs__author img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--lb-line); }
+.labs__author .nm { font-weight: 700; color: var(--lb-ink); font-size: 0.95rem; line-height: 1.3; }
+.labs__author .rl { color: var(--lb-muted); font-size: 0.83rem; line-height: 1.3; }
+.labs__author .lo { color: var(--lb-faint); font-size: 0.8rem; }
+
+/* decorative orbit graphic, right side, desktop only */
+.labs__orbit { display: none; }
+@media (min-width: 940px) {
+  .labs__orbit {
+    display: block; position: absolute; top: 50%; right: -10px; transform: translateY(-50%);
+    width: 460px; height: 360px; z-index: 1; pointer-events: none; opacity: 0.9;
+  }
+}
+
+/* ---- Section headings -------------------------------------------------- */
+.labs__section { margin: 3.25rem 0 0; }
+.labs__section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 0 0 1.25rem; }
+.labs__eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--lb-accent); margin: 0;
+}
+.labs__h2 { font-family: var(--lb-serif); font-size: 1.9rem; color: var(--lb-ink); margin: 0.25rem 0 0; letter-spacing: -0.01em; }
+.labs__section-sub { color: var(--lb-muted); font-size: 1rem; margin: 0.4rem 0 0; max-width: 44rem; }
+.labs__viewall { color: var(--lb-accent); font-size: 0.9rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.labs__viewall:hover { color: var(--lb-accent-deep); }
+
+/* ---- Status + category chips ------------------------------------------ */
+.lb-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin: 0.8rem 0 0; }
+.lb-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--lb-muted); }
+.lb-status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lb-live); box-shadow: 0 0 0 3px rgba(22,163,74,0.15); }
+.lb-status.is-proto .dot { background: #d97706; box-shadow: 0 0 0 3px rgba(217,119,6,0.15); }
+.lb-cat { font-size: 0.78rem; font-weight: 600; color: var(--lb-muted); background: var(--lb-bg); border: 1px solid var(--lb-line); border-radius: 999px; padding: 0.18rem 0.7rem; }
+
+/* ---- Featured wide card ----------------------------------------------- */
+.lb-featured {
+  display: grid; grid-template-columns: 1fr; gap: 0;
+  background: var(--lb-card); border: 1px solid var(--lb-line); border-radius: 20px;
+  overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.03), 0 12px 30px rgba(0,0,0,0.04);
+}
+@media (min-width: 760px) { .lb-featured { grid-template-columns: 1.35fr 1fr; } }
+.lb-featured__media { background: #0d1320; min-height: 220px; }
+.lb-featured__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lb-featured__body { padding: 1.9rem 1.9rem; display: flex; flex-direction: column; justify-content: center; }
+.lb-featured__tag { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lb-faint); margin: 0 0 0.7rem; }
+.lb-featured__title { font-family: var(--lb-serif); font-size: 2rem; color: var(--lb-ink); margin: 0 0 0.7rem; letter-spacing: -0.01em; }
+.lb-featured__desc { color: var(--lb-muted); font-size: 1.05rem; line-height: 1.55; margin: 0; }
+.lb-featured__open {
+  display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 1.3rem;
+  align-self: flex-start; font-weight: 600; font-size: 0.95rem; color: var(--lb-ink);
+  background: var(--lb-bg); border: 1px solid var(--lb-line); border-radius: 10px; padding: 0.6rem 1.1rem;
+  text-decoration: none; transition: all 0.15s ease;
+}
+.lb-featured__open:hover { border-color: var(--lb-accent); color: var(--lb-accent-deep); }
+
+/* ---- Card grid -------------------------------------------------------- */
+.lb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.1rem; }
+.lb-card {
+  display: flex; flex-direction: column; background: var(--lb-card);
+  border: 1px solid var(--lb-line); border-radius: 18px; overflow: hidden;
+  text-decoration: none; color: inherit; transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.lb-card:hover { border-color: var(--lb-accent); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.07); }
+.lb-card__media { aspect-ratio: 16 / 9; background: #0d1320; overflow: hidden; }
+.lb-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lb-card__body { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; flex: 1; }
+.lb-card__title { font-size: 1.18rem; font-weight: 700; color: var(--lb-ink); margin: 0 0 0.35rem; }
+.lb-card__desc { color: var(--lb-muted); font-size: 0.95rem; line-height: 1.5; margin: 0; flex: 1; }
+.lb-card__open { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; font-weight: 600; font-size: 0.9rem; color: var(--lb-accent); }
+.lb-card:hover .lb-card__open { color: var(--lb-accent-deep); }
+.lb-card__open .arr { transition: transform 0.15s ease; }
+.lb-card:hover .lb-card__open .arr { transform: translateX(3px); }
+
+/* ---- Footer note ------------------------------------------------------ */
+.labs__foot { margin-top: 3.5rem; padding-top: 1.75rem; border-top: 1px solid var(--lb-line); color: var(--lb-muted); font-size: 1rem; }
+.labs__foot a { color: var(--lb-accent); text-decoration: none; border-bottom: 1px solid rgba(15,118,110,0.3); }
+.labs__foot a:hover { border-bottom-color: var(--lb-accent); }
+</style>
+
+{% assign A = site.author %}
+
+<div class="labs">
+
+  <!-- ============ HERO ============ -->
+  <header class="labs__hero">
+    <div class="labs__hero-inner">
+      <h1 class="labs__title">{{ page.labs_title | default: "Ruslan Labs" }}</h1>
+      <p class="labs__subtitle">{{ page.labs_subtitle }}</p>
+      <p class="labs__intro">{{ page.labs_intro }}</p>
+      <div class="labs__cta">
+        <a class="labs__btn labs__btn--primary" href="#live-systems">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor" stroke="none"/></svg>
+          View live systems
+        </a>
+        <a class="labs__btn labs__btn--ghost" href="/alive-system/">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Read Alive System
+        </a>
+      </div>
+      <div class="labs__author">
+        {% if A.avatar %}<img src="{{ A.avatar | relative_url }}" alt="{{ A.name }}">{% endif %}
+        <div>
+          <div class="nm">{{ A.name }}</div>
+          <div class="rl">Machine Learning Engineer · Data Scientist · Physicist</div>
+          {% if A.location %}<div class="lo">{{ A.location }}</div>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <svg class="labs__orbit" viewBox="0 0 460 360" fill="none" aria-hidden="true">
+      <g stroke="#cdd6d2" stroke-width="1">
+        <ellipse cx="250" cy="180" rx="200" ry="70"/>
+        <ellipse cx="250" cy="180" rx="150" ry="120" transform="rotate(28 250 180)"/>
+        <ellipse cx="250" cy="180" rx="120" ry="55" transform="rotate(-18 250 180)"/>
+      </g>
+      <circle cx="250" cy="180" r="26" fill="#e7efec" stroke="#bfd0ca"/>
+      <g fill="#9fb4ad">
+        <circle cx="447" cy="172" r="5"/><circle cx="120" cy="120" r="4"/>
+        <circle cx="360" cy="92" r="4"/><circle cx="170" cy="250" r="5"/>
+        <circle cx="318" cy="262" r="4"/><circle cx="60" cy="196" r="4"/>
+      </g>
+    </svg>
+  </header>
+
+  <!-- ============ FEATURED ============ -->
+  {% assign f = page.featured %}
+  {% if f %}
+  <section class="labs__section" aria-label="Featured system">
+    <div class="labs__section-head"><p class="labs__eyebrow">Featured System</p></div>
+    <article class="lb-featured">
+      <div class="lb-featured__media">
+        {% if f.image %}<img src="{{ f.image | relative_url }}" alt="{{ f.title }}" loading="lazy">{% endif %}
+      </div>
+      <div class="lb-featured__body">
+        <p class="lb-featured__tag">Featured</p>
+        <h3 class="lb-featured__title">{{ f.title }}</h3>
+        <p class="lb-featured__desc">{{ f.desc }}</p>
+        <div class="lb-meta">
+          <span class="lb-status"><span class="dot"></span>{{ f.status | default: "Live" }}</span>
+          <span class="lb-cat">{{ f.category }}</span>
+        </div>
+        <a class="lb-featured__open" href="{{ f.url }}"{% if f.url contains 'http' %} target="_blank" rel="noopener"{% endif %}>Open project →</a>
+      </div>
+    </article>
+  </section>
+  {% endif %}
+
+  <!-- ============ LIVE SYSTEMS ============ -->
+  {% if page.live %}
+  <section class="labs__section" id="live-systems" aria-label="Live systems">
+    <div class="labs__section-head">
+      <div>
+        <h2 class="labs__h2">Live Systems</h2>
+        <p class="labs__section-sub">Explore live AI systems and research prototypes. Everything is one click away.</p>
+      </div>
+      <a class="labs__viewall" href="/projects/">View all projects →</a>
+    </div>
+    <div class="lb-grid">
+      {% for c in page.live %}
+      <a class="lb-card" href="{{ c.url }}"{% if c.url contains 'http' %} target="_blank" rel="noopener"{% endif %}>
+        <div class="lb-card__media">{% if c.image %}<img src="{{ c.image | relative_url }}" alt="{{ c.title }}" loading="lazy">{% endif %}</div>
+        <div class="lb-card__body">
+          <h3 class="lb-card__title">{{ c.title }}</h3>
+          <p class="lb-card__desc">{{ c.desc }}</p>
+          <div class="lb-meta">
+            <span class="lb-status"><span class="dot"></span>{{ c.status | default: "Live" }}</span>
+            <span class="lb-cat">{{ c.category }}</span>
+          </div>
+          <span class="lb-card__open">Open project <span class="arr">→</span></span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ============ RESEARCH EXPERIMENTS ============ -->
+  {% if page.research %}
+  <section class="labs__section" id="research" aria-label="Research experiments">
+    <div class="labs__section-head">
+      <div>
+        <h2 class="labs__h2">Research Experiments</h2>
+        <p class="labs__section-sub">Smaller experiments and building blocks, hosted as interactive spaces.</p>
+      </div>
+    </div>
+    <div class="lb-grid">
+      {% for c in page.research %}
+      <a class="lb-card" href="{{ c.url }}"{% if c.url contains 'http' %} target="_blank" rel="noopener"{% endif %}>
+        <div class="lb-card__media">{% if c.image %}<img src="{{ c.image | relative_url }}" alt="{{ c.title }}" loading="lazy">{% endif %}</div>
+        <div class="lb-card__body">
+          <h3 class="lb-card__title">{{ c.title }}</h3>
+          <p class="lb-card__desc">{{ c.desc }}</p>
+          <div class="lb-meta">
+            <span class="lb-status is-proto"><span class="dot"></span>{{ c.status | default: "Research" }}</span>
+            <span class="lb-cat">{{ c.category }}</span>
+          </div>
+          <span class="lb-card__open">Open project <span class="arr">→</span></span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <p class="labs__foot">Want the bigger picture behind these? Read about <a href="/alive-system/">the system that ties them together</a>, or browse the full <a href="/projects/">projects</a>.</p>
+
+  {{ content }}
+</div>

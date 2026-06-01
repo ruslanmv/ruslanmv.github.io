@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" width="1600" height="420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Essays">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08120d"/>
+      <stop offset="0.5" stop-color="#0a1f16"/>
+      <stop offset="1" stop-color="#04140d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.42" r="0.55">
+      <stop offset="0" stop-color="#0f9d63" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#0a7d4f" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#0a7d4f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#16c98a" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#36e0a8" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#7dffd0" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="1.1"/></filter>
+  </defs>
+
+  <rect width="1600" height="420" fill="url(#bg)"/>
+  <rect width="1600" height="420" fill="url(#glow)"/>
+
+  <!-- faint matrix digits, far left -->
+  <g fill="#1d3b2c" font-family="monospace" font-size="13" opacity="0.5">
+    <text x="40" y="70">10110</text><text x="120" y="120">0110</text><text x="60" y="180">11001</text>
+    <text x="150" y="240">0101</text><text x="36" y="300">10011</text><text x="120" y="350">1100</text>
+  </g>
+
+  <!-- flowing particle wave streams, right side -->
+  <g filter="url(#soft)">
+    <path d="M650 250 C 950 120, 1150 360, 1600 150" fill="none" stroke="url(#wave)" stroke-width="2" opacity="0.9"/>
+    <path d="M680 290 C 980 170, 1180 400, 1600 210" fill="none" stroke="url(#wave)" stroke-width="1.5" opacity="0.7"/>
+    <path d="M700 200 C 1000 90, 1220 300, 1600 110" fill="none" stroke="url(#wave)" stroke-width="1.5" opacity="0.6"/>
+    <path d="M640 330 C 1000 230, 1240 430, 1600 270" fill="none" stroke="url(#wave)" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- particles along the streams -->
+  <g fill="#7dffd0">
+    <circle cx="1040" cy="210" r="2.2" opacity="0.9"/><circle cx="1180" cy="250" r="1.8" opacity="0.8"/>
+    <circle cx="1300" cy="180" r="2.5" opacity="0.95"/><circle cx="1420" cy="200" r="1.6" opacity="0.7"/>
+    <circle cx="960" cy="180" r="1.8" opacity="0.75"/><circle cx="1500" cy="150" r="2.2" opacity="0.9"/>
+    <circle cx="1120" cy="300" r="1.5" opacity="0.6"/><circle cx="1360" cy="260" r="1.8" opacity="0.7"/>
+    <circle cx="1240" cy="140" r="1.4" opacity="0.6"/><circle cx="880" cy="240" r="1.5" opacity="0.6"/>
+  </g>
+  <g fill="#36e0a8" opacity="0.5">
+    <circle cx="1080" cy="160" r="1.2"/><circle cx="1200" cy="320" r="1.2"/><circle cx="1340" cy="320" r="1.2"/>
+    <circle cx="1460" cy="280" r="1.2"/><circle cx="1010" cy="270" r="1.2"/><circle cx="1280" cy="230" r="1.2"/>
+  </g>
+</svg>

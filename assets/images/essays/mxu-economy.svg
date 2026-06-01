@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Energy-backed agent economy">
+  <defs>
+    <radialGradient id="bg4" cx="0.5" cy="0.45" r="0.8">
+      <stop offset="0" stop-color="#0c241a"/><stop offset="0.65" stop-color="#08160f"/><stop offset="1" stop-color="#040c08"/>
+    </radialGradient>
+    <radialGradient id="core4" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="0.4" stop-color="#9dffd6"/><stop offset="1" stop-color="#0a7d4f"/>
+    </radialGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2fd996" stop-opacity="0"/><stop offset="1" stop-color="#7dffd0" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="b4"><feGaussianBlur stdDeviation="5"/></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg4)"/>
+  <!-- orbital economy rings -->
+  <g stroke="#1e6b4c" fill="none" opacity="0.5">
+    <ellipse cx="600" cy="375" rx="300" ry="120"/>
+    <ellipse cx="600" cy="375" rx="220" ry="220"/>
+    <ellipse cx="600" cy="375" rx="300" ry="120" transform="rotate(60 600 375)"/>
+  </g>
+  <!-- central MXU core -->
+  <circle cx="600" cy="375" r="62" fill="url(#core4)" filter="url(#b4)" opacity="0.9"/>
+  <circle cx="600" cy="375" r="46" fill="url(#core4)"/>
+  <!-- flowing value arcs -->
+  <g filter="url(#b4)" fill="none">
+    <path d="M320 300 C 450 250, 750 250, 880 300" stroke="url(#flow)" stroke-width="2.5" opacity="0.8"/>
+    <path d="M320 450 C 450 500, 750 500, 880 450" stroke="url(#flow)" stroke-width="2" opacity="0.6"/>
+  </g>
+  <!-- satellite agent nodes -->
+  <g fill="url(#core4)">
+    <circle cx="320" cy="300" r="14"/><circle cx="880" cy="300" r="14"/>
+    <circle cx="320" cy="450" r="13"/><circle cx="880" cy="450" r="13"/>
+    <circle cx="600" cy="135" r="12"/><circle cx="600" cy="615" r="12"/>
+  </g>
+  <g fill="#7dffd0" opacity="0.7">
+    <circle cx="460" cy="250" r="3"/><circle cx="740" cy="250" r="3"/><circle cx="460" cy="500" r="3"/><circle cx="740" cy="500" r="3"/>
+  </g>
+</svg>

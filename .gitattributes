@@ -1,2 +1,16 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Shell scripts MUST stay LF even on Windows checkouts — WSL/Git-Bash execute them,
+# and CRLF corrupts the shebang, causing "./scripts/x.sh: not found" (exit 127).
+*.sh    text eol=lf
+*.bash  text eol=lf
+
+# Makefiles need real tabs and LF endings
+Makefile text eol=lf
+*.mk     text eol=lf
+
+# Windows-only scripts stay CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf

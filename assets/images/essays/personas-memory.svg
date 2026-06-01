@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Memory graph and silhouette">
+  <defs>
+    <radialGradient id="bg3" cx="0.42" cy="0.5" r="0.8">
+      <stop offset="0" stop-color="#0b2018"/><stop offset="0.6" stop-color="#07150f"/><stop offset="1" stop-color="#040c08"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7dffd0"/><stop offset="0.5" stop-color="#2fd996"/><stop offset="1" stop-color="#0a7d4f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg3)"/>
+  <!-- head silhouette, left -->
+  <path d="M250 690 C 250 470, 330 360, 470 360 C 470 300, 430 250, 430 200 C 430 110, 360 60, 285 60 C 195 60, 135 130, 135 230 C 135 320, 175 360, 175 430 C 175 520, 210 560, 210 690 Z"
+        fill="#0c2a1e" stroke="#1f6b4c" stroke-width="2"/>
+  <!-- glowing memory node inside head -->
+  <circle cx="300" cy="300" r="70" fill="url(#halo)" opacity="0.65"/>
+  <!-- memory graph, right -->
+  <g stroke="#1e6b4c" stroke-width="1.3" opacity="0.6">
+    <line x1="700" y1="375" x2="560" y2="250"/><line x1="700" y1="375" x2="880" y2="270"/>
+    <line x1="700" y1="375" x2="600" y2="540"/><line x1="700" y1="375" x2="900" y2="500"/>
+    <line x1="880" y1="270" x2="1040" y2="380"/><line x1="900" y1="500" x2="1040" y2="380"/>
+    <line x1="560" y1="250" x2="600" y2="540"/><line x1="880" y1="270" x2="900" y2="500"/>
+    <line x1="300" y1="300" x2="560" y2="250"/>
+  </g>
+  <g fill="url(#halo)">
+    <circle cx="700" cy="375" r="22"/><circle cx="560" cy="250" r="12"/><circle cx="880" cy="270" r="14"/>
+    <circle cx="600" cy="540" r="11"/><circle cx="900" cy="500" r="13"/><circle cx="1040" cy="380" r="10"/>
+  </g>
+  <g fill="#7dffd0" opacity="0.8"><circle cx="300" cy="300" r="9"/><circle cx="770" cy="320" r="3"/><circle cx="800" cy="430" r="3"/></g>
+</svg>

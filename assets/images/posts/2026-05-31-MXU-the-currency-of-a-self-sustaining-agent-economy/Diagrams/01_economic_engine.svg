@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" role="img" aria-label="The Matrix Treasury economic engine">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6ea8d8"/>
+    </marker>
+    <style>
+      .lbl{font-family:Trebuchet MS,Verdana,Arial,sans-serif;}
+      .nt{font-weight:700;font-size:15.5px;fill:#0b1020;text-anchor:middle;}
+      .ns{font-size:11.5px;fill:#21405e;text-anchor:middle;}
+      .edge{stroke:#6ea8d8;stroke-width:2.2;fill:none;}
+      .et{font-size:12px;fill:#cfe3f7;text-anchor:middle;font-weight:600;}
+    </style>
+  </defs>
+  <rect width="880" height="500" fill="#0d1426"/>
+  <text class="lbl" x="440" y="34" font-size="19" font-weight="800" fill="#eaf6ff" text-anchor="middle">The Economic Engine — the MXU Standard</text>
+  <text class="lbl" x="440" y="56" font-size="12.5" fill="#7fa7cf" text-anchor="middle">Treasury · Metering · Stabilizers · Governance</text>
+
+  <!-- Agent (top) -->
+  <rect rx="14" x="340" y="78" width="200" height="62" fill="#bfe9ff" stroke="#5fb4e6" stroke-width="2"/>
+  <text class="lbl nt" x="440" y="104">Agent</text>
+  <text class="lbl ns" x="440" y="124">consumes compute</text>
+
+  <!-- Metering (right) -->
+  <rect rx="14" x="648" y="216" width="200" height="62" fill="#ffd980" stroke="#ffb43c" stroke-width="2"/>
+  <text class="lbl nt" x="748" y="242">Metering</text>
+  <text class="lbl ns" x="748" y="262">charges the bill in MXU</text>
+
+  <!-- Treasury / Vaults (bottom) -->
+  <rect rx="14" x="340" y="356" width="200" height="62" fill="#8ff0d6" stroke="#36c9a8" stroke-width="2"/>
+  <text class="lbl nt" x="440" y="382">Multi-Vault Treasury</text>
+  <text class="lbl ns" x="440" y="402">USD · EUR · BTC reserves</text>
+
+  <!-- AI CFO (left) -->
+  <rect rx="14" x="32" y="216" width="200" height="62" fill="#c9c3ff" stroke="#8e82e6" stroke-width="2"/>
+  <text class="lbl nt" x="132" y="242">AI CFO</text>
+  <text class="lbl ns" x="132" y="262">allocates · refills · decides</text>
+
+  <!-- cycle -->
+  <path class="edge" d="M540 112 C690 122 748 168 748 210" marker-end="url(#ah)"/>
+  <text class="lbl et" x="700" y="168">usage tracked</text>
+  <path class="edge" d="M748 278 C748 340 600 356 546 372" marker-end="url(#ah)"/>
+  <text class="lbl et" x="680" y="338">debits MXU ledger</text>
+  <path class="edge" d="M340 388 C200 372 132 340 132 282" marker-end="url(#ah)"/>
+  <text class="lbl et" x="188" y="352">reserves back the unit</text>
+  <path class="edge" d="M132 216 C132 168 200 122 334 112" marker-end="url(#ah)"/>
+  <text class="lbl et" x="190" y="166">funds the agent</text>
+
+  <!-- center: stabilizers + governance gate -->
+  <circle cx="440" cy="248" r="58" fill="#152244" stroke="#3a5b8c" stroke-width="1.5"/>
+  <text class="lbl" x="440" y="240" font-size="12.5" fill="#9fc4ff" text-anchor="middle" font-weight="700">Stabilizers</text>
+  <text class="lbl" x="440" y="258" font-size="11" fill="#7fa7cf" text-anchor="middle">keep MXU stable</text>
+  <text class="lbl" x="440" y="274" font-size="11.5" fill="#ffb86b" text-anchor="middle" font-weight="700">Governance gate</text>
+
+  <text class="lbl" x="440" y="466" font-size="12" fill="#5d7ea0" text-anchor="middle" font-style="italic">An internal ledger of compute, backed by real reserves and steered by an autonomous CFO.</text>
+</svg>

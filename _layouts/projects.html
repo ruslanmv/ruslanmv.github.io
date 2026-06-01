@@ -1,0 +1,415 @@
+---
+layout: default
+---
+
+<style>
+/* =========================================================================
+   Projects — premium cards + quick-details modal + compact index sidebar
+   Scoped to body.layout--projects. Warm light canvas, dark navbar kept.
+   ========================================================================= */
+body.layout--projects {
+  --pj-bg:#f6f7f6; --pj-card:#fff; --pj-line:#e7e5de; --pj-ink:#1f2523;
+  --pj-muted:#6c716c; --pj-faint:#97a09a; --pj-accent:#0f766e; --pj-accent-deep:#0b5a54;
+  --pj-accent-wash:#e9f4f1; --pj-live:#16a34a; --pj-serif:Georgia,"Times New Roman",serif;
+  background:var(--pj-bg);
+}
+body.layout--projects .initial-content, body.layout--projects .page__content { background:var(--pj-bg); }
+body.layout--projects .page__hero--overlay { display:none; }
+
+.pj { max-width:1200px; margin:0 auto; padding:2.75rem 1.5rem 4.5rem; }
+.pj__head { margin:0 0 2rem; }
+.pj__title { font-family:var(--pj-serif); font-size:clamp(34px,6vw,58px); color:var(--pj-ink); margin:0 0 0.6rem; letter-spacing:-0.02em; }
+.pj__intro { color:var(--pj-muted); font-size:1.1rem; line-height:1.55; max-width:34rem; margin:0; }
+.pj__accentbar { width:64px; height:3px; background:var(--pj-accent); border-radius:2px; margin:1rem 0 0; }
+
+/* filter chips */
+.pj__filters { display:flex; flex-wrap:wrap; gap:0.5rem; margin:1.6rem 0 0; }
+.pj__filter {
+  font-size:0.86rem; font-weight:600; color:var(--pj-muted); background:var(--pj-card);
+  border:1px solid var(--pj-line); border-radius:999px; padding:0.4rem 1rem; cursor:pointer;
+}
+.pj__filter.is-active { background:var(--pj-accent-deep); color:#fff; border-color:var(--pj-accent-deep); }
+
+/* layout: cards grid + sidebar */
+.pj__body { display:grid; grid-template-columns:1fr; gap:1.5rem; margin-top:2rem; }
+@media (min-width:1000px) { .pj__body { grid-template-columns:minmax(0,1fr) 250px; gap:2rem; } }
+
+.pj__grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.1rem; }
+.pj-card { display:flex; flex-direction:column; background:var(--pj-card); border:1px solid var(--pj-line); border-radius:18px; overflow:hidden; transition:border-color .15s, transform .15s, box-shadow .15s; }
+.pj-card:hover { border-color:var(--pj-accent); transform:translateY(-2px); box-shadow:0 14px 30px rgba(0,0,0,0.07); }
+.pj-card__media { aspect-ratio:16/9; background:#0d1320; overflow:hidden; position:relative; }
+.pj-card__media img { width:100%; height:100%; object-fit:cover; display:block; }
+.pj-card__badge { position:absolute; top:0.6rem; right:0.6rem; font-size:0.66rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; background:rgba(15,23,32,0.82); color:#fff; padding:0.2rem 0.55rem; border-radius:6px; }
+.pj-card__badge.is-live { background:var(--pj-live); }
+.pj-card__body { padding:1.1rem 1.2rem 1.25rem; display:flex; flex-direction:column; flex:1; }
+.pj-card__title { font-size:1.15rem; font-weight:700; color:var(--pj-ink); margin:0 0 0.35rem; }
+.pj-card__desc { color:var(--pj-muted); font-size:0.93rem; line-height:1.5; margin:0 0 0.8rem; flex:1; }
+.pj-card__chips { display:flex; flex-wrap:wrap; gap:0.4rem; margin:0 0 1rem; }
+.pj-chip { font-size:0.72rem; font-weight:600; color:var(--pj-muted); background:var(--pj-bg); border:1px solid var(--pj-line); border-radius:999px; padding:0.16rem 0.6rem; }
+.pj-card__actions { display:flex; align-items:center; gap:0.6rem; margin-top:auto; }
+.pj-card__open {
+  display:inline-flex; align-items:center; gap:0.4rem; font-weight:600; font-size:0.9rem;
+  background:var(--pj-accent-deep); color:#fff; border:0; border-radius:9px; padding:0.55rem 1rem;
+  text-decoration:none; cursor:pointer;
+}
+.pj-card__open:hover { background:var(--pj-accent); color:#fff; }
+.pj-card__details { background:transparent; border:1px solid var(--pj-line); color:var(--pj-ink); font-weight:600; font-size:0.9rem; border-radius:9px; padding:0.55rem 0.9rem; cursor:pointer; }
+.pj-card__details:hover { border-color:var(--pj-accent); color:var(--pj-accent-deep); }
+
+/* sidebar index */
+.pj__aside { align-self:start; }
+@media (min-width:1000px) { .pj__aside { position:sticky; top:1.5rem; } }
+.pj-index { background:var(--pj-card); border:1px solid var(--pj-line); border-radius:16px; padding:1.1rem 1.2rem; }
+.pj-index__h { font-size:1.05rem; font-weight:700; color:var(--pj-ink); margin:0 0 0.8rem; }
+.pj-index ul { list-style:none; margin:0; padding:0; }
+.pj-index li { margin:0; }
+.pj-index a { display:flex; align-items:center; justify-content:space-between; gap:0.5rem; padding:0.55rem 0; color:var(--pj-ink); text-decoration:none; font-size:0.92rem; border-bottom:1px solid var(--pj-line); }
+.pj-index li:last-child a { border-bottom:0; }
+.pj-index a:hover { color:var(--pj-accent-deep); }
+.pj-index a .arr { color:var(--pj-faint); }
+.pj-index__all { display:inline-block; margin-top:0.8rem; color:var(--pj-accent); font-weight:600; font-size:0.9rem; text-decoration:none; }
+
+/* ---- modal ---- */
+.pj-modal-overlay { position:fixed; inset:0; background:rgba(15,20,18,0.6); z-index:200; display:none; align-items:center; justify-content:center; padding:1.5rem; }
+.pj-modal-overlay.is-open { display:flex; }
+.pj-modal {
+  background:var(--pj-card); border-radius:22px; max-width:1080px; width:100%; max-height:90vh;
+  box-shadow:0 30px 70px rgba(0,0,0,0.35); position:relative; display:flex; flex-direction:column; overflow:hidden;
+}
+.pj-modal__scroll { overflow-y:auto; flex:1; min-height:0; }   /* mobile: whole content scrolls */
+.pj-modal__close { position:absolute; top:1rem; right:1rem; background:rgba(0,0,0,0.05); border:0; width:38px; height:38px; border-radius:50%; font-size:1.5rem; line-height:1; cursor:pointer; color:var(--pj-ink); z-index:5; transition:background-color .15s; }
+.pj-modal__close:hover { background:rgba(0,0,0,0.12); }
+
+/* two-column grid on desktop */
+.pj-modal__grid { display:grid; grid-template-columns:1fr; gap:0; }
+@media (min-width:840px) {
+  .pj-modal__grid { grid-template-columns:1.05fr 1fr; min-height:0; }
+  /* desktop: the outer wrapper no longer scrolls; columns scroll independently */
+  .pj-modal__scroll { overflow:hidden; display:flex; }
+  .pj-modal__scroll > .pj-modal__grid { flex:1; min-height:0; }
+  .pj-modal__gallery { overflow:hidden; }                 /* left column stays fixed */
+  .pj-modal__info { overflow-y:auto; min-height:0; }       /* only the right column scrolls */
+}
+
+/* "at a glance" caption card (fills the lower-left space) */
+.pj-modal__glance { display:flex; gap:0.9rem; align-items:flex-start; margin-top:1rem; padding:1.1rem 1.2rem; background:var(--pj-bg); border:1px solid var(--pj-line); border-radius:14px; }
+.pj-modal__glance-icon { flex:0 0 auto; width:42px; height:42px; border-radius:11px; background:var(--pj-accent-wash); color:var(--pj-accent-deep); display:flex; align-items:center; justify-content:center; }
+.pj-modal__glance-icon svg { width:22px; height:22px; }
+.pj-modal__glance h4 { font-size:1rem; font-weight:700; color:var(--pj-ink); margin:0 0 0.3rem; }
+.pj-modal__glance p { font-size:0.9rem; line-height:1.5; color:var(--pj-muted); margin:0; }
+
+/* key capabilities */
+.pj-modal__caps { margin-top:1.3rem; }
+.pj-modal__caps h4 { font-size:1.05rem; font-weight:700; color:var(--pj-ink); margin:0 0 0.6rem; }
+.pj-modal__caps ul { list-style:none; margin:0; padding:0; }
+.pj-modal__caps li { position:relative; padding-left:1.3rem; margin:0 0 0.5rem; color:var(--pj-muted); font-size:0.95rem; line-height:1.45; }
+.pj-modal__caps li:before { content:""; position:absolute; left:0; top:0.5em; width:7px; height:7px; border-radius:50%; background:var(--pj-accent); }
+
+/* pinned action row (always visible at the bottom) */
+.pj-modal__actions { display:grid; grid-template-columns:1fr; gap:0.65rem; padding:1.1rem 1.5rem; border-top:1px solid var(--pj-line); background:var(--pj-card); }
+@media (min-width:680px) { .pj-modal__actions { grid-template-columns:1.6fr 1fr 1fr 1fr; } }
+
+/* left: gallery */
+.pj-modal__gallery { padding:1.5rem 1.5rem 1.25rem; }
+.pj-modal__stage { position:relative; aspect-ratio:16/10; background:#0d1320; border-radius:14px; overflow:hidden; }
+.pj-modal__stage img { width:100%; height:100%; object-fit:cover; display:block; }
+.pj-modal__play { position:absolute; inset:0; margin:auto; width:62px; height:62px; border-radius:50%; border:0; background:rgba(255,255,255,0.92); color:#0b5a54; display:none; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,0.3); }
+.pj-modal__play.is-on { display:flex; }
+.pj-modal__play svg { margin-left:3px; }
+.pj-modal__thumbs { display:flex; gap:0.55rem; margin-top:0.75rem; }
+.pj-modal__thumb { flex:1; aspect-ratio:16/10; border-radius:9px; overflow:hidden; background:#0d1320; border:2px solid transparent; cursor:pointer; padding:0; }
+.pj-modal__thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.pj-modal__thumb.is-active { border-color:var(--pj-accent); }
+
+/* right: info (scrolls independently on desktop) */
+.pj-modal__info { padding:1.75rem 1.9rem 1.9rem; display:flex; flex-direction:column; }
+.pj-modal__info::-webkit-scrollbar { width:9px; }
+.pj-modal__info::-webkit-scrollbar-thumb { background:#d7d9d2; border-radius:6px; border:2px solid var(--pj-card); }
+.pj-modal__info::-webkit-scrollbar-thumb:hover { background:#c2c5bc; }
+.pj-modal__info { scrollbar-width:thin; scrollbar-color:#d7d9d2 transparent; }
+@media (min-width:840px) { .pj-modal__info { padding-top:2.5rem; } }
+.pj-modal__status { display:inline-flex; align-items:center; gap:0.45rem; font-size:0.76rem; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; color:var(--pj-live); margin:0 0 0.7rem; }
+.pj-modal__status .dot { width:9px; height:9px; border-radius:50%; background:currentColor; }
+.pj-modal__title { font-family:var(--pj-serif); font-size:clamp(1.7rem,3.4vw,2.3rem); color:var(--pj-ink); margin:0 0 0.7rem; letter-spacing:-0.01em; }
+.pj-modal__desc { color:var(--pj-muted); font-size:1.05rem; line-height:1.55; margin:0 0 1.1rem; }
+.pj-modal__chips { display:flex; flex-wrap:wrap; gap:0.45rem; margin:0 0 1.3rem; }
+.pj-modal__chips .pj-chip { background:var(--pj-accent-wash); border-color:#cfe9e2; color:var(--pj-accent-deep); }
+.pj-modal__meta { display:grid; grid-template-columns:auto 1fr; gap:0.65rem 1rem; margin:0 0 1.3rem; font-size:0.95rem; align-items:start; }
+.pj-modal__meta dt { color:var(--pj-faint); font-weight:600; display:flex; align-items:center; gap:0.45rem; }
+.pj-modal__meta dt svg { width:15px; height:15px; opacity:0.7; }
+.pj-modal__meta dd { color:var(--pj-ink); margin:0; }
+.pj-modal__meta dd.is-live { color:var(--pj-live); font-weight:600; }
+.pj-modal__why { border-top:1px solid var(--pj-line); padding-top:1.2rem; margin:0 0 0.4rem; }
+.pj-modal__why h4 { font-size:1.05rem; font-weight:700; color:var(--pj-ink); margin:0 0 0.5rem; }
+.pj-modal__why p { color:var(--pj-muted); font-size:0.98rem; line-height:1.55; margin:0; }
+.pj-modal__actions a { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; font-weight:600; font-size:0.96rem; text-decoration:none; border-radius:12px; padding:0.85rem 1.1rem; }
+.pj-modal__actions .is-primary { background:var(--pj-accent-deep); color:#fff; font-size:1rem; box-shadow:0 8px 22px rgba(11,90,84,0.28); }
+.pj-modal__actions .is-primary:hover { background:var(--pj-accent); }
+.pj-modal__actions .is-ghost { background:transparent; border:1px solid var(--pj-line); color:var(--pj-ink); }
+.pj-modal__actions .is-ghost:hover { border-color:var(--pj-accent); color:var(--pj-accent-deep); }
+
+/* mobile: full-screen bottom-sheet feel */
+@media (max-width:600px) {
+  .pj-modal-overlay { padding:0; align-items:flex-end; }
+  .pj-modal { max-width:100%; max-height:94vh; border-radius:20px 20px 0 0; }
+  .pj-modal__gallery { padding:1.1rem 1.1rem 0.5rem; }
+  .pj-modal__thumbs { display:none; }
+  .pj-modal__info { padding:1.25rem 1.25rem 1.5rem; }
+  .pj-modal__actions { grid-template-columns:1fr; }
+  .pj-card__actions { flex-direction:column; align-items:stretch; }
+  .pj-card__open, .pj-card__details { width:100%; justify-content:center; text-align:center; }
+}
+
+/* the long-form research content kept below the cards */
+.pj__more { margin-top:3rem; padding-top:2rem; border-top:1px solid var(--pj-line); }
+.pj__more h2 { font-family:var(--pj-serif); color:var(--pj-ink); }
+.pj__more a { color:var(--pj-accent); }
+
+/* ---- hero banner (blue-building photo) ---- */
+.pj-hero { position:relative; background:#0a3a66; overflow:hidden; }
+.pj-hero__bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 35%; }
+.pj-hero__scrim { position:absolute; inset:0; background:linear-gradient(90deg, rgba(8,28,48,0.55) 0%, rgba(8,28,48,0.15) 55%, rgba(8,28,48,0) 100%); }
+.pj-hero__inner { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:3.25rem 1.5rem; }
+.pj-hero__title { font-family:'Montserrat',sans-serif; font-weight:800; color:#fff; font-size:clamp(40px,6.5vw,68px); line-height:1; margin:0; letter-spacing:-0.01em; text-shadow:0 2px 14px rgba(0,0,0,0.25); }
+.pj-hero__sub { color:#eaf2fb; font-size:clamp(15px,2vw,18px); line-height:1.5; margin:0.9rem 0 0; max-width:30rem; text-shadow:0 1px 8px rgba(0,0,0,0.3); }
+.pj-hero__accent { width:64px; height:3px; background:var(--pj-accent); border-radius:2px; margin:1rem 0 0; }
+</style>
+
+<header class="pj-hero">
+  <img class="pj-hero__bg" src="{{ page.hero_image | default: '/assets/images/header-projects.jpg' | relative_url }}" alt="" aria-hidden="true">
+  <div class="pj-hero__scrim"></div>
+  <div class="pj-hero__inner">
+    <h1 class="pj-hero__title">{{ page.hero_title | default: "Projects" }}</h1>
+    <p class="pj-hero__sub">{{ page.pj_intro | default: "Applied AI systems, infrastructure tools, and research prototypes." }}</p>
+    <div class="pj-hero__accent"></div>
+  </div>
+</header>
+
+<div class="pj">
+
+  <header class="pj__head">
+    <div class="pj__filters" role="tablist" aria-label="Filter projects">
+      <button class="pj__filter is-active" data-filter="all">All</button>
+      <button class="pj__filter" data-filter="Infrastructure">Infrastructure</button>
+      <button class="pj__filter" data-filter="AI Assistants">AI Assistants</button>
+    </div>
+  </header>
+
+  <div class="pj__body">
+    <div class="pj__grid">
+      {% for p in page.featured %}
+      <article class="pj-card" data-group="{{ p.group }}">
+        <div class="pj-card__media">
+          {% if p.image %}<img src="{{ p.image | relative_url }}" alt="{{ p.title }}" loading="lazy">{% endif %}
+          <span class="pj-card__badge{% if p.status == 'Live' %} is-live{% endif %}">{{ p.status }}</span>
+        </div>
+        <div class="pj-card__body">
+          <h3 class="pj-card__title">{{ p.title }}</h3>
+          <p class="pj-card__desc">{{ p.desc }}</p>
+          <div class="pj-card__chips">{% for c in p.chips %}<span class="pj-chip">{{ c }}</span>{% endfor %}</div>
+          <div class="pj-card__actions">
+            <a class="pj-card__open" href="{{ p.url }}"{% if p.url contains '://' %} target="_blank" rel="noopener"{% endif %}>Open project →</a>
+            <button class="pj-card__details" type="button"
+              data-title="{{ p.title | escape }}"
+              data-desc="{{ p.desc | escape }}"
+              data-status="{{ p.status }}"
+              data-category="{{ p.category }}"
+              data-role="{{ p.role }}"
+              data-stack="{{ p.stack }}"
+              data-launched="{{ p.launched }}"
+              data-why="{{ p.long | default: p.desc | escape }}"
+              data-glance-title="{{ p.glance_title | escape }}"
+              data-glance="{{ p.glance | escape }}"
+              data-caps="{{ p.capabilities | join: '||' | escape }}"
+              data-chips="{{ p.chips | join: ',' }}"
+              data-image="{{ p.image | relative_url }}"
+              data-gallery="{{ p.gallery | join: ',' }}"
+              data-video="{{ p.video }}"
+              data-url="{{ p.url }}"
+              data-github="{{ p.github }}"
+              data-docs="{{ p.docs }}"
+              data-essay="{{ p.essay }}">Details</button>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <aside class="pj__aside">
+      <div class="pj-index">
+        <p class="pj-index__h">Projects</p>
+        <ul>
+          {% for p in page.index_items %}
+          <li><a href="{{ p.url }}"{% if p.url contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ p.title }} <span class="arr">→</span></a></li>
+          {% endfor %}
+        </ul>
+        <a class="pj-index__all" href="{{ '/projects/all' | relative_url }}">View all projects →</a>
+      </div>
+    </aside>
+  </div>
+
+</div>
+
+<!-- Quick-details modal (two-column, premium) -->
+<div class="pj-modal-overlay" id="pj-modal" role="dialog" aria-modal="true" aria-labelledby="pj-modal-title" hidden>
+  <div class="pj-modal">
+    <button class="pj-modal__close" type="button" aria-label="Close">&times;</button>
+
+    <div class="pj-modal__scroll">
+      <div class="pj-modal__grid">
+
+        <div class="pj-modal__gallery">
+          <div class="pj-modal__stage">
+            <img id="pj-modal-stage" src="" alt="">
+            <button class="pj-modal__play" id="pj-modal-play" type="button" aria-label="Play demo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+          <div class="pj-modal__thumbs" id="pj-modal-thumbs"></div>
+
+          <div class="pj-modal__glance" id="pj-modal-glance">
+            <div class="pj-modal__glance-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 3v18M4 7.5l8 4.5 8-4.5"/></svg>
+            </div>
+            <div>
+              <h4 id="pj-modal-glance-title"></h4>
+              <p id="pj-modal-glance-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pj-modal__info">
+          <p class="pj-modal__status"><span class="dot"></span><span id="pj-modal-status">Live Project</span></p>
+          <h2 class="pj-modal__title" id="pj-modal-title"></h2>
+          <p class="pj-modal__desc" id="pj-modal-desc"></p>
+          <div class="pj-modal__chips" id="pj-modal-chips"></div>
+          <dl class="pj-modal__meta">
+            <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Status</dt><dd id="pj-modal-status2" class="is-live"></dd>
+            <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h7l2 2h9v9a2 2 0 0 1-2 2H3z"/></svg>Category</dt><dd id="pj-modal-category"></dd>
+            <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Role</dt><dd id="pj-modal-role"></dd>
+            <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/></svg>Stack</dt><dd id="pj-modal-stack"></dd>
+            <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Launched</dt><dd id="pj-modal-launched"></dd>
+          </dl>
+          <div class="pj-modal__why">
+            <h4>Why it matters</h4>
+            <p id="pj-modal-why"></p>
+          </div>
+          <div class="pj-modal__caps" id="pj-modal-caps-wrap">
+            <h4>Key capabilities</h4>
+            <ul id="pj-modal-caps"></ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pj-modal__actions" id="pj-modal-links"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  function ready(fn){ if(document.readyState!=='loading'){fn();} else {document.addEventListener('DOMContentLoaded',fn);} }
+  ready(function () {
+    /* ---- filters ---- */
+    var filters = document.querySelectorAll('.pj__filter');
+    var cards = document.querySelectorAll('.pj-card');
+    filters.forEach(function (b) {
+      b.addEventListener('click', function () {
+        filters.forEach(function(x){ x.classList.remove('is-active'); });
+        b.classList.add('is-active');
+        var f = b.getAttribute('data-filter');
+        cards.forEach(function (c) {
+          var g = (c.getAttribute('data-group') || '');
+          c.style.display = (f === 'all' || g.indexOf(f) !== -1) ? '' : 'none';
+        });
+      });
+    });
+
+    /* ---- modal ---- */
+    var modal  = document.getElementById('pj-modal');
+    var mClose = modal.querySelector('.pj-modal__close');
+    var stage  = document.getElementById('pj-modal-stage');
+    var thumbs = document.getElementById('pj-modal-thumbs');
+    var play   = document.getElementById('pj-modal-play');
+    function setText(id, v){ document.getElementById(id).textContent = v || '—'; }
+    function statusLabel(s){ return (s || 'Live').toUpperCase() + ((s||'').toLowerCase().indexOf('project')>-1?'':' PROJECT'); }
+
+    function openModal(d){
+      setText('pj-modal-title', d.title);
+      setText('pj-modal-desc', d.desc);
+      document.getElementById('pj-modal-status').textContent = statusLabel(d.status);
+      setText('pj-modal-status2', d.status || 'Live');
+      setText('pj-modal-category', d.category);
+      setText('pj-modal-role', d.role);
+      setText('pj-modal-stack', d.stack);
+      setText('pj-modal-launched', d.launched);
+      setText('pj-modal-why', d.why);
+
+      // "at a glance" caption card
+      var glance = document.getElementById('pj-modal-glance');
+      if (d.glance) {
+        glance.style.display = '';
+        setText('pj-modal-glance-title', d.glanceTitle || (d.title + ' at a glance'));
+        setText('pj-modal-glance-text', d.glance);
+      } else { glance.style.display = 'none'; }
+
+      // key capabilities
+      var caps = (d.caps || '').split('||').map(function(s){return s.trim();}).filter(Boolean);
+      var capsWrap = document.getElementById('pj-modal-caps-wrap');
+      if (caps.length) {
+        capsWrap.style.display = '';
+        document.getElementById('pj-modal-caps').innerHTML = caps.map(function(c){ return '<li>'+c+'</li>'; }).join('');
+      } else { capsWrap.style.display = 'none'; }
+
+      // status colour: green for live-like, amber otherwise
+      var liveish = /live|production|active|curated/i.test(d.status || '');
+      document.getElementById('pj-modal-status2').className = liveish ? 'is-live' : '';
+
+      // chips
+      var chips = (d.chips || '').split(',').filter(Boolean);
+      document.getElementById('pj-modal-chips').innerHTML =
+        chips.map(function(c){ return '<span class="pj-chip">'+c.trim()+'</span>'; }).join('');
+
+      // gallery: build image list (stage + thumbs); fall back to repeating the cover
+      var imgs = (d.gallery || '').split(',').map(function(s){return s.trim();}).filter(Boolean);
+      if (!imgs.length && d.image) imgs = [d.image];
+      stage.src = imgs[0] || d.image || '';
+      stage.alt = d.title;
+      thumbs.innerHTML = (imgs.length > 1 ? imgs : []).map(function(src,i){
+        return '<button class="pj-modal__thumb'+(i===0?' is-active':'')+'" type="button" data-src="'+src+'"><img src="'+src+'" alt=""></button>';
+      }).join('');
+      thumbs.querySelectorAll('.pj-modal__thumb').forEach(function(t){
+        t.addEventListener('click', function(){
+          stage.src = t.dataset.src;
+          thumbs.querySelectorAll('.pj-modal__thumb').forEach(function(x){x.classList.remove('is-active');});
+          t.classList.add('is-active');
+        });
+      });
+      // play button only if a demo video exists
+      if (d.video) { play.classList.add('is-on'); play.onclick = function(){ window.open(d.video,'_blank','noopener'); }; }
+      else { play.classList.remove('is-on'); play.onclick = null; }
+
+      // actions
+      var html = '<a class="is-primary" href="'+d.url+'" target="_blank" rel="noopener">Open live project ↗</a>';
+      if (d.github) html += '<a class="is-ghost" href="'+d.github+'" target="_blank" rel="noopener">GitHub</a>';
+      if (d.docs)   html += '<a class="is-ghost" href="'+d.docs+'" target="_blank" rel="noopener">Documentation</a>';
+      if (d.essay)  html += '<a class="is-ghost" href="'+d.essay+'">Related essay</a>';
+      document.getElementById('pj-modal-links').innerHTML = html;
+
+      modal.hidden = false;
+      requestAnimationFrame(function(){ modal.classList.add('is-open'); });
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){ modal.classList.remove('is-open'); document.body.style.overflow=''; setTimeout(function(){ modal.hidden = true; }, 150); }
+    document.querySelectorAll('.pj-card__details').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openModal(Object.assign({}, btn.dataset));
+      });
+    });
+    mClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !modal.hidden) closeModal(); });
+  });
+})();
+</script>
