@@ -4,6 +4,22 @@ layout: default
 
 <link rel="stylesheet" href="{{ '/assets/css/contact.css' | relative_url }}">
 
+{%- comment -%}
+  Local dev vs production:
+  - In development (`make serve` sets JEKYLL_ENV=development), use Cloudflare's
+    ALWAYS-PASSES test site key, which renders on any host (no 110200 error on
+    localhost), and mark the page data-dev="true" so contact.js simulates a
+    successful send instead of calling the production Worker / sending real email.
+  - In production, use the real site key and real endpoint.
+{%- endcomment -%}
+{% if jekyll.environment == "development" %}
+  {% assign ts_key = "1x00000000000000000000AA" %}
+  {% assign is_dev = "true" %}
+{% else %}
+  {% assign ts_key = page.turnstile_site_key %}
+  {% assign is_dev = "false" %}
+{% endif %}
+
 <!-- Hero -->
 <header class="ct-hero">
   <img class="ct-hero__bg" src="{{ '/assets/images/essays-hero.svg' | relative_url }}" alt="" aria-hidden="true">
@@ -11,12 +27,13 @@ layout: default
     <span class="ct-hero__kicker">{{ page.hero_kicker | default: "CONTACT" }}</span>
     <h1 class="ct-hero__title">{{ page.hero_title | default: "Contact" }}</h1>
     <p class="ct-hero__sub">{{ page.hero_sub }}</p>
+    {% if is_dev == "true" %}<p class="ct-hero__sub" style="color:#facc15;font-size:13px;margin-top:.5rem;">⚙ DEV MODE — Turnstile uses a test key and no real email is sent.</p>{% endif %}
   </div>
 </header>
 
-<div class="ct" data-endpoint="{{ page.contact_endpoint }}" data-turnstile-key="{{ page.turnstile_site_key }}">
+<div class="ct" data-endpoint="{{ page.contact_endpoint }}" data-turnstile-key="{{ ts_key }}" data-dev="{{ is_dev }}">
   {{ content }}
 </div>
 
-{% if page.turnstile_site_key and page.turnstile_site_key != "" %}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>{% endif %}
+{% if ts_key and ts_key != "" %}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>{% endif %}
 <script src="{{ '/assets/js/contact.js' | relative_url }}" defer></script>
