@@ -17,6 +17,10 @@
    ========================================================================= */
 :root { --rmv-nav-bg:#191919; --rmv-nav-ink:#fff; --rmv-accent:#06d6a0; --rmv-panel:#1f1f1f; }
 
+/* Guard: stray off-screen / over-wide content must never expand the mobile
+   layout viewport (which would push the fixed nav drawer off-screen). */
+html { overflow-x: hidden; }
+
 .masthead { background:var(--rmv-nav-bg); border-bottom:1px solid #000; position:relative; z-index:60; }
 .masthead__inner-wrap { padding:0 1.25rem; max-width:1200px; box-sizing:border-box; width:100%; }
 
