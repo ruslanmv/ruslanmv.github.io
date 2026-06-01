@@ -144,6 +144,7 @@ body.layout--contact .page__hero--overlay { display:none; }
 @keyframes ct-spin { to { transform:rotate(360deg); } }
 
 /* ---- Inline persistent success banner (shows after the modal closes) ---- */
+.ct-banner[hidden] { display:none !important; }  /* respect the hidden attribute (display:flex below would otherwise override it) */
 .ct-banner { display:flex; align-items:center; gap:0.7rem;
   background:var(--ct-accent-wash); border:1px solid #cfe9de; color:var(--ct-accent-deep);
   border-radius:12px; padding:0.85rem 1rem; margin:0 0 1.25rem; animation:ct-fade 0.25s ease-out; }
@@ -157,6 +158,7 @@ body.layout--contact .page__hero--overlay { display:none; }
 
 /* ---- Success modal ---- */
 .ct-modal { position:fixed; inset:0; z-index:10000; display:none; }
+.ct-modal[hidden] { display:none !important; }  /* safety: never show when hidden, regardless of other rules */
 .ct-modal[aria-hidden="false"] { display:flex; align-items:center; justify-content:center; }
 .ct-modal__overlay { position:absolute; inset:0; background:rgba(8,18,13,0.55);
   backdrop-filter:blur(2px); animation:ct-fade 0.18s ease-out; }
