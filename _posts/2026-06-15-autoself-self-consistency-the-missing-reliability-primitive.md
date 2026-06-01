@@ -21,6 +21,11 @@ We rarely admit how much we lean on that person. We talk about autonomous agents
 
 [AutoSelf](https://github.com/ruslanmv/AutoSelf-Consistent-Multi-Agent-Platform) is my attempt to take that question seriously. It is a platform for orchestrating autonomous multi-robot operations — excavation, 3D printing, assembly — in environments that are remote, uncertain, and unforgiving, with extraterrestrial construction as the headline scenario. But the Moon and Mars are the setting, not the subject. The subject is reliability, and the claim I want to make is simple to state and surprisingly hard to honour: autonomy is not about doing more. It is about being trusted to correct yourself when no one is watching.
 
+<figure>
+  <img src="./../assets/images/posts/2026-06-15-autoself-self-consistency-reliability-primitive/picture_1.jpg" alt="Autonomous robots constructing a half-built habitat on Mars, with an excavator, 3D-printing robot, assembly rover, distant domes, and communications tower.">
+  <figcaption>Autonomous habitat construction as a coordinated multi-robot operation: excavation, printing, and assembly without real-time human control.</figcaption>
+</figure>
+
 ## The thing that actually fails
 
 When autonomous agents fail in the field, they rarely fail for the reason people expect. The failure is almost never that the agent could not act. Modern systems are extravagantly capable; they can plan elaborate sequences, call tools, write code, command motors. The failure is subtler and more dangerous. The agent acts, the world does not respond the way the plan assumed, and the agent carries on regardless — confidently, fluently, wrongly — because nothing in its loop forces it to check whether reality matched intention. It is not blindness exactly. It is the absence of a second glance.
@@ -35,6 +40,11 @@ The core of the platform is a loop, and the loop is deliberately unglamorous. An
 
 What matters is what comes next. After execution, the system does not assume success. It **verifies**: it compares the actual outcome against the intended goal, and where the situation is ambiguous it consults a large language model to reason about what the result really means and whether the mission is still on track. Only then does it **correct** — re-planning when reality has diverged, retrying what failed, routing around what broke. Execute, verify, correct, and then again, continuously, with no human in the middle of the cycle. The word doing the heavy lifting is *consistent*: the system is built to keep its actions and its intentions in agreement over time, even as the environment refuses to cooperate.
 
+<figure>
+  <img src="./../assets/images/posts/2026-06-15-autoself-self-consistency-reliability-primitive/picture_2.jpg" alt="Autonomous construction robot inspecting a freshly printed habitat wall on Mars using sensors and lidar.">
+  <figcaption>Verification is the missing second glance: the system must compare what it intended with what the world actually became.</figcaption>
+</figure>
+
 > Autonomy is not the freedom to act without a human. It is the discipline to stay correct without one.
 
 That discipline is easy to describe and hard to engineer, because verification is where most systems quietly give up. It is far cheaper to act than to check whether the action worked, and a verification step that consults a reasoning model on every cycle costs latency and money. The temptation is always to trust the plan and move on. AutoSelf is, in a sense, a long argument against that temptation — a bet that the unglamorous second glance is the part you cannot skip.
@@ -42,6 +52,11 @@ That discipline is easy to describe and hard to engineer, because verification i
 ## Why the hardest environment is the best teacher
 
 To see whether a self-consistent loop earns its keep, you have to break it on purpose. So the platform's simulations do not depict a tidy mission going smoothly; they inject the kinds of trouble the real world specialises in. A 3D printer's nozzle clogs mid-build — a mechanical failure that invalidates the current plan. A dust storm rolls in — an environmental hazard that changes what is safe to do at all. These are not edge cases bolted on for drama. They are the whole point. An autonomous system that only works when nothing goes wrong is not autonomous; it is merely unattended, which is a different and more frightening thing.
+
+<figure>
+  <img src="./../assets/images/posts/2026-06-15-autoself-self-consistency-reliability-primitive/picture_3.jpg" alt="Paused robotic 3D printer and autonomous repair rover during a dust storm on Mars, with an unfinished habitat wall and distant domes.">
+  <figcaption>Failure is the real test: a clogged printer, a dust storm, and no human close enough to take over.</figcaption>
+</figure>
 
 What the extreme setting buys you is clarity. On Earth, a flawed agent can limp along for a long time because a human keeps catching it, and you never quite learn how brittle it was. Put the same agent twenty minutes from any help, with a dust storm closing in and a half-printed habitat that has to hold pressure, and the brittleness has nowhere to hide. The environment becomes a teacher precisely because it refuses to forgive. Solve construction on the Moon — really solve it, loop and all — and you have not learned something about space. You have learned what *any* autonomous agent needs in order to be trusted with work that matters.
 

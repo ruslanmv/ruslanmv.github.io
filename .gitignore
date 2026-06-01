@@ -61,3 +61,4 @@ ruby.exe
 # CNAME
 # (Usually you WANT to track CNAME in the repo; keep it commented out here.)
 Gemfile.lock
+/contact-backend/.wrangler/cache
