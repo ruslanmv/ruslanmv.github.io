@@ -182,6 +182,12 @@
     var banner = document.getElementById("ct-banner");
     var lastFocus = null;
 
+    // Defensive: force the success UI hidden on every page load, regardless of
+    // cached CSS/markup. The banner/modal must ONLY ever appear as the result of
+    // a confirmed send — never as a false "Message sent" on a fresh page load.
+    if (banner) banner.hidden = true;
+    if (modal) { modal.hidden = true; modal.setAttribute("aria-hidden", "true"); }
+
     function focusables() {
       if (!modal) return [];
       return Array.prototype.slice.call(modal.querySelectorAll(
