@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/contact.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/contact.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 
 {%- comment -%}
   Local dev vs production:
@@ -36,4 +36,4 @@ layout: default
 </div>
 
 {% if ts_key and ts_key != "" %}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>{% endif %}
-<script src="{{ '/assets/js/contact.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/contact.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>

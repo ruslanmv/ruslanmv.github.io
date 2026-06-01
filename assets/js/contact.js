@@ -70,6 +70,7 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       clearStatus();
+      if (banner) banner.hidden = true; // clear any lingering success banner from a previous send
 
       var data = {
         name:    form.name.value.trim(),
