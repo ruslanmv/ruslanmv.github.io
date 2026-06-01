@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JSON / YAML Toolkit — ruslanmv/tools</title>
+<meta name="description" content="Format, validate, minify and explore JSON as a tree. Convert JSON to YAML and back, all in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<style>
+  :root{--ink:#0a0e16;--ink-2:#0e1421;--ink-3:#141c2c;--line:rgba(140,170,210,.12);--line-2:rgba(140,170,210,.22);--text:#e8eef6;--muted:#8c9bb3;--faint:#5f6e85;--mint:#5ef2c4;--mint-dim:rgba(94,242,196,.14);--amber:#ffb454;--blue:#7aa2ff;--rose:#ff7a8a;--violet:#b98cff;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',system-ui,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;background-image:radial-gradient(800px 460px at 8% -8%,rgba(122,162,255,.09),transparent 60%),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 26px}
+  header.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,14,22,.92),rgba(10,14,22,.6));border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .back{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .2s}.back:hover{color:var(--blue)}.back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+  .top .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .hd{padding:40px 0 8px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:11px}.kick::before{content:"";width:30px;height:1px;background:var(--blue)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,6vw,50px);letter-spacing:-1px;margin:12px 0 0}
+  .sub{color:var(--muted);max-width:640px;margin-top:10px;font-size:15px}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 14px;align-items:center}
+  .btn{font-family:var(--mono);font-size:12px;background:var(--ink-2);border:1px solid var(--line-2);color:var(--muted);border-radius:9px;padding:9px 13px;cursor:pointer;transition:.15s}
+  .btn:hover{border-color:var(--blue);color:var(--blue)}
+  .btn.p{background:var(--blue);color:var(--ink);border-color:var(--blue);font-weight:600}.btn.p:hover{filter:brightness(1.1);color:var(--ink)}
+  .spacer{flex:1}
+  .status{font-family:var(--mono);font-size:12.5px;padding:7px 13px;border-radius:8px;display:flex;align-items:center;gap:8px}
+  .status.ok{color:var(--mint);background:rgba(94,242,196,.08);border:1px solid rgba(94,242,196,.25)}
+  .status.bad{color:var(--rose);background:rgba(255,122,138,.08);border:1px solid rgba(255,122,138,.25)}
+  .status .d{width:8px;height:8px;border-radius:50%;background:currentColor}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  .panel{background:linear-gradient(160deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column}
+  .panel .ttl{font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin:2px 4px 10px;display:flex;justify-content:space-between}
+  textarea{width:100%;min-height:440px;resize:vertical;background:var(--ink);border:1px solid var(--line-2);border-radius:10px;padding:14px;color:var(--text);font-family:var(--mono);font-size:13px;line-height:1.65;outline:none;tab-size:2}
+  textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(122,162,255,.15)}
+  .tree{min-height:440px;max-height:640px;overflow:auto;background:var(--ink);border:1px solid var(--line-2);border-radius:10px;padding:14px;font-family:var(--mono);font-size:13px;line-height:1.7}
+  .tree ul{list-style:none;margin:0;padding-left:18px;border-left:1px dotted var(--line-2)}
+  .tree li{position:relative}
+  .tw{cursor:pointer;user-select:none}
+  .tw .key{color:var(--blue)} .tw .br{color:var(--faint)}
+  .tw .toggle{display:inline-block;width:14px;color:var(--muted)}
+  .v-str{color:var(--mint)} .v-num{color:var(--amber)} .v-bool{color:var(--violet)} .v-null{color:var(--rose)}
+  .count{color:var(--faint)}
+  .collapsed > ul{display:none} .collapsed > .tw .toggle::after{content:"+"} .tw .toggle::after{content:"−"}
+  .leaf .toggle{visibility:hidden}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 0 56px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--blue);color:var(--ink);font-family:var(--mono);font-size:12.5px;font-weight:600;padding:10px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> all tools</a>
+  <span class="id">ruslanmv/tools · json-yaml</span>
+</div></header>
+
+<main class="wrap">
+  <div class="hd">
+    <div class="kick">Developer</div>
+    <h1>JSON / YAML Toolkit</h1>
+    <p class="sub">Beautify, minify and validate JSON, explore it as a collapsible tree, and convert losslessly to YAML and back. Errors are pinpointed by position. Nothing is sent anywhere.</p>
+  </div>
+
+  <div class="bar">
+    <button class="btn p" id="beautify">Beautify</button>
+    <button class="btn" id="minify">Minify</button>
+    <button class="btn" id="sort">Sort keys</button>
+    <button class="btn" id="toYaml">JSON → YAML</button>
+    <button class="btn" id="toJson">YAML → JSON</button>
+    <button class="btn" id="copy">Copy</button>
+    <button class="btn" id="sample">Sample</button>
+    <button class="btn" id="clear">Clear</button>
+    <div class="spacer"></div>
+    <div class="status ok" id="status"><span class="d"></span><span id="statusTxt">awaiting input</span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <div class="ttl"><span>Source</span><span id="srcStats"></span></div>
+      <textarea id="src" spellcheck="false" placeholder='{ "paste": "JSON or YAML here" }'></textarea>
+    </div>
+    <div class="panel">
+      <div class="ttl"><span>Tree view</span><span id="treeStats"></span></div>
+      <div class="tree" id="tree"></div>
+    </div>
+  </div>
+</main>
+<footer><div class="wrap">© 2026 Ruslan Magana Vsevolodovna · parse local, stay local</div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const src=$('src');
+function setStatus(ok,msg){const s=$('status');s.className='status '+(ok?'ok':'bad');$('statusTxt').textContent=msg;}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1400);}
+
+function tryParse(text){
+  // try JSON first, then YAML
+  try{return {data:JSON.parse(text),fmt:'json'};}
+  catch(eJson){
+    if(window.jsyaml){try{const d=jsyaml.load(text);if(typeof d==='object'&&d!==null)return{data:d,fmt:'yaml'};}catch(eY){}}
+    return {error:eJson.message};
+  }
+}
+function stats(o){let keys=0,depth=0;(function w(v,d){depth=Math.max(depth,d);if(v&&typeof v==='object'){const ks=Object.keys(v);if(!Array.isArray(v))keys+=ks.length;ks.forEach(k=>w(v[k],d+1));}})(o,0);return{keys,depth};}
+
+function render(){
+  const text=src.value;
+  $('srcStats').textContent=text.length.toLocaleString()+' chars · '+text.split('\n').length+' lines';
+  if(!text.trim()){setStatus(true,'awaiting input');$('tree').innerHTML='';$('treeStats').textContent='';window._data=undefined;return;}
+  const r=tryParse(text);
+  if(r.error){setStatus(false,'invalid: '+r.error.slice(0,60));return;}
+  window._data=r.data;
+  const st=stats(r.data);
+  setStatus(true,(r.fmt==='yaml'?'valid YAML':'valid JSON')+' · '+st.keys+' keys · depth '+st.depth);
+  $('treeStats').textContent=st.keys+' keys';
+  $('tree').innerHTML='';$('tree').appendChild(buildTree(r.data,null,true));
+}
+function valHtml(v){
+  if(v===null)return '<span class="v-null">null</span>';
+  if(typeof v==='string')return '<span class="v-str">"'+escapeHtml(v)+'"</span>';
+  if(typeof v==='number')return '<span class="v-num">'+v+'</span>';
+  if(typeof v==='boolean')return '<span class="v-bool">'+v+'</span>';
+  return '';
+}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function buildTree(value,key,root){
+  const li=document.createElement('li');
+  const isObj=value&&typeof value==='object';
+  if(!isObj){
+    li.className='leaf';
+    li.innerHTML=`<span class="tw"><span class="toggle"></span>`+(key!==null?`<span class="key">${escapeHtml(key)}</span><span class="br">: </span>`:'')+valHtml(value)+`</span>`;
+    return li;
+  }
+  const isArr=Array.isArray(value);
+  const entries=isArr?value.map((v,i)=>[i,v]):Object.entries(value);
+  const open=isArr?'[':'{', close=isArr?']':'}';
+  const head=document.createElement('span');head.className='tw';
+  head.innerHTML=`<span class="toggle"></span>`+(key!==null?`<span class="key">${escapeHtml(key)}</span><span class="br">: </span>`:'')+`<span class="br">${open}</span> <span class="count">${entries.length} ${isArr?'items':'keys'}</span> <span class="br">${close}</span>`;
+  li.appendChild(head);
+  const ul=document.createElement('ul');
+  entries.forEach(([k,v])=>ul.appendChild(buildTree(v,k,false)));
+  li.appendChild(ul);
+  head.addEventListener('click',()=>li.classList.toggle('collapsed'));
+  if(!root&&entries.length>30)li.classList.add('collapsed');
+  return li;
+}
+
+$('beautify').onclick=()=>{const r=tryParse(src.value);if(r.error)return setStatus(false,'cannot beautify: '+r.error.slice(0,50));src.value=JSON.stringify(r.data,null,2);render();};
+$('minify').onclick=()=>{const r=tryParse(src.value);if(r.error)return setStatus(false,'cannot minify: '+r.error.slice(0,50));src.value=JSON.stringify(r.data);render();};
+$('sort').onclick=()=>{const r=tryParse(src.value);if(r.error)return setStatus(false,'cannot sort: '+r.error.slice(0,50));src.value=JSON.stringify(sortKeys(r.data),null,2);render();};
+function sortKeys(v){if(Array.isArray(v))return v.map(sortKeys);if(v&&typeof v==='object'){const o={};Object.keys(v).sort().forEach(k=>o[k]=sortKeys(v[k]));return o;}return v;}
+$('toYaml').onclick=()=>{if(!window.jsyaml)return setStatus(false,'YAML library not loaded');const r=tryParse(src.value);if(r.error)return setStatus(false,'parse error: '+r.error.slice(0,50));src.value=jsyaml.dump(r.data,{indent:2,lineWidth:100});setStatus(true,'converted to YAML');$('srcStats').textContent=src.value.length+' chars';};
+$('toJson').onclick=()=>{if(!window.jsyaml)return setStatus(false,'YAML library not loaded');try{const d=jsyaml.load(src.value);src.value=JSON.stringify(d,null,2);render();}catch(e){setStatus(false,'YAML error: '+e.message.slice(0,50));}};
+$('copy').onclick=()=>{navigator.clipboard.writeText(src.value).then(()=>toast('copied to clipboard'));};
+$('clear').onclick=()=>{src.value='';render();};
+$('sample').onclick=()=>{src.value=JSON.stringify({service:"agent-matrix",version:"2.4.0",replicas:3,enabled:true,models:["watsonx/granite-3","claude-sonnet-4"],limits:{rpsPerKey:20,maxTokens:8192},routes:[{path:"/v1/chat",auth:"jwt"},{path:"/health",auth:null}]},null,2);render();};
+src.addEventListener('input',render);
+render();
+</script>
+</body>
+</html>

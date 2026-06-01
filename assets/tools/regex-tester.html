@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Regex Tester — ruslanmv/tools</title>
+<meta name="description" content="Test regular expressions live with match highlighting, capture groups and a pattern library. Runs in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a0e16;--ink-2:#0e1421;--ink-3:#141c2c;--line:rgba(140,170,210,.12);--line-2:rgba(140,170,210,.22);--text:#e8eef6;--muted:#8c9bb3;--faint:#5f6e85;--mint:#5ef2c4;--blue:#7aa2ff;--amber:#ffb454;--rose:#ff7a8a;--violet:#b98cff;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',system-ui,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;background-image:radial-gradient(800px 460px at 8% -8%,rgba(122,162,255,.09),transparent 60%),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 26px}
+  header.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,14,22,.92),rgba(10,14,22,.6));border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .back{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .2s}.back:hover{color:var(--blue)}.back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+  .top .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .hd{padding:40px 0 8px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:11px}.kick::before{content:"";width:30px;height:1px;background:var(--blue)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,6vw,50px);letter-spacing:-1px;margin:12px 0 0}
+  .sub{color:var(--muted);max-width:640px;margin-top:10px;font-size:15px}
+  .panel{background:linear-gradient(160deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:18px}
+  .lbl{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:9px;display:block}
+  .rerow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+  .reinput{flex:1;min-width:240px;display:flex;align-items:center;background:var(--ink);border:1px solid var(--line-2);border-radius:11px;padding:0 14px;font-family:var(--mono)}
+  .reinput .slash{color:var(--faint);font-size:16px}
+  .reinput input{flex:1;background:transparent;border:0;color:var(--mint);font-family:var(--mono);font-size:15px;padding:13px 8px;outline:none}
+  .flags{display:flex;gap:6px}
+  .flag{font-family:var(--mono);font-size:13px;width:38px;border:1px solid var(--line-2);background:var(--ink);color:var(--faint);border-radius:9px;cursor:pointer;transition:.15s}
+  .flag.on{background:var(--blue);color:var(--ink);border-color:var(--blue);font-weight:600}
+  .reerr{color:var(--rose);font-family:var(--mono);font-size:12.5px;margin-top:10px;min-height:16px}
+  textarea{width:100%;min-height:160px;resize:vertical;background:var(--ink);border:1px solid var(--line-2);border-radius:11px;padding:14px;color:var(--text);font-family:var(--mono);font-size:13.5px;line-height:1.7;outline:none}
+  textarea:focus{border-color:var(--blue)}
+  .hl{min-height:160px;background:var(--ink);border:1px solid var(--line-2);border-radius:11px;padding:14px;font-family:var(--mono);font-size:13.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;overflow:auto;max-height:340px}
+  mark{background:rgba(94,242,196,.22);color:var(--mint);border-radius:3px;padding:0 1px;box-shadow:inset 0 -1px 0 rgba(94,242,196,.5)}
+  mark.alt{background:rgba(255,180,84,.20);color:var(--amber);box-shadow:inset 0 -1px 0 rgba(255,180,84,.5)}
+  .meta{display:flex;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:12px}
+  .meta b{color:var(--mint)}
+  .groups{margin-top:14px;font-family:var(--mono);font-size:12.5px}
+  .grp{border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-bottom:8px;background:var(--ink)}
+  .grp .h{color:var(--blue);margin-bottom:5px}
+  .grp .g{color:var(--muted);padding-left:14px}.grp .g b{color:var(--amber)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  .lib{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{font-family:var(--mono);font-size:12px;background:var(--ink);border:1px solid var(--line-2);color:var(--muted);border-radius:8px;padding:8px 12px;cursor:pointer;transition:.15s}
+  .chip:hover{border-color:var(--blue);color:var(--blue)}
+  .repl{margin-top:14px}
+  .repl input{width:100%;background:var(--ink);border:1px solid var(--line-2);border-radius:10px;padding:11px 13px;color:var(--text);font-family:var(--mono);font-size:13.5px;outline:none}
+  .repl input:focus{border-color:var(--blue)}
+  .replout{margin-top:10px;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:var(--mono);font-size:13px;color:var(--mint);white-space:pre-wrap;min-height:42px}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 0 56px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> all tools</a>
+  <span class="id">ruslanmv/tools · regex</span>
+</div></header>
+
+<main class="wrap">
+  <div class="hd">
+    <div class="kick">Developer</div>
+    <h1>Regex Tester</h1>
+    <p class="sub">Write a pattern and watch matches and capture groups light up live against your test string. Includes a replace mode and a library of patterns you'll actually reach for.</p>
+  </div>
+
+  <div class="panel">
+    <label class="lbl">Pattern</label>
+    <div class="rerow">
+      <div class="reinput"><span class="slash">/</span><input id="pat" spellcheck="false" placeholder="\b\w+@\w+\.\w+\b" value="(\w+)@(\w+\.\w+)"><span class="slash">/</span></div>
+      <div class="flags" id="flags">
+        <button class="flag on" data-f="g" title="global">g</button>
+        <button class="flag on" data-f="i" title="ignore case">i</button>
+        <button class="flag" data-f="m" title="multiline">m</button>
+        <button class="flag" data-f="s" title="dotall">s</button>
+        <button class="flag" data-f="u" title="unicode">u</button>
+      </div>
+    </div>
+    <div class="reerr" id="reerr"></div>
+    <div class="lib" id="lib"></div>
+  </div>
+
+  <div class="panel">
+    <div class="grid2">
+      <div>
+        <label class="lbl">Test string</label>
+        <textarea id="test" spellcheck="false">Contact us at hello@ruslanmv.com or support@matrixhub.io.
+Server IPs: 10.0.0.4 and 192.168.1.255. Build #4021 shipped 2026-05-30.</textarea>
+      </div>
+      <div>
+        <label class="lbl">Matches</label>
+        <div class="hl" id="hl"></div>
+      </div>
+    </div>
+    <div class="meta">
+      <span><b id="mCount">0</b> matches</span>
+      <span><b id="gCount">0</b> capture groups</span>
+      <span id="mTime"></span>
+    </div>
+    <div class="groups" id="groups"></div>
+  </div>
+
+  <div class="panel">
+    <label class="lbl">Replace (use $1, $2, $&lt;name&gt; for groups)</label>
+    <div class="repl">
+      <input id="replPat" spellcheck="false" placeholder="$1 [at] $2">
+      <div class="replout" id="replOut"></div>
+    </div>
+  </div>
+</main>
+<footer><div class="wrap">© 2026 Ruslan Magana Vsevolodovna · powered by your browser's RegExp engine</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const LIB=[
+  ['Email','[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}'],
+  ['URL','https?:\\/\\/[^\\s/$.?#].[^\\s]*'],
+  ['IPv4','\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b'],
+  ['Date ISO','\\d{4}-\\d{2}-\\d{2}'],
+  ['Hex color','#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})\\b'],
+  ['UUID','[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'],
+  ['Phone (intl)','\\+?\\d{1,3}[\\s-]?\\(?\\d{1,4}\\)?[\\s-]?\\d{3,4}[\\s-]?\\d{3,4}'],
+  ['Word','\\b\\w+\\b'],
+  ['Number','-?\\d+(?:\\.\\d+)?'],
+  ['Markdown link','\\[([^\\]]+)\\]\\(([^)]+)\\)']
+];
+const lib=$('lib');
+LIB.forEach(([n,p])=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>{$('pat').value=p;run();};lib.appendChild(b);});
+
+let flags='gi';
+$('flags').addEventListener('click',e=>{const b=e.target.closest('.flag');if(!b)return;b.classList.toggle('on');flags=[...$('flags').children].filter(x=>x.classList.contains('on')).map(x=>x.dataset.f).join('');run();});
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+function run(){
+  const pat=$('pat').value, text=$('test').value;
+  $('reerr').textContent='';
+  if(!pat){$('hl').innerHTML=esc(text);$('mCount').textContent='0';$('gCount').textContent='0';$('groups').innerHTML='';$('replOut').textContent='';return;}
+  let re;
+  try{re=new RegExp(pat,flags.includes('g')?flags:flags+'g');}
+  catch(err){$('reerr').textContent='⚠ '+err.message;return;}
+  const t0=performance.now();
+  let m,matches=[],guard=0;
+  const gre=re;
+  while((m=gre.exec(text))!==null){
+    matches.push(m);
+    if(m.index===gre.lastIndex)gre.lastIndex++;
+    if(++guard>50000)break;
+  }
+  const dt=(performance.now()-t0).toFixed(2);
+  // highlight
+  let out='',last=0,alt=false;
+  matches.forEach(mm=>{
+    const s=mm.index,e=s+mm[0].length;
+    out+=esc(text.slice(last,s));
+    out+='<mark class="'+(alt?'alt':'')+'">'+esc(mm[0]||'∅')+'</mark>';
+    last=e;alt=!alt;
+  });
+  out+=esc(text.slice(last));
+  $('hl').innerHTML=out||'<span style="color:var(--faint)">no matches</span>';
+  $('mCount').textContent=matches.length;
+  const ng=matches.length?matches[0].length-1:0;
+  $('gCount').textContent=ng;
+  $('mTime').textContent=dt+' ms';
+  // groups (first 12 matches)
+  const g=$('groups');g.innerHTML='';
+  matches.slice(0,12).forEach((mm,i)=>{
+    if(mm.length<=1 && !mm.groups)return;
+    const div=document.createElement('div');div.className='grp';
+    let html=`<div class="h">match ${i+1} — "${esc((mm[0]||'').slice(0,60))}"</div>`;
+    for(let k=1;k<mm.length;k++)html+=`<div class="g">group ${k}: <b>${mm[k]!==undefined?esc(mm[k]):'undefined'}</b></div>`;
+    if(mm.groups)for(const[k,v]of Object.entries(mm.groups))html+=`<div class="g">&lt;${esc(k)}&gt;: <b>${v!==undefined?esc(v):'undefined'}</b></div>`;
+    div.innerHTML=html;g.appendChild(div);
+  });
+  // replace
+  const rp=$('replPat').value;
+  if(rp){try{$('replOut').textContent=text.replace(new RegExp(pat,flags),rp);}catch(e){$('replOut').textContent='—';}}
+  else $('replOut').textContent='';
+}
+['pat','test','replPat'].forEach(id=>$(id).addEventListener('input',run));
+run();
+</script>
+</body>
+</html>

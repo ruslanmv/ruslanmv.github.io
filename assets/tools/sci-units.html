@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Constants & Unit Converter — ruslanmv/tools</title>
+<meta name="description" content="CODATA physical constants and a precise unit converter for length, mass, energy, temperature and data. Runs in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a0e16;--ink-2:#0e1421;--ink-3:#141c2c;--line:rgba(140,170,210,.12);--line-2:rgba(140,170,210,.22);--text:#e8eef6;--muted:#8c9bb3;--faint:#5f6e85;--mint:#5ef2c4;--blue:#7aa2ff;--amber:#ffb454;--rose:#ff7a8a;--violet:#b98cff;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',system-ui,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;background-image:radial-gradient(800px 460px at 8% -8%,rgba(185,140,255,.09),transparent 60%),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 26px}
+  header.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,14,22,.92),rgba(10,14,22,.6));border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .back{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .2s}.back:hover{color:var(--violet)}.back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+  .top .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .hd{padding:40px 0 8px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--violet);display:flex;align-items:center;gap:11px}.kick::before{content:"";width:30px;height:1px;background:var(--violet)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,6vw,50px);letter-spacing:-1px;margin:12px 0 0}
+  .sub{color:var(--muted);max-width:660px;margin-top:10px;font-size:15px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+  @media(max-width:880px){.grid2{grid-template-columns:1fr}}
+  .panel{background:linear-gradient(160deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:16px;padding:20px}
+  .ptitle{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--faint);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .ptitle b{color:var(--violet);font-weight:500}
+  select,input{background:var(--ink);border:1px solid var(--line-2);border-radius:10px;color:var(--text);font-family:var(--mono);font-size:14px;padding:11px 13px;outline:none}
+  select:focus,input:focus{border-color:var(--violet)}
+  .cats{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+  .cat{font-family:var(--mono);font-size:11.5px;background:var(--ink);border:1px solid var(--line-2);color:var(--muted);border-radius:8px;padding:7px 11px;cursor:pointer;transition:.15s}
+  .cat:hover{color:var(--text)} .cat.on{background:var(--violet);color:var(--ink);border-color:var(--violet);font-weight:600}
+  .convrow{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+  .convrow input{flex:1;font-size:16px}
+  .convrow select{flex:0 0 auto;min-width:130px}
+  .results{display:flex;flex-direction:column;gap:8px;max-height:300px;overflow:auto}
+  .rrow{display:flex;justify-content:space-between;align-items:center;background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:11px 14px;cursor:pointer;transition:.12s}
+  .rrow:hover{border-color:var(--violet)}
+  .rrow .u{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .rrow .val{font-family:var(--mono);font-size:14px;color:var(--mint);font-weight:500}
+  .search{position:relative;margin-bottom:14px}
+  .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--faint);fill:none;stroke-width:2}
+  .search input{width:100%;padding-left:38px}
+  .clist{display:flex;flex-direction:column;gap:8px;max-height:430px;overflow:auto}
+  .crow{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;transition:.12s}
+  .crow:hover{border-color:var(--violet);background:rgba(185,140,255,.05)}
+  .crow .n{font-size:13.5px;color:var(--text);display:flex;justify-content:space-between;align-items:center}
+  .crow .sym{font-family:var(--serif);font-style:italic;color:var(--violet);font-size:15px}
+  .crow .v{font-family:var(--mono);font-size:13px;color:var(--mint);margin-top:5px}
+  .crow .un{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:2px}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--violet);color:var(--ink);font-family:var(--mono);font-size:12.5px;font-weight:600;padding:10px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .note{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:14px;line-height:1.7}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 0 56px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> all tools</a>
+  <span class="id">ruslanmv/tools · constants</span>
+</div></header>
+
+<main class="wrap">
+  <div class="hd">
+    <div class="kick">Science · Physics</div>
+    <h1>Constants &amp; Unit Converter</h1>
+    <p class="sub">The reference desk for a physicist-turned-engineer: CODATA fundamental constants on the left, a precise unit converter on the right. Click any value to copy it.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <div class="ptitle">Unit <b>converter</b></div>
+      <div class="cats" id="cats"></div>
+      <div class="convrow">
+        <input type="number" id="cval" value="1" step="any">
+        <select id="cunit"></select>
+      </div>
+      <div class="results" id="cresults"></div>
+    </div>
+
+    <div class="panel">
+      <div class="ptitle">Physical <b>constants</b> · CODATA</div>
+      <div class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="csearch" placeholder="search: planck, boltzmann, electron…" autocomplete="off">
+      </div>
+      <div class="clist" id="clist"></div>
+    </div>
+  </div>
+  <p class="note">Constant values follow the 2018 CODATA recommended set; SI base units have been exact by definition since the 2019 redefinition. Click a constant or converted value to copy it to your clipboard.</p>
+</main>
+<footer><div class="wrap">© 2026 Ruslan Magana Vsevolodovna · from the lab bench to the cluster</div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1400);}
+
+// ---- converter: factor to base unit ----
+const CATS={
+  Length:{base:'m',units:{m:1,km:1000,cm:0.01,mm:0.001,'µm':1e-6,nm:1e-9,'Å':1e-10,mi:1609.344,yd:0.9144,ft:0.3048,in:0.0254,'ly':9.4607e15,AU:1.495978707e11,pc:3.0857e16}},
+  Mass:{base:'kg',units:{kg:1,g:0.001,mg:1e-6,t:1000,lb:0.45359237,oz:0.0283495,st:6.35029,u:1.66053907e-27}},
+  Time:{base:'s',units:{s:1,ms:0.001,'µs':1e-6,ns:1e-9,min:60,h:3600,day:86400,week:604800,year:31557600}},
+  Energy:{base:'J',units:{J:1,kJ:1000,MJ:1e6,cal:4.184,kcal:4184,Wh:3600,kWh:3.6e6,eV:1.602176634e-19,keV:1.602176634e-16,MeV:1.602176634e-13,erg:1e-7,BTU:1055.06}},
+  Pressure:{base:'Pa',units:{Pa:1,kPa:1000,MPa:1e6,bar:1e5,atm:101325,mmHg:133.322,psi:6894.76,Torr:133.322}},
+  Power:{base:'W',units:{W:1,kW:1000,MW:1e6,hp:745.7,'dBm→mW':null}},
+  Data:{base:'B',units:{bit:0.125,B:1,KB:1e3,MB:1e6,GB:1e9,TB:1e12,KiB:1024,MiB:1048576,GiB:1073741824,TiB:1.0995e12}},
+  Angle:{base:'rad',units:{rad:1,deg:0.0174532925,grad:0.015708,arcmin:2.90888e-4,arcsec:4.84814e-6,turn:6.2831853}},
+  Temperature:{base:'K',special:true,units:{K:'K','°C':'C','°F':'F'}}
+};
+delete CATS.Power.units['dBm→mW'];
+let cat='Length';
+const cats=$('cats');
+Object.keys(CATS).forEach(k=>{const b=document.createElement('button');b.className='cat'+(k===cat?' on':'');b.textContent=k;b.onclick=()=>{cat=k;[...cats.children].forEach(x=>x.classList.toggle('on',x.textContent===k));loadUnits();convert();};cats.appendChild(b);});
+function loadUnits(){const sel=$('cunit');sel.innerHTML='';Object.keys(CATS[cat].units).forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;sel.appendChild(o);});}
+function toBase(v,u){const C=CATS[cat];if(C.special){if(u==='K')return v;if(u==='°C')return v+273.15;if(u==='°F')return (v-32)*5/9+273.15;}return v*C.units[u];}
+function fromBase(b,u){const C=CATS[cat];if(C.special){if(u==='K')return b;if(u==='°C')return b-273.15;if(u==='°F')return (b-273.15)*9/5+32;}return b/C.units[u];}
+function fmt(x){if(!isFinite(x))return '—';const a=Math.abs(x);if(x===0)return '0';if(a>=1e9||a<1e-4)return x.toExponential(6);return parseFloat(x.toPrecision(8)).toString();}
+function convert(){
+  const v=parseFloat($('cval').value);const u=$('cunit').value;
+  const out=$('cresults');out.innerHTML='';
+  if(isNaN(v)){out.innerHTML='<div class="rrow"><span class="u">enter a number</span></div>';return;}
+  const base=toBase(v,u);
+  Object.keys(CATS[cat].units).forEach(tu=>{
+    if(tu===u)return;
+    const r=fromBase(base,tu);
+    const row=document.createElement('div');row.className='rrow';
+    row.innerHTML=`<span class="u">${tu}</span><span class="val">${fmt(r)}</span>`;
+    row.onclick=()=>navigator.clipboard.writeText(fmt(r)).then(()=>toast('copied'));
+    out.appendChild(row);
+  });
+}
+$('cval').addEventListener('input',convert);
+$('cunit').addEventListener('change',convert);
+loadUnits();convert();
+
+// ---- constants (2018 CODATA) ----
+const CONST=[
+  ['Speed of light in vacuum','c','299 792 458','m·s⁻¹'],
+  ['Planck constant','h','6.626 070 15 × 10⁻³⁴','J·s'],
+  ['Reduced Planck constant','ℏ','1.054 571 817 × 10⁻³⁴','J·s'],
+  ['Gravitational constant','G','6.674 30 × 10⁻¹¹','m³·kg⁻¹·s⁻²'],
+  ['Elementary charge','e','1.602 176 634 × 10⁻¹⁹','C'],
+  ['Electron mass','mₑ','9.109 383 7015 × 10⁻³¹','kg'],
+  ['Proton mass','mₚ','1.672 621 923 69 × 10⁻²⁷','kg'],
+  ['Neutron mass','mₙ','1.674 927 498 04 × 10⁻²⁷','kg'],
+  ['Avogadro constant','Nₐ','6.022 140 76 × 10²³','mol⁻¹'],
+  ['Boltzmann constant','k_B','1.380 649 × 10⁻²³','J·K⁻¹'],
+  ['Molar gas constant','R','8.314 462 618','J·mol⁻¹·K⁻¹'],
+  ['Fine-structure constant','α','7.297 352 5693 × 10⁻³','—'],
+  ['Vacuum electric permittivity','ε₀','8.854 187 8128 × 10⁻¹²','F·m⁻¹'],
+  ['Vacuum magnetic permeability','µ₀','1.256 637 062 12 × 10⁻⁶','N·A⁻²'],
+  ['Stefan–Boltzmann constant','σ','5.670 374 419 × 10⁻⁸','W·m⁻²·K⁻⁴'],
+  ['Bohr radius','a₀','5.291 772 109 × 10⁻¹¹','m'],
+  ['Rydberg constant','R∞','1.097 373 156 8160 × 10⁷','m⁻¹'],
+  ['Electron volt','eV','1.602 176 634 × 10⁻¹⁹','J'],
+  ['Atomic mass unit','u','1.660 539 066 60 × 10⁻²⁷','kg'],
+  ['Faraday constant','F','96 485.332 12','C·mol⁻¹'],
+  ['Bohr magneton','µ_B','9.274 010 0783 × 10⁻²⁴','J·T⁻¹'],
+  ['Standard gravity','g₀','9.806 65','m·s⁻²'],
+  ['Standard atmosphere','atm','101 325','Pa']
+];
+const clist=$('clist');
+function renderConst(q=''){
+  clist.innerHTML='';
+  CONST.filter(c=>(c[0]+' '+c[1]).toLowerCase().includes(q.toLowerCase())).forEach(c=>{
+    const d=document.createElement('div');d.className='crow';
+    d.innerHTML=`<div class="n"><span>${c[0]}</span><span class="sym">${c[1]}</span></div><div class="v">${c[2]}</div><div class="un">${c[3]}</div>`;
+    d.onclick=()=>navigator.clipboard.writeText(c[2].replace(/\s/g,'')).then(()=>toast(c[1]+' copied'));
+    clist.appendChild(d);
+  });
+}
+$('csearch').addEventListener('input',e=>renderConst(e.target.value));
+renderConst();
+</script>
+</body>
+</html>

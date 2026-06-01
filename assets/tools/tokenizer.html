@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Token Counter & Cost — ruslanmv/tools</title>
+<meta name="description" content="Estimate LLM token counts and price prompts across GPT, Claude and Gemini. Runs entirely in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a0e16;--ink-2:#0e1421;--ink-3:#141c2c;--raise:#182133;--line:rgba(140,170,210,.12);--line-2:rgba(140,170,210,.22);--text:#e8eef6;--muted:#8c9bb3;--faint:#5f6e85;--mint:#5ef2c4;--mint-dim:rgba(94,242,196,.14);--amber:#ffb454;--blue:#7aa2ff;--rose:#ff7a8a;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',system-ui,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;background-image:radial-gradient(800px 460px at 8% -8%,rgba(94,242,196,.09),transparent 60%),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 26px}
+  header.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,14,22,.92),rgba(10,14,22,.6));border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .back{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .2s}
+  .back:hover{color:var(--mint)} .back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+  .top .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .hd{padding:46px 0 8px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--mint);display:flex;align-items:center;gap:11px}
+  .kick::before{content:"";width:30px;height:1px;background:var(--mint)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,6vw,54px);letter-spacing:-1px;margin:14px 0 0}
+  .sub{color:var(--muted);max-width:640px;margin-top:12px;font-size:15.5px}
+  .panel{background:linear-gradient(160deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:22px}
+  .lbl{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:10px;display:block}
+  textarea{width:100%;min-height:200px;resize:vertical;background:var(--ink);border:1px solid var(--line-2);border-radius:12px;padding:16px;color:var(--text);font-family:var(--mono);font-size:13.5px;line-height:1.6;outline:none;transition:border .2s,box-shadow .2s}
+  textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px var(--mint-dim)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+  @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .stat .v{font-family:var(--mono);font-size:30px;font-weight:600;letter-spacing:-1px;color:var(--mint)}
+  .stat.b .v{color:var(--blue)} .stat.a .v{color:var(--amber)} .stat.r .v{color:var(--rose)}
+  .stat .k{font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+  .row{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;margin-bottom:8px}
+  .fld{flex:1;min-width:150px}
+  input[type=number]{width:100%;background:var(--ink);border:1px solid var(--line-2);border-radius:10px;padding:11px 13px;color:var(--text);font-family:var(--mono);font-size:14px;outline:none}
+  input[type=number]:focus{border-color:var(--mint)}
+  table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13.5px}
+  th,td{text-align:right;padding:11px 12px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  th{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);font-weight:500}
+  tbody tr{transition:background .15s}tbody tr:hover{background:rgba(94,242,196,.05)}
+  td .m{font-weight:600}td .p{font-family:var(--mono);color:var(--muted);font-size:12px}
+  td.cost{font-family:var(--mono);color:var(--mint);font-weight:600}
+  .edit{background:transparent;border:1px solid var(--line);border-radius:7px;color:var(--text);font-family:var(--mono);font-size:12px;width:74px;padding:5px 7px;text-align:right;outline:none}
+  .edit:focus{border-color:var(--mint)}
+  .note{font-size:12.5px;color:var(--faint);margin-top:14px;font-family:var(--mono);line-height:1.7}
+  .note a{color:var(--blue)}
+  .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:12.5px}
+  .seg button{background:var(--ink);color:var(--muted);border:0;padding:9px 14px;cursor:pointer;transition:.15s}
+  .seg button.on{background:var(--mint);color:var(--ink);font-weight:600}
+  .mini{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:8px}
+  footer{border-top:1px solid var(--line);margin-top:42px;padding:26px 0 56px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> all tools</a>
+  <span class="id">ruslanmv/tools · token-counter</span>
+</div></header>
+
+<main class="wrap">
+  <div class="hd">
+    <div class="kick">AI / LLM</div>
+    <h1>Token Counter &amp; Cost</h1>
+    <p class="sub">Drop in a prompt to estimate its token count, then price the request across the major models. The estimate uses GPT-style pre-tokenization heuristics — close enough for budgeting and context-window checks, not a substitute for an exact tokenizer.</p>
+  </div>
+
+  <div class="panel">
+    <label class="lbl" for="txt">Prompt / text</label>
+    <textarea id="txt" placeholder="Paste your prompt, document, or system message here…"></textarea>
+    <div class="stats">
+      <div class="stat"><div class="v" id="sTok">0</div><div class="k">est. tokens</div></div>
+      <div class="stat b"><div class="v" id="sWord">0</div><div class="k">words</div></div>
+      <div class="stat a"><div class="v" id="sChar">0</div><div class="k">characters</div></div>
+      <div class="stat r"><div class="v" id="sLine">0</div><div class="k">lines</div></div>
+    </div>
+    <div class="mini">Estimate range: <span id="range">0–0</span> tokens · ~<span id="ratio">0</span> chars/token</div>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <div class="fld">
+        <label class="lbl">Input tokens</label>
+        <input type="number" id="inTok" value="0" min="0">
+      </div>
+      <div class="fld">
+        <label class="lbl">Output tokens</label>
+        <input type="number" id="outTok" value="500" min="0">
+      </div>
+      <div class="fld" style="flex:0 0 auto">
+        <label class="lbl">Calls</label>
+        <input type="number" id="calls" value="1" min="1" style="width:110px">
+      </div>
+      <div class="fld" style="flex:0 0 auto">
+        <label class="lbl">Currency</label>
+        <div class="seg" id="cur"><button class="on" data-c="usd">USD $</button><button data-c="eur">EUR €</button></div>
+      </div>
+    </div>
+    <button id="useEst" class="back" style="border:1px solid var(--line);border-radius:8px;padding:7px 12px;display:inline-flex;margin:4px 0 16px;cursor:pointer">↑ use estimate as input tokens</button>
+    <table>
+      <thead><tr><th>Model</th><th>Input /1M</th><th>Output /1M</th><th>Per call</th><th>Total</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="note">Prices are <b>editable</b> and reflect commonly published list rates (per 1M tokens) — click any price to adjust. Provider pricing changes frequently, so verify against the source before quoting a client:
+      <a href="https://openai.com/api/pricing/" target="_blank" rel="noopener">OpenAI</a> ·
+      <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener">Anthropic</a> ·
+      <a href="https://ai.google.dev/pricing" target="_blank" rel="noopener">Google</a>.
+    </p>
+  </div>
+</main>
+<footer><div class="wrap">© 2026 Ruslan Magana Vsevolodovna · all computation stays in your browser</div></footer>
+
+<script>
+// ---- token estimator (GPT-style pre-tokenization heuristic) ----
+const PAT = /'s|'t|'re|'ve|'m|'ll|'d| ?[A-Za-z]+| ?[0-9]+| ?[^\sA-Za-z0-9]+|\s+/g;
+function estimate(text){
+  if(!text) return {tok:0,lo:0,hi:0};
+  let tok=0;
+  const pieces = text.match(PAT) || [];
+  for(const p of pieces){
+    const s=p.trim();
+    if(!s){ tok += Math.max(1, Math.round(p.length/6)); continue; } // whitespace runs
+    if(/^[0-9]+$/.test(s)) { tok += Math.ceil(s.length/3); continue; } // digits ~3/token
+    if(/^[A-Za-z]+$/.test(s)){ tok += Math.max(1, Math.ceil(s.length/4)); continue; } // words ~4 chars/token
+    tok += Math.max(1, Math.ceil(s.length/2)); // punctuation/symbols denser
+  }
+  return {tok, lo:Math.round(tok*0.85), hi:Math.round(tok*1.18)};
+}
+const $=id=>document.getElementById(id);
+const txt=$('txt');
+function refresh(){
+  const t=txt.value;
+  const e=estimate(t);
+  const words=(t.match(/\S+/g)||[]).length;
+  const chars=t.length;
+  const lines=t? t.split(/\n/).length:0;
+  $('sTok').textContent=e.tok.toLocaleString();
+  $('sWord').textContent=words.toLocaleString();
+  $('sChar').textContent=chars.toLocaleString();
+  $('sLine').textContent=lines.toLocaleString();
+  $('range').textContent=e.lo.toLocaleString()+'–'+e.hi.toLocaleString();
+  $('ratio').textContent=e.tok? (chars/e.tok).toFixed(1):'0';
+  window._lastEst=e.tok;
+}
+txt.addEventListener('input',refresh);
+
+// ---- pricing (USD per 1M tokens, list rates; editable) ----
+const MODELS=[
+  ['GPT-4o',2.50,10.00],['GPT-4o mini',0.15,0.60],['o3',2.00,8.00],['o4-mini',1.10,4.40],
+  ['Claude Opus 4',15.00,75.00],['Claude Sonnet 4',3.00,15.00],['Claude Haiku 3.5',0.80,4.00],
+  ['Gemini 2.5 Pro',1.25,10.00],['Gemini 2.5 Flash',0.30,2.50],
+  ['DeepSeek-V3',0.27,1.10],['Llama 3.1 405B (host)',0.90,0.90]
+];
+const EURRATE=0.92; let cur='usd';
+function sym(){return cur==='usd'?'$':'€';}
+function fx(v){return cur==='usd'?v:v*EURRATE;}
+function money(v){const n=fx(v);return sym()+(n<0.01&&n>0?n.toFixed(5):n.toLocaleString(undefined,{minimumFractionDigits:n<1?4:2,maximumFractionDigits:n<1?5:2}));}
+const rows=$('rows');
+function buildRows(){
+  rows.innerHTML='';
+  MODELS.forEach((m,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><span class="m">${m[0]}</span></td>
+      <td><input class="edit" data-i="${i}" data-k="1" value="${m[1]}"></td>
+      <td><input class="edit" data-i="${i}" data-k="2" value="${m[2]}"></td>
+      <td class="p" data-call></td>
+      <td class="cost" data-total></td>`;
+    rows.appendChild(tr);
+  });
+  rows.querySelectorAll('.edit').forEach(inp=>inp.addEventListener('input',e=>{
+    MODELS[+e.target.dataset.i][+e.target.dataset.k]=parseFloat(e.target.value)||0; calc();
+  }));
+}
+function calc(){
+  const inT=+$('inTok').value||0, outT=+$('outTok').value||0, calls=+$('calls').value||1;
+  [...rows.children].forEach((tr,i)=>{
+    const [_,pi,po]=MODELS[i];
+    const per=(inT/1e6)*pi+(outT/1e6)*po;
+    tr.querySelector('[data-call]').textContent=money(per);
+    tr.querySelector('[data-total]').textContent=money(per*calls);
+  });
+}
+['inTok','outTok','calls'].forEach(id=>$(id).addEventListener('input',calc));
+$('cur').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  cur=b.dataset.c;[...e.currentTarget.children].forEach(x=>x.classList.toggle('on',x===b));calc();});
+$('useEst').addEventListener('click',()=>{$('inTok').value=window._lastEst||0;calc();});
+buildRows(); refresh(); calc();
+</script>
+</body>
+</html>

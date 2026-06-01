@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vector / Embedding Lab — ruslanmv/tools</title>
+<meta name="description" content="Compute cosine similarity, dot product and Euclidean distance between embedding vectors, in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a0e16;--ink-2:#0e1421;--ink-3:#141c2c;--line:rgba(140,170,210,.12);--line-2:rgba(140,170,210,.22);--text:#e8eef6;--muted:#8c9bb3;--faint:#5f6e85;--mint:#5ef2c4;--mint-dim:rgba(94,242,196,.14);--amber:#ffb454;--blue:#7aa2ff;--rose:#ff7a8a;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',system-ui,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;background-image:radial-gradient(800px 460px at 8% -8%,rgba(94,242,196,.09),transparent 60%),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 26px}
+  header.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,14,22,.92),rgba(10,14,22,.6));border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .back{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .2s}.back:hover{color:var(--mint)}.back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+  .top .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .hd{padding:46px 0 8px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--mint);display:flex;align-items:center;gap:11px}.kick::before{content:"";width:30px;height:1px;background:var(--mint)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,6vw,54px);letter-spacing:-1px;margin:14px 0 0}
+  .sub{color:var(--muted);max-width:660px;margin-top:12px;font-size:15.5px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .panel{background:linear-gradient(160deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:16px;padding:20px}
+  .lbl{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:10px;display:flex;justify-content:space-between}
+  .lbl .dim{color:var(--mint)}
+  textarea{width:100%;min-height:150px;resize:vertical;background:var(--ink);border:1px solid var(--line-2);border-radius:12px;padding:14px;color:var(--text);font-family:var(--mono);font-size:13px;line-height:1.6;outline:none}
+  textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px var(--mint-dim)}
+  .err{color:var(--rose);font-family:var(--mono);font-size:12px;margin-top:8px;min-height:16px}
+  .results{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px}
+  @media(max-width:760px){.results{grid-template-columns:1fr}}
+  .metrics{display:flex;flex-direction:column;gap:12px}
+  .metric{background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
+  .metric .name{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.5px}
+  .metric .name small{display:block;color:var(--faint);font-size:10px;margin-top:3px}
+  .metric .val{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.5px}
+  .m-cos .val{color:var(--mint)}.m-dot .val{color:var(--blue)}.m-euc .val{color:var(--amber)}.m-ang .val{color:var(--rose)}
+  .vizbox{background:var(--ink);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .barlabel{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:14px;text-align:center;letter-spacing:.5px}
+  .scale{width:100%;height:10px;border-radius:6px;margin-top:8px;background:linear-gradient(90deg,var(--rose),#3a4760 50%,var(--mint));position:relative}
+  .scale .pin{position:absolute;top:-5px;width:3px;height:20px;background:#fff;border-radius:2px;box-shadow:0 0 8px rgba(255,255,255,.6);transition:left .3s}
+  .scends{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:6px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .btn{font-family:var(--mono);font-size:12px;background:var(--ink);border:1px solid var(--line-2);color:var(--muted);border-radius:9px;padding:9px 14px;cursor:pointer;transition:.15s}
+  .btn:hover{border-color:var(--mint);color:var(--mint)}
+  .note{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:16px;line-height:1.7}
+  footer{border-top:1px solid var(--line);margin-top:42px;padding:26px 0 56px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> all tools</a>
+  <span class="id">ruslanmv/tools · vector-lab</span>
+</div></header>
+
+<main class="wrap">
+  <div class="hd">
+    <div class="kick">AI / LLM</div>
+    <h1>Vector / Embedding Lab</h1>
+    <p class="sub">Paste two embedding vectors — comma, space, newline or JSON-array separated — and read the metrics that drive semantic search and RAG retrieval. The angle gauge shows how aligned the two vectors are.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <div class="lbl"><span>Vector A</span><span class="dim" id="dimA">dim 0</span></div>
+      <textarea id="vecA" spellcheck="false" placeholder="e.g.  0.21, -0.04, 0.88, 0.13 …  or  [0.21, -0.04, …]"></textarea>
+    </div>
+    <div class="panel">
+      <div class="lbl"><span>Vector B</span><span class="dim" id="dimB">dim 0</span></div>
+      <textarea id="vecB" spellcheck="false" placeholder="e.g.  0.19, -0.02, 0.81, 0.27 …"></textarea>
+    </div>
+  </div>
+  <div class="err" id="err"></div>
+  <div class="actions">
+    <button class="btn" id="sample">Load sample vectors</button>
+    <button class="btn" id="rand">Random 8-dim pair</button>
+    <button class="btn" id="clear">Clear</button>
+  </div>
+
+  <div class="results">
+    <div class="metrics">
+      <div class="metric m-cos"><div class="name">Cosine similarity<small>−1 opposite · 0 orthogonal · 1 identical</small></div><div class="val" id="cos">—</div></div>
+      <div class="metric m-ang"><div class="name">Angle between<small>arccos of cosine</small></div><div class="val" id="ang">—</div></div>
+      <div class="metric m-dot"><div class="name">Dot product<small>Σ aᵢbᵢ</small></div><div class="val" id="dot">—</div></div>
+      <div class="metric m-euc"><div class="name">Euclidean distance<small>‖a − b‖₂</small></div><div class="val" id="euc">—</div></div>
+    </div>
+    <div class="vizbox">
+      <svg id="gauge" viewBox="0 0 200 200" width="200" height="200" style="max-width:100%"></svg>
+      <div class="barlabel">cosine similarity</div>
+      <div class="scale"><div class="pin" id="pin" style="left:50%"></div></div>
+      <div class="scends" style="width:100%"><span>−1</span><span>0</span><span>+1</span></div>
+    </div>
+  </div>
+  <p class="note">‖a‖ = <span id="normA">—</span> · ‖b‖ = <span id="normB">—</span>. Cosine similarity is the workhorse of vector search because it ignores magnitude and compares direction only — ideal when embeddings aren't normalized. Everything is computed locally; vectors never leave this page.</p>
+</main>
+<footer><div class="wrap">© 2026 Ruslan Magana Vsevolodovna · linear algebra, locally</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+function parseVec(s){
+  if(!s.trim()) return [];
+  const nums=s.replace(/[\[\]]/g,' ').split(/[\s,;]+/).filter(x=>x.length).map(Number);
+  return nums;
+}
+function dot(a,b){let s=0;for(let i=0;i<a.length;i++)s+=a[i]*b[i];return s;}
+function norm(a){return Math.sqrt(dot(a,a));}
+function fmt(x,d=4){if(!isFinite(x))return '—';return (Math.abs(x)>=1e4||(Math.abs(x)<1e-3&&x!==0))?x.toExponential(2):x.toFixed(d);}
+
+function compute(){
+  const a=parseVec($('vecA').value), b=parseVec($('vecB').value);
+  $('dimA').textContent='dim '+a.length; $('dimB').textContent='dim '+b.length;
+  const err=$('err');
+  const bad=a.some(isNaN)||b.some(isNaN);
+  if(bad){err.textContent='⚠ Some entries are not valid numbers.';}
+  else if(a.length&&b.length&&a.length!==b.length){err.textContent='⚠ Dimension mismatch: '+a.length+' vs '+b.length+'.';}
+  else err.textContent='';
+  if(!a.length||!b.length||a.length!==b.length||bad){
+    ['cos','ang','dot','euc'].forEach(id=>$(id).textContent='—');
+    $('normA').textContent='—';$('normB').textContent='—';drawGauge(null);$('pin').style.left='50%';return;
+  }
+  const d=dot(a,b), na=norm(a), nb=norm(b);
+  const cos=(na&&nb)? d/(na*nb):0;
+  const ang=Math.acos(Math.max(-1,Math.min(1,cos)))*180/Math.PI;
+  let e=0;for(let i=0;i<a.length;i++)e+=(a[i]-b[i])**2;e=Math.sqrt(e);
+  $('cos').textContent=fmt(cos); $('ang').textContent=fmt(ang,1)+'°';
+  $('dot').textContent=fmt(d); $('euc').textContent=fmt(e);
+  $('normA').textContent=fmt(na);$('normB').textContent=fmt(nb);
+  $('pin').style.left=((cos+1)/2*100)+'%';
+  drawGauge(ang);
+}
+function drawGauge(ang){
+  const g=$('gauge'),cx=100,cy=110,r=72;
+  if(ang===null){g.innerHTML=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--line)" stroke-width="1.5"/><text x="${cx}" y="${cy+5}" fill="var(--faint)" font-family="var(--mono)" font-size="12" text-anchor="middle">∠</text>`;return;}
+  const a1=-90*Math.PI/180; // vector A fixed pointing up
+  const a2=(-90+ang)*Math.PI/180;
+  const xa=cx+r*Math.cos(a1),ya=cy+r*Math.sin(a1);
+  const xb=cx+r*Math.cos(a2),yb=cy+r*Math.sin(a2);
+  const arcR=34;
+  const ax=cx+arcR*Math.cos(a1),ay=cy+arcR*Math.sin(a1);
+  const bx=cx+arcR*Math.cos(a2),by=cy+arcR*Math.sin(a2);
+  const large=ang>180?1:0;
+  g.innerHTML=`
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--line)" stroke-width="1"/>
+    <path d="M ${ax} ${ay} A ${arcR} ${arcR} 0 ${large} 1 ${bx} ${by}" fill="none" stroke="var(--rose)" stroke-width="2"/>
+    <line x1="${cx}" y1="${cy}" x2="${xa}" y2="${ya}" stroke="var(--mint)" stroke-width="2.5"/>
+    <circle cx="${xa}" cy="${ya}" r="4" fill="var(--mint)"/>
+    <line x1="${cx}" y1="${cy}" x2="${xb}" y2="${yb}" stroke="var(--blue)" stroke-width="2.5"/>
+    <circle cx="${xb}" cy="${yb}" r="4" fill="var(--blue)"/>
+    <circle cx="${cx}" cy="${cy}" r="3" fill="var(--text)"/>
+    <text x="${cx}" y="22" fill="var(--rose)" font-family="var(--mono)" font-size="15" font-weight="600" text-anchor="middle">${ang.toFixed(1)}°</text>
+    <text x="${xa+6}" y="${ya}" fill="var(--mint)" font-family="var(--mono)" font-size="11">A</text>
+    <text x="${xb+8}" y="${yb+4}" fill="var(--blue)" font-family="var(--mono)" font-size="11">B</text>`;
+}
+['vecA','vecB'].forEach(id=>$(id).addEventListener('input',compute));
+$('sample').onclick=()=>{$('vecA').value='0.21, -0.04, 0.88, 0.13, 0.42, -0.19, 0.05, 0.67';$('vecB').value='0.19, -0.02, 0.81, 0.27, 0.38, -0.11, 0.09, 0.59';compute();};
+$('rand').onclick=()=>{const r=()=>Array.from({length:8},()=>(Math.random()*2-1).toFixed(3)).join(', ');$('vecA').value=r();$('vecB').value=r();compute();};
+$('clear').onclick=()=>{$('vecA').value='';$('vecB').value='';compute();};
+compute();
+</script>
+</body>
+</html>
