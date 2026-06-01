@@ -2,6 +2,16 @@ name = "ruslanmv-contact"
 main = "worker.js"
 compatibility_date = "2024-11-01"
 
+# Workers Observability — persist request/response logs in the Cloudflare
+# dashboard so we can debug live submissions without `wrangler tail` running.
+# Cloudflare → Workers → ruslanmv-contact → Observability → Logs.
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true
+
 # Non-secret config. Safe to keep in the repo.
 # Domain ruslanmv.com is verified in Resend (DKIM + SPF), so we send from it.
 # CONTACT_TO_EMAIL is a comma-separated list — every address gets the notification.

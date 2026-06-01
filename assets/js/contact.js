@@ -10,6 +10,7 @@
     var endpoint = (wrap && wrap.getAttribute("data-endpoint")) || "";
     var configured = endpoint && endpoint.indexOf("YOUR-SUBDOMAIN") === -1 && endpoint.indexOf("YOUR-WORKER") === -1;
     var turnstileKey = (wrap && wrap.getAttribute("data-turnstile-key")) || "";
+    var isDev = (wrap && wrap.getAttribute("data-dev")) === "true";
     var turnstileWidgetId = null;
 
     // Render the Turnstile widget once its script has loaded (only if a key is set).
@@ -95,6 +96,26 @@
       // Honeypot filled → pretend success, send nothing.
       if (data.company) { form.reset(); setStatus("Thank you. Your message has been sent.", "ok"); return; }
 
+      // DEV MODE (local `make serve`): simulate a successful send so the full
+      // UX — spinner → success modal → banner — can be tested without calling
+      // the production Worker or sending real email.
+      if (isDev) {
+        btn.disabled = true;
+        btn.classList.add("is-loading");
+        if (btnLabel) btnLabel.textContent = "Sending…";
+        setTimeout(function () {
+          btn.disabled = false;
+          btn.classList.remove("is-loading");
+          if (btnLabel) btnLabel.textContent = defaultLabel;
+          resetTurnstile();
+          form.reset();
+          clearStatus();
+          openModal();
+          console.log("[contact dev] Simulated send — payload would be:", data);
+        }, 900);
+        return;
+      }
+
       // No backend configured yet → graceful mailto fallback.
       if (!configured) {
         var body = "Topic: " + data.topic + "\n\n" + data.message + "\n\n— " + data.name + " (" + data.email + ")";
@@ -116,26 +137,36 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       })
-      .then(function (r) { return r.json().then(function (j){ return { ok: r.ok, body: j }; }); })
+      // Robust parser: do not assume the response is JSON. If Cloudflare/the
+      // Worker returns HTML or empty body, surface it instead of a generic
+      // "network error", so the visitor (and we) can see what actually failed.
+      .then(function (r) {
+        return r.text().then(function (text) {
+          var body = {};
+          try { body = text ? JSON.parse(text) : {}; }
+          catch (e) { body = { error: text.slice(0, 200) || "Non-JSON response" }; }
+          return { ok: r.ok, status: r.status, body: body };
+        });
+      })
       .then(function (res) {
         if (res.ok && res.body && res.body.ok) {
           form.reset();
           clearStatus();
           openModal();
         } else {
-          var err = (res.body && res.body.error) || "";
+          var err = (res.body && (res.body.error || res.body.detail)) || "unknown error";
           // Friendly messaging for the most common cases.
           if (/Verification/i.test(err)) {
             var holder = document.getElementById("ct-turnstile");
             if (holder) holder.scrollIntoView({ behavior: "smooth", block: "center" });
             setStatus("Please tick the \"Verify you're human\" box above and try again.", "err");
           } else {
-            setStatus("Sorry, the message could not be sent (" + (err || "unknown error") + "). Please email contact@ruslanmv.com directly.", "err");
+            setStatus("Sorry, the message could not be sent (" + res.status + ": " + err + "). Please email contact@ruslanmv.com directly.", "err");
           }
         }
       })
-      .catch(function () {
-        setStatus("Network error — please email contact@ruslanmv.com directly.", "err");
+      .catch(function (e) {
+        setStatus("Network error — " + (e && e.message ? e.message : "request failed") + ". Please email contact@ruslanmv.com directly.", "err");
       })
       .finally(function () {
         btn.disabled = false;
