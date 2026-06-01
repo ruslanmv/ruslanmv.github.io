@@ -134,6 +134,11 @@ h3.archive__date {
 .archive__item-teaser-imageclickhandler {
   position: absolute;
   top: 0;
+  left: 0;   /* anchor to the positioned parent; without this it falls back to a
+                static-position left (~377px) and overflows the page horizontally,
+                which on mobile expands the layout viewport and pushes the fixed
+                nav drawer off-screen. */
+  right: 0;
 }
 
 .archive__item-excerpt {
