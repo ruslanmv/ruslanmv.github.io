@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" font-family="'Hanken Grotesk',system-ui,Arial,sans-serif" role="img" aria-label="Unsloth LoRA fine-tuning pipeline: dataset, prompt template, 4-bit Llama, LoRA adapters, SFT training, inference, save adapter, GGUF export">
+  <defs>
+    <marker id="al" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#0b7d4f"/></marker>
+    <filter id="sl" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#10231a" flood-opacity="0.10"/></filter>
+    <linearGradient id="hl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f9d63"/><stop offset="1" stop-color="#0b5a3f"/></linearGradient>
+  </defs>
+  <rect width="1200" height="520" fill="#f8faf8"/>
+  <text x="40" y="52" font-size="26" font-weight="800" fill="#152019">Fine-tuning Llama 3 with Unsloth + LoRA</text>
+  <text x="40" y="82" font-size="16" fill="#5c6b63">Train a few small adapter weights on instruction data, then run or export the model.</text>
+
+  <!-- Row 1: data prep -->
+  <text x="40" y="124" font-size="12" font-weight="800" letter-spacing="1" fill="#0b7d4f">PREPARE</text>
+  <g filter="url(#sl)">
+    <rect x="40"  y="138" width="170" height="80" rx="13" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="270" y="138" width="190" height="80" rx="13" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="520" y="138" width="160" height="80" rx="13" fill="#ffffff" stroke="#dfe6e0"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="125" y="172" font-size="15" font-weight="700" fill="#152019">Alpaca dataset</text>
+    <text x="125" y="195" font-size="13" fill="#46514b">instruction / input / output</text>
+    <text x="365" y="172" font-size="15" font-weight="700" fill="#152019">Prompt template</text>
+    <text x="365" y="195" font-size="13" fill="#46514b">consistent format + EOS</text>
+    <text x="600" y="172" font-size="15" font-weight="700" fill="#152019">Tokenizer</text>
+    <text x="600" y="195" font-size="13" fill="#46514b">text → tokens</text>
+  </g>
+  <g stroke="#0b7d4f" stroke-width="3" marker-end="url(#al)" fill="none">
+    <line x1="212" y1="178" x2="266" y2="178"/>
+    <line x1="462" y1="178" x2="516" y2="178"/>
+  </g>
+
+  <!-- Row 2: model + LoRA + train -->
+  <text x="40" y="262" font-size="12" font-weight="800" letter-spacing="1" fill="#0b7d4f">TRAIN</text>
+  <g filter="url(#sl)">
+    <rect x="40"  y="276" width="200" height="86" rx="13" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="300" y="276" width="190" height="86" rx="13" fill="#eaf6ef" stroke="#9ed7bb"/>
+    <rect x="550" y="276" width="180" height="86" rx="13" fill="#ffffff" stroke="#dfe6e0"/>
+  </g>
+  <rect x="40" y="276" width="200" height="28" rx="13" fill="url(#hl)"/><rect x="40" y="292" width="200" height="12" fill="url(#hl)"/>
+  <text x="140" y="296" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">4-bit Llama 3 (8B)</text>
+  <text x="140" y="330" font-size="13" fill="#46514b" text-anchor="middle">QLoRA · low memory</text>
+  <text x="140" y="349" font-size="13" fill="#46514b" text-anchor="middle">base weights frozen</text>
+  <text x="395" y="312" font-size="15" font-weight="700" fill="#0b5a3f" text-anchor="middle">LoRA adapters</text>
+  <text x="395" y="335" font-size="13" fill="#0b5a3f" text-anchor="middle">small trainable</text>
+  <text x="395" y="353" font-size="13" fill="#0b5a3f" text-anchor="middle">matrices (r=16)</text>
+  <text x="640" y="312" font-size="15" font-weight="700" fill="#152019" text-anchor="middle">SFT training</text>
+  <text x="640" y="335" font-size="13" fill="#46514b" text-anchor="middle">SFTTrainer</text>
+  <text x="640" y="353" font-size="13" fill="#46514b" text-anchor="middle">loss ↓</text>
+  <g stroke="#0b7d4f" stroke-width="3" marker-end="url(#al)" fill="none">
+    <line x1="240" y1="319" x2="296" y2="319"/>
+    <line x1="490" y1="319" x2="546" y2="319"/>
+  </g>
+  <path d="M600 218 L600 250 L140 250 L140 272" stroke="#9ed7bb" stroke-width="2.5" stroke-dasharray="6 5" fill="none" marker-end="url(#al)"/>
+
+  <!-- Row 3: use / export -->
+  <text x="760" y="124" font-size="12" font-weight="800" letter-spacing="1" fill="#0b7d4f">USE &amp; EXPORT</text>
+  <g filter="url(#sl)">
+    <rect x="760" y="138" width="180" height="80" rx="13" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="760" y="240" width="180" height="80" rx="13" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="980" y="189" width="180" height="80" rx="13" fill="#eaf6ef" stroke="#9ed7bb"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="850" y="172" font-size="15" font-weight="700" fill="#152019">Inference</text>
+    <text x="850" y="195" font-size="13" fill="#46514b">same prompt format</text>
+    <text x="850" y="274" font-size="15" font-weight="700" fill="#152019">Save LoRA adapter</text>
+    <text x="850" y="297" font-size="13" fill="#46514b">small &amp; reusable</text>
+    <text x="1070" y="222" font-size="15" font-weight="700" fill="#0b5a3f">GGUF export</text>
+    <text x="1070" y="245" font-size="13" fill="#0b5a3f">q4_k_m · Ollama,</text>
+    <text x="1070" y="263" font-size="13" fill="#0b5a3f">llama.cpp, LM Studio</text>
+  </g>
+  <path d="M730 319 L850 319 L850 322" stroke="#0b7d4f" stroke-width="3" fill="none" marker-end="url(#al)"/>
+  <line x1="850" y1="240" x2="850" y2="220" stroke="#0b7d4f" stroke-width="3" marker-end="url(#al)"/>
+  <line x1="940" y1="229" x2="976" y2="229" stroke="#0b7d4f" stroke-width="3" marker-end="url(#al)"/>
+  <line x1="940" y1="280" x2="1000" y2="255" stroke="#9ed7bb" stroke-width="2.5" stroke-dasharray="6 5" fill="none" marker-end="url(#al)"/>
+
+  <text x="600" y="430" font-size="13" fill="#8a978f" text-anchor="middle">LoRA trains ~1% of the weights — that is why a single Colab GPU is enough.</text>
+</svg>

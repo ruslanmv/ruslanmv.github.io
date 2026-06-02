@@ -9,6 +9,7 @@ layout: default
 {%- assign essays = post_e | concat: page_e | sort: "essay_date" | reverse -%}
 
 <div class="hub-hero">
+  <img class="hub-hero__bg" src="{{ '/assets/images/guides/guide-hero-bg.svg' | relative_url }}" alt="" aria-hidden="true">
   <div class="hub-hero__inner">
     <div class="hub-hero__lead">
       <p class="hub-hero__eyebrow">Learn</p>
