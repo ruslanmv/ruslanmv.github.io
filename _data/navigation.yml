@@ -46,21 +46,8 @@ main:
       - title: "Guides"
         url: /guides/
 
-  - title: "Courses"
-    url: /courses/
-    children:
-      - title: "All Courses"
-        url: /courses/
-      - title: "Agentic AI Tutorial"
-        url: /courses/agentic-ai/
-      - title: "Financial AI Tutorial"
-        url: /courses/financial-ai/
-      - title: "watsonx Workshop"
-        url: /courses/watsonx-workshop/
-      - title: "MCP Gateway Workshop"
-        url: /courses/mcp-gateway-workshop/
-      - title: "IBM watsonx Generative AI Engineer Certification"
-        url: /courses/ibm-watsonx-generative-ai-engineer/
+  - title: "Learn"
+    url: /learn/
 
   - title: "Publications"
     url: /publications
@@ -117,25 +104,10 @@ burger:
   - title: "Generative AI"
     url: /generative-ai/
     indent: true
-  - title: "Courses"
-    url: /courses/
+  - title: "Learn"
+    url: /learn/
   - title: "All Courses"
     url: /courses/
-    indent: true
-  - title: "Agentic AI Tutorial"
-    url: /courses/agentic-ai/
-    indent: true
-  - title: "Financial AI Tutorial"
-    url: /courses/financial-ai/
-    indent: true
-  - title: "watsonx Workshop"
-    url: /courses/watsonx-workshop/
-    indent: true
-  - title: "MCP Gateway Workshop"
-    url: /courses/mcp-gateway-workshop/
-    indent: true
-  - title: "IBM watsonx Generative AI Engineer Certification"
-    url: /courses/ibm-watsonx-generative-ai-engineer/
     indent: true
   - title: "Publications"
     url: /publications

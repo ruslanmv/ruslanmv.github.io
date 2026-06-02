@@ -45,7 +45,10 @@ body.layout--course .initial-content, body.layout--course .page__content{ backgr
 .hub-hero__social{ display:flex; gap:.7rem; margin-top:.6rem; }
 .hub-hero__social a{ color:#9fbcae; font-size:1.05rem; }
 .hub-hero__social a:hover{ color:var(--hub-accent-bright); }
-.hub-hero__bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.5; z-index:1; pointer-events:none; }
+.hub-hero__bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center right; opacity:.85; z-index:1; pointer-events:none; }
+/* darken the left side so the title/lead text stays readable over the artwork */
+.hub-hero::after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(90deg, rgba(3,16,12,.92), rgba(3,16,12,.5) 55%, rgba(3,16,12,.15)); }
 
 /* ---- Wrapper / layout ---- */
 .hub{ max-width:1180px; margin:0 auto; padding:0 1.5rem 4.5rem; color:var(--hub-ink); }

@@ -5,6 +5,7 @@ layout: default
 {%- assign c = site.data.courses | where: "id", page.course_id | first -%}
 
 <div class="hub-hero">
+  <img class="hub-hero__bg" src="{{ '/assets/images/guides/guide-hero-bg.svg' | relative_url }}" alt="" aria-hidden="true">
   <div class="hub-hero__inner">
     <div class="hub-hero__lead">
       <p class="hub-hero__eyebrow">Course</p>

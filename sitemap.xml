@@ -1,0 +1,28 @@
+---
+layout: null
+permalink: /sitemap.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- comment -%}
+  Custom sitemap: only canonical, indexable, useful URLs.
+  Excludes paginated archive pages (/pageN/), tag/category archives,
+  the 404 page, and anything with `sitemap: false` or `robots: noindex...`.
+{%- endcomment -%}
+{%- assign items = site.html_pages | concat: site.posts -%}
+{%- for item in items -%}
+  {%- if item.sitemap == false -%}{%- continue -%}{%- endif -%}
+  {%- if item.robots contains "noindex" -%}{%- continue -%}{%- endif -%}
+  {%- assign u = item.url -%}
+  {%- if u contains "/page" or u contains "/tags" or u contains "/categories" -%}{%- continue -%}{%- endif -%}
+  {%- if u == "/404.html" -%}{%- continue -%}{%- endif -%}
+  <url>
+    <loc>{{ u | replace: "index.html", "" | absolute_url | xml_escape }}</loc>
+  {%- assign d = item.last_modified_at | default: item.date -%}
+  {%- if d %}
+    <lastmod>{{ d | date_to_xmlschema }}</lastmod>
+  {%- endif %}
+  </url>
+{%- endfor %}
+</urlset>

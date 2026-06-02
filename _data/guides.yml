@@ -197,6 +197,11 @@
     - title: "Transformers & Fine-tuning"
       icon: "fas fa-screwdriver-wrench"
       posts:
+        - title: "Fine-tune Llama 3 with Unsloth (LoRA + GGUF)"
+          url: /blog/Fine-tune-Llama-3-with-Unsloth-LoRA-Alpaca-and-GGUF
+          excerpt: "Fine-tune an instruction-following Llama 3 on a single Colab GPU with LoRA, then export to GGUF for local use."
+          tags: ["Unsloth", "Llama 3", "LoRA"]
+          image: /assets/images/posts/2026-06-02-Fine-tune-Llama-3-with-Unsloth-LoRA-Alpaca-and-GGUF/hero.jpg
         - title: "Build a basic LLM (GPT) from scratch in Python"
           url: /blog/How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python
           excerpt: "Implement a small GPT-style language model and understand the transformer loop end to end."
