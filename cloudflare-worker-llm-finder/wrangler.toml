@@ -1,0 +1,11 @@
+name = "llm-compatibility-finder"
+main = "worker.js"
+compatibility_date = "2025-05-01"
+
+# Optional: raise Hugging Face rate limits / allow private repos by adding a secret:
+#   npx wrangler secret put HF_TOKEN
+#
+# Optional custom domain route example:
+# routes = [
+#   { pattern = "llm-api.ruslanmv.com/*", custom_domain = true }
+# ]

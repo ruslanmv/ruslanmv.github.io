@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Prompt Builder — Ruslan Magana Vsevolodovna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1080px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+  .tool-wrap{max-width:1080px;margin:0 auto;padding:38px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:640px}
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:7px}
+  input,select,textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;outline:none;transition:border .15s,box-shadow .15s}
+  textarea{font-family:var(--mono);font-size:13.5px;min-height:120px;resize:vertical}
+  input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer;border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s}
+  .btn:hover{border-color:var(--line-3)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-600)}
+  .mono{font-family:var(--mono)}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:7px;background:#f0f1ec;color:var(--muted)}
+
+  /* ---- Tool-specific styles ---- */
+  .tool-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:32px;
+    align-items:start;
+  }
+  @media(max-width:860px){
+    .tool-grid{grid-template-columns:1fr}
+    .preview-col{position:static!important}
+  }
+  .preview-col{
+    position:sticky;
+    top:88px;
+  }
+
+  /* Form sections */
+  .form-section{display:flex;flex-direction:column;gap:20px}
+  .field-group{display:flex;flex-direction:column;gap:6px}
+
+  /* Templates row */
+  .templates-section{margin-top:32px}
+  .templates-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .tpl-grid{display:flex;flex-wrap:wrap;gap:8px}
+  .tpl-btn{
+    font-family:var(--sans);font-size:13px;font-weight:600;
+    padding:9px 14px;border-radius:9px;cursor:pointer;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--text);
+    transition:all .15s;min-height:44px;
+  }
+  .tpl-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-tint)}
+  .tpl-btn:focus{outline:2px solid var(--green);outline-offset:2px}
+
+  /* Few-shot examples */
+  .examples-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .examples-header span{font-size:13px;font-weight:600;color:var(--muted)}
+  .example-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:start;margin-bottom:10px}
+  .example-row textarea{min-height:72px;font-size:13px}
+  .example-row .remove-btn{
+    width:36px;height:36px;min-width:36px;min-height:44px;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-2);background:var(--surface);border-radius:9px;
+    cursor:pointer;color:var(--faint);font-size:18px;font-family:var(--sans);
+    transition:all .15s;padding:0;flex-shrink:0;
+  }
+  .example-row .remove-btn:hover{border-color:#e88;color:#c44;background:#fff5f5}
+  .example-row .remove-btn:focus{outline:2px solid var(--green);outline-offset:2px}
+  @media(max-width:520px){
+    .example-row{grid-template-columns:1fr auto;grid-template-rows:auto auto;}
+    .example-row textarea:nth-child(1){grid-column:1/2}
+    .example-row textarea:nth-child(2){grid-column:1/2}
+    .example-row .remove-btn{grid-column:2/3;grid-row:1/2}
+  }
+
+  /* Toggle switch */
+  .toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+  .toggle-row .toggle-label{font-size:13px;font-weight:600;color:var(--muted)}
+  .switch{position:relative;display:inline-block;width:44px;height:26px;flex-shrink:0}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{
+    position:absolute;inset:0;background:var(--line-3);border-radius:13px;
+    cursor:pointer;transition:background .2s;
+  }
+  .slider:before{
+    content:'';position:absolute;height:20px;width:20px;
+    left:3px;bottom:3px;background:#fff;border-radius:50%;
+    transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);
+  }
+  input:checked + .slider{background:var(--green)}
+  input:checked + .slider:before{transform:translateX(18px)}
+  .switch input:focus + .slider{box-shadow:0 0 0 4px var(--green-soft)}
+
+  /* Preview panel */
+  .preview-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+  .preview-header h2{font-size:15px;font-weight:700;color:var(--ink)}
+  .preview-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .preview-actions .btn{padding:9px 14px;font-size:13px;min-height:44px}
+
+  .msg-block{margin-bottom:14px}
+  .msg-label{
+    font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+    color:var(--green);margin-bottom:6px;padding:3px 0;
+  }
+  .prompt-pre{
+    background:var(--surface-2);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;font-family:var(--mono);font-size:13px;color:var(--ink);
+    white-space:pre-wrap;word-break:break-word;line-height:1.7;min-height:48px;
+    max-height:420px;overflow-y:auto;
+  }
+  .prompt-pre.empty{color:var(--faint);font-style:italic}
+
+  /* Stats row */
+  .stats-row{
+    display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;
+    padding-top:12px;border-top:1px solid var(--line);
+  }
+  .stat-item{display:flex;flex-direction:column;gap:2px}
+  .stat-val{font-size:17px;font-weight:700;color:var(--ink)}
+  .stat-key{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint)}
+
+  /* Variable fill panel */
+  .vars-section{
+    margin-top:16px;padding:16px;background:var(--green-tint);
+    border:1px solid rgba(21,160,90,.2);border-radius:10px;
+  }
+  .vars-section h3{font-size:13px;font-weight:700;color:var(--green-700);margin-bottom:12px;letter-spacing:.3px}
+  .vars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+  .var-field label{font-size:12px;font-weight:600;color:var(--green-700);margin-bottom:5px}
+  .var-field input{font-size:14px;background:#fff;border-color:rgba(21,160,90,.25)}
+  .var-field input:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+
+  /* Copy feedback */
+  .copy-feedback{
+    font-size:12px;font-weight:600;color:var(--green);
+    opacity:0;transition:opacity .3s;white-space:nowrap;align-self:center;
+  }
+  .copy-feedback.show{opacity:1}
+
+  /* Divider */
+  .divider{border:none;border-top:1px solid var(--line);margin:4px 0 0}
+
+  /* Panel title row */
+  .panel-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:18px}
+
+  /* Small label hint */
+  .field-hint{font-size:11.5px;color:var(--faint);margin-top:4px}
+
+  /* Autosave indicator */
+  .autosave-note{font-size:11.5px;color:var(--faint);display:flex;align-items:center;gap:5px;margin-top:14px}
+  .autosave-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
+
+  /* ---- Prompt catalog ---- */
+  .catalog-section{margin-top:30px;padding:22px;background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .catalog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+  .catalog-meta{font-size:13.5px;color:var(--muted)}
+  .catalog-meta b{color:var(--green-700);font-weight:700}
+  .catalog-dl{display:flex;gap:8px;flex-wrap:wrap}
+  .catalog-dl .btn{padding:9px 13px;font-size:13px;min-height:40px}
+  .catalog-controls{display:grid;grid-template-columns:1fr 220px;gap:10px;margin-bottom:16px}
+  @media(max-width:600px){.catalog-controls{grid-template-columns:1fr}}
+  .catalog-search{position:relative}
+  .catalog-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:var(--faint);stroke-width:2;fill:none}
+  .catalog-search input{padding-left:40px}
+  .catalog-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:720px){.catalog-list{grid-template-columns:1fr}}
+  .cat-item{text-align:left;display:flex;flex-direction:column;gap:8px;padding:14px 15px;border:1px solid var(--line-2);
+    background:var(--surface-2);border-radius:11px;cursor:pointer;transition:all .14s;min-height:44px;font-family:var(--sans)}
+  .cat-item:hover{border-color:var(--green);background:var(--green-tint);transform:translateY(-2px)}
+  .cat-item:focus{outline:2px solid var(--green);outline-offset:2px}
+  .cat-item-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .cat-item-title{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.25}
+  .cat-item-snippet{font-size:12.5px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .cat-item-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:auto}
+  .cat-src{font-size:11px;color:var(--faint);font-family:var(--mono)}
+  .cat-var{font-size:10.5px;font-weight:700;color:var(--green-700);background:var(--green-soft);padding:3px 8px;border-radius:6px;letter-spacing:.3px}
+  .catalog-empty{grid-column:1/-1;text-align:center;color:var(--faint);padding:38px 0;font-size:14px}
+  .catalog-pager{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .catalog-pager:empty{display:none}
+  .catalog-pager button{min-width:40px;height:40px;padding:0 12px;border:1px solid var(--line-2);background:var(--surface);
+    border-radius:10px;color:var(--muted);font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:all .14s}
+  .catalog-pager button:hover:not(:disabled){border-color:var(--green);color:var(--green-700)}
+  .catalog-pager button:disabled{opacity:.4;cursor:not-allowed}
+  .catalog-pager .pginfo{font-size:13px;color:var(--muted);padding:0 6px}
+  .catalog-attrib{font-size:12px;color:var(--faint);margin-top:14px;line-height:1.5}
+  .catalog-attrib a{color:var(--green-700);font-weight:600}
+
+  /* Responsive tweaks */
+  @media(max-width:520px){
+    .tool-wrap{padding:24px 16px 64px}
+    .panel{padding:16px}
+    .preview-header{flex-direction:column;align-items:flex-start}
+    .stats-row{gap:12px}
+    .catalog-section{padding:16px}
+  }
+</style>
+</head>
+<body>
+  <header class="bar"><div class="in">
+    <a class="back" href="../index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+    <span class="name">Ruslan Magana Vsevolodovna</span>
+  </div></header>
+
+  <main class="tool-wrap">
+    <div class="eyebrow">AI / LLM</div>
+    <h1>AI Prompt Builder</h1>
+    <p class="sub">Craft, test, and optimize prompts for any LLM — start from 500 curated, structured templates, then copy, download, or save for later. Everything runs in your browser.</p>
+
+    <!-- Template Library -->
+    <div class="templates-section">
+      <div class="templates-label">Quick start</div>
+      <div class="tpl-grid" id="tplGrid" role="group" aria-label="Quick-start prompt templates"></div>
+    </div>
+
+    <!-- Prompt Catalog -->
+    <section class="catalog-section" id="catalogSection" aria-label="Prompt catalog">
+      <div class="catalog-head">
+        <div>
+          <div class="templates-label" style="margin-bottom:4px">Prompt catalog</div>
+          <p class="catalog-meta" id="catalogMeta">Loading curated prompts…</p>
+        </div>
+        <div class="catalog-dl">
+          <a class="btn" id="dlTxt" href="data/prompts.catalog.txt" download>Catalog .txt</a>
+          <a class="btn" id="dlJson" href="data/prompts.catalog.json" download>Catalog .json</a>
+        </div>
+      </div>
+      <div class="catalog-controls">
+        <div class="catalog-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="catalogSearch" type="search" placeholder="Search prompts by title, task, tag or source…" autocomplete="off" aria-label="Search prompt catalog" />
+        </div>
+        <select id="catalogCategory" aria-label="Filter by category">
+          <option value="">All categories</option>
+        </select>
+      </div>
+      <div class="catalog-list" id="catalogList" role="list"></div>
+      <div class="catalog-pager" id="catalogPager"></div>
+      <p class="catalog-attrib" id="catalogAttrib"></p>
+    </section>
+
+    <!-- Two-column grid -->
+    <div class="tool-grid">
+
+      <!-- LEFT: Form -->
+      <div class="form-col">
+        <div class="panel">
+          <div class="panel-title">Prompt fields</div>
+          <div class="form-section">
+
+            <div class="field-group">
+              <label for="fRole">Role / Persona</label>
+              <input type="text" id="fRole" placeholder="e.g. You are an expert software engineer…" autocomplete="off" />
+            </div>
+
+            <div class="field-group">
+              <label for="fTask">Task / Goal</label>
+              <textarea id="fTask" rows="3" placeholder="What should the model do? Be specific."></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="fContext">Context</label>
+              <textarea id="fContext" rows="3" placeholder="Background information, relevant data, or a document to process. Use {{variable}} for placeholders."></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="fConstraints">Constraints / Rules</label>
+              <textarea id="fConstraints" rows="3" placeholder="e.g. Do not include personal opinions. Max 3 bullet points."></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="fFormat">Output Format</label>
+              <input type="text" id="fFormat" placeholder="e.g. Markdown bullet list, JSON object, plain paragraph…" autocomplete="off" />
+            </div>
+
+            <div class="field-group">
+              <label for="fTone">Tone / Style</label>
+              <input type="text" id="fTone" placeholder="e.g. Concise and professional, friendly and encouraging…" autocomplete="off" />
+            </div>
+
+            <!-- Few-shot examples -->
+            <div class="field-group">
+              <div class="examples-header">
+                <span>Few-shot Examples (input → output)</span>
+                <button class="btn" id="addExampleBtn" type="button" aria-label="Add example row" style="padding:7px 13px;font-size:13px;min-height:44px">+ Add example</button>
+              </div>
+              <div id="examplesContainer"></div>
+            </div>
+
+          </div><!-- /form-section -->
+
+          <div class="autosave-note">
+            <span class="autosave-dot" id="saveDot" style="background:var(--faint)"></span>
+            <span id="saveNote">Fields auto-saved to browser storage</span>
+          </div>
+        </div><!-- /panel -->
+      </div><!-- /form-col -->
+
+      <!-- RIGHT: Preview -->
+      <div class="preview-col">
+        <div class="panel">
+
+          <div class="preview-header">
+            <h2>Assembled Prompt</h2>
+            <div class="preview-actions">
+              <button class="btn" id="copyBtn" type="button" aria-label="Copy prompt to clipboard">Copy</button>
+              <button class="btn" id="downloadBtn" type="button" aria-label="Download prompt as .txt file">Download .txt</button>
+              <button class="btn primary" id="clearBtn" type="button" aria-label="Clear all fields">Clear all</button>
+            </div>
+          </div>
+
+          <!-- System/User split toggle -->
+          <div class="toggle-row" style="margin-bottom:16px">
+            <label class="switch" aria-label="Toggle System / User message split">
+              <input type="checkbox" id="splitToggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-label">System / User split</span>
+            <span class="copy-feedback" id="copyFeedback">Copied!</span>
+          </div>
+          <hr class="divider" style="margin-bottom:16px" />
+
+          <!-- Preview output -->
+          <div id="previewOutput"></div>
+
+          <!-- Stats -->
+          <div class="stats-row">
+            <div class="stat-item">
+              <span class="stat-val" id="statChars">0</span>
+              <span class="stat-key">Characters</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val" id="statWords">0</span>
+              <span class="stat-key">Words</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val" id="statTokens">≈0</span>
+              <span class="stat-key">Approx tokens</span>
+            </div>
+          </div>
+
+        </div><!-- /panel -->
+
+        <!-- Variable fill panel (shown only when {{vars}} found) -->
+        <div class="vars-section" id="varsSection" style="display:none" aria-live="polite">
+          <h3>Fill Variables</h3>
+          <div class="vars-grid" id="varsGrid"></div>
+        </div>
+
+      </div><!-- /preview-col -->
+    </div><!-- /tool-grid -->
+
+  </main>
+
+<script>
+(function(){
+'use strict';
+
+/* =========================================================
+   TEMPLATES
+   ========================================================= */
+const TEMPLATES = [
+  {
+    label:'Summarize',
+    role:'You are a precise summarization assistant.',
+    task:'Summarize the following text into a concise, accurate summary that captures the key points.',
+    context:'Text to summarize:\n\n{{text}}',
+    constraints:'- Stay under 150 words.\n- Do not add opinions or external knowledge.\n- Preserve key facts and figures.',
+    format:'3–5 bullet points followed by a one-sentence TL;DR.',
+    tone:'Clear, neutral, professional.',
+    examples:[]
+  },
+  {
+    label:'Code Review',
+    role:'You are a senior software engineer conducting a thorough code review.',
+    task:'Review the provided code snippet and give actionable feedback.',
+    context:'Language: {{language}}\n\nCode:\n```\n{{code}}\n```',
+    constraints:'- Focus on correctness, readability, performance, and security.\n- Be specific: reference line numbers or constructs.\n- Do not rewrite the entire function unless necessary.',
+    format:'Markdown with sections: **Issues** (critical → minor), **Suggestions**, **Overall Assessment** (1 sentence).',
+    tone:'Constructive, precise, collegial.',
+    examples:[]
+  },
+  {
+    label:'Extract JSON',
+    role:'You are a structured data extraction assistant.',
+    task:'Extract the requested information from the user-provided text and return it as valid JSON.',
+    context:'Text:\n\n{{text}}',
+    constraints:'- Return ONLY valid JSON — no markdown fences, no explanation.\n- Use null for missing fields.\n- Do not infer data that is not explicitly present.',
+    format:'JSON object matching this schema: {{schema}}',
+    tone:'Factual, terse.',
+    examples:[
+      {input:'Name: Alice, Age: 30, City: London', output:'{"name":"Alice","age":30,"city":"London"}'}
+    ]
+  },
+  {
+    label:'RAG Answer',
+    role:'You are a helpful assistant that answers questions strictly from retrieved context.',
+    task:'Answer the question below using ONLY the provided context. Do not use outside knowledge.',
+    context:'Retrieved context:\n---\n{{context}}\n---\n\nQuestion: {{question}}',
+    constraints:'- If the answer is not in the context, say "I don\'t have enough information to answer that."\n- Cite the relevant sentence(s) from the context.\n- Be concise.',
+    format:'Short paragraph (2–4 sentences), followed by Source: "<quoted sentence>".',
+    tone:'Helpful, factual, grounded.',
+    examples:[]
+  },
+  {
+    label:'Classification',
+    role:'You are a text classification assistant.',
+    task:'Classify the following text into one of the provided categories.',
+    context:'Categories: {{categories}}\n\nText to classify:\n\n{{text}}',
+    constraints:'- Output ONLY the category label — nothing else.\n- If unsure, pick the best fit.\n- Categories are case-sensitive.',
+    format:'Single category label.',
+    tone:'Terse, deterministic.',
+    examples:[
+      {input:'The package arrived damaged and customer service was unhelpful.', output:'Negative'},
+      {input:'Delivery was fast and the product works perfectly!', output:'Positive'}
+    ]
+  },
+  {
+    label:'Rewrite / Tone-shift',
+    role:'You are a professional editor and writing coach.',
+    task:'Rewrite the provided text to match the target tone and style, preserving all original meaning.',
+    context:'Target tone: {{target_tone}}\n\nOriginal text:\n\n{{text}}',
+    constraints:'- Do not add or remove factual content.\n- Preserve structure (paragraphs, lists) unless tone demands otherwise.\n- Return only the rewritten text — no commentary.',
+    format:'Rewritten text only, same approximate length as the original.',
+    tone:'Match the target: {{target_tone}}.',
+    examples:[]
+  }
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const LS_KEY = 'rmv-prompt-builder';
+
+function defaultState(){
+  return {
+    role:'', task:'', context:'', constraints:'', format:'', tone:'',
+    examples:[], // [{input:'',output:''}]
+    split: false,
+    vars: {} // {name: value}
+  };
+}
+
+let state = defaultState();
+let varValues = {}; // live variable substitution values
+
+/* =========================================================
+   DOM REFS
+   ========================================================= */
+const fRole         = document.getElementById('fRole');
+const fTask         = document.getElementById('fTask');
+const fContext      = document.getElementById('fContext');
+const fConstraints  = document.getElementById('fConstraints');
+const fFormat       = document.getElementById('fFormat');
+const fTone         = document.getElementById('fTone');
+const splitToggle   = document.getElementById('splitToggle');
+const examplesCont  = document.getElementById('examplesContainer');
+const addExBtn      = document.getElementById('addExampleBtn');
+const previewOutput = document.getElementById('previewOutput');
+const statChars     = document.getElementById('statChars');
+const statWords     = document.getElementById('statWords');
+const statTokens    = document.getElementById('statTokens');
+const varsSection   = document.getElementById('varsSection');
+const varsGrid      = document.getElementById('varsGrid');
+const copyBtn       = document.getElementById('copyBtn');
+const downloadBtn   = document.getElementById('downloadBtn');
+const clearBtn      = document.getElementById('clearBtn');
+const copyFeedback  = document.getElementById('copyFeedback');
+const saveDot       = document.getElementById('saveDot');
+const saveNote      = document.getElementById('saveNote');
+const tplGrid       = document.getElementById('tplGrid');
+
+/* =========================================================
+   APPLY A PROMPT (shared by built-in templates + catalog)
+   ========================================================= */
+function applyPrompt(p, opts){
+  opts = opts || {};
+  fRole.value        = p.role        || '';
+  fTask.value        = p.task        || '';
+  fContext.value     = p.context     || '';
+  fConstraints.value = p.constraints || '';
+  fFormat.value      = p.format      || p.output_format || '';
+  fTone.value        = p.tone        || '';
+  state.examples = (Array.isArray(p.examples) ? p.examples : []).map(function(e){
+    return {input:e.input||'', output:e.output||''};
+  });
+  renderExamples();
+  varValues = {};
+  saveAndUpdate();
+  if(opts.scroll){
+    const grid = document.querySelector('.tool-grid');
+    if(grid && grid.scrollIntoView) grid.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+/* =========================================================
+   QUICK-START TEMPLATE BUTTONS
+   ========================================================= */
+TEMPLATES.forEach(function(tpl){
+  const btn = document.createElement('button');
+  btn.className = 'tpl-btn';
+  btn.type = 'button';
+  btn.textContent = tpl.label;
+  btn.setAttribute('aria-label', 'Load template: ' + tpl.label);
+  btn.addEventListener('click', function(){ applyPrompt(tpl); });
+  tplGrid.appendChild(btn);
+});
+
+/* =========================================================
+   EXAMPLES
+   ========================================================= */
+function renderExamples(){
+  examplesCont.innerHTML = '';
+  if(state.examples.length === 0){
+    const hint = document.createElement('p');
+    hint.className = 'field-hint';
+    hint.textContent = 'No examples yet. Click "+ Add example" to add input → output pairs.';
+    examplesCont.appendChild(hint);
+    return;
+  }
+  state.examples.forEach(function(ex, idx){
+    const row = document.createElement('div');
+    row.className = 'example-row';
+
+    const taIn = document.createElement('textarea');
+    taIn.setAttribute('aria-label', 'Example ' + (idx+1) + ' input');
+    taIn.placeholder = 'Input…';
+    taIn.value = ex.input;
+    taIn.rows = 3;
+    taIn.addEventListener('input', function(){
+      state.examples[idx].input = taIn.value;
+      saveAndUpdate();
+    });
+
+    const taOut = document.createElement('textarea');
+    taOut.setAttribute('aria-label', 'Example ' + (idx+1) + ' output');
+    taOut.placeholder = 'Output…';
+    taOut.value = ex.output;
+    taOut.rows = 3;
+    taOut.addEventListener('input', function(){
+      state.examples[idx].output = taOut.value;
+      saveAndUpdate();
+    });
+
+    const rmBtn = document.createElement('button');
+    rmBtn.className = 'remove-btn';
+    rmBtn.type = 'button';
+    rmBtn.innerHTML = '&times;';
+    rmBtn.setAttribute('aria-label', 'Remove example ' + (idx+1));
+    rmBtn.addEventListener('click', function(){
+      state.examples.splice(idx, 1);
+      renderExamples();
+      saveAndUpdate();
+    });
+
+    row.appendChild(taIn);
+    row.appendChild(taOut);
+    row.appendChild(rmBtn);
+    examplesCont.appendChild(row);
+  });
+}
+
+addExBtn.addEventListener('click', function(){
+  state.examples.push({input:'', output:''});
+  renderExamples();
+  // Focus newly created first textarea
+  const rows = examplesCont.querySelectorAll('.example-row');
+  if(rows.length){
+    const last = rows[rows.length-1];
+    const ta = last.querySelector('textarea');
+    if(ta) ta.focus();
+  }
+  saveAndUpdate();
+});
+
+/* =========================================================
+   PROMPT ASSEMBLY
+   ========================================================= */
+function assembleParts(){
+  const role        = fRole.value.trim();
+  const task        = fTask.value.trim();
+  const context     = fContext.value.trim();
+  const constraints = fConstraints.value.trim();
+  const format      = fFormat.value.trim();
+  const tone        = fTone.value.trim();
+  const examples    = state.examples;
+
+  const parts = [];
+
+  if(role)        parts.push('## Role\n' + role);
+  if(task)        parts.push('## Task\n' + task);
+  if(context)     parts.push('## Context\n' + context);
+  if(constraints) parts.push('## Constraints\n' + constraints);
+  if(format)      parts.push('## Output Format\n' + format);
+  if(tone)        parts.push('## Tone / Style\n' + tone);
+
+  if(examples.length){
+    const exLines = examples.map(function(e, i){
+      return 'Example ' + (i+1) + ':\n  Input:  ' + (e.input||'').replace(/\n/g,'\n          ') + '\n  Output: ' + (e.output||'').replace(/\n/g,'\n          ');
+    });
+    parts.push('## Examples\n' + exLines.join('\n\n'));
+  }
+
+  return parts;
+}
+
+function substituteVars(text){
+  return text.replace(/\{\{([^}]+)\}\}/g, function(match, name){
+    const val = varValues[name.trim()];
+    return (val !== undefined && val !== '') ? val : match;
+  });
+}
+
+function assembleSystemPrompt(){
+  const parts = assembleParts();
+  // System = Role + Task + Constraints + Format + Tone + Examples (no context)
+  const systemParts = parts.filter(function(p){
+    return !p.startsWith('## Context');
+  });
+  return systemParts.join('\n\n');
+}
+
+function assembleUserPrompt(){
+  const context = fContext.value.trim();
+  if(context) return '## Context\n' + context;
+  return '';
+}
+
+function assembleCombined(){
+  return assembleParts().join('\n\n');
+}
+
+function getFullPromptText(){
+  if(splitToggle.checked){
+    const sys  = substituteVars(assembleSystemPrompt());
+    const user = substituteVars(assembleUserPrompt());
+    let out = '';
+    if(sys)  out += '[SYSTEM]\n' + sys;
+    if(user) out += (out ? '\n\n' : '') + '[USER]\n' + user;
+    return out;
+  } else {
+    return substituteVars(assembleCombined());
+  }
+}
+
+/* =========================================================
+   VARIABLE DETECTION
+   ========================================================= */
+function detectVars(text){
+  const found = new Set();
+  const re = /\{\{([^}]+)\}\}/g;
+  let m;
+  while((m = re.exec(text)) !== null){
+    found.add(m[1].trim());
+  }
+  return Array.from(found).sort();
+}
+
+function renderVarsPanel(vars){
+  if(vars.length === 0){
+    varsSection.style.display = 'none';
+    return;
+  }
+  varsSection.style.display = 'block';
+  // Keep existing values, add new fields, remove obsolete
+  const existing = {};
+  varsGrid.querySelectorAll('input[data-var]').forEach(function(inp){
+    existing[inp.dataset.var] = inp.value;
+  });
+
+  varsGrid.innerHTML = '';
+  vars.forEach(function(name){
+    const div = document.createElement('div');
+    div.className = 'var-field field-group';
+
+    const lbl = document.createElement('label');
+    lbl.setAttribute('for', 'var_' + name);
+    lbl.textContent = '{{' + name + '}}';
+
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.id = 'var_' + name;
+    inp.dataset.var = name;
+    inp.placeholder = name;
+    inp.value = varValues[name] !== undefined ? varValues[name] : (existing[name] || '');
+    inp.setAttribute('autocomplete', 'off');
+    inp.addEventListener('input', function(){
+      varValues[name] = inp.value;
+      renderPreview();
+    });
+
+    div.appendChild(lbl);
+    div.appendChild(inp);
+    varsGrid.appendChild(div);
+  });
+}
+
+/* =========================================================
+   PREVIEW RENDER
+   ========================================================= */
+function renderPreview(){
+  const rawCombined = assembleCombined();
+  const vars = detectVars(rawCombined);
+  renderVarsPanel(vars);
+
+  previewOutput.innerHTML = '';
+
+  const isSplit = splitToggle.checked;
+
+  if(isSplit){
+    const sysRaw  = assembleSystemPrompt();
+    const userRaw = assembleUserPrompt();
+    const sysSub  = substituteVars(sysRaw);
+    const userSub = substituteVars(userRaw);
+
+    appendMsgBlock('System Message', sysSub || '(empty)');
+    appendMsgBlock('User Message',   userSub || '(empty)');
+  } else {
+    const combined = substituteVars(rawCombined);
+    appendMsgBlock(null, combined || '');
+  }
+
+  // Stats on final substituted text
+  const fullText = getFullPromptText();
+  const chars = fullText.length;
+  const words = fullText.trim() === '' ? 0 : fullText.trim().split(/\s+/).length;
+  const tokens = Math.ceil(chars / 4);
+  statChars.textContent   = chars.toLocaleString();
+  statWords.textContent   = words.toLocaleString();
+  statTokens.textContent  = '≈' + tokens.toLocaleString();
+}
+
+function appendMsgBlock(labelText, content){
+  const block = document.createElement('div');
+  block.className = 'msg-block';
+
+  if(labelText){
+    const lbl = document.createElement('div');
+    lbl.className = 'msg-label';
+    lbl.textContent = labelText;
+    block.appendChild(lbl);
+  }
+
+  const pre = document.createElement('pre');
+  pre.className = 'prompt-pre mono';
+  if(!content || content.trim() === ''){
+    pre.textContent = 'Start filling in the fields on the left…';
+    pre.classList.add('empty');
+  } else {
+    pre.textContent = content;
+  }
+  block.appendChild(pre);
+  previewOutput.appendChild(block);
+}
+
+/* =========================================================
+   PERSIST
+   ========================================================= */
+let saveTimer = null;
+function saveAndUpdate(){
+  renderPreview();
+  // Debounced save
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function(){
+    try {
+      const data = {
+        role:        fRole.value,
+        task:        fTask.value,
+        context:     fContext.value,
+        constraints: fConstraints.value,
+        format:      fFormat.value,
+        tone:        fTone.value,
+        examples:    state.examples.slice(),
+        split:       splitToggle.checked,
+        vars:        Object.assign({}, varValues)
+      };
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      saveDot.style.background = 'var(--green)';
+      saveNote.textContent = 'Saved · ' + new Date().toLocaleTimeString();
+    } catch(e){
+      saveDot.style.background = '#e88';
+      saveNote.textContent = 'Storage unavailable';
+    }
+  }, 400);
+}
+
+function loadFromStorage(){
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    fRole.value        = data.role        || '';
+    fTask.value        = data.task        || '';
+    fContext.value     = data.context     || '';
+    fConstraints.value = data.constraints || '';
+    fFormat.value      = data.format      || '';
+    fTone.value        = data.tone        || '';
+    state.examples     = Array.isArray(data.examples) ? data.examples : [];
+    splitToggle.checked = !!data.split;
+    varValues          = (data.vars && typeof data.vars === 'object') ? data.vars : {};
+    saveDot.style.background = 'var(--green)';
+    saveNote.textContent = 'Restored from storage';
+  } catch(e){
+    /* silently ignore corrupt data */
+  }
+}
+
+/* =========================================================
+   WIRE UP INPUT LISTENERS
+   ========================================================= */
+[fRole, fTask, fContext, fConstraints, fFormat, fTone].forEach(function(el){
+  el.addEventListener('input', saveAndUpdate);
+});
+splitToggle.addEventListener('change', saveAndUpdate);
+
+/* =========================================================
+   COPY
+   ========================================================= */
+copyBtn.addEventListener('click', function(){
+  const text = getFullPromptText();
+  if(!text.trim()){
+    showCopyFeedback('Nothing to copy');
+    return;
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+      showCopyFeedback('Copied!');
+    }, function(){
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+});
+
+function fallbackCopy(text){
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;pointer-events:none';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showCopyFeedback('Copied!');
+  } catch(e){
+    showCopyFeedback('Copy failed');
+  }
+}
+
+function showCopyFeedback(msg){
+  copyFeedback.textContent = msg;
+  copyFeedback.classList.add('show');
+  setTimeout(function(){ copyFeedback.classList.remove('show'); }, 2000);
+}
+
+/* =========================================================
+   DOWNLOAD
+   ========================================================= */
+downloadBtn.addEventListener('click', function(){
+  const text = getFullPromptText();
+  if(!text.trim()){ showCopyFeedback('Nothing to download'); return; }
+  const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = 'prompt-' + new Date().toISOString().slice(0,16).replace(/[T:]/g,'-') + '.txt';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); document.body.removeChild(a); }, 1000);
+});
+
+/* =========================================================
+   CLEAR ALL
+   ========================================================= */
+clearBtn.addEventListener('click', function(){
+  if(!confirm('Clear all fields and examples?')) return;
+  fRole.value = ''; fTask.value = ''; fContext.value = '';
+  fConstraints.value = ''; fFormat.value = ''; fTone.value = '';
+  state.examples = [];
+  varValues = {};
+  splitToggle.checked = false;
+  renderExamples();
+  saveAndUpdate();
+});
+
+/* =========================================================
+   PROMPT CATALOG (loaded from a pre-built static JSON file;
+   nothing is fetched from third parties at runtime)
+   ========================================================= */
+const catalogSection  = document.getElementById('catalogSection');
+const catalogMeta     = document.getElementById('catalogMeta');
+const catalogSearch   = document.getElementById('catalogSearch');
+const catalogCategory = document.getElementById('catalogCategory');
+const catalogList     = document.getElementById('catalogList');
+const catalogPager    = document.getElementById('catalogPager');
+const catalogAttrib   = document.getElementById('catalogAttrib');
+
+const CATALOG = { all: [], filtered: [], page: 1, pageSize: 8, loaded: false };
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+  });
+}
+
+async function loadCatalog(){
+  try {
+    const res = await fetch('data/prompts.catalog.min.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const prompts = Array.isArray(data) ? data : (data.prompts || []);
+    if(!prompts.length) throw new Error('empty catalog');
+
+    CATALOG.all = prompts;
+    CATALOG.loaded = true;
+
+    // Build category dropdown
+    const cats = {};
+    prompts.forEach(function(p){ cats[p.category||'General'] = (cats[p.category||'General']||0)+1; });
+    Object.keys(cats).sort().forEach(function(c){
+      const o = document.createElement('option');
+      o.value = c; o.textContent = c + ' (' + cats[c] + ')';
+      catalogCategory.appendChild(o);
+    });
+
+    // Attribution from catalog metadata
+    const sources = (data && data.sources) || [];
+    if(sources.length){
+      catalogAttrib.innerHTML = 'Prompt text from ' + sources.map(function(s){
+        const name = esc(s.name||'source');
+        const lic  = s.license ? ' (' + esc(s.license) + ')' : '';
+        return s.url ? '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+name+'</a>'+lic : name+lic;
+      }).join(', ') + '. Catalog built statically with <span class="mono">scripts/build_catalog.py</span> — nothing is sent anywhere.';
+    }
+
+    catalogMeta.innerHTML = '<b>' + prompts.length + '</b> curated, structured prompts — search, filter, and load any one into the builder.';
+    applyCatalogFilter();
+  } catch(err){
+    // Graceful fallback: the six built-in templates above still work offline.
+    CATALOG.loaded = false;
+    catalogMeta.textContent = 'Catalog unavailable here — the quick-start templates above still work. (Serve the folder over http, or run scripts/build_catalog.py to generate the catalog.)';
+    catalogSearch.disabled = true;
+    catalogCategory.disabled = true;
+    catalogList.innerHTML = '';
+    catalogPager.innerHTML = '';
+    if(window.console) console.warn('Prompt catalog not loaded:', err);
+  }
+}
+
+function applyCatalogFilter(){
+  const q = catalogSearch.value.trim().toLowerCase();
+  const cat = catalogCategory.value;
+  const terms = q ? q.split(/\s+/) : [];
+  CATALOG.filtered = CATALOG.all.filter(function(p){
+    if(cat && (p.category||'General') !== cat) return false;
+    if(!terms.length) return true;
+    const hay = (p.title+' '+p.task+' '+p.role+' '+(p.category||'')+' '+(p.source||'')+' '+((p.tags||[]).join(' '))).toLowerCase();
+    return terms.every(function(t){ return hay.indexOf(t) !== -1; });
+  });
+  CATALOG.page = 1;
+  renderCatalog();
+}
+
+function renderCatalog(){
+  const list = CATALOG.filtered;
+  const pages = Math.max(1, Math.ceil(list.length / CATALOG.pageSize));
+  if(CATALOG.page > pages) CATALOG.page = pages;
+  const start = (CATALOG.page - 1) * CATALOG.pageSize;
+  const slice = list.slice(start, start + CATALOG.pageSize);
+
+  catalogList.innerHTML = '';
+  if(!slice.length){
+    const d = document.createElement('div');
+    d.className = 'catalog-empty';
+    d.textContent = 'No prompts match your search.';
+    catalogList.appendChild(d);
+    catalogPager.innerHTML = '';
+    return;
+  }
+
+  slice.forEach(function(p){
+    const hasVar = /\{\{[^}]+\}\}/.test((p.task||'') + (p.role||'') + (p.context||''));
+    const snippet = (p.task || p.role || '').replace(/\s+/g,' ').trim();
+    const btn = document.createElement('button');
+    btn.className = 'cat-item';
+    btn.type = 'button';
+    btn.setAttribute('role','listitem');
+    btn.setAttribute('aria-label', 'Load prompt: ' + p.title);
+    btn.innerHTML =
+      '<div class="cat-item-top"><span class="cat-item-title">' + esc(p.title) + '</span>' +
+        '<span class="tag">' + esc(p.category || 'General') + '</span></div>' +
+      '<div class="cat-item-snippet">' + esc(snippet) + '</div>' +
+      '<div class="cat-item-foot">' +
+        (hasVar ? '<span class="cat-var">{{ }} variables</span>' : '') +
+        '<span class="cat-src">' + esc((p.source||'').split(' ')[0]) + (p.license ? ' · ' + esc(p.license) : '') + '</span>' +
+      '</div>';
+    btn.addEventListener('click', function(){ applyPrompt(p, {scroll:true}); });
+    catalogList.appendChild(btn);
+  });
+
+  // pager
+  catalogPager.innerHTML = '';
+  if(pages > 1){
+    const prev = document.createElement('button');
+    prev.textContent = '‹'; prev.disabled = CATALOG.page === 1;
+    prev.setAttribute('aria-label','Previous page');
+    prev.addEventListener('click', function(){ CATALOG.page--; renderCatalog(); });
+    const info = document.createElement('span');
+    info.className = 'pginfo';
+    info.textContent = 'Page ' + CATALOG.page + ' of ' + pages + ' · ' + list.length + ' prompts';
+    const next = document.createElement('button');
+    next.textContent = '›'; next.disabled = CATALOG.page === pages;
+    next.setAttribute('aria-label','Next page');
+    next.addEventListener('click', function(){ CATALOG.page++; renderCatalog(); });
+    catalogPager.appendChild(prev);
+    catalogPager.appendChild(info);
+    catalogPager.appendChild(next);
+  }
+}
+
+let catSearchTimer = null;
+catalogSearch.addEventListener('input', function(){
+  clearTimeout(catSearchTimer);
+  catSearchTimer = setTimeout(applyCatalogFilter, 120);
+});
+catalogCategory.addEventListener('change', applyCatalogFilter);
+
+/* =========================================================
+   INIT
+   ========================================================= */
+loadFromStorage();
+renderExamples();
+renderPreview();
+loadCatalog();
+
+}());
+</script>
+</body>
+</html>

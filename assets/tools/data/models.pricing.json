@@ -1,0 +1,18 @@
+{
+  "updated": "2026-06-02",
+  "currency": "USD",
+  "unit": "per_1M_tokens",
+  "note": "Approximate public list prices, USD per 1,000,000 tokens. Prices change often and vary by tier/region — treat as estimates and verify with each provider. Every value is editable in the tool.",
+  "models": [
+    { "id": "gpt-4o",            "name": "GPT-4o",            "vendor": "OpenAI",    "in": 2.5,  "out": 10.0, "ctx": 128000,  "source": "https://openai.com/api/pricing/" },
+    { "id": "gpt-4o-mini",       "name": "GPT-4o mini",       "vendor": "OpenAI",    "in": 0.15, "out": 0.6,  "ctx": 128000,  "source": "https://openai.com/api/pricing/" },
+    { "id": "o3-mini",           "name": "o3-mini",           "vendor": "OpenAI",    "in": 1.1,  "out": 4.4,  "ctx": 200000,  "source": "https://openai.com/api/pricing/" },
+    { "id": "claude-opus-4",     "name": "Claude Opus 4",     "vendor": "Anthropic", "in": 15.0, "out": 75.0, "ctx": 200000,  "source": "https://www.anthropic.com/pricing" },
+    { "id": "claude-sonnet-4",   "name": "Claude Sonnet 4",   "vendor": "Anthropic", "in": 3.0,  "out": 15.0, "ctx": 200000,  "source": "https://www.anthropic.com/pricing" },
+    { "id": "claude-haiku-3-5",  "name": "Claude Haiku 3.5",  "vendor": "Anthropic", "in": 0.8,  "out": 4.0,  "ctx": 200000,  "source": "https://www.anthropic.com/pricing" },
+    { "id": "gemini-2-0-flash",  "name": "Gemini 2.0 Flash",  "vendor": "Google",    "in": 0.1,  "out": 0.4,  "ctx": 1000000, "source": "https://ai.google.dev/pricing" },
+    { "id": "gemini-1-5-pro",    "name": "Gemini 1.5 Pro",    "vendor": "Google",    "in": 1.25, "out": 5.0,  "ctx": 2000000, "source": "https://ai.google.dev/pricing" },
+    { "id": "llama-3-1-70b",     "name": "Llama 3.1 70B (self-host)", "vendor": "Meta / OSS", "in": 0.0, "out": 0.0, "ctx": 128000, "source": "https://ai.meta.com/" },
+    { "id": "deepseek-v3",       "name": "DeepSeek V3",       "vendor": "DeepSeek",  "in": 0.27, "out": 1.1,  "ctx": 64000,   "source": "https://api-docs.deepseek.com/quick_start/pricing" }
+  ]
+}

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Prompt Builder — Choose a Template</title>
+<meta name="description" content="Pick a structured prompt template — 6 built-ins plus a 500-prompt catalog — then customize every field in the builder. Runs entirely in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  /* ---- Header ---- */
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1120px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px;position:relative}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s;z-index:2}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .title{position:absolute;left:50%;transform:translateX(-50%);font-weight:700;color:#fff;font-size:15px;white-space:nowrap}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px;z-index:2}
+  @media(max-width:680px){.bar .title{display:none}.bar .name{font-size:13px}}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:38px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(28px,4.4vw,40px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:640px}
+
+  input,select{width:100%;font-family:var(--sans);font-size:15px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;outline:none;transition:border .15s,box-shadow .15s}
+  input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:12px 20px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s;min-height:44px}
+  .btn:hover{border-color:var(--line-3)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff;width:100%;justify-content:center}
+  .btn.primary:hover{background:var(--green-600)}
+  .btn.primary:disabled{background:var(--line-3);border-color:var(--line-3);cursor:not-allowed}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:7px;background:#f0f1ec;color:var(--muted);white-space:nowrap}
+
+  /* ---- Layout ---- */
+  .layout{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:32px;align-items:start}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.preview-col{position:static!important}}
+
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+  /* ---- Controls (search + category) ---- */
+  .controls{display:grid;grid-template-columns:1fr 200px;gap:12px;margin-bottom:18px}
+  @media(max-width:560px){.controls{grid-template-columns:1fr}}
+  .search{position:relative}
+  .search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:var(--faint);stroke-width:2;fill:none}
+  .search input{padding-left:40px}
+
+  /* ---- Tabs ---- */
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line-2);margin-bottom:4px}
+  .tab{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--muted);background:none;border:none;
+    cursor:pointer;padding:10px 14px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;min-height:44px}
+  .tab:hover{color:var(--text)}
+  .tab.active{color:var(--green-700);border-bottom-color:var(--green)}
+  .tab .count{font-size:11px;font-weight:600;color:var(--faint);margin-left:5px}
+
+  /* ---- List ---- */
+  .list-head{display:grid;grid-template-columns:1fr auto;gap:14px;padding:14px 18px 10px;
+    font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line)}
+  .rows{display:block}
+  .row{display:grid;grid-template-columns:40px 1fr auto auto;gap:14px;align-items:center;width:100%;text-align:left;
+    padding:15px 18px;background:none;border:none;border-bottom:1px solid var(--line);cursor:pointer;
+    font-family:var(--sans);transition:background .14s}
+  .row:last-child{border-bottom:none}
+  .row:hover{background:var(--surface-2)}
+  .row.sel{background:var(--green-tint)}
+  .row:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+  .row-icon{width:38px;height:38px;border-radius:10px;background:var(--green-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .row.sel .row-icon{background:#d6ecdd}
+  .row-icon svg{width:19px;height:19px;stroke:var(--green-700);stroke-width:1.9;fill:none}
+  .row-main{min-width:0}
+  .row-title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+  .row-desc{font-size:13px;color:var(--muted);line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .row-cat{justify-self:end}
+  .row-check{width:22px;height:22px;display:flex;align-items:center;justify-content:center;opacity:0}
+  .row.sel .row-check{opacity:1}
+  .row-check svg{width:22px;height:22px;stroke:#fff;stroke-width:2.4;fill:none}
+  .row-check .circ{fill:var(--green);stroke:none}
+  .list-empty{text-align:center;color:var(--faint);padding:48px 20px;font-size:14px}
+  @media(max-width:560px){
+    .row{grid-template-columns:38px 1fr auto;gap:12px;padding:13px 14px}
+    .row-cat{display:none}
+    .list-head{padding-left:14px;padding-right:14px}
+  }
+
+  /* ---- Pager ---- */
+  .pager{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;flex-wrap:wrap}
+  .pager:empty{display:none}
+  .pager button{min-width:40px;height:40px;padding:0 12px;border:1px solid var(--line-2);background:var(--surface);
+    border-radius:10px;color:var(--muted);font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:all .14s}
+  .pager button:hover:not(:disabled){border-color:var(--green);color:var(--green-700)}
+  .pager button:disabled{opacity:.4;cursor:not-allowed}
+  .pager .pginfo{font-size:13px;color:var(--muted);padding:0 6px}
+
+  /* ---- Catalog meta / attribution ---- */
+  .list-foot{padding:14px 18px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .list-meta{font-size:12.5px;color:var(--muted)}
+  .list-meta b{color:var(--green-700)}
+  .dl-links{display:flex;gap:8px;flex-wrap:wrap}
+  .dl-links a{font-size:12.5px;font-weight:600;color:var(--green-700);border:1px solid var(--line-2);padding:7px 11px;border-radius:9px;transition:all .14s}
+  .dl-links a:hover{border-color:var(--green);background:var(--green-tint)}
+
+  /* ---- Preview panel ---- */
+  .preview-col{position:sticky;top:88px}
+  .preview{padding:24px}
+  .preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    padding:54px 24px;color:var(--faint);gap:12px;min-height:300px}
+  .preview-empty svg{width:34px;height:34px;stroke:var(--line-3);stroke-width:1.6;fill:none}
+  .preview-empty p{font-size:14px;max-width:220px}
+  .pv-name{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.25}
+  .pv-desc{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.55}
+  .pv-section{margin-top:20px}
+  .pv-label{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+  .pv-fields{display:flex;flex-direction:column;gap:9px}
+  .pv-field{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--text);font-weight:500}
+  .pv-field svg{width:15px;height:15px;stroke:var(--green-700);stroke-width:1.9;fill:none;flex-shrink:0}
+  .pv-divider{border:none;border-top:1px solid var(--line);margin:20px 0}
+  .pv-meta{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:13.5px}
+  .pv-meta dt{color:var(--faint);font-weight:600}
+  .pv-meta dd{color:var(--text)}
+  .pv-use{margin-top:22px}
+  .pv-source{font-size:11.5px;color:var(--faint);margin-top:12px;line-height:1.5}
+  .pv-source a{color:var(--green-700);font-weight:600}
+
+  @media(max-width:520px){
+    .wrap{padding:24px 16px 64px}
+    .preview{padding:18px}
+  }
+</style>
+</head>
+<body>
+  <header class="bar"><div class="in">
+    <a class="back" href="../index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+    <span class="title">AI Prompt Builder</span>
+    <span class="name">Ruslan Magana Vsevolodovna</span>
+  </div></header>
+
+  <main class="wrap">
+    <div class="eyebrow">Step 1 — Choose Template</div>
+    <h1>Choose a Template</h1>
+    <p class="sub">Select a template to get a head start. You can customize all fields in the next step.</p>
+
+    <div class="layout">
+
+      <!-- LEFT: selection -->
+      <section>
+        <div class="controls">
+          <div class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="search" type="search" placeholder="Search templates…" autocomplete="off" aria-label="Search templates" />
+          </div>
+          <select id="catFilter" aria-label="Filter by category">
+            <option value="">All categories</option>
+          </select>
+        </div>
+
+        <div class="panel">
+          <div class="tabs" role="tablist" aria-label="Template source">
+            <button class="tab active" id="tab-builtin"  data-tab="builtin" role="tab" aria-selected="true">Built-in<span class="count" id="cnt-builtin"></span></button>
+            <button class="tab"        id="tab-catalog"  data-tab="catalog" role="tab" aria-selected="false">Catalog<span class="count" id="cnt-catalog"></span></button>
+            <button class="tab"        id="tab-recent"   data-tab="recent"  role="tab" aria-selected="false">Recent<span class="count" id="cnt-recent"></span></button>
+          </div>
+
+          <div class="list-head"><span>Template</span><span>Category</span></div>
+          <div class="rows" id="rows" role="list"></div>
+          <div class="pager" id="pager"></div>
+
+          <div class="list-foot">
+            <span class="list-meta" id="listMeta"></span>
+            <span class="dl-links">
+              <a id="dlTxt"  href="data/prompts.catalog.txt"  download>Catalog .txt</a>
+              <a id="dlJson" href="data/prompts.catalog.json" download>Catalog .json</a>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: preview -->
+      <aside class="preview-col">
+        <div class="panel preview" id="preview">
+          <div class="preview-empty" id="previewEmpty">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2v.3h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/></svg>
+            <p>Select a template to see its details and fields.</p>
+          </div>
+          <div id="previewBody" style="display:none"></div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+<script>
+(function(){
+'use strict';
+
+/* =========================================================
+   FIELD DEFINITIONS (for "Includes fields" + builder mapping)
+   ========================================================= */
+var FIELD_DEFS = [
+  {key:'role',        name:'Role / Persona',      icon:'M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1'},
+  {key:'task',        name:'Task / Goal',         icon:'M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3'},
+  {key:'context',     name:'Context',             icon:'M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'},
+  {key:'constraints', name:'Constraints / Rules', icon:'M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'},
+  {key:'format',      name:'Output Format',       icon:'M8 4H7a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1M16 4h1a2 2 0 0 1 2 2v3a2 2 0 0 0 2 2 2 2 0 0 0-2 2v3a2 2 0 0 1-2 2h-1'},
+  {key:'tone',        name:'Tone / Style',        icon:'M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8 19 13M15 9h0M17.8 6.2 19 5M3 21l9-9M12.2 6.2 11 5'},
+  {key:'examples',    name:'Few-shot Examples',   icon:'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'}
+];
+
+/* =========================================================
+   BUILT-IN TEMPLATES (with selection metadata)
+   ========================================================= */
+var BUILTIN = [
+  {
+    id:'builtin-summarize', label:'Summarize', category:'Writing', icon:'doc',
+    desc:'Summarize long text into key points.',
+    useCase:'Condense articles, docs, and transcripts',
+    bestFor:'Researchers, students, analysts',
+    role:'You are a precise summarization assistant.',
+    task:'Summarize the following text into a concise, accurate summary that captures the key points.',
+    context:'Text to summarize:\n\n{{text}}',
+    constraints:'- Stay under 150 words.\n- Do not add opinions or external knowledge.\n- Preserve key facts and figures.',
+    format:'3–5 bullet points followed by a one-sentence TL;DR.',
+    tone:'Clear, neutral, professional.',
+    examples:[]
+  },
+  {
+    id:'builtin-code-review', label:'Code Review', category:'Development', icon:'code',
+    desc:'Review code for issues, bugs, and improvements.',
+    useCase:'Catch bugs, smells, and security issues',
+    bestFor:'Software engineers and reviewers',
+    role:'You are a senior software engineer conducting a thorough code review.',
+    task:'Review the provided code snippet and give actionable feedback.',
+    context:'Language: {{language}}\n\nCode:\n```\n{{code}}\n```',
+    constraints:'- Focus on correctness, readability, performance, and security.\n- Be specific: reference line numbers or constructs.\n- Do not rewrite the entire function unless necessary.',
+    format:'Markdown with sections: **Issues** (critical → minor), **Suggestions**, **Overall Assessment** (1 sentence).',
+    tone:'Constructive, precise, collegial.',
+    examples:[]
+  },
+  {
+    id:'builtin-extract-json', label:'Extract JSON', category:'Data', icon:'braces',
+    desc:'Extract structured data as JSON.',
+    useCase:'Turn free text into a clean JSON object',
+    bestFor:'Data engineers and integrators',
+    role:'You are a structured data extraction assistant.',
+    task:'Extract the requested information from the user-provided text and return it as valid JSON.',
+    context:'Text:\n\n{{text}}',
+    constraints:'- Return ONLY valid JSON — no markdown fences, no explanation.\n- Use null for missing fields.\n- Do not infer data that is not explicitly present.',
+    format:'JSON object matching this schema: {{schema}}',
+    tone:'Factual, terse.',
+    examples:[
+      {input:'Name: Alice, Age: 30, City: London', output:'{"name":"Alice","age":30,"city":"London"}'}
+    ]
+  },
+  {
+    id:'builtin-rag-answer', label:'RAG Answer', category:'Knowledge', icon:'bolt',
+    desc:'Answer a question using provided context.',
+    useCase:'Grounded answers from retrieved context',
+    bestFor:'RAG pipelines and knowledge bots',
+    role:'You are a helpful assistant that answers questions strictly from retrieved context.',
+    task:'Answer the question below using ONLY the provided context. Do not use outside knowledge.',
+    context:'Retrieved context:\n---\n{{context}}\n---\n\nQuestion: {{question}}',
+    constraints:'- If the answer is not in the context, say "I don\'t have enough information to answer that."\n- Cite the relevant sentence(s) from the context.\n- Be concise.',
+    format:'Short paragraph (2–4 sentences), followed by Source: "<quoted sentence>".',
+    tone:'Helpful, factual, grounded.',
+    examples:[]
+  },
+  {
+    id:'builtin-classification', label:'Classification', category:'NLP', icon:'tag',
+    desc:'Classify text into predefined labels.',
+    useCase:'Sentiment, intent, and topic labelling',
+    bestFor:'NLP and moderation workflows',
+    role:'You are a text classification assistant.',
+    task:'Classify the following text into one of the provided categories.',
+    context:'Categories: {{categories}}\n\nText to classify:\n\n{{text}}',
+    constraints:'- Output ONLY the category label — nothing else.\n- If unsure, pick the best fit.\n- Categories are case-sensitive.',
+    format:'Single category label.',
+    tone:'Terse, deterministic.',
+    examples:[
+      {input:'The package arrived damaged and customer service was unhelpful.', output:'Negative'},
+      {input:'Delivery was fast and the product works perfectly!', output:'Positive'}
+    ]
+  },
+  {
+    id:'builtin-rewrite', label:'Rewrite / Tone-shift', category:'Writing', icon:'edit',
+    desc:'Rewrite text to match a target tone and style.',
+    useCase:'Adjust tone, clarity, and style',
+    bestFor:'Content editors, marketers, copywriters',
+    role:'You are a professional editor and writing coach.',
+    task:'Rewrite the provided text to match the target tone and style, preserving all original meaning.',
+    context:'Target tone: {{target_tone}}\n\nOriginal text:\n\n{{text}}',
+    constraints:'- Do not add or remove factual content.\n- Preserve structure (paragraphs, lists) unless tone demands otherwise.\n- Return only the rewritten text — no commentary.',
+    format:'Plain text only.',
+    tone:'{{target_tone}}',
+    examples:[]
+  }
+];
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+var ICONS = {
+  doc:   'M14 3v5h5M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM8 13h6M8 17h6',
+  code:  'M16 18l6-6-6-6M8 6l-6 6 6 6',
+  braces:'M8 4H7a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1M16 4h1a2 2 0 0 1 2 2v3a2 2 0 0 0 2 2 2 2 0 0 0-2 2v3a2 2 0 0 1-2 2h-1',
+  bolt:  'M13 2 3 14h9l-1 8 10-12h-9z',
+  tag:   'M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM7 7h.01',
+  edit:  'M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z'
+};
+var CAT_ICON = {
+  'Programming':'code','Development':'code','Data & Analytics':'braces','Data':'braces',
+  'Writing & Editing':'edit','Writing':'edit','Marketing & SEO':'bolt','Knowledge':'bolt',
+  'Science & Research':'bolt','Education & Tutoring':'doc','Language & Translation':'edit',
+  'Business & Product':'doc','Design & Creative':'edit','NLP':'tag','Legal':'doc','Finance':'braces'
+};
+function iconFor(t){
+  if(t.icon && ICONS[t.icon]) return ICONS[t.icon];
+  return ICONS[CAT_ICON[t.category]] || ICONS.doc;
+}
+
+/* =========================================================
+   STORAGE KEYS
+   ========================================================= */
+var LS_SELECTED = 'rmv-prompt-selected-template';
+var LS_RECENT   = 'rmv-prompt-recent';
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+  });
+}
+function snippet(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
+function svg(path, cls){ return '<svg viewBox="0 0 24 24" aria-hidden="true" class="'+(cls||'')+'"><path d="'+path+'"/></svg>'; }
+
+/* Normalize any prompt (built-in or catalog) into the shared shape used by the builder. */
+function normalize(p, kind){
+  if(kind === 'builtin'){
+    return {
+      id:p.id, label:p.label, category:p.category, icon:p.icon,
+      desc:p.desc, useCase:p.useCase, bestFor:p.bestFor,
+      role:p.role, task:p.task, context:p.context, constraints:p.constraints,
+      format:p.format, tone:p.tone, examples:(p.examples||[]).slice(),
+      source:'Built-in', license:''
+    };
+  }
+  // catalog item
+  var tags = Array.isArray(p.tags) ? p.tags.filter(Boolean) : [];
+  return {
+    id:p.id, label:p.title, category:p.category || 'General', icon:null,
+    desc:snippet(p.task || p.role) || 'Structured prompt template.',
+    useCase: tags.length ? tags.slice(0,3).join(', ') : (p.category || 'General'),
+    bestFor: (p.category || 'General') + ' practitioners',
+    role:p.role||'', task:p.task||'', context:p.context||'',
+    constraints:p.constraints||'', format:p.output_format||'', tone:p.tone||'',
+    examples:Array.isArray(p.examples)?p.examples:[],
+    source:p.source || (p.source_url||'').replace(/^https?:\/\//,'').split('/')[0] || '',
+    source_url:p.source_url||'', license:p.license||''
+  };
+}
+
+function includedFields(t){
+  return FIELD_DEFS.filter(function(f){
+    var v = t[f.key];
+    if(f.key === 'examples') return Array.isArray(v) && v.length > 0;
+    return v != null && String(v).trim() !== '';
+  });
+}
+
+/* =========================================================
+   DOM
+   ========================================================= */
+var rowsEl     = document.getElementById('rows');
+var pagerEl    = document.getElementById('pager');
+var searchEl   = document.getElementById('search');
+var catFilter  = document.getElementById('catFilter');
+var listMeta   = document.getElementById('listMeta');
+var previewEl  = document.getElementById('preview');
+var previewEmpty = document.getElementById('previewEmpty');
+var previewBody  = document.getElementById('previewBody');
+var tabs = {
+  builtin: document.getElementById('tab-builtin'),
+  catalog: document.getElementById('tab-catalog'),
+  recent:  document.getElementById('tab-recent')
+};
+
+/* =========================================================
+   STATE
+   ========================================================= */
+var BUILTIN_N = BUILTIN.map(function(p){ return normalize(p,'builtin'); });
+var CATALOG   = { items:[], loaded:false, meta:null };
+var RECENT    = loadRecent();
+
+var view = { tab:'builtin', page:1, pageSize:8, selected:null };
+
+/* =========================================================
+   RECENT
+   ========================================================= */
+function loadRecent(){
+  try{ var r = JSON.parse(localStorage.getItem(LS_RECENT)); return Array.isArray(r) ? r : []; }
+  catch(e){ return []; }
+}
+function pushRecent(t){
+  RECENT = RECENT.filter(function(x){ return x.id !== t.id || x.label !== t.label; });
+  RECENT.unshift(t);
+  RECENT = RECENT.slice(0,8);
+  try{ localStorage.setItem(LS_RECENT, JSON.stringify(RECENT)); }catch(e){}
+}
+
+/* =========================================================
+   CATEGORY DROPDOWN
+   ========================================================= */
+function rebuildCategoryOptions(){
+  var set = {};
+  BUILTIN_N.forEach(function(t){ set[t.category] = true; });
+  CATALOG.items.forEach(function(t){ set[t.category] = true; });
+  var current = catFilter.value;
+  catFilter.innerHTML = '<option value="">All categories</option>';
+  Object.keys(set).sort().forEach(function(c){
+    var o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    catFilter.appendChild(o);
+  });
+  if(current) catFilter.value = current;
+}
+
+/* =========================================================
+   FILTER + RENDER
+   ========================================================= */
+function activeDataset(){
+  if(view.tab === 'builtin') return BUILTIN_N;
+  if(view.tab === 'recent')  return RECENT;
+  return CATALOG.items;
+}
+
+function filtered(){
+  var q = searchEl.value.trim().toLowerCase();
+  var cat = catFilter.value;
+  var terms = q ? q.split(/\s+/) : [];
+  return activeDataset().filter(function(t){
+    if(cat && t.category !== cat) return false;
+    if(!terms.length) return true;
+    var hay = (t.label+' '+t.desc+' '+t.task+' '+t.role+' '+t.category+' '+(t.source||'')).toLowerCase();
+    return terms.every(function(term){ return hay.indexOf(term) !== -1; });
+  });
+}
+
+function updateCounts(){
+  tabs.builtin.querySelector('.count').textContent = BUILTIN_N.length;
+  tabs.catalog.querySelector('.count').textContent = CATALOG.loaded ? CATALOG.items.length : '';
+  tabs.recent.querySelector('.count').textContent  = RECENT.length ? RECENT.length : '';
+}
+
+function render(){
+  var list = filtered();
+  var pages = Math.max(1, Math.ceil(list.length / view.pageSize));
+  if(view.page > pages) view.page = pages;
+  var start = (view.page - 1) * view.pageSize;
+  var slice = list.slice(start, start + view.pageSize);
+
+  rowsEl.innerHTML = '';
+  if(!slice.length){
+    var d = document.createElement('div');
+    d.className = 'list-empty';
+    if(view.tab === 'recent') d.textContent = 'No recent templates yet. Pick one to get started.';
+    else if(view.tab === 'catalog' && !CATALOG.loaded) d.textContent = 'Catalog unavailable here — serve this folder over http, or use the Built-in tab.';
+    else d.textContent = 'No templates match your search.';
+    rowsEl.appendChild(d);
+  } else {
+    slice.forEach(function(t){
+      var btn = document.createElement('button');
+      btn.className = 'row' + (view.selected && view.selected.id === t.id && view.selected.label === t.label ? ' sel' : '');
+      btn.type = 'button';
+      btn.setAttribute('role','listitem');
+      btn.setAttribute('aria-label','Select template: ' + t.label);
+      btn.innerHTML =
+        '<span class="row-icon">'+svg(iconFor(t))+'</span>' +
+        '<span class="row-main">' +
+          '<span class="row-title">'+esc(t.label)+'</span>' +
+          '<span class="row-desc">'+esc(t.desc)+'</span>' +
+        '</span>' +
+        '<span class="row-cat"><span class="tag">'+esc(t.category)+'</span></span>' +
+        '<span class="row-check"><svg viewBox="0 0 24 24"><circle class="circ" cx="12" cy="12" r="11"/><path d="M7 12.5l3.2 3.2L17 9"/></svg></span>';
+      btn.addEventListener('click', function(){ select(t); });
+      rowsEl.appendChild(btn);
+    });
+  }
+
+  // pager
+  pagerEl.innerHTML = '';
+  if(pages > 1){
+    var prev = document.createElement('button');
+    prev.textContent = '‹'; prev.disabled = view.page === 1; prev.setAttribute('aria-label','Previous page');
+    prev.addEventListener('click', function(){ view.page--; render(); });
+    var info = document.createElement('span');
+    info.className = 'pginfo';
+    info.textContent = 'Page ' + view.page + ' of ' + pages;
+    var next = document.createElement('button');
+    next.textContent = '›'; next.disabled = view.page === pages; next.setAttribute('aria-label','Next page');
+    next.addEventListener('click', function(){ view.page++; render(); });
+    pagerEl.appendChild(prev); pagerEl.appendChild(info); pagerEl.appendChild(next);
+  }
+
+  // meta line
+  if(view.tab === 'catalog'){
+    listMeta.innerHTML = CATALOG.loaded
+      ? '<b>' + CATALOG.items.length + '</b> curated catalog prompts'
+      : 'Built-in templates only';
+  } else if(view.tab === 'builtin'){
+    listMeta.innerHTML = '<b>' + BUILTIN_N.length + '</b> built-in starter templates';
+  } else {
+    listMeta.innerHTML = RECENT.length ? ('<b>' + RECENT.length + '</b> recently used') : 'Nothing recent yet';
+  }
+  updateCounts();
+}
+
+/* =========================================================
+   SELECT + PREVIEW
+   ========================================================= */
+function select(t){
+  view.selected = t;
+  render();              // refresh highlight
+  renderPreview(t);
+  if(window.matchMedia && window.matchMedia('(max-width:900px)').matches){
+    previewEl.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+function renderPreview(t){
+  previewEmpty.style.display = 'none';
+  previewBody.style.display = 'block';
+
+  var fields = includedFields(t).map(function(f){
+    return '<div class="pv-field">'+svg(f.icon)+'<span>'+esc(f.name)+'</span></div>';
+  }).join('');
+
+  var srcHtml = '';
+  if(t.source && t.source !== 'Built-in'){
+    var lic = t.license ? ' · ' + esc(t.license) : '';
+    srcHtml = '<p class="pv-source">From ' +
+      (t.source_url ? '<a href="'+esc(t.source_url)+'" target="_blank" rel="noopener">'+esc(t.source)+'</a>' : esc(t.source)) +
+      lic + '</p>';
+  }
+
+  previewBody.innerHTML =
+    '<div class="pv-name">'+esc(t.label)+'</div>' +
+    '<p class="pv-desc">'+esc(t.desc)+'</p>' +
+    '<div class="pv-section">' +
+      '<div class="pv-label">Includes fields</div>' +
+      '<div class="pv-fields">'+ (fields || '<span class="pv-desc">No structured fields.</span>') +'</div>' +
+    '</div>' +
+    '<hr class="pv-divider" />' +
+    '<dl class="pv-meta">' +
+      '<dt>Category</dt><dd>'+esc(t.category)+'</dd>' +
+      '<dt>Use case</dt><dd>'+esc(t.useCase)+'</dd>' +
+      '<dt>Best for</dt><dd>'+esc(t.bestFor)+'</dd>' +
+    '</dl>' +
+    srcHtml +
+    '<div class="pv-use"><button class="btn primary" id="useBtn" type="button">Use template</button></div>';
+
+  document.getElementById('useBtn').addEventListener('click', function(){ useTemplate(t); });
+}
+
+/* =========================================================
+   USE TEMPLATE → save + navigate
+   ========================================================= */
+function useTemplate(t){
+  var payload = {
+    label:t.label, category:t.category,
+    role:t.role||'', task:t.task||'', context:t.context||'',
+    constraints:t.constraints||'', format:t.format||'', tone:t.tone||'',
+    examples:Array.isArray(t.examples)?t.examples:[],
+    _ts:Date.now()
+  };
+  try{ localStorage.setItem(LS_SELECTED, JSON.stringify(payload)); }catch(e){}
+  pushRecent(t);
+  window.location.href = 'builder.html';
+}
+
+/* =========================================================
+   TABS
+   ========================================================= */
+Object.keys(tabs).forEach(function(name){
+  tabs[name].addEventListener('click', function(){
+    if(view.tab === name) return;
+    view.tab = name; view.page = 1;
+    Object.keys(tabs).forEach(function(n){
+      var on = n === name;
+      tabs[n].classList.toggle('active', on);
+      tabs[n].setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    render();
+  });
+});
+
+/* =========================================================
+   SEARCH + FILTER
+   ========================================================= */
+var searchTimer = null;
+searchEl.addEventListener('input', function(){
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(function(){ view.page = 1; render(); }, 120);
+});
+catFilter.addEventListener('change', function(){ view.page = 1; render(); });
+
+/* =========================================================
+   CATALOG LOADING (static JSON — nothing leaves the browser)
+   ========================================================= */
+function loadCatalog(){
+  fetch('data/prompts.catalog.min.json', {cache:'no-store'})
+    .then(function(res){ if(!res.ok) throw new Error('HTTP '+res.status); return res.json(); })
+    .then(function(data){
+      var prompts = Array.isArray(data) ? data : (data.prompts || []);
+      if(!prompts.length) throw new Error('empty catalog');
+      CATALOG.items = prompts.map(function(p){ return normalize(p,'catalog'); });
+      CATALOG.loaded = true;
+      CATALOG.meta = data;
+      rebuildCategoryOptions();
+      updateCounts();
+      if(view.tab === 'catalog') render();
+    })
+    .catch(function(err){
+      CATALOG.loaded = false;
+      updateCounts();
+      if(view.tab === 'catalog') render();
+      if(window.console) console.warn('Prompt catalog not loaded:', err);
+    });
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+rebuildCategoryOptions();
+render();
+loadCatalog();
+
+}());
+</script>
+</body>
+</html>

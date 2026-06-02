@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Prompt Builder — Populate Prompt</title>
+<meta name="description" content="Fill in labelled fields and watch your prompt assemble in real time. Copy, download, fill variables, and split into System / User messages. Runs entirely in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1120px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px;position:relative}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s;z-index:2}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .title{position:absolute;left:50%;transform:translateX(-50%);font-weight:700;color:#fff;font-size:15px;white-space:nowrap}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px;z-index:2}
+  @media(max-width:680px){.bar .title{display:none}.bar .name{font-size:13px}}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:38px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(28px,4.4vw,40px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:640px}
+
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:7px}
+  input,select,textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;outline:none;transition:border .15s,box-shadow .15s}
+  textarea{font-family:var(--mono);font-size:13.5px;min-height:96px;resize:vertical}
+  input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer;border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s}
+  .btn:hover{border-color:var(--line-3)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-600)}
+  .mono{font-family:var(--mono)}
+
+  /* ---- Template bar ---- */
+  .tpl-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px;padding:13px 18px;
+    background:var(--surface);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow)}
+  .tpl-bar .lab{font-size:14px;color:var(--muted)}
+  .tpl-bar .val{font-weight:700;color:var(--ink)}
+  .tpl-bar .chip{display:inline-flex;align-items:center;gap:8px;font-size:14px;background:var(--green-tint);
+    border:1px solid rgba(21,160,90,.22);color:var(--green-700);font-weight:700;padding:6px 13px;border-radius:9px}
+  .tpl-bar .chip svg{width:15px;height:15px;stroke:var(--green-700);stroke-width:2;fill:none}
+  .tpl-bar .change{margin-left:auto;font-size:14px;font-weight:600;color:var(--green-700);display:inline-flex;align-items:center;gap:6px}
+  .tpl-bar .change:hover{text-decoration:underline}
+  .tpl-bar .change svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none}
+
+  /* ---- Two-column ---- */
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;align-items:start}
+  @media(max-width:900px){.tool-grid{grid-template-columns:1fr}.preview-col{position:static!important}}
+  .preview-col{position:sticky;top:88px}
+
+  .form-section{display:flex;flex-direction:column;gap:20px}
+  .field-group{display:flex;flex-direction:column;gap:6px}
+  .panel-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:18px}
+  .field-hint{font-size:11.5px;color:var(--faint);margin-top:4px}
+
+  /* ---- Few-shot examples ---- */
+  .examples-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .examples-header span{font-size:13px;font-weight:600;color:var(--muted)}
+  .example-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:start;margin-bottom:10px}
+  .example-row textarea{min-height:72px;font-size:13px}
+  .example-row .remove-btn{width:36px;height:36px;min-width:36px;min-height:44px;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-2);background:var(--surface);border-radius:9px;cursor:pointer;color:var(--faint);font-size:18px;font-family:var(--sans);transition:all .15s;padding:0;flex-shrink:0}
+  .example-row .remove-btn:hover{border-color:#e88;color:#c44;background:#fff5f5}
+  @media(max-width:520px){
+    .example-row{grid-template-columns:1fr auto;grid-template-rows:auto auto}
+    .example-row textarea:nth-child(1){grid-column:1/2}
+    .example-row textarea:nth-child(2){grid-column:1/2}
+    .example-row .remove-btn{grid-column:2/3;grid-row:1/2}
+  }
+
+  /* ---- Toggle ---- */
+  .toggle-row{display:flex;align-items:center;gap:10px}
+  .toggle-row .toggle-label{font-size:13px;font-weight:600;color:var(--muted)}
+  .switch{position:relative;display:inline-block;width:44px;height:26px;flex-shrink:0}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{position:absolute;inset:0;background:var(--line-3);border-radius:13px;cursor:pointer;transition:background .2s}
+  .slider:before{content:'';position:absolute;height:20px;width:20px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  input:checked + .slider{background:var(--green)}
+  input:checked + .slider:before{transform:translateX(18px)}
+  .switch input:focus + .slider{box-shadow:0 0 0 4px var(--green-soft)}
+
+  /* ---- Preview ---- */
+  .preview-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+  .preview-header h2{font-size:15px;font-weight:700;color:var(--ink)}
+  .preview-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .preview-actions .btn{padding:9px 14px;font-size:13px;min-height:44px}
+  .msg-block{margin-bottom:14px}
+  .msg-label{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--green);margin-bottom:6px;padding:3px 0}
+  .prompt-pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:13px;color:var(--ink);
+    white-space:pre-wrap;word-break:break-word;line-height:1.7;min-height:48px;max-height:420px;overflow-y:auto}
+  .prompt-pre.empty{color:var(--faint);font-style:italic}
+
+  .stats-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+  .stat-item{display:flex;flex-direction:column;gap:2px}
+  .stat-val{font-size:17px;font-weight:700;color:var(--ink)}
+  .stat-key{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint)}
+
+  /* ---- Variables ---- */
+  .vars-section{margin-top:16px;padding:18px;background:var(--green-tint);border:1px solid rgba(21,160,90,.2);border-radius:12px}
+  .vars-section h3{font-size:14px;font-weight:700;color:var(--green-700)}
+  .vars-section .vsub{font-size:12.5px;color:var(--muted);margin-top:2px;margin-bottom:12px}
+  .vars-table{width:100%;border-collapse:collapse}
+  .vars-table th{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--faint);text-align:left;padding:0 10px 8px}
+  .vars-table th:last-child{text-align:right}
+  .vars-table td{padding:6px 10px;vertical-align:middle;border-top:1px solid rgba(21,160,90,.14)}
+  .vars-table td.vname{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--green-700);white-space:nowrap}
+  .vars-table input{font-size:13.5px;background:#fff;border-color:rgba(21,160,90,.25);padding:8px 11px}
+  .vars-table .vact{text-align:right;white-space:nowrap}
+  .vbtn{width:32px;height:32px;border:1px solid rgba(21,160,90,.25);background:#fff;border-radius:8px;cursor:pointer;color:var(--muted);
+    display:inline-flex;align-items:center;justify-content:center;transition:all .14s;margin-left:5px;vertical-align:middle}
+  .vbtn:hover{border-color:var(--green);color:var(--green-700)}
+  .vbtn.del:hover{border-color:#e88;color:#c44;background:#fff5f5}
+  .vbtn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none}
+  .vars-empty{font-size:13px;color:var(--muted);padding:6px 10px 12px}
+  .add-var{margin-top:10px;font-size:13px;font-weight:600;color:var(--green-700);background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:6px 2px}
+  .add-var:hover{text-decoration:underline}
+  .add-var svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.2;fill:none}
+
+  .copy-feedback{font-size:12px;font-weight:600;color:var(--green);opacity:0;transition:opacity .3s;white-space:nowrap;align-self:center}
+  .copy-feedback.show{opacity:1}
+  .divider{border:none;border-top:1px solid var(--line);margin:4px 0 0}
+  .autosave-note{font-size:11.5px;color:var(--faint);display:flex;align-items:center;gap:5px;margin-top:14px}
+  .autosave-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
+
+  @media(max-width:520px){
+    .wrap{padding:24px 16px 64px}
+    .panel{padding:16px}
+    .preview-header{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+  <header class="bar"><div class="in">
+    <a class="back" href="../index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+    <span class="title">AI Prompt Builder</span>
+    <span class="name">Ruslan Magana Vsevolodovna</span>
+  </div></header>
+
+  <main class="wrap">
+    <div class="eyebrow">Step 2 — Populate Prompt</div>
+    <h1>Populate Prompt</h1>
+    <p class="sub">Fill in the fields on the left. See the assembled prompt update in real time.</p>
+
+    <!-- Selected template bar -->
+    <div class="tpl-bar">
+      <span class="lab">Template:</span>
+      <span class="chip" id="tplChip">
+        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+        <span id="tplName">Start from scratch</span>
+      </span>
+      <a class="change" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> Change template</a>
+    </div>
+
+    <div class="tool-grid">
+
+      <!-- LEFT: Form -->
+      <div class="form-col">
+        <div class="panel">
+          <div class="panel-title">Prompt fields</div>
+          <div class="form-section">
+            <div class="field-group">
+              <label for="fRole">Role / Persona</label>
+              <input type="text" id="fRole" placeholder="e.g. You are an expert software engineer…" autocomplete="off" />
+            </div>
+            <div class="field-group">
+              <label for="fTask">Task / Goal</label>
+              <textarea id="fTask" rows="3" placeholder="What should the model do? Be specific."></textarea>
+            </div>
+            <div class="field-group">
+              <label for="fContext">Context</label>
+              <textarea id="fContext" rows="3" placeholder="Background information, relevant data, or a document to process. Use {{variable}} for placeholders."></textarea>
+            </div>
+            <div class="field-group">
+              <label for="fConstraints">Constraints / Rules</label>
+              <textarea id="fConstraints" rows="3" placeholder="e.g. Do not include personal opinions. Max 3 bullet points."></textarea>
+            </div>
+            <div class="field-group">
+              <label for="fFormat">Output Format</label>
+              <input type="text" id="fFormat" placeholder="e.g. Markdown bullet list, JSON object, plain paragraph…" autocomplete="off" />
+            </div>
+            <div class="field-group">
+              <label for="fTone">Tone / Style</label>
+              <input type="text" id="fTone" placeholder="e.g. Concise and professional, friendly and encouraging…" autocomplete="off" />
+            </div>
+            <div class="field-group">
+              <div class="examples-header">
+                <span>Few-shot Examples (input → output)</span>
+                <button class="btn" id="addExampleBtn" type="button" aria-label="Add example row" style="padding:7px 13px;font-size:13px;min-height:44px">+ Add example</button>
+              </div>
+              <div id="examplesContainer"></div>
+            </div>
+          </div>
+          <div class="autosave-note">
+            <span class="autosave-dot" id="saveDot" style="background:var(--faint)"></span>
+            <span id="saveNote">Fields auto-saved to browser storage</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Preview -->
+      <div class="preview-col">
+        <div class="panel">
+          <div class="preview-header">
+            <h2>Assembled Prompt</h2>
+            <div class="preview-actions">
+              <button class="btn" id="copyBtn" type="button" aria-label="Copy prompt to clipboard">Copy</button>
+              <button class="btn" id="downloadBtn" type="button" aria-label="Download prompt as .txt file">Download .txt</button>
+              <button class="btn primary" id="clearBtn" type="button" aria-label="Clear all fields">Clear all</button>
+            </div>
+          </div>
+          <div class="toggle-row" style="margin-bottom:16px">
+            <label class="switch" aria-label="Toggle System / User message split">
+              <input type="checkbox" id="splitToggle" />
+              <span class="slider"></span>
+            </label>
+            <span class="toggle-label">System / User split</span>
+            <span class="copy-feedback" id="copyFeedback">Copied!</span>
+          </div>
+          <hr class="divider" style="margin-bottom:16px" />
+          <div id="previewOutput"></div>
+          <div class="stats-row">
+            <div class="stat-item"><span class="stat-val" id="statChars">0</span><span class="stat-key">Characters</span></div>
+            <div class="stat-item"><span class="stat-val" id="statWords">0</span><span class="stat-key">Words</span></div>
+            <div class="stat-item"><span class="stat-val" id="statTokens">≈0</span><span class="stat-key">Approx tokens</span></div>
+          </div>
+        </div>
+
+        <!-- Fill Variables -->
+        <div class="vars-section" id="varsSection" aria-live="polite">
+          <h3>Fill Variables</h3>
+          <p class="vsub">Provide values for variables in the prompt.</p>
+          <table class="vars-table">
+            <thead><tr><th>Variable</th><th>Current value</th><th>Actions</th></tr></thead>
+            <tbody id="varsBody"></tbody>
+          </table>
+          <div class="vars-empty" id="varsEmpty" style="display:none">No variables yet. Use <span class="mono">{{name}}</span> in any field, or add one below.</div>
+          <button class="add-var" id="addVarBtn" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add variable</button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+<script>
+(function(){
+'use strict';
+
+/* =========================================================
+   STORAGE KEYS
+   ========================================================= */
+var LS_STATE    = 'rmv-prompt-builder-state';
+var LS_SELECTED = 'rmv-prompt-selected-template';
+
+/* =========================================================
+   STATE
+   ========================================================= */
+function defaultState(){
+  return { role:'', task:'', context:'', constraints:'', format:'', tone:'',
+           examples:[], split:false, vars:{}, manualVars:[], templateTs:0, label:'' };
+}
+var state = defaultState();
+var varValues = {};      // {name: value}
+var manualVars = [];     // user-added variable names
+
+/* =========================================================
+   DOM
+   ========================================================= */
+var fRole=document.getElementById('fRole'), fTask=document.getElementById('fTask'),
+    fContext=document.getElementById('fContext'), fConstraints=document.getElementById('fConstraints'),
+    fFormat=document.getElementById('fFormat'), fTone=document.getElementById('fTone'),
+    splitToggle=document.getElementById('splitToggle'),
+    examplesCont=document.getElementById('examplesContainer'), addExBtn=document.getElementById('addExampleBtn'),
+    previewOutput=document.getElementById('previewOutput'),
+    statChars=document.getElementById('statChars'), statWords=document.getElementById('statWords'), statTokens=document.getElementById('statTokens'),
+    varsBody=document.getElementById('varsBody'), varsEmpty=document.getElementById('varsEmpty'), addVarBtn=document.getElementById('addVarBtn'),
+    copyBtn=document.getElementById('copyBtn'), downloadBtn=document.getElementById('downloadBtn'), clearBtn=document.getElementById('clearBtn'),
+    copyFeedback=document.getElementById('copyFeedback'),
+    saveDot=document.getElementById('saveDot'), saveNote=document.getElementById('saveNote'),
+    tplName=document.getElementById('tplName');
+
+/* =========================================================
+   EXAMPLES
+   ========================================================= */
+function renderExamples(){
+  examplesCont.innerHTML = '';
+  if(state.examples.length === 0){
+    var hint = document.createElement('p');
+    hint.className = 'field-hint';
+    hint.textContent = 'No examples yet. Click "+ Add example" to add input → output pairs.';
+    examplesCont.appendChild(hint);
+    return;
+  }
+  state.examples.forEach(function(ex, idx){
+    var row = document.createElement('div');
+    row.className = 'example-row';
+
+    var taIn = document.createElement('textarea');
+    taIn.setAttribute('aria-label','Example '+(idx+1)+' input');
+    taIn.placeholder='Input…'; taIn.value=ex.input; taIn.rows=3;
+    taIn.addEventListener('input', function(){ state.examples[idx].input = taIn.value; saveAndUpdate(); });
+
+    var taOut = document.createElement('textarea');
+    taOut.setAttribute('aria-label','Example '+(idx+1)+' output');
+    taOut.placeholder='Output…'; taOut.value=ex.output; taOut.rows=3;
+    taOut.addEventListener('input', function(){ state.examples[idx].output = taOut.value; saveAndUpdate(); });
+
+    var rmBtn = document.createElement('button');
+    rmBtn.className='remove-btn'; rmBtn.type='button'; rmBtn.innerHTML='&times;';
+    rmBtn.setAttribute('aria-label','Remove example '+(idx+1));
+    rmBtn.addEventListener('click', function(){ state.examples.splice(idx,1); renderExamples(); saveAndUpdate(); });
+
+    row.appendChild(taIn); row.appendChild(taOut); row.appendChild(rmBtn);
+    examplesCont.appendChild(row);
+  });
+}
+addExBtn.addEventListener('click', function(){
+  state.examples.push({input:'', output:''});
+  renderExamples();
+  var rows = examplesCont.querySelectorAll('.example-row');
+  if(rows.length){ var ta = rows[rows.length-1].querySelector('textarea'); if(ta) ta.focus(); }
+  saveAndUpdate();
+});
+
+/* =========================================================
+   PROMPT ASSEMBLY
+   ========================================================= */
+function assembleParts(){
+  var role=fRole.value.trim(), task=fTask.value.trim(), context=fContext.value.trim(),
+      constraints=fConstraints.value.trim(), format=fFormat.value.trim(), tone=fTone.value.trim(),
+      examples=state.examples, parts=[];
+  if(role)        parts.push('## Role\n'+role);
+  if(task)        parts.push('## Task\n'+task);
+  if(context)     parts.push('## Context\n'+context);
+  if(constraints) parts.push('## Constraints\n'+constraints);
+  if(format)      parts.push('## Output Format\n'+format);
+  if(tone)        parts.push('## Tone / Style\n'+tone);
+  if(examples.length){
+    var exLines = examples.map(function(e,i){
+      return 'Example '+(i+1)+':\n  Input:  '+(e.input||'').replace(/\n/g,'\n          ')+'\n  Output: '+(e.output||'').replace(/\n/g,'\n          ');
+    });
+    parts.push('## Examples\n'+exLines.join('\n\n'));
+  }
+  return parts;
+}
+function substituteVars(text){
+  return text.replace(/\{\{([^}]+)\}\}/g, function(match, name){
+    var val = varValues[name.trim()];
+    return (val !== undefined && val !== '') ? val : match;
+  });
+}
+function assembleSystemPrompt(){ return assembleParts().filter(function(p){ return !p.startsWith('## Context'); }).join('\n\n'); }
+function assembleUserPrompt(){ var c=fContext.value.trim(); return c ? '## Context\n'+c : ''; }
+function assembleCombined(){ return assembleParts().join('\n\n'); }
+function getFullPromptText(){
+  if(splitToggle.checked){
+    var sys=substituteVars(assembleSystemPrompt()), user=substituteVars(assembleUserPrompt()), out='';
+    if(sys)  out += '[SYSTEM]\n'+sys;
+    if(user) out += (out ? '\n\n' : '')+'[USER]\n'+user;
+    return out;
+  }
+  return substituteVars(assembleCombined());
+}
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+function detectVars(text){
+  var found = new Set(), re=/\{\{([^}]+)\}\}/g, m;
+  while((m=re.exec(text))!==null){ found.add(m[1].trim()); }
+  return Array.from(found);
+}
+function allVarNames(){
+  var detected = detectVars(assembleCombined());
+  var seen = {}, out = [];
+  detected.concat(manualVars).forEach(function(n){ if(!seen[n]){ seen[n]=1; out.push(n); } });
+  return out;
+}
+function renderVarsPanel(){
+  var names = allVarNames();
+  varsBody.innerHTML = '';
+  varsEmpty.style.display = names.length ? 'none' : 'block';
+
+  names.forEach(function(name){
+    var tr = document.createElement('tr');
+
+    var tdName = document.createElement('td');
+    tdName.className = 'vname';
+    tdName.textContent = '{{'+name+'}}';
+
+    var tdVal = document.createElement('td');
+    var inp = document.createElement('input');
+    inp.type='text'; inp.placeholder=name; inp.setAttribute('autocomplete','off');
+    inp.setAttribute('aria-label','Value for '+name);
+    inp.value = varValues[name] !== undefined ? varValues[name] : '';
+    inp.addEventListener('input', function(){ varValues[name] = inp.value; renderPreview(); scheduleSave(); });
+    tdVal.appendChild(inp);
+
+    var tdAct = document.createElement('td');
+    tdAct.className = 'vact';
+    var reset = document.createElement('button');
+    reset.className='vbtn'; reset.type='button'; reset.title='Reset value'; reset.setAttribute('aria-label','Reset '+name);
+    reset.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 2v6h6M3.5 13a9 9 0 1 0 2.5-6.7L3 8"/></svg>';
+    reset.addEventListener('click', function(){ varValues[name]=''; inp.value=''; renderPreview(); scheduleSave(); });
+    var del = document.createElement('button');
+    del.className='vbtn del'; del.type='button'; del.title='Remove variable'; del.setAttribute('aria-label','Remove '+name);
+    del.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>';
+    del.addEventListener('click', function(){
+      delete varValues[name];
+      manualVars = manualVars.filter(function(n){ return n !== name; });
+      renderPreview(); scheduleSave();
+    });
+    tdAct.appendChild(reset); tdAct.appendChild(del);
+
+    tr.appendChild(tdName); tr.appendChild(tdVal); tr.appendChild(tdAct);
+    varsBody.appendChild(tr);
+  });
+}
+addVarBtn.addEventListener('click', function(){
+  var name = prompt('Variable name (without braces):');
+  if(name == null) return;
+  name = name.trim().replace(/[{}]/g,'');
+  if(!name) return;
+  if(manualVars.indexOf(name) === -1 && detectVars(assembleCombined()).indexOf(name) === -1){
+    manualVars.push(name);
+  }
+  if(varValues[name] === undefined) varValues[name] = '';
+  renderVarsPanel(); scheduleSave();
+});
+
+/* =========================================================
+   PREVIEW RENDER
+   ========================================================= */
+function renderPreview(){
+  renderVarsPanel();
+  previewOutput.innerHTML = '';
+  if(splitToggle.checked){
+    appendMsgBlock('System Message', substituteVars(assembleSystemPrompt()) || '(empty)');
+    appendMsgBlock('User Message',   substituteVars(assembleUserPrompt())   || '(empty)');
+  } else {
+    appendMsgBlock(null, substituteVars(assembleCombined()) || '');
+  }
+  var fullText = getFullPromptText();
+  var chars = fullText.length;
+  var words = fullText.trim() === '' ? 0 : fullText.trim().split(/\s+/).length;
+  statChars.textContent  = chars.toLocaleString();
+  statWords.textContent  = words.toLocaleString();
+  statTokens.textContent = '≈' + Math.ceil(chars/4).toLocaleString();
+}
+function appendMsgBlock(labelText, content){
+  var block = document.createElement('div');
+  block.className = 'msg-block';
+  if(labelText){
+    var lbl = document.createElement('div');
+    lbl.className='msg-label'; lbl.textContent=labelText;
+    block.appendChild(lbl);
+  }
+  var pre = document.createElement('pre');
+  pre.className='prompt-pre mono';
+  if(!content || content.trim()===''){
+    pre.textContent='Start filling in the fields on the left…';
+    pre.classList.add('empty');
+  } else { pre.textContent = content; }
+  block.appendChild(pre);
+  previewOutput.appendChild(block);
+}
+
+/* =========================================================
+   PERSIST
+   ========================================================= */
+var saveTimer = null;
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function(){
+    try{
+      localStorage.setItem(LS_STATE, JSON.stringify({
+        role:fRole.value, task:fTask.value, context:fContext.value,
+        constraints:fConstraints.value, format:fFormat.value, tone:fTone.value,
+        examples:state.examples.slice(), split:splitToggle.checked,
+        vars:Object.assign({}, varValues), manualVars:manualVars.slice(),
+        templateTs:state.templateTs, label:state.label
+      }));
+      saveDot.style.background='var(--green)';
+      saveNote.textContent='Saved · ' + new Date().toLocaleTimeString();
+    }catch(e){
+      saveDot.style.background='#e88';
+      saveNote.textContent='Storage unavailable';
+    }
+  }, 400);
+}
+function saveAndUpdate(){ renderPreview(); scheduleSave(); }
+
+/* Apply a plain field object (from a saved state) into the form. */
+function applyState(d){
+  fRole.value=d.role||''; fTask.value=d.task||''; fContext.value=d.context||'';
+  fConstraints.value=d.constraints||''; fFormat.value=d.format||''; fTone.value=d.tone||'';
+  state.examples = Array.isArray(d.examples) ? d.examples : [];
+  splitToggle.checked = !!d.split;
+  varValues = (d.vars && typeof d.vars === 'object') ? d.vars : {};
+  manualVars = Array.isArray(d.manualVars) ? d.manualVars : [];
+  state.templateTs = d.templateTs || 0;
+  state.label = d.label || '';
+}
+
+/* Apply a freshly chosen template (from index.html). */
+function applyTemplate(t){
+  fRole.value=t.role||''; fTask.value=t.task||''; fContext.value=t.context||'';
+  fConstraints.value=t.constraints||''; fFormat.value=t.format||''; fTone.value=t.tone||'';
+  state.examples = (Array.isArray(t.examples)?t.examples:[]).map(function(e){ return {input:e.input||'', output:e.output||''}; });
+  varValues = {}; manualVars = [];
+  splitToggle.checked = false;
+  state.templateTs = t._ts || 0;
+  state.label = t.label || '';
+}
+
+/* =========================================================
+   LISTENERS
+   ========================================================= */
+[fRole, fTask, fContext, fConstraints, fFormat, fTone].forEach(function(el){ el.addEventListener('input', saveAndUpdate); });
+splitToggle.addEventListener('change', saveAndUpdate);
+
+/* =========================================================
+   COPY / DOWNLOAD / CLEAR
+   ========================================================= */
+copyBtn.addEventListener('click', function(){
+  var text = getFullPromptText();
+  if(!text.trim()){ showCopyFeedback('Nothing to copy'); return; }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ showCopyFeedback('Copied!'); }, function(){ fallbackCopy(text); });
+  } else { fallbackCopy(text); }
+});
+function fallbackCopy(text){
+  try{
+    var ta=document.createElement('textarea'); ta.value=text;
+    ta.style.cssText='position:fixed;opacity:0;top:0;left:0;pointer-events:none';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showCopyFeedback('Copied!');
+  }catch(e){ showCopyFeedback('Copy failed'); }
+}
+function showCopyFeedback(msg){
+  copyFeedback.textContent=msg; copyFeedback.classList.add('show');
+  setTimeout(function(){ copyFeedback.classList.remove('show'); }, 2000);
+}
+downloadBtn.addEventListener('click', function(){
+  var text=getFullPromptText();
+  if(!text.trim()){ showCopyFeedback('Nothing to download'); return; }
+  var blob=new Blob([text],{type:'text/plain;charset=utf-8'}), url=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=url; a.download='prompt-'+new Date().toISOString().slice(0,16).replace(/[T:]/g,'-')+'.txt';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); document.body.removeChild(a); }, 1000);
+});
+clearBtn.addEventListener('click', function(){
+  if(!confirm('Clear all fields and examples?')) return;
+  fRole.value=''; fTask.value=''; fContext.value=''; fConstraints.value=''; fFormat.value=''; fTone.value='';
+  state.examples=[]; varValues={}; manualVars=[]; splitToggle.checked=false;
+  renderExamples(); saveAndUpdate();
+});
+
+/* =========================================================
+   INIT — choose between fresh template and saved state
+   ========================================================= */
+function loadSelected(){
+  try{ return JSON.parse(localStorage.getItem(LS_SELECTED)); }catch(e){ return null; }
+}
+function loadState(){
+  try{ return JSON.parse(localStorage.getItem(LS_STATE)); }catch(e){ return null; }
+}
+
+(function init(){
+  var sel = loadSelected();
+  var st  = loadState();
+
+  if(sel && (!st || st.templateTs !== sel._ts)){
+    // a new template was chosen on the previous page → apply it fresh
+    applyTemplate(sel);
+    saveDot.style.background='var(--green)';
+    saveNote.textContent='Loaded template';
+    scheduleSave();
+  } else if(st){
+    applyState(st);
+    saveDot.style.background='var(--green)';
+    saveNote.textContent='Restored from storage';
+  }
+
+  // header label
+  var label = (sel && sel.label) || state.label || '';
+  tplName.textContent = label || 'Start from scratch';
+
+  renderExamples();
+  renderPreview();
+})();
+
+}());
+</script>
+</body>
+</html>

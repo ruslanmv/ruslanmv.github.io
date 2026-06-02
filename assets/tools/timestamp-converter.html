@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unix Timestamp &amp; Date Converter — ruslanmv/tools</title>
+<meta name="description" content="Convert unix timestamp to human-readable date or any date string to epoch seconds and milliseconds. Supports ISO 8601, RFC 2822, timezone converter across all IANA zones. Runs entirely in your browser." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/toolkit.css" />
+<style>
+  :root{
+    --bg:#f4f5f1;
+    --surface:#fff;
+    --surface-2:#fbfbf9;
+    --ink:#10231a;
+    --text:#1d2b24;
+    --muted:#5c6b63;
+    --faint:#8a978f;
+    --line:#e7e8e2;
+    --line-2:#dcdfd7;
+    --line-3:#cfd3ca;
+    --green:#15a05a;
+    --green-600:#138a4e;
+    --green-700:#0e7340;
+    --green-soft:#e7f4ec;
+    --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 26px}
+
+  /* ---- header bar ---- */
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1080px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s;text-decoration:none}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+
+  /* ---- page heading ---- */
+  .hd{padding:46px 0 8px}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:11px}
+  .kick::before{content:"";width:30px;height:1px;background:var(--green)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,6vw,54px);letter-spacing:-1px;margin:14px 0 0;color:var(--ink)}
+  .sub{color:var(--muted);max-width:660px;margin-top:12px;font-size:15.5px}
+
+  /* ---- panels ---- */
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:22px;margin-top:22px}
+  .lbl{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:10px;display:block}
+
+  /* ---- live clock ---- */
+  .clock-bar{display:flex;flex-wrap:wrap;gap:20px;align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:18px}
+  .clock-item{display:flex;flex-direction:column;gap:3px}
+  .clock-val{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--green-700);letter-spacing:-0.5px}
+  .clock-key{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--faint)}
+  .clock-sep{width:1px;height:38px;background:var(--line-2);flex-shrink:0}
+  @media(max-width:500px){.clock-sep{display:none}.clock-bar{gap:12px}}
+
+  /* ---- primary input row ---- */
+  .input-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:6px}
+  .input-row .fld{flex:1;min-width:220px}
+  input.ts-in{width:100%;background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:15px;outline:none;transition:border .2s,box-shadow .2s;min-height:44px}
+  input.ts-in:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  input.ts-in.err{border-color:#d9534f;box-shadow:0 0 0 4px rgba(217,83,79,.12)}
+
+  /* ---- detected badge ---- */
+  .detect-row{display:flex;align-items:center;gap:10px;min-height:26px;margin-bottom:14px;flex-wrap:wrap}
+  .detect-pill{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;transition:.2s}
+  .detect-pill.epoch-s  {background:#dff3ea;color:#0e7340}
+  .detect-pill.epoch-ms {background:#e8f4fd;color:#0c5b8f}
+  .detect-pill.epoch-us {background:#fdf4e8;color:#8a5a00}
+  .detect-pill.epoch-ns {background:#f9e8fd;color:#6a1a8a}
+  .detect-pill.date-str {background:#e8eafd;color:#1a278a}
+  .detect-pill.empty    {background:var(--line);color:var(--faint)}
+  .detect-pill.invalid  {background:#fdecec;color:#b91c1c}
+  .err-msg{font-family:var(--mono);font-size:12px;color:#b91c1c}
+
+  /* ---- now button ---- */
+  .btn-now{font-family:var(--mono);font-size:12.5px;font-weight:600;background:var(--green);color:#fff;border:none;border-radius:10px;padding:11px 16px;cursor:pointer;transition:.15s;min-height:44px;white-space:nowrap}
+  .btn-now:hover{background:var(--green-600)}
+
+  /* ---- result cards ---- */
+  .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+  @media(max-width:640px){.results-grid{grid-template-columns:1fr}}
+  .res-card{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;position:relative}
+  .res-card .rk{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:var(--faint);font-weight:500}
+  .res-card .rv{font-family:var(--mono);font-size:13.5px;color:var(--text);word-break:break-all;line-height:1.5}
+  .res-card .rv.mono-big{font-size:17px;font-weight:600;color:var(--green-700);letter-spacing:-0.5px}
+  .res-card .rv.relative{color:var(--green-600);font-weight:600}
+  .copy-btn{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--green-700);background:var(--green-soft);border:1px solid rgba(14,115,64,.18);border-radius:6px;padding:4px 9px;cursor:pointer;transition:.15s;align-self:flex-start;min-height:28px}
+  .copy-btn:hover{background:var(--green-tint);border-color:var(--green)}
+
+  /* ---- section divider ---- */
+  .sec-head{display:flex;align-items:center;gap:12px;margin:28px 0 4px}
+  .sec-head span{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green-700);font-weight:600}
+  .sec-head::before,.sec-head::after{content:"";flex:1;height:1px;background:var(--line-2)}
+  .sec-head::before{flex:0 0 30px}
+
+  /* ---- reverse input ---- */
+  .rev-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+  input.rev-in{flex:1;min-width:200px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:14px;outline:none;transition:border .2s,box-shadow .2s;min-height:44px}
+  input.rev-in:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .rev-results{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+  .rev-card{flex:1;min-width:160px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .rev-card .rk{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:var(--faint);margin-bottom:5px}
+  .rev-card .rv{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--green-700);letter-spacing:-0.3px;word-break:break-all}
+
+  /* ---- timezone panel ---- */
+  .tz-add-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+  select.tz-select{font-family:var(--sans);font-size:13.5px;color:var(--text);background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;min-height:44px;outline:none;cursor:pointer;flex:1;min-width:200px}
+  select.tz-select:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn-add-tz{font-family:var(--mono);font-size:12.5px;font-weight:600;background:var(--surface);border:1px solid var(--line-2);color:var(--green-700);border-radius:10px;padding:11px 16px;cursor:pointer;transition:.15s;min-height:44px}
+  .btn-add-tz:hover{border-color:var(--green);background:var(--green-tint)}
+  .tz-list{display:flex;flex-direction:column;gap:8px}
+  .tz-row{display:flex;align-items:center;gap:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:12px 16px;flex-wrap:wrap}
+  .tz-name{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green-700);flex:0 0 auto;min-width:170px}
+  .tz-val{font-family:var(--mono);font-size:13px;color:var(--text);flex:1;min-width:140px}
+  .tz-del{font-family:var(--mono);font-size:11px;color:var(--faint);background:none;border:1px solid var(--line-2);border-radius:7px;padding:4px 9px;cursor:pointer;transition:.15s;min-height:28px}
+  .tz-del:hover{border-color:#d9534f;color:#d9534f}
+
+  /* ---- actions bar ---- */
+  .actions-wrap{margin-top:16px}
+
+  /* ---- workspace panel ---- */
+  #ws-container{margin-top:4px}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line);margin-top:42px;padding:26px 0 56px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+  /* ---- responsive ---- */
+  @media(max-width:480px){
+    .wrap{padding:0 14px}
+    .panel{padding:16px}
+    .tz-name{min-width:120px}
+    .bar .name{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar"><div class="in">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+  <span class="name">Ruslan Magana Vsevolodovna</span>
+</div></header>
+
+<main class="wrap">
+  <div class="hd">
+    <div class="kick">Developer · Time · Epoch</div>
+    <h1>Timestamp &amp; Date Converter</h1>
+    <p class="sub">Convert any unix timestamp (epoch seconds, milliseconds, microseconds, or nanoseconds) to human-readable dates, or reverse any ISO 8601 / date string into epoch time. Includes a live timezone comparison panel across all IANA zones. Zero uploads — runs entirely in your browser.</p>
+    <div id="badges"></div>
+  </div>
+
+  <!-- Live clock panel -->
+  <div class="panel">
+    <span class="lbl">Current time — live</span>
+    <div class="clock-bar">
+      <div class="clock-item">
+        <div class="clock-val" id="live-epoch-s">—</div>
+        <div class="clock-key">Epoch seconds</div>
+      </div>
+      <div class="clock-sep"></div>
+      <div class="clock-item">
+        <div class="clock-val" id="live-epoch-ms">—</div>
+        <div class="clock-key">Epoch ms</div>
+      </div>
+      <div class="clock-sep"></div>
+      <div class="clock-item">
+        <div class="clock-val" id="live-iso">—</div>
+        <div class="clock-key">UTC / ISO 8601</div>
+      </div>
+      <div class="clock-sep"></div>
+      <div class="clock-item">
+        <div class="clock-val" id="live-local">—</div>
+        <div class="clock-key">Local time</div>
+      </div>
+    </div>
+
+    <!-- Primary input -->
+    <label class="lbl" for="ts-input">Enter epoch number or date string — auto-detected</label>
+    <div class="input-row">
+      <div class="fld">
+        <input
+          id="ts-input"
+          class="ts-in"
+          type="text"
+          placeholder="e.g. 1700000000  or  2024-03-15T12:30:00Z  or  March 15 2024"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Epoch timestamp or date string to convert"
+        />
+      </div>
+      <button class="btn-now" id="btn-now" aria-label="Fill current time">Now</button>
+    </div>
+    <div class="detect-row">
+      <span class="detect-pill empty" id="detect-pill">Waiting for input</span>
+      <span class="err-msg" id="err-msg"></span>
+    </div>
+
+    <!-- Results grid -->
+    <div class="results-grid" id="results-grid">
+      <div class="res-card"><div class="rk">Local time</div><div class="rv" id="r-local">—</div><button class="copy-btn" data-copy="r-local">Copy</button></div>
+      <div class="res-card"><div class="rk">UTC time</div><div class="rv" id="r-utc">—</div><button class="copy-btn" data-copy="r-utc">Copy</button></div>
+      <div class="res-card"><div class="rk">ISO 8601</div><div class="rv" id="r-iso">—</div><button class="copy-btn" data-copy="r-iso">Copy</button></div>
+      <div class="res-card"><div class="rk">RFC 2822</div><div class="rv" id="r-rfc">—</div><button class="copy-btn" data-copy="r-rfc">Copy</button></div>
+      <div class="res-card"><div class="rk">Epoch seconds</div><div class="rv mono-big" id="r-s">—</div><button class="copy-btn" data-copy="r-s">Copy</button></div>
+      <div class="res-card"><div class="rk">Epoch milliseconds</div><div class="rv mono-big" id="r-ms">—</div><button class="copy-btn" data-copy="r-ms">Copy</button></div>
+      <div class="res-card" style="grid-column:1/-1"><div class="rk">Relative time</div><div class="rv relative" id="r-rel">—</div><button class="copy-btn" data-copy="r-rel">Copy</button></div>
+    </div>
+  </div>
+
+  <!-- Reverse: date string → epoch -->
+  <div class="sec-head"><span>Reverse: date string → epoch</span></div>
+  <div class="panel">
+    <label class="lbl" for="rev-input">Type a human date or ISO 8601 string</label>
+    <div class="rev-row">
+      <input
+        id="rev-input"
+        class="rev-in"
+        type="text"
+        placeholder="e.g. 2024-11-14  or  Nov 14 2023 22:13:20 UTC"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Human date string to convert to epoch"
+      />
+    </div>
+    <div class="rev-results" id="rev-results">
+      <div class="rev-card"><div class="rk">Epoch seconds</div><div class="rv" id="rev-s">—</div></div>
+      <div class="rev-card"><div class="rk">Epoch milliseconds</div><div class="rv" id="rev-ms">—</div></div>
+      <div class="rev-card"><div class="rk">ISO 8601 (UTC)</div><div class="rv" id="rev-iso">—</div></div>
+    </div>
+    <div class="err-msg" id="rev-err" style="margin-top:8px"></div>
+
+    <!-- Export actions for reverse section -->
+    <div class="actions-wrap">
+      <div class="rmv-actions" id="rev-actions">
+        <button class="rmv-btn" id="btn-copy-rev">Copy results</button>
+        <div class="rmv-menu" id="dl-menu">
+          <button class="rmv-btn" id="dl-menu-btn">Download</button>
+          <div class="rmv-menu-pop" id="dl-menu-pop">
+            <button id="btn-dl-csv">CSV</button>
+          </div>
+        </div>
+        <button class="rmv-btn" id="btn-share">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timezone comparison -->
+  <div class="sec-head"><span>Timezone comparison</span></div>
+  <div class="panel">
+    <span class="lbl">Selected instant across zones — add or remove timezones</span>
+    <div class="tz-add-row">
+      <select class="tz-select" id="tz-picker" aria-label="Select a timezone to add">
+        <option value="">— pick a timezone to add —</option>
+      </select>
+      <button class="btn-add-tz" id="btn-add-tz">Add zone</button>
+    </div>
+    <div class="tz-list" id="tz-list">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- Saved workspaces -->
+  <div class="panel" style="padding:16px 22px;margin-top:22px">
+    <span class="lbl" style="margin-bottom:6px">Saved workspaces</span>
+    <div id="ws-container"></div>
+  </div>
+
+</main>
+
+<footer><div class="wrap">© 2026 Ruslan Magana Vsevolodovna · unix timestamp converter, epoch converter, ISO 8601 — all computation stays in your browser</div></footer>
+
+<script src="shared/toolkit.js"></script>
+<script>
+// =============================================================================
+//  Timestamp & Date Converter
+//  Keywords: unix timestamp converter, epoch converter, ISO 8601, timezone converter
+// =============================================================================
+'use strict';
+
+// ---- tiny helpers -----------------------------------------------------------
+function $(id){ return document.getElementById(id); }
+function escHtml(s){
+  return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+  });
+}
+
+// =============================================================================
+//  EPOCH DETECTION
+//  10 digits = seconds, 13 = ms, 16 = µs, 19 = ns
+// =============================================================================
+function detectEpochKind(raw){
+  var s = raw.trim();
+  if(!/^-?\d+$/.test(s)) return null;
+  var abs = s.replace('-','').replace(/^0+/,'') || '0';
+  var len = abs.length;
+  if(len <= 10) return 's';
+  if(len <= 13) return 'ms';
+  if(len <= 16) return 'us';
+  return 'ns';
+}
+
+function epochToMs(raw, kind){
+  var n = Number(raw);
+  if(kind === 's')  return n * 1000;
+  if(kind === 'ms') return n;
+  if(kind === 'us') return n / 1000;
+  if(kind === 'ns') return n / 1e6;
+  return n;
+}
+
+var KIND_LABEL = {s:'Epoch seconds (s)', ms:'Epoch milliseconds (ms)', us:'Epoch microseconds (µs)', ns:'Epoch nanoseconds (ns)'};
+var KIND_CLASS = {s:'epoch-s', ms:'epoch-ms', us:'epoch-us', ns:'epoch-ns'};
+
+// =============================================================================
+//  PARSE INPUT
+//  Returns {ms: <number>, kind: <string>} or null
+// =============================================================================
+function parseInput(raw){
+  if(!raw || !raw.trim()) return null;
+  var s = raw.trim();
+
+  // Pure integer → epoch
+  if(/^-?\d+$/.test(s)){
+    var kind = detectEpochKind(s);
+    return {ms: epochToMs(s, kind), kind: kind};
+  }
+
+  // Decimal epoch (e.g. 1700000000.123) — treat as seconds
+  if(/^-?\d+\.\d+$/.test(s)){
+    var val = parseFloat(s);
+    return {ms: val * 1000, kind: 's'};
+  }
+
+  // Date string via Date.parse
+  var ms = Date.parse(s);
+  if(!isNaN(ms)){
+    return {ms: ms, kind: 'date-str'};
+  }
+
+  return null;
+}
+
+// =============================================================================
+//  FORMAT HELPERS
+// =============================================================================
+function padZ(n, w){ return String(n).padStart(w || 2, '0'); }
+
+// RFC 2822-style (no library needed)
+var RFC_DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var RFC_MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function toRFC2822(d){
+  var offs = -d.getTimezoneOffset();
+  var sign = offs >= 0 ? '+' : '-';
+  var ah = padZ(Math.floor(Math.abs(offs)/60));
+  var am = padZ(Math.abs(offs)%60);
+  return RFC_DAYS[d.getDay()]+', '+
+    padZ(d.getDate())+' '+RFC_MONTHS[d.getMonth()]+' '+d.getFullYear()+' '+
+    padZ(d.getHours())+':'+padZ(d.getMinutes())+':'+padZ(d.getSeconds())+' '+
+    sign+ah+am;
+}
+
+// Relative time using Intl.RelativeTimeFormat
+var rtf = null;
+try { rtf = new Intl.RelativeTimeFormat('en', {numeric:'auto'}); } catch(e){}
+function toRelative(ms){
+  var diff = ms - Date.now(); // positive = future
+  var abs = Math.abs(diff);
+  var units = [
+    [31536000000, 'year'],
+    [2592000000,  'month'],
+    [604800000,   'week'],
+    [86400000,    'day'],
+    [3600000,     'hour'],
+    [60000,       'minute'],
+    [1000,        'second']
+  ];
+  for(var i = 0; i < units.length; i++){
+    if(abs >= units[i][0] || i === units.length - 1){
+      var val = Math.round(diff / units[i][0]);
+      if(rtf){
+        try { return rtf.format(val, units[i][1]); } catch(e){}
+      }
+      // plain fallback
+      var label = units[i][1] + (Math.abs(val) !== 1 ? 's' : '');
+      return val > 0 ? 'in '+Math.abs(val)+' '+label : Math.abs(val)+' '+label+' ago';
+    }
+  }
+  return 'just now';
+}
+
+// =============================================================================
+//  LOCAL TIMEZONE NAME
+// =============================================================================
+function localTzName(){
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local';
+  } catch(e){ return 'Local'; }
+}
+
+// =============================================================================
+//  LIVE CLOCK
+// =============================================================================
+var clockInterval = setInterval(function(){
+  var now = new Date();
+  var s = Math.floor(now.getTime() / 1000);
+  $('live-epoch-s').textContent = s.toString();
+  $('live-epoch-ms').textContent = now.getTime().toString();
+  $('live-iso').textContent = now.toISOString().replace('T',' ').replace(/\.\d+/,'') + ' Z';
+  try {
+    $('live-local').textContent = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  } catch(e){
+    $('live-local').textContent = now.toTimeString().slice(0,8);
+  }
+}, 1000);
+// Fire once immediately
+(function(){ clockInterval && clearInterval(clockInterval); }());
+setInterval(function(){
+  var now = new Date();
+  $('live-epoch-s').textContent  = Math.floor(now.getTime()/1000).toString();
+  $('live-epoch-ms').textContent = now.getTime().toString();
+  $('live-iso').textContent      = now.toISOString().replace('T',' ').replace(/\.\d+/,'') + ' Z';
+  try { $('live-local').textContent = now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
+  catch(e){ $('live-local').textContent = now.toTimeString().slice(0,8); }
+}, 1000);
+(function initClock(){
+  var now = new Date();
+  $('live-epoch-s').textContent  = Math.floor(now.getTime()/1000).toString();
+  $('live-epoch-ms').textContent = now.getTime().toString();
+  $('live-iso').textContent      = now.toISOString().replace('T',' ').replace(/\.\d+/,'') + ' Z';
+  try { $('live-local').textContent = now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
+  catch(e){ $('live-local').textContent = now.toTimeString().slice(0,8); }
+})();
+
+// =============================================================================
+//  PRIMARY CONVERTER
+// =============================================================================
+var currentMs = null; // null when no valid input
+
+function updateResults(parsed){
+  currentMs = parsed ? parsed.ms : null;
+
+  var pill = $('detect-pill');
+  var errMsg = $('err-msg');
+
+  if(!parsed){
+    pill.textContent = 'Waiting for input';
+    pill.className = 'detect-pill empty';
+    errMsg.textContent = '';
+    ['r-local','r-utc','r-iso','r-rfc','r-s','r-ms','r-rel'].forEach(function(id){
+      $(id).textContent = '—';
+    });
+    updateTzPanel();
+    return;
+  }
+
+  if(isNaN(parsed.ms) || !isFinite(parsed.ms)){
+    pill.textContent = 'Invalid input';
+    pill.className = 'detect-pill invalid';
+    errMsg.textContent = 'Could not parse as a timestamp or date string.';
+    ['r-local','r-utc','r-iso','r-rfc','r-s','r-ms','r-rel'].forEach(function(id){
+      $(id).textContent = '—';
+    });
+    currentMs = null;
+    updateTzPanel();
+    return;
+  }
+
+  errMsg.textContent = '';
+
+  // Set detect pill
+  if(parsed.kind === 'date-str'){
+    pill.textContent = 'Detected: date string';
+    pill.className = 'detect-pill date-str';
+  } else {
+    pill.textContent = 'Detected: ' + KIND_LABEL[parsed.kind];
+    pill.className = 'detect-pill ' + KIND_CLASS[parsed.kind];
+  }
+
+  var d = new Date(parsed.ms);
+
+  // Local time
+  $('r-local').textContent = d.toLocaleString([], {
+    year:'numeric', month:'long', day:'numeric',
+    hour:'2-digit', minute:'2-digit', second:'2-digit',
+    timeZoneName:'short'
+  });
+
+  // UTC time
+  $('r-utc').textContent = d.toLocaleString([], {
+    year:'numeric', month:'long', day:'numeric',
+    hour:'2-digit', minute:'2-digit', second:'2-digit',
+    timeZone:'UTC', timeZoneName:'short'
+  });
+
+  // ISO 8601
+  $('r-iso').textContent = d.toISOString();
+
+  // RFC 2822
+  $('r-rfc').textContent = toRFC2822(d);
+
+  // Epoch s / ms
+  var epochS  = Math.floor(parsed.ms / 1000);
+  var epochMs = Math.round(parsed.ms);
+  $('r-s').textContent  = epochS.toString();
+  $('r-ms').textContent = epochMs.toString();
+
+  // Relative
+  $('r-rel').textContent = toRelative(parsed.ms);
+
+  updateTzPanel();
+}
+
+// Copy buttons on result cards
+document.addEventListener('click', function(e){
+  var btn = e.target.closest('[data-copy]');
+  if(!btn) return;
+  var id = btn.dataset.copy;
+  var el = $(id);
+  if(!el) return;
+  var text = el.textContent;
+  if(window.RMVTool){
+    window.RMVTool.copy(text);
+  } else {
+    try { navigator.clipboard.writeText(text); } catch(ex){}
+  }
+});
+
+// Input listener
+$('ts-input').addEventListener('input', function(){
+  var raw = this.value;
+  var parsed = raw.trim() ? parseInput(raw) : null;
+  if(raw.trim() && !parsed){
+    this.classList.add('err');
+    var pill = $('detect-pill');
+    pill.textContent = 'Invalid input';
+    pill.className = 'detect-pill invalid';
+    $('err-msg').textContent = 'Could not parse as a timestamp or date string.';
+    currentMs = null;
+    return;
+  }
+  this.classList.remove('err');
+  updateResults(parsed);
+});
+
+// "Now" button
+$('btn-now').addEventListener('click', function(){
+  var now = Date.now();
+  var s = Math.floor(now / 1000);
+  $('ts-input').value = s.toString();
+  $('ts-input').classList.remove('err');
+  updateResults({ms: now, kind: 's'});
+});
+
+// =============================================================================
+//  REVERSE CONVERTER (date string → epoch)
+// =============================================================================
+$('rev-input').addEventListener('input', function(){
+  var raw = this.value.trim();
+  var errEl = $('rev-err');
+  if(!raw){
+    $('rev-s').textContent = '—';
+    $('rev-ms').textContent = '—';
+    $('rev-iso').textContent = '—';
+    errEl.textContent = '';
+    return;
+  }
+  var ms = Date.parse(raw);
+  if(isNaN(ms)){
+    $('rev-s').textContent = '—';
+    $('rev-ms').textContent = '—';
+    $('rev-iso').textContent = '—';
+    errEl.textContent = 'Cannot parse "' + raw + '" as a date.';
+    return;
+  }
+  errEl.textContent = '';
+  $('rev-s').textContent  = Math.floor(ms/1000).toString();
+  $('rev-ms').textContent = ms.toString();
+  $('rev-iso').textContent = new Date(ms).toISOString();
+});
+
+// =============================================================================
+//  TIMEZONE PANEL
+// =============================================================================
+var FALLBACK_ZONES = [
+  'UTC',
+  'America/New_York',
+  'America/Chicago',
+  'America/Denver',
+  'America/Los_Angeles',
+  'America/Sao_Paulo',
+  'Europe/London',
+  'Europe/Berlin',
+  'Europe/Moscow',
+  'Africa/Cairo',
+  'Asia/Dubai',
+  'Asia/Kolkata',
+  'Asia/Bangkok',
+  'Asia/Shanghai',
+  'Asia/Tokyo',
+  'Australia/Sydney',
+  'Pacific/Auckland'
+];
+
+// Populate tz picker
+(function buildTzPicker(){
+  var sel = $('tz-picker');
+  var zones;
+  try {
+    zones = Intl.supportedValuesOf ? Intl.supportedValuesOf('timeZone') : FALLBACK_ZONES;
+  } catch(e){ zones = FALLBACK_ZONES; }
+  zones.forEach(function(z){
+    var opt = document.createElement('option');
+    opt.value = z;
+    opt.textContent = z;
+    sel.appendChild(opt);
+  });
+})();
+
+// Default active zones: UTC + local + a few majors
+var activeTzList = (function(){
+  var local = localTzName();
+  var defaults = ['UTC', 'America/New_York', 'Europe/London', 'Asia/Tokyo'];
+  if(local && defaults.indexOf(local) === -1) defaults.splice(1, 0, local);
+  return defaults;
+})();
+
+function formatInZone(d, tz){
+  try {
+    return new Intl.DateTimeFormat('en-GB', {
+      timeZone: tz,
+      year:'numeric', month:'2-digit', day:'2-digit',
+      hour:'2-digit', minute:'2-digit', second:'2-digit',
+      hour12: false
+    }).format(d);
+  } catch(e){ return 'Unsupported'; }
+}
+
+function renderTzList(){
+  var container = $('tz-list');
+  var d = currentMs != null ? new Date(currentMs) : new Date();
+
+  container.innerHTML = activeTzList.map(function(tz, idx){
+    var formatted = currentMs != null ? formatInZone(new Date(currentMs), tz) : '—';
+    var isLocal = tz === localTzName();
+    return '<div class="tz-row">' +
+      '<span class="tz-name">' + escHtml(tz) + (isLocal ? ' <span style="font-size:9px;color:var(--faint)">(local)</span>' : '') + '</span>' +
+      '<span class="tz-val">' + escHtml(formatted) + '</span>' +
+      (activeTzList.length > 1
+        ? '<button class="tz-del" data-tz-idx="' + idx + '" aria-label="Remove ' + escHtml(tz) + '">Remove</button>'
+        : '') +
+    '</div>';
+  }).join('');
+}
+
+function updateTzPanel(){
+  renderTzList();
+}
+
+// Add zone button
+$('btn-add-tz').addEventListener('click', function(){
+  var sel = $('tz-picker');
+  var val = sel.value;
+  if(!val) return;
+  if(activeTzList.indexOf(val) !== -1) return;
+  activeTzList.push(val);
+  sel.value = '';
+  renderTzList();
+});
+
+// Remove zone (delegated)
+$('tz-list').addEventListener('click', function(e){
+  var btn = e.target.closest('[data-tz-idx]');
+  if(!btn) return;
+  var idx = parseInt(btn.dataset.tzIdx, 10);
+  activeTzList.splice(idx, 1);
+  renderTzList();
+});
+
+// Initial render
+renderTzList();
+
+// =============================================================================
+//  EXPORT HELPERS
+// =============================================================================
+function getResultsText(){
+  if(currentMs == null) return 'No conversion active.';
+  var lines = [
+    'Input: ' + ($('ts-input').value || ''),
+    'Local: '    + $('r-local').textContent,
+    'UTC: '      + $('r-utc').textContent,
+    'ISO 8601: ' + $('r-iso').textContent,
+    'RFC 2822: ' + $('r-rfc').textContent,
+    'Epoch s: '  + $('r-s').textContent,
+    'Epoch ms: ' + $('r-ms').textContent,
+    'Relative: ' + $('r-rel').textContent
+  ];
+  return lines.join('\n');
+}
+
+function getResultsCSVRows(){
+  return [
+    ['Field', 'Value'],
+    ['Input',    $('ts-input').value || ''],
+    ['Local',    $('r-local').textContent],
+    ['UTC',      $('r-utc').textContent],
+    ['ISO 8601', $('r-iso').textContent],
+    ['RFC 2822', $('r-rfc').textContent],
+    ['Epoch seconds', $('r-s').textContent],
+    ['Epoch milliseconds', $('r-ms').textContent],
+    ['Relative', $('r-rel').textContent]
+  ];
+}
+
+// Copy results
+$('btn-copy-rev').addEventListener('click', function(){
+  var text = getResultsText();
+  if(window.RMVTool){ window.RMVTool.copy(text); }
+  else { try { navigator.clipboard.writeText(text); } catch(e){} }
+});
+
+// Download CSV
+$('btn-dl-csv').addEventListener('click', function(){
+  closeDlMenu();
+  if(window.RMVTool){
+    var csv = window.RMVTool.toCSV(getResultsCSVRows());
+    window.RMVTool.download('timestamp-conversion.csv', csv, 'text/csv');
+  }
+});
+
+// Dropdown menu toggle
+var dlMenu = $('dl-menu');
+$('dl-menu-btn').addEventListener('click', function(e){
+  e.stopPropagation();
+  dlMenu.classList.toggle('open');
+});
+document.addEventListener('click', function(){ dlMenu.classList.remove('open'); });
+function closeDlMenu(){ dlMenu.classList.remove('open'); }
+
+// =============================================================================
+//  STATE — Share + Workspaces
+// =============================================================================
+function getState(){
+  return {
+    input:  $('ts-input').value,
+    revIn:  $('rev-input').value,
+    zones:  activeTzList.slice()
+  };
+}
+
+function applyState(st){
+  if(!st) return;
+  if(st.input !== undefined){
+    $('ts-input').value = st.input;
+    var parsed = st.input.trim() ? parseInput(st.input) : null;
+    updateResults(parsed);
+  }
+  if(st.revIn !== undefined){
+    $('rev-input').value = st.revIn;
+    $('rev-input').dispatchEvent(new Event('input'));
+  }
+  if(Array.isArray(st.zones) && st.zones.length){
+    activeTzList = st.zones.slice();
+    renderTzList();
+  }
+}
+
+// Share button
+$('btn-share').addEventListener('click', function(){
+  if(window.RMVTool){ window.RMVTool.share(getState()); }
+  else {
+    try {
+      var url = location.href.split('#')[0] + '#shared';
+      navigator.clipboard.writeText(url);
+    } catch(e){}
+  }
+});
+
+// =============================================================================
+//  SAVED WORKSPACES
+// =============================================================================
+if(window.RMVTool){
+  window.RMVTool.mountWorkspaces($('ws-container'), {
+    ns: 'timestamp',
+    getState: getState,
+    applyState: applyState
+  });
+}
+
+// =============================================================================
+//  TRUST BADGES
+// =============================================================================
+if(window.RMVTool){
+  window.RMVTool.badges($('badges'), {
+    runsLocal: true,
+    noUpload: true,
+    exportable: true,
+    updated: '2026-06-02',
+    extra: ['Intl.DateTimeFormat', 'All IANA zones']
+  });
+}
+
+// =============================================================================
+//  RESTORE SHARED STATE
+// =============================================================================
+(function(){
+  if(window.RMVTool){
+    var st = window.RMVTool.readShared();
+    if(st) applyState(st);
+  }
+})();
+</script>
+</body>
+</html>

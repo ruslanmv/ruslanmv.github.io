@@ -1,0 +1,43 @@
+# Refreshes the AI Prompt Builder's static prompt catalog by re-running the
+# build script against its source datasets, then commits any changes. Manual or
+# weekly. Scoped entirely to assets/tools/prompt-builder/.
+name: Update Prompt Catalog
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-prompt-catalog
+  cancel-in-progress: false
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: assets/tools/prompt-builder
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install optional deps
+        run: pip install pyyaml
+      - name: Build catalog
+        run: python3 scripts/build_catalog.py
+      - name: Commit updated catalog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/prompts.catalog.json data/prompts.catalog.min.json data/prompts.catalog.txt
+          if git diff --cached --quiet; then
+            echo "No catalog changes."
+          else
+            git commit -m "chore: refresh AI Prompt Builder catalog"
+            git push
+          fi

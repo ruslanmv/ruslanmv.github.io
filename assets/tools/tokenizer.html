@@ -5,189 +5,748 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Token Counter & Cost — ruslanmv/tools</title>
 <meta name="description" content="Estimate LLM token counts and price prompts across GPT, Claude and Gemini. Runs entirely in your browser." />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/toolkit.css" />
 <style>
-  :root{--ink:#0a0e16;--ink-2:#0e1421;--ink-3:#141c2c;--raise:#182133;--line:rgba(140,170,210,.12);--line-2:rgba(140,170,210,.22);--text:#e8eef6;--muted:#8c9bb3;--faint:#5f6e85;--mint:#5ef2c4;--mint-dim:rgba(94,242,196,.14);--amber:#ffb454;--blue:#7aa2ff;--rose:#ff7a8a;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',system-ui,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  :root{
+    --bg:#f4f5f1;
+    --surface:#fff;
+    --surface-2:#fbfbf9;
+    --ink:#10231a;
+    --text:#1d2b24;
+    --muted:#5c6b63;
+    --faint:#8a978f;
+    --line:#e7e8e2;
+    --line-2:#dcdfd7;
+    --line-3:#cfd3ca;
+    --green:#15a05a;
+    --green-600:#138a4e;
+    --green-700:#0e7340;
+    --green-soft:#e7f4ec;
+    --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;background-image:radial-gradient(800px 460px at 8% -8%,rgba(94,242,196,.09),transparent 60%),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1100px;margin:0 auto;padding:0 26px}
-  header.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,14,22,.92),rgba(10,14,22,.6));border-bottom:1px solid var(--line)}
-  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
-  .back{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .2s}
-  .back:hover{color:var(--mint)} .back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
-  .top .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+  /* ---- top header bar ---- */
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1080px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s;text-decoration:none}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+
+  /* ---- page heading ---- */
   .hd{padding:46px 0 8px}
-  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--mint);display:flex;align-items:center;gap:11px}
-  .kick::before{content:"";width:30px;height:1px;background:var(--mint)}
-  h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,6vw,54px);letter-spacing:-1px;margin:14px 0 0}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:11px}
+  .kick::before{content:"";width:30px;height:1px;background:var(--green)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,6vw,54px);letter-spacing:-1px;margin:14px 0 0;color:var(--ink)}
   .sub{color:var(--muted);max-width:640px;margin-top:12px;font-size:15.5px}
-  .panel{background:linear-gradient(160deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:22px}
+
+  /* ---- badges container ---- */
+  #badges-container{margin-top:4px}
+
+  /* ---- mode toggle area ---- */
+  .mode-bar{display:flex;align-items:center;gap:14px;margin:22px 0 0;flex-wrap:wrap}
+  .mode-bar .mode-label{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint)}
+
+  /* ---- panels ---- */
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:22px;margin-top:22px}
   .lbl{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:10px;display:block}
-  textarea{width:100%;min-height:200px;resize:vertical;background:var(--ink);border:1px solid var(--line-2);border-radius:12px;padding:16px;color:var(--text);font-family:var(--mono);font-size:13.5px;line-height:1.6;outline:none;transition:border .2s,box-shadow .2s}
-  textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px var(--mint-dim)}
+  textarea{width:100%;min-height:200px;resize:vertical;background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:16px;color:var(--text);font-family:var(--mono);font-size:13.5px;line-height:1.6;outline:none;transition:border .2s,box-shadow .2s}
+  textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+
+  /* ---- stat cards ---- */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
   @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
-  .stat{background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:16px}
-  .stat .v{font-family:var(--mono);font-size:30px;font-weight:600;letter-spacing:-1px;color:var(--mint)}
-  .stat.b .v{color:var(--blue)} .stat.a .v{color:var(--amber)} .stat.r .v{color:var(--rose)}
+  .stat{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .stat .v{font-family:var(--mono);font-size:30px;font-weight:600;letter-spacing:-1px;color:var(--green)}
+  .stat.b .v{color:var(--green-600)} .stat.a .v{color:var(--green-700)} .stat.r .v{color:#138a6a}
   .stat .k{font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+  /* ---- cost inputs ---- */
   .row{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;margin-bottom:8px}
   .fld{flex:1;min-width:150px}
-  input[type=number]{width:100%;background:var(--ink);border:1px solid var(--line-2);border-radius:10px;padding:11px 13px;color:var(--text);font-family:var(--mono);font-size:14px;outline:none}
-  input[type=number]:focus{border-color:var(--mint)}
+  input[type=number]{width:100%;background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;padding:11px 13px;color:var(--text);font-family:var(--mono);font-size:14px;outline:none;transition:border .2s,box-shadow .2s}
+  input[type=number]:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+
+  /* ---- table ---- */
   table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13.5px}
   th,td{text-align:right;padding:11px 12px;border-bottom:1px solid var(--line)}
   th:first-child,td:first-child{text-align:left}
   th{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);font-weight:500}
-  tbody tr{transition:background .15s}tbody tr:hover{background:rgba(94,242,196,.05)}
+  tbody tr{transition:background .15s}tbody tr:hover{background:var(--green-tint)}
   td .m{font-weight:600}td .p{font-family:var(--mono);color:var(--muted);font-size:12px}
-  td.cost{font-family:var(--mono);color:var(--mint);font-weight:600}
-  .edit{background:transparent;border:1px solid var(--line);border-radius:7px;color:var(--text);font-family:var(--mono);font-size:12px;width:74px;padding:5px 7px;text-align:right;outline:none}
-  .edit:focus{border-color:var(--mint)}
+  td.cost{font-family:var(--mono);color:var(--green-600);font-weight:600}
+  td.savings{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  td.savings.best{color:var(--green-600);font-weight:600}
+
+  /* ---- editable price inputs ---- */
+  .edit{background:transparent;border:1px solid var(--line-2);border-radius:7px;color:var(--text);font-family:var(--mono);font-size:12px;width:74px;padding:5px 7px;text-align:right;outline:none;transition:border .2s}
+  .edit:focus{border-color:var(--green)}
+
+  /* ---- note / use-estimate button ---- */
   .note{font-size:12.5px;color:var(--faint);margin-top:14px;font-family:var(--mono);line-height:1.7}
-  .note a{color:var(--blue)}
+  .note a{color:var(--green-600)}
   .seg{display:inline-flex;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:12.5px}
-  .seg button{background:var(--ink);color:var(--muted);border:0;padding:9px 14px;cursor:pointer;transition:.15s}
-  .seg button.on{background:var(--mint);color:var(--ink);font-weight:600}
+  .seg button{background:var(--surface-2);color:var(--muted);border:0;padding:9px 14px;cursor:pointer;transition:.15s}
+  .seg button.on{background:var(--green);color:#fff;font-weight:600}
   .mini{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:8px}
+
+  /* ---- pricing notice ---- */
+  .pricing-notice{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:14px;line-height:1.7}
+  .pricing-notice a{color:var(--green-600);text-decoration:underline;text-underline-offset:2px}
+
+  /* ---- planner panel ---- */
+  #panel-report{display:none}
+  #panel-report.active{display:block}
+  .planner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:18px}
+  .derived{font-family:var(--mono);font-size:12px;color:var(--muted);margin:8px 0 20px;padding:10px 14px;background:var(--green-tint);border:1px solid var(--line-2);border-radius:8px}
+  .derived span{color:var(--green-700);font-weight:600}
+
+  /* planner table extras */
+  .cost-cheapest{background:var(--green-tint)}
+  .cost-cheapest td{border-bottom-color:var(--green-soft)}
+
+  /* ---- actions bar ---- */
+  .actions-wrap{margin-top:18px}
+
+  /* ---- workspace panel ---- */
+  #ws-container{margin-top:16px}
+
+  /* ---- responsive ---- */
+  @media(max-width:500px){
+    .planner-grid{grid-template-columns:1fr 1fr}
+    .wrap{padding:0 14px}
+    .panel{padding:16px}
+    th,td{padding:9px 8px;font-size:12px}
+    .edit{width:60px}
+  }
+  @media(max-width:390px){
+    .planner-grid{grid-template-columns:1fr}
+    h1{font-size:30px}
+  }
+
+  /* ---- footer ---- */
   footer{border-top:1px solid var(--line);margin-top:42px;padding:26px 0 56px;font-family:var(--mono);font-size:12px;color:var(--faint)}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap">
-  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> all tools</a>
-  <span class="id">ruslanmv/tools · token-counter</span>
+<header class="bar"><div class="in">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+  <span class="name">Ruslan Magana Vsevolodovna</span>
 </div></header>
 
 <main class="wrap">
   <div class="hd">
     <div class="kick">AI / LLM</div>
-    <h1>Token Counter &amp; Cost</h1>
-    <p class="sub">Drop in a prompt to estimate its token count, then price the request across the major models. The estimate uses GPT-style pre-tokenization heuristics — close enough for budgeting and context-window checks, not a substitute for an exact tokenizer.</p>
+    <h1>Token &amp; Cost Estimator</h1>
+    <p class="sub">Drop in a prompt to estimate its token count, then price the request across the major models — or switch to Budget Planner for full monthly cost projections. Runs entirely in your browser, nothing is uploaded.</p>
+    <div id="badges-container"></div>
   </div>
 
-  <div class="panel">
-    <label class="lbl" for="txt">Prompt / text</label>
-    <textarea id="txt" placeholder="Paste your prompt, document, or system message here…"></textarea>
-    <div class="stats">
-      <div class="stat"><div class="v" id="sTok">0</div><div class="k">est. tokens</div></div>
-      <div class="stat b"><div class="v" id="sWord">0</div><div class="k">words</div></div>
-      <div class="stat a"><div class="v" id="sChar">0</div><div class="k">characters</div></div>
-      <div class="stat r"><div class="v" id="sLine">0</div><div class="k">lines</div></div>
+  <!-- Mode toggle -->
+  <div class="mode-bar">
+    <span class="mode-label">Mode</span>
+    <div class="rmv-modes" id="mode-toggle">
+      <button class="active" data-mode="quick">Quick</button>
+      <button data-mode="report">Budget Planner</button>
     </div>
-    <div class="mini">Estimate range: <span id="range">0–0</span> tokens · ~<span id="ratio">0</span> chars/token</div>
   </div>
 
-  <div class="panel">
-    <div class="row">
-      <div class="fld">
-        <label class="lbl">Input tokens</label>
-        <input type="number" id="inTok" value="0" min="0">
+  <!-- ===== QUICK MODE ===== -->
+  <div id="panel-quick">
+    <div class="panel">
+      <label class="lbl" for="txt">Prompt / text</label>
+      <textarea id="txt" placeholder="Paste your prompt, document, or system message here…"></textarea>
+      <div class="stats">
+        <div class="stat"><div class="v" id="sTok">0</div><div class="k">est. tokens</div></div>
+        <div class="stat b"><div class="v" id="sWord">0</div><div class="k">words</div></div>
+        <div class="stat a"><div class="v" id="sChar">0</div><div class="k">characters</div></div>
+        <div class="stat r"><div class="v" id="sLine">0</div><div class="k">lines</div></div>
       </div>
-      <div class="fld">
-        <label class="lbl">Output tokens</label>
-        <input type="number" id="outTok" value="500" min="0">
+      <div class="mini">Estimate range: <span id="range">0–0</span> tokens · ~<span id="ratio">0</span> chars/token</div>
+    </div>
+
+    <div class="panel">
+      <div class="row">
+        <div class="fld">
+          <label class="lbl">Input tokens</label>
+          <input type="number" id="inTok" value="0" min="0">
+        </div>
+        <div class="fld">
+          <label class="lbl">Output tokens</label>
+          <input type="number" id="outTok" value="500" min="0">
+        </div>
+        <div class="fld" style="flex:0 0 auto">
+          <label class="lbl">Calls</label>
+          <input type="number" id="calls" value="1" min="1" style="width:110px">
+        </div>
+        <div class="fld" style="flex:0 0 auto">
+          <label class="lbl">Currency</label>
+          <div class="seg" id="cur"><button class="on" data-c="usd">USD $</button><button data-c="eur">EUR €</button></div>
+        </div>
       </div>
-      <div class="fld" style="flex:0 0 auto">
-        <label class="lbl">Calls</label>
-        <input type="number" id="calls" value="1" min="1" style="width:110px">
-      </div>
-      <div class="fld" style="flex:0 0 auto">
-        <label class="lbl">Currency</label>
-        <div class="seg" id="cur"><button class="on" data-c="usd">USD $</button><button data-c="eur">EUR €</button></div>
+      <button id="useEst" class="back" style="border:1px solid var(--line-2);border-radius:8px;padding:7px 12px;display:inline-flex;margin:4px 0 16px;cursor:pointer">↑ use estimate as input tokens</button>
+      <table>
+        <thead><tr><th>Model</th><th>Input /1M</th><th>Output /1M</th><th>Per call</th><th>Total</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="pricing-notice" id="pricing-notice">
+        Prices are <b>editable</b> — click any price to adjust. Verify with provider before quoting.
       </div>
     </div>
-    <button id="useEst" class="back" style="border:1px solid var(--line);border-radius:8px;padding:7px 12px;display:inline-flex;margin:4px 0 16px;cursor:pointer">↑ use estimate as input tokens</button>
-    <table>
-      <thead><tr><th>Model</th><th>Input /1M</th><th>Output /1M</th><th>Per call</th><th>Total</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table>
-    <p class="note">Prices are <b>editable</b> and reflect commonly published list rates (per 1M tokens) — click any price to adjust. Provider pricing changes frequently, so verify against the source before quoting a client:
-      <a href="https://openai.com/api/pricing/" target="_blank" rel="noopener">OpenAI</a> ·
-      <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener">Anthropic</a> ·
-      <a href="https://ai.google.dev/pricing" target="_blank" rel="noopener">Google</a>.
-    </p>
   </div>
+
+  <!-- ===== BUDGET PLANNER (REPORT MODE) ===== -->
+  <div id="panel-report">
+    <div class="panel">
+      <span class="lbl">Scenario inputs</span>
+      <div class="planner-grid">
+        <div class="fld">
+          <label class="lbl" for="p-inTok">Input tokens / request</label>
+          <input type="number" id="p-inTok" value="1000" min="0">
+        </div>
+        <div class="fld">
+          <label class="lbl" for="p-outTok">Output tokens / request</label>
+          <input type="number" id="p-outTok" value="500" min="0">
+        </div>
+        <div class="fld">
+          <label class="lbl" for="p-reqUser">Requests / user</label>
+          <input type="number" id="p-reqUser" value="10" min="0">
+        </div>
+        <div class="fld">
+          <label class="lbl" for="p-users">Users / month</label>
+          <input type="number" id="p-users" value="100" min="0">
+        </div>
+      </div>
+      <div class="derived" id="derived-line">
+        Total requests/month: <span id="d-reqMonth">1,000</span> &nbsp;·&nbsp;
+        Requests/day: <span id="d-reqDay">33</span>
+      </div>
+
+      <table id="planner-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>$/1M in</th>
+            <th>$/1M out</th>
+            <th>Monthly cost</th>
+            <th>Savings vs costliest</th>
+          </tr>
+        </thead>
+        <tbody id="planner-rows"></tbody>
+      </table>
+
+      <div class="pricing-notice" id="pricing-notice-report">
+        Prices are editable above in Quick mode and persist here.
+        Estimates only — verify with each provider.
+      </div>
+
+      <div class="actions-wrap">
+        <div class="rmv-actions" id="planner-actions">
+          <button class="rmv-btn" id="btn-copy-table">Copy table</button>
+          <div class="rmv-menu" id="dl-menu">
+            <button class="rmv-btn" id="dl-menu-btn">Download</button>
+            <div class="rmv-menu-pop" id="dl-menu-pop">
+              <button id="btn-dl-csv">CSV</button>
+              <button id="btn-dl-md">Markdown</button>
+            </div>
+          </div>
+          <button class="rmv-btn" id="btn-share">Share</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved workspaces (always visible) -->
+  <div class="panel" style="padding:16px 22px">
+    <span class="lbl" style="margin-bottom:6px">Saved workspaces</span>
+    <div id="ws-container"></div>
+  </div>
+
 </main>
 <footer><div class="wrap">© 2026 Ruslan Magana Vsevolodovna · all computation stays in your browser</div></footer>
 
+<script src="shared/toolkit.js"></script>
 <script>
+// =========================================================================
+//  Token & Cost Estimator — premium edition
+// =========================================================================
+
+// ---- utility (must come first — used by everything below) ----
+function $(id){ return document.getElementById(id); }
+function escHtml(s){
+  return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+  });
+}
+
 // ---- token estimator (GPT-style pre-tokenization heuristic) ----
-const PAT = /'s|'t|'re|'ve|'m|'ll|'d| ?[A-Za-z]+| ?[0-9]+| ?[^\sA-Za-z0-9]+|\s+/g;
+var PAT = /'s|'t|'re|'ve|'m|'ll|'d| ?[A-Za-z]+| ?[0-9]+| ?[^\sA-Za-z0-9]+|\s+/g;
 function estimate(text){
   if(!text) return {tok:0,lo:0,hi:0};
-  let tok=0;
-  const pieces = text.match(PAT) || [];
-  for(const p of pieces){
-    const s=p.trim();
-    if(!s){ tok += Math.max(1, Math.round(p.length/6)); continue; } // whitespace runs
-    if(/^[0-9]+$/.test(s)) { tok += Math.ceil(s.length/3); continue; } // digits ~3/token
-    if(/^[A-Za-z]+$/.test(s)){ tok += Math.max(1, Math.ceil(s.length/4)); continue; } // words ~4 chars/token
-    tok += Math.max(1, Math.ceil(s.length/2)); // punctuation/symbols denser
+  var tok=0;
+  var pieces = text.match(PAT) || [];
+  for(var i=0;i<pieces.length;i++){
+    var p=pieces[i];
+    var s=p.trim();
+    if(!s){ tok += Math.max(1, Math.round(p.length/6)); continue; }
+    if(/^[0-9]+$/.test(s)) { tok += Math.ceil(s.length/3); continue; }
+    if(/^[A-Za-z]+$/.test(s)){ tok += Math.max(1, Math.ceil(s.length/4)); continue; }
+    tok += Math.max(1, Math.ceil(s.length/2));
   }
-  return {tok, lo:Math.round(tok*0.85), hi:Math.round(tok*1.18)};
+  return {tok:tok, lo:Math.round(tok*0.85), hi:Math.round(tok*1.18)};
 }
-const $=id=>document.getElementById(id);
-const txt=$('txt');
-function refresh(){
-  const t=txt.value;
-  const e=estimate(t);
-  const words=(t.match(/\S+/g)||[]).length;
-  const chars=t.length;
-  const lines=t? t.split(/\n/).length:0;
-  $('sTok').textContent=e.tok.toLocaleString();
-  $('sWord').textContent=words.toLocaleString();
-  $('sChar').textContent=chars.toLocaleString();
-  $('sLine').textContent=lines.toLocaleString();
-  $('range').textContent=e.lo.toLocaleString()+'–'+e.hi.toLocaleString();
-  $('ratio').textContent=e.tok? (chars/e.tok).toFixed(1):'0';
-  window._lastEst=e.tok;
-}
-txt.addEventListener('input',refresh);
 
-// ---- pricing (USD per 1M tokens, list rates; editable) ----
-const MODELS=[
-  ['GPT-4o',2.50,10.00],['GPT-4o mini',0.15,0.60],['o3',2.00,8.00],['o4-mini',1.10,4.40],
-  ['Claude Opus 4',15.00,75.00],['Claude Sonnet 4',3.00,15.00],['Claude Haiku 3.5',0.80,4.00],
-  ['Gemini 2.5 Pro',1.25,10.00],['Gemini 2.5 Flash',0.30,2.50],
-  ['DeepSeek-V3',0.27,1.10],['Llama 3.1 405B (host)',0.90,0.90]
-];
-const EURRATE=0.92; let cur='usd';
-function sym(){return cur==='usd'?'$':'€';}
-function fx(v){return cur==='usd'?v:v*EURRATE;}
-function money(v){const n=fx(v);return sym()+(n<0.01&&n>0?n.toFixed(5):n.toLocaleString(undefined,{minimumFractionDigits:n<1?4:2,maximumFractionDigits:n<1?5:2}));}
-const rows=$('rows');
-function buildRows(){
-  rows.innerHTML='';
-  MODELS.forEach((m,i)=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td><span class="m">${m[0]}</span></td>
-      <td><input class="edit" data-i="${i}" data-k="1" value="${m[1]}"></td>
-      <td><input class="edit" data-i="${i}" data-k="2" value="${m[2]}"></td>
-      <td class="p" data-call></td>
-      <td class="cost" data-total></td>`;
-    rows.appendChild(tr);
-  });
-  rows.querySelectorAll('.edit').forEach(inp=>inp.addEventListener('input',e=>{
-    MODELS[+e.target.dataset.i][+e.target.dataset.k]=parseFloat(e.target.value)||0; calc();
-  }));
+// =========================================================================
+//  PRICING DATA — inline fallback (same shape as models.pricing.json)
+// =========================================================================
+var PRICING_FALLBACK = {
+  "updated":"2026-06-02",
+  "unit":"per_1M_tokens",
+  "note":"Approximate public list prices. Verify with provider.",
+  "models":[
+    {"id":"gpt-4o",           "name":"GPT-4o",                  "vendor":"OpenAI",      "in":2.5,   "out":10.0,  "ctx":128000,  "source":"https://openai.com/api/pricing/"},
+    {"id":"gpt-4o-mini",      "name":"GPT-4o mini",             "vendor":"OpenAI",      "in":0.15,  "out":0.6,   "ctx":128000,  "source":"https://openai.com/api/pricing/"},
+    {"id":"o3-mini",          "name":"o3-mini",                 "vendor":"OpenAI",      "in":1.1,   "out":4.4,   "ctx":200000,  "source":"https://openai.com/api/pricing/"},
+    {"id":"claude-opus-4",    "name":"Claude Opus 4",           "vendor":"Anthropic",   "in":15.0,  "out":75.0,  "ctx":200000,  "source":"https://www.anthropic.com/pricing"},
+    {"id":"claude-sonnet-4",  "name":"Claude Sonnet 4",         "vendor":"Anthropic",   "in":3.0,   "out":15.0,  "ctx":200000,  "source":"https://www.anthropic.com/pricing"},
+    {"id":"claude-haiku-3-5", "name":"Claude Haiku 3.5",        "vendor":"Anthropic",   "in":0.8,   "out":4.0,   "ctx":200000,  "source":"https://www.anthropic.com/pricing"},
+    {"id":"gemini-2-0-flash", "name":"Gemini 2.0 Flash",        "vendor":"Google",      "in":0.1,   "out":0.4,   "ctx":1000000, "source":"https://ai.google.dev/pricing"},
+    {"id":"gemini-1-5-pro",   "name":"Gemini 1.5 Pro",          "vendor":"Google",      "in":1.25,  "out":5.0,   "ctx":2000000, "source":"https://ai.google.dev/pricing"},
+    {"id":"llama-3-1-70b",    "name":"Llama 3.1 70B (self-host)","vendor":"Meta / OSS", "in":0.0,   "out":0.0,   "ctx":128000,  "source":"https://ai.meta.com/"},
+    {"id":"deepseek-v3",      "name":"DeepSeek V3",             "vendor":"DeepSeek",    "in":0.27,  "out":1.1,   "ctx":64000,   "source":"https://api-docs.deepseek.com/quick_start/pricing"}
+  ]
+};
+
+// Working copy of models — "in"/"out" are user-editable overrides
+var MODELS = JSON.parse(JSON.stringify(PRICING_FALLBACK.models));
+var pricingUpdated = PRICING_FALLBACK.updated;
+
+// Tracks user edits to prices, keyed by model id — declared here so loadPricing can see it
+var editedPrices = {};
+
+// ---- Try to fetch live pricing ----
+(function loadPricing(){
+  try {
+    fetch('data/models.pricing.json', {cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(data){
+        if(data && Array.isArray(data.models)){
+          // Merge: preserve any user edits already made (editedPrices)
+          data.models.forEach(function(m){
+            var override = editedPrices[m.id];
+            m._in_orig  = m.in;
+            m._out_orig = m.out;
+            if(override){
+              m.in  = override.in  !== undefined ? override.in  : m.in;
+              m.out = override.out !== undefined ? override.out : m.out;
+            }
+          });
+          MODELS = data.models;
+          if(data.updated) pricingUpdated = data.updated;
+          buildQuickRows();
+          buildPlannerRows();
+          updatePricingNotice();
+          calcQuick();
+          calcPlanner();
+        }
+      })
+      .catch(function(){ /* silently use fallback */ });
+  } catch(e){ /* fetch not available (file://) — fallback already applied */ }
+})();
+
+// =========================================================================
+//  QUICK MODE — token counter + per-call cost table
+// =========================================================================
+var txt = $('txt');
+function refresh(){
+  var t = txt.value;
+  var e = estimate(t);
+  var words = (t.match(/\S+/g)||[]).length;
+  var chars = t.length;
+  var lines = t ? t.split(/\n/).length : 0;
+  $('sTok').textContent = e.tok.toLocaleString();
+  $('sWord').textContent = words.toLocaleString();
+  $('sChar').textContent = chars.toLocaleString();
+  $('sLine').textContent = lines.toLocaleString();
+  $('range').textContent = e.lo.toLocaleString()+'–'+e.hi.toLocaleString();
+  $('ratio').textContent = e.tok ? (chars/e.tok).toFixed(1) : '0';
+  window._lastEst = e.tok;
 }
-function calc(){
-  const inT=+$('inTok').value||0, outT=+$('outTok').value||0, calls=+$('calls').value||1;
-  [...rows.children].forEach((tr,i)=>{
-    const [_,pi,po]=MODELS[i];
-    const per=(inT/1e6)*pi+(outT/1e6)*po;
-    tr.querySelector('[data-call]').textContent=money(per);
-    tr.querySelector('[data-total]').textContent=money(per*calls);
+txt.addEventListener('input', refresh);
+
+var EURRATE = 0.92;
+var curSym = 'usd';
+function sym(){ return curSym==='usd' ? '$' : '€'; }
+function fx(v){ return curSym==='usd' ? v : v*EURRATE; }
+function money(v){
+  var n = fx(v);
+  return sym()+(n<0.01&&n>0 ? n.toFixed(5) : n.toLocaleString(undefined,{minimumFractionDigits:n<1?4:2,maximumFractionDigits:n<1?5:2}));
+}
+
+var rowsEl = $('rows');
+function buildQuickRows(){
+  rowsEl.innerHTML = '';
+  MODELS.forEach(function(m, i){
+    var tr = document.createElement('tr');
+    tr.dataset.idx = i;
+    tr.innerHTML =
+      '<td><span class="m">'+escHtml(m.name)+'</span><br><span class="p">'+escHtml(m.vendor)+'</span></td>'+
+      '<td><input class="edit" data-id="'+escHtml(m.id)+'" data-k="in"  value="'+m.in+'"></td>'+
+      '<td><input class="edit" data-id="'+escHtml(m.id)+'" data-k="out" value="'+m.out+'"></td>'+
+      '<td class="p" data-call></td>'+
+      '<td class="cost" data-total></td>';
+    rowsEl.appendChild(tr);
+  });
+  rowsEl.querySelectorAll('.edit').forEach(function(inp){
+    inp.addEventListener('input', function(e){
+      var id  = e.target.dataset.id;
+      var key = e.target.dataset.k;
+      var val = parseFloat(e.target.value) || 0;
+      // Update MODELS array
+      var m = MODELS.filter(function(x){ return x.id===id; })[0];
+      if(m) m[key] = val;
+      // Track override
+      if(!editedPrices[id]) editedPrices[id] = {};
+      editedPrices[id][key] = val;
+      calcQuick();
+      calcPlanner();
+    });
   });
 }
-['inTok','outTok','calls'].forEach(id=>$(id).addEventListener('input',calc));
-$('cur').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
-  cur=b.dataset.c;[...e.currentTarget.children].forEach(x=>x.classList.toggle('on',x===b));calc();});
-$('useEst').addEventListener('click',()=>{$('inTok').value=window._lastEst||0;calc();});
-buildRows(); refresh(); calc();
+
+function calcQuick(){
+  var inT  = +$('inTok').value  || 0;
+  var outT = +$('outTok').value || 0;
+  var calls = +$('calls').value || 1;
+  Array.prototype.forEach.call(rowsEl.children, function(tr, i){
+    var m = MODELS[i];
+    if(!m) return;
+    var per = (inT/1e6)*m.in + (outT/1e6)*m.out;
+    tr.querySelector('[data-call]').textContent  = money(per);
+    tr.querySelector('[data-total]').textContent = money(per*calls);
+  });
+}
+
+['inTok','outTok','calls'].forEach(function(id){
+  $(id).addEventListener('input', calcQuick);
+});
+$('cur').addEventListener('click', function(e){
+  var b = e.target.closest('button');
+  if(!b) return;
+  curSym = b.dataset.c;
+  Array.prototype.forEach.call(e.currentTarget.children, function(x){ x.classList.toggle('on', x===b); });
+  calcQuick();
+  calcPlanner();
+});
+$('useEst').addEventListener('click', function(){
+  $('inTok').value = window._lastEst || 0;
+  calcQuick();
+});
+
+// =========================================================================
+//  PRICING NOTICE
+// =========================================================================
+function updatePricingNotice(){
+  // Build per-vendor source links from model data
+  var seen = {};
+  var links = [];
+  MODELS.forEach(function(m){
+    if(m.source && !seen[m.vendor]){
+      seen[m.vendor] = true;
+      links.push('<a href="'+escHtml(m.source)+'" target="_blank" rel="noopener">'+escHtml(m.vendor)+'</a>');
+    }
+  });
+  var dateStr = pricingUpdated || '2026-06-02';
+  var noticeHtml = 'Pricing updated <b>'+escHtml(dateStr)+'</b> &middot; estimates only, verify with provider: '+links.join(' &middot; ');
+  $('pricing-notice').innerHTML = noticeHtml;
+  $('pricing-notice-report').innerHTML = noticeHtml;
+}
+
+// =========================================================================
+//  BUDGET PLANNER (REPORT MODE)
+// =========================================================================
+var plannerRowsEl = $('planner-rows');
+
+function buildPlannerRows(){
+  plannerRowsEl.innerHTML = '';
+  MODELS.forEach(function(m, i){
+    var tr = document.createElement('tr');
+    tr.dataset.idx = String(i);
+    tr.innerHTML =
+      '<td><span class="m">'+escHtml(m.name)+'</span><br><span class="p">'+escHtml(m.vendor)+'</span></td>'+
+      '<td class="p" data-in-price></td>'+
+      '<td class="p" data-out-price></td>'+
+      '<td class="cost" data-monthly></td>'+
+      '<td class="savings" data-savings></td>';
+    plannerRowsEl.appendChild(tr);
+  });
+}
+
+function calcPlanner(){
+  var inT      = parseFloat($('p-inTok').value)   || 0;
+  var outT     = parseFloat($('p-outTok').value)  || 0;
+  var reqUser  = parseFloat($('p-reqUser').value) || 0;
+  var users    = parseFloat($('p-users').value)   || 0;
+
+  var totalReqMonth = reqUser * users;
+  var reqDay = totalReqMonth / 30.44; // avg days/month
+
+  $('d-reqMonth').textContent = Math.round(totalReqMonth).toLocaleString();
+  $('d-reqDay').textContent   = Math.round(reqDay).toLocaleString();
+
+  // Compute monthly cost per model
+  // monthly = (inT * totalReqMonth * price_in + outT * totalReqMonth * price_out) / 1e6
+  var costs = MODELS.map(function(m, i){
+    var monthly = (inT * totalReqMonth * m.in + outT * totalReqMonth * m.out) / 1e6;
+    return {idx:i, monthly:monthly, m:m};
+  });
+
+  // Sort cheapest first
+  var sorted = costs.slice().sort(function(a,b){ return a.monthly - b.monthly; });
+  var maxCost = sorted[sorted.length-1] ? sorted[sorted.length-1].monthly : 0;
+
+  // Re-order DOM rows to match sorted order
+  plannerRowsEl.innerHTML = '';
+  sorted.forEach(function(item, rank){
+    var m = item.m;
+    var monthly = item.monthly;
+    var savings = maxCost - monthly;
+    var isCheapest = rank === 0;
+
+    var savingsStr = isCheapest ? 'cheapest' :
+      (savings >= 0.01 ? ('save '+money(savings)) : '—');
+
+    var tr = document.createElement('tr');
+    if(isCheapest) tr.className = 'cost-cheapest';
+    tr.innerHTML =
+      '<td><span class="m">'+escHtml(m.name)+'</span><br><span class="p">'+escHtml(m.vendor)+'</span></td>'+
+      '<td class="p" data-in-price>'+formatPrice(m.in)+'</td>'+
+      '<td class="p" data-out-price>'+formatPrice(m.out)+'</td>'+
+      '<td class="cost" data-monthly>'+money(monthly)+'</td>'+
+      '<td class="savings'+(isCheapest?' best':'')+'">'+savingsStr+'</td>';
+    plannerRowsEl.appendChild(tr);
+  });
+}
+
+function formatPrice(v){
+  return '$'+v.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:4});
+}
+
+['p-inTok','p-outTok','p-reqUser','p-users'].forEach(function(id){
+  $(id).addEventListener('input', calcPlanner);
+});
+
+// =========================================================================
+//  MODE TOGGLE
+// =========================================================================
+var currentMode = 'quick';
+$('mode-toggle').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-mode]');
+  if(!b) return;
+  var mode = b.dataset.mode;
+  if(mode === currentMode) return;
+  currentMode = mode;
+  Array.prototype.forEach.call(this.children, function(btn){
+    btn.classList.toggle('active', btn===b);
+  });
+  $('panel-quick').style.display  = mode==='quick'  ? '' : 'none';
+  $('panel-report').style.display = mode==='report' ? 'block' : 'none';
+  if(mode==='report') calcPlanner();
+});
+
+// =========================================================================
+//  EXPORT HELPERS (guarded by RMVTool)
+// =========================================================================
+function getPlannerScenarioText(){
+  var inT     = $('p-inTok').value;
+  var outT    = $('p-outTok').value;
+  var reqU    = $('p-reqUser').value;
+  var users   = $('p-users').value;
+  var total   = $('d-reqMonth').textContent;
+  var perDay  = $('d-reqDay').textContent;
+  return 'Scenario: '+inT+' input tokens / request, '+outT+' output tokens / request\n'+
+         'Scale: '+reqU+' req/user, '+users+' users/month → '+total+' req/month ('+perDay+'/day)';
+}
+
+function getPlannerTableText(){
+  var rows = [['Model','Vendor','$/1M in','$/1M out','Monthly cost','Savings vs costliest']];
+  Array.prototype.forEach.call(plannerRowsEl.children, function(tr){
+    var cells = tr.querySelectorAll('td');
+    rows.push([
+      cells[0].querySelector('.m').textContent,
+      cells[0].querySelector('.p').textContent,
+      cells[1].textContent,
+      cells[2].textContent,
+      cells[3].textContent,
+      cells[4].textContent
+    ]);
+  });
+  return rows;
+}
+
+function getPlannerMarkdown(){
+  var rows = getPlannerTableText();
+  var header = rows[0];
+  var dataRows = rows.slice(1);
+  var md = '# LLM Budget Planner Report\n\n';
+  md += getPlannerScenarioText() + '\n\n';
+  var colW = header.map(function(h, ci){
+    return Math.max(h.length, dataRows.reduce(function(mx,r){ return Math.max(mx,(r[ci]||'').length); },0));
+  });
+  function padCell(s, w){ return String(s).padEnd(w); }
+  md += '| '+header.map(function(h,i){ return padCell(h,colW[i]); }).join(' | ')+' |\n';
+  md += '| '+colW.map(function(w){ return ''.padEnd(w,'-'); }).join(' | ')+'|\n';
+  dataRows.forEach(function(r){
+    md += '| '+r.map(function(c,i){ return padCell(c,colW[i]); }).join(' | ')+'|\n';
+  });
+  md += '\n_Generated '+new Date().toISOString().slice(0,10)+' · ruslanmv.com/tools · Estimates only_\n';
+  return md;
+}
+
+// Wire up export buttons (guarded)
+$('btn-copy-table').addEventListener('click', function(){
+  var rows = getPlannerTableText();
+  var text = rows.map(function(r){ return r.join('\t'); }).join('\n');
+  if(window.RMVTool){ window.RMVTool.copy(text); }
+  else { try{ navigator.clipboard.writeText(text); } catch(e){} }
+});
+
+$('btn-dl-csv').addEventListener('click', function(){
+  closeDlMenu();
+  if(window.RMVTool){
+    var csv = window.RMVTool.toCSV(getPlannerTableText());
+    window.RMVTool.download('llm-cost-report.csv', csv, 'text/csv');
+  }
+});
+
+$('btn-dl-md').addEventListener('click', function(){
+  closeDlMenu();
+  if(window.RMVTool){
+    window.RMVTool.download('llm-cost-report.md', getPlannerMarkdown(), 'text/markdown');
+  }
+});
+
+// Download dropdown menu toggle
+var dlMenu = $('dl-menu');
+$('dl-menu-btn').addEventListener('click', function(e){
+  e.stopPropagation();
+  dlMenu.classList.toggle('open');
+});
+document.addEventListener('click', function(){ dlMenu.classList.remove('open'); });
+function closeDlMenu(){ dlMenu.classList.remove('open'); }
+
+// =========================================================================
+//  SHARE URL (guarded)
+// =========================================================================
+function getShareState(){
+  return {
+    mode: currentMode,
+    txt: txt.value,
+    inTok:   $('inTok').value,
+    outTok:  $('outTok').value,
+    calls:   $('calls').value,
+    pInTok:  $('p-inTok').value,
+    pOutTok: $('p-outTok').value,
+    pReqUser:$('p-reqUser').value,
+    pUsers:  $('p-users').value,
+    edited:  editedPrices
+  };
+}
+
+function applyState(st){
+  if(!st) return;
+  if(st.txt   !== undefined){ txt.value = st.txt; refresh(); }
+  if(st.inTok !== undefined) $('inTok').value   = st.inTok;
+  if(st.outTok!== undefined) $('outTok').value  = st.outTok;
+  if(st.calls !== undefined) $('calls').value   = st.calls;
+  if(st.pInTok  !== undefined) $('p-inTok').value   = st.pInTok;
+  if(st.pOutTok !== undefined) $('p-outTok').value  = st.pOutTok;
+  if(st.pReqUser!== undefined) $('p-reqUser').value = st.pReqUser;
+  if(st.pUsers  !== undefined) $('p-users').value   = st.pUsers;
+  // Restore edited prices
+  if(st.edited && typeof st.edited === 'object'){
+    editedPrices = st.edited;
+    Object.keys(editedPrices).forEach(function(id){
+      var m = MODELS.filter(function(x){ return x.id===id; })[0];
+      if(!m) return;
+      var ov = editedPrices[id];
+      if(ov.in  !== undefined) m.in  = ov.in;
+      if(ov.out !== undefined) m.out = ov.out;
+    });
+    buildQuickRows();
+  }
+  // Apply mode
+  if(st.mode && st.mode !== currentMode){
+    var btn = $('mode-toggle').querySelector('[data-mode="'+st.mode+'"]');
+    if(btn) btn.click();
+  }
+  calcQuick();
+  calcPlanner();
+}
+
+$('btn-share').addEventListener('click', function(){
+  if(window.RMVTool){ window.RMVTool.share(getShareState()); }
+  else {
+    try{
+      var url = location.href.split('#')[0]+'#shared';
+      navigator.clipboard.writeText(url);
+    }catch(e){}
+  }
+});
+
+// =========================================================================
+//  SAVED WORKSPACES (guarded)
+// =========================================================================
+if(window.RMVTool){
+  window.RMVTool.mountWorkspaces($('ws-container'), {
+    ns: 'tokenizer',
+    getState: getShareState,
+    applyState: applyState
+  });
+}
+
+// =========================================================================
+//  TRUST BADGES (guarded)
+// =========================================================================
+if(window.RMVTool){
+  window.RMVTool.badges($('badges-container'), {
+    runsLocal: true,
+    noUpload: true,
+    exportable: true,
+    updated: '2026-06-02',
+    extra: ['Estimated tokenizer']
+  });
+}
+
+// =========================================================================
+//  RESTORE SHARED STATE on load
+// =========================================================================
+(function(){
+  if(window.RMVTool){
+    var st = window.RMVTool.readShared();
+    if(st) applyState(st);
+  }
+})();
+
+// =========================================================================
+//  INIT
+// =========================================================================
+buildQuickRows();
+buildPlannerRows();
+updatePricingNotice();
+refresh();
+calcQuick();
+calcPlanner();
 </script>
 </body>
 </html>

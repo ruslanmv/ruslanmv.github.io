@@ -1,0 +1,44 @@
+# =============================================================================
+#  Prompt-catalog data sources
+#  Read by scripts/build_catalog.py. Each source is downloaded at BUILD time
+#  (never by the browser), normalized into the app schema, de-duplicated, and
+#  merged into data/prompts.catalog*.json.
+#
+#  Only permissively/CC0-licensed prompt text is shipped in the public catalog.
+# =============================================================================
+
+# Hard cap on the curated catalog that ships to the browser.
+# A smaller, high-quality catalog is faster to load and easier to search.
+max_prompts: 500
+
+sources:
+  # ---- PRIMARY: prompts.chat (a.k.a. awesome-chatgpt-prompts) -----------------
+  # General-purpose template catalog. Prompt text is dedicated to the public
+  # domain (CC0-1.0). Columns: act, prompt, for_devs, type, contributor.
+  - id: prompts-chat
+    name: "fka/awesome-chatgpt-prompts (prompts.chat)"
+    enabled: true
+    format: csv
+    # GitHub raw is used first; the Hugging Face mirror is an automatic fallback.
+    url: "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv"
+    fallback_url: "https://huggingface.co/datasets/fka/awesome-chatgpt-prompts/resolve/main/prompts.csv"
+    source_url: "https://github.com/f/awesome-chatgpt-prompts"
+    license: "CC0-1.0"
+    columns:
+      title: act
+      prompt: prompt
+      for_devs: for_devs
+      type: type
+      contributor: contributor
+
+  # ---- SECONDARY (v2, disabled by default) ------------------------------------
+  # Human-ranked prompts — useful for quality filtering / sorting. Enable once a
+  # rating>=4 filter + dedup-merge is wired in build_catalog.py.
+  - id: 10k-ranked
+    name: "data-is-better-together/10k_prompts_ranked"
+    enabled: false
+    format: csv
+    url: "https://huggingface.co/datasets/data-is-better-together/10k_prompts_ranked/resolve/main/data/train-00000-of-00001.parquet"
+    source_url: "https://huggingface.co/datasets/data-is-better-together/10k_prompts_ranked"
+    license: "Apache-2.0"
+    min_rating: 4

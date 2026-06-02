@@ -1,0 +1,95 @@
+/* =============================================================================
+   RMVTool shared component styles. All classes are .rmv-* namespaced and read
+   the host tool's theme tokens (with light-theme fallbacks), so the shared
+   widgets match every tool without clashing with its own CSS.
+   ============================================================================= */
+
+/* trust badges ---------------------------------------------------------------*/
+.rmv-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.rmv-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--sans,'Hanken Grotesk',system-ui,sans-serif);
+  font-size:12px;font-weight:600;line-height:1;
+  color:var(--green-700,#0e7340);
+  background:var(--green-soft,#e7f4ec);
+  border:1px solid var(--green-soft,#cfe9d8);
+  padding:7px 12px;border-radius:999px;white-space:nowrap;
+}
+.rmv-badge svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* shared buttons -------------------------------------------------------------*/
+.rmv-btn{
+  font-family:var(--sans,'Hanken Grotesk',system-ui,sans-serif);
+  font-size:14px;font-weight:600;padding:10px 16px;border-radius:10px;cursor:pointer;
+  border:1px solid var(--line-2,#dcdfd7);background:var(--surface,#fff);
+  color:var(--text,#1d2b24);transition:all .15s;min-height:42px;line-height:1.1;
+}
+.rmv-btn:hover{border-color:var(--line-3,#cfd3ca)}
+.rmv-btn:focus-visible{outline:2px solid var(--green,#15a05a);outline-offset:2px}
+.rmv-btn-primary{background:var(--green,#15a05a);border-color:var(--green,#15a05a);color:#fff}
+.rmv-btn-primary:hover{background:var(--green-600,#138a4e)}
+
+/* action bar (Copy / Download / Share) --------------------------------------*/
+.rmv-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rmv-actions .rmv-sep{flex:1 1 auto}
+
+/* lightweight dropdown menu (e.g. Download ▾) -------------------------------*/
+.rmv-menu{position:relative;display:inline-block}
+.rmv-menu>.rmv-btn::after{content:" ▾";opacity:.7;font-size:11px}
+.rmv-menu-pop{
+  position:absolute;z-index:40;top:calc(100% + 6px);left:0;min-width:190px;
+  background:var(--surface,#fff);border:1px solid var(--line-2,#dcdfd7);
+  border-radius:12px;box-shadow:0 14px 34px -18px rgba(16,35,26,.4);
+  padding:6px;display:none;
+}
+.rmv-menu.open .rmv-menu-pop{display:block}
+.rmv-menu-pop button{
+  display:flex;width:100%;text-align:left;gap:8px;align-items:center;
+  font-family:var(--sans,'Hanken Grotesk',system-ui,sans-serif);
+  font-size:13.5px;font-weight:600;color:var(--text,#1d2b24);
+  background:none;border:none;border-radius:8px;padding:9px 11px;cursor:pointer;
+}
+.rmv-menu-pop button:hover{background:var(--green-tint,#f1f8f3);color:var(--green-700,#0e7340)}
+
+/* saved workspaces -----------------------------------------------------------*/
+.rmv-ws{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.rmv-ws-sel{
+  font-family:var(--sans,'Hanken Grotesk',system-ui,sans-serif);
+  font-size:14px;color:var(--text,#1d2b24);background:var(--surface-2,#fbfbf9);
+  border:1px solid var(--line-2,#dcdfd7);border-radius:10px;padding:10px 12px;
+  min-height:42px;cursor:pointer;outline:none;min-width:180px;
+}
+.rmv-ws-sel:focus{border-color:var(--green,#15a05a);box-shadow:0 0 0 4px var(--green-soft,#e7f4ec)}
+.rmv-ws-sel:disabled{opacity:.6;cursor:not-allowed}
+
+/* report-mode toggle pill ----------------------------------------------------*/
+.rmv-modes{display:inline-flex;background:var(--surface-2,#fbfbf9);
+  border:1px solid var(--line-2,#dcdfd7);border-radius:999px;padding:3px;gap:2px}
+.rmv-modes button{
+  font-family:var(--sans,'Hanken Grotesk',system-ui,sans-serif);
+  font-size:13px;font-weight:600;color:var(--muted,#5c6b63);
+  background:none;border:none;border-radius:999px;padding:7px 16px;cursor:pointer;
+  min-height:36px;transition:all .15s;
+}
+.rmv-modes button.active{background:var(--green,#15a05a);color:#fff}
+
+/* toast ----------------------------------------------------------------------*/
+.rmv-toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(18px);
+  z-index:9999;background:var(--ink,#10231a);color:#eafff2;
+  font-family:var(--sans,'Hanken Grotesk',system-ui,sans-serif);
+  font-size:14px;font-weight:600;padding:12px 20px;border-radius:11px;
+  box-shadow:0 18px 40px -16px rgba(16,35,26,.6);
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+}
+.rmv-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* simple report container ----------------------------------------------------*/
+.rmv-report{
+  background:var(--surface-2,#fbfbf9);border:1px solid var(--line-2,#dcdfd7);
+  border-radius:12px;padding:18px 20px;
+  font-family:var(--mono,'JetBrains Mono',ui-monospace,monospace);
+  font-size:13px;color:var(--ink,#10231a);white-space:pre-wrap;line-height:1.65;
+  max-height:460px;overflow:auto;
+}

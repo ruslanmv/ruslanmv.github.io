@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CSV Data Profiler — Ruslan Magana Vsevolodovna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --amber:#b45309; --amber-bg:#fef3c7;
+    --red:#dc2626; --red-bg:#fee2e2;
+    --blue:#1d4ed8; --blue-bg:#dbeafe;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1080px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+  .tool-wrap{max-width:1080px;margin:0 auto;padding:38px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:640px}
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:7px}
+  input,select,textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;outline:none;transition:border .15s,box-shadow .15s}
+  textarea{font-family:var(--mono);font-size:13.5px;min-height:120px;resize:vertical}
+  input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer;border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s;min-height:44px;min-width:44px}
+  .btn:hover{border-color:var(--line-3);background:var(--surface-2)}
+  .btn:focus{outline:2px solid var(--green);outline-offset:2px}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-600)}
+  .mono{font-family:var(--mono)}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:7px;background:#f0f1ec;color:var(--muted)}
+  .tag.green{background:var(--green-soft);color:var(--green-700)}
+  .tag.amber{background:var(--amber-bg);color:var(--amber)}
+  .tag.red{background:var(--red-bg);color:var(--red)}
+  .tag.blue{background:var(--blue-bg);color:var(--blue)}
+
+  /* ---- Input section ---- */
+  .input-section{margin-top:32px;display:flex;flex-direction:column;gap:20px}
+  .drop-zone{border:2px dashed var(--line-2);border-radius:var(--radius);padding:40px 24px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;background:var(--surface-2);position:relative}
+  .drop-zone:hover,.drop-zone.drag-over{border-color:var(--green);background:var(--green-tint)}
+  .drop-zone .drop-icon{font-size:36px;margin-bottom:10px;line-height:1}
+  .drop-zone .drop-title{font-weight:700;font-size:17px;color:var(--ink);margin-bottom:4px}
+  .drop-zone .drop-sub{font-size:14px;color:var(--muted)}
+  .drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .drop-zone input[type=file]:focus + .drop-overlay{outline:2px solid var(--green);outline-offset:2px;border-radius:var(--radius)}
+  .row-btns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .sep{display:flex;align-items:center;gap:10px;color:var(--faint);font-size:13px;font-weight:600}
+  .sep::before,.sep::after{content:'';flex:1;height:1px;background:var(--line-2)}
+  .privacy-note{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);background:var(--green-tint);border:1px solid var(--green-soft);border-radius:10px;padding:11px 14px}
+  .privacy-note svg{width:16px;height:16px;flex-shrink:0;stroke:var(--green);fill:none;stroke-width:2}
+  .fallback-note{display:none;align-items:center;gap:8px;font-size:13px;color:var(--amber);background:var(--amber-bg);border:1px solid #fde68a;border-radius:10px;padding:11px 14px}
+  .fallback-note.show{display:flex}
+
+  /* ---- Overview ---- */
+  #results{margin-top:32px;display:none;flex-direction:column;gap:24px}
+  #results.visible{display:flex}
+  .overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .stat-card{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+  .stat-card .stat-val{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-1px;font-family:var(--mono)}
+  .stat-card .stat-lbl{font-size:12px;font-weight:600;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:1px}
+
+  /* ---- Column cards ---- */
+  .cols-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+  @media(max-width:700px){.cols-grid{grid-template-columns:1fr}}
+  .col-card{background:var(--surface);border:1px solid var(--line-2);border-radius:12px;padding:18px;box-shadow:var(--shadow)}
+  .col-card-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .col-name{font-weight:700;font-size:15px;color:var(--ink);flex:1;min-width:0;word-break:break-all}
+  .col-stats{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;font-size:13px;margin-bottom:12px}
+  .col-stat-row{display:flex;gap:4px}
+  .col-stat-lbl{color:var(--muted);min-width:80px;flex-shrink:0}
+  .col-stat-val{color:var(--ink);font-weight:600;font-family:var(--mono);font-size:12.5px}
+  .top-vals{margin-top:8px}
+  .top-vals-title{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px}
+  .top-val-row{display:flex;align-items:center;gap:8px;font-size:12.5px;margin-bottom:4px}
+  .top-val-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-family:var(--mono)}
+  .top-val-bar-wrap{flex:0 0 80px;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+  .top-val-bar{height:100%;background:var(--green);border-radius:4px;transition:width .3s}
+  .top-val-pct{flex:0 0 38px;text-align:right;color:var(--muted);font-family:var(--mono)}
+  canvas.sparkline{display:block;width:100%;height:56px;margin-top:10px;border-radius:6px}
+
+  /* ---- Issues ---- */
+  .issues-list{display:flex;flex-direction:column;gap:10px}
+  .issue-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;font-size:14px}
+  .issue-item.warn{background:var(--amber-bg);border:1px solid #fde68a;color:var(--amber)}
+  .issue-item.error{background:var(--red-bg);border:1px solid #fca5a5;color:var(--red)}
+  .issue-item.info{background:var(--blue-bg);border:1px solid #93c5fd;color:var(--blue)}
+  .issue-item svg{width:16px;height:16px;flex-shrink:0;margin-top:2px;stroke:currentColor;fill:none;stroke-width:2}
+  .issue-text strong{font-weight:700}
+  .no-issues{color:var(--muted);font-size:14px;display:flex;align-items:center;gap:8px}
+  .no-issues svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2}
+
+  /* ---- Section headers ---- */
+  .section-head{font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.4px}
+  .section-sub{font-size:13px;color:var(--muted);margin-top:2px}
+
+  @media(max-width:480px){
+    .tool-wrap{padding:24px 16px 60px}
+    .bar .name{display:none}
+    .bar .in{padding:0 16px}
+    .overview-grid{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+  <header class="bar"><div class="in">
+    <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+    <span class="name">Ruslan Magana Vsevolodovna</span>
+  </div></header>
+  <main class="tool-wrap">
+    <div class="eyebrow">Science</div>
+    <h1>CSV Data Profiler</h1>
+    <p class="sub">Profile CSV files and detect types, stats, and issues.</p>
+
+    <div class="input-section">
+      <!-- Privacy note -->
+      <div class="privacy-note" role="note" aria-label="Privacy guarantee">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span><strong>Your data never leaves your browser.</strong> All processing happens locally — no uploads, no servers, no telemetry.</span>
+      </div>
+
+      <!-- Fallback note -->
+      <div class="fallback-note" id="fallbackNote" role="alert" aria-live="polite">
+        <svg viewBox="0 0 24 24" style="stroke:var(--amber)"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span><strong>Fallback parser active.</strong> PapaParse CDN is unavailable; using built-in CSV parser. Quoted fields with embedded commas and escaped quotes are still handled.</span>
+      </div>
+
+      <!-- Drop zone -->
+      <div class="panel" style="padding:0;overflow:hidden">
+        <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Drop zone: drag and drop a CSV file here or click to choose a file">
+          <input type="file" accept=".csv,text/csv" id="fileInput" aria-label="Choose CSV file" />
+          <div class="drop-icon" aria-hidden="true">📂</div>
+          <div class="drop-title">Drag &amp; drop a CSV file here</div>
+          <div class="drop-sub">or click to pick a file</div>
+        </div>
+      </div>
+
+      <!-- Buttons row -->
+      <div class="row-btns">
+        <button class="btn primary" id="sampleBtn" type="button">Load sample CSV</button>
+        <button class="btn" id="clearBtn" type="button" style="display:none">Clear</button>
+      </div>
+
+      <div class="sep">or paste CSV below</div>
+
+      <!-- Paste area -->
+      <div>
+        <label for="csvPaste">Paste CSV text</label>
+        <textarea id="csvPaste" placeholder="Paste CSV content here and press Profile..." rows="6" spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn primary" id="profilePasteBtn" type="button">Profile pasted CSV</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" aria-live="polite">
+      <!-- Overview -->
+      <div class="panel">
+        <div class="section-head">Overview</div>
+        <div class="section-sub" id="sampleNote" style="display:none"></div>
+        <div class="overview-grid" id="overviewGrid" style="margin-top:16px"></div>
+      </div>
+
+      <!-- Issues -->
+      <div class="panel">
+        <div class="section-head">Issues &amp; Warnings</div>
+        <div class="section-sub" style="margin-bottom:14px">Automatically detected data quality concerns.</div>
+        <div class="issues-list" id="issuesList"></div>
+      </div>
+
+      <!-- Column profiles -->
+      <div>
+        <div class="section-head" style="margin-bottom:16px">Column Profiles</div>
+        <div class="cols-grid" id="colsGrid"></div>
+      </div>
+    </div>
+  </main>
+
+<script>
+/* =====================================================================
+   Built-in fallback CSV parser
+   - Handles quoted fields (double-quote RFC 4180 style)
+   - Handles escaped quotes ("")
+   - Handles commas inside quotes
+   ===================================================================== */
+function parseCSVFallback(text) {
+  const rows = [];
+  const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  let i = 0, n = lines.length;
+
+  while (i < n) {
+    const row = [];
+    // parse one row
+    while (i < n) {
+      if (lines[i] === '"') {
+        // quoted field
+        i++; // skip opening quote
+        let field = '';
+        while (i < n) {
+          if (lines[i] === '"') {
+            if (lines[i+1] === '"') { field += '"'; i += 2; }
+            else { i++; break; } // closing quote
+          } else {
+            field += lines[i++];
+          }
+        }
+        row.push(field);
+        // skip comma or newline
+        if (i < n && lines[i] === ',') i++;
+        else if (i < n && lines[i] === '\n') { i++; break; }
+        else break;
+      } else {
+        // unquoted field
+        let field = '';
+        while (i < n && lines[i] !== ',' && lines[i] !== '\n') {
+          field += lines[i++];
+        }
+        row.push(field);
+        if (i < n && lines[i] === ',') i++;
+        else if (i < n && lines[i] === '\n') { i++; break; }
+        else break;
+      }
+    }
+    if (row.length > 0) rows.push(row);
+  }
+  return rows;
+}
+
+/* =====================================================================
+   Type inference
+   ===================================================================== */
+const MISSING_VALS = new Set(['','null','na','n/a','nan','none','undefined','nil']);
+
+function isMissing(v) {
+  return v == null || MISSING_VALS.has(String(v).trim().toLowerCase());
+}
+
+function inferType(values) {
+  // values = non-missing string values
+  if (values.length === 0) return 'string';
+
+  const boolSet = new Set(['true','false','0','1','yes','no']);
+  const allBool = values.every(v => boolSet.has(v.toLowerCase()));
+  if (allBool) return 'boolean';
+
+  const allInt = values.every(v => /^-?\d+$/.test(v.trim()));
+  if (allInt) return 'integer';
+
+  const allFloat = values.every(v => {
+    const n = Number(v.trim());
+    return !isNaN(n) && isFinite(n);
+  });
+  if (allFloat) return 'float';
+
+  // Date: at least 80% parse as valid dates
+  const dateCount = values.filter(v => {
+    const ts = Date.parse(v.trim());
+    return !isNaN(ts);
+  }).length;
+  if (dateCount / values.length >= 0.8) return 'date';
+
+  return 'string';
+}
+
+/* =====================================================================
+   Statistics
+   ===================================================================== */
+function numStats(nums) {
+  if (nums.length === 0) return null;
+  const sorted = [...nums].sort((a,b) => a - b);
+  const n = sorted.length;
+  const sum = sorted.reduce((a,b) => a+b, 0);
+  const mean = sum / n;
+
+  // population std dev
+  const varPop = sorted.reduce((acc, v) => acc + (v - mean)**2, 0) / n;
+  const std = Math.sqrt(varPop);
+
+  function quantile(arr, q) {
+    const pos = (arr.length - 1) * q;
+    const lo = Math.floor(pos), hi = Math.ceil(pos);
+    if (lo === hi) return arr[lo];
+    return arr[lo] + (arr[hi] - arr[lo]) * (pos - lo);
+  }
+
+  return {
+    min: sorted[0],
+    max: sorted[n-1],
+    mean,
+    median: quantile(sorted, 0.5),
+    std,
+    p25: quantile(sorted, 0.25),
+    p75: quantile(sorted, 0.75),
+    stdLabel: 'population'
+  };
+}
+
+function topFreqs(values, k=5) {
+  const counts = {};
+  for (const v of values) counts[v] = (counts[v]||0) + 1;
+  return Object.entries(counts)
+    .sort((a,b) => b[1]-a[1])
+    .slice(0, k)
+    .map(([val, count]) => ({ val, count }));
+}
+
+function formatNum(n, digits=3) {
+  if (n == null || isNaN(n)) return '—';
+  if (Math.abs(n) >= 1e6 || (Math.abs(n) < 0.001 && n !== 0)) return n.toExponential(2);
+  return parseFloat(n.toPrecision(digits + 1)).toString();
+}
+
+/* =====================================================================
+   Histogram bins
+   ===================================================================== */
+function buildHistogram(nums, bins=15) {
+  if (nums.length === 0) return [];
+  const min = Math.min(...nums), max = Math.max(...nums);
+  if (min === max) return [{ x: min, count: nums.length }];
+  const w = (max - min) / bins;
+  const counts = new Array(bins).fill(0);
+  for (const v of nums) {
+    let idx = Math.floor((v - min) / w);
+    if (idx === bins) idx = bins - 1;
+    counts[idx]++;
+  }
+  return counts.map((count, i) => ({ x: min + i * w, count }));
+}
+
+/* =====================================================================
+   Canvas sparklines
+   ===================================================================== */
+function drawHistogramCanvas(canvas, bins) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth || 280, h = canvas.clientHeight || 56;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const maxCount = Math.max(...bins.map(b => b.count), 1);
+  const barW = w / bins.length;
+  const green = getComputedStyle(document.documentElement).getPropertyValue('--green').trim() || '#15a05a';
+  const greenSoft = getComputedStyle(document.documentElement).getPropertyValue('--green-soft').trim() || '#e7f4ec';
+
+  ctx.clearRect(0, 0, w, h);
+
+  for (let i = 0; i < bins.length; i++) {
+    const barH = (bins[i].count / maxCount) * (h - 4);
+    const x = i * barW + 1;
+    const y = h - barH;
+    ctx.fillStyle = green;
+    ctx.globalAlpha = 0.8;
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(x, y, barW - 2, barH, 2) : ctx.rect(x, y, barW - 2, barH);
+    ctx.fill();
+  }
+}
+
+function drawCatCanvas(canvas, topVals, totalNonMissing) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth || 280, h = canvas.clientHeight || 56;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  ctx.clearRect(0, 0, w, h);
+  const maxCount = Math.max(...topVals.map(v => v.count), 1);
+  const barH = Math.min(14, (h - 4*(topVals.length-1)) / topVals.length);
+  const gap = topVals.length > 1 ? (h - barH * topVals.length) / (topVals.length - 1) : 0;
+  const green = getComputedStyle(document.documentElement).getPropertyValue('--green').trim() || '#15a05a';
+
+  for (let i = 0; i < topVals.length; i++) {
+    const bw = (topVals[i].count / maxCount) * (w - 2);
+    const y = i * (barH + gap);
+    ctx.fillStyle = green;
+    ctx.globalAlpha = 0.75 - i * 0.1;
+    ctx.beginPath();
+    ctx.roundRect ? ctx.roundRect(1, y, bw, barH, 2) : ctx.rect(1, y, bw, barH);
+    ctx.fill();
+  }
+}
+
+/* =====================================================================
+   Main profiling function
+   ===================================================================== */
+const MAX_ROWS = 50000;
+
+function profileData(rawRows) {
+  if (!rawRows || rawRows.length < 2) return null;
+
+  const headers = rawRows[0].map(h => String(h).trim());
+  let dataRows = rawRows.slice(1);
+  const totalRows = dataRows.length;
+  let sampled = false;
+
+  if (dataRows.length > MAX_ROWS) {
+    dataRows = dataRows.slice(0, MAX_ROWS);
+    sampled = true;
+  }
+
+  const nRows = dataRows.length;
+  const nCols = headers.length;
+
+  // Build per-column arrays
+  const colData = headers.map(() => []);
+  for (const row of dataRows) {
+    for (let c = 0; c < nCols; c++) {
+      colData[c].push(row[c] != null ? String(row[c]) : '');
+    }
+  }
+
+  // Duplicate row detection (stringify each row)
+  const rowStrings = dataRows.map(r => r.join('\x00'));
+  const uniqueRows = new Set(rowStrings);
+  const duplicateCount = nRows - uniqueRows.size;
+
+  const columns = [];
+  for (let c = 0; c < nCols; c++) {
+    const raw = colData[c];
+    const nonMissing = raw.filter(v => !isMissing(v));
+    const missingCount = raw.length - nonMissing.length;
+    const uniqueSet = new Set(nonMissing);
+    const uniqueCount = uniqueSet.size;
+
+    const type = inferType(nonMissing);
+
+    // Check for mixed type (does every non-missing value actually match inferred type?)
+    let mixedType = false;
+    if (type === 'integer') {
+      const bad = nonMissing.filter(v => !/^-?\d+$/.test(v.trim())).length;
+      if (bad > 0) mixedType = true;
+    } else if (type === 'float') {
+      const bad = nonMissing.filter(v => isNaN(Number(v.trim()))).length;
+      if (bad > 0) mixedType = true;
+    }
+
+    const col = {
+      name: headers[c],
+      type,
+      count: nonMissing.length,
+      missingCount,
+      missingPct: raw.length > 0 ? missingCount / raw.length * 100 : 0,
+      uniqueCount,
+      isConstant: uniqueCount === 1,
+      isHighCardinality: uniqueCount > 0 && uniqueCount / nRows > 0.9 && nRows > 10,
+      mixedType,
+    };
+
+    if (type === 'integer' || type === 'float') {
+      const nums = nonMissing.map(v => Number(v.trim())).filter(v => isFinite(v));
+      col.stats = numStats(nums);
+      col.histogram = buildHistogram(nums, 15);
+    } else {
+      col.topVals = topFreqs(nonMissing, 5);
+    }
+
+    columns.push(col);
+  }
+
+  return { headers, nRows, nCols, totalRows, sampled, duplicateCount, columns };
+}
+
+/* =====================================================================
+   Render results
+   ===================================================================== */
+function renderOverview(profile, parseMode) {
+  const grid = document.getElementById('overviewGrid');
+  const cards = [
+    { val: profile.nRows.toLocaleString(), lbl: 'Rows' },
+    { val: profile.nCols.toLocaleString(), lbl: 'Columns' },
+    { val: profile.duplicateCount.toLocaleString(), lbl: 'Duplicate rows' },
+    { val: parseMode, lbl: 'Parse mode' },
+  ];
+  grid.innerHTML = cards.map(c => `
+    <div class="stat-card">
+      <div class="stat-val">${c.val}</div>
+      <div class="stat-lbl">${c.lbl}</div>
+    </div>
+  `).join('');
+
+  const note = document.getElementById('sampleNote');
+  if (profile.sampled) {
+    note.textContent = `Sampled first ${MAX_ROWS.toLocaleString()} of ${profile.totalRows.toLocaleString()} rows — stats reflect sample only.`;
+    note.style.display = '';
+    note.style.cssText = 'color:var(--amber);font-size:13px;font-weight:600;margin-top:6px;';
+  } else {
+    note.style.display = 'none';
+  }
+}
+
+function renderIssues(profile) {
+  const list = document.getElementById('issuesList');
+  const issues = [];
+
+  // Missing values
+  const colsWithMissing = profile.columns.filter(c => c.missingCount > 0);
+  for (const c of colsWithMissing) {
+    issues.push({
+      cls: 'warn',
+      icon: '<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+      html: `<strong>${c.name}</strong> — ${c.missingCount.toLocaleString()} missing values (${c.missingPct.toFixed(1)}%)`
+    });
+  }
+
+  // Mixed types
+  for (const c of profile.columns.filter(col => col.mixedType)) {
+    issues.push({
+      cls: 'error',
+      icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+      html: `<strong>${c.name}</strong> — mixed types detected (inferred as ${c.type} but some values don't conform)`
+    });
+  }
+
+  // Duplicate rows
+  if (profile.duplicateCount > 0) {
+    issues.push({
+      cls: 'warn',
+      icon: '<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+      html: `<strong>${profile.duplicateCount.toLocaleString()} duplicate row${profile.duplicateCount > 1 ? 's' : ''}</strong> detected`
+    });
+  }
+
+  // Constant columns
+  for (const c of profile.columns.filter(col => col.isConstant)) {
+    issues.push({
+      cls: 'info',
+      icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="8"/><line x1="12" y1="12" x2="12" y2="16"/>',
+      html: `<strong>${c.name}</strong> — constant column (all values are the same)`
+    });
+  }
+
+  // High cardinality
+  for (const c of profile.columns.filter(col => col.isHighCardinality)) {
+    issues.push({
+      cls: 'info',
+      icon: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="8"/><line x1="12" y1="12" x2="12" y2="16"/>',
+      html: `<strong>${c.name}</strong> — high cardinality (${c.uniqueCount.toLocaleString()} unique values, ${(c.uniqueCount/profile.nRows*100).toFixed(0)}% of rows)`
+    });
+  }
+
+  if (issues.length === 0) {
+    list.innerHTML = `<div class="no-issues">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      No issues detected — looks clean!
+    </div>`;
+  } else {
+    list.innerHTML = issues.map(issue => `
+      <div class="issue-item ${issue.cls}" role="alert">
+        <svg viewBox="0 0 24 24">${issue.icon}</svg>
+        <div class="issue-text">${issue.html}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function typeTagClass(type) {
+  const map = { integer: 'green', float: 'green', boolean: 'blue', date: 'blue', string: '' };
+  return map[type] || '';
+}
+
+function renderColumns(profile) {
+  const grid = document.getElementById('colsGrid');
+  grid.innerHTML = '';
+
+  for (const col of profile.columns) {
+    const card = document.createElement('div');
+    card.className = 'col-card';
+
+    const missingDisplay = col.missingCount > 0
+      ? `<span style="color:var(--amber)">${col.missingCount.toLocaleString()} (${col.missingPct.toFixed(1)}%)</span>`
+      : `<span style="color:var(--green)">0</span>`;
+
+    let statsHtml = `
+      <div class="col-stats">
+        <div class="col-stat-row"><span class="col-stat-lbl">Count</span><span class="col-stat-val">${col.count.toLocaleString()}</span></div>
+        <div class="col-stat-row"><span class="col-stat-lbl">Missing</span><span class="col-stat-val">${missingDisplay}</span></div>
+        <div class="col-stat-row"><span class="col-stat-lbl">Unique</span><span class="col-stat-val">${col.uniqueCount.toLocaleString()}</span></div>
+      </div>
+    `;
+
+    let extraHtml = '';
+    if (col.stats) {
+      const s = col.stats;
+      extraHtml = `
+        <div class="col-stats">
+          <div class="col-stat-row"><span class="col-stat-lbl">Min</span><span class="col-stat-val">${formatNum(s.min)}</span></div>
+          <div class="col-stat-row"><span class="col-stat-lbl">Max</span><span class="col-stat-val">${formatNum(s.max)}</span></div>
+          <div class="col-stat-row"><span class="col-stat-lbl">Mean</span><span class="col-stat-val">${formatNum(s.mean)}</span></div>
+          <div class="col-stat-row"><span class="col-stat-lbl">Median</span><span class="col-stat-val">${formatNum(s.median)}</span></div>
+          <div class="col-stat-row"><span class="col-stat-lbl">Std (pop)</span><span class="col-stat-val">${formatNum(s.std)}</span></div>
+          <div class="col-stat-row"><span class="col-stat-lbl">P25</span><span class="col-stat-val">${formatNum(s.p25)}</span></div>
+          <div class="col-stat-row"><span class="col-stat-lbl">P75</span><span class="col-stat-val">${formatNum(s.p75)}</span></div>
+        </div>
+        <canvas class="sparkline" height="56" aria-label="Histogram for ${escapeAttr(col.name)}" role="img"></canvas>
+      `;
+    } else if (col.topVals && col.topVals.length > 0) {
+      const total = col.count;
+      const topRows = col.topVals.map(tv => {
+        const pct = total > 0 ? (tv.count / total * 100) : 0;
+        return `
+          <div class="top-val-row">
+            <span class="top-val-label" title="${escapeAttr(tv.val)}">${escapeHtml(tv.val)}</span>
+            <div class="top-val-bar-wrap" role="presentation"><div class="top-val-bar" style="width:${pct.toFixed(1)}%"></div></div>
+            <span class="top-val-pct">${pct.toFixed(1)}%</span>
+          </div>
+        `;
+      }).join('');
+
+      extraHtml = `
+        <div class="top-vals">
+          <div class="top-vals-title">Top values</div>
+          ${topRows}
+        </div>
+        <canvas class="sparkline" height="56" aria-label="Bar chart for ${escapeAttr(col.name)}" role="img"></canvas>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="col-card-head">
+        <span class="col-name">${escapeHtml(col.name)}</span>
+        <span class="tag ${typeTagClass(col.type)}">${col.type}</span>
+        ${col.isConstant ? '<span class="tag amber">constant</span>' : ''}
+        ${col.isHighCardinality ? '<span class="tag amber">high-card</span>' : ''}
+        ${col.mixedType ? '<span class="tag red">mixed</span>' : ''}
+      </div>
+      ${statsHtml}
+      ${extraHtml}
+    `;
+
+    grid.appendChild(card);
+
+    // Draw sparklines after DOM insertion
+    const canvas = card.querySelector('canvas.sparkline');
+    if (canvas) {
+      requestAnimationFrame(() => {
+        if (col.histogram) {
+          drawHistogramCanvas(canvas, col.histogram);
+        } else if (col.topVals) {
+          drawCatCanvas(canvas, col.topVals, col.count);
+        }
+      });
+    }
+  }
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function escapeAttr(s) {
+  return String(s).replace(/"/g, '&quot;');
+}
+
+/* =====================================================================
+   Show results
+   ===================================================================== */
+let parseMode = 'PapaParse';
+
+function showResults(profile) {
+  const results = document.getElementById('results');
+  results.classList.add('visible');
+  renderOverview(profile, parseMode);
+  renderIssues(profile);
+  renderColumns(profile);
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function runProfile(csvText) {
+  csvText = csvText.trim();
+  if (!csvText) return;
+
+  let rawRows;
+  if (window.Papa) {
+    const result = Papa.parse(csvText, { skipEmptyLines: true });
+    rawRows = result.data;
+    parseMode = 'PapaParse';
+  } else {
+    rawRows = parseCSVFallback(csvText);
+    parseMode = 'Fallback';
+    document.getElementById('fallbackNote').classList.add('show');
+  }
+
+  const profile = profileData(rawRows);
+  if (!profile) {
+    alert('Could not parse CSV. Please check the format and try again.');
+    return;
+  }
+  showResults(profile);
+  document.getElementById('clearBtn').style.display = '';
+}
+
+/* =====================================================================
+   File input / drag-and-drop
+   ===================================================================== */
+function readFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => runProfile(e.target.result);
+  reader.readAsText(file, 'UTF-8');
+}
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+fileInput.addEventListener('change', e => {
+  if (e.target.files[0]) readFile(e.target.files[0]);
+});
+
+dropZone.addEventListener('dragover', e => {
+  e.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) readFile(file);
+});
+
+// Keyboard activation for drop zone
+dropZone.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
+});
+
+/* =====================================================================
+   Paste button
+   ===================================================================== */
+document.getElementById('profilePasteBtn').addEventListener('click', () => {
+  runProfile(document.getElementById('csvPaste').value);
+});
+
+/* =====================================================================
+   Clear button
+   ===================================================================== */
+document.getElementById('clearBtn').addEventListener('click', () => {
+  document.getElementById('results').classList.remove('visible');
+  document.getElementById('csvPaste').value = '';
+  document.getElementById('clearBtn').style.display = 'none';
+  fileInput.value = '';
+});
+
+/* =====================================================================
+   Sample data
+   ===================================================================== */
+const SAMPLE_CSV = `name,age,salary,department,active,hire_date,score
+Alice,32,72000,Engineering,true,2019-03-15,91.5
+Bob,28,61000,Marketing,yes,2020-07-22,84.2
+Carol,45,95000,Engineering,true,2015-11-01,97.8
+Dave,31,65000,Design,false,2021-02-14,78.0
+Eve,39,87000,Engineering,true,2017-08-30,93.1
+Frank,27,58000,Marketing,no,2022-01-10,72.5
+Grace,52,115000,Management,true,2010-04-05,99.0
+Hank,34,70000,Design,true,2018-09-18,85.7
+Iris,29,63000,Engineering,yes,2021-06-01,88.3
+Jack,41,91000,Management,true,2014-12-20,94.6
+Karen,36,77000,Marketing,false,2016-05-11,81.9
+Liam,33,68000,Design,true,2019-10-07,86.4
+Mia,24,52000,Engineering,yes,2023-03-28,76.1
+Nate,47,102000,Management,true,2012-08-14,96.2
+Olivia,30,66000,Marketing,no,2020-11-30,79.8
+Paul,38,83000,Engineering,true,2017-02-17,90.3
+Quinn,44,98000,Management,true,2013-07-09,95.5
+Rose,26,55000,Design,false,2022-09-05,73.9
+Sam,35,74000,Engineering,yes,2018-04-22,89.0
+Tara,42,93000,Management,true,2015-01-16,96.8
+Uma,28,60000,Marketing,no,2021-08-03,77.4
+Victor,50,108000,Engineering,true,2011-06-27,98.1
+Wendy,31,67000,Design,true,2020-03-12,83.6
+Xavier,37,80000,Marketing,yes,2017-11-24,87.2
+Yara,43,97000,Management,false,2014-05-08,94.9
+Zoe,25,53000,Engineering,yes,2023-01-19,75.3
+Aaron,29,62000,Design,true,2021-10-14,80.7
+Beth,56,122000,Management,true,2008-09-30,99.5
+Carlos,33,71000,Engineering,no,2019-07-11,88.8
+Diana,40,89000,Marketing,true,2016-02-03,92.4`;
+
+document.getElementById('sampleBtn').addEventListener('click', () => {
+  document.getElementById('csvPaste').value = SAMPLE_CSV;
+  runProfile(SAMPLE_CSV);
+});
+
+/* =====================================================================
+   CDN check: if PapaParse didn't load, show fallback note immediately
+   ===================================================================== */
+window.addEventListener('load', () => {
+  if (!window.Papa) {
+    document.getElementById('fallbackNote').classList.add('show');
+  }
+});
+</script>
+</body>
+</html>

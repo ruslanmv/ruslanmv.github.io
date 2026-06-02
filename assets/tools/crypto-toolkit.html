@@ -3,68 +3,112 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Crypto & Encoding Kit — ruslanmv/tools</title>
+<title>Crypto & JWT Toolkit — ruslanmv/tools</title>
+<link rel="stylesheet" href="shared/toolkit.css" />
 <meta name="description" content="Decode JWTs, hash with SHA-256/384/512, transform Base64 and URL encodings, generate UUIDs — all offline." />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
 <style>
-  :root{--ink:#0a0e16;--ink-2:#0e1421;--ink-3:#141c2c;--line:rgba(140,170,210,.12);--line-2:rgba(140,170,210,.22);--text:#e8eef6;--muted:#8c9bb3;--faint:#5f6e85;--mint:#5ef2c4;--blue:#7aa2ff;--amber:#ffb454;--rose:#ff7a8a;--violet:#b98cff;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',system-ui,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  :root{
+    --bg:#f4f5f1;--surface:#fff;--surface-2:#fbfbf9;
+    --ink:#10231a;--text:#1d2b24;--muted:#5c6b63;--faint:#8a978f;
+    --line:#e7e8e2;--line-2:#dcdfd7;--line-3:#cfd3ca;
+    --green:#15a05a;--green-600:#138a4e;--green-700:#0e7340;
+    --green-soft:#e7f4ec;--green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    /* JWT segment colors — distinct on white */
+    --jwt-head:#b91c1c;--jwt-pay:#6d28d9;--jwt-sig:#0e7340;
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;background-image:radial-gradient(800px 460px at 8% -8%,rgba(255,180,84,.08),transparent 60%),linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:auto,44px 44px,44px 44px}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1040px;margin:0 auto;padding:0 26px}
-  header.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,14,22,.92),rgba(10,14,22,.6));border-bottom:1px solid var(--line)}
-  .top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
-  .back{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .2s}.back:hover{color:var(--amber)}.back svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
-  .top .id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+  /* ── header ── */
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1200px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s;text-decoration:none}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+
+  /* ── page hero ── */
   .hd{padding:40px 0 8px}
-  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:11px}.kick::before{content:"";width:30px;height:1px;background:var(--amber)}
-  h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,6vw,50px);letter-spacing:-1px;margin:12px 0 0}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:11px}
+  .kick::before{content:"";width:30px;height:1px;background:var(--green)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,6vw,50px);letter-spacing:-1px;margin:12px 0 0;color:var(--ink)}
   .sub{color:var(--muted);max-width:640px;margin-top:10px;font-size:15px}
+
+  /* ── tabs ── */
   .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
-  .tab{font-family:var(--mono);font-size:12.5px;background:var(--ink-2);border:1px solid var(--line-2);color:var(--muted);border-radius:10px;padding:10px 16px;cursor:pointer;transition:.15s}
-  .tab:hover{color:var(--text)} .tab.on{background:var(--amber);color:var(--ink);border-color:var(--amber);font-weight:600}
-  .panel{background:linear-gradient(160deg,var(--ink-2),var(--ink-3));border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:16px}
+  .tab{font-family:var(--mono);font-size:12.5px;background:var(--surface);border:1px solid var(--line-2);color:var(--muted);border-radius:10px;padding:10px 16px;cursor:pointer;transition:.15s}
+  .tab:hover{color:var(--ink);border-color:var(--line-3)}
+  .tab.on{background:var(--green-soft);color:var(--green-700);border-color:var(--green);font-weight:600;border-bottom:2px solid var(--green)}
+
+  /* ── panel ── */
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:16px}
   .lbl{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:9px;display:block}
-  textarea,input.t{width:100%;background:var(--ink);border:1px solid var(--line-2);border-radius:11px;padding:13px;color:var(--text);font-family:var(--mono);font-size:13px;line-height:1.6;outline:none}
+
+  /* ── inputs ── */
+  textarea,input.t{width:100%;background:var(--surface-2);border:1px solid var(--line-2);border-radius:11px;padding:13px;color:var(--text);font-family:var(--mono);font-size:13px;line-height:1.6;outline:none}
   textarea{min-height:110px;resize:vertical}
-  textarea:focus,input.t:focus{border-color:var(--amber)}
+  textarea:focus,input.t:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(21,160,90,.12)}
+
+  /* ── buttons ── */
   .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-  .btn{font-family:var(--mono);font-size:12px;background:var(--ink);border:1px solid var(--line-2);color:var(--muted);border-radius:9px;padding:10px 14px;cursor:pointer;transition:.15s}
-  .btn:hover{border-color:var(--amber);color:var(--amber)}
-  .btn.p{background:var(--amber);color:var(--ink);border-color:var(--amber);font-weight:600}.btn.p:hover{filter:brightness(1.08);color:var(--ink)}
-  .out{margin-top:14px;background:var(--ink);border:1px solid var(--line);border-radius:11px;padding:14px;font-family:var(--mono);font-size:13px;color:var(--mint);word-break:break-all;white-space:pre-wrap;min-height:46px}
+  .btn{font-family:var(--mono);font-size:12px;background:var(--surface);border:1px solid var(--line-2);color:var(--muted);border-radius:9px;padding:10px 14px;cursor:pointer;transition:.15s}
+  .btn:hover{border-color:var(--green);color:var(--green-700)}
+  .btn.p{background:var(--green);color:#fff;border-color:var(--green);font-weight:600}
+  .btn.p:hover{background:var(--green-600);border-color:var(--green-600);color:#fff}
+
+  /* ── output box ── */
+  .out{margin-top:14px;background:var(--green-tint);border:1px solid var(--line);border-radius:11px;padding:14px;font-family:var(--mono);font-size:13px;color:var(--green-700);word-break:break-all;white-space:pre-wrap;min-height:46px}
+
+  /* ── JWT segments ── */
   .jwt-grid{display:grid;gap:12px;margin-top:6px}
-  .jwt-seg{border:1px solid var(--line-2);border-radius:11px;padding:14px;background:var(--ink)}
+  .jwt-seg{border:1px solid var(--line-2);border-radius:11px;padding:14px;background:var(--surface-2)}
   .jwt-seg .h{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-  .jwt-seg.head .h{color:var(--rose)} .jwt-seg.pay .h{color:var(--violet)} .jwt-seg.sig .h{color:var(--blue)}
+  .jwt-seg.head .h{color:var(--jwt-head)}
+  .jwt-seg.pay  .h{color:var(--jwt-pay)}
+  .jwt-seg.sig  .h{color:var(--jwt-sig)}
   .jwt-seg pre{font-family:var(--mono);font-size:12.5px;color:var(--text);white-space:pre-wrap;word-break:break-all;line-height:1.6;margin:0}
   .claims{margin-top:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
-  .claims span{color:var(--amber)}
+  .claims span{color:var(--green-700)}
+
+  /* ── misc ── */
   .field{margin-top:14px}
   .hashgrid{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-  .hrow{display:flex;align-items:center;gap:12px;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px}
-  .hrow .alg{font-family:var(--mono);font-size:12px;color:var(--amber);width:80px;flex:0 0 auto}
-  .hrow .hv{font-family:var(--mono);font-size:12px;color:var(--mint);word-break:break-all;flex:1}
-  .uuidbox{font-family:var(--mono);font-size:18px;color:var(--mint);background:var(--ink);border:1px solid var(--line);border-radius:11px;padding:18px;text-align:center;letter-spacing:1px;margin-top:12px}
-  .err{color:var(--rose);font-family:var(--mono);font-size:12.5px;margin-top:10px;min-height:16px}
+  .hrow{display:flex;align-items:center;gap:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .hrow .alg{font-family:var(--mono);font-size:12px;color:var(--green-700);width:80px;flex:0 0 auto;font-weight:600}
+  .hrow .hv{font-family:var(--mono);font-size:12px;color:var(--text);word-break:break-all;flex:1}
+  .uuidbox{font-family:var(--mono);font-size:18px;color:var(--green-700);background:var(--green-tint);border:1px solid var(--line);border-radius:11px;padding:18px;text-align:center;letter-spacing:1px;margin-top:12px}
+  .err{color:#b91c1c;background:#fdecec;font-family:var(--mono);font-size:12.5px;margin-top:10px;min-height:16px;border-radius:8px;padding:0}
+  .err:not(:empty){padding:8px 12px}
   .note{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:14px;line-height:1.7}
+
+  /* ── footer ── */
   footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 0 56px;font-family:var(--mono);font-size:12px;color:var(--faint)}
-  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--amber);color:var(--ink);font-family:var(--mono);font-size:12.5px;font-weight:600;padding:10px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none}
+
+  /* ── toast ── */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green-700);color:#fff;font-family:var(--mono);font-size:12.5px;font-weight:600;padding:10px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap">
-  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> all tools</a>
-  <span class="id">ruslanmv/tools · crypto-kit</span>
+<header class="bar"><div class="in">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+  <span class="name">Ruslan Magana Vsevolodovna</span>
 </div></header>
 
 <main class="wrap">
   <div class="hd">
-    <div class="kick">Security · Encoding</div>
-    <h1>Crypto &amp; Encoding Kit</h1>
-    <p class="sub">Inspect tokens and transform data without pasting secrets into a stranger's server. Everything here runs through the browser's native Web Crypto and text APIs — fully offline.</p>
+    <div class="kick">Security · JWT · Encoding</div>
+    <h1>Crypto &amp; JWT Toolkit</h1>
+    <p class="sub">Decode JWTs, hash text, encode/decode data, and inspect security tokens — without pasting secrets into a stranger's server. Everything runs through the browser's native Web Crypto and text APIs, fully offline.</p>
+    <div id="rmvBadges"></div>
   </div>
 
   <div class="tabs" id="tabs">
@@ -214,6 +258,10 @@ $('uuidUpper').onclick=()=>{upper=!upper;paint($('uuidVal').textContent);if($('u
 $('uuidCopy').onclick=()=>{navigator.clipboard.writeText($('uuidVal').textContent).then(()=>toast('copied'));};
 paint(uuid());
 decodeJwt();
+</script>
+<script src="shared/toolkit.js"></script>
+<script>
+  if (window.RMVTool) RMVTool.badges('#rmvBadges', { exportable: false, extra: ['Web Crypto'] });
 </script>
 </body>
 </html>

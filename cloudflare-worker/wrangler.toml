@@ -1,0 +1,8 @@
+name = "network-api-tools"
+main = "worker.js"
+compatibility_date = "2025-05-01"
+
+# Optional custom domain route example:
+# routes = [
+#   { pattern = "api.yourdomain.com/*", custom_domain = true }
+# ]
