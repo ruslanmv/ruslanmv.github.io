@@ -33,12 +33,12 @@ export function renderModelRow(model, index) {
         ${fmt ? `<span class="fmt-tag">${escapeHtml(fmt.toUpperCase())}</span>` : ''}
       </div>
     </td>
-    <td><div class="cmp"><span class="cmp-pct ${scoreLevel(score)}">${score}%</span><span class="cmp-lab">${scoreLabel(score)}</span></div></td>
-    <td><div class="rt">${escapeHtml(best)}${second ? `<span class="rt-2">${escapeHtml(second)}</span>` : ''}</div></td>
-    <td>${model.recommendedQuant ? `<span class="quant">${escapeHtml(model.recommendedQuant)}</span>` : '—'}</td>
-    <td class="nowrap">${formatMemory(model.estimatedMemoryGb)}</td>
-    <td class="nowrap">${escapeHtml(model.license || '—')}</td>
-    <td class="upd"><div>${escapeHtml(relativeDate(model.lastModified))}</div><div class="dl">↓ ${formatCount(model.downloads)}</div></td>
+    <td data-label="Compatibility"><div class="cmp"><span class="cmp-pct ${scoreLevel(score)}">${score}%</span><span class="cmp-lab">${scoreLabel(score)}</span></div></td>
+    <td data-label="Best runtime"><div class="rt">${escapeHtml(best)}${second ? `<span class="rt-2">${escapeHtml(second)}</span>` : ''}</div></td>
+    <td data-label="Quant">${model.recommendedQuant ? `<span class="quant">${escapeHtml(model.recommendedQuant)}</span>` : '—'}</td>
+    <td data-label="Est. memory" class="nowrap">${formatMemory(model.estimatedMemoryGb)}</td>
+    <td data-label="License" class="nowrap">${escapeHtml(model.license || '—')}</td>
+    <td data-label="Updated" class="upd"><div>${escapeHtml(relativeDate(model.lastModified))}</div><div class="dl">↓ ${formatCount(model.downloads)}</div></td>
     <td class="m-actions">
       <button class="btn small primary" data-action="view-report" data-index="${index}">View Report</button>
       <a class="btn small icon" href="${escapeHtml(hfUrl)}" target="_blank" rel="noopener" title="Open on Hugging Face" aria-label="Open on Hugging Face">↗</a>

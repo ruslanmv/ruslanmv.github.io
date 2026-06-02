@@ -151,3 +151,35 @@
 .rep-empty-icon { font-size: 40px; margin-bottom: 12px; }
 .rep-empty h2 { margin: 0 0 8px; color: var(--ink); }
 .rep-empty p { margin: 0 0 18px; }
+
+/* ===================== mobile (Android) ===================== */
+@media(max-width:640px){
+  .results-card{overflow:visible;padding:12px 12px 4px}
+  .results-table thead{position:absolute;left:-9999px}      /* hide header row */
+  .results-table,.results-table tbody{display:block;width:100%}
+  .results-table tr{display:block;border:1px solid var(--line-2);border-radius:14px;
+    background:var(--surface);padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .results-table td{display:flex;justify-content:space-between;align-items:center;gap:14px;
+    padding:7px 0;border:none;text-align:right;font-size:14px}
+  .results-table td::before{content:attr(data-label);font-size:12px;font-weight:700;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.04em;text-align:left;white-space:nowrap}
+  .results-table td.m-cell{border-bottom:1px solid var(--line);padding-bottom:11px;margin-bottom:4px;text-align:left}
+  .results-table td.m-cell::before{content:none}
+  .results-table td.m-actions{padding-top:11px}
+  .results-table td.m-actions::before{content:none}
+  .results-table td.m-actions .btn{flex:1 1 auto}
+  .cmp{flex-direction:row;align-items:baseline;gap:8px}
+
+  /* finder layout tightening */
+  .sum-row{grid-template-columns:1fr;gap:12px;margin-bottom:18px}
+  .results-bar{gap:10px}
+  .results-bar .inline-field{flex:1 1 auto}
+  .results-bar select{min-width:0;flex:1 1 auto}
+  .pager{flex-direction:column;gap:12px;align-items:stretch}
+  .pg-btns{justify-content:center}
+
+  /* report page */
+  .rep-actions{min-width:100%;flex-direction:row;flex-wrap:wrap}
+  .rep-actions .btn{flex:1 1 auto}
+  .detail-grid{grid-template-columns:1fr}
+}

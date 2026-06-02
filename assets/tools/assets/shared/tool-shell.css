@@ -105,3 +105,23 @@ label{display:block;font-weight:800;color:#43524a;font-size:13px;margin-bottom:7
 
 @media(max-width:1100px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.tool-header__title{display:none}.tool-header__in{grid-template-columns:1fr auto}.tool-wrap{padding:24px 18px}.field-row{grid-template-columns:1fr}}
 @media(max-width:640px){.tool-header__user{display:none}.actions{width:100%}.btn{flex:1}.card__header{align-items:flex-start;flex-direction:column;padding:16px 18px}.card__body{padding:16px 18px}h1{font-size:34px}}
+
+/* mobile (Android) optimizations -------------------------------------------- */
+@media(max-width:640px){
+  /* belt-and-braces: no page-level horizontal scroll (inner tables/tabs keep their own) */
+  .tool-wrap{overflow-x:hidden}
+  /* tables scroll within their card instead of stretching the page */
+  .table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;max-width:100%}
+  .card.pad{overflow-x:hidden}
+  .tool-header__in{padding:0 16px}
+  .hero{gap:14px}
+  .actions{width:100%}
+  .actions .btn{flex:1 1 auto}
+  .code-tabs{flex-wrap:wrap}
+  /* section tabs scroll horizontally instead of overflowing */
+  .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs .tab{flex:0 0 auto}
+  /* split rows wrap on narrow screens */
+  .spread{flex-wrap:wrap}
+}
