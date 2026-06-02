@@ -3,7 +3,9 @@ title: "About"
 layout: single
 excerpt: "Hi there! My name Ruslan Magana Vsevolodovna"
 sitemap: true
-permalink: /about
+permalink: /about/
+redirect_from:
+  - /about
 author_profile: true
 header:
     overlay_filter: "0.6"

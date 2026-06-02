@@ -7,24 +7,26 @@
 
 main:
   - title: "About"
-    url: /about
+    url: /about/
     children:
       - title: "Bio"
-        url: /about
+        url: /about/
       - title: "Certifications"
-        url: /certifications
+        url: /certifications/
       - title: "Contact"
         url: /contact/
 
   - title: "Work"
-    url: /projects
+    url: /projects/
     children:
       - title: "Projects"
-        url: /projects
+        url: /projects/
       - title: "Labs"
         url: /labs/
       - title: "Alive System"
         url: /alive-system/
+      - title: "Rankings"
+        url: /Best-of-the-Best/
       - title: "MatrixHub"
         url: "https://www.matrixhub.io"
       - title: "OllaBridge"
@@ -42,11 +44,23 @@ main:
       - title: "Blog"
         url: /blog
 
+  - title: "Topics"
+    url: /ai-agents/
+    children:
+      - title: "AI Agents"
+        url: /ai-agents/
+      - title: "IBM watsonx"
+        url: /watsonx/
+      - title: "Hugging Face & LLMs"
+        url: /hugging-face/
+      - title: "Generative AI"
+        url: /generative-ai/
+
   - title: "Publications"
     url: /publications
 
   - title: "Talks"
-    url: /talks
+    url: /talks/
 
   - title: "News"
     url: https://ruslanmv.com/news-and-trends/
@@ -59,17 +73,20 @@ burger:
   - title: "Home"
     url: /
   - title: "About"
-    url: /about
+    url: /about/
   - title: "Work"
-    url: /projects
+    url: /projects/
   - title: "Projects"
-    url: /projects
+    url: /projects/
     indent: true
   - title: "Labs"
     url: /labs/
     indent: true
   - title: "Alive System"
     url: /alive-system/
+    indent: true
+  - title: "Rankings"
+    url: /Best-of-the-Best/
     indent: true
   - title: "Writing"
     url: /essays/
@@ -79,13 +96,27 @@ burger:
   - title: "Blog"
     url: /blog
     indent: true
+  - title: "Topics"
+    url: /ai-agents/
+  - title: "AI Agents"
+    url: /ai-agents/
+    indent: true
+  - title: "IBM watsonx"
+    url: /watsonx/
+    indent: true
+  - title: "Hugging Face & LLMs"
+    url: /hugging-face/
+    indent: true
+  - title: "Generative AI"
+    url: /generative-ai/
+    indent: true
   - title: "Publications"
     url: /publications
   - title: "Talks"
-    url: /talks
+    url: /talks/
   - title: "News"
     url: https://ruslanmv.com/news-and-trends/
   - title: "Certifications"
-    url: /certifications
+    url: /certifications/
   - title: "Contact"
     url: /contact/

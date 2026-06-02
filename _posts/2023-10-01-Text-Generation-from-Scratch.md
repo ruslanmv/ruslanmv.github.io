@@ -1,5 +1,7 @@
 ---
-title: "Generative AI for Text Generation from Scratch"
+title: "Text Generation from Scratch: Build a Generative AI Model in Python"
+description: "Learn generative AI for text generation from scratch in Python — tokenization, language modeling, training, and sampling explained with code."
+last_modified_at: 2026-06-02
 excerpt: "Understanding the Essentials for Text Generation from Scratch"
 
 header:

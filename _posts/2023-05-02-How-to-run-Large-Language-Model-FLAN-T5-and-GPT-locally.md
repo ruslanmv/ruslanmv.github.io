@@ -1,6 +1,8 @@
 ---
-title: "How to run Large Language Model FLAN -T5  and GPT locally"
-excerpt: "How to running Large Language Model Google FLAN -T5  and GPT locally with Gradio"
+title: "Run FLAN-T5 and GPT Large Language Models Locally with Gradio (Python)"
+description: "How to run Google FLAN-T5 and GPT large language models locally in Python with a Gradio web UI — installation, code, and examples."
+last_modified_at: 2026-06-02
+excerpt: "How to run Large Language Model Google FLAN-T5 and GPT locally with Gradio"
 
 header:
   image: "../assets/images/posts/2023-05-02-How-to-run-Large-Language-Model-FLAN-T5-and-GPT-locally/wallpapersden.com_bloom-edges-blue.jpg"

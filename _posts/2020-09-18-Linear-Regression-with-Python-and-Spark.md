@@ -1,5 +1,8 @@
 ---
 title: "Linear Regression with Python and Spark"
+redirect_from:
+  - "/blog/Linear Regression-with-Python-and-Spark"
+  - "/blog/Linear%20Regression-with-Python-and-Spark"
 excerpt: "Linear Regression with Python and Spark"
 
 header:

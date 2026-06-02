@@ -1,5 +1,8 @@
 ---
 title: " Fundamentals of Scala and Spark in Practice"
+redirect_from:
+  - "/blog/Scala and Spark in practice"
+  - "/blog/Scala%20and%20Spark%20in%20practice"
 excerpt: " Fundamentals Scala and Spark in Practice "
 
 header:

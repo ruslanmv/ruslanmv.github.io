@@ -1,5 +1,7 @@
 ---
-title: "How to create a custom Reinforcement Learning Environment in Gymnasium with Ray"
+title: "Custom Reinforcement Learning Environment in Gymnasium + Ray (Python Tutorial)"
+description: "Build a custom Gymnasium reinforcement learning environment and train it with Ray RLlib and Pygame, with full step-by-step Python code."
+last_modified_at: 2026-06-02
 excerpt: "Reinforcement Learning Environment in Gymnasium with Ray and Pygame"
 
 header:

@@ -1,5 +1,7 @@
 ---
-title: "How to create a React Application with IBM Carbon Design"
+title: "React + IBM Carbon Design Tutorial: Build a Carbon UI App Step by Step"
+description: "Create a React app with IBM Carbon Design components, routing, navigation, Sass, and deployment to IBM Cloud, step by step."
+last_modified_at: 2026-06-02
 excerpt: "How to create a React Application with IBM Carbon Design"
 
 header:

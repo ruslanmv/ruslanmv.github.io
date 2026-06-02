@@ -1,5 +1,7 @@
 ---
-title: "How to perform Data Analytics with Spark on EMR cluster"
+title: "How to Run Data Analytics with Spark on an AWS EMR Cluster"
+description: "Step-by-step guide to performing data analytics with Apache Spark on an AWS EMR cluster — setup, running jobs, and practical examples."
+last_modified_at: 2026-06-02
 excerpt: "How to perform Data Analytics with Spark on EMR cluster"
 
 header:
@@ -265,4 +267,18 @@ We  will run a **PySpark Apache Spark** script to count the number of users, gro
 **Congratulations!** We have created  a EMR cluster and executed a Pyspark script to analyze the data from S3.
 
 
+## Related tutorials
 
+- [Essential PySpark tutorial](/blog/Tutorial-of-Pyspark-with-Jupyter-Notebook)
+- [AWS Cloud Architect tutorial](/blog/AWS-Cloud-Architect-Tutorial)
+- [Apache Spark big data example](/blog/Apache-Spark-Big-Data-Example)
+
+## FAQ
+
+**What is EMR used for here?**
+
+Running managed Apache Spark clusters on AWS for scalable data analytics.
+
+**New to Spark?**
+
+Start local with the [PySpark tutorial](/blog/Tutorial-of-Pyspark-with-Jupyter-Notebook) first.

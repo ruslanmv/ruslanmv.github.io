@@ -1,5 +1,8 @@
 ---
 title: "Logistic Regression with Python and Spark"
+redirect_from:
+  - "/blog/Logistic Regression-with-Python-and-Spark"
+  - "/blog/Logistic%20Regression-with-Python-and-Spark"
 excerpt: "Logistic Regression with Python and Spark"
 
 header:

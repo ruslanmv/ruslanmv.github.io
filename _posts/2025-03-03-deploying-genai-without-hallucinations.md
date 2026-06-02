@@ -1,6 +1,7 @@
 ---
 usemathjax: true
-title: "Deploying GenAI Without Hallucinations - Neuro-Symbolic Guardian"
+title: "Deploying GenAI Without Hallucinations: A Neuro-Symbolic Guardian"
+last_modified_at: 2026-06-02
 excerpt: "Why enterprises can’t prompt their way to trust — and how mathematical verification becomes the missing control plane for production AI."
 description: "A practical, enterprise-grade approach to deploying generative AI safely using neuro-symbolic verification instead of fragile guardrails."
 date: 2025-03-03
@@ -505,3 +506,20 @@ Once you can say that out loud, your governance conversation changes from *"hope
 
 If your model can move money, modify state, or touch regulated data: **Don’t guess. Verify.**
 
+
+## Related tutorials
+
+- [AI Agents tutorials hub](/ai-agents/)
+- [Why AI agents need a kernel](/blog/why-ai-agents-need-a-kernel-not-a-framework)
+- [Universal A2A Agent tutorial](/blog/universal-a2a-agent-tutorial)
+- [Generative AI tutorials hub](/generative-ai/)
+
+## FAQ
+
+**Can prompting alone stop hallucinations?**
+
+No. The post argues you need verification and guardrails — a neuro-symbolic control plane — on top of prompting.
+
+**How does this fit production AI agents?**
+
+It pairs with agent architecture; see [why AI agents need a kernel](/blog/why-ai-agents-need-a-kernel-not-a-framework).

@@ -1,6 +1,8 @@
 ---
 
-title: "What data scientist should know? "
+title: "What Should a Data Scientist Know? Skills, Topics, and Roadmap"
+description: "A practical roadmap of what a data scientist should know — math, statistics, Python, machine learning, and the core topics that matter on the job."
+last_modified_at: 2026-06-02
 excerpt: "What do you learn in data science?"
 
 header:
@@ -3599,3 +3601,20 @@ Lastly, if any action operations like first(), count() etc are present then spar
 
 **Congratulations!**    You have read an small summary about important things in **Data Science**.
 
+
+## Related tutorials
+
+- [Top Big Tech data science interview questions](/blog/Top-Big-Tech-Data-Science-Questions)
+- [Top deep learning questions](/blog/What-should-know-about-Deep-Learning)
+- [Top Python coding exercises](/blog/Coding-Questions-in-Python)
+- [GCP machine learning practice questions](/blog/GCP-Machine-Learning-Practice-Questions)
+
+## FAQ
+
+**What skills does a data scientist need?**
+
+Core math and statistics, Python, data wrangling, machine learning, and communication. The post breaks each down with examples.
+
+**How do I prepare for data science interviews?**
+
+Practice with [big tech interview questions](/blog/Top-Big-Tech-Data-Science-Questions) and [Python coding exercises](/blog/Coding-Questions-in-Python).

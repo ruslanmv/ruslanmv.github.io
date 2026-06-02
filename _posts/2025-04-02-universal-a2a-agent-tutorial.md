@@ -1,5 +1,7 @@
 ---
 title: "Building a Production-Ready, Pluggable A2A Agent with IBM watsonx.ai, MatrixHub, and MCP Gateway"
+description: "Build a production-ready, pluggable A2A agent with IBM watsonx.ai, MatrixHub, and the MCP Gateway — the Agent-to-Agent protocol in practice, step by step."
+last_modified_at: 2026-06-02
 excerpt: "Introduction to A2A with Universal A2A Agent"
 
 header:
@@ -1747,4 +1749,22 @@ This architecture provides a robust foundation for building scalable, enterprise
 - **Production-Grade Operations**: The design includes essential operational features like health checks, structured logging, and containerization. The publishing flow via MatrixHub and MCP Gateway provides a managed, secure, and discoverable deployment pattern suitable for enterprise environments.
 - **Simplified Ingestion**: The catalog-based approach with MatrixHub enables a safe and idempotent process for discovering and registering new agents into the ecosystem.
 
-**Congratulations!**, you have learned how to build a truly robust, scalable, and enterprise-grade agentic application! By leveraging this decoupled, extensible, and production-ready architecture, you're now equipped to create sophisticated AI agents that can seamlessly integrate and operate within any modern tech ecosystem. Happy building! 
+**Congratulations!**, you have learned how to build a truly robust, scalable, and enterprise-grade agentic application! By leveraging this decoupled, extensible, and production-ready architecture, you're now equipped to create sophisticated AI agents that can seamlessly integrate and operate within any modern tech ecosystem. Happy building!
+
+
+## Related tutorials
+
+- [AI Agents tutorials hub](/ai-agents/)
+- [BeeAI Framework tutorial](/blog/BeeAI-Framework-Practical-Guide)
+- [watsonx Orchestrate tutorial](/blog/hello-watsonx-orchestrate)
+- [Why AI agents need a kernel](/blog/why-ai-agents-need-a-kernel-not-a-framework)
+
+## FAQ
+
+**What is the A2A protocol?**
+
+Agent-to-Agent: a standard that lets agents from different frameworks interoperate. This tutorial builds a pluggable A2A agent end to end.
+
+**How does MCP Gateway fit in?**
+
+It exposes tools/resources to the agent; combined with watsonx.ai and MatrixHub you get a production-ready setup. See the [AI Agents hub](/ai-agents/).

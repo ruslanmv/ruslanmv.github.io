@@ -1,5 +1,7 @@
 ---
-title: "From Zero to Hero: Building a Multi-Agent System with Watsonx Orchestrate"
+title: "watsonx Orchestrate Tutorial: Build a Multi-Agent System Step by Step"
+description: "A practical IBM watsonx Orchestrate tutorial: build agents, skills, and a multi-agent system with hands-on Python examples, integrations, and deployment tips."
+last_modified_at: 2026-06-02
 excerpt: "Agentic AI with Watsonx Orchestrate"
 
 header:
