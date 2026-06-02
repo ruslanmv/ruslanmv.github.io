@@ -154,6 +154,39 @@
   </script>
 {% endif %}
 
+{% if page.date %}
+  {%- assign post_image = page.header.og_image | default: page.header.image | default: page.header.teaser -%}
+  {%- if post_image -%}
+    {%- unless post_image contains "://" -%}
+      {%- assign post_image = post_image | replace: "../", "" | replace: "./", "" | absolute_url -%}
+    {%- endunless -%}
+  {%- endif -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": {{ page.title | markdownify | strip_html | strip_newlines | jsonify }},
+      "description": {{ seo_description | jsonify }},
+      "datePublished": "{{ page.date | date_to_xmlschema }}",
+      "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+      {% if post_image %}"image": {{ post_image | jsonify }},{% endif %}
+      "author": {
+        "@type": "Person",
+        "name": {{ site.social.name | default: site.name | default: "Ruslan Magana Vsevolodovna" | jsonify }},
+        "url": "{{ '/about/' | absolute_url }}"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": {{ site.social.name | default: site.name | default: "Ruslan Magana Vsevolodovna" | jsonify }}
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": {{ canonical_url | jsonify }}
+      }
+    }
+  </script>
+{% endif %}
+
 {% if site.google_site_verification %}
   <meta name="google-site-verification" content="{{ site.google_site_verification }}" />
 {% endif %}

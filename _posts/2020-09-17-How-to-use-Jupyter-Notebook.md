@@ -1,5 +1,7 @@
 ---
-title: "How to use Jupyter Notebook "
+title: "How to Use Jupyter Notebook: Tips, Tricks, and Shortcuts"
+description: "Learn how to use Jupyter Notebook effectively — essential tips, tricks, keyboard shortcuts, and workflow improvements for data work."
+last_modified_at: 2026-06-02
 excerpt: "How to use Jupyter Notebook, Tips, Tricks, and Shortcuts"
 
 header:
@@ -615,4 +617,19 @@ The easiest way to share your notebook is simply using the notebook file (.ipynb
 
 - Use the `File > Download as > PDF` menu to save your notebook as a PDF. If you’re going this route, I highly recommend reading Julius Schulz’s excellent article [Making publication ready Python notebooks](https://blog.juliusschulz.de/blog/ultimate-ipython-notebook).
 
-  
+
+## Related tutorials
+
+- [Create a simple Python environment](/blog/How-to-create-a-simple-python-environment)
+- [Essential PySpark tutorial](/blog/Tutorial-of-Pyspark-with-Jupyter-Notebook)
+- [Top Python coding exercises](/blog/Coding-Questions-in-Python)
+
+## FAQ
+
+**What are the most useful Jupyter shortcuts?**
+
+Command/edit mode shortcuts for running, inserting, and converting cells — all listed in the post.
+
+**How do I set up a clean kernel?**
+
+See [create a simple Python environment](/blog/How-to-create-a-simple-python-environment).

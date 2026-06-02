@@ -1,5 +1,10 @@
 ---
-title: "How to start programming  in Scala with Spark"
+title: "How to Start Programming in Scala with Spark"
+description: "A beginner-friendly guide to start programming in Scala with Apache Spark — set up your environment, write your first Spark job, and run it step by step."
+last_modified_at: 2026-06-02
+redirect_from:
+  - "/blog/How-to-start programming-in-Scala-with-Spark"
+  - "/blog/How-to-start%20programming-in-Scala-with-Spark"
 excerpt: "How to work Spark in Scala from zero."
 
 header:
@@ -926,3 +931,21 @@ ab.toArray
 - **udf()** – Creates a Spark UDF to use it on DataFrame, Dataset, and SQL.
 
 **Congratulations!** We have practiced some essential thing in Spark.
+
+
+## Related tutorials
+
+- [Essential PySpark tutorial](/blog/Tutorial-of-Pyspark-with-Jupyter-Notebook)
+- [Scala and Spark in practice](/blog/Scala-and-Spark-in-practice)
+- [Data analytics with Spark on AWS EMR](/blog/Data-analysis-with-Spark-on-EMR)
+- [Apache Spark big data example](/blog/Apache-Spark-Big-Data-Example)
+
+## FAQ
+
+**Do I need to know Java to use Scala with Spark?**
+
+No — basic programming is enough to start. Scala runs on the JVM, but this guide gets you writing Spark jobs from zero.
+
+**What should I learn next?**
+
+Move on to the [PySpark tutorial](/blog/Tutorial-of-Pyspark-with-Jupyter-Notebook) or [Spark on AWS EMR](/blog/Data-analysis-with-Spark-on-EMR).

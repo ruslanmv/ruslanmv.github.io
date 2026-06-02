@@ -1,6 +1,8 @@
 ---
 
-title: " Top Coding Exercises in Python"
+title: "Top Python Coding Exercises and Interview Questions"
+description: "A curated set of top Python coding exercises and interview questions, with solutions to practice for data science and software engineering roles."
+last_modified_at: 2026-06-02
 excerpt: "Top coding Exercises in Python that we should know "
 
 header:
@@ -503,3 +505,19 @@ If you liked the playground in python there are tools that allow you to embed co
 
 **Congratulations** you have practiced some essential coding exercises.
 
+
+## Related tutorials
+
+- [What a data scientist should know](/blog/What-all-should-a-data-scientist-know)
+- [Top Big Tech data science questions](/blog/Top-Big-Tech-Data-Science-Questions)
+- [How to use Jupyter Notebook](/blog/How-to-use-Jupyter-Notebook)
+
+## FAQ
+
+**Are these Python questions good for interviews?**
+
+Yes — they cover the patterns commonly asked in data science and software interviews, with worked solutions.
+
+**Where can I run these exercises?**
+
+In any Python setup; a quick option is [Jupyter Notebook](/blog/How-to-use-Jupyter-Notebook).

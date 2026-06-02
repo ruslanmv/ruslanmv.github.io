@@ -3,7 +3,9 @@ title: "Workshops"
 layout: single
 excerpt: "List of talks, seminars and workshops I've done."
 sitemap: true
-permalink: /talks
+permalink: /talks/
+redirect_from:
+  - /talks
 author_profile: true
 toc: true
 toc_label: "Workshops"

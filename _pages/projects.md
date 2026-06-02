@@ -3,8 +3,10 @@ title: "Projects"
 layout: projects
 excerpt: "Open-source platforms, live AI products, and research I've built and shipped."
 sitemap: true
-permalink: /projects
-canonical_url: https://ruslanmv.com/projects
+permalink: /projects/
+redirect_from:
+  - /projects
+canonical_url: https://ruslanmv.com/projects/
 hero_image: /assets/images/all-header-projects.jpg
 header:
   og_image: /assets/images/all-header-projects.jpg

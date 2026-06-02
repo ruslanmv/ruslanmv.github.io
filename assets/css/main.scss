@@ -251,3 +251,38 @@ h3.archive__date {
       }
   }
 }
+
+/*
+  MOBILE READABILITY — code blocks
+  Prevent wide code/pre from overflowing the viewport on phones
+  (mobile-first indexing & page-experience signal).
+  ======================= */
+.page__content {
+  pre,
+  pre.highlight,
+  .highlight pre,
+  figure.highlight {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: pre;
+    max-width: 100%;
+  }
+
+  // long inline tokens (URLs, paths) should wrap instead of overflowing
+  p code,
+  li code {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 600px) {
+  .page__content {
+    pre,
+    pre.highlight,
+    .highlight pre,
+    code {
+      font-size: 0.78rem;
+    }
+  }
+}

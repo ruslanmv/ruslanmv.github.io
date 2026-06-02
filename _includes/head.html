@@ -2,6 +2,26 @@
 
 {% include seo.html %}
 
+{%- comment -%}
+  Indexation governance — single source of truth for the robots meta tag.
+  Precedence: explicit page.robots front matter > automatic rules > default.
+  Automatic noindex (with follow, so link equity still flows):
+    - paginated archive pages (/page2/ … /pageN/)
+    - tag & category archive pages (thin, low-value for search)
+  Everything else defaults to index,follow. Pair noindex pages with
+  `sitemap: false` in front matter to also drop them from sitemap.xml.
+{%- endcomment -%}
+{%- if page.robots -%}
+  {%- assign page_robots = page.robots -%}
+{%- elsif paginator and paginator.page > 1 -%}
+  {%- assign page_robots = "noindex,follow" -%}
+{%- elsif page.url contains "/tags/" or page.url contains "/categories/" or page.url == "/tags" or page.url == "/categories" -%}
+  {%- assign page_robots = "noindex,follow" -%}
+{%- else -%}
+  {%- assign page_robots = "index,follow" -%}
+{%- endif -%}
+<meta name="robots" content="{{ page_robots }}">
+
 <link href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | relative_url }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
 
 <!-- http://t.co/dKP3o1e -->

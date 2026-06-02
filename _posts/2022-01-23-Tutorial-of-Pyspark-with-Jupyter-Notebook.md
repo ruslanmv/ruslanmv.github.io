@@ -1,5 +1,7 @@
 ---
-title: "Essential Pyspark to Get You Started into Big Data"
+title: "Essential PySpark Tutorial to Get You Started in Big Data"
+description: "A hands-on PySpark tutorial in a Jupyter Notebook and Docker container — DataFrames, transformations, and the essentials to start working with big data."
+last_modified_at: 2026-06-02
 excerpt: "Tutorial Pyspark in Jupyter Notebook in a Docker Container"
 
 header:
@@ -2966,3 +2968,19 @@ pm10 = pm10.withColumn("date", f.date_add(f.col("date"), 5))\
 
 **Congratulation!** We have practiced **Pyspark** with Jupyter Notebook in Docker Container
 
+
+## Related tutorials
+
+- [Data analytics with Spark on AWS EMR](/blog/Data-analysis-with-Spark-on-EMR)
+- [Apache Spark big data example](/blog/Apache-Spark-Big-Data-Example)
+- [How to use Jupyter Notebook](/blog/How-to-use-Jupyter-Notebook)
+
+## FAQ
+
+**Do I need a cluster to learn PySpark?**
+
+No — this tutorial runs PySpark locally in a Docker container with Jupyter, so you can learn before moving to a cluster like [EMR](/blog/Data-analysis-with-Spark-on-EMR).
+
+**What will I be able to build?**
+
+You'll handle Spark DataFrames and transformations — the foundation for real big-data pipelines.

@@ -3,7 +3,9 @@ title: "Certifications"
 layout: single
 excerpt: "List of certifications  I've done."
 sitemap: true
-permalink: /certifications
+permalink: /certifications/
+redirect_from:
+  - /certifications
 author_profile: true
 toc: true
 toc_label: "certifications"

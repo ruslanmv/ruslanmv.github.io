@@ -1,5 +1,7 @@
 ---
-title: "How to download and save HuggingFace models to custom path"
+title: "How to Download Hugging Face Models to a Custom Cache Folder (Python)"
+description: "Step-by-step Python guide to save Hugging Face Transformers models outside the default cache using cache_dir, HF_HOME, TRANSFORMERS_CACHE, and save_pretrained."
+last_modified_at: 2026-06-02
 excerpt: "Download and Load Models from Hugging Face"
 
 header:

@@ -1,6 +1,9 @@
 ---
 usemathjax: true
 title: "Comprehensive Guide to Evaluating Language Models (LLMs) with Python"
+redirect_from:
+  - "/blog/Guide-to-Evaluating-Language-Models--LLMs-with Python"
+  - "/blog/Guide-to-Evaluating-Language-Models--LLMs-with%20Python"
 excerpt: "Evaluating Language Models (LLMs) with Python"
 
 header:

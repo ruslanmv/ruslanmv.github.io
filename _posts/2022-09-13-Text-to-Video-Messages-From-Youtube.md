@@ -1,5 +1,7 @@
 ---
-title: "Video Speech Generator from YouTube with Artificial Intelligence"
+title: "Video Speech Generator from YouTube with AI (Text-to-Video Lip-Sync)"
+description: "Generate talking-head video messages from text using AI — a YouTube-based pipeline with lip-sync, explained step by step."
+last_modified_at: 2026-06-02
 excerpt: "Text to video messages from YouTube by using Tex2Lip "
 
 header:
@@ -915,3 +917,19 @@ The python version of this program is hosted the **HuggingFace** space [Tex2Lip]
 
 **Congratulations!** You have created a Web App that creates a Video with Artificial Intelligence with SageMaker.
 
+
+## Related tutorials
+
+- [Generative AI tutorials hub](/generative-ai/)
+- [Multimodal image captioning with deep learning](/blog/Building-a-Multimodal-Model-for-Image-Captioning-with-Deep-Learning)
+- [AI Medical Chatbot](/blog/AI-Medical-Chatbot)
+
+## FAQ
+
+**What does this pipeline produce?**
+
+A video where a face speaks your text, generated with AI lip-sync from a source clip.
+
+**What else can I build with multimodal AI?**
+
+See [multimodal image captioning](/blog/Building-a-Multimodal-Model-for-Image-Captioning-with-Deep-Learning).

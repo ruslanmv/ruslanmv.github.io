@@ -1,5 +1,7 @@
 ---
 title: "Hello Reveal.js + MkDocs — From Zero to Expert: The Complete Guide"
+description: "From zero to expert with Reveal.js + MkDocs: build beautiful documentation and slide decks from a single Markdown source, step by step."
+last_modified_at: 2026-06-02
 excerpt: "MkDocs & Reveal.js for great Presentations from a Single Markdown Source"
 
 header:
@@ -1022,3 +1024,19 @@ The best part? **It scales**. Whether you're documenting one feature or an entir
 **Happy documenting! 🚀**
 
 *If this tutorial helped you, consider giving the [repository](https://github.com/ruslanmv/hello-reveal-mkdocs) a ⭐ on GitHub!*
+
+
+## Related tutorials
+
+- [How to use Jupyter Notebook](/blog/How-to-use-Jupyter-Notebook)
+- [Create a simple Python environment](/blog/How-to-create-a-simple-python-environment)
+
+## FAQ
+
+**Can one Markdown source power both docs and slides?**
+
+Yes — that's the core idea: MkDocs for docs and Reveal.js for slides from the same content.
+
+**Is this beginner friendly?**
+
+Yes, it goes from zero setup to an advanced, themed workflow.

@@ -1,5 +1,6 @@
 ---
 title: "Why I Rewrote My AI Agent Swarm in Rust (and Built an Agent Kernel)"
+last_modified_at: 2026-06-02
 excerpt: "Building Scalable AI Agent Systems with Nexus — a complete, reproducible engineering guide for running thousands of agents with kernel-level semantics."
 description: "Building Scalable AI Agent Systems with Nexus"
 date: 2025-03-03
@@ -715,3 +716,21 @@ Because the moment you scale agents, you stop writing "scripts" and start writin
 If you care about scalable agent systems, stop hoping your framework grows into an operating system.
 
 Build on kernel semantics from the start.
+
+
+## Related tutorials
+
+- [AI Agents tutorials hub](/ai-agents/)
+- [BeeAI Framework tutorial](/blog/BeeAI-Framework-Practical-Guide)
+- [Universal A2A Agent tutorial](/blog/universal-a2a-agent-tutorial)
+- [Deploying GenAI without hallucinations](/blog/deploying-genai-without-hallucinations)
+
+## FAQ
+
+**Why use a kernel instead of an agent framework?**
+
+A kernel gives you OS-style primitives — scheduling, memory, isolation, and observability — so thousands of agents run predictably. See the [AI Agents hub](/ai-agents/) for the full picture.
+
+**Do I need Rust to build agent systems?**
+
+No — the concepts apply to any language. Rust is used here for performance and safety, but you can start with Python via the [BeeAI Framework](/blog/BeeAI-Framework-Practical-Guide).

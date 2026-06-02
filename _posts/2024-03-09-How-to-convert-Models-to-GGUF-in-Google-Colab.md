@@ -1,5 +1,7 @@
 ---
-title: "Converting a Hugging Face LLM Model to GGUF Format Using Google Colab"
+title: "Convert a Hugging Face Model to GGUF in Google Colab (Step by Step)"
+description: "Convert and quantize a Hugging Face LLM to GGUF format in Google Colab using llama.cpp, then run it locally with llama.cpp or Ollama."
+last_modified_at: 2026-06-02
 excerpt: "How to convert Models to GGUF format"
 
 header:

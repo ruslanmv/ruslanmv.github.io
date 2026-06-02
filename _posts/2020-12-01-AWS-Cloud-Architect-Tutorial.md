@@ -1,5 +1,7 @@
 ---
 title: "AWS Cloud Architect Tutorial"
+description: "A comprehensive AWS Cloud Architect tutorial covering core AWS services, architecture patterns, and exam-style practice toward certification."
+last_modified_at: 2026-06-02
 excerpt: "AWS Cloud Architect Tutorial from Acloud Guru"
 categories: [Cloud,Cloud Computing, AWS]
 
@@ -3850,3 +3852,20 @@ AWS ECR (EC2 Container Registry) is a managed AWS Docker registry service that i
 
 
 **Congratulations** you have succesfully finished the tutorial!!.
+
+
+## Related tutorials
+
+- [Data analytics with Spark on AWS EMR](/blog/Data-analysis-with-Spark-on-EMR)
+- [Work with AWS Step Functions](/blog/How-to-work-with-AWS-Step-Functions)
+- [Develop GenAI solutions with Azure OpenAI](/blog/Develop-generative-AI-solutions-with-Azure-OpenAI)
+
+## FAQ
+
+**Is this useful for AWS certification?**
+
+Yes — it covers core services and architecture patterns aligned with the Solutions Architect path.
+
+**Where can I practice AWS data workloads?**
+
+Try [Spark on EMR](/blog/Data-analysis-with-Spark-on-EMR) and [AWS Step Functions](/blog/How-to-work-with-AWS-Step-Functions).

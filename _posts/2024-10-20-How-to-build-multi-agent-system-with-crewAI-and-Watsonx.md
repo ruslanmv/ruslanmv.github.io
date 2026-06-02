@@ -1,5 +1,8 @@
 ---
 title: "Building Multi-Agent Systems with crewAI and Watsonx.ai"
+redirect_from:
+  - "/blog/How-to-build-multi-agent-system-with crewAI-and-Watsonx"
+  - "/blog/How-to-build-multi-agent-system-with%20crewAI-and-Watsonx"
 excerpt: "How to build multi-agent system with  crewAI and WatsonX"
 
 header:

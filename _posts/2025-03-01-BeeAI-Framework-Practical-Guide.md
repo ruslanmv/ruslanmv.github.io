@@ -1,5 +1,7 @@
 ---
-title: "BeeAI Framework: Your Guide from Zero to Hero"
+title: "BeeAI Framework Tutorial: Build Python AI Agents Step by Step"
+description: "A practical BeeAI Framework guide for building agents, tools, workflows, structured outputs, and multi-agent applications in Python."
+last_modified_at: 2026-06-02
 excerpt: "BeeAI Framework: Complete Guide from Beginner to Expert"
 
 header:

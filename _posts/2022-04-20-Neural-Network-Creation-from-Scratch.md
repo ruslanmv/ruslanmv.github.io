@@ -1,5 +1,7 @@
 ---
-title: "Creation of the Neural Networks of an unknown Dataset with TensorFlow"
+title: "Build Neural Networks from Scratch with TensorFlow, TFLearn & TensorBoard"
+description: "Create neural networks on an unknown dataset with TensorFlow and TFLearn, and analyze training with TensorBoard — a step-by-step deep learning walkthrough."
+last_modified_at: 2026-06-02
 excerpt: "Neural Networks of an unknown Dataset in TensorFlow with TFLEARN and analysis with TensorBoard"
 
 header:
@@ -739,3 +741,20 @@ In addition try to improve the quality of the input dataset and also define diff
 
 
 **Cogratulations!** You have learned how to create Neural Networks from Scratch from one Unknown dataset with Tensorflow.
+
+
+## Related tutorials
+
+- [Generative AI tutorials hub](/generative-ai/)
+- [Introduction to convolutional models](/blog/Introduction-to-Convolutional-Models)
+- [Build a basic LLM (GPT) from scratch](/blog/How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python)
+
+## FAQ
+
+**Is TFLearn still worth learning?**
+
+The concepts transfer directly to modern Keras/TensorFlow; the focus here is understanding network construction and training analysis with TensorBoard.
+
+**What's next after this?**
+
+Move on to [convolutional models](/blog/Introduction-to-Convolutional-Models) or [building a GPT from scratch](/blog/How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python).

@@ -1,6 +1,7 @@
 ---
 usemathjax: true
 title: "Physica: The Physics World Model for Scientific AI"
+last_modified_at: 2026-06-02
 excerpt: "Why language models fail at physics—and how Physica enforces conservation laws, equations, and reality itself inside AI systems."
 description: "Physica is a physics-first world model that constrains AI with conservation laws, differential equations, and physically valid state spaces."
 date: 2025-03-03
@@ -573,3 +574,19 @@ The future of AI will not be defined solely by larger models or longer context w
 
 That is the foundation Project Physica aims to build.
 
+
+## Related tutorials
+
+- [Generative AI tutorials hub](/generative-ai/)
+- [Deploying GenAI without hallucinations](/blog/deploying-genai-without-hallucinations)
+- [Diffusion models in machine learning](/blog/Diffusion-Models-in-Machine-Learning)
+
+## FAQ
+
+**Why do LLMs struggle with physics?**
+
+They model language, not physical law. Physica adds constraints so outputs respect conservation laws and equations.
+
+**Is this related to reliable AI?**
+
+Yes — it's the scientific counterpart to [deploying GenAI without hallucinations](/blog/deploying-genai-without-hallucinations).
