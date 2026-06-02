@@ -33,7 +33,7 @@ feature_row:
   - image_path: assets/images/thumb-neural.jpeg
     alt: "Tools"
     title: "Tools"
-    excerpt: "Visualize Neural Networks"
+    excerpt: "Free browser tools for AI, data, and developers."
     url: "/assets/tools/index.html"
 feature_row2:
   - image_path: assets/images/thumb-talks.jpg
@@ -62,3 +62,78 @@ feature_row2:
 {% include paginator.html %}
 </div>
 <link rel="shortcut icon" href="/favicon.ico">
+
+<!-- Homepage "Tools" card: rotate image + subtitle through our tools on each load.
+     Purely additive / non-destructive — if JS is off, the static card above shows. -->
+<script>
+(function () {
+  "use strict";
+  var TOOLS = [
+    ["AI Prompt Builder", '<path d="M15 4V2M15 10V8M9.5 6.5H7.5M21.5 6.5h-2M18 9l-1.4-1.4M18 4l-1.4 1.4M13 9 3 19l2 2L15 11"/>'],
+    ["LLM Compatibility Finder", '<rect x="3" y="3.5" width="11" height="11" rx="2"/><path d="M6.5 7.5h4M6.5 10.5h4"/><circle cx="16.5" cy="16.5" r="4"/><path d="m21 21-1.7-1.7"/>'],
+    ["Token & Cost Estimator", '<circle cx="9" cy="9" r="6"/><path d="M9 6v6M7 8.2c.5-.5 3-.7 3 .6 0 1.3-2.5 1.1-3 .6"/><path d="M14.7 4.3A6 6 0 1 1 19.7 15"/>'],
+    ["LLM VRAM Calculator", '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>'],
+    ["RAG Chunk Planner", '<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>'],
+    ["Neural Network SVG Designer", '<circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="19" cy="17" r="2"/><path d="M7 6.7 10.2 11M7 17.3 10.2 13M13.8 11 17 7.7M13.8 13 17 16.3"/>'],
+    ["Vector Similarity Lab", '<circle cx="6" cy="18" r="2.2"/><path d="M7.6 16.4 17 7"/><path d="M17 7h-5M17 7v5"/><circle cx="18" cy="6" r="1.4"/>'],
+    ["JSON / YAML Toolkit", '<path d="M8 4C5.5 4 6 8 6 10s-1 2-2 2c1 0 2 0 2 2s-.5 6 2 6"/><path d="M16 4c2.5 0 2 4 2 6s1 2 2 2c-1 0-2 0-2 2s.5 6-2 6"/>'],
+    ["JSON Schema & Types", '<path d="M7 4H6a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1"/><path d="M13 8l3 4-3 4M16 12h6"/>'],
+    ["Regex Tester", '<path d="M12 4v9"/><path d="m8.3 6 7.4 5M15.7 6l-7.4 5"/><circle cx="6.5" cy="18" r="1.7"/><path d="M11 16h8"/>'],
+    ["Text & JSON Diff", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M6.5 8.5h4M8.5 6.5v4M13.5 15.5h4"/>'],
+    ["Crypto & JWT Toolkit", '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/>'],
+    ["HTTP Request & cURL Builder", '<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>'],
+    ["CIDR Subnet Calculator", '<circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8.2 6H16M6 8.2V16M18 8.2V16M8.2 18H16M8 8l8 8"/>'],
+    ["Timestamp & Date Converter", '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>'],
+    ["Password & Passphrase Generator", '<circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 20 3M17 6l2 2M14 9l2 2"/>'],
+    ["CSV Data Profiler", '<path d="M4 4v16h16"/><rect x="7" y="12" width="3" height="5"/><rect x="12" y="8" width="3" height="9"/><rect x="17" y="5" width="3" height="12"/>'],
+    ["UUID / ULID Generator", '<path d="M9 4 7 20M17 4l-2 16M5 9h15M4 15h15"/>']
+  ];
+
+  function thumbDataUri(iconPath) {
+    var W = 640, H = 400, cx = W / 2, cy = H / 2;
+    var svg =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
+        '<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">' +
+          '<path d="M40 0H0V40" fill="none" stroke="rgba(47,217,135,0.10)" stroke-width="1"/></pattern></defs>' +
+        '<rect width="' + W + '" height="' + H + '" fill="#08170f"/>' +
+        '<rect width="' + W + '" height="' + H + '" fill="url(#g)"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="118" fill="rgba(31,191,108,0.07)" stroke="rgba(47,217,135,0.30)" stroke-width="2"/>' +
+        '<circle cx="96" cy="84" r="11" fill="#0c6e3d" stroke="#2fd987" stroke-width="2.4"/>' +
+        '<circle cx="' + (W - 96) + '" cy="84" r="11" fill="#11140f" stroke="#2fd987" stroke-width="2.4"/>' +
+        '<circle cx="96" cy="' + (H - 84) + '" r="11" fill="#11140f" stroke="#2fd987" stroke-width="2.4"/>' +
+        '<circle cx="' + (W - 96) + '" cy="' + (H - 84) + '" r="13" fill="#1fbf6c" stroke="#bdffdd" stroke-width="2"/>' +
+        '<g stroke="rgba(47,217,135,0.32)" stroke-width="1.5"><path d="M107 92 250 168M' + (W - 107) + ' 92 390 168M107 ' + (H - 92) + ' 250 232M' + (W - 107) + ' ' + (H - 92) + ' 390 232"/></g>' +
+        '<g transform="translate(' + cx + ' ' + cy + ') scale(7) translate(-12 -12)" fill="none" stroke="#7ef0b0" stroke-width="0.52" stroke-linecap="round" stroke-linejoin="round">' + iconPath + '</g>' +
+      '</svg>';
+    return 'data:image/svg+xml,' + encodeURIComponent(svg);
+  }
+
+  function pick() {
+    var last = null;
+    try { last = localStorage.getItem("rmv-home-tool"); } catch (e) {}
+    var cands = TOOLS.filter(function (t) { return t[0] !== last; });
+    if (!cands.length) cands = TOOLS;
+    var sel = cands[Math.floor(Math.random() * cands.length)];
+    try { localStorage.setItem("rmv-home-tool", sel[0]); } catch (e) {}
+    return sel;
+  }
+
+  function apply() {
+    try {
+      var link = document.querySelector('.feature__wrapper a[href*="/assets/tools"]');
+      if (!link) return;
+      var img = link.querySelector(".archive__item-teaser img");
+      var ex = link.querySelector(".archive__item-excerpt");
+      var t = pick();
+      if (img) { img.src = thumbDataUri(t[1]); img.alt = t[0]; }
+      if (ex) { ex.innerHTML = "<p>" + t[0] + "</p>"; }
+    } catch (e) { /* leave the static card as-is */ }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
+</script>

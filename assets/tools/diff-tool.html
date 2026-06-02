@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Text & JSON Diff Checker — Ruslan Magana Vsevolodovna</title>
+<meta name="description" content="Compare two texts or JSON documents line by line — side-by-side or inline, ignore whitespace/case, sort JSON keys, and copy a unified-diff patch. 100% in your browser." />
+<meta name="keywords" content="text diff, json diff, compare text, side by side diff, unified patch, diff checker, json compare" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/toolkit.css" />
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --add-bg:#e7f6ec; --add-line:#bfe6cd; --add-ink:#0e7340;
+    --del-bg:#fdecec; --del-line:#f5c9c9; --del-ink:#b4322b;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1180px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+  .wrap{max-width:1180px;margin:0 auto;padding:34px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(28px,4.4vw,40px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:680px}
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:7px}
+  textarea{width:100%;font-family:var(--mono);font-size:13px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;outline:none;transition:border .15s,box-shadow .15s;min-height:200px;resize:vertical;line-height:1.6}
+  textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:10px 16px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s;min-height:42px}
+  .btn:hover{border-color:var(--line-3)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-600)}
+  .mono{font-family:var(--mono)}
+
+  /* mode pills */
+  .pills{display:inline-flex;gap:4px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:11px;padding:4px}
+  .pill{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;
+    padding:8px 16px;border-radius:8px;transition:all .14s;min-height:40px}
+  .pill.active{background:var(--green);color:#fff}
+  .pill:not(.active):hover{color:var(--text)}
+
+  .toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px}
+  .toolbar .spacer{flex:1}
+  .opts{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:16px}
+  .opt{display:flex;align-items:center;gap:7px;font-size:13.5px;color:var(--text);font-weight:500;cursor:pointer;user-select:none}
+  .opt input{width:16px;height:16px;accent-color:var(--green);cursor:pointer}
+
+  .inputs{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;align-items:start}
+  @media(max-width:860px){.inputs{grid-template-columns:1fr}}
+  .io-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+  .io-head label{margin-bottom:0}
+  .swap-wrap{display:flex;justify-content:center;margin-top:10px}
+  .swap-btn{display:inline-flex;align-items:center;gap:7px}
+  .swap-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none}
+
+  .err{margin-top:12px;padding:10px 14px;border-radius:10px;background:#fdeceb;border:1px solid #f3cfcc;color:#b4322b;font-size:13.5px;display:none}
+  .err.show{display:block}
+  .err button{margin-left:8px;font-size:12.5px;font-weight:700;color:#b4322b;background:none;border:none;text-decoration:underline;cursor:pointer}
+
+  /* result */
+  .result-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:28px 0 14px}
+  .result-head h2{font-size:15px;font-weight:700;color:var(--ink)}
+  .stats{display:flex;gap:10px;flex-wrap:wrap}
+  .stat{font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:8px}
+  .stat.add{background:var(--add-bg);color:var(--add-ink)}
+  .stat.del{background:var(--del-bg);color:var(--del-ink)}
+  .stat.eq{background:#f0f1ec;color:var(--muted)}
+  .result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+  .result-actions .btn{padding:8px 13px;font-size:13px}
+
+  .diff{border:1px solid var(--line-2);border-radius:12px;overflow:hidden;background:var(--surface);font-family:var(--mono);font-size:12.5px;line-height:1.7}
+  .diff-empty{padding:46px 20px;text-align:center;color:var(--faint);font-family:var(--sans);font-size:14px}
+
+  /* side-by-side */
+  .sbs{display:grid;grid-template-columns:1fr 1fr}
+  .sbs .col{overflow-x:auto}
+  .sbs .col.left{border-right:1px solid var(--line-2)}
+  .drow{display:grid;grid-template-columns:46px 1fr;min-height:1.7em}
+  .gut{text-align:right;padding:0 8px;color:var(--faint);background:var(--surface-2);border-right:1px solid var(--line);user-select:none;white-space:nowrap}
+  .ln{padding:0 10px;white-space:pre-wrap;word-break:break-word}
+  .drow.add{background:var(--add-bg)} .drow.add .gut{background:var(--add-line)}
+  .drow.del{background:var(--del-bg)} .drow.del .gut{background:var(--del-line)}
+  .drow.empty{background:repeating-linear-gradient(45deg,#fafafa,#fafafa 6px,#f3f3f1 6px,#f3f3f1 12px)}
+  .drow.empty .gut{background:#f0f0ee}
+
+  /* inline */
+  .inline .irow{display:grid;grid-template-columns:46px 46px 18px 1fr;min-height:1.7em}
+  .inline .sign{text-align:center;user-select:none;font-weight:700}
+  .inline .irow.add{background:var(--add-bg)} .inline .irow.add .sign{color:var(--add-ink)} .inline .irow.add .gut{background:var(--add-line)}
+  .inline .irow.del{background:var(--del-bg)} .inline .irow.del .sign{color:var(--del-ink)} .inline .irow.del .gut{background:var(--del-line)}
+  .inline .irow .ln{padding:0 10px;white-space:pre-wrap;word-break:break-word}
+
+  .toolnote{font-size:12.5px;color:var(--faint);margin-top:18px;line-height:1.6}
+  .toolnote a{color:var(--green-700);font-weight:600}
+  .ws-row{margin-top:18px}
+  @media(max-width:520px){.wrap{padding:22px 14px 64px}.panel{padding:15px}.sbs{grid-template-columns:1fr}.sbs .col.left{border-right:none;border-bottom:1px solid var(--line-2)}}
+</style>
+</head>
+<body>
+  <header class="bar"><div class="in">
+    <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+    <span class="name">Ruslan Magana Vsevolodovna</span>
+  </div></header>
+
+  <main class="wrap">
+    <div class="eyebrow">Developer</div>
+    <h1>Text &amp; JSON Diff Checker</h1>
+    <p class="sub">Compare two texts or JSON documents line by line. Side-by-side or inline, ignore whitespace and case, sort JSON keys before comparing, and copy a unified-diff patch — all in your browser.</p>
+    <div id="badges"></div>
+
+    <div class="toolbar">
+      <div class="pills" role="tablist" aria-label="Diff mode">
+        <button class="pill active" id="mode-text" role="tab" aria-selected="true">Text</button>
+        <button class="pill" id="mode-json" role="tab" aria-selected="false">JSON</button>
+      </div>
+      <div class="spacer"></div>
+      <div class="pills" aria-label="View">
+        <button class="pill active" id="view-sbs">Side-by-side</button>
+        <button class="pill" id="view-inline">Inline</button>
+      </div>
+    </div>
+
+    <div class="opts">
+      <label class="opt"><input type="checkbox" id="optWS" /> Ignore whitespace</label>
+      <label class="opt"><input type="checkbox" id="optCase" /> Ignore case</label>
+      <label class="opt" id="optSortWrap" style="display:none"><input type="checkbox" id="optSort" /> Sort JSON keys before compare</label>
+    </div>
+
+    <div class="inputs">
+      <div>
+        <div class="io-head"><label for="inA">Original</label></div>
+        <textarea id="inA" spellcheck="false" placeholder="Paste the original text or JSON…"></textarea>
+      </div>
+      <div>
+        <div class="io-head"><label for="inB">Changed</label></div>
+        <textarea id="inB" spellcheck="false" placeholder="Paste the changed text or JSON…"></textarea>
+      </div>
+    </div>
+    <div class="swap-wrap">
+      <button class="btn swap-btn" id="swapBtn" type="button"><svg viewBox="0 0 24 24"><path d="M7 4 3 8l4 4"/><path d="M3 8h13a4 4 0 0 1 4 4"/><path d="M17 20l4-4-4-4"/><path d="M21 16H8a4 4 0 0 1-4-4"/></svg> Swap sides</button>
+    </div>
+
+    <div class="err" id="err" role="alert"></div>
+
+    <div class="result-head">
+      <h2>Differences</h2>
+      <div class="stats" id="stats"></div>
+      <div class="result-actions">
+        <button class="btn" id="copyPatch" type="button">Copy patch</button>
+        <button class="btn" id="dlPatch" type="button">Download .diff</button>
+        <button class="btn" id="shareBtn" type="button">Share</button>
+      </div>
+    </div>
+
+    <div class="diff" id="diff"><div class="diff-empty">Enter text on both sides to see the differences.</div></div>
+
+    <div class="ws-row" id="ws"></div>
+
+    <p class="toolnote">Tip: use the <a href="json-toolkit.html">JSON / YAML Toolkit</a> to format or validate before diffing, and the <a href="encoder-decoder.html">Encoder / Decoder</a> for Base64/URL data. Everything here runs locally — nothing is uploaded.</p>
+  </main>
+
+<script src="shared/toolkit.js"></script>
+<script>
+(function(){
+'use strict';
+var R = window.RMVTool || null;
+
+/* ---- state ---- */
+var st = { mode:'text', view:'sbs', ws:false, cs:false, sort:false };
+
+/* ---- dom ---- */
+var inA=document.getElementById('inA'), inB=document.getElementById('inB'),
+    err=document.getElementById('err'), diffEl=document.getElementById('diff'), statsEl=document.getElementById('stats'),
+    optWS=document.getElementById('optWS'), optCase=document.getElementById('optCase'),
+    optSort=document.getElementById('optSort'), optSortWrap=document.getElementById('optSortWrap');
+
+/* ---- badges ---- */
+if(R) R.badges('#badges', {updated:'2026-06-02'});
+
+/* ---- helpers ---- */
+function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+function sortKeys(v){
+  if(Array.isArray(v)) return v.map(sortKeys);
+  if(v && typeof v==='object'){
+    var o={}; Object.keys(v).sort().forEach(function(k){ o[k]=sortKeys(v[k]); }); return o;
+  }
+  return v;
+}
+function normKey(line){
+  var s=line;
+  if(st.cs) s=s.toLowerCase();
+  if(st.ws) s=s.replace(/\s+/g,' ').trim();
+  return s;
+}
+
+/* ---- LCS line diff ---- */
+function diffLines(a, b){
+  var n=a.length, m=b.length;
+  // size guard to avoid pathological memory use
+  if(n*m > 6000000){ return null; }
+  var ka=a.map(normKey), kb=b.map(normKey);
+  var dp=[]; for(var i=0;i<=n;i++){ dp.push(new Int32Array(m+1)); }
+  for(i=n-1;i>=0;i--){
+    var row=dp[i], row1=dp[i+1], kai=ka[i];
+    for(var j=m-1;j>=0;j--){
+      row[j] = (kai===kb[j]) ? row1[j+1]+1 : Math.max(row1[j], row[j+1]);
+    }
+  }
+  var out=[]; i=0; j=0;
+  while(i<n && j<m){
+    if(ka[i]===kb[j]){ out.push({t:'eq',text:a[i],b:b[j]}); i++; j++; }
+    else if(dp[i+1][j] >= dp[i][j+1]){ out.push({t:'del',text:a[i]}); i++; }
+    else { out.push({t:'add',text:b[j]}); j++; }
+  }
+  while(i<n){ out.push({t:'del',text:a[i]}); i++; }
+  while(j<m){ out.push({t:'add',text:b[j]}); j++; }
+  return out;
+}
+
+/* ---- prepare inputs (JSON pretty/sort or raw text) ---- */
+function prep(){
+  err.classList.remove('show'); err.innerHTML='';
+  var a=inA.value, b=inB.value;
+  if(st.mode==='json'){
+    var pa, pb, bad=null;
+    try{ pa=JSON.parse(a); }catch(e){ bad='Original'; }
+    try{ pb=JSON.parse(b); }catch(e){ bad=bad?'both sides':'Changed'; }
+    if(bad){
+      err.innerHTML='Invalid JSON in '+esc(bad)+'. <button id="asTextBtn" type="button">Diff as raw text instead</button>';
+      err.classList.add('show');
+      var btn=document.getElementById('asTextBtn');
+      if(btn) btn.addEventListener('click', function(){ setMode('text'); });
+      return null;
+    }
+    if(st.sort){ pa=sortKeys(pa); pb=sortKeys(pb); }
+    a=JSON.stringify(pa,null,2); b=JSON.stringify(pb,null,2);
+  }
+  return {a:a, b:b};
+}
+
+/* ---- render ---- */
+var lastOps=null;
+function render(){
+  var p=prep();
+  if(!p){ diffEl.innerHTML='<div class="diff-empty">Fix the JSON above to compare.</div>'; statsEl.innerHTML=''; lastOps=null; return; }
+  if(p.a==='' && p.b===''){ diffEl.innerHTML='<div class="diff-empty">Enter text on both sides to see the differences.</div>'; statsEl.innerHTML=''; lastOps=null; return; }
+
+  var ops=diffLines(p.a.split('\n'), p.b.split('\n'));
+  if(ops===null){
+    diffEl.innerHTML='<div class="diff-empty">Inputs are too large to diff in the browser. Try comparing smaller sections.</div>';
+    statsEl.innerHTML=''; lastOps=null; return;
+  }
+  lastOps=ops;
+
+  var adds=0, dels=0, eqs=0;
+  ops.forEach(function(o){ if(o.t==='add')adds++; else if(o.t==='del')dels++; else eqs++; });
+  statsEl.innerHTML='<span class="stat add">+'+adds+' added</span><span class="stat del">−'+dels+' removed</span><span class="stat eq">'+eqs+' unchanged</span>';
+
+  diffEl.innerHTML = st.view==='sbs' ? renderSBS(ops) : renderInline(ops);
+}
+
+function renderSBS(ops){
+  var L=[], Rt=[], la=0, lb=0;
+  ops.forEach(function(o){
+    if(o.t==='eq'){ la++; lb++;
+      L.push(rowSBS('', la, o.text)); Rt.push(rowSBS('', lb, o.b));
+    } else if(o.t==='del'){ la++;
+      L.push(rowSBS('del', la, o.text)); Rt.push(rowSBS('empty','',''));
+    } else { lb++;
+      L.push(rowSBS('empty','','')); Rt.push(rowSBS('add', lb, o.text));
+    }
+  });
+  return '<div class="sbs"><div class="col left">'+L.join('')+'</div><div class="col right">'+Rt.join('')+'</div></div>';
+}
+function rowSBS(cls, num, text){
+  return '<div class="drow '+cls+'"><div class="gut">'+(num||'')+'</div><div class="ln">'+esc(text)+'</div></div>';
+}
+function renderInline(ops){
+  var rows=[], la=0, lb=0;
+  ops.forEach(function(o){
+    if(o.t==='eq'){ la++; lb++; rows.push(rowInline('', la, lb, ' ', o.text)); }
+    else if(o.t==='del'){ la++; rows.push(rowInline('del', la, '', '-', o.text)); }
+    else { lb++; rows.push(rowInline('add', '', lb, '+', o.text)); }
+  });
+  return '<div class="inline">'+rows.join('')+'</div>';
+}
+function rowInline(cls, a, b, sign, text){
+  return '<div class="irow '+cls+'"><div class="gut">'+(a||'')+'</div><div class="gut">'+(b||'')+'</div><div class="sign">'+sign+'</div><div class="ln">'+esc(text)+'</div></div>';
+}
+
+/* ---- unified diff patch ---- */
+function buildPatch(){
+  if(!lastOps || !lastOps.length) return '';
+  var ctx=3;
+  // annotate line numbers
+  var items=[], la=0, lb=0;
+  lastOps.forEach(function(o){
+    if(o.t==='eq'){ items.push({t:'eq',text:o.text,a:++la,b:++lb}); }
+    else if(o.t==='del'){ items.push({t:'del',text:o.text,a:++la}); }
+    else { items.push({t:'add',text:o.text,b:++lb}); }
+  });
+  var changeIdx=[];
+  items.forEach(function(it,idx){ if(it.t!=='eq') changeIdx.push(idx); });
+  if(!changeIdx.length) return '--- original\n+++ changed\n(no differences)\n';
+  // merge into hunks whose context windows touch
+  var groups=[], gs=changeIdx[0], ge=changeIdx[0];
+  for(var k=1;k<changeIdx.length;k++){
+    if(changeIdx[k]-ge <= ctx*2+1) ge=changeIdx[k];
+    else { groups.push([gs,ge]); gs=changeIdx[k]; ge=changeIdx[k]; }
+  }
+  groups.push([gs,ge]);
+
+  var lines=['--- original','+++ changed'];
+  groups.forEach(function(g){
+    var s=Math.max(0,g[0]-ctx), e=Math.min(items.length-1,g[1]+ctx);
+    var aStart=null,aCount=0,bStart=null,bCount=0;
+    for(var k=s;k<=e;k++){ var it=items[k];
+      if(it.a!=null){ if(aStart===null)aStart=it.a; aCount++; }
+      if(it.b!=null){ if(bStart===null)bStart=it.b; bCount++; }
+    }
+    if(aStart===null)aStart=0; if(bStart===null)bStart=0;
+    lines.push('@@ -'+aStart+','+aCount+' +'+bStart+','+bCount+' @@');
+    for(k=s;k<=e;k++){ var x=items[k];
+      lines.push((x.t==='eq'?' ':x.t==='del'?'-':'+')+x.text);
+    }
+  });
+  return lines.join('\n')+'\n';
+}
+
+/* ---- mode/view ---- */
+function setMode(m){
+  st.mode=m;
+  document.getElementById('mode-text').classList.toggle('active', m==='text');
+  document.getElementById('mode-text').setAttribute('aria-selected', m==='text');
+  document.getElementById('mode-json').classList.toggle('active', m==='json');
+  document.getElementById('mode-json').setAttribute('aria-selected', m==='json');
+  optSortWrap.style.display = m==='json' ? 'flex' : 'none';
+  render();
+}
+function setView(v){
+  st.view=v;
+  document.getElementById('view-sbs').classList.toggle('active', v==='sbs');
+  document.getElementById('view-inline').classList.toggle('active', v==='inline');
+  render();
+}
+
+/* ---- listeners ---- */
+document.getElementById('mode-text').addEventListener('click', function(){ setMode('text'); });
+document.getElementById('mode-json').addEventListener('click', function(){ setMode('json'); });
+document.getElementById('view-sbs').addEventListener('click', function(){ setView('sbs'); });
+document.getElementById('view-inline').addEventListener('click', function(){ setView('inline'); });
+optWS.addEventListener('change', function(){ st.ws=optWS.checked; render(); });
+optCase.addEventListener('change', function(){ st.cs=optCase.checked; render(); });
+optSort.addEventListener('change', function(){ st.sort=optSort.checked; render(); });
+
+var t=null;
+function debounced(){ clearTimeout(t); t=setTimeout(render, 160); }
+inA.addEventListener('input', debounced);
+inB.addEventListener('input', debounced);
+
+document.getElementById('swapBtn').addEventListener('click', function(){
+  var tmp=inA.value; inA.value=inB.value; inB.value=tmp; render();
+});
+
+document.getElementById('copyPatch').addEventListener('click', function(){
+  var p=buildPatch(); if(!p){ if(R)R.toast('Nothing to copy'); return; }
+  if(R) R.copy(p); else navigator.clipboard && navigator.clipboard.writeText(p);
+});
+document.getElementById('dlPatch').addEventListener('click', function(){
+  var p=buildPatch(); if(!p){ if(R)R.toast('Nothing to download'); return; }
+  if(R) R.download('changes.diff', p, 'text/x-diff'); else {
+    var a=document.createElement('a'); a.href='data:text/plain,'+encodeURIComponent(p); a.download='changes.diff'; a.click();
+  }
+});
+
+/* ---- state get/apply ---- */
+function getState(){ return {mode:st.mode,view:st.view,ws:st.ws,cs:st.cs,sort:st.sort,a:inA.value,b:inB.value}; }
+function applyState(s){
+  if(!s) return;
+  inA.value=s.a||''; inB.value=s.b||'';
+  optWS.checked=st.ws=!!s.ws; optCase.checked=st.cs=!!s.cs; optSort.checked=st.sort=!!s.sort;
+  setView(s.view==='inline'?'inline':'sbs');
+  setMode(s.mode==='json'?'json':'text');
+}
+
+document.getElementById('shareBtn').addEventListener('click', function(){
+  if(R) R.share(getState()); else if(R) R.toast('Sharing unavailable');
+});
+
+/* ---- workspaces ---- */
+if(R) R.mountWorkspaces('#ws', {ns:'diff', getState:getState, applyState:applyState});
+
+/* ---- restore shared / init ---- */
+var shared = R ? R.readShared() : null;
+if(shared){ applyState(shared); }
+else { render(); }
+
+}());
+</script>
+</body>
+</html>

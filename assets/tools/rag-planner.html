@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RAG Chunk Planner — Ruslan Magana Vsevolodovna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/toolkit.css" />
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1080px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+  .tool-wrap{max-width:1080px;margin:0 auto;padding:38px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:640px}
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:7px}
+  input,select,textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;outline:none;transition:border .15s,box-shadow .15s}
+  textarea{font-family:var(--mono);font-size:13.5px;min-height:120px;resize:vertical}
+  input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer;border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s;min-height:44px}
+  .btn:hover{border-color:var(--line-3);background:var(--bg)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-600)}
+  .btn.active{background:var(--green-tint);border-color:var(--green);color:var(--green-700)}
+  .mono{font-family:var(--mono)}
+
+  /* Layout */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+  .stack{display:flex;flex-direction:column;gap:18px}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+  .row .field{flex:1;min-width:140px}
+
+  /* Mode toggle */
+  .mode-switch{display:flex;gap:0;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;background:var(--surface-2)}
+  .mode-switch .tab{flex:1;font-family:var(--sans);font-size:13.5px;font-weight:600;padding:10px 14px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;min-height:44px}
+  .mode-switch .tab.active{background:var(--green);color:#fff}
+  .mode-switch .tab:hover:not(.active){background:var(--bg);color:var(--text)}
+
+  /* Preset buttons */
+  .presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .preset-btn{font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:8px;cursor:pointer;border:1px solid var(--line-2);background:var(--surface);color:var(--muted);transition:all .15s;min-height:36px}
+  .preset-btn:hover{border-color:var(--green);color:var(--green-700)}
+  .preset-btn.active{border-color:var(--green);background:var(--green-tint);color:var(--green-700)}
+
+  /* Stat cards */
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+  .stat-card{background:var(--green-tint);border:1px solid #c6e6d4;border-radius:12px;padding:16px 18px}
+  .stat-card .stat-val{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-0.5px;font-family:var(--mono)}
+  .stat-card .stat-label{font-size:12px;font-weight:600;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+  .stat-card .stat-sub{font-size:11.5px;color:var(--faint);margin-top:3px}
+
+  /* Warnings */
+  .warnings{display:flex;flex-direction:column;gap:8px}
+  .notice{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-radius:10px;font-size:13.5px;font-weight:500}
+  .notice-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+  .notice.error{background:#fff0ef;border:1px solid #f5c6c1;color:#8b1a12}
+  .notice.warn{background:#fff8ec;border:1px solid #f5dea8;color:#7a4f0a}
+  .notice.info{background:var(--green-tint);border:1px solid #c6e6d4;color:var(--green-700)}
+
+  /* Coverage bar */
+  .coverage-wrap{position:relative;overflow:hidden}
+  .coverage-bar{width:100%;height:40px;border-radius:8px;overflow:hidden;background:var(--bg);border:1px solid var(--line-2);position:relative;cursor:default}
+  .coverage-bar canvas{display:block;width:100%;height:100%}
+  .coverage-legend{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-weight:500}
+  .legend-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+
+  /* Chunk preview */
+  .chunk-preview{display:flex;flex-direction:column;gap:14px}
+  .chunk-block{border:1px solid var(--line-2);border-radius:10px;overflow:hidden}
+  .chunk-header{background:var(--bg);padding:10px 14px;font-size:12.5px;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line-2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+  .chunk-header .tag{font-size:11px;padding:3px 8px}
+  .chunk-body{padding:12px 14px;font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--text);white-space:pre-wrap;word-break:break-word;max-height:160px;overflow-y:auto;background:var(--surface-2)}
+  .chunk-body .hl-overlap{background:#d1fae5;border-radius:2px;color:#065f46}
+  .chunk-body .hl-unique{background:transparent}
+
+  /* Formulas */
+  .formula-box{background:var(--bg);border:1px solid var(--line-2);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:12.5px;color:var(--muted);line-height:1.8}
+  .formula-box strong{color:var(--text)}
+
+  section.section{margin-top:32px}
+  .section-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .section-title::after{content:'';flex:1;height:1px;background:var(--line)}
+
+  .split-toggle{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .split-toggle label{margin:0;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:6px;min-height:44px}
+  .split-toggle input[type=radio]{width:16px;height:16px;accent-color:var(--green);flex-shrink:0}
+
+  /* Strategy selector */
+  .strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+  .strategy-btn{font-family:var(--sans);font-size:12.5px;font-weight:600;padding:9px 12px;border-radius:10px;cursor:pointer;border:1px solid var(--line-2);background:var(--surface);color:var(--muted);transition:all .15s;min-height:44px;text-align:left;line-height:1.3}
+  .strategy-btn .strat-name{display:block;color:var(--text);font-size:13px}
+  .strategy-btn .strat-desc{display:block;font-size:11px;font-weight:500;margin-top:2px;color:var(--faint)}
+  .strategy-btn.active{border-color:var(--green);background:var(--green-tint);color:var(--green-700)}
+  .strategy-btn.active .strat-name{color:var(--green-700)}
+  .strategy-btn.active .strat-desc{color:var(--green-600);opacity:.8}
+  .strategy-btn:hover:not(.active){border-color:var(--line-3);background:var(--bg)}
+
+  .strategy-hint{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--green-700);background:var(--green-tint);border:1px solid #c6e6d4;line-height:1.5}
+
+  /* Embedding model presets */
+  .model-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:10px}
+  .model-btn{font-family:var(--sans);font-size:12px;font-weight:600;padding:8px 11px;border-radius:8px;cursor:pointer;border:1px solid var(--line-2);background:var(--surface);color:var(--muted);transition:all .15s;min-height:40px;text-align:left;line-height:1.3}
+  .model-btn .mdl-name{display:block;color:var(--text);font-size:12.5px}
+  .model-btn .mdl-meta{display:block;font-size:10.5px;font-weight:500;margin-top:2px;color:var(--faint)}
+  .model-btn.active{border-color:var(--green);background:var(--green-tint)}
+  .model-btn.active .mdl-name{color:var(--green-700)}
+  .model-btn:hover:not(.active){border-color:var(--line-3);background:var(--bg)}
+
+  /* Report mode */
+  .report-panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .report-section{margin-bottom:20px}
+  .report-section h3{font-size:13px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .report-stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .report-stat-row:last-child{border-bottom:none}
+  .report-stat-key{color:var(--muted);font-weight:600}
+  .report-stat-val{color:var(--ink);font-weight:700;font-family:var(--mono);font-size:13px}
+  .risk-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .risk-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;font-weight:500;padding:8px 12px;border-radius:8px}
+  .risk-item.risk-error{background:#fff0ef;border:1px solid #f5c6c1;color:#8b1a12}
+  .risk-item.risk-warn{background:#fff8ec;border:1px solid #f5dea8;color:#7a4f0a}
+  .risk-item.risk-ok{background:var(--green-tint);border:1px solid #c6e6d4;color:var(--green-700)}
+  .splitter-box{background:var(--bg);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;font-family:var(--mono);font-size:12.5px;color:var(--muted);line-height:1.7}
+  .splitter-box strong{color:var(--text)}
+
+  /* Action bar */
+  .actions-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;align-items:center}
+  .actions-bar .rmv-btn,.actions-bar .btn{min-height:40px;font-size:13px;padding:9px 15px}
+
+  /* View mode toggle at top */
+  .view-toggle-wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:20px;margin-bottom:4px}
+
+  /* Workspace area */
+  #ws-area{margin-top:16px}
+
+  @media(max-width:600px){
+    .grid-2,.grid-3{grid-template-columns:1fr}
+    .bar .name{display:none}
+    .tool-wrap{padding:24px 16px 60px}
+    .stat-card .stat-val{font-size:22px}
+    .strategy-grid{grid-template-columns:1fr 1fr}
+    .model-grid{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<header class="bar"><div class="in">
+  <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+  <span class="name">Ruslan Magana Vsevolodovna</span>
+</div></header>
+
+<main class="tool-wrap">
+  <div class="eyebrow">AI / LLM</div>
+  <h1>RAG Chunk Planner</h1>
+  <p class="sub">Plan chunk sizes and overlap for better RAG.</p>
+  <div id="badges-area"></div>
+
+  <!-- View mode toggle: Quick / Report -->
+  <div class="view-toggle-wrap">
+    <div class="rmv-modes" role="group" aria-label="View mode">
+      <button type="button" class="active" id="view-quick" onclick="setViewMode('quick')">Quick Planner</button>
+      <button type="button" id="view-report" onclick="setViewMode('report')">RAG Report</button>
+    </div>
+    <div class="actions-bar" id="top-actions">
+      <button type="button" class="btn" onclick="doShare()" title="Copy shareable link">Share</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════ QUICK MODE ════════════════════════════ -->
+  <div id="quick-view">
+
+  <!-- Input Section -->
+  <section class="section" style="margin-top:20px">
+    <div class="stack">
+
+      <!-- Panel: Document Input -->
+      <div class="panel">
+        <div class="section-title">Document Input</div>
+
+        <!-- Mode switch -->
+        <div style="margin-bottom:18px">
+          <label>Input mode</label>
+          <div class="mode-switch" role="group" aria-label="Input mode">
+            <button class="tab active" id="tab-size" type="button" onclick="setMode('size')">Document Size</button>
+            <button class="tab" id="tab-paste" type="button" onclick="setMode('paste')">Paste Text</button>
+          </div>
+        </div>
+
+        <!-- Size mode -->
+        <div id="mode-size">
+          <div class="grid-2" style="margin-bottom:16px">
+            <div>
+              <label for="doc-amount">Document size</label>
+              <input type="number" id="doc-amount" value="10000" min="1" aria-label="Document size value" />
+            </div>
+            <div>
+              <label for="doc-unit">Unit</label>
+              <select id="doc-unit" aria-label="Document size unit">
+                <option value="tokens">Tokens</option>
+                <option value="words">Words</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paste mode -->
+        <div id="mode-paste" style="display:none">
+          <div style="margin-bottom:12px">
+            <label for="raw-text">Paste document text</label>
+            <textarea id="raw-text" placeholder="Paste your document here to preview real chunk splits…" aria-label="Document text to chunk"></textarea>
+          </div>
+          <div class="split-toggle" style="margin-bottom:6px">
+            <span style="font-size:13px;font-weight:600;color:var(--muted)">Split by:</span>
+            <label><input type="radio" name="split-type" value="word" checked /> Word-based</label>
+            <label><input type="radio" name="split-type" value="char" /> Character-based</label>
+          </div>
+          <div id="paste-stats" style="font-size:12.5px;color:var(--faint);margin-top:6px"></div>
+        </div>
+      </div>
+
+      <!-- Panel: Chunking Strategy -->
+      <div class="panel">
+        <div class="section-title">Chunking Strategy</div>
+        <div class="strategy-grid" id="strategy-grid" role="group" aria-label="Chunking strategy">
+          <button type="button" class="strategy-btn active" data-strategy="fixed" onclick="setStrategy('fixed')">
+            <span class="strat-name">Fixed Size</span>
+            <span class="strat-desc">Exact token/char windows with sliding overlap</span>
+          </button>
+          <button type="button" class="strategy-btn" data-strategy="sentence" onclick="setStrategy('sentence')">
+            <span class="strat-name">Sentence-aware</span>
+            <span class="strat-desc">Pack whole sentences up to chunk size</span>
+          </button>
+          <button type="button" class="strategy-btn" data-strategy="paragraph" onclick="setStrategy('paragraph')">
+            <span class="strat-name">Paragraph-aware</span>
+            <span class="strat-desc">Split on blank lines, then pack paragraphs</span>
+          </button>
+          <button type="button" class="strategy-btn" data-strategy="markdown" onclick="setStrategy('markdown')">
+            <span class="strat-name">Markdown Headings</span>
+            <span class="strat-desc">New chunk at # heading lines</span>
+          </button>
+        </div>
+        <div class="strategy-hint" id="strategy-hint">Fixed: slides a window of exact token size with overlap — best for embedding models with hard limits.</div>
+      </div>
+
+      <!-- Panel: Chunking Parameters -->
+      <div class="panel">
+        <div class="section-title">Chunking Parameters</div>
+
+        <div class="grid-3" style="margin-bottom:18px">
+          <div>
+            <label for="chunk-size">Chunk size (tokens)</label>
+            <input type="number" id="chunk-size" value="1000" min="1" aria-label="Chunk size in tokens" />
+          </div>
+          <div>
+            <label for="chunk-overlap">Overlap (tokens)</label>
+            <input type="number" id="chunk-overlap" value="200" min="0" aria-label="Overlap in tokens" />
+          </div>
+          <div>
+            <label for="tpw">Tokens per word</label>
+            <input type="number" id="tpw" value="1.3" min="0.1" max="10" step="0.1" aria-label="Tokens per word ratio" />
+          </div>
+        </div>
+
+        <div>
+          <label>Chunk size presets</label>
+          <div class="presets" role="group" aria-label="Chunk size presets">
+            <button class="preset-btn" type="button" onclick="applyChunkPreset(256,'ada-002 classic')">256 — Small</button>
+            <button class="preset-btn" type="button" onclick="applyChunkPreset(512,'Recommended min')">512</button>
+            <button class="preset-btn" type="button" onclick="applyChunkPreset(1024,'Balanced')">1 024</button>
+            <button class="preset-btn" type="button" onclick="applyChunkPreset(2048,'Large')">2 048</button>
+            <button class="preset-btn" type="button" onclick="applyChunkPreset(4096,'GPT-4 half')">4 096</button>
+            <button class="preset-btn" type="button" onclick="applyChunkPreset(8192,'text-embedding-3')">8 192</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel: Model & Cost -->
+      <div class="panel">
+        <div class="section-title">Embedding Model &amp; Cost</div>
+
+        <!-- Embedding model presets -->
+        <div style="margin-bottom:18px">
+          <label>Embedding model presets</label>
+          <div class="model-grid" id="model-grid" role="group" aria-label="Embedding model presets">
+            <button type="button" class="model-btn" data-model="te3-small" onclick="applyModelPreset('te3-small')">
+              <span class="mdl-name">text-embedding-3-small</span>
+              <span class="mdl-meta">8 191 ctx · $0.02/1M</span>
+            </button>
+            <button type="button" class="model-btn active" data-model="te3-large" onclick="applyModelPreset('te3-large')">
+              <span class="mdl-name">text-embedding-3-large</span>
+              <span class="mdl-meta">8 191 ctx · $0.13/1M</span>
+            </button>
+            <button type="button" class="model-btn" data-model="cohere-v3" onclick="applyModelPreset('cohere-v3')">
+              <span class="mdl-name">Cohere Embed v3</span>
+              <span class="mdl-meta">512 ctx · $0.10/1M</span>
+            </button>
+            <button type="button" class="model-btn" data-model="voyage-3" onclick="applyModelPreset('voyage-3')">
+              <span class="mdl-name">Voyage-3</span>
+              <span class="mdl-meta">32 000 ctx · $0.06/1M</span>
+            </button>
+            <button type="button" class="model-btn" data-model="bge-large" onclick="applyModelPreset('bge-large')">
+              <span class="mdl-name">BGE-large</span>
+              <span class="mdl-meta">512 ctx · $0 self-host</span>
+            </button>
+            <button type="button" class="model-btn" data-model="e5-large" onclick="applyModelPreset('e5-large')">
+              <span class="mdl-name">E5-large</span>
+              <span class="mdl-meta">512 ctx · $0 self-host</span>
+            </button>
+            <button type="button" class="model-btn" data-model="jina-v3" onclick="applyModelPreset('jina-v3')">
+              <span class="mdl-name">Jina v3</span>
+              <span class="mdl-meta">8 192 ctx · $0.02/1M</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:18px">
+          <div>
+            <label for="ctx-limit">Model context limit (tokens)</label>
+            <input type="number" id="ctx-limit" value="8192" min="1" aria-label="Embedding model context limit in tokens" />
+          </div>
+          <div>
+            <label for="embed-cost">Embedding cost ($/1M tokens)</label>
+            <input type="number" id="embed-cost" value="0.13" min="0" step="0.001" aria-label="Embedding cost per million tokens in USD" />
+          </div>
+          <div>
+            <!-- spacer -->
+          </div>
+        </div>
+        <div>
+          <label>Model context presets</label>
+          <div class="presets" role="group" aria-label="Model context limit presets">
+            <button class="preset-btn" type="button" onclick="applyCtxPreset(512,'BERT base')">512 — BERT</button>
+            <button class="preset-btn" type="button" onclick="applyCtxPreset(1024,'MPNet / MiniLM')">1 024 — MPNet</button>
+            <button class="preset-btn" type="button" onclick="applyCtxPreset(2048,'Instructor-XL')">2 048 — Instructor-XL</button>
+            <button class="preset-btn" type="button" onclick="applyCtxPreset(8192,'text-embedding-3-small')">8 192 — ada/te3</button>
+            <button class="preset-btn" type="button" onclick="applyCtxPreset(32768,'e5-mistral')">32 768 — e5-mistral</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Warnings -->
+  <div id="warnings-area" class="warnings" style="margin-top:20px"></div>
+
+  <!-- Results Section -->
+  <section class="section" id="results-section">
+    <div class="section-title">Results</div>
+
+    <div class="stat-grid" id="stat-grid">
+      <div class="stat-card">
+        <div class="stat-val" id="stat-chunks">—</div>
+        <div class="stat-label">Chunks</div>
+        <div class="stat-sub" id="stat-chunks-sub"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-tokens-chunk">—</div>
+        <div class="stat-label">Tokens / chunk</div>
+        <div class="stat-sub" id="stat-tokens-sub"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-overlap">—</div>
+        <div class="stat-label">Overlap tokens</div>
+        <div class="stat-sub" id="stat-overlap-sub"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-total-embed">—</div>
+        <div class="stat-label">Total tokens to embed</div>
+        <div class="stat-sub" id="stat-embed-sub"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="stat-cost">—</div>
+        <div class="stat-label">Est. embedding cost</div>
+        <div class="stat-sub" id="stat-cost-sub"></div>
+      </div>
+    </div>
+
+    <!-- Formula box -->
+    <div class="formula-box" style="margin-top:18px" id="formula-box">
+      <strong>stride</strong> = chunkSize − overlap &nbsp;|&nbsp;
+      <strong>chunks</strong> = ⌈(totalTokens − overlap) / stride⌉ &nbsp;|&nbsp;
+      <strong>totalToEmbed</strong> = chunks × chunkSize
+    </div>
+  </section>
+
+  <!-- Coverage Bar Section -->
+  <section class="section" id="coverage-section">
+    <div class="section-title">Coverage Visualisation</div>
+    <div class="panel coverage-wrap">
+      <div id="coverage-empty" style="font-size:13px;color:var(--faint);text-align:center;padding:20px 0">Enter parameters to see coverage.</div>
+      <canvas id="coverage-canvas" width="1000" height="40" style="display:none;border-radius:8px;border:1px solid var(--line-2)" aria-label="Coverage bar showing chunk layout"></canvas>
+      <div class="coverage-legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:#4ade80"></div> Unique content</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#86efac;opacity:.7"></div> Overlap region</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:#d1fae5;border:1px solid #6ee7b7"></div> Chunk boundary</div>
+      </div>
+      <div id="coverage-info" style="font-size:12px;color:var(--faint);margin-top:8px"></div>
+    </div>
+  </section>
+
+  <!-- Chunk Preview Section (paste mode only) -->
+  <section class="section" id="preview-section" style="display:none">
+    <div class="section-title">Chunk Preview</div>
+    <div class="panel">
+      <div id="chunk-preview-area" class="chunk-preview"></div>
+    </div>
+  </section>
+
+  <!-- Config Exports -->
+  <section class="section" id="exports-section">
+    <div class="section-title">Config Exports</div>
+    <div class="panel">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;font-weight:500">Export your RAG configuration for use in your pipeline.</p>
+      <div class="actions-bar">
+        <button type="button" class="btn" onclick="doDownloadJSON()" title="Download rag-config.json">Download JSON</button>
+        <button type="button" class="btn" onclick="doCopyLangChain()" title="Copy Python LangChain snippet">Copy LangChain snippet</button>
+        <button type="button" class="btn" onclick="doCopyLlamaIndex()" title="Copy Python LlamaIndex snippet">Copy LlamaIndex snippet</button>
+        <button type="button" class="btn primary" onclick="doDownloadMarkdown()" title="Download rag-readiness.md">Download MD Report</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workspaces -->
+  <section class="section" id="ws-section">
+    <div class="section-title">Saved Workspaces</div>
+    <div class="panel">
+      <div id="ws-area"></div>
+    </div>
+  </section>
+
+  </div><!-- /#quick-view -->
+
+  <!-- ════════════════════════════════ REPORT MODE ═══════════════════════════ -->
+  <div id="report-view" style="display:none">
+    <section class="section" style="margin-top:20px">
+      <div class="report-panel">
+        <div id="report-content">
+          <p style="font-size:13px;color:var(--faint);text-align:center;padding:20px 0">Configure parameters in Quick Planner mode, then switch to Report.</p>
+        </div>
+        <!-- Export actions for report mode -->
+        <div class="actions-bar" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--line)">
+          <button type="button" class="btn" onclick="doCopyLangChain()">Copy LangChain</button>
+          <button type="button" class="btn" onclick="doCopyLlamaIndex()">Copy LlamaIndex</button>
+          <button type="button" class="btn" onclick="doDownloadJSON()">Download JSON</button>
+          <button type="button" class="btn primary" onclick="doDownloadMarkdown()">Download MD Report</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<script src="shared/toolkit.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ─── State ────────────────────────────────────────────────────────────────
+  var currentMode     = 'size';
+  var currentStrategy = 'fixed';
+  var currentModel    = 'te3-large';
+  var currentView     = 'quick';
+
+  // ─── Embedding model definitions ──────────────────────────────────────────
+  var MODELS = {
+    'te3-small':  { ctx: 8191,  cost: 0.02,  name: 'text-embedding-3-small' },
+    'te3-large':  { ctx: 8191,  cost: 0.13,  name: 'text-embedding-3-large' },
+    'cohere-v3':  { ctx: 512,   cost: 0.10,  name: 'Cohere Embed v3' },
+    'voyage-3':   { ctx: 32000, cost: 0.06,  name: 'Voyage-3' },
+    'bge-large':  { ctx: 512,   cost: 0,     name: 'BGE-large (self-host)' },
+    'e5-large':   { ctx: 512,   cost: 0,     name: 'E5-large (self-host)' },
+    'jina-v3':    { ctx: 8192,  cost: 0.02,  name: 'Jina v3' }
+  };
+
+  // ─── Strategy hints ───────────────────────────────────────────────────────
+  var STRATEGY_HINTS = {
+    fixed:     'Fixed: slides a window of exact token size with overlap — best for embedding models with hard limits.',
+    sentence:  'Sentence-aware: packs whole sentences up to the chunk size, never cutting mid-sentence. Great for Q&A.',
+    paragraph: 'Paragraph-aware: splits on blank lines then packs paragraphs — preserves semantic units.',
+    markdown:  'Markdown Headings: starts a new chunk at every # heading line — ideal for structured docs and wikis.'
+  };
+
+  // ─── DOM refs ─────────────────────────────────────────────────────────────
+  var elDocAmount   = document.getElementById('doc-amount');
+  var elDocUnit     = document.getElementById('doc-unit');
+  var elRawText     = document.getElementById('raw-text');
+  var elChunkSize   = document.getElementById('chunk-size');
+  var elOverlap     = document.getElementById('chunk-overlap');
+  var elTpw         = document.getElementById('tpw');
+  var elCtxLimit    = document.getElementById('ctx-limit');
+  var elEmbedCost   = document.getElementById('embed-cost');
+  var elPasteStats  = document.getElementById('paste-stats');
+  var elWarnings    = document.getElementById('warnings-area');
+  var elPreviewSect = document.getElementById('preview-section');
+  var elPreviewArea = document.getElementById('chunk-preview-area');
+  var elCoverageCanvas = document.getElementById('coverage-canvas');
+  var elCoverageEmpty  = document.getElementById('coverage-empty');
+  var elCoverageInfo   = document.getElementById('coverage-info');
+  var elStrategyHint   = document.getElementById('strategy-hint');
+  var elReportContent  = document.getElementById('report-content');
+
+  // Stat elements
+  var elStatChunks     = document.getElementById('stat-chunks');
+  var elStatChunksSub  = document.getElementById('stat-chunks-sub');
+  var elStatTokensChunk= document.getElementById('stat-tokens-chunk');
+  var elStatTokensSub  = document.getElementById('stat-tokens-sub');
+  var elStatOverlap    = document.getElementById('stat-overlap');
+  var elStatOverlapSub = document.getElementById('stat-overlap-sub');
+  var elStatTotalEmbed = document.getElementById('stat-total-embed');
+  var elStatEmbedSub   = document.getElementById('stat-embed-sub');
+  var elStatCost       = document.getElementById('stat-cost');
+  var elStatCostSub    = document.getElementById('stat-cost-sub');
+
+  // ─── View mode (Quick / Report) ───────────────────────────────────────────
+  window.setViewMode = function(mode) {
+    currentView = mode;
+    document.getElementById('quick-view').style.display  = (mode === 'quick')  ? '' : 'none';
+    document.getElementById('report-view').style.display = (mode === 'report') ? '' : 'none';
+    document.getElementById('view-quick').classList.toggle('active', mode === 'quick');
+    document.getElementById('view-report').classList.toggle('active', mode === 'report');
+    if (mode === 'report') renderReport();
+  };
+
+  // ─── Input mode switching ─────────────────────────────────────────────────
+  window.setMode = function(m) {
+    currentMode = m;
+    document.getElementById('mode-size').style.display  = (m === 'size')  ? '' : 'none';
+    document.getElementById('mode-paste').style.display = (m === 'paste') ? '' : 'none';
+    document.getElementById('tab-size').classList.toggle('active',  m === 'size');
+    document.getElementById('tab-paste').classList.toggle('active', m === 'paste');
+    elPreviewSect.style.display = (m === 'paste') ? '' : 'none';
+    recompute();
+  };
+
+  // ─── Chunking strategy ────────────────────────────────────────────────────
+  window.setStrategy = function(s) {
+    currentStrategy = s;
+    document.querySelectorAll('#strategy-grid .strategy-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.strategy === s);
+    });
+    elStrategyHint.textContent = STRATEGY_HINTS[s] || '';
+    recompute();
+  };
+
+  // ─── Embedding model preset ───────────────────────────────────────────────
+  window.applyModelPreset = function(key) {
+    var m = MODELS[key];
+    if (!m) return;
+    currentModel = key;
+    elCtxLimit.value  = m.ctx;
+    elEmbedCost.value = m.cost;
+    document.querySelectorAll('#model-grid .model-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.model === key);
+    });
+    recompute();
+  };
+
+  // ─── Chunk size / ctx presets ─────────────────────────────────────────────
+  window.applyChunkPreset = function(size) {
+    elChunkSize.value = size;
+    recompute();
+  };
+
+  window.applyCtxPreset = function(limit) {
+    elCtxLimit.value = limit;
+    // Clear active model highlight since manual ctx was set
+    document.querySelectorAll('#model-grid .model-btn').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    currentModel = '';
+    recompute();
+  };
+
+  // ─── Number formatting helpers ────────────────────────────────────────────
+  function fmt(n) {
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+    if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+    if (n >= 1000) return n.toLocaleString('en-US');
+    return String(n);
+  }
+
+  function fmtCost(dollars) {
+    if (dollars === 0) return '$0.00 (self-hosted)';
+    if (dollars < 0.001) return '< $0.001';
+    if (dollars < 1) return '$' + dollars.toFixed(4);
+    return '$' + dollars.toFixed(2);
+  }
+
+  // ─── Core math ────────────────────────────────────────────────────────────
+  function calcChunks(totalTokens, chunkSize, overlap) {
+    if (totalTokens <= 0 || chunkSize <= 0) return { chunks: 0, stride: 0, totalToEmbed: 0 };
+    if (overlap >= chunkSize) {
+      return { chunks: null, stride: 0, totalToEmbed: 0 };
+    }
+    if (totalTokens <= chunkSize) {
+      return { chunks: 1, stride: chunkSize - overlap, totalToEmbed: chunkSize };
+    }
+    var stride = chunkSize - overlap;
+    var chunks = Math.ceil((totalTokens - overlap) / stride);
+    var totalToEmbed = chunks * chunkSize;
+    return { chunks: chunks, stride: stride, totalToEmbed: totalToEmbed };
+  }
+
+  // ─── Get total tokens from inputs ─────────────────────────────────────────
+  function getTotalTokens() {
+    var tpw = parseFloat(elTpw.value) || 1.3;
+    if (currentMode === 'paste') {
+      var text = elRawText.value;
+      if (!text.trim()) return 0;
+      var splitType = getSplitType();
+      if (splitType === 'word') {
+        return Math.round(splitWords(text).length * tpw);
+      } else {
+        return Math.round(text.length * tpw / 5);
+      }
+    } else {
+      var amount = parseFloat(elDocAmount.value) || 0;
+      var unit   = elDocUnit.value;
+      if (unit === 'words') return Math.round(amount * tpw);
+      return Math.round(amount);
+    }
+  }
+
+  function getSplitType() {
+    var radios = document.querySelectorAll('input[name="split-type"]');
+    for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) return radios[i].value;
+    }
+    return 'word';
+  }
+
+  // ─── Word splitting helpers ───────────────────────────────────────────────
+  function splitWords(text) {
+    return text.split(/\s+/).filter(function(w) { return w.length > 0; });
+  }
+
+  // ─── Strategy-aware text chunk builder ────────────────────────────────────
+  function buildTextChunks(text, chunkTokens, overlapTokens, tpw) {
+    var strategy  = currentStrategy;
+    var splitType = getSplitType(); // word or char (only relevant for fixed)
+    var chunks    = [];
+
+    if (strategy === 'fixed') {
+      chunks = buildFixedChunks(text, chunkTokens, overlapTokens, tpw, splitType);
+    } else if (strategy === 'sentence') {
+      chunks = buildSentenceChunks(text, chunkTokens, overlapTokens, tpw);
+    } else if (strategy === 'paragraph') {
+      chunks = buildParagraphChunks(text, chunkTokens, overlapTokens, tpw);
+    } else if (strategy === 'markdown') {
+      chunks = buildMarkdownChunks(text, chunkTokens, overlapTokens, tpw);
+    }
+    return chunks;
+  }
+
+  // Fixed strategy (original logic preserved)
+  function buildFixedChunks(text, chunkTokens, overlapTokens, tpw, splitType) {
+    var chunks = [];
+    if (splitType === 'word') {
+      var words      = splitWords(text);
+      if (words.length === 0) return chunks;
+      var chunkWords  = Math.max(1, Math.round(chunkTokens / tpw));
+      var overlapWords = Math.max(0, Math.round(overlapTokens / tpw));
+      if (overlapWords >= chunkWords) overlapWords = Math.max(0, chunkWords - 1);
+      var stride = chunkWords - overlapWords;
+      if (stride <= 0) stride = 1;
+      var start = 0;
+      while (start < words.length) {
+        var end = Math.min(start + chunkWords, words.length);
+        chunks.push({ startIdx: start, endIdx: end, text: words.slice(start, end).join(' '), unit: 'words', overlapWords: start === 0 ? 0 : overlapWords });
+        if (end >= words.length) break;
+        start += stride;
+      }
+    } else {
+      var charsPerToken = 4;
+      var chunkChars    = Math.max(1, Math.round(chunkTokens * charsPerToken));
+      var overlapChars  = Math.max(0, Math.round(overlapTokens * charsPerToken));
+      if (overlapChars >= chunkChars) overlapChars = Math.max(0, chunkChars - 1);
+      var strideC = chunkChars - overlapChars;
+      if (strideC <= 0) strideC = 1;
+      var pos = 0;
+      while (pos < text.length) {
+        var epos = Math.min(pos + chunkChars, text.length);
+        chunks.push({ startIdx: pos, endIdx: epos, text: text.slice(pos, epos), unit: 'chars', overlapChars: pos === 0 ? 0 : overlapChars });
+        if (epos >= text.length) break;
+        pos += strideC;
+      }
+    }
+    return chunks;
+  }
+
+  // Sentence-aware: split into sentences, then pack up to chunkTokens
+  function buildSentenceChunks(text, chunkTokens, overlapTokens, tpw) {
+    var chunks    = [];
+    // Split on sentence-ending punctuation followed by whitespace
+    var sentences = text.match(/[^.!?]+[.!?]+[\s]*/g) || [text];
+    if (!sentences.length) return chunks;
+    var chunkWords   = Math.max(1, Math.round(chunkTokens / tpw));
+    var overlapWords = Math.max(0, Math.round(overlapTokens / tpw));
+
+    var packed = [];   // array of sentence texts in current chunk
+    var packedWords = 0;
+
+    function flush() {
+      if (!packed.length) return;
+      var joined = packed.join('').trim();
+      chunks.push({ text: joined, unit: 'words', strategy: 'sentence', overlapWords: chunks.length === 0 ? 0 : overlapWords });
+    }
+
+    for (var i = 0; i < sentences.length; i++) {
+      var s      = sentences[i];
+      var sWords = splitWords(s).length;
+      if (packedWords + sWords > chunkWords && packed.length > 0) {
+        flush();
+        // carry overlap sentences back
+        var carryWords = 0;
+        var carryStart = packed.length;
+        for (var back = packed.length - 1; back >= 0; back--) {
+          carryWords += splitWords(packed[back]).length;
+          if (carryWords >= overlapWords) { carryStart = back; break; }
+        }
+        packed    = packed.slice(carryStart);
+        packedWords = packed.reduce(function(acc, p) { return acc + splitWords(p).length; }, 0);
+      }
+      packed.push(s);
+      packedWords += sWords;
+    }
+    flush();
+    return chunks;
+  }
+
+  // Paragraph-aware: split on blank lines then pack
+  function buildParagraphChunks(text, chunkTokens, overlapTokens, tpw) {
+    var chunks  = [];
+    var paras   = text.split(/\n\s*\n/).filter(function(p) { return p.trim().length > 0; });
+    if (!paras.length) return buildFixedChunks(text, chunkTokens, overlapTokens, tpw, 'word');
+    var chunkWords   = Math.max(1, Math.round(chunkTokens / tpw));
+    var overlapWords = Math.max(0, Math.round(overlapTokens / tpw));
+
+    var packed = [];
+    var packedWords = 0;
+
+    function flush() {
+      if (!packed.length) return;
+      chunks.push({ text: packed.join('\n\n').trim(), unit: 'words', strategy: 'paragraph', overlapWords: chunks.length === 0 ? 0 : overlapWords });
+    }
+
+    for (var i = 0; i < paras.length; i++) {
+      var p      = paras[i];
+      var pWords = splitWords(p).length;
+      if (packedWords + pWords > chunkWords && packed.length > 0) {
+        flush();
+        // carry last paragraph as overlap if fits
+        var last = packed[packed.length - 1];
+        var lw   = splitWords(last).length;
+        packed      = lw <= overlapWords ? [last] : [];
+        packedWords = lw <= overlapWords ? lw : 0;
+      }
+      packed.push(p);
+      packedWords += pWords;
+    }
+    flush();
+    return chunks;
+  }
+
+  // Markdown heading-aware: new chunk at each # heading
+  function buildMarkdownChunks(text, chunkTokens, overlapTokens, tpw) {
+    var chunks = [];
+    var lines  = text.split('\n');
+    var buf    = [];
+
+    function flush() {
+      if (!buf.length) return;
+      var t = buf.join('\n').trim();
+      if (t) chunks.push({ text: t, unit: 'words', strategy: 'markdown', overlapWords: 0 });
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (/^#{1,6}\s/.test(line) && buf.length > 0) {
+        flush();
+        buf = [];
+      }
+      buf.push(line);
+    }
+    flush();
+    return chunks;
+  }
+
+  // ─── Warnings ─────────────────────────────────────────────────────────────
+  function buildWarnings(chunkSize, overlap, ctxLimit, totalTokens, totalToEmbed, costPerM) {
+    var notices = [];
+
+    // Chunk > context limit
+    if (chunkSize > ctxLimit) {
+      notices.push({ type: 'error', msg: 'Chunk size (' + chunkSize + ' tokens) exceeds the model context limit (' + ctxLimit + ' tokens). Embeddings will be truncated or fail.' });
+    }
+
+    // Overlap >= chunk size
+    if (overlap >= chunkSize) {
+      notices.push({ type: 'error', msg: 'Overlap (' + overlap + ' tokens) must be less than chunk size (' + chunkSize + ' tokens). Stride would be ≤ 0 — chunking is impossible.' });
+    } else if (overlap > chunkSize * 0.5) {
+      notices.push({ type: 'warn', msg: 'High overlap: ' + overlap + ' tokens = ' + Math.round(overlap / chunkSize * 100) + '% of chunk size. This is wasteful — consider reducing overlap below 50%.' });
+    }
+
+    // Very small chunk
+    if (chunkSize > 0 && chunkSize < 100) {
+      notices.push({ type: 'warn', msg: 'Very small chunk size (' + chunkSize + ' tokens). Chunks under 100 tokens may lack context for meaningful embeddings.' });
+    }
+
+    // Close to context limit
+    if (chunkSize > 0 && ctxLimit > 0 && chunkSize <= ctxLimit && chunkSize >= ctxLimit * 0.9) {
+      notices.push({ type: 'info', msg: 'Chunk size is very close to the model context limit. Leave at least 10% headroom for safety.' });
+    }
+
+    // Duplicate-embedding cost from overlap
+    if (totalTokens > 0 && totalToEmbed > 0 && overlap > 0 && costPerM > 0) {
+      var baseTokens = totalTokens;
+      var extraTokens = totalToEmbed - baseTokens;
+      if (extraTokens > 0) {
+        var dupCost = (extraTokens / 1e6) * costPerM;
+        if (dupCost >= 0.0001) {
+          notices.push({ type: 'info', msg: 'Estimated duplicate-embedding cost from overlap: ' + fmtCost(dupCost) + ' (' + fmt(extraTokens) + ' redundant tokens at $' + costPerM + '/1M).' });
+        }
+      }
+    }
+
+    return notices;
+  }
+
+  function renderWarnings(notices) {
+    if (!notices.length) { elWarnings.innerHTML = ''; return; }
+    var icons = { error: '⛔', warn: '⚠️', info: 'ℹ️' };
+    elWarnings.innerHTML = notices.map(function(n) {
+      return '<div class="notice ' + n.type + '" role="alert"><span class="notice-icon">' + icons[n.type] + '</span><span>' + n.msg + '</span></div>';
+    }).join('');
+  }
+
+  // ─── Coverage canvas ──────────────────────────────────────────────────────
+  function drawCoverage(totalTokens, chunkSize, overlap, numChunks, stride) {
+    if (numChunks === null || numChunks <= 0 || totalTokens <= 0) {
+      elCoverageCanvas.style.display = 'none';
+      elCoverageEmpty.style.display  = '';
+      elCoverageInfo.textContent     = '';
+      return;
+    }
+
+    elCoverageEmpty.style.display  = 'none';
+    elCoverageCanvas.style.display = 'block';
+
+    var canvas = elCoverageCanvas;
+    var W      = canvas.offsetWidth || 900;
+    var H      = 40;
+    canvas.width  = W * (window.devicePixelRatio || 1);
+    canvas.height = H * (window.devicePixelRatio || 1);
+    var ctx = canvas.getContext('2d');
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#f4f5f1';
+    ctx.fillRect(0, 0, W, H);
+
+    var maxChunksToShow = Math.min(numChunks, 30);
+    var displayTokens   = Math.min(totalTokens, (maxChunksToShow - 1) * stride + chunkSize);
+    var scale           = W / displayTokens;
+
+    // Unique regions
+    for (var i = 0; i < maxChunksToShow; i++) {
+      var chunkStart  = i * stride;
+      var chunkEnd    = Math.min(chunkStart + chunkSize, totalTokens);
+      var uniqueStart = (i === 0) ? chunkStart : chunkStart + overlap;
+      var uniqueEnd   = chunkEnd;
+      if (uniqueStart < displayTokens) {
+        var x1 = uniqueStart * scale;
+        var x2 = Math.min(uniqueEnd * scale, W);
+        var alpha = 0.55 + (i % 2) * 0.15;
+        ctx.fillStyle = 'rgba(74, 222, 128, ' + alpha + ')';
+        ctx.fillRect(x1, 2, Math.max(1, x2 - x1), H - 4);
+      }
+    }
+
+    // Overlap regions
+    for (var j = 1; j < maxChunksToShow; j++) {
+      var oStart = j * stride;
+      var oEnd   = Math.min(oStart + overlap, totalTokens);
+      if (oStart < displayTokens) {
+        var ox1 = oStart * scale;
+        var ox2 = Math.min(oEnd * scale, W);
+        ctx.fillStyle = 'rgba(134, 239, 172, 0.85)';
+        ctx.fillRect(ox1, 2, Math.max(1, ox2 - ox1), H - 4);
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(ox1, 2, Math.max(1, ox2 - ox1), H - 4);
+        ctx.clip();
+        ctx.strokeStyle = 'rgba(21, 160, 90, 0.3)';
+        ctx.lineWidth   = 1;
+        for (var hx = ox1 - H; hx < ox2 + H; hx += 5) {
+          ctx.beginPath();
+          ctx.moveTo(hx, 2);
+          ctx.lineTo(hx + H, H - 2);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+    }
+
+    // Chunk boundaries
+    for (var k = 0; k < maxChunksToShow; k++) {
+      var bx = Math.round(k * stride * scale);
+      if (bx < W) {
+        ctx.fillStyle = 'rgba(14, 115, 64, 0.5)';
+        ctx.fillRect(bx, 0, 1, H);
+      }
+    }
+
+    if (numChunks > maxChunksToShow) {
+      ctx.fillStyle    = 'rgba(16,35,26,0.35)';
+      ctx.font         = '600 11px system-ui,sans-serif';
+      ctx.textAlign    = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('+ ' + (numChunks - maxChunksToShow) + ' more', W - 6, H / 2);
+    }
+
+    var pct = numChunks > maxChunksToShow
+      ? 'Showing first ' + maxChunksToShow + ' of ' + numChunks + ' chunks proportionally. Each segment = unique content; hatched = overlap.'
+      : 'Showing all ' + numChunks + ' chunks proportionally. Each segment = unique content; hatched = overlap.';
+    elCoverageInfo.textContent = pct;
+  }
+
+  // ─── Chunk preview (paste mode) ───────────────────────────────────────────
+  function renderChunkPreview(chunks) {
+    if (!chunks || chunks.length === 0) {
+      elPreviewArea.innerHTML = '<p style="font-size:13px;color:var(--faint);text-align:center;padding:16px 0">No chunks to preview. Paste text above.</p>';
+      return;
+    }
+
+    var toShow = [];
+    if (chunks.length <= 3) {
+      for (var i = 0; i < chunks.length; i++) toShow.push({ idx: i, chunk: chunks[i] });
+    } else {
+      toShow.push({ idx: 0, chunk: chunks[0] });
+      toShow.push({ idx: 1, chunk: chunks[1] });
+      toShow.push({ idx: chunks.length - 1, chunk: chunks[chunks.length - 1], isLast: true });
+    }
+
+    var html = '';
+    for (var j = 0; j < toShow.length; j++) {
+      var item   = toShow[j];
+      var c      = item.chunk;
+      var idxLabel  = 'Chunk ' + (item.idx + 1) + ' of ' + chunks.length;
+      var unitLabel = (c.unit === 'words') ? 'words' : 'chars';
+      var rangeLabel = (c.startIdx !== undefined) ? (c.startIdx + '–' + c.endIdx + ' ' + unitLabel) : unitLabel;
+
+      var displayText = '';
+      var mainText    = c.text;
+      var overlapW    = c.overlapWords || 0;
+      var overlapC    = c.overlapChars || 0;
+
+      if (item.idx > 0) {
+        if (c.unit === 'words' && overlapW > 0) {
+          var words = mainText.split(/\s+/);
+          var olText = words.slice(0, overlapW).join(' ');
+          var rest   = words.slice(overlapW).join(' ');
+          displayText = '<span class="hl-overlap" title="Overlap region from previous chunk">' + escHtml(olText) + '</span>';
+          if (rest) displayText += ' <span class="hl-unique">' + escHtml(rest) + '</span>';
+        } else if (c.unit === 'chars' && overlapC > 0 && overlapC < mainText.length) {
+          displayText = '<span class="hl-overlap" title="Overlap region">' + escHtml(mainText.slice(0, overlapC)) + '</span>'
+                      + '<span class="hl-unique">' + escHtml(mainText.slice(overlapC)) + '</span>';
+        } else {
+          displayText = escHtml(mainText);
+        }
+      } else {
+        displayText = escHtml(mainText);
+      }
+
+      var tagHtml = item.isLast ? '<span class="tag">Last</span>' : (item.idx === 0 ? '<span class="tag">First</span>' : '<span class="tag">Second</span>');
+      html += '<div class="chunk-block">'
+            + '<div class="chunk-header"><span>' + idxLabel + ' &nbsp;·&nbsp; ' + rangeLabel + '</span>' + tagHtml + '</div>'
+            + '<div class="chunk-body">' + displayText + '</div>'
+            + '</div>';
+
+      if (j < toShow.length - 1 && toShow[j+1].idx !== item.idx + 1) {
+        html += '<div style="text-align:center;padding:8px 0;font-size:12px;color:var(--faint)">· · · ' + (toShow[j+1].idx - item.idx - 1) + ' chunks omitted · · ·</div>';
+      }
+    }
+    elPreviewArea.innerHTML = html;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ─── Retrieve current computed state ──────────────────────────────────────
+  var _lastResult = { chunks: 0, stride: 0, totalToEmbed: 0 };
+  var _lastTotal  = 0;
+
+  function getCurrentConfig() {
+    var chunkSize = Math.max(1, parseInt(elChunkSize.value)   || 1000);
+    var overlap   = Math.max(0, parseInt(elOverlap.value)     || 0);
+    var tpw       = parseFloat(elTpw.value)                   || 1.3;
+    var ctxLimit  = Math.max(1, parseInt(elCtxLimit.value)    || 8192);
+    var costPerM  = parseFloat(elEmbedCost.value)             || 0;
+    var modelName = (currentModel && MODELS[currentModel]) ? MODELS[currentModel].name : 'Custom';
+    return {
+      strategy:           currentStrategy,
+      chunkSize:          chunkSize,
+      overlap:            overlap,
+      modelContextLimit:  ctxLimit,
+      tokensPerWord:      tpw,
+      embeddingModel:     modelName,
+      embeddingCostPer1M: costPerM,
+      estimatedChunks:    _lastResult.chunks || 0,
+      estimatedTokens:    _lastTotal,
+      estimatedCost:      _lastResult.chunks ? (_lastResult.totalToEmbed / 1e6) * costPerM : 0
+    };
+  }
+
+  // ─── RAG Readiness Report ─────────────────────────────────────────────────
+  function buildRisks(cfg) {
+    var risks = [];
+    if (cfg.chunkSize > cfg.modelContextLimit) {
+      risks.push({ level: 'error', msg: 'Chunk size exceeds model context limit — embeddings will be truncated.' });
+    }
+    if (cfg.overlap >= cfg.chunkSize) {
+      risks.push({ level: 'error', msg: 'Overlap >= chunk size — chunking is invalid (stride <= 0).' });
+    }
+    if (cfg.chunkSize < 100) {
+      risks.push({ level: 'warn',  msg: 'Chunk size < 100 tokens — may lack enough context for good retrieval.' });
+    }
+    if (cfg.overlap > cfg.chunkSize * 0.5) {
+      risks.push({ level: 'warn',  msg: 'Overlap > 50% of chunk size — wasteful; increases token and cost by ' + Math.round(cfg.overlap/cfg.chunkSize*100) + '%.' });
+    }
+    if (cfg.chunkSize >= cfg.modelContextLimit * 0.9 && cfg.chunkSize <= cfg.modelContextLimit) {
+      risks.push({ level: 'warn',  msg: 'Chunk size is within 10% of context limit — leave headroom for instruction tokens.' });
+    }
+    if (cfg.estimatedChunks > 100000) {
+      risks.push({ level: 'warn',  msg: 'Very high chunk count (' + fmt(cfg.estimatedChunks) + ') — consider a larger chunk size to reduce vector-store size.' });
+    }
+    if (risks.length === 0) {
+      risks.push({ level: 'ok', msg: 'No critical issues detected with current settings.' });
+    }
+    return risks;
+  }
+
+  function getSuggestedSplitter(cfg) {
+    var strats = {
+      fixed:     'RecursiveCharacterTextSplitter (chunk_size=' + cfg.chunkSize * 4 + ', chunk_overlap=' + cfg.overlap * 4 + ')',
+      sentence:  'SentenceSplitter (chunk_size=' + cfg.chunkSize + ', chunk_overlap=' + cfg.overlap + ') from llama_index',
+      paragraph: 'RecursiveCharacterTextSplitter with separators=[\"\\n\\n\",\"\\n\",\" \"] (chunk_size=' + cfg.chunkSize * 4 + ')',
+      markdown:  'MarkdownHeaderTextSplitter + RecursiveCharacterTextSplitter (chunk_size=' + cfg.chunkSize * 4 + ')'
+    };
+    return strats[cfg.strategy] || strats.fixed;
+  }
+
+  function getRecommendedDefaults(cfg) {
+    var recChunk   = Math.min(Math.round(cfg.modelContextLimit * 0.75 / 100) * 100, 2048);
+    recChunk       = Math.max(recChunk, 256);
+    var recOverlap = Math.round(recChunk * 0.15 / 10) * 10;
+    return { chunk: recChunk, overlap: recOverlap };
+  }
+
+  function renderReport() {
+    var cfg   = getCurrentConfig();
+    var risks = buildRisks(cfg);
+    var rec   = getRecommendedDefaults(cfg);
+    var riskIconMap = { error: '⛔', warn: '⚠️', ok: '✅' };
+    var riskClsMap  = { error: 'risk-error', warn: 'risk-warn', ok: 'risk-ok' };
+    var costStr     = cfg.embeddingCostPer1M === 0 ? '$0.00 (self-hosted)' : fmtCost(cfg.estimatedCost);
+
+    var html = '';
+
+    // Settings summary
+    html += '<div class="report-section"><h3>Current Settings</h3>';
+    var settingRows = [
+      ['Strategy',          cfg.strategy.charAt(0).toUpperCase() + cfg.strategy.slice(1)],
+      ['Embedding model',   cfg.embeddingModel],
+      ['Chunk size',        cfg.chunkSize + ' tokens'],
+      ['Overlap',           cfg.overlap + ' tokens (' + Math.round(cfg.overlap / cfg.chunkSize * 100) + '%)'],
+      ['Model ctx limit',   cfg.modelContextLimit + ' tokens'],
+      ['Tokens per word',   cfg.tokensPerWord]
+    ];
+    html += settingRows.map(function(r) {
+      return '<div class="report-stat-row"><span class="report-stat-key">' + r[0] + '</span><span class="report-stat-val">' + escHtml(String(r[1])) + '</span></div>';
+    }).join('');
+    html += '</div>';
+
+    // Estimates
+    html += '<div class="report-section"><h3>Estimates</h3>';
+    var estRows = [
+      ['Total document tokens', fmt(cfg.estimatedTokens)],
+      ['Estimated chunks',      fmt(cfg.estimatedChunks)],
+      ['Total tokens to embed', fmt(cfg.estimatedChunks * cfg.chunkSize)],
+      ['Est. embedding cost',   costStr]
+    ];
+    html += estRows.map(function(r) {
+      return '<div class="report-stat-row"><span class="report-stat-key">' + r[0] + '</span><span class="report-stat-val">' + escHtml(String(r[1])) + '</span></div>';
+    }).join('');
+    html += '</div>';
+
+    // Recommended defaults
+    html += '<div class="report-section"><h3>Recommended Defaults for This Model</h3>';
+    html += '<div class="report-stat-row"><span class="report-stat-key">Suggested chunk size</span><span class="report-stat-val">' + rec.chunk + ' tokens</span></div>';
+    html += '<div class="report-stat-row"><span class="report-stat-key">Suggested overlap</span><span class="report-stat-val">' + rec.overlap + ' tokens (~15%)</span></div>';
+    html += '</div>';
+
+    // Retrieval risks
+    html += '<div class="report-section"><h3>Retrieval Risk Assessment</h3><ul class="risk-list">';
+    risks.forEach(function(r) {
+      html += '<li class="risk-item ' + riskClsMap[r.level] + '">' + riskIconMap[r.level] + ' ' + escHtml(r.msg) + '</li>';
+    });
+    html += '</ul></div>';
+
+    // Suggested splitter
+    html += '<div class="report-section"><h3>Suggested Splitter</h3>';
+    html += '<div class="splitter-box">' + escHtml(getSuggestedSplitter(cfg)) + '</div></div>';
+
+    elReportContent.innerHTML = html;
+  }
+
+  // ─── Code snippet generators ──────────────────────────────────────────────
+  function getLangChainSnippet() {
+    var cfg = getCurrentConfig();
+    if (cfg.strategy === 'sentence') {
+      return [
+        'from langchain.text_splitter import NLTKTextSplitter',
+        '',
+        '# Sentence-aware splitter (approximate — NLTK sentence tokenizer)',
+        'splitter = NLTKTextSplitter(',
+        '    chunk_size=' + (cfg.chunkSize * 4) + ',  # chars (≈' + cfg.chunkSize + ' tokens)',
+        '    chunk_overlap=' + (cfg.overlap * 4) + ',',
+        ')',
+        'chunks = splitter.split_text(document_text)'
+      ].join('\n');
+    }
+    if (cfg.strategy === 'markdown') {
+      return [
+        'from langchain.text_splitter import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter',
+        '',
+        'headers = [("#", "H1"), ("##", "H2"), ("###", "H3")]',
+        'md_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers)',
+        'md_docs = md_splitter.split_text(document_text)',
+        '',
+        '# Then split large sections that exceed chunk size',
+        'char_splitter = RecursiveCharacterTextSplitter(',
+        '    chunk_size=' + (cfg.chunkSize * 4) + ',',
+        '    chunk_overlap=' + (cfg.overlap * 4) + ',',
+        ')',
+        'chunks = char_splitter.split_documents(md_docs)'
+      ].join('\n');
+    }
+    var separators = cfg.strategy === 'paragraph'
+      ? '["\\\\n\\\\n", "\\\\n", " ", ""]'
+      : '["\\\\n\\\\n", "\\\\n", " ", ""]';
+    return [
+      'from langchain.text_splitter import RecursiveCharacterTextSplitter',
+      '',
+      '# Strategy: ' + cfg.strategy,
+      'splitter = RecursiveCharacterTextSplitter(',
+      '    chunk_size=' + (cfg.chunkSize * 4) + ',  # chars (≈' + cfg.chunkSize + ' tokens)',
+      '    chunk_overlap=' + (cfg.overlap * 4) + ',',
+      (cfg.strategy === 'paragraph' ? '    separators=' + separators + ',' : ''),
+      ')',
+      'chunks = splitter.split_text(document_text)'
+    ].filter(function(l) { return l !== ''; }).join('\n');
+  }
+
+  function getLlamaIndexSnippet() {
+    var cfg = getCurrentConfig();
+    if (cfg.strategy === 'markdown') {
+      return [
+        'from llama_index.core.node_parser import MarkdownNodeParser, SentenceSplitter',
+        '',
+        '# Markdown heading-aware parser',
+        'md_parser = MarkdownNodeParser()',
+        'nodes = md_parser.get_nodes_from_documents(documents)',
+        '',
+        '# Optionally further split large nodes',
+        'splitter = SentenceSplitter(',
+        '    chunk_size=' + cfg.chunkSize + ',',
+        '    chunk_overlap=' + cfg.overlap + ',',
+        ')',
+        'sub_nodes = splitter.get_nodes_from_documents(nodes)'
+      ].join('\n');
+    }
+    return [
+      'from llama_index.core.node_parser import SentenceSplitter',
+      '',
+      '# Strategy: ' + cfg.strategy,
+      '# Embedding model: ' + cfg.embeddingModel,
+      'splitter = SentenceSplitter(',
+      '    chunk_size=' + cfg.chunkSize + ',  # tokens',
+      '    chunk_overlap=' + cfg.overlap + ',',
+      ')',
+      'nodes = splitter.get_nodes_from_documents(documents)'
+    ].join('\n');
+  }
+
+  function getMarkdownReport() {
+    var cfg   = getCurrentConfig();
+    var risks = buildRisks(cfg);
+    var rec   = getRecommendedDefaults(cfg);
+    var costStr = cfg.embeddingCostPer1M === 0 ? '$0.00 (self-hosted)' : fmtCost(cfg.estimatedCost);
+    var lines = [
+      '# RAG Readiness Report',
+      '',
+      '> Generated by RAG Chunk Planner — https://ruslanmv.com/assets/tools/rag-planner.html',
+      '> Date: ' + new Date().toISOString().slice(0, 10),
+      '',
+      '## Settings',
+      '',
+      '| Parameter | Value |',
+      '|-----------|-------|',
+      '| Strategy | ' + cfg.strategy + ' |',
+      '| Embedding model | ' + cfg.embeddingModel + ' |',
+      '| Chunk size | ' + cfg.chunkSize + ' tokens |',
+      '| Overlap | ' + cfg.overlap + ' tokens (' + Math.round(cfg.overlap / cfg.chunkSize * 100) + '%) |',
+      '| Model context limit | ' + cfg.modelContextLimit + ' tokens |',
+      '| Tokens per word | ' + cfg.tokensPerWord + ' |',
+      '',
+      '## Estimates',
+      '',
+      '| Metric | Value |',
+      '|--------|-------|',
+      '| Total document tokens | ' + fmt(cfg.estimatedTokens) + ' |',
+      '| Estimated chunks | ' + fmt(cfg.estimatedChunks) + ' |',
+      '| Total tokens to embed | ' + fmt(cfg.estimatedChunks * cfg.chunkSize) + ' |',
+      '| Est. embedding cost | ' + costStr + ' |',
+      '',
+      '## Recommended Defaults',
+      '',
+      '- Suggested chunk size: **' + rec.chunk + ' tokens**',
+      '- Suggested overlap: **' + rec.overlap + ' tokens** (~15%)',
+      '',
+      '## Retrieval Risk Assessment',
+      ''
+    ];
+    risks.forEach(function(r) {
+      var icon = r.level === 'error' ? '🔴' : (r.level === 'warn' ? '🟡' : '🟢');
+      lines.push('- ' + icon + ' ' + r.msg);
+    });
+    lines.push('');
+    lines.push('## Suggested Splitter');
+    lines.push('');
+    lines.push(getSuggestedSplitter(cfg));
+    lines.push('');
+    lines.push('## LangChain Snippet');
+    lines.push('');
+    lines.push('```python');
+    lines.push(getLangChainSnippet());
+    lines.push('```');
+    lines.push('');
+    lines.push('## LlamaIndex Snippet');
+    lines.push('');
+    lines.push('```python');
+    lines.push(getLlamaIndexSnippet());
+    lines.push('```');
+    return lines.join('\n');
+  }
+
+  // ─── Export actions ───────────────────────────────────────────────────────
+  window.doDownloadJSON = function() {
+    var cfg = getCurrentConfig();
+    var content = JSON.stringify(cfg, null, 2);
+    if (window.RMVTool) {
+      RMVTool.download('rag-config.json', content, 'application/json');
+    } else {
+      var a = document.createElement('a');
+      a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(content);
+      a.download = 'rag-config.json'; a.click();
+    }
+  };
+
+  window.doCopyLangChain = function() {
+    var snippet = getLangChainSnippet();
+    if (window.RMVTool) {
+      RMVTool.copy(snippet);
+    } else {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = snippet; ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      } catch(e) {}
+    }
+  };
+
+  window.doCopyLlamaIndex = function() {
+    var snippet = getLlamaIndexSnippet();
+    if (window.RMVTool) {
+      RMVTool.copy(snippet);
+    } else {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = snippet; ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      } catch(e) {}
+    }
+  };
+
+  window.doDownloadMarkdown = function() {
+    var content = getMarkdownReport();
+    if (window.RMVTool) {
+      RMVTool.download('rag-readiness.md', content, 'text/markdown');
+    } else {
+      var a = document.createElement('a');
+      a.href = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(content);
+      a.download = 'rag-readiness.md'; a.click();
+    }
+  };
+
+  // ─── Share URL ────────────────────────────────────────────────────────────
+  window.doShare = function() {
+    var state = {
+      mode:       currentMode,
+      strategy:   currentStrategy,
+      model:      currentModel,
+      chunkSize:  elChunkSize.value,
+      overlap:    elOverlap.value,
+      tpw:        elTpw.value,
+      ctxLimit:   elCtxLimit.value,
+      embedCost:  elEmbedCost.value,
+      docAmount:  elDocAmount.value,
+      docUnit:    elDocUnit.value,
+      splitType:  getSplitType(),
+      textLen:    elRawText.value.length  // only share length, not full text
+    };
+    if (window.RMVTool) {
+      RMVTool.share(state);
+    } else {
+      try {
+        var url = location.href.split('#')[0] + '#s=' + btoa(JSON.stringify(state));
+        navigator.clipboard && navigator.clipboard.writeText(url);
+      } catch(e) {}
+    }
+  };
+
+  // Restore from shared URL
+  function restoreShared() {
+    if (!window.RMVTool) return;
+    var state = RMVTool.readShared();
+    if (!state) return;
+    if (state.chunkSize)  elChunkSize.value  = state.chunkSize;
+    if (state.overlap)    elOverlap.value     = state.overlap;
+    if (state.tpw)        elTpw.value         = state.tpw;
+    if (state.ctxLimit)   elCtxLimit.value    = state.ctxLimit;
+    if (state.embedCost !== undefined) elEmbedCost.value = state.embedCost;
+    if (state.docAmount)  elDocAmount.value   = state.docAmount;
+    if (state.docUnit)    elDocUnit.value      = state.docUnit;
+    if (state.splitType) {
+      var r = document.querySelector('input[name="split-type"][value="' + state.splitType + '"]');
+      if (r) r.checked = true;
+    }
+    if (state.strategy)  setStrategy(state.strategy);
+    if (state.model)     applyModelPreset(state.model);
+    if (state.mode)      setMode(state.mode);
+    RMVTool.toast('Restored shared configuration');
+  }
+
+  // ─── Workspaces state helpers ─────────────────────────────────────────────
+  function getState() {
+    return {
+      mode:       currentMode,
+      strategy:   currentStrategy,
+      model:      currentModel,
+      chunkSize:  elChunkSize.value,
+      overlap:    elOverlap.value,
+      tpw:        elTpw.value,
+      ctxLimit:   elCtxLimit.value,
+      embedCost:  elEmbedCost.value,
+      docAmount:  elDocAmount.value,
+      docUnit:    elDocUnit.value,
+      splitType:  getSplitType(),
+      rawText:    elRawText.value
+    };
+  }
+
+  function applyState(s) {
+    if (!s) return;
+    if (s.chunkSize)  elChunkSize.value  = s.chunkSize;
+    if (s.overlap)    elOverlap.value     = s.overlap;
+    if (s.tpw)        elTpw.value         = s.tpw;
+    if (s.ctxLimit)   elCtxLimit.value    = s.ctxLimit;
+    if (s.embedCost !== undefined) elEmbedCost.value = s.embedCost;
+    if (s.docAmount)  elDocAmount.value   = s.docAmount;
+    if (s.docUnit)    elDocUnit.value      = s.docUnit;
+    if (s.rawText)    elRawText.value      = s.rawText;
+    if (s.splitType) {
+      var r = document.querySelector('input[name="split-type"][value="' + s.splitType + '"]');
+      if (r) r.checked = true;
+    }
+    if (s.strategy)  setStrategy(s.strategy);
+    if (s.model)     applyModelPreset(s.model);
+    if (s.mode)      setMode(s.mode);
+    recompute();
+  }
+
+  // ─── Main recompute ────────────────────────────────────────────────────────
+  function recompute() {
+    var chunkSize = Math.max(1, parseInt(elChunkSize.value)   || 1000);
+    var overlap   = Math.max(0, parseInt(elOverlap.value)     || 0);
+    var tpw       = parseFloat(elTpw.value)                   || 1.3;
+    var ctxLimit  = Math.max(1, parseInt(elCtxLimit.value)    || 8192);
+    var costPerM  = parseFloat(elEmbedCost.value)             || 0;
+
+    var totalTokens = getTotalTokens();
+    _lastTotal      = totalTokens;
+
+    // Paste stats
+    if (currentMode === 'paste') {
+      var text = elRawText.value;
+      if (text.trim()) {
+        var wCount = splitWords(text).length;
+        var cCount = text.length;
+        var estTok = Math.round(wCount * tpw);
+        elPasteStats.textContent = wCount + ' words · ' + cCount + ' chars · ~' + estTok + ' estimated tokens';
+      } else {
+        elPasteStats.textContent = '';
+      }
+    }
+
+    // Calc
+    var result = calcChunks(totalTokens, chunkSize, overlap);
+    _lastResult    = result;
+
+    // Warnings (pass totalToEmbed for duplicate cost calc)
+    var notices = buildWarnings(chunkSize, overlap, ctxLimit, totalTokens, result.totalToEmbed, costPerM);
+    renderWarnings(notices);
+
+    if (result.chunks === null || totalTokens <= 0) {
+      elStatChunks.textContent      = '—';
+      elStatChunksSub.textContent   = '';
+      elStatTokensChunk.textContent = '—';
+      elStatTokensSub.textContent   = '';
+      elStatOverlap.textContent     = '—';
+      elStatOverlapSub.textContent  = '';
+      elStatTotalEmbed.textContent  = '—';
+      elStatEmbedSub.textContent    = '';
+      elStatCost.textContent        = '—';
+      elStatCostSub.textContent     = '';
+      drawCoverage(0, chunkSize, overlap, null, 0);
+      if (currentMode === 'paste') renderChunkPreview([]);
+      if (currentView === 'report') renderReport();
+      return;
+    }
+
+    var chunks      = result.chunks;
+    var stride      = result.stride;
+    var totalEmbed  = result.totalToEmbed;
+    var overlapPct  = chunkSize > 0 ? Math.round(overlap / chunkSize * 100) : 0;
+    var cost        = (totalEmbed / 1e6) * costPerM;
+
+    elStatChunks.textContent      = fmt(chunks);
+    elStatChunksSub.textContent   = 'stride = ' + fmt(stride) + ' tokens';
+    elStatTokensChunk.textContent = fmt(chunkSize);
+    elStatTokensSub.textContent   = 'per chunk (max)';
+    elStatOverlap.textContent     = fmt(overlap);
+    elStatOverlapSub.textContent  = overlapPct + '% of chunk size';
+    elStatTotalEmbed.textContent  = fmt(totalEmbed);
+    elStatEmbedSub.textContent    = fmt(totalTokens) + ' doc tokens × ' + chunks + ' chunks';
+    elStatCost.textContent        = fmtCost(cost);
+    elStatCostSub.textContent     = '$' + costPerM + '/1M at ' + fmt(totalEmbed) + ' tokens';
+
+    drawCoverage(totalTokens, chunkSize, overlap, chunks, stride);
+
+    // Paste preview
+    if (currentMode === 'paste') {
+      var text2 = elRawText.value;
+      if (text2.trim()) {
+        var chunkObjs = buildTextChunks(text2, chunkSize, overlap, tpw);
+        renderChunkPreview(chunkObjs);
+      } else {
+        renderChunkPreview([]);
+      }
+    }
+
+    if (currentView === 'report') renderReport();
+  }
+
+  // ─── Event listeners ──────────────────────────────────────────────────────
+  function addLiveListeners() {
+    var inputs = [elDocAmount, elDocUnit, elRawText, elChunkSize, elOverlap, elTpw, elCtxLimit, elEmbedCost];
+    inputs.forEach(function(el) {
+      if (!el) return;
+      el.addEventListener('input',  recompute);
+      el.addEventListener('change', recompute);
+    });
+    var radios = document.querySelectorAll('input[name="split-type"]');
+    radios.forEach(function(r) { r.addEventListener('change', recompute); });
+  }
+
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(recompute, 120);
+  });
+
+  // ─── Init ─────────────────────────────────────────────────────────────────
+  addLiveListeners();
+
+  // Trust badges
+  if (window.RMVTool) {
+    RMVTool.badges(
+      document.getElementById('badges-area'),
+      { runsLocal: true, noUpload: true, exportable: true, updated: '2026-06-02', extra: ['Estimates'] }
+    );
+  }
+
+  // Saved workspaces
+  if (window.RMVTool) {
+    RMVTool.mountWorkspaces(
+      document.getElementById('ws-area'),
+      { ns: 'rag', getState: getState, applyState: applyState }
+    );
+  }
+
+  // Restore from URL or compute fresh
+  restoreShared();
+  recompute();
+
+})();
+</script>
+</body>
+</html>

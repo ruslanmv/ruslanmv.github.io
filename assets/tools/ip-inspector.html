@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IP & Network Inspector</title>
+  <link rel="stylesheet" href="assets/shared/tool-shell.css" />
+  <link rel="stylesheet" href="assets/ip-inspector/ip-inspector.css" />
+</head>
+<body>
+  <header class="tool-header">
+    <div class="tool-header__in">
+      <a class="tool-header__back" href="index.html">← <span>All tools</span></a>
+      <div class="tool-header__title">♢ IP & Network Inspector</div>
+      <div class="tool-header__user"><span class="avatar">RM</span> Ruslan Magana Vsevolodovna ▾</div>
+    </div>
+  </header>
+
+  <main class="tool-wrap">
+    <section class="hero">
+      <div>
+        <h1>IP & Network Inspector</h1>
+        <p class="sub">View your public IP, network details, and browser diagnostics locally.</p>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="refreshBtn">↻ Refresh</button>
+        <button class="btn" id="copyIpBtn">⧉ Copy IP</button>
+        <button class="btn" id="downloadReportBtn">⇩ Download Report</button>
+      </div>
+    </section>
+
+    <section class="ip-dashboard">
+      <div class="stack">
+        <article class="card">
+          <div class="card__header">
+            <h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">◎</span> Public Network</h2>
+            <div class="row"><span class="badge">✓ Runs locally</span><span class="badge neutral">No sign-in</span></div>
+          </div>
+          <div class="card__body">
+            <div class="ip-display" id="ipDisplay">Loading…</div>
+            <span class="badge" id="ipVersionBadge">IP</span>
+            <div class="info-grid" id="publicGrid" style="margin-top:18px"></div>
+          </div>
+          <div class="note-row">ⓘ Your public IP is retrieved from an IP lookup service or your configured Worker. This page does not save your data.</div>
+        </article>
+
+        <article class="card">
+          <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">▣</span> Connection & Browser</h2></div>
+          <div class="card__body"><div class="info-grid" id="browserGrid"></div></div>
+        </article>
+      </div>
+
+      <div class="stack">
+        <article class="card">
+          <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">♢</span> Security & Network Notes</h2></div>
+          <div class="card__body security-list">
+            <div class="security-row"><strong>VPN / Proxy Hint</strong><span><span class="dot"></span> Browser-only</span><span>No reliable VPN/proxy detection without a backend or third-party service.</span></div>
+            <div class="security-row"><strong>WebRTC Availability</strong><span><span class="dot"></span> Available</span><span>Browser capability may expose local network candidates in some configurations.</span></div>
+            <div class="security-row"><strong>HTTPS Status</strong><span><span class="dot"></span> Secure</span><span>Works best when hosted over HTTPS, including GitHub Pages.</span></div>
+            <div class="security-row"><strong>Support / Debug Summary</strong><span><button class="btn small" id="copyReportBtn">Copy JSON</button></span><span>Useful details for troubleshooting API and network issues.</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__header">
+            <h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">▤</span> Report Preview</h2>
+            <div class="report-actions"><button class="btn icon" id="copyReportBtn2" onclick="document.getElementById('copyReportBtn').click()">⧉</button><button class="btn icon" id="downloadJsonBtn">⇩</button></div>
+          </div>
+          <div class="card__body"><pre class="code-panel small json-preview" id="reportPreview">Loading report…</pre></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="grid-4 metric-row">
+      <div class="kpi"><div class="kpi__icon">IP</div><div><div class="kpi__label">IP version</div><div class="kpi__value" id="ipVersionValue">—</div><div class="kpi__note">Internet Protocol</div></div></div>
+      <div class="kpi"><div class="kpi__icon">◎</div><div><div class="kpi__label">Region</div><div class="kpi__value" id="regionValue">—</div><div class="kpi__note" id="regionNote">—</div></div></div>
+      <div class="kpi"><div class="kpi__icon">◴</div><div><div class="kpi__label">Latency check</div><div class="kpi__value">Local</div><div class="kpi__note">Use HTTP Builder for live API latency</div></div></div>
+      <div class="kpi"><div class="kpi__icon">◷</div><div><div class="kpi__label">Last updated</div><div class="kpi__value" id="updatedTime">—</div><div class="kpi__note" id="updatedNote">—</div></div></div>
+    </section>
+  </main>
+  <div data-toast class="toast"></div>
+  <script type="module" src="assets/ip-inspector/ip-inspector.js"></script>
+</body>
+</html>

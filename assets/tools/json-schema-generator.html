@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JSON to TypeScript, Zod, Pydantic, Go &amp; JSON Schema — Ruslan Magana Vsevolodovna</title>
+<meta name="description" content="Paste JSON and generate JSON Schema, TypeScript interfaces, Zod schemas, Python Pydantic models, Go structs, or a SQL CREATE TABLE — instantly, in your browser." />
+<meta name="keywords" content="json to typescript, json to json schema, json to pydantic, json to go struct, json to zod, type generator, json schema generator" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/toolkit.css" />
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1180px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+  .wrap{max-width:1180px;margin:0 auto;padding:34px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:700px}
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:7px}
+  textarea,input,select{width:100%;font-family:var(--mono);font-size:13px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;outline:none;transition:border .15s,box-shadow .15s}
+  input,select{font-family:var(--sans);font-size:14px}
+  textarea{min-height:340px;resize:vertical;line-height:1.6}
+  textarea:focus,input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:9px 15px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s;min-height:42px}
+  .btn:hover{border-color:var(--line-3)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-600)}
+
+  .pills{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:11px;padding:4px;flex-wrap:wrap}
+  .pill{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;
+    padding:8px 13px;border-radius:8px;transition:all .14s;min-height:38px}
+  .pill.active{background:var(--green);color:#fff}
+  .pill:not(.active):hover{color:var(--text)}
+
+  .controls{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-top:22px}
+  .controls .rootfield{max-width:240px}
+  .controls .rootfield label{margin-bottom:5px}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;align-items:start}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .io-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+  .io-head label{margin-bottom:0}
+  .io-head .acts{display:flex;gap:7px}
+  .io-head .acts .btn{padding:7px 12px;font-size:12.5px;min-height:36px}
+  .out{font-family:var(--mono);font-size:12.5px;line-height:1.65;background:var(--surface-2);border:1px solid var(--line-2);
+    border-radius:10px;padding:14px 16px;min-height:340px;max-height:640px;overflow:auto;white-space:pre;color:var(--ink)}
+  .err{margin-top:12px;padding:10px 14px;border-radius:10px;background:#fdeceb;border:1px solid #f3cfcc;color:#b4322b;font-size:13.5px;display:none}
+  .err.show{display:block}
+  .targetbar{margin-top:18px}
+  .ws-row{margin-top:18px}
+  .toolnote{font-size:12.5px;color:var(--faint);margin-top:18px;line-height:1.6}
+  .toolnote a{color:var(--green-700);font-weight:600}
+  @media(max-width:520px){.wrap{padding:22px 14px 64px}.panel{padding:14px}}
+</style>
+</head>
+<body>
+  <header class="bar"><div class="in">
+    <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+    <span class="name">Ruslan Magana Vsevolodovna</span>
+  </div></header>
+
+  <main class="wrap">
+    <div class="eyebrow">Developer</div>
+    <h1>JSON → Schema &amp; Types</h1>
+    <p class="sub">Paste a JSON sample and generate a JSON Schema, TypeScript interfaces, a Zod schema, Python Pydantic models, Go structs, or a SQL <span class="mono">CREATE TABLE</span> draft — recursively, with optional &amp; nullable detection. Runs entirely in your browser.</p>
+    <div id="badges"></div>
+
+    <div class="targetbar">
+      <div class="pills" role="tablist" aria-label="Output target">
+        <button class="pill active" data-t="schema">JSON Schema</button>
+        <button class="pill" data-t="ts">TypeScript</button>
+        <button class="pill" data-t="zod">Zod</button>
+        <button class="pill" data-t="pydantic">Pydantic</button>
+        <button class="pill" data-t="go">Go struct</button>
+        <button class="pill" data-t="sql">SQL DDL</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="rootfield">
+        <label for="rootName">Root type name</label>
+        <input type="text" id="rootName" value="Root" autocomplete="off" spellcheck="false" />
+      </div>
+      <button class="btn" id="sampleBtn" type="button">Load sample</button>
+      <button class="btn" id="shareBtn" type="button">Share</button>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="io-head"><label for="inJSON">JSON input</label></div>
+        <textarea id="inJSON" spellcheck="false" placeholder='{ "id": 1, "name": "Ann", "tags": ["a","b"] }'></textarea>
+        <div class="err" id="err" role="alert"></div>
+      </div>
+      <div>
+        <div class="io-head">
+          <label id="outLabel">JSON Schema</label>
+          <div class="acts">
+            <button class="btn" id="copyBtn" type="button">Copy</button>
+            <button class="btn" id="dlBtn" type="button">Download</button>
+          </div>
+        </div>
+        <div class="out" id="out" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="ws-row" id="ws"></div>
+    <p class="toolnote">Pair with the <a href="json-toolkit.html">JSON / YAML Toolkit</a> to format and validate, or the <a href="diff-tool.html">Diff Checker</a> to compare two payloads. Nothing is uploaded — all generation happens locally.</p>
+  </main>
+
+<script src="shared/toolkit.js"></script>
+<script>
+(function(){
+'use strict';
+var R = window.RMVTool || null;
+
+var target='schema';
+var inJSON=document.getElementById('inJSON'), out=document.getElementById('out'),
+    err=document.getElementById('err'), rootName=document.getElementById('rootName'),
+    outLabel=document.getElementById('outLabel');
+
+var LABELS={schema:'JSON Schema',ts:'TypeScript',zod:'Zod schema',pydantic:'Pydantic model',go:'Go struct',sql:'SQL DDL'};
+var EXT={schema:'schema.json',ts:'types.ts',zod:'schema.ts',pydantic:'models.py',go:'types.go',sql:'schema.sql'};
+
+if(R) R.badges('#badges', {updated:'2026-06-02'});
+
+/* ===================== type inference ===================== */
+function kindOf(v){
+  if(v===null) return 'null';
+  if(Array.isArray(v)) return 'array';
+  var t=typeof v;
+  if(t==='number') return Number.isInteger(v) ? 'int' : 'float';
+  if(t==='boolean') return 'bool';
+  if(t==='object') return 'object';
+  return 'str';
+}
+function analyze(v){
+  var k=kindOf(v);
+  if(k==='object'){
+    var fields=[];
+    Object.keys(v).forEach(function(key){ fields.push({key:key, node:analyze(v[key]), optional:false}); });
+    return {kind:'object', fields:fields, nullable:false};
+  }
+  if(k==='array'){
+    var items=null;
+    for(var i=0;i<v.length;i++){ items = items===null ? analyze(v[i]) : mergeNode(items, analyze(v[i])); }
+    if(items===null) items={kind:'any', nullable:false};
+    return {kind:'array', items:items, nullable:false};
+  }
+  return {kind:k, nullable:false};
+}
+function mergeNode(a,b){
+  if(!a) return b; if(!b) return a;
+  if(a.kind==='null' && b.kind!=='null'){ b=clone(b); b.nullable=true; return b; }
+  if(b.kind==='null' && a.kind!=='null'){ a=clone(a); a.nullable=true; return a; }
+  if(a.kind==='null' && b.kind==='null') return {kind:'null', nullable:false};
+  var nul = a.nullable||b.nullable;
+  if(a.kind==='int' && b.kind==='float' || a.kind==='float' && b.kind==='int') return {kind:'float', nullable:nul};
+  if(a.kind!==b.kind) return {kind:'any', nullable:nul};
+  if(a.kind==='object') return mergeObjects(a,b,nul);
+  if(a.kind==='array') return {kind:'array', items:mergeNode(a.items,b.items), nullable:nul};
+  return {kind:a.kind, nullable:nul};
+}
+function mergeObjects(a,b,nul){
+  var map={}, order=[];
+  function add(f,side){ if(!(f.key in map)){ map[f.key]={key:f.key,node:f.node,seen:0}; order.push(f.key); } else { map[f.key].node=mergeNode(map[f.key].node,f.node); } map[f.key].seen++; }
+  a.fields.forEach(function(f){ add(f,'a'); });
+  b.fields.forEach(function(f){ add(f,'b'); });
+  var fields=order.map(function(k){ var e=map[k]; return {key:k, node:e.node, optional:e.seen<2}; });
+  return {kind:'object', fields:fields, nullable:nul};
+}
+function clone(n){ return JSON.parse(JSON.stringify(n)); }
+
+/* mark fields optional inside merged arrays-of-objects is handled in mergeObjects.
+   Also propagate optionality when analyzing arrays element-by-element. */
+
+/* ===================== naming ===================== */
+function pascal(s){
+  s=String(s).replace(/[^A-Za-z0-9]+/g,' ').trim();
+  if(!s) return 'Type';
+  var p=s.replace(/(^|\s)([a-zA-Z0-9])/g,function(m,a,b){return b.toUpperCase();}).replace(/\s+/g,'');
+  if(/^[0-9]/.test(p)) p='T'+p;
+  return p;
+}
+function singular(s){ return s.replace(/ies$/i,'y').replace(/([^s])s$/i,'$1'); }
+
+function nameNodes(root, rootLabel){
+  var used={};
+  function uniq(base){ var n=pascal(base)||'Type'; var c=n, i=2; while(used[c]){ c=n+i; i++; } used[c]=true; return c; }
+  function walk(node, suggested){
+    if(!node) return;
+    if(node.kind==='object'){
+      node.__name = uniq(suggested);
+      node.fields.forEach(function(f){
+        if(f.node.kind==='object') walk(f.node, f.key);
+        else if(f.node.kind==='array') walk(f.node, singular(f.key));
+      });
+    } else if(node.kind==='array'){
+      if(node.items.kind==='object') walk(node.items, singular(suggested));
+      else if(node.items.kind==='array') walk(node.items, suggested);
+    }
+  }
+  if(root.kind==='object') walk(root, rootLabel);
+  else if(root.kind==='array') walk(root, rootLabel);
+}
+/* post-order collection of object nodes (deps first) */
+function collectObjects(root){
+  var list=[];
+  function walk(n){
+    if(!n) return;
+    if(n.kind==='object'){ n.fields.forEach(function(f){ walk(f.node); }); list.push(n); }
+    else if(n.kind==='array'){ walk(n.items); }
+  }
+  walk(root);
+  return list;
+}
+
+/* ===================== generators ===================== */
+function genTS(root, rootLabel){
+  var objs=collectObjects(root);
+  function ref(n){
+    var t;
+    switch(n.kind){
+      case 'str': t='string'; break;
+      case 'int': case 'float': t='number'; break;
+      case 'bool': t='boolean'; break;
+      case 'null': t='null'; break;
+      case 'any': t='any'; break;
+      case 'object': t=n.__name; break;
+      case 'array': t=ref(n.items)+'[]'; break;
+      default: t='any';
+    }
+    if(n.nullable && n.kind!=='null') t=t+' | null';
+    return t;
+  }
+  var blocks=objs.map(function(o){
+    var lines=['export interface '+o.__name+' {'];
+    o.fields.forEach(function(f){ lines.push('  '+tsKey(f.key)+(f.optional?'?':'')+': '+ref(f.node)+';'); });
+    lines.push('}');
+    return lines.join('\n');
+  });
+  if(root.kind==='array'){ blocks.push('export type '+pascal(rootLabel)+' = '+ref(root)+';'); }
+  return blocks.join('\n\n')+'\n';
+}
+function tsKey(k){ return /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(k) ? k : JSON.stringify(k); }
+
+function genZod(root, rootLabel){
+  var objs=collectObjects(root);
+  function ref(n){
+    var t;
+    switch(n.kind){
+      case 'str': t='z.string()'; break;
+      case 'int': t='z.number().int()'; break;
+      case 'float': t='z.number()'; break;
+      case 'bool': t='z.boolean()'; break;
+      case 'null': t='z.null()'; break;
+      case 'any': t='z.any()'; break;
+      case 'object': t=lower(n.__name)+'Schema'; break;
+      case 'array': t='z.array('+ref(n.items)+')'; break;
+      default: t='z.any()';
+    }
+    if(n.nullable && n.kind!=='null') t=t+'.nullable()';
+    return t;
+  }
+  var blocks=objs.map(function(o){
+    var lines=['export const '+lower(o.__name)+'Schema = z.object({'];
+    o.fields.forEach(function(f){ var v=ref(f.node); if(f.optional) v=v+'.optional()'; lines.push('  '+tsKey(f.key)+': '+v+','); });
+    lines.push('});');
+    return lines.join('\n');
+  });
+  if(root.kind==='array'){ blocks.push('export const '+lower(pascal(rootLabel))+'Schema = '+ref(root)+';'); }
+  return 'import { z } from "zod";\n\n'+blocks.join('\n\n')+'\n';
+}
+function lower(s){ return s.charAt(0).toLowerCase()+s.slice(1); }
+
+function genPydantic(root, rootLabel){
+  var objs=collectObjects(root);
+  var usesOptional=false, usesList=false, usesAny=false;
+  function ref(n){
+    var t;
+    switch(n.kind){
+      case 'str': t='str'; break;
+      case 'int': t='int'; break;
+      case 'float': t='float'; break;
+      case 'bool': t='bool'; break;
+      case 'null': t='None'; break;
+      case 'any': t='Any'; usesAny=true; break;
+      case 'object': t=n.__name; break;
+      case 'array': usesList=true; t='List['+ref(n.items)+']'; break;
+      default: t='Any'; usesAny=true;
+    }
+    return t;
+  }
+  var blocks=objs.map(function(o){
+    var lines=['class '+o.__name+'(BaseModel):'];
+    if(!o.fields.length){ lines.push('    pass'); return lines.join('\n'); }
+    o.fields.forEach(function(f){
+      var t=ref(f.node);
+      if(f.optional || f.node.nullable){ usesOptional=true; lines.push('    '+pyKey(f.key)+': Optional['+t+'] = None'); }
+      else lines.push('    '+pyKey(f.key)+': '+t);
+    });
+    return lines.join('\n');
+  });
+  var imp='from pydantic import BaseModel\n';
+  var typing=[]; if(usesOptional)typing.push('Optional'); if(usesList)typing.push('List'); if(usesAny)typing.push('Any');
+  if(typing.length) imp='from typing import '+typing.join(', ')+'\n'+imp;
+  return imp+'\n\n'+blocks.join('\n\n\n')+'\n';
+}
+function pyKey(k){ return /^[A-Za-z_][A-Za-z0-9_]*$/.test(k) ? k : (k.replace(/[^A-Za-z0-9_]/g,'_')); }
+
+function genGo(root, rootLabel){
+  var objs=collectObjects(root);
+  function ref(n){
+    var t;
+    switch(n.kind){
+      case 'str': t='string'; break;
+      case 'int': t='int'; break;
+      case 'float': t='float64'; break;
+      case 'bool': t='bool'; break;
+      case 'null': t='interface{}'; break;
+      case 'any': t='interface{}'; break;
+      case 'object': t=n.__name; break;
+      case 'array': t='[]'+ref(n.items); break;
+      default: t='interface{}';
+    }
+    return t;
+  }
+  var blocks=objs.map(function(o){
+    var lines=['type '+o.__name+' struct {'];
+    o.fields.forEach(function(f){
+      var t=ref(f.node);
+      if((f.optional || f.node.nullable) && f.node.kind!=='array' && f.node.kind!=='null') t='*'+t;
+      var omit=f.optional?',omitempty':'';
+      lines.push('\t'+goField(f.key)+' '+t+' `json:"'+f.key+omit+'"`');
+    });
+    lines.push('}');
+    return lines.join('\n');
+  });
+  return 'package main\n\n'+blocks.join('\n\n')+'\n';
+}
+function goField(k){
+  var p=pascal(k);
+  return p;
+}
+
+function genSchema(root, rootLabel){
+  function node(n){
+    var s={};
+    switch(n.kind){
+      case 'str': s.type='string'; break;
+      case 'int': s.type='integer'; break;
+      case 'float': s.type='number'; break;
+      case 'bool': s.type='boolean'; break;
+      case 'null': s.type='null'; break;
+      case 'any': break;
+      case 'object':
+        s.type='object'; s.properties={}; var req=[];
+        n.fields.forEach(function(f){ s.properties[f.key]=node(f.node); if(!f.optional) req.push(f.key); });
+        if(req.length) s.required=req;
+        s.additionalProperties=false;
+        break;
+      case 'array': s.type='array'; s.items=node(n.items); break;
+    }
+    if(n.nullable && n.kind!=='null' && n.kind!=='any' && s.type){ s.type=[s.type,'null']; }
+    return s;
+  }
+  var sch=node(root);
+  sch['$schema']='https://json-schema.org/draft/2020-12/schema';
+  sch.title=pascal(rootLabel);
+  // reorder so $schema/title first
+  var ordered={'$schema':sch['$schema'], title:sch.title};
+  Object.keys(sch).forEach(function(k){ if(k!=='$schema'&&k!=='title') ordered[k]=sch[k]; });
+  return JSON.stringify(ordered, null, 2)+'\n';
+}
+
+function sqlType(n){
+  switch(n.kind){
+    case 'str': return 'TEXT';
+    case 'int': return 'INTEGER';
+    case 'float': return 'REAL';
+    case 'bool': return 'BOOLEAN';
+    case 'object': case 'array': return 'TEXT'; /* JSON */
+    default: return 'TEXT';
+  }
+}
+function genSQL(root, rootLabel){
+  var obj = root.kind==='object' ? root : (root.kind==='array' && root.items.kind==='object' ? root.items : null);
+  if(!obj) return '-- SQL DDL needs a JSON object (or an array of objects) at the root.\n';
+  var table=snake(rootLabel);
+  var cols=obj.fields.map(function(f){
+    var nn = (f.optional||f.node.nullable) ? '' : ' NOT NULL';
+    var cmt = (f.node.kind==='object'||f.node.kind==='array') ? ' -- stored as JSON' : '';
+    return '  '+snake(f.key)+' '+sqlType(f.node)+nn+','+cmt;
+  });
+  // trim trailing comma on last column (keep comments)
+  if(cols.length){
+    cols[cols.length-1]=cols[cols.length-1].replace(/,(\s*--.*)?$/, function(m,c){ return c||''; });
+  }
+  return 'CREATE TABLE '+table+' (\n'+cols.join('\n')+'\n);\n';
+}
+function snake(s){
+  return String(s).replace(/([a-z0-9])([A-Z])/g,'$1_$2').replace(/[^A-Za-z0-9]+/g,'_').replace(/^_+|_+$/g,'').toLowerCase()||'t';
+}
+
+/* ===================== run ===================== */
+var GEN={schema:genSchema, ts:genTS, zod:genZod, pydantic:genPydantic, go:genGo, sql:genSQL};
+
+function run(){
+  err.classList.remove('show'); err.textContent='';
+  var raw=inJSON.value.trim();
+  if(!raw){ out.textContent=''; return; }
+  var data;
+  try{ data=JSON.parse(raw); }
+  catch(e){ err.textContent='Invalid JSON: '+e.message; err.classList.add('show'); out.textContent=''; return; }
+  var label=(rootName.value.trim()||'Root');
+  try{
+    var root=analyze(data);
+    nameNodes(root, label);
+    out.textContent = GEN[target](root, label);
+  }catch(e){
+    err.textContent='Could not generate: '+e.message; err.classList.add('show'); out.textContent='';
+  }
+}
+
+/* ---- targets ---- */
+Array.prototype.forEach.call(document.querySelectorAll('.pill[data-t]'), function(p){
+  p.addEventListener('click', function(){
+    target=p.dataset.t;
+    Array.prototype.forEach.call(document.querySelectorAll('.pill[data-t]'), function(x){ x.classList.toggle('active', x===p); });
+    outLabel.textContent=LABELS[target];
+    run();
+  });
+});
+
+var t=null;
+function debounced(){ clearTimeout(t); t=setTimeout(run, 180); }
+inJSON.addEventListener('input', debounced);
+rootName.addEventListener('input', debounced);
+
+document.getElementById('sampleBtn').addEventListener('click', function(){
+  inJSON.value = JSON.stringify({
+    id:1, name:"Ann", email:"ann@example.com", score:4.5, active:true, note:null,
+    tags:["alpha","beta"],
+    address:{ city:"London", zip:"EC1", geo:{ lat:51.5, lng:-0.12 } },
+    orders:[ {sku:"A1", qty:2, gift:true}, {sku:"B2", qty:1} ]
+  }, null, 2);
+  run();
+});
+document.getElementById('copyBtn').addEventListener('click', function(){
+  if(!out.textContent){ if(R)R.toast('Nothing to copy'); return; }
+  if(R) R.copy(out.textContent); else navigator.clipboard && navigator.clipboard.writeText(out.textContent);
+});
+document.getElementById('dlBtn').addEventListener('click', function(){
+  if(!out.textContent){ if(R)R.toast('Nothing to download'); return; }
+  var mime = target==='schema' ? 'application/json' : 'text/plain';
+  if(R) R.download(EXT[target], out.textContent, mime);
+});
+
+function getState(){ return {target:target, root:rootName.value, json:inJSON.value}; }
+function applyState(s){ if(!s) return;
+  inJSON.value=s.json||''; rootName.value=s.root||'Root';
+  var p=document.querySelector('.pill[data-t="'+(s.target||'schema')+'"]'); if(p) p.click(); else run();
+}
+document.getElementById('shareBtn').addEventListener('click', function(){ if(R) R.share(getState()); });
+if(R) R.mountWorkspaces('#ws', {ns:'json-schema', getState:getState, applyState:applyState});
+
+var shared = R ? R.readShared() : null;
+if(shared) applyState(shared); else run();
+
+}());
+</script>
+</body>
+</html>

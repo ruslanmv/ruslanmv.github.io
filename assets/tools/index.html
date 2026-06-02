@@ -1,369 +1,697 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172667889-3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tools — Ruslan Magana Vsevolodovna</title>
+<meta name="description" content="Premium client-side instruments for AI engineers, developers, consultants, and scientists. Token counters, vector math, JSON/regex tooling, crypto utilities and physics references — all running entirely in your browser." />
+<meta name="author" content="Ruslan Magana Vsevolodovna" />
+<meta property="og:title" content="Tools — Ruslan Magana Vsevolodovna" />
+<meta property="og:description" content="Premium client-side instruments for AI engineers, developers, consultants, and scientists." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ruslanmv.com/assets/tools/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600;1,16..72,500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* light hub */
+    --bg:#f4f5f1; --surface:#ffffff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --glow:#2fd987;
+    /* dark hero */
+    --hero-0:#06140e; --hero-1:#08170f; --hero-2:#040b08;
+    --hero-text:#eaf3ee; --hero-muted:#a7bcb0; --hero-faint:#6f877b;
+    --hero-line:rgba(120,200,160,.14);
+    --sans:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --shadow-card:0 1px 2px rgba(16,35,26,.04), 0 12px 28px -20px rgba(16,35,26,.25);
+    --shadow-feat:0 2px 4px rgba(16,35,26,.04), 0 30px 60px -40px rgba(16,35,26,.4);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  svg{display:block}
 
-        gtag('config', 'UA-172667889-3');
-    </script>
+  /* ============ TOP NAV ============ */
+  header.nav{position:sticky;top:0;z-index:60;background:rgba(6,18,13,.86);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--hero-line)}
+  .nav .wrap{display:flex;align-items:center;gap:28px;height:72px}
+  .brand{font-weight:700;font-size:18px;letter-spacing:-.2px;color:#fff;white-space:nowrap}
+  .nav-links{display:flex;align-items:center;gap:28px;margin-left:auto}
+  .nav-links a{position:relative;font-size:15.5px;font-weight:500;color:var(--hero-muted);padding:6px 0;transition:color .18s}
+  .nav-links a:hover{color:#fff}
+  .nav-links a.active{color:#fff}
+  .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:2px;background:var(--green);box-shadow:0 0 10px var(--glow)}
+  .nav-tools{display:flex;align-items:center;gap:14px;padding-left:6px}
+  .icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:9px;color:var(--hero-muted);cursor:pointer;transition:.18s;background:transparent;border:none}
+  .icon-btn:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .icon-btn svg{width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none}
+  .hamb{display:none}
+  @media(max-width:1080px){
+    .nav-links{display:none}
+    .hamb{display:grid}
+  }
 
+  /* mobile menu */
+  .mmenu{display:none;position:fixed;inset:72px 0 auto 0;z-index:55;background:rgba(6,18,13,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--hero-line);padding:14px 0 22px}
+  .mmenu.open{display:block}
+  .mmenu a{display:block;padding:13px 40px;font-size:17px;font-weight:500;color:var(--hero-muted)}
+  .mmenu a.active{color:var(--green)}
+  .mmenu a:active{background:rgba(255,255,255,.05)}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  /* ============ HERO ============ */
+  .hero{position:relative;overflow:hidden;background:
+      radial-gradient(900px 500px at 88% 20%, rgba(47,217,135,.16), transparent 62%),
+      linear-gradient(125deg, var(--hero-1) 0%, var(--hero-0) 46%, var(--hero-2) 100%)}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(95deg, var(--hero-0) 18%, rgba(6,20,14,.55) 46%, transparent 72%)}
+  .hero .wrap{position:relative;z-index:2;padding:74px 40px 78px}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--glow)}
+  .hero h1{font-weight:800;font-size:clamp(54px,8.5vw,92px);line-height:.98;letter-spacing:-2.5px;color:#fff;margin:16px 0 0}
+  .hero .lede{max-width:540px;margin-top:22px;font-size:clamp(18px,2.2vw,22px);line-height:1.45;color:var(--hero-muted);font-weight:400}
+  .hero .meta{margin-top:26px;font-size:14.5px;color:var(--hero-faint);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+  .hero .meta .d{width:3px;height:3px;border-radius:50%;background:var(--hero-faint)}
+  .hero .meta b{color:var(--glow);font-weight:600}
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  /* ============ LAYOUT ============ */
+  .layout{display:grid;grid-template-columns:268px 1fr;gap:52px;padding:46px 0 30px;align-items:start}
+  @media(max-width:980px){
+    .layout{grid-template-columns:1fr;gap:0}
+    .aside{order:2;border-top:1px solid var(--line);margin-top:34px;padding-top:34px;position:static!important}
+    .main{order:1}
+  }
 
-    <style type="text/css">
-        * { font-weight: 100; }
-        h1 { font-weight: 100; }
-        #graph-container {
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            position: fixed;
-        }
+  /* ---- sidebar profile ---- */
+  .aside{position:sticky;top:96px}
+  .avatar{position:relative;width:118px;height:118px;border-radius:50%;display:grid;place-items:center;
+    background:radial-gradient(120% 120% at 30% 20%, #1fbf6c, #0c6e3d 70%, #094f2c);
+    color:#eafff2;font-family:var(--serif);font-size:42px;font-weight:600;letter-spacing:1px;
+    box-shadow:0 0 0 5px var(--surface), 0 0 0 6px var(--line-2), 0 14px 30px -14px rgba(12,110,61,.6);overflow:hidden}
+  .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
+  .pname{font-family:var(--serif);font-size:27px;line-height:1.12;font-weight:600;color:var(--ink);margin:22px 0 0;letter-spacing:.1px}
+  .prole{margin-top:9px;font-size:14.5px;color:var(--muted);line-height:1.45}
+  .ploc{display:flex;align-items:center;gap:7px;margin-top:13px;font-size:14px;color:var(--text);font-weight:500}
+  .ploc svg{width:15px;height:15px;stroke:var(--green);stroke-width:1.8;fill:none}
+  .aside hr{border:none;border-top:1px solid var(--line-2);margin:20px 0}
+  .pbio{font-size:14px;color:var(--muted);line-height:1.6}
+  .plinks{display:flex;flex-direction:column;gap:2px;margin-top:20px}
+  .plink{display:flex;align-items:center;gap:11px;padding:7px 0;font-size:14px;color:var(--text);transition:color .16s}
+  .plink:hover{color:var(--green-700)}
+  .plink svg{width:17px;height:17px;flex:none;color:var(--faint);transition:color .16s}
+  .plink:hover svg{color:var(--green)}
+  .plink .ico-fill{fill:currentColor}
 
-        .nn-picker {
-            width: 410px;
-            margin: 30px;
-            z-index: 1000;
-        }
+  /* ---- search ---- */
+  .search{position:relative;margin-bottom:18px}
+  .search svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:19px;height:19px;stroke:var(--faint);stroke-width:2;fill:none}
+  .search input{width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:13px;
+    padding:16px 18px 16px 50px;color:var(--text);font-family:var(--sans);font-size:15.5px;outline:none;transition:border .18s,box-shadow .18s;box-shadow:0 1px 2px rgba(16,35,26,.03)}
+  .search input::placeholder{color:var(--faint)}
+  .search input:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
 
-        [data-toggle="collapse"] .fa:before {
-            font-size: 2rem;
-            color: black;
-            content: "\f106";
-            position: relative;
-            top: 5px;
-        }
-        .fa {
-          transition: 0.3s transform ease-in-out;
-        }
-        .collapsed .fa {
-          transform: rotate(-180deg);
-        }
-        .tab-content {
-            padding: 20px;
-        }
-        input[type="range"] {
-            margin-left: 10px;
-        }
-        #count {
-            position: fixed;
-            bottom: 0;
-            right: 1rem;
-            opacity: 0.4;
-            font-weight: 100;
-        }
-        .text {
-            font-weight: 300;
-        }
-    </style>
+  /* ---- chips ---- */
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px}
+  .chip{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--muted);background:var(--surface);
+    border:1px solid var(--line-2);border-radius:999px;padding:9px 17px;cursor:pointer;transition:all .16s;white-space:nowrap}
+  .chip:hover{border-color:var(--line-3);color:var(--text)}
+  .chip.active{background:var(--green);border-color:var(--green);color:#fff;font-weight:600;box-shadow:0 6px 16px -8px rgba(21,160,90,.6)}
+  @media(max-width:560px){
+    .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:-4px;padding:2px 4px 4px}
+    .chips::-webkit-scrollbar{display:none}
+  }
 
-    <title>NN SVG</title>
+  /* ---- featured ---- */
+  .featured{display:grid;grid-template-columns:300px 1fr;gap:0;background:var(--surface);
+    border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-feat);margin-bottom:22px;transition:border-color .2s,transform .2s}
+  .featured:hover{border-color:var(--green);transform:translateY(-2px)}
+  .feat-viz{position:relative;background:radial-gradient(120% 120% at 70% 30%, #0f2419, #06120c);display:grid;place-items:center;border-right:1px solid var(--line-2);min-height:208px;overflow:hidden}
+  .feat-viz::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(47,217,135,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(47,217,135,.08) 1px,transparent 1px);background-size:26px 26px;opacity:.5}
+  .feat-viz svg{position:relative;width:84%;height:auto}
+  .feat-body{padding:26px 28px;display:flex;flex-direction:column}
+  .feat-eye{font-size:11.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  .feat-body h2{font-size:23px;font-weight:700;letter-spacing:-.4px;color:var(--ink);margin-top:10px}
+  .feat-body p{font-size:15px;color:var(--muted);margin-top:8px;line-height:1.55;max-width:440px}
+  .feat-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:auto;padding-top:20px;flex-wrap:wrap}
+  @media(max-width:680px){
+    .featured{grid-template-columns:1fr}
+    .feat-viz{border-right:none;border-bottom:1px solid var(--line-2);min-height:170px}
+  }
 
+  /* ---- tag pills ---- */
+  .tags{display:flex;flex-wrap:wrap;gap:7px}
+  .tag{font-size:11.5px;font-weight:600;letter-spacing:.2px;padding:4px 10px;border-radius:7px;background:#f0f1ec;color:var(--muted);white-space:nowrap}
+  .tag.pop{background:var(--green-soft);color:var(--green-700)}
+
+  /* ---- open link ---- */
+  .open{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--green-600);white-space:nowrap;transition:gap .18s}
+  .open svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.2;fill:none;transition:transform .18s}
+  .card:hover .open,.featured:hover .open{color:var(--green-700)}
+  .card:hover .open svg,.featured:hover .open svg{transform:translateX(3px)}
+
+  /* ---- grid ---- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+  .card{background:var(--surface);border:1px solid var(--line-2);border-radius:14px;padding:20px;display:flex;flex-direction:column;min-height:184px;cursor:pointer;
+    transition:transform .2s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:var(--shadow-card)}
+  .card .ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--green-tint);border:1px solid var(--line);margin-bottom:15px;transition:.2s}
+  .card:hover .ico{background:var(--green-soft);border-color:#cfe9d8}
+  .card .ico svg{width:20px;height:20px;stroke:var(--green-600);stroke-width:1.7;fill:none}
+  .card h3{font-size:16px;font-weight:700;letter-spacing:-.2px;color:var(--ink)}
+  .card p{font-size:13px;color:var(--muted);margin-top:7px;line-height:1.5;flex:1}
+  .card .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px}
+  .empty{display:none;text-align:center;color:var(--muted);font-size:15px;padding:60px 0;grid-column:1/-1}
+
+  /* ---- pager ---- */
+  .pager{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:26px;flex-wrap:wrap}
+  .pager:empty{display:none}
+  .pager button{min-width:40px;height:40px;padding:0 12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    background:var(--surface);border:1px solid var(--line-2);border-radius:11px;color:var(--muted);
+    font-family:var(--sans);font-size:14.5px;font-weight:600;cursor:pointer;transition:all .16s}
+  .pager button:hover:not(:disabled){border-color:var(--line-3);color:var(--text)}
+  .pager button.active{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 6px 16px -8px rgba(21,160,90,.6)}
+  .pager button:disabled{opacity:.4;cursor:not-allowed}
+  .pager .pg-arrow svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .pager .ellipsis{min-width:auto;color:var(--faint);font-weight:600;padding:0 2px;pointer-events:none}
+
+  /* ---- bottom feature strip ---- */
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);background:var(--surface);border:1px solid var(--line-2);border-radius:16px;margin:30px 0 8px;overflow:hidden}
+  .strip .cell{padding:24px 26px;display:flex;gap:15px;align-items:flex-start;border-left:1px solid var(--line)}
+  .strip .cell:first-child{border-left:none}
+  .strip .cell .si{width:40px;height:40px;flex:none;border-radius:10px;display:grid;place-items:center;background:var(--green-tint);border:1px solid var(--line)}
+  .strip .cell .si svg{width:21px;height:21px;stroke:var(--green-600);stroke-width:1.7;fill:none}
+  .strip .cell h4{font-size:15px;font-weight:700;color:var(--ink)}
+  .strip .cell p{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.5}
+  @media(max-width:760px){.strip{grid-template-columns:1fr}.strip .cell{border-left:none;border-top:1px solid var(--line)}.strip .cell:first-child{border-top:none}}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line-2);margin-top:40px;padding:30px 0 56px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;font-size:13.5px;color:var(--faint)}
+  footer .fl{display:flex;gap:22px}
+  footer a{color:var(--muted);transition:color .16s}
+  footer a:hover{color:var(--green-700)}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);z-index:90;
+    background:var(--ink);color:#eafff2;font-size:14px;font-weight:500;padding:13px 20px;border-radius:11px;
+    box-shadow:0 18px 40px -16px rgba(16,35,26,.6);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:10px}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast .dot{width:8px;height:8px;border-radius:50%;background:var(--glow);box-shadow:0 0 8px var(--glow)}
+
+  /* reveal — opacity is ALWAYS 1; entrance only nudges transform, so content can
+     never be hidden by a stalled animation (screenshots / PDF / background tabs safe) */
+  .reveal{opacity:1;transform:none}
+  @keyframes rise{from{transform:translateY(16px)}to{transform:translateY(0)}}
+  html.anim .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) both}
+  @media (prefers-reduced-motion:reduce){html.anim .reveal{animation:none}}
+
+  @media(max-width:560px){
+    .wrap{padding:0 20px}
+    .hero .wrap{padding:48px 20px 54px}
+    .nav .wrap{height:64px;gap:14px}
+    .mmenu{inset:64px 0 auto 0}
+    .layout{padding:30px 0 20px}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
 </head>
 <body>
 
-
-    <div id="graph-container"></div>
-
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="nn-picker">
-                <div class="card">
-                    <div class="card-header">
-                        <a class="pull-right" data-toggle="collapse" href="#collapsable" role="button"><i class="fa"></i></a>
-                        <h1>Neural Network Draws</h1>
-                        <p>Publication-ready NN-architecture schematics. <a id="download" href="#">Download SVG</a></p>
-
-                        <nav>
-                            <div class="nav nav-tabs card-header-tabs" role="tablist">
-                                <a class="nav-item nav-link active">FCNN Drawing </a>
-                                <a class="nav-item nav-link" href="LeNet.html">LeNet Drawing</a>
-                               <!-- <a class="nav-item nav-link" href="AlexNet.html">AlexNet Drawing</a> -->
-                                <a class="nav-item nav-link" href="../tensorspace/html/playground/lenet.html">LeNet playground</a>
-                                <a class="nav-item nav-link" href="../tensorspace/html/playground/mobilenetv1.html">Mobilenet playground</a>
-
-
-                            </div>
-                        </nav>
-
-                    </div>
-                    <div class="tab-content collapse show" id="collapsable">
-                        <div class="tab-pane fade show active" id="FCNN" role="tabpanel">
-
-                            <h4>Style:</h4>
-
-                            <!-- Edge Properties -->
-                            <hr>
-                            <div>
-                                <input type="checkbox" id="edgeWidthProportional" name="edgeWidthProportional" value="edgeWidthProportional">
-                                <label for="edgeWidthProportional">Edge width proportional to edge weights</label>
-                            </div>
-                            <div>
-                                <label for="edgeWidth">Edge Width</label>
-                                <input type="range" id="edgeWidth" name="" min="0" max="2" step="0.01" value="0.5" style="position: relative; top: 3px;">
-                            </div>
-
-                            <hr>
-                            <div>
-                                <input type="checkbox" id="edgeOpacityProportional" name="edgeOpacityProportional" value="edgeOpacityProportional">
-                                <label for="edgeOpacityProportional">Edge opacity proportional to edge weights</label>
-                            </div>
-                            <div>
-                                <label for="edgeOpacity">Edge Opacity</label>
-                                <input type="range" id="edgeOpacity" name="" min="0" max="1" step="0.01" value="1" style="position: relative; top: 3px;">
-                            </div>
-
-                            <hr>
-                            <div>
-                                <input type="checkbox" id="edgeColorProportional" name="edgeColorProportional" value="edgeColorProportional">
-                                <label for="edgeColorProportional">Edge color proportional to edge weights</label>
-                            </div>
-                            <div>
-                                <input type="color" value="#0000ff" id="negativeEdgeColor">
-                                <label for="negativeEdgeColor">Negative Edge Color</label>
-                            </div>
-                            <div>
-                                <input type="color" value="#ff0000" id="positiveEdgeColor">
-                                <label for="positiveEdgeColor">Positive Edge Color</label>
-                            </div>
-                            <div>
-                                <input type="color" value="#505050" id="defaultEdgeColor">
-                                <label for="defaultEdgeColor">Default Edge Color</label>
-                            </div>
-
-                            <!-- Node Properties -->
-                            <hr>
-                            <div>
-                                <label for="nodeDiameter">Node Diameter</label>
-                                <input type="range" id="nodeDiameter" name="" min="10" max="50" step="1" value="20" style="position: relative; top: 3px;">
-                            </div>
-                            <div>
-                                <input type="color" value="#ffffff" id="nodeColor">
-                                <label for="nodeColor">Node Color</label>
-                            </div>
-                            <div>
-                                <input type="color" value="#333333" id="nodeBorderColor">
-                                <label for="nodeBorderColor">Node Border Color</label>
-                            </div>
-
-                            <!-- Layer Properties -->
-                            <hr>
-                            <div>
-                                <label for="betweenLayers">Layer Spacing</label>
-                                <input type="range" id="betweenLayers" name="" min="30" max="400" step="1" value="160" style="position: relative; top: 3px;">
-                            </div>
-                            <div id="nnDirection">
-                                <label for="nnDirection" style="margin-right:10px;">Direction</label>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="nnDirection" id="horizontal" value="right" checked> horizontal
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="nnDirection" id="vertical" value="up"> vertical
-                                    </label>
-                                </div>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="showBias" name="showBias" value="showBias">
-                                <label for="showBias">Show Bias Units</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="showLabels" name="showLabels" value="showLabels" checked>
-                                <label for="showLabels">Show Layer Labels</label>
-                            </div>
-                            <div>
-
-                            <div id="arrowhead">
-                                <input type="checkbox" id="showArrowheads" name="showArrowheads" value="showArrowheads">
-                                <label for="showArrowheads">Show Arrowheads</label>
-                                <div class="form-check form-check-inline ml-3">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="arrowheadStyle" id="empty" value="empty" checked> empty
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="arrowheadStyle" id="solid" value="solid"> solid
-                                    </label>
-                                </div>
-                            </div>
-
-                            </div>
-
-                            <hr>
-                            <h4>Architecture:</h4>
-
-                            <hr>
-                            <div id="architecture">
-
-                                <div class="row entry">
-                                    <div class="input-group mb-2 mr-sm-2 col-4">
-                                        <button class="btn btn-secondary btn-remove input-group-prepend"><span class="fa fa-minus"></span></button>
-                                        <input type="number" class="form-control" name="numberOfNodes" step="1" value="16" />
-                                    </div>
-                                    <input type="range" class="form-control col-4" name="betweenNodesInLayer" min="0" max="100" step="1" value="20" style="position: relative; top: -4px;">
-                                </div>
-                                <div class="row entry">
-                                    <div class="input-group mb-2 mr-sm-2 col-4">
-                                        <button class="btn btn-secondary btn-remove input-group-prepend"><span class="fa fa-minus"></span></button>
-                                        <input type="number" class="form-control" name="numberOfNodes" step="1" value="12" />
-                                    </div>
-                                    <input type="range" class="form-control col-4" name="betweenNodesInLayer" min="0" max="100" step="1" value="20" style="position: relative; top: -4px;">
-                                </div>
-                                <div class="row entry">
-                                    <div class="input-group mb-2 mr-sm-2 col-4">
-                                        <button class="btn btn-secondary btn-remove input-group-prepend"><span class="fa fa-minus"></span></button>
-                                        <input type="number" class="form-control" name="numberOfNodes" step="1" value="10" />
-                                    </div>
-                                    <input type="range" class="form-control col-4" name="betweenNodesInLayer" min="0" max="100" step="1" value="20" style="position: relative; top: -4px;">
-                                </div>
-                                <div class="row entry">
-                                    <div class="input-group mb-2 mr-sm-2 col-4">
-                                        <button class="btn btn-secondary btn-remove input-group-prepend"><span class="fa fa-minus"></span></button>
-                                        <input type="number" class="form-control" name="numberOfNodes" step="1" value="1" />
-                                    </div>
-                                    <input type="range" class="form-control col-4" name="betweenNodesInLayer" min="0" max="100" step="1" value="20" style="position: relative; top: -4px;">
-                                </div>
-                                <div class="row entry">
-                                    <div class="input-group mb-2 mr-sm-2 col-4">
-                                        <button class="btn btn-primary btn-add input-group-prepend"><span class="fa fa-plus"></span></button>
-                                        <input type="number" class="form-control" name="numberOfNodes" step="1"/>
-                                    </div>
-                                    <input type="range" class="form-control col-4" name="betweenNodesInLayer" min="0" max="100" step="1" value="20" style="position: relative; top: -4px;">
-                                </div>
-
-                            </div>
-
-                            <hr>
-                            <button type="button" class="btn btn-sm btn-secondary" id="newRandomWeights">New Random Weights</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="https://ruslanmv.com/">Ruslan Magana Vsevolodovna</a>
+    <nav class="nav-links">
+      <a href="https://ruslanmv.com/about">About</a>
+      <a href="https://ruslanmv.com/projects">Work</a>
+      <a href="https://ruslanmv.com/essays/">Writing</a>
+      <a href="#" class="active">Tools</a>
+      <a href="https://ruslanmv.com/publications">Publications</a>
+      <a href="https://ruslanmv.com/talks">Talks</a>
+      <a href="https://ruslanmv.com/news-and-trends/">News</a>
+      <a href="https://ruslanmv.com/contact/">Contact</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn" id="searchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button class="icon-btn hamb" id="hambBtn" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
+  </div>
+</header>
+<div class="mmenu" id="mmenu">
+  <a href="https://ruslanmv.com/about">About</a>
+  <a href="https://ruslanmv.com/projects">Work</a>
+  <a href="https://ruslanmv.com/essays/">Writing</a>
+  <a href="#" class="active">Tools</a>
+  <a href="https://ruslanmv.com/publications">Publications</a>
+  <a href="https://ruslanmv.com/talks">Talks</a>
+  <a href="https://ruslanmv.com/news-and-trends/">News</a>
+  <a href="https://ruslanmv.com/contact/">Contact</a>
+</div>
 
-    <div id="count"><span></span><a style="font-size: 1rem" href="../../index.html">Home</a></div>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <canvas id="wave"></canvas>
+  <div class="wrap">
+    <div class="eyebrow reveal" style="animation-delay:.04s">Tools</div>
+    <h1 class="reveal" style="animation-delay:.1s">Tools</h1>
+    <p class="lede reveal" style="animation-delay:.18s">Premium client-side instruments for AI engineers, developers, consultants, and scientists.</p>
+    <div class="meta reveal" style="animation-delay:.26s">
+      <b>100% static</b><span class="d"></span>GitHub Pages friendly<span class="d"></span>runs in the browser
+    </div>
+  </div>
+</section>
 
+<!-- ============ BODY ============ -->
+<div class="wrap">
+  <div class="layout">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- sidebar -->
+    <aside class="aside reveal" style="animation-delay:.1s">
+      <div class="avatar"><img src="https://ruslanmv.com/assets/images/avatar.png" alt="Ruslan Magana Vsevolodovna" onerror="this.remove()" /><span>RM</span></div>
+      <div class="pname">Ruslan Magana<br>Vsevolodovna</div>
+      <div class="prole">Machine Learning Engineer ·<br>Data Scientist · Physicist</div>
+      <div class="ploc">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Genoa, Italy
+      </div>
+      <hr />
+      <p class="pbio">I build tools and systems for autonomous AI, ML systems, scientific computing, and applied AI products.</p>
+      <div class="plinks">
+        <a class="plink" href="mailto:contact@ruslanmv.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          contact@ruslanmv.com
+        </a>
+        <a class="plink" href="https://linkedin.com/in/ruslanmv" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" class="ico-fill" stroke="none"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7c0-1.67-.03-3.8-2.32-3.8-2.32 0-2.68 1.8-2.68 3.68V24h-4V8z"/></svg>
+          LinkedIn
+        </a>
+        <a class="plink" href="https://github.com/ruslanmv" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" class="ico-fill" stroke="none"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+          GitHub
+        </a>
+        <a class="plink" href="https://youtube.com/@ruslanmv" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" class="ico-fill" stroke="none"><path d="M23.5 6.5a3 3 0 0 0-2.1-2.1C19.5 4 12 4 12 4s-7.5 0-9.4.4A3 3 0 0 0 .5 6.5C.1 8.4.1 12 .1 12s0 3.6.4 5.5a3 3 0 0 0 2.1 2.1C4.5 20 12 20 12 20s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1c.4-1.9.4-5.5.4-5.5s0-3.6-.4-5.5zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/></svg>
+          YouTube
+        </a>
+      </div>
+    </aside>
 
-    <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
-    <script type="text/javascript" src="util.js"></script>
-    <script type="text/javascript" src="FCNN.js"></script>
+    <!-- main -->
+    <main class="main">
+      <div class="search reveal" style="animation-delay:.12s">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="q" type="text" placeholder="Search tools" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="chips reveal" id="chips" style="animation-delay:.16s">
+        <button class="chip active" data-cat="all">All</button>
+        <button class="chip" data-cat="ai">AI / LLM</button>
+        <button class="chip" data-cat="dev">Developer</button>
+        <button class="chip" data-cat="sec">Security</button>
+        <button class="chip" data-cat="cloud">Cloud</button>
+        <button class="chip" data-cat="net">Network &amp; API</button>
+        <button class="chip" data-cat="sci">Science</button>
+      </div>
 
-    <script type="text/javascript">
+      <!-- featured (randomized on each load, rendered by JS) -->
+      <a class="featured reveal" id="featured" style="animation-delay:.2s" href="#"></a>
 
-fcnn = FCNN();
+      <!-- grid -->
+      <div class="grid" id="grid"></div>
+      <div class="empty" id="empty">No tool matches that search. Try another term.</div>
+      <nav class="pager" id="pager" aria-label="Tool pages"></nav>
 
-function restart() {
+      <!-- bottom strip -->
+      <div class="strip">
+        <div class="cell">
+          <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z"/></svg></div>
+          <div><h4>Runs locally in your browser</h4><p>No installs, no plugins. Everything stays on your device for privacy and speed.</p></div>
+        </div>
+        <div class="cell">
+          <div class="si"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></div>
+          <div><h4>No backend required</h4><p>Pure client-side tools hosted on GitHub Pages. Lightweight and reliable.</p></div>
+        </div>
+        <div class="cell">
+          <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4.4"/><ellipse cx="12" cy="12" rx="10" ry="4.4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.4" transform="rotate(120 12 12)"/></svg></div>
+          <div><h4>Built for AI, IT, and science workflows</h4><p>Practical instruments for engineers, researchers, and technical teams.</p></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
 
-    architecture = $('#architecture').find('input[name="numberOfNodes"]').map((i,el) => $(el).val()).get().filter(input => $.isNumeric(input)).map(s => parseInt(s));
+<footer>
+  <div class="wrap">
+    <div>© 2026 Ruslan Magana Vsevolodovna</div>
+    <div class="fl">
+      <a href="https://github.com/ruslanmv" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://huggingface.co/ruslanmv" target="_blank" rel="noopener">HuggingFace</a>
+      <a href="https://linkedin.com/in/ruslanmv" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://ruslanmv.com/">Home</a>
+    </div>
+  </div>
+</footer>
 
-    betweenNodesInLayer = $('#architecture').find('input[name="betweenNodesInLayer"]').map((i,el) => parseFloat($(el).val())).get();
+<div class="toast" id="toast"><span class="dot"></span><span id="toastMsg">Coming soon</span></div>
 
-    fcnn.redraw({'architecture_':architecture});
-    fcnn.redistribute({'betweenNodesInLayer_':betweenNodesInLayer});
-
-    $('#count span:first').text(fcnn.graph.nodes.length+" nodes, "+fcnn.graph.links.length+" edges you don't need to draw yourself! ")
+<script>
+/* entrance animation only when the page is actually visible (never in a hidden
+   iframe / background tab — keeps content visible for screenshots & PDF export) */
+if(document.visibilityState==='visible' && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+  document.documentElement.classList.add('anim');
 }
 
-restart();
+/* ---------- icon set (stroke svg paths) ---------- */
+const I = {
+  wand:'<path d="M15 4V2M15 10V8M9.5 6.5H7.5M21.5 6.5h-2M18 9l-1.4-1.4M18 4l-1.4 1.4M13 9 3 19l2 2L15 11"/>',
+  coins:'<circle cx="9" cy="9" r="6"/><path d="M9 6v6M7 8.2c.5-.5 3-.7 3 .6 0 1.3-2.5 1.1-3 .6"/><path d="M14.7 4.3A6 6 0 1 1 19.7 15"/>',
+  chunks:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>',
+  chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>',
+  vector:'<circle cx="6" cy="18" r="2.2"/><path d="M7.6 16.4 17 7"/><path d="M17 7h-5M17 7v5"/><circle cx="18" cy="6" r="1.4"/>',
+  braces:'<path d="M8 4C5.5 4 6 8 6 10s-1 2-2 2c1 0 2 0 2 2s-.5 6 2 6"/><path d="M16 4c2.5 0 2 4 2 6s1 2 2 2c-1 0-2 0-2 2s.5 6-2 6"/>',
+  regex:'<path d="M12 4v9"/><path d="m8.3 6 7.4 5M15.7 6l-7.4 5"/><circle cx="6.5" cy="18" r="1.7"/><path d="M11 16h8"/>',
+  jwt:'<path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/>',
+  lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/>',
+  network:'<circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8.2 6H16M6 8.2V16M18 8.2V16M8.2 18H16M8 8l8 8"/>',
+  chart:'<path d="M4 4v16h16"/><rect x="7" y="12" width="3" height="5"/><rect x="12" y="8" width="3" height="9"/><rect x="17" y="5" width="3" height="12"/>',
+  atom:'<circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+  hash:'<path d="M9 4 7 20M17 4l-2 16M5 9h15M4 15h15"/>',
+  swap:'<path d="M7 4 3 8l4 4"/><path d="M3 8h13a4 4 0 0 1 4 4"/><path d="M17 20l4-4-4-4"/><path d="M21 16H8a4 4 0 0 1-4-4"/>',
+  key:'<circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 20 3M17 6l2 2M14 9l2 2"/>',
+  diff:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M6.5 8.5h4M8.5 6.5v4M13.5 15.5h4"/>',
+  schema:'<path d="M7 4H6a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h1"/><path d="M13 8l3 4-3 4M16 12h6"/>',
+  cron:'<circle cx="12" cy="13" r="7"/><path d="M12 10v3.5l2 1.2M9 3h6M19 5l-1.5 1.5"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/>',
+  send:'<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>',
+  hffind:'<rect x="3" y="3.5" width="11" height="11" rx="2"/><path d="M6.5 7.5h4M6.5 10.5h4"/><circle cx="16.5" cy="16.5" r="4"/><path d="m21 21-1.7-1.7"/>',
+  nn:'<circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="7" r="2"/><circle cx="19" cy="17" r="2"/><path d="M7 6.7 10.2 11M7 17.3 10.2 13M13.8 11 17 7.7M13.8 13 17 16.3"/>'
+};
+const CAT = {ai:'AI / LLM',dev:'Developer',sec:'Security',cloud:'Cloud',net:'Network & API',sci:'Science'};
 
-/////////////////////////////////////////////////////////////////////////////
-                ///////    Select Styling    ///////
-/////////////////////////////////////////////////////////////////////////////
+/* ---------- tool data (matches the hub layout) ---------- */
+const TOOLS = [
+  {cat:'ai', icon:'wand', name:'AI Prompt Builder', tags:['AI / LLM','Browser'],
+   desc:'Craft, test, and optimize prompts for any LLM.', href:'prompt-builder/',
+   kw:'prompt builder llm template system optimize craft test'},
+  {cat:'ai', icon:'coins', name:'Token & Cost Estimator', tags:['AI / LLM','Popular'], pop:1,
+   desc:'Estimate tokens, cost, and context usage.', href:'tokenizer.html',
+   kw:'token cost estimator gpt claude pricing context budget'},
+  {cat:'ai', icon:'chunks', name:'RAG Chunk Planner', tags:['AI / LLM','Browser'],
+   desc:'Plan chunk sizes and overlap for better RAG.', href:'rag-planner.html',
+   kw:'rag chunk planner overlap retrieval embedding splitter'},
+  {cat:'ai', icon:'chip', name:'LLM VRAM Calculator', tags:['AI / LLM','Popular'], pop:1,
+   desc:'Estimate VRAM needs for models and batch sizes.', href:'vram-calculator.html',
+   kw:'vram gpu memory quantization 7b 70b batch model size calculator'},
+  {cat:'ai', icon:'vector', name:'Vector Similarity Lab', tags:['AI / LLM','Science'],
+   desc:'Compare vectors with cosine, dot, and Euclidean metrics.', href:'vector-lab.html',
+   kw:'vector cosine similarity dot euclidean embedding distance angle'},
+  {cat:'ai', icon:'hffind', name:'LLM Compatibility Finder', tags:['AI / LLM','Popular'], pop:1,
+   desc:'Find Hugging Face models that run on your hardware — with commands.', href:'llm-compatibility-finder.html',
+   kw:'llm compatibility finder hugging face model run locally ollama llama.cpp lm studio jan gguf vram quantization colab zerogpu vllm'},
+  {cat:'ai', icon:'nn', name:'Neural Network SVG Designer', tags:['AI / LLM','Browser','Popular'], pop:1,
+   desc:'Visualize neural architectures and export clean, publication-ready SVG diagrams.', href:'nnsvg.html',
+   kw:'neural network svg designer diagram architecture visualize export layers deep learning'},
+  {cat:'dev', icon:'braces', name:'JSON / YAML Toolkit', tags:['Developer','Browser'],
+   desc:'Validate, format, and transform JSON or YAML.', href:'json-toolkit.html',
+   kw:'json yaml format validate minify tree convert parse pretty'},
+  {cat:'dev', icon:'regex', name:'Regex Tester', tags:['Developer','Browser'],
+   desc:'Test, debug, and explain regular expressions.', href:'regex-tester.html',
+   kw:'regex regular expression match group pattern replace highlight'},
+  {cat:'sec', icon:'lock', name:'Crypto & JWT Toolkit', tags:['Security','Popular'], pop:1,
+   desc:'Decode JWTs, hash text, encode/decode data, and inspect security tokens — all locally in your browser.', href:'crypto-toolkit.html',
+   kw:'jwt json web token decode header payload signature crypto base64 url encode hash sha256 uuid hmac security'},
+  {cat:'cloud', icon:'network', name:'CIDR Subnet Calculator', tags:['Developer','Network'],
+   desc:'Calculate subnets, ranges, and IP allocations.', href:'cidr-calculator.html',
+   kw:'cidr subnet calculator ip network mask range allocation cloud'},
+  {cat:'sci', icon:'chart', name:'CSV Data Profiler', tags:['Science','Browser'],
+   desc:'Profile CSV files and detect types, stats, and issues.', href:'csv-profiler.html',
+   kw:'csv data profiler statistics mean variance types pandas chart'},
+  {cat:'sci', icon:'atom', name:'Constants & Unit Converter', tags:['Science','Browser'],
+   desc:'Convert units and explore constants across domains.', href:'sci-units.html',
+   kw:'constants units converter codata physics length mass energy temperature'},
+  {cat:'dev', icon:'clock', name:'Timestamp & Date Converter', tags:['Developer','Popular'], pop:1,
+   desc:'Convert Unix timestamps, ISO dates, and timezones.', href:'timestamp-converter.html',
+   kw:'unix timestamp converter epoch converter iso 8601 date timezone milliseconds utc relative time'},
+  {cat:'dev', icon:'hash', name:'UUID / ULID / NanoID Generator', tags:['Developer','Popular'], pop:1,
+   desc:'Generate UUID v4/v7, ULID, and NanoID in bulk.', href:'uuid-generator.html',
+   kw:'uuid generator v4 v7 ulid nanoid bulk random id guid unique identifier'},
+  {cat:'dev', icon:'swap', name:'Base64 / URL / HTML Encoder', tags:['Developer','Browser'],
+   desc:'Encode and decode Base64, URL, HTML, and Unicode.', href:'encoder-decoder.html',
+   kw:'base64 encode decode url encode html entities unicode escape base64url converter'},
+  {cat:'sec', icon:'key', name:'Password & Passphrase Generator', tags:['Security','Popular'], pop:1,
+   desc:'Generate strong passwords and passphrases locally.', href:'password-generator.html',
+   kw:'password generator passphrase secure random entropy strength privacy crypto'},
+  {cat:'dev', icon:'diff', name:'Text & JSON Diff Checker', tags:['Developer','Browser'],
+   desc:'Compare text or JSON side-by-side with a unified patch.', href:'diff-tool.html',
+   kw:'text diff json diff compare side by side unified patch changes checker'},
+  {cat:'dev', icon:'schema', name:'JSON Schema & Type Generator', tags:['Developer','Popular'], pop:1,
+   desc:'Turn JSON into TypeScript, Zod, Pydantic, Go, or SQL.', href:'json-schema-generator.html',
+   kw:'json to typescript json schema pydantic go struct zod sql type generator interface'},
+  {cat:'dev', icon:'cron', name:'Cron Expression Builder', tags:['Developer','Browser'],
+   desc:'Build, explain, and preview cron schedules and next runs.', href:'cron-builder.html',
+   kw:'cron expression generator explainer crontab next run time schedule builder'},
+  {cat:'net', icon:'send', name:'HTTP Request & cURL Builder', tags:['Network & API','Popular'], pop:1,
+   desc:'Build API requests, generate cURL/fetch/Python code, and test endpoints.', href:'http-curl-builder.html',
+   kw:'http request builder curl generator fetch python requests axios api test rest proxy postman'},
+  {cat:'net', icon:'globe', name:'IP & Network Inspector', tags:['Network & API','Browser'],
+   desc:'View your public IP, browser details, timezone, and network diagnostics.', href:'ip-inspector.html',
+   kw:'ip address public ip inspector network diagnostics asn timezone geolocation user agent'}
+];
 
-$("#edgeWidthProportional").change(   function() { fcnn.style({'edgeWidthProportional_': this.checked}) });
-$("#edgeWidth").change(               function() { fcnn.style({'edgeWidth_': parseFloat(this.value)}) });
-$("#edgeOpacityProportional").change( function() { fcnn.style({'edgeOpacityProportional_': this.checked});
-    if (this.checked) { $("#edgeOpacity").prop('disabled', true); }
-    else { $("#edgeOpacity").prop('disabled', false); }
+const grid = document.getElementById('grid');
+const empty = document.getElementById('empty');
+const pager = document.getElementById('pager');
+const qInput = document.getElementById('q');
+const PAGE_SIZE = 9;
+let activeCat='all', query='', page=1;
+
+function tagPills(tags){
+  return tags.map(t=>`<span class="tag ${/popular/i.test(t)?'pop':''}">${t}</span>`).join('');
+}
+function render(){
+  grid.innerHTML='';
+  const items = TOOLS.filter(t=>{
+    const okCat = activeCat==='all' || t.cat===activeCat;
+    const hay = (t.name+' '+t.desc+' '+t.kw).toLowerCase();
+    const okQ = !query || query.split(/\s+/).every(w=>hay.includes(w));
+    return okCat && okQ;
+  });
+  empty.style.display = items.length? 'none':'block';
+  const pages = Math.max(1, Math.ceil(items.length/PAGE_SIZE));
+  if(page>pages) page=pages;
+  const slice = items.slice((page-1)*PAGE_SIZE, page*PAGE_SIZE);
+  slice.forEach((t,i)=>{
+    const a=document.createElement('a');
+    a.href=t.href; a.className='card reveal'; a.style.animationDelay=(0.03*i)+'s';
+    if(t.soon) a.dataset.soon='';
+    a.innerHTML=`
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor">${I[t.icon]}</svg></div>
+      <h3>${t.name}</h3>
+      <p>${t.desc}</p>
+      <div class="foot">
+        <div class="tags">${tagPills(t.tags)}</div>
+        <span class="open">Open tool <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>`;
+    grid.appendChild(a);
+  });
+  renderPager(pages);
+}
+
+function pgBtn(label,opts={}){
+  const b=document.createElement('button');
+  b.innerHTML=label;
+  if(opts.cls) b.className=opts.cls;
+  if(opts.active) b.classList.add('active');
+  if(opts.disabled) b.disabled=true;
+  if(opts.go!=null) b.addEventListener('click',()=>{page=opts.go;render();document.querySelector('.search').scrollIntoView({behavior:'smooth',block:'start'});});
+  return b;
+}
+function renderPager(pages){
+  pager.innerHTML='';
+  if(pages<=1) return;
+  const prev=document.createElement('span');
+  pager.appendChild(pgBtn('<svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>',{cls:'pg-arrow',disabled:page===1,go:page===1?null:page-1}));
+  // build page-number list with ellipses
+  const nums=[];
+  for(let i=1;i<=pages;i++){
+    if(i===1||i===pages||Math.abs(i-page)<=1) nums.push(i);
+    else if(nums[nums.length-1]!=='…') nums.push('…');
+  }
+  nums.forEach(n=>{
+    if(n==='…'){const e=document.createElement('button');e.className='ellipsis';e.textContent='…';e.disabled=true;pager.appendChild(e);}
+    else pager.appendChild(pgBtn(String(n),{active:n===page,go:n}));
+  });
+  pager.appendChild(pgBtn('<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>',{cls:'pg-arrow',disabled:page===pages,go:page===pages?null:page+1}));
+}
+render();
+
+/* ---------- featured (randomized, with per-tool generated SVG thumbnail) ---------- */
+/* Curated pool of the most visual / popular tools; falls back to all tools. */
+const FEATURED = [
+  'prompt-builder/','llm-compatibility-finder.html','nnsvg.html','vram-calculator.html',
+  'tokenizer.html','rag-planner.html','vector-lab.html','http-curl-builder.html',
+  'json-schema-generator.html','csv-profiler.html','regex-tester.html','password-generator.html',
+  'timestamp-converter.html','cidr-calculator.html'
+];
+function featuredPool(){
+  const pool = TOOLS.filter(t => FEATURED.includes(t.href));
+  return pool.length ? pool : TOOLS;
+}
+function pickFeatured(){
+  const pool = featuredPool();
+  let last = null;
+  try { last = localStorage.getItem('rmv-last-featured'); } catch(e){}
+  let cands = pool.filter(t => t.href !== last);
+  if(!cands.length) cands = pool;
+  const sel = cands[Math.floor(Math.random()*cands.length)];
+  try { localStorage.setItem('rmv-last-featured', sel.href); } catch(e){}
+  return sel;
+}
+/* Generate a consistent dark-green, grid, soft-green line thumbnail from the tool icon. */
+function featThumb(tool){
+  const path = I[tool.icon] || I.wand;
+  return '<svg viewBox="0 0 280 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+    + '<g stroke="rgba(47,217,135,.30)" stroke-width="1" fill="none">'
+    +   '<path d="M44 44 L78 66 M236 44 L202 66 M44 136 L78 114 M236 136 L202 114"/>'
+    + '</g>'
+    + '<circle cx="44" cy="44" r="6" fill="#0c6e3d" stroke="#2fd987" stroke-width="1.4"/>'
+    + '<circle cx="236" cy="44" r="6" fill="#11140f" stroke="#2fd987" stroke-width="1.4"/>'
+    + '<circle cx="44" cy="136" r="6" fill="#11140f" stroke="#2fd987" stroke-width="1.4"/>'
+    + '<circle cx="236" cy="136" r="7" fill="#1fbf6c" stroke="#bdffdd" stroke-width="1.2"/>'
+    + '<circle cx="140" cy="90" r="54" fill="rgba(31,191,108,.07)" stroke="rgba(47,217,135,.30)" stroke-width="1.2"/>'
+    + '<g transform="translate(140 90) scale(3.4) translate(-12 -12)" '
+    +    'fill="none" stroke="#7ef0b0" stroke-width="0.62" stroke-linecap="round" stroke-linejoin="round">'
+    +    path
+    + '</g></svg>';
+}
+function renderFeatured(){
+  const el = document.getElementById('featured');
+  if(!el) return;
+  const t = pickFeatured();
+  el.href = t.href;
+  el.setAttribute('aria-label', 'Featured tool: ' + t.name);
+  el.innerHTML =
+    '<div class="feat-viz">' + featThumb(t) + '</div>'
+    + '<div class="feat-body">'
+    +   '<div class="feat-eye">Featured</div>'
+    +   '<h2>' + t.name + '</h2>'
+    +   '<p>' + t.desc + '</p>'
+    +   '<div class="feat-foot"><div class="tags">' + tagPills(t.tags) + '</div>'
+    +     '<span class="open">Open tool <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>'
+    + '</div>';
+}
+renderFeatured();
+
+/* chips */
+document.getElementById('chips').addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b)return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  b.classList.add('active'); activeCat=b.dataset.cat; page=1; render();
 });
-$("#edgeOpacity").change(             function() { fcnn.style({'edgeOpacity_': parseFloat(this.value)}) });
-$("#negativeEdgeColor").change(       function() { fcnn.style({'negativeEdgeColor_': this.value}) });
-$("#positiveEdgeColor").change(       function() { fcnn.style({'positiveEdgeColor_': this.value}) });
-$("#edgeColorProportional").change(   function() { fcnn.style({'edgeColorProportional_': this.checked}) });
-$("#defaultEdgeColor").change(        function() { fcnn.style({'defaultEdgeColor_': this.value}) });
-$("#nodeDiameter").change(            function() { fcnn.style({'nodeDiameter_': parseFloat(this.value)}) });
-$("#nodeColor").change(               function() { fcnn.style({'nodeColor_': this.value}) });
-$("#nodeBorderColor").change(         function() { fcnn.style({'nodeBorderColor_': this.value}) });
-$("#betweenLayers").change(           function() { fcnn.redistribute({'betweenLayers_': parseFloat(this.value)}) });
-$('#nnDirection input:radio').change( function() { fcnn.redistribute({'nnDirection_': this.value}) });
-$("#showBias").change(                function() { fcnn.redraw({'showBias_': this.checked}); fcnn.redistribute(); });
-$("#showLabels").change(              function() { fcnn.redraw({'showLabels_': this.checked}) });
-$("#showArrowheads").change(          function() { fcnn.style({'showArrowheads_': this.checked}) });
-$("#arrowhead input:radio").change(   function() { fcnn.style({'arrowheadStyle_': this.value}) });
+qInput.addEventListener('input',()=>{query=qInput.value.trim().toLowerCase();page=1;render();});
 
-
-/////////////////////////////////////////////////////////////////////////////
-                 ///////    Select Architecture    ///////
-/////////////////////////////////////////////////////////////////////////////
-
-$(document).on('click', '.btn-add', function(e) {
-    e.preventDefault();
-
-    var controlForm = $('#architecture');
-    var currentEntry = $(this).parents('.entry:first');
-    var newEntry = $(currentEntry.clone()).appendTo(controlForm);
-
-    newEntry.find('input[name="numberOfNodes"]').val('');
-    controlForm.find('.entry:not(:last) .btn-add')
-        .removeClass('btn-add').addClass('btn-remove')
-        .removeClass('btn-primary').addClass('btn-secondary')
-        .html('<span class="fa fa-minus"></span>');
-
-    restart();
-
+/* search button focuses input */
+document.getElementById('searchBtn').addEventListener('click',()=>{
+  qInput.scrollIntoView({block:'center'}); qInput.focus();
 });
 
-$(document).on('click', '.btn-remove', function(e) {
-    e.preventDefault();
+/* mobile menu */
+const mmenu=document.getElementById('mmenu');
+document.getElementById('hambBtn').addEventListener('click',()=>mmenu.classList.toggle('open'));
+mmenu.addEventListener('click',()=>mmenu.classList.remove('open'));
 
-    $(this).parents('.entry:first').remove();
-
-    restart();
-
-    return false;
-
+/* toast for not-yet-built tools */
+const toast=document.getElementById('toast'), toastMsg=document.getElementById('toastMsg');
+let toastT;
+function showToast(msg){
+  toastMsg.textContent=msg; toast.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>toast.classList.remove('show'),2400);
+}
+document.body.addEventListener('click',e=>{
+  const link=e.target.closest('a[data-soon]');
+  if(link){e.preventDefault();showToast('“'+link.querySelector('h2,h3').textContent+'” — coming soon');}
 });
 
-$(document).on('change', "input[name='numberOfNodes']", restart);
-
-$(document).on('change', "input[name='betweenNodesInLayer']", restart);  // fix this so we only redistribute
-
-$(document).on('click', '#newRandomWeights', function() {
-    link = fcnn.link.data([]);
-    fcnn.link.exit().remove();
-    restart();
-});
-
-d3.select("#download").on("click", function() {
-    // ga('send', 'event', 'downloadSVG', 'FCNN');
-
-    d3.select(this)
-      .attr("href", 'data:application/octet-stream;base64,' + btoa(unescape(encodeURIComponent(d3.select("#graph-container").html()))))
-      .attr("download", "nn.svg")
-})
-
-    </script>
-
+/* ---------- hero data-wave canvas ---------- */
+(function(){
+  const cv=document.getElementById('wave'), ctx=cv.getContext('2d');
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let W,H,dpr,parts=[];
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    const r=cv.parentElement.getBoundingClientRect();
+    W=r.width; H=r.height;
+    cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    seed();
+  }
+  function seed(){
+    parts=[];
+    const n=Math.round(Math.min(170, W*H/9000));
+    for(let i=0;i<n;i++){
+      parts.push({
+        x:Math.random()*W, y:Math.random()*H,
+        s:Math.random()*1.6+.5,
+        sp:Math.random()*.4+.15,
+        ph:Math.random()*Math.PI*2,
+        amp:Math.random()*22+8
+      });
+    }
+  }
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    for(const p of parts){
+      // flow rightward bias, wavy vertical drift
+      if(!reduce){
+        p.x+=p.sp; 
+        p.baseY=(p.baseY==null?p.y:p.baseY);
+      } else { p.baseY=p.y; }
+      const yy=(p.baseY!=null?p.baseY:p.y)+Math.sin((p.x*0.012)+p.ph+t*0.0006)*p.amp;
+      if(p.x>W+10){p.x=-10; p.baseY=Math.random()*H;}
+      // fade: brighter toward right, dim toward left
+      const fx=Math.max(0,Math.min(1,(p.x/W-0.18)/0.82));
+      const fy=1-Math.abs((yy/H)-0.5)*1.1;
+      const alpha=Math.max(0,fx*fy)*0.85;
+      if(alpha<=0.01) continue;
+      ctx.beginPath();
+      ctx.arc(p.x,yy,p.s,0,Math.PI*2);
+      ctx.fillStyle='rgba(72,232,158,'+alpha+')';
+      ctx.shadowColor='rgba(47,217,135,'+(alpha*0.8)+')';
+      ctx.shadowBlur=p.s*4;
+      ctx.fill();
+    }
+    ctx.shadowBlur=0;
+    // faint connecting strokes for nearby particles on the right
+    ctx.lineWidth=0.6;
+    for(let i=0;i<parts.length;i++){
+      const a=parts[i]; if(a.x<W*0.4) continue;
+      const ay=(a.baseY!=null?a.baseY:a.y)+Math.sin((a.x*0.012)+a.ph+t*0.0006)*a.amp;
+      for(let j=i+1;j<i+5 && j<parts.length;j++){
+        const b=parts[j]; const by=(b.baseY!=null?b.baseY:b.y)+Math.sin((b.x*0.012)+b.ph+t*0.0006)*b.amp;
+        const dx=a.x-b.x, dy=ay-by, d=Math.hypot(dx,dy);
+        if(d<54){
+          const fx=Math.max(0,Math.min(1,(a.x/W-0.2)/0.8));
+          ctx.strokeStyle='rgba(47,217,135,'+((1-d/54)*0.16*fx)+')';
+          ctx.beginPath();ctx.moveTo(a.x,ay);ctx.lineTo(b.x,by);ctx.stroke();
+        }
+      }
+    }
+    if(!reduce) raf=requestAnimationFrame(draw);
+  }
+  let raf;
+  function start(){cancelAnimationFrame(raf); raf=requestAnimationFrame(draw);}
+  size(); start();
+  window.addEventListener('resize',()=>{size();if(reduce)draw(0);});
+  if(reduce) draw(0);
+})();
+</script>
 </body>
-
 </html>

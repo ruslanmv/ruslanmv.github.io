@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cron Expression Builder &amp; Explainer — Ruslan Magana Vsevolodovna</title>
+<meta name="description" content="Build and understand cron expressions: visual field builder, plain-English explanation, the next 10 run times in any timezone, and handy presets. 100% in your browser." />
+<meta name="keywords" content="cron expression generator, cron explainer, crontab, next run time, cron schedule builder, cron syntax" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/toolkit.css" />
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1020px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+  .wrap{max-width:1020px;margin:0 auto;padding:34px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(28px,4.4vw,40px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:680px}
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:7px}
+  input,select{width:100%;font-family:var(--sans);font-size:15px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:11px 13px;outline:none;transition:border .15s,box-shadow .15s}
+  input:focus,select:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:10px 16px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s;min-height:42px}
+  .btn:hover{border-color:var(--line-3)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-600)}
+  .mono{font-family:var(--mono)}
+
+  .expr-row{display:flex;gap:10px;align-items:center;margin-top:24px;flex-wrap:wrap}
+  .expr-input{flex:1;min-width:240px;font-family:var(--mono);font-size:20px;font-weight:600;letter-spacing:1px;text-align:center;padding:14px;color:var(--ink)}
+  .expr-input.bad{border-color:#e0a3a0;box-shadow:0 0 0 4px #fdecec}
+
+  .explain{margin-top:14px;padding:14px 18px;border-radius:12px;background:var(--green-tint);border:1px solid rgba(21,160,90,.2);
+    color:var(--green-700);font-size:16px;font-weight:600;font-family:var(--serif)}
+  .explain.bad{background:#fdeceb;border-color:#f3cfcc;color:#b4322b;font-family:var(--sans);font-weight:500;font-size:14px}
+
+  .builder{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}
+  @media(max-width:760px){.builder{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:420px){.builder{grid-template-columns:1fr}}
+  .fld label{font-size:12px;letter-spacing:.4px}
+  .fld .hint{font-size:11px;color:var(--faint);margin-top:5px;font-family:var(--mono)}
+  .fld input{font-family:var(--mono);font-size:14px;text-align:center}
+
+  .controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-top:22px}
+  .controls .grp{flex:1;min-width:180px}
+  .controls .grp.tight{flex:0 0 auto}
+
+  .runs-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:28px 0 12px}
+  .runs-head h2{font-size:15px;font-weight:700;color:var(--ink)}
+  .runs-head .acts{margin-left:auto;display:flex;gap:8px}
+  .runs-head .acts .btn{padding:8px 13px;font-size:13px}
+  .runs{border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
+  .run{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:11px 16px;border-bottom:1px solid var(--line)}
+  .run:last-child{border-bottom:none}
+  .run .dt{font-family:var(--mono);font-size:13.5px;color:var(--ink)}
+  .run .rel{font-size:12.5px;color:var(--faint)}
+  .run .n{font-size:11px;font-weight:700;color:var(--faint);font-family:var(--mono);min-width:24px}
+  .runs-empty{padding:30px;text-align:center;color:var(--faint);font-size:14px}
+
+  .ws-row{margin-top:20px}
+  .toolnote{font-size:12.5px;color:var(--faint);margin-top:18px;line-height:1.6}
+  .toolnote a{color:var(--green-700);font-weight:600}
+  @media(max-width:520px){.wrap{padding:22px 14px 64px}.panel{padding:15px}.expr-input{font-size:16px}}
+</style>
+</head>
+<body>
+  <header class="bar"><div class="in">
+    <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+    <span class="name">Ruslan Magana Vsevolodovna</span>
+  </div></header>
+
+  <main class="wrap">
+    <div class="eyebrow">Developer</div>
+    <h1>Cron Expression Builder</h1>
+    <p class="sub">Build a cron schedule, read it back in plain English, and see the next 10 run times in any timezone. Standard 5-field crontab syntax with ranges, lists, steps, and names. Runs entirely in your browser.</p>
+    <div id="badges"></div>
+
+    <div class="expr-row">
+      <input type="text" id="expr" class="expr-input mono" value="*/15 * * * *" spellcheck="false" aria-label="Cron expression" />
+      <button class="btn" id="copyExpr" type="button">Copy</button>
+      <button class="btn" id="shareBtn" type="button">Share</button>
+    </div>
+    <div class="explain" id="explain">—</div>
+
+    <div class="builder" id="builder">
+      <div class="fld"><label for="f0">Minute</label><input type="text" id="f0" spellcheck="false" /><div class="hint">0–59</div></div>
+      <div class="fld"><label for="f1">Hour</label><input type="text" id="f1" spellcheck="false" /><div class="hint">0–23</div></div>
+      <div class="fld"><label for="f2">Day (month)</label><input type="text" id="f2" spellcheck="false" /><div class="hint">1–31</div></div>
+      <div class="fld"><label for="f3">Month</label><input type="text" id="f3" spellcheck="false" /><div class="hint">1–12 / JAN…</div></div>
+      <div class="fld"><label for="f4">Day (week)</label><input type="text" id="f4" spellcheck="false" /><div class="hint">0–6 / SUN…</div></div>
+    </div>
+
+    <div class="controls">
+      <div class="grp">
+        <label for="preset">Presets</label>
+        <select id="preset">
+          <option value="">Choose a preset…</option>
+          <option value="* * * * *">Every minute</option>
+          <option value="*/5 * * * *">Every 5 minutes</option>
+          <option value="*/15 * * * *">Every 15 minutes</option>
+          <option value="0 * * * *">Hourly (on the hour)</option>
+          <option value="0 0 * * *">Daily at midnight</option>
+          <option value="0 9 * * *">Daily at 9:00 AM</option>
+          <option value="0 9 * * 1">Weekly — Monday 9:00 AM</option>
+          <option value="0 0 1 * *">Monthly — 1st at 00:00</option>
+          <option value="0 0 1 1 *">Yearly — Jan 1 at 00:00</option>
+        </select>
+      </div>
+      <div class="grp">
+        <label for="tz">Timezone</label>
+        <select id="tz"></select>
+      </div>
+    </div>
+
+    <div class="runs-head">
+      <h2>Next 10 runs</h2>
+      <div class="acts">
+        <button class="btn" id="copyRuns" type="button">Copy</button>
+        <button class="btn" id="dlRuns" type="button">Download</button>
+      </div>
+    </div>
+    <div class="runs" id="runs"></div>
+
+    <div class="ws-row" id="ws"></div>
+    <p class="toolnote">Uses standard Vixie-cron semantics: when both “day (month)” and “day (week)” are restricted, a run fires when <em>either</em> matches. Times are computed locally — see the <a href="timestamp-converter.html">Timestamp Converter</a> for epoch/timezone conversions.</p>
+  </main>
+
+<script src="shared/toolkit.js"></script>
+<script>
+(function(){
+'use strict';
+var R = window.RMVTool || null;
+
+var MONTHS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+var DOWS=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+var DOW_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var MON_FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+var exprEl=document.getElementById('expr'), explainEl=document.getElementById('explain'),
+    runsEl=document.getElementById('runs'), tzEl=document.getElementById('tz'), presetEl=document.getElementById('preset');
+var fIn=[0,1,2,3,4].map(function(i){ return document.getElementById('f'+i); });
+
+if(R) R.badges('#badges', {updated:'2026-06-02'});
+
+/* ===================== timezones ===================== */
+var localTZ=(Intl.DateTimeFormat().resolvedOptions().timeZone)||'UTC';
+(function fillTZ(){
+  var zones;
+  try{ zones = (Intl.supportedValuesOf && Intl.supportedValuesOf('timeZone')) || null; }catch(e){ zones=null; }
+  if(!zones) zones=['UTC','America/New_York','America/Chicago','America/Los_Angeles','Europe/London','Europe/Berlin','Europe/Madrid','Asia/Kolkata','Asia/Shanghai','Asia/Tokyo','Australia/Sydney'];
+  if(zones.indexOf('UTC')===-1) zones.unshift('UTC');
+  if(zones.indexOf(localTZ)===-1) zones.unshift(localTZ);
+  zones.forEach(function(z){ var o=document.createElement('option'); o.value=z; o.textContent=z; tzEl.appendChild(o); });
+  tzEl.value=localTZ;
+})();
+
+/* ===================== parsing ===================== */
+function parseField(raw, min, max, names){
+  raw=String(raw).trim();
+  if(raw==='') throw new Error('empty field');
+  var star = (raw==='*');
+  var set={};
+  function nameToNum(tok){
+    if(names){ var u=tok.toUpperCase(); var idx=names.indexOf(u); if(idx>=0) return idx + (names===MONTHS?1:0); }
+    if(!/^-?\d+$/.test(tok)) throw new Error('"'+tok+'" is not valid');
+    return parseInt(tok,10);
+  }
+  var vmax = (max===6) ? 7 : max;   // day-of-week accepts 7 as Sunday
+  raw.split(',').forEach(function(part){
+    part=part.trim();
+    var step=1, range=part;
+    var slash=part.indexOf('/');
+    if(slash>=0){ range=part.slice(0,slash); step=parseInt(part.slice(slash+1),10);
+      if(!(step>=1)) throw new Error('bad step in "'+part+'"'); }
+    var lo, hi;
+    if(range==='*'){ lo=min; hi=max; }
+    else if(range.indexOf('-')>0){ var ab=range.split('-'); lo=nameToNum(ab[0]); hi=nameToNum(ab[1]); }
+    else { lo=nameToNum(range); hi = (slash>=0) ? vmax : lo; }
+    if(lo<min||hi>vmax||lo>hi) throw new Error('"'+part+'" out of range '+min+'-'+max);
+    for(var v=lo; v<=hi; v+=step) set[(v===7 && max===6) ? 0 : v]=true;  // remap dow 7 -> 0
+  });
+  return {set:set, star:star, raw:raw};
+}
+
+function parseCron(str){
+  var f=String(str).trim().split(/\s+/);
+  if(f.length!==5) throw new Error('A cron expression needs exactly 5 fields (minute hour day month weekday).');
+  return {
+    minute: parseField(f[0], 0, 59),
+    hour:   parseField(f[1], 0, 23),
+    dom:    parseField(f[2], 1, 31),
+    month:  parseField(f[3], 1, 12, MONTHS),
+    dow:    parseField(f[4], 0, 6, DOWS),
+    raw: f.join(' ')
+  };
+}
+
+/* ===================== schedule iteration ===================== */
+function partsInTZ(ts, tz){
+  var fmt=new Intl.DateTimeFormat('en-US',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',
+    hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+  var p={}; fmt.formatToParts(new Date(ts)).forEach(function(x){ p[x.type]=x.value; });
+  return {y:+p.year, mo:+p.month, d:+p.day, h:+p.hour, mi:+p.minute, s:+p.second};
+}
+function wallToTs(y,mo,d,h,mi,tz){
+  var guess=Date.UTC(y,mo-1,d,h,mi,0);
+  for(var i=0;i<2;i++){
+    var p=partsInTZ(guess,tz);
+    var asUTC=Date.UTC(p.y,p.mo-1,p.d,p.h,p.mi,p.s);
+    var off=asUTC-guess;          // wall-clock is `off` ahead of the underlying instant
+    guess = Date.UTC(y,mo-1,d,h,mi,0) - off;
+  }
+  return guess;
+}
+function daysInMonth(y,mo){ return new Date(Date.UTC(y,mo,0)).getUTCDate(); }
+function dowOf(y,mo,d){ return new Date(Date.UTC(y,mo-1,d)).getUTCDay(); }
+
+function dayMatches(c,y,mo,d){
+  var domR=!c.dom.star, dowR=!c.dow.star;
+  var dm=!!c.dom.set[d], wm=!!c.dow.set[dowOf(y,mo,d)];
+  if(domR&&dowR) return dm||wm;
+  if(domR) return dm;
+  if(dowR) return wm;
+  return true;
+}
+
+function nextRuns(c, tz, fromTs, count){
+  var res=[];
+  var start=partsInTZ(fromTs, tz);
+  var months=[]; for(var m=1;m<=12;m++) if(c.month.set[m]) months.push(m);
+  var hours=[]; for(var hh=0;hh<24;hh++) if(c.hour.set[hh]) hours.push(hh);
+  var mins=[]; for(var mm=0;mm<60;mm++) if(c.minute.set[mm]) mins.push(mm);
+  if(!months.length||!hours.length||!mins.length) return res;
+
+  for(var y=start.y; y<=start.y+6 && res.length<count; y++){
+    for(var mi=0; mi<months.length && res.length<count; mi++){
+      var mo=months[mi];
+      if(y===start.y && mo<start.mo) continue;
+      var dmax=daysInMonth(y,mo);
+      for(var d=1; d<=dmax && res.length<count; d++){
+        if(!dayMatches(c,y,mo,d)) continue;
+        for(var hi=0; hi<hours.length && res.length<count; hi++){
+          var h=hours[hi];
+          for(var qi=0; qi<mins.length && res.length<count; qi++){
+            var mn=mins[qi];
+            // strictly after fromTs (compare on wall clock in tz)
+            if(y===start.y && mo===start.mo && d===start.d){
+              if(h<start.h) continue;
+              if(h===start.h && mn<=start.mi) continue;
+            } else if(y===start.y && (mo<start.mo || (mo===start.mo && d<start.d))){
+              continue;
+            }
+            res.push(wallToTs(y,mo,d,h,mn,tz));
+          }
+        }
+      }
+    }
+  }
+  return res;
+}
+
+/* ===================== explain ===================== */
+function listHuman(set, max, namer){
+  var arr=[]; for(var i=0;i<=max;i++) if(set[i]) arr.push(namer?namer(i):i);
+  if(arr.length<=1) return arr.join('');
+  if(arr.length===2) return arr[0]+' and '+arr[1];
+  return arr.slice(0,-1).join(', ')+', and '+arr[arr.length-1];
+}
+function pad(n){ return (n<10?'0':'')+n; }
+function singleVal(field, max){ var a=[]; for(var i=0;i<=max;i++) if(field.set[i])a.push(i); return a.length===1?a[0]:null; }
+
+function explainCron(c){
+  var time;
+  var stepM=/^\*\/(\d+)$/.exec(c.minute.raw);
+  var stepH=/^\*\/(\d+)$/.exec(c.hour.raw);
+  var sm=singleVal(c.minute,59), sh=singleVal(c.hour,23);
+  if(c.minute.star && c.hour.star){ time='Every minute'; }
+  else if(stepM && c.hour.star){ time='Every '+stepM[1]+' minutes'; }
+  else if(sm!==null && c.hour.star){ time='At minute '+sm+' of every hour'; }
+  else if(sm!==null && sh!==null){ time='At '+pad(sh)+':'+pad(sm); }
+  else if(sm!==null && stepH){ time='At minute '+sm+', every '+stepH[1]+' hours'; }
+  else if(c.minute.star && sh!==null){ time='Every minute, during hour '+sh+':00'; }
+  else { time='At minute(s) '+listHuman(c.minute.set,59)+' past hour(s) '+listHuman(c.hour.set,23); }
+
+  var day='';
+  var domR=!c.dom.star, dowR=!c.dow.star;
+  if(domR && dowR){ day=', on day-of-month '+listHuman(c.dom.set,31)+' and on '+listHuman(c.dow.set,6,function(i){return DOW_FULL[i];})+' (whichever occurs)'; }
+  else if(domR){ day=', on day-of-month '+listHuman(c.dom.set,31); }
+  else if(dowR){ day=', on '+listHuman(c.dow.set,6,function(i){return DOW_FULL[i];}); }
+
+  var mon='';
+  if(!c.month.star){ mon=', in '+listHuman(c.month.set,12,function(i){return MON_FULL[i-1];}); }
+
+  return time+day+mon+'.';
+}
+
+/* ===================== sync expr <-> builder ===================== */
+function setExpr(str, fromField){
+  exprEl.value=str;
+  var parts=str.trim().split(/\s+/);
+  if(!fromField && parts.length===5){ for(var i=0;i<5;i++) fIn[i].value=parts[i]; }
+  update();
+}
+function buildFromFields(){
+  var parts=fIn.map(function(x){ return x.value.trim()||'*'; });
+  exprEl.value=parts.join(' ');
+  update();
+}
+
+var lastRuns=[];
+function update(){
+  var c;
+  try{ c=parseCron(exprEl.value); }
+  catch(e){
+    exprEl.classList.add('bad');
+    explainEl.classList.add('bad'); explainEl.textContent=e.message;
+    runsEl.innerHTML='<div class="runs-empty">Fix the expression to see upcoming runs.</div>';
+    lastRuns=[]; return;
+  }
+  exprEl.classList.remove('bad'); explainEl.classList.remove('bad');
+  explainEl.textContent=explainCron(c);
+  // keep builder inputs in sync with the canonical fields
+  var parts=c.raw.split(' '); for(var i=0;i<5;i++){ if(document.activeElement!==fIn[i]) fIn[i].value=parts[i]; }
+
+  var tz=tzEl.value||'UTC';
+  var runs=nextRuns(c, tz, Date.now(), 10);
+  lastRuns=runs;
+  if(!runs.length){ runsEl.innerHTML='<div class="runs-empty">No upcoming runs in the next several years (the schedule may be impossible, e.g. Feb 30).</div>'; return; }
+  var rtf=null; try{ rtf=new Intl.RelativeTimeFormat('en',{numeric:'auto'}); }catch(e){}
+  var dfmt=new Intl.DateTimeFormat('en-GB',{timeZone:tz,year:'numeric',month:'short',day:'2-digit',
+    hour:'2-digit',minute:'2-digit',weekday:'short',hourCycle:'h23'});
+  runsEl.innerHTML=runs.map(function(ts,idx){
+    return '<div class="run"><span class="n">'+(idx+1)+'</span><span class="dt">'+dfmt.format(new Date(ts))+'</span><span class="rel">'+relTime(ts,rtf)+'</span></div>';
+  }).join('');
+}
+function relTime(ts, rtf){
+  if(!rtf) return '';
+  var diff=ts-Date.now(); var s=Math.round(diff/1000);
+  var u=[['year',31536000],['month',2592000],['day',86400],['hour',3600],['minute',60]];
+  for(var i=0;i<u.length;i++){ if(Math.abs(s)>=u[i][1]||u[i][0]==='minute'){ return rtf.format(Math.round(s/u[i][1]), u[i][0]); } }
+  return 'soon';
+}
+
+/* ===================== listeners ===================== */
+var t=null;
+exprEl.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(function(){ setExpr(exprEl.value,false); }, 160); });
+fIn.forEach(function(x){ x.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(buildFromFields,160); }); });
+tzEl.addEventListener('change', update);
+presetEl.addEventListener('change', function(){ if(presetEl.value){ setExpr(presetEl.value,false); presetEl.value=''; } });
+
+document.getElementById('copyExpr').addEventListener('click', function(){ if(R) R.copy(exprEl.value.trim()); });
+document.getElementById('copyRuns').addEventListener('click', function(){
+  if(!lastRuns.length){ if(R)R.toast('Nothing to copy'); return; }
+  var tz=tzEl.value; var f=new Intl.DateTimeFormat('sv-SE',{timeZone:tz,dateStyle:'short',timeStyle:'medium'});
+  var txt=lastRuns.map(function(ts){ return f.format(new Date(ts))+' ('+tz+')'; }).join('\n');
+  if(R) R.copy(txt);
+});
+document.getElementById('dlRuns').addEventListener('click', function(){
+  if(!lastRuns.length){ if(R)R.toast('Nothing to download'); return; }
+  var tz=tzEl.value; var f=new Intl.DateTimeFormat('sv-SE',{timeZone:tz,dateStyle:'short',timeStyle:'medium'});
+  var txt='Cron: '+exprEl.value.trim()+'\nTimezone: '+tz+'\n\n'+lastRuns.map(function(ts,i){ return (i+1)+'. '+f.format(new Date(ts)); }).join('\n')+'\n';
+  if(R) R.download('cron-next-runs.txt', txt, 'text/plain');
+});
+
+/* ===================== share / workspaces ===================== */
+function getState(){ return {expr:exprEl.value, tz:tzEl.value}; }
+function applyState(s){ if(!s) return; if(s.tz) tzEl.value=s.tz; setExpr(s.expr||'*/15 * * * *', false); }
+document.getElementById('shareBtn').addEventListener('click', function(){ if(R) R.share(getState()); });
+if(R) R.mountWorkspaces('#ws', {ns:'cron', getState:getState, applyState:applyState});
+
+/* ===================== init ===================== */
+var shared = R ? R.readShared() : null;
+if(shared && shared.expr){ applyState(shared); }
+else { setExpr(exprEl.value, false); }
+
+}());
+</script>
+</body>
+</html>

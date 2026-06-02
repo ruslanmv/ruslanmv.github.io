@@ -1,0 +1,127 @@
+{
+  "query": { "q": "qwen coder", "target": "ollama", "useCase": "coding", "ramGb": 16, "vramGb": 0, "limit": 30 },
+  "note": "Bundled sample results (offline fallback). Compatibility is estimated, not guaranteed.",
+  "generatedAt": "2026-06-01T00:00:00.000Z",
+  "results": [
+    {
+      "repoId": "bartowski/Qwen2.5-Coder-7B-Instruct-GGUF",
+      "name": "Qwen2.5 Coder 7B Instruct GGUF",
+      "task": "text-generation",
+      "license": "apache-2.0",
+      "downloads": 128345, "likes": 1203, "lastModified": "2026-05-31T10:00:00.000Z",
+      "compatibilityScore": 92, "recommendedTarget": "ollama",
+      "compatibleApps": ["ollama", "llama.cpp", "lm-studio", "jan"],
+      "formats": ["gguf"], "quants": ["Q3_K_M", "Q4_K_M", "Q5_K_M", "Q6_K", "Q8_0"],
+      "recommendedQuant": "Q4_K_M", "estimatedMemoryGb": 5.8, "estimatedParamsB": 7,
+      "commands": {
+        "ollama": "ollama run hf.co/bartowski/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
+        "llamaCppServer": "llama-server -hf bartowski/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
+        "llamaCppCli": "llama-cli -hf bartowski/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
+        "vllm": "vllm serve bartowski/Qwen2.5-Coder-7B-Instruct-GGUF"
+      },
+      "links": { "huggingFace": "https://huggingface.co/bartowski/Qwen2.5-Coder-7B-Instruct-GGUF" },
+      "why": ["GGUF files detected in repository.", "Q4_K_M quantization available.", "Estimated memory fits your hardware profile.", "Strong match for the coding use case."],
+      "warnings": ["Compatibility is estimated, not guaranteed.", "Long context (32K+) may require more RAM."]
+    },
+    {
+      "repoId": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "name": "Meta Llama 3.1 8B Instruct GGUF",
+      "task": "text-generation",
+      "license": "llama3.1",
+      "downloads": 96000, "likes": 980, "lastModified": "2026-05-28T10:00:00.000Z",
+      "compatibilityScore": 89, "recommendedTarget": "ollama",
+      "compatibleApps": ["ollama", "llama.cpp", "lm-studio", "jan"],
+      "formats": ["gguf"], "quants": ["Q4_K_M", "Q5_K_M", "Q6_K", "Q8_0"],
+      "recommendedQuant": "Q4_K_M", "estimatedMemoryGb": 6.4, "estimatedParamsB": 8,
+      "commands": {
+        "ollama": "ollama run hf.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF:Q4_K_M",
+        "llamaCppServer": "llama-server -hf bartowski/Meta-Llama-3.1-8B-Instruct-GGUF:Q4_K_M",
+        "llamaCppCli": "llama-cli -hf bartowski/Meta-Llama-3.1-8B-Instruct-GGUF:Q4_K_M",
+        "vllm": "vllm serve bartowski/Meta-Llama-3.1-8B-Instruct-GGUF"
+      },
+      "links": { "huggingFace": "https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF" },
+      "why": ["GGUF files detected in repository.", "Q4_K_M quantization available.", "Estimated memory fits your hardware profile."],
+      "warnings": ["Compatibility is estimated, not guaranteed.", "Llama 3.1 community license — review terms before commercial use."]
+    },
+    {
+      "repoId": "bartowski/Mistral-Nemo-Instruct-2407-GGUF",
+      "name": "Mistral Nemo Instruct 2407 GGUF",
+      "task": "text-generation",
+      "license": "apache-2.0",
+      "downloads": 74000, "likes": 640, "lastModified": "2026-05-30T10:00:00.000Z",
+      "compatibilityScore": 86, "recommendedTarget": "llama.cpp",
+      "compatibleApps": ["ollama", "llama.cpp", "lm-studio", "jan"],
+      "formats": ["gguf"], "quants": ["Q4_K_M", "Q5_K_M", "Q6_K", "Q8_0"],
+      "recommendedQuant": "Q4_K_M", "estimatedMemoryGb": 7.9, "estimatedParamsB": 12,
+      "commands": {
+        "ollama": "ollama run hf.co/bartowski/Mistral-Nemo-Instruct-2407-GGUF:Q4_K_M",
+        "llamaCppServer": "llama-server -hf bartowski/Mistral-Nemo-Instruct-2407-GGUF:Q4_K_M",
+        "llamaCppCli": "llama-cli -hf bartowski/Mistral-Nemo-Instruct-2407-GGUF:Q4_K_M",
+        "vllm": "vllm serve bartowski/Mistral-Nemo-Instruct-2407-GGUF"
+      },
+      "links": { "huggingFace": "https://huggingface.co/bartowski/Mistral-Nemo-Instruct-2407-GGUF" },
+      "why": ["GGUF files detected in repository.", "Q4_K_M quantization available.", "Estimated memory fits your hardware profile."],
+      "warnings": ["Compatibility is estimated, not guaranteed."]
+    },
+    {
+      "repoId": "bartowski/DeepSeek-Coder-V2-Lite-Instruct-GGUF",
+      "name": "DeepSeek Coder V2 Lite Instruct GGUF",
+      "task": "text-generation",
+      "license": "mit",
+      "downloads": 58000, "likes": 520, "lastModified": "2026-05-26T10:00:00.000Z",
+      "compatibilityScore": 82, "recommendedTarget": "llama.cpp",
+      "compatibleApps": ["ollama", "llama.cpp", "lm-studio", "jan"],
+      "formats": ["gguf"], "quants": ["Q4_K_M", "Q5_K_M", "Q6_K", "Q8_0"],
+      "recommendedQuant": "Q5_K_M", "estimatedMemoryGb": 10.2, "estimatedParamsB": 16,
+      "commands": {
+        "ollama": "ollama run hf.co/bartowski/DeepSeek-Coder-V2-Lite-Instruct-GGUF:Q5_K_M",
+        "llamaCppServer": "llama-server -hf bartowski/DeepSeek-Coder-V2-Lite-Instruct-GGUF:Q5_K_M",
+        "llamaCppCli": "llama-cli -hf bartowski/DeepSeek-Coder-V2-Lite-Instruct-GGUF:Q5_K_M",
+        "vllm": "vllm serve bartowski/DeepSeek-Coder-V2-Lite-Instruct-GGUF"
+      },
+      "links": { "huggingFace": "https://huggingface.co/bartowski/DeepSeek-Coder-V2-Lite-Instruct-GGUF" },
+      "why": ["GGUF files detected in repository.", "Q5_K_M quantization available.", "MoE model with strong coding performance."],
+      "warnings": ["Compatibility is estimated, not guaranteed.", "16B MoE — verify it fits your RAM before downloading."]
+    },
+    {
+      "repoId": "bartowski/gemma-2-9b-it-GGUF",
+      "name": "Gemma 2 9B IT GGUF",
+      "task": "text-generation",
+      "license": "gemma",
+      "downloads": 51000, "likes": 470, "lastModified": "2026-05-24T10:00:00.000Z",
+      "compatibilityScore": 79, "recommendedTarget": "ollama",
+      "compatibleApps": ["ollama", "llama.cpp", "lm-studio", "jan"],
+      "formats": ["gguf"], "quants": ["Q4_K_M", "Q5_K_M", "Q6_K", "Q8_0"],
+      "recommendedQuant": "Q4_K_M", "estimatedMemoryGb": 7.2, "estimatedParamsB": 9,
+      "commands": {
+        "ollama": "ollama run hf.co/bartowski/gemma-2-9b-it-GGUF:Q4_K_M",
+        "llamaCppServer": "llama-server -hf bartowski/gemma-2-9b-it-GGUF:Q4_K_M",
+        "llamaCppCli": "llama-cli -hf bartowski/gemma-2-9b-it-GGUF:Q4_K_M",
+        "vllm": "vllm serve bartowski/gemma-2-9b-it-GGUF"
+      },
+      "links": { "huggingFace": "https://huggingface.co/bartowski/gemma-2-9b-it-GGUF" },
+      "why": ["GGUF files detected in repository.", "Q4_K_M quantization available.", "Estimated memory fits your hardware profile."],
+      "warnings": ["Compatibility is estimated, not guaranteed.", "Gemma license — review terms before commercial use."]
+    },
+    {
+      "repoId": "microsoft/Phi-3.5-mini-instruct-GGUF",
+      "name": "Phi 3.5 Mini Instruct GGUF",
+      "task": "text-generation",
+      "license": "mit",
+      "downloads": 42000, "likes": 410, "lastModified": "2026-05-25T10:00:00.000Z",
+      "compatibilityScore": 76, "recommendedTarget": "ollama",
+      "compatibleApps": ["ollama", "llama.cpp", "lm-studio", "jan"],
+      "formats": ["gguf"], "quants": ["Q4_K_M", "Q5_K_M", "Q6_K", "Q8_0", "FP16"],
+      "recommendedQuant": "Q4_K_M", "estimatedMemoryGb": 3.1, "estimatedParamsB": 3.8,
+      "commands": {
+        "ollama": "ollama run hf.co/microsoft/Phi-3.5-mini-instruct-GGUF:Q4_K_M",
+        "llamaCppServer": "llama-server -hf microsoft/Phi-3.5-mini-instruct-GGUF:Q4_K_M",
+        "llamaCppCli": "llama-cli -hf microsoft/Phi-3.5-mini-instruct-GGUF:Q4_K_M",
+        "vllm": "vllm serve microsoft/Phi-3.5-mini-instruct-GGUF"
+      },
+      "links": { "huggingFace": "https://huggingface.co/microsoft/Phi-3.5-mini-instruct-GGUF" },
+      "why": ["GGUF files detected in repository.", "Small model — runs comfortably on modest hardware.", "Q4_K_M quantization available."],
+      "warnings": ["Compatibility is estimated, not guaranteed."]
+    }
+  ]
+}

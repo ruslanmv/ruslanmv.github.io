@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTTP Request & cURL Builder</title>
+  <link rel="stylesheet" href="assets/shared/tool-shell.css" />
+  <link rel="stylesheet" href="assets/http-curl-builder/http-curl-builder.css" />
+</head>
+<body>
+  <header class="tool-header">
+    <div class="tool-header__in">
+      <a class="tool-header__back" href="index.html">← <span>All tools</span></a>
+      <div class="tool-header__title">HTTP Request & cURL Builder</div>
+      <div class="tool-header__user">Ruslan Magana Vsevolodovna <span class="avatar">RV</span> ▾</div>
+    </div>
+  </header>
+
+  <main class="tool-wrap">
+    <section class="hero">
+      <div>
+        <h1>HTTP Request & cURL Builder</h1>
+        <p class="sub">Build API requests, test endpoints, and generate cURL commands.</p>
+      </div>
+      <div class="actions"><span class="badge neutral">▣ Local workspace</span><span class="badge">⇩ Exportable</span></div>
+    </section>
+
+    <section class="request-line">
+      <select id="method" aria-label="HTTP method">
+        <option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option><option>HEAD</option>
+      </select>
+      <input id="url" type="url" placeholder="https://api.example.com/v1/resource" />
+      <div class="send-wrap"><button class="btn primary" id="sendBtn">➤ Send</button><button class="btn primary" id="resetBtn" title="Reset example">↻</button></div>
+    </section>
+    <div class="small-muted" style="margin-bottom:12px">Full URL: <span id="fullUrlPreview" class="mono"></span></div>
+
+    <nav class="tabs" aria-label="Request sections">
+      <button class="tab active">Params</button><button class="tab">Headers</button><button class="tab">Auth</button><button class="tab">Body</button><button class="tab">cURL</button>
+    </nav>
+
+    <section class="workspace" style="margin-top:18px">
+      <div class="builder-panel">
+        <article class="card pad">
+          <div class="spread"><h2 class="section-title">Query Parameters</h2><div class="mini-actions"><button class="btn small" id="addParam">+ Add</button></div></div>
+          <table class="table"><thead><tr><th></th><th>Key</th><th>Value</th><th>Description</th><th></th></tr></thead><tbody id="paramsBody"></tbody></table>
+        </article>
+
+        <article class="card pad">
+          <div class="spread"><h2 class="section-title">Headers</h2><button class="btn small" id="addHeader">+ Add</button></div>
+          <table class="table"><thead><tr><th></th><th>Key</th><th>Value</th><th>Description</th><th></th></tr></thead><tbody id="headersBody"></tbody></table>
+        </article>
+
+        <div class="auth-body-grid">
+          <article class="card pad">
+            <h2 class="section-title">Authentication</h2>
+            <div class="field"><label for="authType">Type</label><select id="authType"><option value="none">No auth</option><option value="bearer">Bearer token</option><option value="basic">Basic auth</option><option value="apikey">API key</option></select></div>
+            <div id="bearerAuth" class="field" style="margin-top:12px"><label for="authToken">Token</label><input id="authToken" class="secret" type="password" placeholder="ghp_... or token" /></div>
+            <div id="basicAuth" class="field-row hidden" style="margin-top:12px"><div class="field"><label>Username</label><input id="basicUser"></div><div class="field"><label>Password</label><input id="basicPass" type="password"></div></div>
+            <div id="apiKeyAuth" class="hidden" style="margin-top:12px"><div class="field-row"><div class="field"><label>Key name</label><input id="apiKeyName" placeholder="x-api-key"></div><div class="field"><label>Value</label><input id="apiKeyValue" type="password"></div></div><div class="field" style="margin-top:10px"><label>Location</label><select id="apiKeyLocation"><option value="header">Header</option><option value="query">Query param</option></select></div></div>
+          </article>
+
+          <article class="card pad">
+            <div class="spread"><h2 class="section-title">Request Body</h2><div class="segmented"><button class="body-mode active" data-mode="json">JSON</button><button class="body-mode" data-mode="text">Text</button><button class="body-mode" data-mode="form">Form</button></div></div>
+            <textarea id="bodyInput" class="body-editor" spellcheck="false">{}</textarea>
+          </article>
+        </div>
+
+        <article class="card pad">
+          <div class="spread">
+            <div class="row"><strong>Environment</strong><div class="segmented"><button class="env-btn active" data-env="dev">Dev</button><button class="env-btn" data-env="stage">Stage</button><button class="env-btn" data-env="prod">Prod</button></div></div>
+            <div class="row"><label style="margin:0"><input id="proxyToggle" type="checkbox" style="width:auto;margin-right:8px">Use Worker proxy</label><button class="btn" id="saveRequest">▱ Save Request</button></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="stack">
+        <article class="card">
+          <div class="card__header"><h2 class="card__title">Generated Code</h2><div class="row"><button class="btn small" id="copyCode">⧉ Copy</button><button class="btn small" id="downloadCode">⇩ Download</button></div></div>
+          <div class="card__body">
+            <div class="code-tabs"><button class="code-tab active" data-code="curl">cURL</button><button class="code-tab" data-code="fetch">fetch</button><button class="code-tab" data-code="python">Python</button><button class="code-tab" data-code="axios">Axios</button></div>
+            <pre class="code-panel small" id="generatedCode"></pre>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__header"><h2 class="card__title">Response</h2><div class="row"><span class="small-muted" id="lastRun">Not run yet</span><button class="btn small" id="copyResponse">⧉</button><button class="btn small" id="downloadResponse">⇩</button></div></div>
+          <div class="card__body">
+            <div class="response-head"><span id="statusBadge" class="status-ok">Ready</span><span>Time: <strong id="resTime">0 ms</strong></span><span>Size: <strong id="resSize">0 B</strong></span></div>
+            <div class="tabs" style="margin-top:0"><button class="tab response-tab active" data-response="body">Body</button><button class="tab response-tab" data-response="headers">Headers</button></div>
+            <pre class="code-panel tall" id="responseBody"></pre>
+            <pre class="code-panel tall hidden" id="responseHeaders"></pre>
+          </div>
+          <div class="notice">ⓘ Browser requests may be blocked by CORS. Generated cURL commands will still work in your terminal. Configure a Cloudflare Worker for proxy mode.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="footer-metrics">
+      <div class="metric"><span>●</span><div><span>Status</span><b id="metricStatus">Ready</b></div></div>
+      <div class="metric"><span>◷</span><div><span>Latency</span><b id="metricLatency">0 ms</b></div></div>
+      <div class="metric"><span>⇩</span><div><span>Response Size</span><b id="metricSize">0 B</b></div></div>
+      <div class="metric"><span>▣</span><div><span>Last Run</span><b id="metricLastRun">—</b></div></div>
+      <div class="metric"><span>⧉</span><div><span>Request ID</span><b id="requestId">—</b></div></div>
+    </section>
+  </main>
+
+  <div data-toast class="toast"></div>
+  <script type="module" src="assets/http-curl-builder/http-curl-builder.js"></script>
+</body>
+</html>

@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LLM VRAM Calculator — Ruslan Magana Vsevolodovna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,16..72,500;0,16..72,600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared/toolkit.css" />
+<style>
+  :root{
+    --bg:#f4f5f1; --surface:#fff; --surface-2:#fbfbf9;
+    --ink:#10231a; --text:#1d2b24; --muted:#5c6b63; --faint:#8a978f;
+    --line:#e7e8e2; --line-2:#dcdfd7; --line-3:#cfd3ca;
+    --green:#15a05a; --green-600:#138a4e; --green-700:#0e7340;
+    --green-soft:#e7f4ec; --green-tint:#f1f8f3;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --serif:'Newsreader',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:14px; --shadow:0 1px 2px rgba(16,35,26,.04),0 12px 28px -20px rgba(16,35,26,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;font-size:16px}
+  a{color:inherit;text-decoration:none}
+  header.bar{background:#08170f;border-bottom:1px solid rgba(120,200,160,.14);position:sticky;top:0;z-index:20}
+  .bar .in{max-width:1080px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:18px}
+  .back{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:#a7bcb0;transition:color .15s}
+  .back:hover{color:#fff}
+  .back svg{width:17px;height:17px;stroke:currentColor;stroke-width:2.2;fill:none}
+  .bar .name{margin-left:auto;font-weight:700;color:#fff;font-size:15px}
+  .tool-wrap{max-width:1080px;margin:0 auto;padding:38px 28px 80px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
+  h1{font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-1px;color:var(--ink);margin-top:10px}
+  .sub{color:var(--muted);font-size:17px;margin-top:8px;max-width:640px}
+  .panel{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:7px;letter-spacing:.2px}
+  input,select,textarea{width:100%;font-family:var(--sans);font-size:15px;color:var(--text);background:var(--surface-2);
+    border:1px solid var(--line-2);border-radius:10px;padding:12px 14px;outline:none;transition:border .15s,box-shadow .15s}
+  textarea{font-family:var(--mono);font-size:13.5px;min-height:120px;resize:vertical}
+  input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+  input[type="number"]{-moz-appearance:textfield}
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;padding:11px 18px;border-radius:10px;cursor:pointer;border:1px solid var(--line-2);background:var(--surface);color:var(--text);transition:all .15s;min-height:44px;min-width:44px}
+  .btn:hover{border-color:var(--line-3);background:#f6f7f3}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+  .btn.primary:hover{background:var(--green-600)}
+  .btn.active{background:var(--green-tint);border-color:var(--green);color:var(--green-700)}
+  .mono{font-family:var(--mono)}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:7px;background:#f0f1ec;color:var(--muted)}
+
+  /* --- tool-specific --- */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  @media(max-width:600px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+  .layout{display:grid;grid-template-columns:440px 1fr;gap:20px;margin-top:28px;align-items:start}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}}
+
+  .section-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--faint);margin-bottom:14px;margin-top:22px}
+  .section-label:first-child{margin-top:0}
+
+  /* presets */
+  .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .preset-btn{font-family:var(--sans);font-size:12px;font-weight:700;padding:6px 11px;border-radius:9px;cursor:pointer;
+    border:1px solid var(--line-2);background:var(--surface-2);color:var(--text);transition:all .15s;min-height:36px}
+  .preset-btn:hover{border-color:var(--green);color:var(--green-700);background:var(--green-tint)}
+
+  /* mode toggle */
+  .mode-toggle{display:flex;background:var(--surface-2);border:1px solid var(--line-2);border-radius:11px;padding:4px;gap:4px}
+  .mode-btn{flex:1;font-family:var(--sans);font-size:13px;font-weight:600;padding:8px 10px;border-radius:8px;cursor:pointer;
+    border:none;background:transparent;color:var(--muted);transition:all .15s;min-height:40px}
+  .mode-btn.active{background:var(--green);color:#fff;box-shadow:0 1px 4px rgba(21,160,90,.25)}
+
+  /* results */
+  .result-total{background:var(--green-tint);border:1px solid var(--green-soft);border-radius:12px;padding:20px 22px;margin-bottom:18px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .result-total .val{font-size:36px;font-weight:800;color:var(--green-700);font-family:var(--mono);letter-spacing:-1px}
+  .result-total .unit{font-size:16px;font-weight:600;color:var(--green-600)}
+  .result-total .note{font-size:13px;color:var(--muted);margin-left:auto}
+
+  /* breakdown table */
+  .breakdown{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:18px}
+  .breakdown th{text-align:left;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);padding:6px 10px 8px;border-bottom:1px solid var(--line)}
+  .breakdown td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .breakdown tr:last-child td{border-bottom:none;font-weight:700;color:var(--ink)}
+  .breakdown .bar-cell{width:120px}
+  .breakdown .bar-wrap{background:var(--line);border-radius:4px;height:8px;overflow:hidden}
+  .breakdown .bar-fill{height:100%;border-radius:4px;background:var(--green);transition:width .3s ease}
+  .breakdown .bar-fill.orange{background:#d97706}
+  .breakdown .bar-fill.blue{background:#3b82f6}
+  .breakdown .bar-fill.purple{background:#8b5cf6}
+  .breakdown .bar-fill.gray{background:#94a3b8}
+
+  /* stacked bar */
+  .stacked-bar{height:22px;border-radius:8px;overflow:hidden;display:flex;margin-bottom:10px}
+  .stacked-seg{height:100%;transition:width .3s ease}
+  .stack-legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-bottom:18px}
+  .stack-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+  .stack-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+  /* GPU fit table */
+  .gpu-table{width:100%;border-collapse:collapse;font-size:14px}
+  .gpu-table th{text-align:left;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);padding:6px 10px 8px;border-bottom:1px solid var(--line)}
+  .gpu-table td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  .gpu-table tr:last-child td{border-bottom:none}
+  .fit-badge{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;padding:4px 10px;border-radius:7px}
+  .fit-badge.yes{background:#dcfce7;color:#16653a}
+  .fit-badge.no{background:#fee2e2;color:#991b1b}
+  .fit-badge svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.5;fill:none;flex-shrink:0}
+  .headroom{font-size:12px;color:var(--muted)}
+
+  /* notes */
+  .notes{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;font-size:13px;color:var(--muted);line-height:1.7}
+  .notes strong{color:var(--text)}
+  .notes ul{margin:8px 0 0 16px}
+  .notes li{margin-bottom:4px}
+
+  /* arch section */
+  .arch-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);margin-top:16px;user-select:none}
+  .arch-toggle .chevron{width:14px;height:14px;stroke:currentColor;stroke-width:2.5;fill:none;transition:transform .2s}
+  .arch-toggle.open .chevron{transform:rotate(90deg)}
+  .arch-panel{display:none;margin-top:12px}
+  .arch-panel.open{display:block}
+
+  .inferred-note{font-size:11px;color:var(--green-600);font-weight:500;margin-top:4px}
+
+  /* report mode panel */
+  .report-card{border-radius:12px;padding:16px 20px;margin-bottom:12px;border:1px solid}
+  .report-card.fits{background:#f0fdf4;border-color:#86efac;color:#15653a}
+  .report-card.tight{background:#fffbeb;border-color:#fcd34d;color:#78350f}
+  .report-card.nope{background:#fef2f2;border-color:#fca5a5;color:#991b1b}
+  .report-card .verdict-label{font-size:18px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .report-card .verdict-sub{font-size:13px;opacity:.85;line-height:1.5}
+  .report-detail{margin-top:14px}
+  .report-detail table{width:100%;border-collapse:collapse;font-size:13px}
+  .report-detail td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  .report-detail td:first-child{font-weight:600;color:var(--muted);width:46%;padding-right:12px}
+  .report-detail tr:last-child td{border-bottom:none}
+  .suggest-gpu-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .gpu-chip{font-size:12px;font-weight:600;background:var(--green-tint);color:var(--green-700);border:1px solid var(--green-soft);padding:4px 10px;border-radius:999px}
+
+  /* view mode toggle row */
+  .view-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .view-row .view-label{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint)}
+
+  /* actions bar */
+  .actions-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+
+  /* GPU preset select */
+  .gpu-preset-wrap{display:flex;gap:10px;align-items:flex-end;margin-bottom:14px;flex-wrap:wrap}
+  .gpu-preset-wrap > div{flex:1;min-width:160px}
+
+  /* custom GPU VRAM input */
+  #custom-gpu-row{margin-top:10px;display:none}
+
+  /* responsive helper */
+  @media(max-width:480px){
+    .result-total .val{font-size:28px}
+    .tool-wrap{padding:22px 16px 60px}
+    .bar .in{padding:0 16px}
+    .mode-btn{font-size:11px;padding:7px 6px}
+  }
+</style>
+</head>
+<body>
+  <header class="bar"><div class="in">
+    <a class="back" href="index.html"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> All tools</a>
+    <span class="name">Ruslan Magana Vsevolodovna</span>
+  </div></header>
+
+  <main class="tool-wrap">
+    <div class="eyebrow">AI / LLM</div>
+    <h1>LLM VRAM Calculator</h1>
+    <p class="sub">Estimate VRAM needs for models and batch sizes.</p>
+    <div id="badges-container"></div>
+
+    <div class="layout">
+      <!-- LEFT: inputs -->
+      <div>
+        <!-- Presets -->
+        <div class="panel" style="margin-bottom:16px">
+          <div class="section-label" style="margin-top:0">Model Presets</div>
+          <div class="presets" id="presets">
+            <!-- populated by JS -->
+          </div>
+
+          <!-- Computation mode -->
+          <div class="section-label">Computation Mode</div>
+          <div class="mode-toggle" role="group" aria-label="Computation mode">
+            <button class="mode-btn active" id="btn-inference" onclick="setMode('inference')">Inference</button>
+            <button class="mode-btn" id="btn-finetune" onclick="setMode('finetune')">Fine-tune</button>
+            <button class="mode-btn" id="btn-lora" onclick="setMode('lora')">LoRA</button>
+            <button class="mode-btn" id="btn-qlora" onclick="setMode('qlora')">QLoRA</button>
+            <button class="mode-btn" id="btn-serving" onclick="setMode('serving')">KV-Serve</button>
+          </div>
+          <div id="mode-description" style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5"></div>
+        </div>
+
+        <!-- GPU preset -->
+        <div class="panel" style="margin-bottom:16px">
+          <div class="section-label" style="margin-top:0">Target GPU</div>
+          <div class="gpu-preset-wrap">
+            <div>
+              <label for="inp-gpu">GPU Preset</label>
+              <select id="inp-gpu" aria-label="Select GPU">
+                <option value="custom">Custom / enter VRAM</option>
+                <option value="8">RTX 3060 12 GB → 12 GB</option>
+                <option value="24a">RTX 3090 24 GB → 24 GB</option>
+                <option value="24b">RTX 4090 24 GB → 24 GB</option>
+                <option value="24c">A10 24 GB → 24 GB</option>
+                <option value="24d">L4 24 GB → 24 GB</option>
+                <option value="40">A100 40 GB → 40 GB</option>
+                <option value="80a">A100 80 GB → 80 GB</option>
+                <option value="80b">H100 80 GB → 80 GB</option>
+                <option value="mac">Mac M-series (unified)</option>
+              </select>
+            </div>
+          </div>
+          <div id="custom-gpu-row">
+            <label for="inp-custom-gpu">Unified / Custom VRAM (GB)</label>
+            <input type="number" id="inp-custom-gpu" min="1" step="1" value="16" inputmode="numeric" aria-label="Custom GPU VRAM in GB" />
+          </div>
+        </div>
+
+        <!-- Model parameters -->
+        <div class="panel" style="margin-bottom:16px">
+          <div class="section-label" style="margin-top:0">Model Parameters</div>
+
+          <div style="margin-bottom:14px">
+            <label for="inp-params">Parameter Count (billions)</label>
+            <input type="number" id="inp-params" min="0.1" step="0.1" value="7" inputmode="decimal" aria-label="Parameter count in billions" />
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <label for="inp-quant">Quantization / Precision</label>
+              <select id="inp-quant" aria-label="Quantization precision">
+                <option value="4">FP32 — 4 bytes/param</option>
+                <option value="2" selected>FP16 / BF16 — 2 bytes/param</option>
+                <option value="1">INT8 — 1 byte/param</option>
+                <option value="0.5">INT4 — 0.5 bytes/param</option>
+              </select>
+            </div>
+            <div>
+              <label for="inp-batch">Batch Size</label>
+              <input type="number" id="inp-batch" min="1" step="1" value="1" inputmode="numeric" aria-label="Batch size" />
+            </div>
+          </div>
+
+          <div style="margin-top:14px">
+            <label for="inp-ctx">Context Length (tokens)</label>
+            <input type="number" id="inp-ctx" min="128" step="128" value="2048" inputmode="numeric" aria-label="Context length in tokens" />
+          </div>
+
+          <!-- Serving: concurrent sequences -->
+          <div id="serving-extra" style="margin-top:14px;display:none">
+            <label for="inp-concurrent">Concurrent Sequences (KV-serve batch)</label>
+            <input type="number" id="inp-concurrent" min="1" step="1" value="8" inputmode="numeric" aria-label="Concurrent sequences for KV-heavy serving" />
+          </div>
+
+          <!-- Architecture details toggle -->
+          <div class="arch-toggle" id="arch-toggle" onclick="toggleArch()" tabindex="0" role="button" aria-expanded="false" aria-controls="arch-panel">
+            <svg class="chevron" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            Architecture Details
+            <span class="tag" id="arch-inferred-tag">Inferred</span>
+          </div>
+          <div class="arch-panel" id="arch-panel">
+            <div class="grid-2" style="margin-top:12px">
+              <div>
+                <label for="inp-layers">Number of Layers</label>
+                <input type="number" id="inp-layers" min="1" step="1" value="32" inputmode="numeric" aria-label="Number of transformer layers" />
+                <div class="inferred-note" id="note-layers">Inferred from 7B default</div>
+              </div>
+              <div>
+                <label for="inp-hidden">Hidden Size (d_model)</label>
+                <input type="number" id="inp-hidden" min="64" step="64" value="4096" inputmode="numeric" aria-label="Hidden size / model dimension" />
+                <div class="inferred-note" id="note-hidden">Inferred from 7B default</div>
+              </div>
+            </div>
+            <div style="margin-top:12px">
+              <label for="inp-kvbytes">KV Cache Element Size</label>
+              <select id="inp-kvbytes" aria-label="KV cache element size in bytes">
+                <option value="2" selected>FP16 — 2 bytes (default)</option>
+                <option value="4">FP32 — 4 bytes</option>
+                <option value="1">INT8 — 1 byte</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fine-tuning / LoRA options -->
+        <div class="panel" id="training-panel" style="margin-bottom:16px;display:none">
+          <div class="section-label" style="margin-top:0">Fine-tuning Options</div>
+          <div>
+            <label for="inp-optimizer">Optimizer</label>
+            <select id="inp-optimizer" aria-label="Optimizer type">
+              <option value="adam" selected>Adam / AdamW — 2× FP32 states (8 bytes/param)</option>
+              <option value="sgd">SGD — 0 extra state (0 bytes/param)</option>
+              <option value="adam8bit">Adam 8-bit (bitsandbytes) — ~4 bytes/param</option>
+            </select>
+          </div>
+          <div style="margin-top:14px">
+            <label for="inp-train-precision">Training Weight Precision</label>
+            <select id="inp-train-precision" aria-label="Training weight precision">
+              <option value="4">FP32 — 4 bytes/param</option>
+              <option value="2" selected>FP16 / BF16 — 2 bytes/param (mixed precision)</option>
+            </select>
+          </div>
+          <div id="lora-pct-row" style="margin-top:14px;display:none">
+            <label for="inp-lora-pct">Adapter Parameters (% of base params)</label>
+            <input type="number" id="inp-lora-pct" min="0.1" max="20" step="0.1" value="1" inputmode="decimal" aria-label="LoRA adapter parameter percentage" />
+            <div class="inferred-note">Typical LoRA: 0.5–2%. QLoRA similar adapter size.</div>
+          </div>
+        </div>
+
+        <!-- Workspaces -->
+        <div class="panel" style="margin-bottom:16px">
+          <div class="section-label" style="margin-top:0">Saved Workspaces</div>
+          <div id="ws-container"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: results -->
+      <div id="results-col">
+        <!-- View mode toggle: Quick / Report -->
+        <div class="view-row">
+          <span class="view-label">View</span>
+          <div class="rmv-modes" role="group" aria-label="View mode">
+            <button id="view-quick" class="active" onclick="setView('quick')">Quick</button>
+            <button id="view-report" onclick="setView('report')">Report</button>
+          </div>
+        </div>
+
+        <!-- Quick view -->
+        <div id="quick-view">
+          <div class="panel">
+            <div class="section-label" style="margin-top:0">Result</div>
+
+            <div class="result-total" id="result-total">
+              <span class="val" id="res-total">–</span>
+              <span class="unit">GiB</span>
+              <span class="note" id="res-mode-note">Inference</span>
+            </div>
+
+            <!-- Stacked bar -->
+            <div class="stacked-bar" id="stacked-bar" role="img" aria-label="VRAM breakdown stacked bar"></div>
+            <div class="stack-legend" id="stack-legend"></div>
+
+            <!-- Breakdown table -->
+            <table class="breakdown" aria-label="VRAM breakdown by component">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th style="text-align:right">GiB</th>
+                  <th class="bar-cell" style="text-align:right">%</th>
+                </tr>
+              </thead>
+              <tbody id="breakdown-body"></tbody>
+            </table>
+
+            <!-- Action buttons -->
+            <div class="actions-bar rmv-actions" id="actions-bar">
+              <button class="rmv-btn" onclick="doCopyBreakdown()">Copy breakdown</button>
+              <button class="rmv-btn" onclick="doDownloadMd()">Download Markdown</button>
+              <button class="rmv-btn rmv-btn-primary" onclick="doShare()">Share URL</button>
+            </div>
+          </div>
+
+          <!-- GPU fit table -->
+          <div class="panel" style="margin-top:16px">
+            <div class="section-label" style="margin-top:0">GPU Fit — All</div>
+            <table class="gpu-table" aria-label="GPU VRAM fit guide">
+              <thead>
+                <tr>
+                  <th>GPU (VRAM)</th>
+                  <th>Status</th>
+                  <th>Headroom</th>
+                </tr>
+              </thead>
+              <tbody id="gpu-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Report view -->
+        <div id="report-view" style="display:none">
+          <div class="panel" id="report-panel">
+            <!-- filled by JS -->
+          </div>
+          <div class="actions-bar rmv-actions" style="margin-top:12px" id="report-actions-bar">
+            <button class="rmv-btn" onclick="doCopyBreakdown()">Copy breakdown</button>
+            <button class="rmv-btn" onclick="doDownloadMd()">Download Markdown</button>
+            <button class="rmv-btn rmv-btn-primary" onclick="doShare()">Share URL</button>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="panel" style="margin-top:16px">
+          <div class="section-label" style="margin-top:0">Assumptions &amp; Formulas</div>
+          <div class="notes" id="notes-content">
+            <!-- filled by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script src="shared/toolkit.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  // ---- State ----
+  var mode = 'inference';  // inference | finetune | lora | qlora | serving
+  var viewMode = 'quick';  // quick | report
+
+  // ---- Known GPU presets (VRAM in GiB — use same value as labeled GB for consumer) ----
+  // Note: 1 GiB ≈ 1.074 GB. For GPU specs we treat label as GiB (common industry shorthand).
+  var GPU_PRESET_VRAM = {
+    'custom': null,
+    '8':   12,   // RTX 3060 12 GB
+    '24a': 24,   // RTX 3090 24 GB
+    '24b': 24,   // RTX 4090 24 GB
+    '24c': 24,   // A10 24 GB
+    '24d': 24,   // L4 24 GB
+    '40':  40,   // A100 40 GB
+    '80a': 80,   // A100 80 GB
+    '80b': 80,   // H100 80 GB
+    'mac': null  // user-entered unified memory
+  };
+  var GPU_PRESET_NAMES = {
+    'custom': 'Custom',
+    '8':   'RTX 3060 12 GB',
+    '24a': 'RTX 3090 24 GB',
+    '24b': 'RTX 4090 24 GB',
+    '24c': 'A10 24 GB',
+    '24d': 'L4 24 GB',
+    '40':  'A100 40 GB',
+    '80a': 'A100 80 GB',
+    '80b': 'H100 80 GB',
+    'mac': 'Mac M-series'
+  };
+
+  // All GPUs for fit table (label, vram GiB)
+  var GPU_SIZES = [
+    {label:'RTX 3060 12 GB', vram:12},
+    {label:'RTX 3090 / 4090 24 GB', vram:24},
+    {label:'A10 / L4 24 GB', vram:24},
+    {label:'A100 40 GB', vram:40},
+    {label:'A100 80 GB / H100 80 GB', vram:80},
+    // legacy reference points
+    {label:'8 GB VRAM', vram:8},
+    {label:'16 GB VRAM', vram:16},
+    {label:'48 GB VRAM', vram:48},
+  ];
+
+  // Mode descriptions
+  var MODE_DESC = {
+    'inference': 'Weights + KV cache + 18% overhead for CUDA context, fragmentation, and runtime buffers.',
+    'finetune':  'Full fine-tune: weights + gradients (same size) + Adam optimizer states (8 bytes/param) + activations for backprop + 18% overhead.',
+    'lora':      'LoRA: frozen base weights at chosen quant + small trainable adapter + optimizer states on adapter params only + activations + overhead.',
+    'qlora':     'QLoRA: 4-bit base weights (frozen) + small LoRA adapter (FP16) + adapter optimizer states + activations + overhead. Much lower than full fine-tune.',
+    'serving':   'KV-cache-heavy serving: weights + KV cache scaled by concurrent sequences * batch, simulating a high-throughput endpoint.'
+  };
+
+  // ---- Model presets ----
+  // {label, params (B), layers, hidden, heads}
+  var MODEL_PRESETS = [
+    // Llama family
+    {label:'Llama 3.1 8B',   params:8,    layers:32, hidden:4096, heads:32},
+    {label:'Llama 3.1 70B',  params:70,   layers:80, hidden:8192, heads:64},
+    // Qwen 2.5
+    {label:'Qwen2.5 7B',     params:7.6,  layers:28, hidden:3584, heads:28},
+    {label:'Qwen2.5 72B',    params:72,   layers:80, hidden:8192, heads:64},
+    // Mistral
+    {label:'Mistral 7B',     params:7.2,  layers:32, hidden:4096, heads:32},
+    {label:'Mixtral 8x7B',   params:46.7, layers:32, hidden:4096, heads:32},
+    // Gemma 2
+    {label:'Gemma 2 9B',     params:9,    layers:42, hidden:3584, heads:16},
+    {label:'Gemma 2 27B',    params:27,   layers:46, hidden:4608, heads:32},
+    // Phi-3
+    {label:'Phi-3 3.8B',     params:3.8,  layers:32, hidden:3072, heads:32},
+    // DeepSeek
+    {label:'DeepSeek 7B',    params:7,    layers:30, hidden:4096, heads:32},
+    // Classic reference
+    {label:'7B',             params:7,    layers:32, hidden:4096, heads:32},
+    {label:'13B',            params:13,   layers:40, hidden:5120, heads:40},
+    {label:'34B',            params:34,   layers:60, hidden:7168, heads:56},
+  ];
+
+  // Build PRESET lookup by approx param size for inferArch
+  var PRESETS_ARCH = {};
+  MODEL_PRESETS.forEach(function(p){ PRESETS_ARCH[p.params] = {layers:p.layers, hidden:p.hidden, heads:p.heads}; });
+
+  function inferArch(params) {
+    var keys = Object.keys(PRESETS_ARCH).map(Number).sort(function(a,b){return a-b;});
+    var best = keys[0], bestDiff = Math.abs(params - best);
+    for (var i = 1; i < keys.length; i++) {
+      var d = Math.abs(params - keys[i]);
+      if (d < bestDiff) { bestDiff = d; best = keys[i]; }
+    }
+    if (bestDiff > 15) {
+      var h = Math.round(Math.pow(params / 0.1, 1/3) * 1024 / 64) * 64;
+      var l = Math.round(2 * Math.log2(params) + 20);
+      return {layers: l, hidden: h, heads: Math.round(h/128)};
+    }
+    return PRESETS_ARCH[best];
+  }
+
+  // ---- DOM refs ----
+  var inpParams     = document.getElementById('inp-params');
+  var inpQuant      = document.getElementById('inp-quant');
+  var inpCtx        = document.getElementById('inp-ctx');
+  var inpBatch      = document.getElementById('inp-batch');
+  var inpLayers     = document.getElementById('inp-layers');
+  var inpHidden     = document.getElementById('inp-hidden');
+  var inpKvBytes    = document.getElementById('inp-kvbytes');
+  var inpOptimizer  = document.getElementById('inp-optimizer');
+  var inpTrainPrec  = document.getElementById('inp-train-precision');
+  var inpLoraPct    = document.getElementById('inp-lora-pct');
+  var inpConcurrent = document.getElementById('inp-concurrent');
+  var inpGpu        = document.getElementById('inp-gpu');
+  var inpCustomGpu  = document.getElementById('inp-custom-gpu');
+  var trainingPanel = document.getElementById('training-panel');
+  var loraPctRow    = document.getElementById('lora-pct-row');
+  var servingExtra  = document.getElementById('serving-extra');
+  var customGpuRow  = document.getElementById('custom-gpu-row');
+  var archToggle    = document.getElementById('arch-toggle');
+  var archPanel     = document.getElementById('arch-panel');
+  var archTag       = document.getElementById('arch-inferred-tag');
+  var noteLayers    = document.getElementById('note-layers');
+  var noteHidden    = document.getElementById('note-hidden');
+
+  // ---- Build preset buttons ----
+  (function() {
+    var container = document.getElementById('presets');
+    MODEL_PRESETS.forEach(function(p) {
+      var btn = document.createElement('button');
+      btn.className = 'preset-btn';
+      btn.textContent = p.label;
+      btn.dataset.params = p.params;
+      btn.dataset.layers = p.layers;
+      btn.dataset.hidden = p.hidden;
+      btn.dataset.heads  = p.heads || Math.round(p.hidden / 128);
+      container.appendChild(btn);
+    });
+  })();
+
+  // ---- Arch toggle ----
+  var archOpen = false;
+  window.toggleArch = function() {
+    archOpen = !archOpen;
+    archToggle.classList.toggle('open', archOpen);
+    archPanel.classList.toggle('open', archOpen);
+    archToggle.setAttribute('aria-expanded', archOpen ? 'true' : 'false');
+  };
+  archToggle.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleArch(); }
+  });
+
+  // ---- Mode toggle ----
+  var ALL_MODES = ['inference','finetune','lora','qlora','serving'];
+  window.setMode = function(m) {
+    mode = m;
+    ALL_MODES.forEach(function(id) {
+      var btn = document.getElementById('btn-' + id);
+      if (btn) btn.classList.toggle('active', id === m);
+    });
+    var showTraining = (m === 'finetune' || m === 'lora' || m === 'qlora');
+    trainingPanel.style.display = showTraining ? '' : 'none';
+    loraPctRow.style.display = (m === 'lora' || m === 'qlora') ? '' : 'none';
+    servingExtra.style.display = m === 'serving' ? '' : 'none';
+    document.getElementById('mode-description').textContent = MODE_DESC[m] || '';
+    compute();
+  };
+
+  // ---- View toggle ----
+  window.setView = function(v) {
+    viewMode = v;
+    document.getElementById('view-quick').classList.toggle('active', v === 'quick');
+    document.getElementById('view-report').classList.toggle('active', v === 'report');
+    document.getElementById('quick-view').style.display = v === 'quick' ? '' : 'none';
+    document.getElementById('report-view').style.display = v === 'report' ? '' : 'none';
+    if (v === 'report') renderReport();
+  };
+
+  // ---- GPU preset handling ----
+  inpGpu.addEventListener('change', function() {
+    var val = inpGpu.value;
+    var needCustom = (val === 'custom' || val === 'mac');
+    customGpuRow.style.display = needCustom ? '' : 'none';
+    compute();
+  });
+  inpCustomGpu.addEventListener('input', function(){ compute(); });
+
+  function getSelectedGpuVram() {
+    var val = inpGpu.value;
+    if (val === 'custom' || val === 'mac') {
+      return parseFloat(inpCustomGpu.value) || 16;
+    }
+    return GPU_PRESET_VRAM[val] || null;
+  }
+  function getSelectedGpuName() {
+    var val = inpGpu.value;
+    if (val === 'mac') return 'Mac M-series (' + (parseFloat(inpCustomGpu.value)||16) + ' GB unified)';
+    if (val === 'custom') return 'Custom (' + (parseFloat(inpCustomGpu.value)||16) + ' GB)';
+    return GPU_PRESET_NAMES[val] || 'GPU';
+  }
+
+  // ---- Presets click ----
+  document.getElementById('presets').addEventListener('click', function(e) {
+    var btn = e.target.closest('.preset-btn');
+    if (!btn) return;
+    var p = parseFloat(btn.dataset.params);
+    var l = parseInt(btn.dataset.layers);
+    var h = parseInt(btn.dataset.hidden);
+    inpParams.value = p;
+    inpLayers.value = l;
+    inpHidden.value = h;
+    noteLayers.textContent = 'Set by preset (' + btn.textContent + ')';
+    noteHidden.textContent  = 'Set by preset (' + btn.textContent + ')';
+    archTag.textContent = 'Preset';
+    compute();
+  });
+
+  // ---- Live recompute ----
+  [inpParams, inpQuant, inpCtx, inpBatch, inpLayers, inpHidden, inpKvBytes,
+   inpOptimizer, inpTrainPrec, inpLoraPct, inpConcurrent]
+    .forEach(function(el){ el.addEventListener('input', function(){ compute(); }); });
+
+  // Update arch on manual params change
+  inpParams.addEventListener('input', function() {
+    var p = parseFloat(inpParams.value) || 7;
+    var arch = inferArch(p);
+    inpLayers.value = arch.layers;
+    inpHidden.value = arch.hidden;
+    noteLayers.textContent = 'Inferred from ' + p + 'B';
+    noteHidden.textContent  = 'Inferred from ' + p + 'B';
+    archTag.textContent = 'Inferred';
+  });
+
+  // ---- Formatting ----
+  var GiB = 1024 * 1024 * 1024;
+  function toGiB(bytes) { return bytes / GiB; }
+  function fmt(gib) { return gib.toFixed(2); }
+  function fmtPct(pct) { return pct.toFixed(1) + '%'; }
+
+  // ---- Last computed result (for export & share) ----
+  var lastResult = {};
+
+  // ---- Main compute ----
+  function compute() {
+    var params      = parseFloat(inpParams.value)    || 7;
+    var bpp         = parseFloat(inpQuant.value)     || 2;
+    var ctx         = parseInt(inpCtx.value)         || 2048;
+    var batch       = parseInt(inpBatch.value)       || 1;
+    var layers      = parseInt(inpLayers.value)      || 32;
+    var hidden      = parseInt(inpHidden.value)      || 4096;
+    var kvBytes     = parseFloat(inpKvBytes.value)   || 2;
+    var paramsN     = params * 1e9;
+    var concurrent  = parseInt(inpConcurrent.value)  || 8;
+    var loraPct     = parseFloat(inpLoraPct.value)   || 1;
+
+    // Base weight bytes at selected quantization
+    var weightBytes = paramsN * bpp;
+
+    // KV cache: 2 * layers * hidden * ctx * batch * kvBytes
+    var kvCache = 2 * layers * hidden * ctx * batch * kvBytes;
+
+    var breakdown, totalBytes;
+
+    if (mode === 'inference') {
+      var raw = weightBytes + kvCache;
+      var overhead = raw * 0.18;
+      totalBytes = raw + overhead;
+      breakdown = [
+        {label:'Weights',        bytes: weightBytes, color:'green'},
+        {label:'KV Cache',       bytes: kvCache,     color:'blue'},
+        {label:'Overhead (18%)', bytes: overhead,    color:'gray'},
+      ];
+
+    } else if (mode === 'finetune') {
+      var trainBpp = parseFloat(inpTrainPrec.value) || 2;
+      var optType  = inpOptimizer.value;
+      var trainW   = paramsN * trainBpp;
+      var grads    = paramsN * trainBpp;
+      var optB     = optType === 'adam' ? paramsN * 8 : optType === 'adam8bit' ? paramsN * 4 : 0;
+      var activ    = batch * ctx * hidden * layers * trainBpp;
+      var raw2     = trainW + grads + optB + activ;
+      var oh2      = raw2 * 0.18;
+      totalBytes   = raw2 + oh2;
+      breakdown = [
+        {label:'Weights',               bytes: trainW,  color:'green'},
+        {label:'Gradients',             bytes: grads,   color:'blue'},
+        {label:'Optimizer State',       bytes: optB,    color:'orange'},
+        {label:'Activations (approx)',  bytes: activ,   color:'purple'},
+        {label:'Overhead (18%)',        bytes: oh2,     color:'gray'},
+      ];
+
+    } else if (mode === 'lora') {
+      var trainBppL = parseFloat(inpTrainPrec.value) || 2;
+      var optTypeL  = inpOptimizer.value;
+      // Frozen base in chosen quant + adapter in FP16
+      var adapterN  = paramsN * (loraPct / 100);
+      var adapterB  = adapterN * 2; // adapter always FP16
+      var optBL     = optTypeL === 'adam' ? adapterN * 8 : optTypeL === 'adam8bit' ? adapterN * 4 : 0;
+      // Activations for adapter backward (scaled by adapter size + base activations needed for grad)
+      var activL    = batch * ctx * hidden * layers * trainBppL;
+      var rawL      = weightBytes + adapterB + optBL + activL;
+      var ohL       = rawL * 0.18;
+      totalBytes    = rawL + ohL;
+      breakdown = [
+        {label:'Base Weights (frozen)',    bytes: weightBytes, color:'green'},
+        {label:'LoRA Adapter (FP16)',      bytes: adapterB,    color:'purple'},
+        {label:'Adapter Optimizer',        bytes: optBL,       color:'orange'},
+        {label:'Activations (approx)',     bytes: activL,      color:'blue'},
+        {label:'Overhead (18%)',           bytes: ohL,         color:'gray'},
+      ];
+
+    } else if (mode === 'qlora') {
+      // QLoRA: 4-bit base (0.5 bytes/param) + FP16 adapter + adapter optimizer + activations
+      var qBase   = paramsN * 0.5;  // 4-bit regardless of quant select
+      var adapterQ = paramsN * (loraPct / 100);
+      var adapterBQ = adapterQ * 2;  // FP16
+      var optBQ   = adapterQ * 8;    // Adam on adapter (typical for QLoRA)
+      // Activations: lighter since no base backward pass, just forward for activations
+      var activQ  = batch * ctx * hidden * layers * 2 * 0.5; // half-precision, checkpointing
+      var rawQ    = qBase + adapterBQ + optBQ + activQ;
+      var ohQ     = rawQ * 0.18;
+      totalBytes  = rawQ + ohQ;
+      breakdown = [
+        {label:'Base Weights (4-bit)',     bytes: qBase,      color:'green'},
+        {label:'LoRA Adapter (FP16)',      bytes: adapterBQ,  color:'purple'},
+        {label:'Adapter Optimizer (Adam)', bytes: optBQ,      color:'orange'},
+        {label:'Activations (approx)',     bytes: activQ,     color:'blue'},
+        {label:'Overhead (18%)',           bytes: ohQ,        color:'gray'},
+      ];
+
+    } else { // serving (KV-heavy)
+      // Use concurrent sequences as the effective batch for KV cache
+      var effectiveBatch = batch * concurrent;
+      var kvServe = 2 * layers * hidden * ctx * effectiveBatch * kvBytes;
+      var rawS    = weightBytes + kvServe;
+      var ohS     = rawS * 0.18;
+      totalBytes  = rawS + ohS;
+      breakdown = [
+        {label:'Weights',                    bytes: weightBytes, color:'green'},
+        {label:'KV Cache (×' + concurrent + ' seqs)', bytes: kvServe, color:'blue'},
+        {label:'Overhead (18%)',              bytes: ohS,         color:'gray'},
+      ];
+    }
+
+    var totalGiB = toGiB(totalBytes);
+
+    // stash for export
+    lastResult = {
+      mode: mode, params: params, bpp: bpp, ctx: ctx, batch: batch,
+      layers: layers, hidden: hidden, kvBytes: kvBytes,
+      totalGiB: totalGiB, breakdown: breakdown,
+      selectedGpuVram: getSelectedGpuVram(), selectedGpuName: getSelectedGpuName(),
+      concurrent: concurrent, loraPct: loraPct
+    };
+
+    // render
+    document.getElementById('res-total').textContent = fmt(totalGiB);
+    document.getElementById('res-mode-note').textContent = modeName(mode);
+
+    renderBreakdown(breakdown, totalBytes);
+    renderStackedBar(breakdown, totalBytes);
+    renderGPU(totalGiB);
+    renderNotes(params, bpp, ctx, batch, layers, hidden, kvBytes, totalGiB);
+    if (viewMode === 'report') renderReport();
+  }
+
+  function modeName(m) {
+    return {inference:'Inference', finetune:'Full Fine-tune', lora:'LoRA', qlora:'QLoRA', serving:'KV-Serve'}[m] || m;
+  }
+
+  var COLORS = {green:'#15a05a', blue:'#3b82f6', orange:'#d97706', purple:'#8b5cf6', gray:'#94a3b8'};
+
+  function renderBreakdown(items, totalBytes) {
+    var tbody = document.getElementById('breakdown-body');
+    var totalGiB = toGiB(totalBytes);
+    var html = '', sumGiB = 0;
+    items.forEach(function(item) {
+      var gib = toGiB(item.bytes);
+      var pct = totalBytes > 0 ? (item.bytes / totalBytes * 100) : 0;
+      sumGiB += gib;
+      html += '<tr>'
+        + '<td>' + escHtml(item.label) + '</td>'
+        + '<td style="text-align:right;font-family:var(--mono);font-size:13px">' + fmt(gib) + '</td>'
+        + '<td class="bar-cell">'
+        +   '<div style="display:flex;align-items:center;gap:6px">'
+        +     '<div class="bar-wrap" style="flex:1"><div class="bar-fill ' + item.color + '" style="width:' + pct.toFixed(1) + '%;background:' + COLORS[item.color] + '"></div></div>'
+        +     '<span style="font-size:11px;color:var(--faint);min-width:36px;text-align:right">' + fmtPct(pct) + '</span>'
+        +   '</div>'
+        + '</td>'
+        + '</tr>';
+    });
+    html += '<tr>'
+      + '<td>Total</td>'
+      + '<td style="text-align:right;font-family:var(--mono);font-size:13px">' + fmt(totalGiB) + '</td>'
+      + '<td></td>'
+      + '</tr>';
+    tbody.innerHTML = html;
+  }
+
+  function renderStackedBar(items, totalBytes) {
+    var bar    = document.getElementById('stacked-bar');
+    var legend = document.getElementById('stack-legend');
+    var bH = '', lH = '';
+    items.forEach(function(item) {
+      var pct = totalBytes > 0 ? (item.bytes / totalBytes * 100) : 0;
+      var c = COLORS[item.color];
+      bH += '<div class="stacked-seg" style="width:' + pct.toFixed(2) + '%;background:' + c + '" title="' + escHtml(item.label) + ': ' + fmt(toGiB(item.bytes)) + ' GiB"></div>';
+      lH += '<div class="stack-legend-item"><div class="stack-dot" style="background:' + c + '"></div>' + escHtml(item.label) + '</div>';
+    });
+    bar.innerHTML = bH;
+    legend.innerHTML = lH;
+  }
+
+  function renderGPU(totalGiB) {
+    var tbody = document.getElementById('gpu-body');
+    // deduplicate by vram for compact table
+    var seen = {}, rows = [];
+    GPU_SIZES.forEach(function(g) {
+      if (!seen[g.vram]) { seen[g.vram] = true; rows.push(g); }
+    });
+    rows.sort(function(a,b){return a.vram-b.vram;});
+    var html = '';
+    rows.forEach(function(g) {
+      var fits = totalGiB <= g.vram;
+      var headroom = (g.vram - totalGiB) / g.vram * 100;
+      html += '<tr>'
+        + '<td><strong>' + escHtml(g.label) + '</strong></td>'
+        + '<td>'
+        + (fits
+            ? '<span class="fit-badge yes"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Fits</span>'
+            : '<span class="fit-badge no"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>Does not fit</span>'
+          )
+        + '</td>'
+        + '<td class="headroom">' + (fits ? '+' + headroom.toFixed(1) + '%' : '&minus;' + Math.abs(headroom).toFixed(1) + '% over') + '</td>'
+        + '</tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  // ---- Report mode ----
+  function renderReport() {
+    var r = lastResult;
+    if (!r.totalGiB) return;
+    var panel = document.getElementById('report-panel');
+    var gpuVram = r.selectedGpuVram;
+    var gpuName = r.selectedGpuName;
+
+    var verdict, cardClass, icon;
+    if (gpuVram === null) {
+      verdict = 'Select a GPU preset to see verdict';
+      cardClass = 'tight'; icon = '?';
+    } else {
+      var ratio = r.totalGiB / gpuVram;
+      if (ratio <= 0.80) { verdict = 'Fits comfortably'; cardClass = 'fits'; icon = '✓'; }
+      else if (ratio <= 1.0) { verdict = 'Tight fit'; cardClass = 'tight'; icon = '!'; }
+      else { verdict = 'Does not fit'; cardClass = 'nope'; icon = '✗'; }
+    }
+
+    // Find recommended quantization to fit
+    var recQuant = 'N/A';
+    if (gpuVram !== null) {
+      var quantOpts = [{label:'FP32', bpp:4},{label:'FP16/BF16', bpp:2},{label:'INT8', bpp:1},{label:'INT4', bpp:0.5}];
+      for (var qi = 0; qi < quantOpts.length; qi++) {
+        var testGiB = estimateGiB(r.params, quantOpts[qi].bpp, r.ctx, r.batch, r.layers, r.hidden, r.kvBytes, r.mode, r.loraPct, r.concurrent);
+        if (testGiB <= gpuVram) { recQuant = quantOpts[qi].label + ' (~' + fmt(testGiB) + ' GiB)'; break; }
+      }
+      if (recQuant === 'N/A') recQuant = 'Does not fit even at INT4';
+    }
+
+    // Max context that fits
+    var maxCtx = 'N/A', maxBatch = 'N/A';
+    if (gpuVram !== null) {
+      for (var cs = 128; cs <= 131072; cs *= 2) {
+        var gFit = estimateGiB(r.params, r.bpp, cs, r.batch, r.layers, r.hidden, r.kvBytes, r.mode, r.loraPct, r.concurrent);
+        if (gFit > gpuVram) { maxCtx = cs === 128 ? '<128' : (cs/2) + ' tokens'; break; }
+        maxCtx = cs + ' tokens';
+      }
+      for (var bs = 1; bs <= 512; bs *= 2) {
+        var gFitB = estimateGiB(r.params, r.bpp, r.ctx, bs, r.layers, r.hidden, r.kvBytes, r.mode, r.loraPct, r.concurrent);
+        if (gFitB > gpuVram) { maxBatch = bs === 1 ? '<1' : (bs/2) + ''; break; }
+        maxBatch = String(bs);
+      }
+    }
+
+    // GPUs that fit
+    var fittingGPUs = [];
+    var gpuCandidates = [
+      {name:'RTX 3060 12 GB', vram:12}, {name:'RTX 3090 24 GB', vram:24},
+      {name:'RTX 4090 24 GB', vram:24}, {name:'A10 24 GB', vram:24},
+      {name:'L4 24 GB', vram:24}, {name:'A100 40 GB', vram:40},
+      {name:'A100 80 GB', vram:80}, {name:'H100 80 GB', vram:80}
+    ];
+    var seenVram = {};
+    gpuCandidates.forEach(function(g) {
+      if (r.totalGiB <= g.vram && !seenVram[g.vram + g.name]) {
+        seenVram[g.vram + g.name] = true;
+        fittingGPUs.push(g.name);
+      }
+    });
+
+    var gpuChips = fittingGPUs.length
+      ? '<div class="suggest-gpu-list">' + fittingGPUs.map(function(n){ return '<span class="gpu-chip">' + escHtml(n) + '</span>'; }).join('') + '</div>'
+      : '<em>None in preset list — consider quantization</em>';
+
+    var verdictGpuLine = gpuVram !== null
+      ? 'Required: <strong>' + fmt(r.totalGiB) + ' GiB</strong> &nbsp;|&nbsp; GPU: <strong>' + escHtml(gpuName) + ' (' + gpuVram + ' GiB)</strong>'
+      : 'Required: <strong>' + fmt(r.totalGiB) + ' GiB</strong> &nbsp;|&nbsp; No GPU selected';
+
+    panel.innerHTML =
+      '<div class="section-label" style="margin-top:0">Assessment Report</div>'
+      + '<div class="report-card ' + cardClass + '">'
+      + '  <div class="verdict-label"><span style="font-size:22px">' + icon + '</span> ' + escHtml(verdict) + '</div>'
+      + '  <div class="verdict-sub">' + verdictGpuLine + '</div>'
+      + '</div>'
+      + '<div class="report-detail"><table>'
+      + '  <tr><td>Mode</td><td>' + escHtml(modeName(r.mode)) + '</td></tr>'
+      + '  <tr><td>Model</td><td>' + r.params + 'B params, ' + r.layers + ' layers, ' + r.hidden + ' hidden</td></tr>'
+      + '  <tr><td>Quantization</td><td>' + quantLabel(r.bpp) + '</td></tr>'
+      + '  <tr><td>Context / Batch</td><td>' + r.ctx + ' tokens / ' + r.batch + '</td></tr>'
+      + '  <tr><td>Total VRAM needed</td><td><strong>' + fmt(r.totalGiB) + ' GiB</strong></td></tr>'
+      + '  <tr><td>Recommended quant to fit</td><td>' + recQuant + '</td></tr>'
+      + '  <tr><td>Max context on this GPU</td><td>' + maxCtx + '</td></tr>'
+      + '  <tr><td>Max batch on this GPU</td><td>' + maxBatch + '</td></tr>'
+      + '  <tr><td>GPUs that fit</td><td>' + gpuChips + '</td></tr>'
+      + '</table></div>';
+  }
+
+  // Simplified estimator for "what fits" calculations
+  function estimateGiB(params, bpp, ctx, batch, layers, hidden, kvBytes, m, loraPct, concurrent) {
+    var paramsN = params * 1e9;
+    var wB = paramsN * bpp;
+    var kv = 2 * layers * hidden * ctx * batch * kvBytes;
+    var raw;
+    if (m === 'qlora') {
+      var qB = paramsN * 0.5;
+      var adN = paramsN * (loraPct / 100);
+      raw = qB + adN*2 + adN*8 + batch*ctx*hidden*layers*1;
+    } else if (m === 'lora') {
+      var adN2 = paramsN * (loraPct / 100);
+      raw = wB + adN2*2 + adN2*8 + batch*ctx*hidden*layers*bpp;
+    } else if (m === 'finetune') {
+      raw = wB + wB + paramsN*8 + batch*ctx*hidden*layers*bpp;
+    } else if (m === 'serving') {
+      raw = wB + 2*layers*hidden*ctx*batch*(concurrent||8)*kvBytes;
+    } else {
+      raw = wB + kv;
+    }
+    return toGiB(raw * 1.18);
+  }
+
+  function quantLabel(bpp) {
+    if (bpp === 4)   return 'FP32 (4 bytes/param)';
+    if (bpp === 2)   return 'FP16 / BF16 (2 bytes/param)';
+    if (bpp === 1)   return 'INT8 (1 byte/param)';
+    if (bpp === 0.5) return 'INT4 (0.5 bytes/param)';
+    return bpp + ' bytes/param';
+  }
+
+  function renderNotes(params, bpp, ctx, batch, layers, hidden, kvBytes, totalGiB) {
+    var trainBpp = parseFloat(inpTrainPrec.value) || 2;
+    var optType  = inpOptimizer.value;
+    var optDesc  = optType === 'adam' ? 'Adam/AdamW: 2 × FP32 moment tensors = 8 bytes/param'
+                 : optType === 'sgd'  ? 'SGD: no extra optimizer state = 0 bytes/param'
+                 :                      'Adam 8-bit: ~4 bytes/param';
+    var modeNote;
+    if (mode === 'inference') {
+      modeNote = '<li><strong>Inference</strong> = (weights + KV cache) × 1.18. Overhead covers CUDA context, fragmentation, runtime buffers.</li>';
+    } else if (mode === 'finetune') {
+      modeNote = '<li><strong>Full fine-tune</strong> = (weights + gradients + optimizer + activations) × 1.18.</li>'
+               + '<li><strong>Gradients</strong> = same size as weights in training precision.</li>'
+               + '<li><strong>Optimizer</strong> — ' + optDesc + '.</li>'
+               + '<li><strong>Activations</strong> ≈ batch × ctx × hidden × layers × trainBytesPerElem.</li>';
+    } else if (mode === 'lora') {
+      modeNote = '<li><strong>LoRA</strong> = (frozen base weights at chosen quant + FP16 adapter + adapter optimizer + activations) × 1.18.</li>'
+               + '<li>Adapter size defaults to 1% of base params (typical rank-8 to rank-64 range).</li>';
+    } else if (mode === 'qlora') {
+      modeNote = '<li><strong>QLoRA</strong> = (4-bit base + FP16 adapter + Adam adapter optimizer + reduced activations) × 1.18.</li>'
+               + '<li>Base always 4-bit regardless of quantization selector (QLoRA definition). Adapter tiny (1% default).</li>';
+    } else {
+      modeNote = '<li><strong>KV-cache-heavy serving</strong> = (weights + KV cache × concurrent_sequences) × 1.18.</li>'
+               + '<li>Concurrent sequences multiplies the KV cache to model a high-throughput endpoint with many in-flight requests.</li>';
+    }
+
+    var archNote = MODEL_PRESETS.map(function(p){
+      return p.label + ' → ' + p.layers + ' layers / ' + p.hidden + ' hidden';
+    }).join('; ');
+
+    document.getElementById('notes-content').innerHTML =
+      '<strong>Formulas used:</strong>'
+      + '<ul>'
+      + '<li><strong>Weights</strong> = params × bytes/param = ' + params + 'B × ' + bpp + ' = ' + fmt(toGiB(params * 1e9 * bpp)) + ' GiB. (Sanity: 7B FP16 = 7×10⁹×2÷2³⁰ ≈ 13.04 GiB)</li>'
+      + '<li><strong>KV cache</strong> = 2 (K+V) × layers × hidden × context × batch × kvElemBytes = 2 × ' + layers + ' × ' + hidden + ' × ' + ctx + ' × ' + batch + ' × ' + kvBytes + ' = ' + fmt(toGiB(2 * layers * hidden * ctx * batch * kvBytes)) + ' GiB.</li>'
+      + modeNote
+      + '<li><strong>GiB</strong> = bytes ÷ 1,073,741,824. Total: <strong>' + fmt(totalGiB) + ' GiB</strong>.</li>'
+      + '<li>KV cache element size defaults to FP16 (2 bytes) independent of weight quantization.</li>'
+      + '<li><strong>Preset architectures</strong>: ' + archNote + '.</li>'
+      + '</ul>';
+  }
+
+  // ---- Exports ----
+  function buildMarkdown() {
+    var r = lastResult;
+    var lines = [
+      '# VRAM Plan — ' + r.params + 'B ' + modeName(r.mode),
+      '',
+      '## Inputs',
+      '- Mode: ' + modeName(r.mode),
+      '- Params: ' + r.params + 'B',
+      '- Quantization: ' + quantLabel(r.bpp),
+      '- Context: ' + r.ctx + ' tokens',
+      '- Batch size: ' + r.batch,
+      '- Layers: ' + r.layers + '  Hidden: ' + r.hidden,
+      '- KV elem size: ' + r.kvBytes + ' bytes',
+      '- Target GPU: ' + r.selectedGpuName + (r.selectedGpuVram ? ' (' + r.selectedGpuVram + ' GiB)' : ''),
+      '',
+      '## VRAM Breakdown',
+      '| Component | GiB | % |',
+      '|---|---|---|',
+    ];
+    r.breakdown.forEach(function(item) {
+      var gib = toGiB(item.bytes);
+      var pct = (item.bytes / (r.totalGiB * GiB) * 100).toFixed(1);
+      lines.push('| ' + item.label + ' | ' + fmt(gib) + ' | ' + pct + '% |');
+    });
+    lines.push('| **Total** | **' + fmt(r.totalGiB) + '** | 100% |');
+    lines.push('');
+    if (r.selectedGpuVram !== null) {
+      var fits = r.totalGiB <= r.selectedGpuVram;
+      lines.push('## Verdict');
+      lines.push('**' + (fits ? 'Fits' : 'Does not fit') + '** on ' + r.selectedGpuName
+        + '. Headroom: ' + ((r.selectedGpuVram - r.totalGiB) / r.selectedGpuVram * 100).toFixed(1) + '%');
+      lines.push('');
+    }
+    lines.push('## Assumptions');
+    lines.push('- VRAM = bytes / 1,073,741,824 (GiB)');
+    lines.push('- 18% overhead for CUDA context, fragmentation, runtime buffers');
+    lines.push('- KV cache = 2 × layers × hidden × context × batch × kvElemBytes');
+    lines.push('- Architecture defaults inferred from model preset or param count');
+    lines.push('- Estimates only; actual usage may vary by framework and batch scheduling');
+    lines.push('');
+    lines.push('*Generated by LLM VRAM Calculator — ruslanmv.github.io*');
+    return lines.join('\n');
+  }
+
+  function buildBreakdownText() {
+    var r = lastResult;
+    var lines = ['VRAM Breakdown — ' + r.params + 'B ' + modeName(r.mode) + ' — Total: ' + fmt(r.totalGiB) + ' GiB', ''];
+    r.breakdown.forEach(function(item) {
+      var gib = toGiB(item.bytes);
+      var pct = (item.bytes / (r.totalGiB * GiB) * 100).toFixed(1);
+      lines.push(item.label + ': ' + fmt(gib) + ' GiB (' + pct + '%)');
+    });
+    return lines.join('\n');
+  }
+
+  window.doCopyBreakdown = function() {
+    if (window.RMVTool) { RMVTool.copy(buildBreakdownText()); }
+    else { try { navigator.clipboard.writeText(buildBreakdownText()); } catch(e){} }
+  };
+  window.doDownloadMd = function() {
+    if (window.RMVTool) { RMVTool.download('vram-plan.md', buildMarkdown(), 'text/markdown'); }
+  };
+  window.doShare = function() {
+    if (window.RMVTool) {
+      var r = lastResult;
+      RMVTool.share({
+        params: r.params, bpp: r.bpp, ctx: r.ctx, batch: r.batch,
+        layers: r.layers, hidden: r.hidden, kvBytes: r.kvBytes,
+        mode: r.mode, gpu: inpGpu.value, customGpu: inpCustomGpu.value,
+        loraPct: r.loraPct, concurrent: r.concurrent,
+        optimizer: inpOptimizer.value, trainPrec: inpTrainPrec.value
+      });
+    }
+  };
+
+  function applySharedState(s) {
+    if (!s) return;
+    if (s.params !== undefined) inpParams.value = s.params;
+    if (s.bpp    !== undefined) inpQuant.value  = s.bpp;
+    if (s.ctx    !== undefined) inpCtx.value    = s.ctx;
+    if (s.batch  !== undefined) inpBatch.value  = s.batch;
+    if (s.layers !== undefined) inpLayers.value = s.layers;
+    if (s.hidden !== undefined) inpHidden.value = s.hidden;
+    if (s.kvBytes !== undefined) inpKvBytes.value = s.kvBytes;
+    if (s.mode)    { setMode(s.mode); }
+    if (s.gpu)     { inpGpu.value = s.gpu; inpGpu.dispatchEvent(new Event('change')); }
+    if (s.customGpu !== undefined) inpCustomGpu.value = s.customGpu;
+    if (s.loraPct   !== undefined) inpLoraPct.value   = s.loraPct;
+    if (s.concurrent !== undefined) inpConcurrent.value = s.concurrent;
+    if (s.optimizer)  inpOptimizer.value   = s.optimizer;
+    if (s.trainPrec)  inpTrainPrec.value   = s.trainPrec;
+    noteLayers.textContent = 'Restored from shared URL';
+    noteHidden.textContent  = 'Restored from shared URL';
+    archTag.textContent = 'Shared';
+  }
+
+  function getState() {
+    return {
+      params: parseFloat(inpParams.value), bpp: parseFloat(inpQuant.value),
+      ctx: parseInt(inpCtx.value), batch: parseInt(inpBatch.value),
+      layers: parseInt(inpLayers.value), hidden: parseInt(inpHidden.value),
+      kvBytes: parseFloat(inpKvBytes.value), mode: mode, gpu: inpGpu.value,
+      customGpu: parseFloat(inpCustomGpu.value), loraPct: parseFloat(inpLoraPct.value),
+      concurrent: parseInt(inpConcurrent.value),
+      optimizer: inpOptimizer.value, trainPrec: inpTrainPrec.value
+    };
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ---- Init shared toolkit features ----
+  if (window.RMVTool) {
+    // badges
+    RMVTool.badges('#badges-container', {
+      runsLocal: true, noUpload: true, exportable: true,
+      updated: '2026-06-02', extra: ['Estimates']
+    });
+
+    // workspaces
+    RMVTool.mountWorkspaces('#ws-container', {
+      ns: 'vram',
+      getState: getState,
+      applyState: function(s) { applySharedState(s); compute(); }
+    });
+
+    // restore shared URL state
+    var shared = RMVTool.readShared();
+    if (shared) {
+      applySharedState(shared);
+    }
+  }
+
+  // ---- Init ----
+  setMode('inference');
+  compute();
+
+})();
+</script>
+</body>
+</html>

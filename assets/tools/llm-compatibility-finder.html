@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LLM Compatibility Finder — Ruslan Magana Vsevolodovna</title>
+  <meta name="description" content="Find Hugging Face LLMs that can actually run on your computer, Ollama, llama.cpp, LM Studio, Colab Free, or Hugging Face ZeroGPU — ranked with quant, memory, and ready commands." />
+  <meta name="keywords" content="llm compatibility, run hugging face model locally, ollama, llama.cpp, lm studio, gguf, vram, quantization, colab free, zerogpu" />
+  <link rel="stylesheet" href="assets/shared/tool-shell.css" />
+  <link rel="stylesheet" href="assets/llm-finder/llm-finder.css" />
+</head>
+<body>
+  <header class="tool-header"><div class="tool-header__in">
+    <a class="tool-header__back" href="index.html">← <span>All tools</span></a>
+    <div class="tool-header__title">LLM Compatibility Finder</div>
+    <div class="tool-header__user">Ruslan Magana Vsevolodovna <span class="avatar">RV</span></div>
+  </div></header>
+
+  <main class="tool-wrap">
+    <section class="hero lf-hero">
+      <div>
+        <h1>LLM Compatibility Finder</h1>
+        <p class="sub">Find Hugging Face models that can run locally, on Colab, or on free Hugging Face compute.</p>
+      </div>
+      <svg class="lf-illus" viewBox="0 0 150 120" fill="none" aria-hidden="true">
+        <rect x="34" y="24" width="74" height="74" rx="16" fill="#0f7a43" fill-opacity="0.10" stroke="#0f7a43" stroke-opacity="0.35"/>
+        <rect x="46" y="36" width="58" height="58" rx="13" fill="#0f7a43" fill-opacity="0.14" stroke="#0f7a43" stroke-opacity="0.45"/>
+        <text x="75" y="71" text-anchor="middle" font-family="Hanken Grotesk, sans-serif" font-weight="800" font-size="20" fill="#0f7a43">LLM</text>
+        <circle cx="116" cy="30" r="4" fill="#34c47a"/><circle cx="30" cy="92" r="3" fill="#34c47a"/>
+      </svg>
+    </section>
+
+    <section class="sum-row">
+      <div class="sum-card"><span class="sum-ico">🗄</span><div><div class="sum-lab">Models found</div><div class="sum-val" id="sumFound">—</div><div class="sum-note">matching your filters</div></div></div>
+      <div class="sum-card"><span class="sum-ico">★</span><div><div class="sum-lab">Best match</div><div class="sum-val" id="sumBest">—</div><span class="sum-pill" id="sumBestPill" style="display:none"></span></div></div>
+      <div class="sum-card"><span class="sum-ico">🖥</span><div><div class="sum-lab">Selected profile</div><div class="sum-val" id="sumProfile">—</div><div class="sum-note" id="sumProfileNote">—</div></div></div>
+    </section>
+
+    <section class="card pad">
+      <div class="filters">
+        <div class="field search-field">
+          <label for="modelSearch">Search models</label>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="modelSearch" type="search" placeholder="e.g. qwen coder, mistral, llama 3 …" autocomplete="off" />
+        </div>
+        <div class="field"><label for="runtimeTarget">Runtime / Target</label><select id="runtimeTarget"></select></div>
+        <div class="field"><label for="hardwareProfile">Hardware profile</label><select id="hardwareProfile"></select></div>
+        <div class="field"><label for="useCase">Use case</label><select id="useCase"></select></div>
+        <div class="field"><label for="modelSize">Model size (optional)</label><select id="modelSize"></select></div>
+        <div class="field filters-actions"><button class="btn primary search-btn" id="searchBtn">🔍 Search Models</button></div>
+      </div>
+    </section>
+
+    <div class="source-banner" id="sourceBanner"></div>
+
+    <div class="results-bar">
+      <span class="showing" id="showingCount"></span>
+      <span class="spacer"></span>
+      <div class="inline-field"><label for="sortBy">Sort by</label><select id="sortBy"></select></div>
+      <button class="btn" id="compareBtn">⇄ Compare (0)</button>
+    </div>
+
+    <section class="card results-card">
+      <table class="results-table">
+        <thead><tr>
+          <th>Model</th><th>Compatibility</th><th>Best Runtime</th><th>Quant (Recom.)</th>
+          <th>Est. Memory</th><th>License</th><th>Updated</th><th>Actions</th>
+        </tr></thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+      <div class="loading-state" id="loadingState"><span class="spinner"></span> Searching Hugging Face…</div>
+      <div class="empty-state" id="emptyState"></div>
+      <div class="pager" id="pager"></div>
+      <div class="pager">
+        <span></span>
+        <div class="inline-field"><label for="pageSize">Show</label><select id="pageSize"></select></div>
+      </div>
+    </section>
+
+    <p class="foot-note">🛡 Compatibility scores are estimated and may vary based on your actual setup and use case.</p>
+  </main>
+
+  <div data-toast class="toast"></div>
+  <script type="module" src="assets/llm-finder/finder.js"></script>
+</body>
+</html>
