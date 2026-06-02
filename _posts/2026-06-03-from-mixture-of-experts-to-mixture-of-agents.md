@@ -9,7 +9,7 @@ header:
 
 tags: [mixture-of-experts, agent-matrix, inference, architecture]
 essay: true
-essay_date: "2026-06-22"
+essay_date: "2026-06-03"
 read_time: "11 min read"
 card_image: /assets/images/posts/2026-06-22-from-mixture-of-experts-to-mixture-of-agents/moe-hero.svg
 card_excerpt: "The idea that powers today's frontier models is a routing idea — and routing was never going to stay inside the model."

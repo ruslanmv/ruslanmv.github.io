@@ -9,7 +9,7 @@ header:
 
 tags: [autoself, robotics, agent-matrix, autonomy]
 essay: true
-essay_date: "2026-06-15"
+essay_date: "2026-06-03"
 read_time: "10 min read"
 card_image: /assets/images/posts/2026-06-15-autoself-self-consistency-reliability-primitive/autoself-hero.jpg
 card_excerpt: "On Mars, no one can catch an agent's mistakes for it. Building there forces the one discipline every autonomous system actually needs."

@@ -15,6 +15,31 @@ pj_intro: "Applied AI systems, infrastructure tools, and research prototypes."
 
 # ---- Premium project cards (with quick-details modal) ----
 featured:
+  - title: "GitPilot"
+    desc: "The first open-source multi-agent AI coding assistant."
+    long: "GitPilot orchestrates a team of specialized agents — Explorer, Planner, Coder, and Reviewer — that collaborate like a real engineering team: read the repository, draft a step-by-step plan, write and test the changes, then review and open a pull request. It runs in VS Code, the web, and the CLI, works with any LLM (OpenAI, Claude, IBM watsonx, Ollama, OllaBridge), and is private by default."
+    status: "Live"
+    category: "AI Coding Assistant"
+    role: "Founder & Builder"
+    stack: "Python, FastAPI, CrewAI, React, TypeScript, Docker"
+    launched: "2026"
+    chips: ["Agents", "Developer Tools", "Open Source"]
+    group: "AI Assistants"
+    image: /assets/images/posts/projects/gitpilot/webapp.png
+    gallery:
+      - "/assets/images/posts/projects/gitpilot/vscode.png"
+      - "/assets/images/posts/projects/gitpilot/demo.png"
+      - "/assets/images/posts/projects/gitpilot/topologies.png"
+    glance_title: "GitPilot at a glance"
+    glance: "A multi-agent AI coding assistant. Explorer reads repository context, Planner drafts step-by-step plans with diffs, Coder writes and tests changes with self-correction, and Reviewer validates the output and writes the commit message — all under Ask, Auto, or Plan execution modes."
+    capabilities:
+      - "Multi-agent pipeline: Explorer → Planner → Coder → Reviewer."
+      - "Ask / Auto / Plan modes with per-action approval in Ask mode."
+      - "Any LLM, zero lock-in; private by default when run locally with Ollama."
+      - "Works across a VS Code extension, web app, and CLI with unified history."
+    url: "/gitpilot/"
+    github: "https://github.com/ruslanmv/gitpilot"
+    docs: "/gitpilot/"
   - title: "MatrixHub"
     desc: "Unified access to data, models, and agents across projects."
     long: "MatrixHub is the catalog and installer at the heart of Agent-Matrix — a package manager for agents and tools, with hybrid search, lockfile-style reproducibility, and native MCP registration, backed by a live cloud instance."
