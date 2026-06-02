@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="watsonx guide">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#04140d"/><stop offset="0.55" stop-color="#0a1f16"/><stop offset="1" stop-color="#071a12"/></linearGradient>
+<radialGradient id="gl" cx="0.7" cy="0.4" r="0.7">
+<stop offset="0" stop-color="#0f9d63" stop-opacity="0.5"/><stop offset="1" stop-color="#0a7d4f" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<rect width="1600" height="900" fill="url(#gl)"/>
+<g opacity="0.9" fill="none" stroke="#36e0a8" stroke-width="6" stroke-linecap="round"><rect x="1120" y="520" width="220" height="220" rx="20" fill="none"/><rect x="1180" y="580" width="100" height="100" rx="12" fill="#0f9d63"/><path d="M1120 520 L1230 460 L1450 460 L1340 520 M1340 520 L1340 740 L1450 680 L1450 460"/></g>
+<text x="110" y="150" fill="#7dffd0" font-family="monospace" font-size="34" letter-spacing="6" opacity="0.85">GUIDE</text>
+<text x="108" y="250" fill="#ffffff" font-family="Georgia, serif" font-size="92" font-weight="700">watsonx</text>
+</svg>

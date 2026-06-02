@@ -1,0 +1,67 @@
+---
+layout: default
+---
+{% include hub-styles.html %}
+
+<div class="hub-hero">
+  <div class="hub-hero__inner">
+    <div class="hub-hero__lead">
+      <p class="hub-hero__eyebrow">Guides</p>
+      <h1 class="hub-hero__title">{{ page.hub_title | default: "Guides" }}</h1>
+      <p class="hub-hero__sub">{{ page.hub_subtitle }}</p>
+      <a class="hub-hero__cta" href="/learn/">Explore the learning hub →</a>
+    </div>
+  </div>
+</div>
+
+<div class="hub">
+  <nav class="hub-crumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a><span>›</span><a href="/learn/">Learn</a><span>›</span>Guides
+  </nav>
+
+  <section style="margin-top:1.6rem;">
+    <div class="hub-cardgrid" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr));">
+      {% for g in site.data.guides %}
+      <a class="hub-card" href="{{ g.url }}">
+        <span class="hub-card__icon"><i class="{{ g.icon | default: 'fas fa-book' }}"></i></span>
+        <span class="hub-card__title">{{ g.title }}</span>
+        <span class="hub-card__desc">{{ g.desc }}</span>
+        <span class="hub-card__open">Explore guide →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <div class="hub-prose" style="margin-top:2.5rem;">
+    {{ content }}
+  </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  "name":{{ page.title | jsonify }},
+  "description":{{ page.description | jsonify }},
+  "url":"{{ page.url | absolute_url }}",
+  "hasPart":[
+    {% for g in site.data.guides %}{
+      "@type":"WebPage",
+      "name":{{ g.title | jsonify }},
+      "description":{{ g.desc | jsonify }},
+      "url":"{{ g.url | absolute_url }}"
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ '/' | absolute_url }}"},
+    {"@type":"ListItem","position":2,"name":"Learn","item":"{{ '/learn/' | absolute_url }}"},
+    {"@type":"ListItem","position":3,"name":"Guides","item":"{{ '/guides/' | absolute_url }}"}
+  ]
+}
+</script>

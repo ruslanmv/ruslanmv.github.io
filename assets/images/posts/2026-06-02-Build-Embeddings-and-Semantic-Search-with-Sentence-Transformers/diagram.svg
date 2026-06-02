@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" font-family="'Hanken Grotesk',system-ui,Arial,sans-serif" role="img" aria-label="Semantic search: documents encoded to vectors, indexed in FAISS, queried by nearest neighbours">
+  <defs>
+    <marker id="ah2" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#0b7d4f"/></marker>
+    <filter id="sh2" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#10231a" flood-opacity="0.10"/></filter>
+    <linearGradient id="hd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f9d63"/><stop offset="1" stop-color="#0b5a3f"/></linearGradient>
+  </defs>
+  <rect width="1200" height="470" fill="#f8faf8"/>
+  <text x="40" y="54" font-size="26" font-weight="800" fill="#152019">Embeddings &amp; semantic search</text>
+  <text x="40" y="84" font-size="16" fill="#5c6b63">Text becomes vectors; similar meaning lands close together in vector space.</text>
+
+  <!-- index pipeline (top) -->
+  <g filter="url(#sh2)">
+    <rect x="40"  y="120" width="150" height="84" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="250" y="120" width="200" height="84" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="510" y="120" width="150" height="84" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+  </g>
+  <rect x="250" y="120" width="200" height="28" rx="14" fill="url(#hd2)"/><rect x="250" y="134" width="200" height="14" fill="url(#hd2)"/>
+  <text x="350" y="139" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Sentence-Transformer</text>
+  <text x="115" y="156" font-size="15" font-weight="700" fill="#152019" text-anchor="middle">Documents</text>
+  <text x="115" y="180" font-size="13" fill="#46514b" text-anchor="middle">your corpus</text>
+  <text x="350" y="178" font-size="13" fill="#46514b" text-anchor="middle">encode()</text>
+  <text x="350" y="196" font-size="13" fill="#46514b" text-anchor="middle">→ 384-dim vectors</text>
+  <text x="585" y="150" font-size="15" font-weight="700" fill="#152019" text-anchor="middle">FAISS</text>
+  <text x="585" y="172" font-size="13" fill="#46514b" text-anchor="middle">vector index</text>
+  <text x="585" y="190" font-size="13" fill="#46514b" text-anchor="middle">(fast ANN)</text>
+  <g stroke="#0b7d4f" stroke-width="3" marker-end="url(#ah2)" fill="none">
+    <line x1="192" y1="162" x2="246" y2="162"/>
+    <line x1="452" y1="162" x2="506" y2="162"/>
+  </g>
+
+  <!-- query pipeline (bottom) -->
+  <g filter="url(#sh2)">
+    <rect x="40"  y="300" width="150" height="84" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="250" y="300" width="200" height="84" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+  </g>
+  <rect x="250" y="300" width="200" height="28" rx="14" fill="url(#hd2)"/><rect x="250" y="314" width="200" height="14" fill="url(#hd2)"/>
+  <text x="350" y="319" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Same encoder</text>
+  <text x="115" y="336" font-size="15" font-weight="700" fill="#152019" text-anchor="middle">Query</text>
+  <text x="115" y="360" font-size="13" fill="#46514b" text-anchor="middle">"reset password"</text>
+  <text x="350" y="360" font-size="13" fill="#46514b" text-anchor="middle">query vector</text>
+  <line x1="192" y1="342" x2="246" y2="342" stroke="#0b7d4f" stroke-width="3" marker-end="url(#ah2)"/>
+  <path d="M450 342 L585 342 L585 212" stroke="#0b7d4f" stroke-width="3" fill="none" marker-end="url(#ah2)"/>
+  <text x="470" y="334" font-size="13" fill="#8a978f">cosine search</text>
+
+  <!-- vector space -->
+  <g filter="url(#sh2)"><rect x="740" y="120" width="420" height="300" rx="16" fill="#ffffff" stroke="#dfe6e0"/></g>
+  <text x="760" y="150" font-size="15" font-weight="700" fill="#152019">Vector space (2-D view)</text>
+  <circle cx="900" cy="250" r="60" fill="#eaf6ef" stroke="#9ed7bb"/>
+  <g fill="#0f9d63"><circle cx="890" cy="240" r="6"/><circle cx="915" cy="262" r="6"/><circle cx="880" cy="268" r="6"/><circle cx="930" cy="235" r="6"/></g>
+  <circle cx="905" cy="250" r="8" fill="#0b5a3f"/>
+  <text x="905" y="332" font-size="13" fill="#0b5a3f" text-anchor="middle">nearest neighbours = top-k results</text>
+  <g fill="#c7cfc9"><circle cx="1080" cy="180" r="6"/><circle cx="1040" cy="380" r="6"/><circle cx="1110" cy="330" r="6"/><circle cx="780" cy="200" r="6"/><circle cx="800" cy="370" r="6"/></g>
+  <line x1="905" y1="250" x2="1080" y2="180" stroke="#d7dbd2" stroke-width="1.5"/>
+  <line x1="905" y1="250" x2="800" y2="370" stroke="#d7dbd2" stroke-width="1.5"/>
+</svg>

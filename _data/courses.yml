@@ -1,0 +1,125 @@
+# Single source of truth for Courses.
+# Used by /courses/ (index), /learn/ (Courses section), and each course landing
+# page (_pages/courses/<id>.md sets `course_id` and the `course` layout looks it
+# up here). Each course has an indexable landing page on ruslanmv.com that links
+# out to its GitHub repository.
+- id: agentic-ai
+  title: "Agentic AI Tutorial"
+  slug: /courses/agentic-ai/
+  icon: "fas fa-robot"
+  short: "Build intelligent agents with tools, memory, and reasoning."
+  description: "A hands-on tutorial for building agentic AI systems in Python — agents that use tools, memory, and reasoning to complete real-world tasks, from a single agent to multi-agent orchestration."
+  github: "https://github.com/ruslanmv/agentic-ai-tutorial"
+  difficulty: "Intermediate"
+  duration: "Self-paced"
+  guide: { title: "AI Agents", url: /ai-agents/ }
+  audience: "Python developers and ML engineers who want to build production-minded AI agents."
+  learn:
+    - "How agents plan, use tools, and maintain memory"
+    - "Building single-agent and multi-agent workflows"
+    - "Connecting agents to external tools and APIs"
+    - "Patterns for reliable, observable, production-ready agents"
+  prerequisites:
+    - "Comfortable writing Python"
+    - "Basic familiarity with LLMs and REST APIs"
+  modules:
+    - "Agent fundamentals: tools, memory, and reasoning"
+    - "Building your first agent end to end"
+    - "Multi-agent orchestration and coordination"
+    - "Evaluation, observability, and deployment"
+- id: financial-ai
+  title: "Financial AI Tutorial"
+  slug: /courses/financial-ai/
+  icon: "fas fa-chart-line"
+  short: "AI for financial analysis, forecasting, and risk modeling."
+  description: "Apply AI and machine learning to finance — data analysis, time-series forecasting, and risk modeling — with practical, reproducible Python examples you can adapt to real datasets."
+  github: "https://github.com/ruslanmv/financial-ai-tutorial"
+  difficulty: "Intermediate"
+  duration: "Self-paced"
+  guide: { title: "Generative AI", url: /generative-ai/ }
+  audience: "Data scientists, analysts, and engineers applying AI to financial data."
+  learn:
+    - "Financial data analysis and feature engineering in Python"
+    - "Time-series forecasting techniques"
+    - "Fundamentals of risk modeling"
+    - "Turning models into a repeatable workflow"
+  prerequisites:
+    - "Python and pandas basics"
+    - "Introductory statistics"
+  modules:
+    - "Financial data and feature engineering"
+    - "Forecasting models"
+    - "Risk modeling"
+    - "From notebook to application"
+- id: watsonx-workshop
+  title: "watsonx Workshop"
+  slug: /courses/watsonx-workshop/
+  icon: "fas fa-cube"
+  short: "Hands-on workshop for enterprise AI with watsonx."
+  description: "A hands-on workshop for building enterprise AI on IBM watsonx — from foundation models and prompt engineering to orchestration and governance."
+  github: "https://github.com/ruslanmv/watsonx-workshop"
+  difficulty: "Beginner to Intermediate"
+  duration: "Workshop"
+  guide: { title: "watsonx", url: /watsonx/ }
+  audience: "Developers and teams adopting IBM watsonx for enterprise AI."
+  learn:
+    - "Working with watsonx foundation models"
+    - "Prompt engineering for enterprise use cases"
+    - "Orchestration and integration patterns"
+    - "Governance and responsible AI considerations"
+  prerequisites:
+    - "Basic Python"
+    - "An IBM Cloud / watsonx account (free tier works)"
+  modules:
+    - "Getting started with watsonx"
+    - "Prompting and foundation models"
+    - "Building an end-to-end solution"
+    - "Orchestration and governance"
+- id: mcp-gateway-workshop
+  title: "MCP Gateway Workshop"
+  slug: /courses/mcp-gateway-workshop/
+  icon: "fas fa-network-wired"
+  short: "Model Context Protocol gateways and agent integration."
+  description: "Learn the Model Context Protocol (MCP) and build gateways that connect tools, resources, and data to AI agents in a standard, interoperable way."
+  github: "https://github.com/ruslanmv/mcp-gateway-workshop"
+  difficulty: "Intermediate"
+  duration: "Workshop"
+  guide: { title: "AI Agents", url: /ai-agents/ }
+  audience: "Engineers integrating tools and data sources with AI agents."
+  learn:
+    - "What MCP is and why it matters for agents"
+    - "Building an MCP gateway"
+    - "Exposing tools and resources to agents"
+    - "Securing and operating the gateway"
+  prerequisites:
+    - "Comfortable with Python and APIs"
+    - "Basic understanding of AI agents"
+  modules:
+    - "MCP fundamentals"
+    - "Building a gateway"
+    - "Connecting tools and resources"
+    - "Security and operations"
+- id: ibm-watsonx-generative-ai-engineer
+  title: "IBM watsonx Generative AI Engineer Certification"
+  slug: /courses/ibm-watsonx-generative-ai-engineer/
+  icon: "fas fa-certificate"
+  short: "Certification-aligned preparation for enterprise generative AI."
+  description: "Certification-aligned preparation for the IBM watsonx Generative AI Engineer path — core concepts, hands-on labs, and exam-readiness practice for building enterprise generative AI."
+  github: "https://github.com/ruslanmv/IBM-Watsonx-Generative-AI-Engineer-Certification"
+  difficulty: "Intermediate to Advanced"
+  duration: "Self-paced"
+  guide: { title: "watsonx", url: /watsonx/ }
+  audience: "Engineers preparing for the IBM watsonx Generative AI Engineer certification."
+  learn:
+    - "Generative AI concepts and the watsonx platform"
+    - "Prompt engineering and RAG patterns"
+    - "Hands-on labs aligned to the certification"
+    - "Exam-readiness practice and review"
+  prerequisites:
+    - "Python fundamentals"
+    - "Basic machine learning concepts"
+  modules:
+    - "Generative AI foundations on watsonx"
+    - "Prompt engineering and retrieval-augmented generation"
+    - "Hands-on labs"
+    - "Exam preparation and review"

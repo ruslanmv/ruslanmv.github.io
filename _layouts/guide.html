@@ -1,0 +1,200 @@
+---
+layout: default
+---
+{% include guide-styles.html %}
+{%- assign g = site.data.guides | where: "id", page.guide_id | first -%}
+{%- assign A = site.author -%}
+{%- assign featured_post = site.posts | where: "url", g.featured | first -%}
+
+<div class="guide-page">
+
+  <!-- ===== HERO ===== -->
+  <header class="guide-hero">
+    <img class="guide-hero__bg" src="{{ '/assets/images/guides/guide-hero-bg.svg' | relative_url }}" alt="" aria-hidden="true">
+    <div class="guide-hero__inner">
+      <div class="guide-hero__lead">
+        <p class="guide-hero__label">{{ g.label | default: "GUIDE" }}</p>
+        <h1 class="guide-hero__title">{{ g.hero_title | default: g.title }}</h1>
+        <p class="guide-hero__desc">{{ g.description }}</p>
+      </div>
+      <div class="guide-hero__author">
+        {% if A.avatar %}<img src="{{ A.avatar | relative_url }}" alt="{{ A.name }}">{% endif %}
+        <div>
+          <div class="nm">{{ A.name | default: "Ruslan Magana Vsevolodovna" }}</div>
+          <div class="rl">Machine Learning Engineer · Data Scientist · Physicist</div>
+          <div class="lo"><i class="fas fa-map-marker-alt"></i> {{ A.location | default: "Genoa, Italy" }}</div>
+          <div class="guide-hero__social">
+            <a href="https://github.com/ruslanmv" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/ruslanmv" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/c/ruslanmv" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://twitter.com/ruslanmv_" aria-label="X"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="guide-crumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a><span>›</span><a href="/learn/">Learn</a><span>›</span><a href="/guides/">Guides</a><span>›</span>{{ g.title }}
+  </nav>
+
+  <!-- ===== SHELL ===== -->
+  <div class="guide-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="guide-aside">
+      <div class="guide-aside__card">
+        <div class="guide-aside__h"><i class="fas fa-list-ul"></i> Sections</div>
+        <ul class="guide-aside__list">
+          {% for sec in g.sections %}
+          <li><a href="#tutorials"><span class="ic"><i class="{{ sec.icon | default: 'fas fa-book' }}"></i></span>{{ sec.title }}<span class="arr">›</span></a></li>
+          {% endfor %}
+          <li><a href="#faq"><span class="ic"><i class="fas fa-circle-question"></i></span>FAQ<span class="arr">›</span></a></li>
+        </ul>
+      </div>
+      <div class="guide-aside__card">
+        <div class="guide-aside__h"><i class="fas fa-layer-group"></i> Related Guides</div>
+        <ul class="guide-aside__list">
+          {% for rg in site.data.guides %}{% unless rg.id == g.id %}
+          <li><a href="{{ rg.url }}"><span class="ic"><i class="{{ rg.icon }}"></i></span>{{ rg.title }}<span class="arr">›</span></a></li>
+          {% endunless %}{% endfor %}
+        </ul>
+      </div>
+      <div class="guide-aside__card guide-author">
+        {% if A.avatar %}<img class="guide-author__img" src="{{ A.avatar | relative_url }}" alt="{{ A.name }}">{% endif %}
+        <div class="guide-aside__h" style="margin:0 0 .35rem;">About the Author</div>
+        <div class="guide-author__nm">{{ A.name | default: "Ruslan Magana Vsevolodovna" }}</div>
+        <div class="guide-author__rl">AI Engineer · Data Scientist · Physicist</div>
+        <div class="guide-author__lo"><i class="fas fa-map-marker-alt"></i> {{ A.location | default: "Genoa, Italy" }}</div>
+        <a class="guide-author__link" href="/about/">View full profile →</a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="guide-main">
+
+      {%- comment -%} ---- Featured tutorial (inline override or real post) ---- {%- endcomment -%}
+      {% if g.featured_card %}
+        {%- assign fc = g.featured_card -%}
+        {%- assign fimg = fc.image | default: g.fallback_thumbnail -%}
+        {%- if fimg contains "assets/" -%}{%- assign fimg = fimg | split: "assets/" | last | prepend: "/assets/" -%}{%- endif -%}
+        <article class="featured-tutorial">
+          <a class="featured-tutorial__media" href="{{ fc.url | relative_url }}" aria-label="{{ fc.title | escape }}">
+            <img src="{{ fimg | relative_url }}" alt="{{ fc.title | escape }}" loading="lazy">
+          </a>
+          <div class="featured-tutorial__body">
+            <p class="featured-tutorial__label">Featured tutorial</p>
+            <h2 class="featured-tutorial__title">{{ fc.title }}</h2>
+            <p class="featured-tutorial__excerpt">{{ fc.excerpt }}</p>
+            {%- if fc.tags and fc.tags.size > 0 -%}
+            <div class="tutorial-card__tags" style="margin-bottom:.9rem;">{% for t in fc.tags limit:4 %}<span>{{ t }}</span>{% endfor %}</div>
+            {%- endif -%}
+            <a class="featured-tutorial__cta" href="{{ fc.url | relative_url }}">Read tutorial →</a>
+          </div>
+        </article>
+      {% elsif featured_post %}
+        {%- assign fraw = featured_post.header.teaser | default: featured_post.header.image | default: featured_post.image -%}
+        {%- if fraw and fraw contains "assets/" -%}{%- assign fimg = fraw | split: "assets/" | last | prepend: "/assets/" -%}{%- else -%}{%- assign fimg = g.fallback_thumbnail -%}{%- endif -%}
+        <article class="featured-tutorial">
+          <a class="featured-tutorial__media" href="{{ featured_post.url | relative_url }}" aria-label="{{ featured_post.title | escape }}">
+            <img src="{{ fimg | relative_url }}" alt="{{ featured_post.title | escape }}" loading="lazy">
+          </a>
+          <div class="featured-tutorial__body">
+            <p class="featured-tutorial__label">Featured tutorial</p>
+            <h2 class="featured-tutorial__title">{{ featured_post.title }}</h2>
+            <p class="featured-tutorial__excerpt">{{ featured_post.description | default: featured_post.excerpt | strip_html | strip_newlines | truncate: 180 }}</p>
+            {%- assign fchips = featured_post.tags | default: featured_post.categories -%}
+            {%- if fchips and fchips.size > 0 -%}
+            <div class="tutorial-card__tags" style="margin-bottom:.9rem;">{% for t in fchips limit:4 %}<span>{{ t }}</span>{% endfor %}</div>
+            {%- endif -%}
+            <a class="featured-tutorial__cta" href="{{ featured_post.url | relative_url }}">Read tutorial →</a>
+          </div>
+        </article>
+      {% endif %}
+
+      <p class="guide-grid-label" id="tutorials">Latest tutorials</p>
+      <div class="tutorial-grid" id="tutGrid">
+        {%- assign seen = g.featured | append: "," -%}
+        {%- if g.featured_card %}{%- assign seen = seen | append: g.featured_card.url | append: "," -%}{%- endif -%}
+        {%- for sec in g.sections -%}
+          {%- for entry in sec.posts -%}
+            {%- if entry.title -%}{%- assign ckey = entry.url -%}{%- else -%}{%- assign ckey = entry -%}{%- endif -%}
+            {%- unless seen contains ckey -%}
+              {%- assign seen = seen | append: ckey | append: "," -%}
+              {%- if entry.title -%}
+                {%- assign cimg = entry.image | default: g.fallback_thumbnail -%}
+                {%- if cimg contains "assets/" -%}{%- assign cimg = cimg | split: "assets/" | last | prepend: "/assets/" -%}{%- endif -%}
+                {% include tutorial-card.html url=entry.url image=cimg title=entry.title excerpt=entry.excerpt tags=entry.tags section=sec.title %}
+              {%- else -%}
+                {%- assign tp = site.posts | where: "url", entry | first -%}
+                {%- if tp -%}
+                  {%- assign raw = tp.header.teaser | default: tp.header.image | default: tp.image -%}
+                  {%- if raw and raw contains "assets/" -%}{%- assign timg = raw | split: "assets/" | last | prepend: "/assets/" -%}{%- else -%}{%- assign timg = g.fallback_thumbnail -%}{%- endif -%}
+                  {% include tutorial-card.html url=tp.url image=timg title=tp.title excerpt=tp.description section=sec.title tags=tp.tags %}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+      <div class="guide-pagination" id="tutPager" aria-label="Tutorial pages"></div>
+
+      {% if g.faq %}
+      <section class="guide-faq" id="faq">
+        <h2 class="guide-faq__h">FAQ</h2>
+        {% for item in g.faq %}
+        <details{% if forloop.first %} open{% endif %}>
+          <summary>{{ item.q }}</summary>
+          <p class="guide-faq__a">{{ item.a }}</p>
+        </details>
+        {% endfor %}
+      </section>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var per=6, grid=document.getElementById('tutGrid'); if(!grid) return;
+  var cards=[].slice.call(grid.children); var pager=document.getElementById('tutPager');
+  if(cards.length<=per){ return; }
+  var pages=Math.ceil(cards.length/per), cur=1;
+  function mk(label,disabled,fn,active){var b=document.createElement('button');b.textContent=label;if(disabled)b.disabled=true;if(active)b.className='is-active';if(fn)b.addEventListener('click',fn);return b;}
+  function render(){
+    cards.forEach(function(c,i){ c.style.display=(i>=(cur-1)*per&&i<cur*per)?'':'none'; });
+    pager.innerHTML='';
+    pager.appendChild(mk('‹ Prev',cur===1,function(){if(cur>1){cur--;render();}}));
+    for(var p=1;p<=pages;p++){ (function(p){ pager.appendChild(mk(String(p),false,function(){cur=p;render();},p===cur)); })(p); }
+    pager.appendChild(mk('Next ›',cur===pages,function(){if(cur<pages){cur++;render();}}));
+  }
+  render();
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CollectionPage",
+  "name":{{ page.title | default: g.title | jsonify }},
+  "description":{{ g.description | jsonify }},
+  "url":"{{ page.url | absolute_url }}",
+  "hasPart":[
+    {% assign s2 = "" %}{% assign first = true %}
+    {%- for sec in g.sections -%}{%- for entry in sec.posts -%}{%- if entry.title -%}{%- assign ek = entry.url -%}{%- assign ename = entry.title -%}{%- else -%}{%- assign ek = entry -%}{%- assign tp2 = site.posts | where: "url", entry | first -%}{%- assign ename = tp2.title -%}{%- endif -%}{%- unless s2 contains ek -%}{%- assign s2 = s2 | append: ek | append: "," -%}{%- if ename -%}{%- if ek contains "://" -%}{%- assign eurl = ek -%}{%- else -%}{%- assign eurl = ek | absolute_url -%}{%- endif -%}{% unless first %},{% endunless %}{"@type":"WebPage","name":{{ ename | jsonify }},"url":{{ eurl | jsonify }}}{% assign first = false %}{%- endif -%}{%- endunless -%}{%- endfor -%}{%- endfor -%}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ '/' | absolute_url }}"},
+    {"@type":"ListItem","position":2,"name":"Learn","item":"{{ '/learn/' | absolute_url }}"},
+    {"@type":"ListItem","position":3,"name":"Guides","item":"{{ '/guides/' | absolute_url }}"},
+    {"@type":"ListItem","position":4,"name":{{ g.title | jsonify }},"item":"{{ g.url | absolute_url }}"}
+  ]
+}
+</script>

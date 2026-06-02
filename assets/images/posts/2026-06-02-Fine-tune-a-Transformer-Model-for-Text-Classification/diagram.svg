@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" font-family="'Hanken Grotesk',system-ui,Arial,sans-serif" role="img" aria-label="Fine-tuning pipeline: dataset, tokenizer, pretrained transformer, trainer, fine-tuned classifier, evaluation">
+  <defs>
+    <marker id="ah" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#0b7d4f"/></marker>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#10231a" flood-opacity="0.10"/></filter>
+    <linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f9d63"/><stop offset="1" stop-color="#0b5a3f"/></linearGradient>
+  </defs>
+  <rect width="1200" height="460" fill="#f8faf8"/>
+  <text x="40" y="56" font-size="26" font-weight="800" fill="#152019">Fine-tuning a transformer for text classification</text>
+  <text x="40" y="86" font-size="16" fill="#5c6b63">A pretrained model is adapted to your labels with a short training run.</text>
+
+  <!-- flow boxes -->
+  <g filter="url(#sh)">
+    <rect x="40"  y="130" width="180" height="96" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="280" y="130" width="170" height="96" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="510" y="130" width="200" height="96" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="770" y="130" width="170" height="96" rx="14" fill="#ffffff" stroke="#dfe6e0"/>
+    <rect x="1000" y="130" width="160" height="96" rx="14" fill="#eaf6ef" stroke="#9ed7bb"/>
+  </g>
+  <!-- headers -->
+  <rect x="40"  y="130" width="180" height="30" rx="14" fill="url(#hd)"/><rect x="40"  y="146" width="180" height="14" fill="url(#hd)"/>
+  <rect x="280" y="130" width="170" height="30" rx="14" fill="url(#hd)"/><rect x="280" y="146" width="170" height="14" fill="url(#hd)"/>
+  <rect x="510" y="130" width="200" height="30" rx="14" fill="url(#hd)"/><rect x="510" y="146" width="200" height="14" fill="url(#hd)"/>
+  <rect x="770" y="130" width="170" height="30" rx="14" fill="url(#hd)"/><rect x="770" y="146" width="170" height="14" fill="url(#hd)"/>
+
+  <g font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">
+    <text x="130" y="150">1 · Labeled data</text>
+    <text x="365" y="150">2 · Tokenizer</text>
+    <text x="610" y="150">3 · Pretrained model</text>
+    <text x="855" y="150">4 · Trainer</text>
+  </g>
+  <g font-size="14" fill="#46514b" text-anchor="middle">
+    <text x="130" y="190">text → label</text>
+    <text x="130" y="210">(e.g. 6 classes)</text>
+    <text x="365" y="190">subword IDs</text>
+    <text x="365" y="210">+ attention mask</text>
+    <text x="610" y="190">DistilBERT / BERT</text>
+    <text x="610" y="210">frozen → adapted</text>
+    <text x="855" y="190">few epochs</text>
+    <text x="855" y="210">AdamW, loss↓</text>
+  </g>
+  <text x="1080" y="172" font-size="15" font-weight="800" fill="#0b5a3f" text-anchor="middle">Fine-tuned</text>
+  <text x="1080" y="194" font-size="14" fill="#0b5a3f" text-anchor="middle">classifier</text>
+
+  <!-- arrows -->
+  <g stroke="#0b7d4f" stroke-width="3" marker-end="url(#ah)" fill="none">
+    <line x1="222" y1="178" x2="276" y2="178"/>
+    <line x1="452" y1="178" x2="506" y2="178"/>
+    <line x1="712" y1="178" x2="766" y2="178"/>
+    <line x1="942" y1="178" x2="996" y2="178"/>
+  </g>
+
+  <!-- evaluation -->
+  <g filter="url(#sh)"><rect x="510" y="320" width="200" height="80" rx="14" fill="#ffffff" stroke="#dfe6e0"/></g>
+  <text x="610" y="352" font-size="15" font-weight="700" fill="#152019" text-anchor="middle">5 · Evaluate</text>
+  <text x="610" y="378" font-size="14" fill="#46514b" text-anchor="middle">accuracy · precision · recall · F1</text>
+  <path d="M855 226 L855 290 L712 290 Q700 290 700 302 L700 318" stroke="#0b7d4f" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+  <path d="M1080 226 L1080 360 L712 360" stroke="#9ed7bb" stroke-width="3" stroke-dasharray="6 6" fill="none" marker-end="url(#ah)"/>
+  <text x="900" y="350" font-size="13" fill="#8a978f">predict on test set</text>
+</svg>
