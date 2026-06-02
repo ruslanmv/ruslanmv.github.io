@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Docker">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#04140d"/><stop offset="0.55" stop-color="#0a1f16"/><stop offset="1" stop-color="#071a12"/></linearGradient>
+<radialGradient id="gl" cx="0.72" cy="0.4" r="0.7"><stop offset="0" stop-color="#0f9d63" stop-opacity="0.5"/><stop offset="1" stop-color="#0a7d4f" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#gl)"/>
+<g opacity="0.92" fill="none" stroke="#36e0a8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><rect x="1100" y="600" width="60" height="50" rx="6"/><rect x="1170" y="600" width="60" height="50" rx="6"/><rect x="1240" y="600" width="60" height="50" rx="6"/><rect x="1170" y="540" width="60" height="50" rx="6"/><path d="M1080 660 q40 70 160 70 q150 0 175 -85" fill="none"/><circle cx="1330" cy="560" r="22" fill="none"/></g>
+<text x="110" y="150" fill="#7dffd0" font-family="monospace" font-size="32" letter-spacing="7" opacity="0.85">TUTORIAL</text>
+<text x="108" y="250" fill="#ffffff" font-family="Georgia, serif" font-size="86" font-weight="700">Docker</text>
+<text x="110" y="320" fill="#9fbcae" font-family="Georgia, serif" font-size="40">Agents in production</text>
+</svg>

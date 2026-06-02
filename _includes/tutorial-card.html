@@ -1,0 +1,26 @@
+{%- comment -%}
+  Premium tutorial card (presentation only).
+  params: include.url, include.image, include.title, include.excerpt,
+          include.tags (array), include.section (label), include.thumb_position
+  External urls (containing "://") open in a new tab and show a ↗ cue.
+{%- endcomment -%}
+{%- assign is_ext = false -%}
+{%- if include.url contains "://" -%}{%- assign is_ext = true -%}{%- endif -%}
+<article class="tutorial-card">
+  <a href="{% if is_ext %}{{ include.url }}{% else %}{{ include.url | relative_url }}{% endif %}"{% if is_ext %} target="_blank" rel="noopener"{% endif %} aria-label="{{ include.title | escape }}">
+    <div class="tutorial-card__media" style="--thumb-position: {{ include.thumb_position | default: 'center center' }}">
+      <img src="{{ include.image | relative_url }}" alt="{{ include.title | escape }}" loading="lazy" decoding="async">
+    </div>
+    <div class="tutorial-card__body">
+      {%- if include.section %}<p class="tutorial-card__meta">{{ include.section }}</p>{% endif -%}
+      <h3>{{ include.title }}</h3>
+      <p class="tutorial-card__excerpt">{{ include.excerpt | strip_html | strip_newlines | truncate: 150 }}</p>
+      {%- if include.tags and include.tags.size > 0 -%}
+      <div class="tutorial-card__tags">
+        {% for t in include.tags limit:3 %}<span>{{ t }}</span>{% endfor %}
+      </div>
+      {%- endif -%}
+      <span class="tutorial-card__cta">Read tutorial {% if is_ext %}↗{% else %}→{% endif %}</span>
+    </div>
+  </a>
+</article>

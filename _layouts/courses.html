@@ -1,0 +1,69 @@
+---
+layout: default
+---
+{% include hub-styles.html %}
+
+<div class="hub-hero">
+  <div class="hub-hero__inner">
+    <div class="hub-hero__lead">
+      <p class="hub-hero__eyebrow">Courses</p>
+      <h1 class="hub-hero__title">{{ page.hub_title | default: "Courses" }}</h1>
+      <p class="hub-hero__sub">{{ page.hub_subtitle }}</p>
+      <a class="hub-hero__cta" href="/learn/">Back to the learning hub →</a>
+    </div>
+  </div>
+</div>
+
+<div class="hub">
+  <nav class="hub-crumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a><span>›</span><a href="/learn/">Learn</a><span>›</span>Courses
+  </nav>
+
+  <section style="margin-top:1.6rem;">
+    <div class="hub-cardgrid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));">
+      {% for c in site.data.courses %}
+      <a class="hub-card" href="{{ c.slug }}">
+        <span class="hub-card__icon"><i class="{{ c.icon | default: 'fas fa-graduation-cap' }}"></i></span>
+        <span class="hub-card__title">{{ c.title }}</span>
+        <span class="hub-card__desc">{{ c.short }}</span>
+        <div class="hub-chips">
+          <span class="hub-chip">{{ c.difficulty }}</span>
+          {% if c.duration %}<span class="hub-chip">{{ c.duration }}</span>{% endif %}
+          {% if c.guide %}<span class="hub-chip">{{ c.guide.title }}</span>{% endif %}
+        </div>
+        <span class="hub-card__open">View course →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <div class="hub-prose" style="margin-top:2.5rem;">
+    {{ content }}
+  </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ItemList",
+  "name":{{ page.title | jsonify }},
+  "itemListElement":[
+    {% for c in site.data.courses %}{
+      "@type":"ListItem","position":{{ forloop.index }},
+      "url":"{{ c.slug | absolute_url }}",
+      "name":{{ c.title | jsonify }}
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ '/' | absolute_url }}"},
+    {"@type":"ListItem","position":2,"name":"Learn","item":"{{ '/learn/' | absolute_url }}"},
+    {"@type":"ListItem","position":3,"name":"Courses","item":"{{ '/courses/' | absolute_url }}"}
+  ]
+}
+</script>

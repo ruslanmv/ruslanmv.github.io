@@ -1,0 +1,270 @@
+# Curated SEO learning hubs. Consumed by:
+#   - /learn/ and /guides/ index cards  (uses: title, url, icon, desc)
+#   - the `guide` layout for the premium hub pages (uses: everything below)
+# Each `posts` entry must be a real post URL (/blog/<slug>). Do not rename to "Topics".
+- id: ai-agents
+  title: "AI Agents"
+  url: /ai-agents/
+  icon: "fas fa-robot"
+  label: "GUIDE"
+  desc: "Design, build, and deploy autonomous AI agents and multi-agent systems."
+  description: "Curated tutorials on building autonomous AI agents and multi-agent systems — frameworks, the A2A protocol, kernels, and production reliability."
+  fallback_thumbnail: /assets/images/guides/ai-agents-thumb.svg
+  featured: /blog/why-ai-agents-need-a-kernel-not-a-framework
+  featured_card:
+    title: "Build a multi-agent system from scratch in Python"
+    url: /blog/why-ai-agents-need-a-kernel-not-a-framework
+    excerpt: "Learn how to design, implement, and run an orchestration system with planning, tool use, memory, and agent coordination."
+    tags: ["Python", "Multi-Agent", "LangChain", "Orchestration"]
+    image: /assets/images/posts/2025-03-03-why-ai-agents-need-a-kernel-not-a-framework/nexus-hero.jpg
+  sections:
+    - title: "Multi-Agent Systems"
+      icon: "fas fa-users-gear"
+      posts:
+        - title: "AutoGen tutorial: Build and orchestrate agents"
+          url: /blog/AutoGen-Tutorial-Build-and-Orchestrate-AI-Agents
+          excerpt: "Use Microsoft AutoGen to create conversational agents and multi-agent workflows."
+          tags: ["AutoGen", "Microsoft", "Multi-Agent"]
+          image: /assets/images/posts/2026-06-02-AutoGen-Tutorial-Build-and-Orchestrate-AI-Agents/hero.jpg
+        - title: "watsonx Orchestrate: build a multi-agent system"
+          url: /blog/hello-watsonx-orchestrate
+          excerpt: "Design, build, and deploy a multi-agent system with agents, skills, tools, and orchestration."
+          tags: ["watsonx", "Orchestrate", "Multi-Agent"]
+          image: /assets/images/posts/2025-07-07-hello-watsonx-orchestrate/watsonx-wallpaper-orchestrate.jpg
+    - title: "Agent Frameworks & Tools"
+      icon: "fas fa-screwdriver-wrench"
+      posts:
+        - title: "Create AI agents with LangChain and OpenAI"
+          url: /blog/Create-AI-Agents-with-LangChain-and-OpenAI
+          excerpt: "Build autonomous agents using LangChain agents, tools, and OpenAI models."
+          tags: ["LangChain", "OpenAI", "Agents"]
+          image: /assets/images/posts/2026-06-02-Create-AI-Agents-with-LangChain-and-OpenAI/hero.jpg
+        - title: "BeeAI Framework: build Python AI agents step by step"
+          url: /blog/BeeAI-Framework-Practical-Guide
+          excerpt: "Agents, tools, workflows, structured outputs, and multi-agent applications in Python."
+          tags: ["BeeAI", "Agents", "Python"]
+          image: /assets/images/posts/2025-03-01-BeeAI-Framework-Practical-Guide/bee2.jpg
+        - title: "Tools for AI agents: APIs, code, and search"
+          url: /blog/universal-a2a-agent-tutorial
+          excerpt: "Enable agents to call APIs, run code, and use external tools effectively with MCP and A2A."
+          tags: ["Tools", "APIs", "Search"]
+          image: /assets/images/posts/2025-04-02-universal-a2a-agent-tutorial/a2awatsonx.jpg
+    - title: "Memory & Knowledge"
+      icon: "fas fa-database"
+      posts:
+        - title: "Add memory to AI agents with vector databases"
+          url: /blog/WatsonX-Assistant-with-Milvus-as-Vector-Database
+          excerpt: "Equip agents with long-term memory using embeddings and vector stores."
+          tags: ["Memory", "FAISS", "Pinecone"]
+          image: /assets/images/posts/2024-03-10-WatsonX-Assistant-with-Milvus-as-Vector-Database/intro.jpg
+    - title: "Planning & Reasoning"
+      icon: "fas fa-brain"
+      posts:
+        - title: "Agent planning and reasoning with ReAct"
+          url: /blog/Agent-Planning-and-Reasoning-with-ReAct
+          excerpt: "Implement ReAct-style agents that reason, act, and observe iteratively."
+          tags: ["ReAct", "Reasoning", "LLM"]
+          image: /assets/images/posts/2026-06-02-Agent-Planning-and-Reasoning-with-ReAct/hero.jpg
+    - title: "Deployment & Production"
+      icon: "fas fa-cloud"
+      posts:
+        - title: "Deploy AI agents to production with Docker"
+          url: /blog/Deploy-AI-Agents-to-Production-with-Docker
+          excerpt: "Containerize and deploy agents reliably with Docker and production best practices."
+          tags: ["Deployment", "Docker", "Production"]
+          image: /assets/images/posts/2026-06-02-Deploy-AI-Agents-to-Production-with-Docker/hero.jpg
+    - title: "Evaluation & Safety"
+      icon: "fas fa-shield-halved"
+      posts:
+        - title: "Deploying GenAI without hallucinations: guardrails & evaluation"
+          url: /blog/deploying-genai-without-hallucinations
+          excerpt: "Ground, evaluate, and add guardrails so agentic systems behave reliably in production."
+          tags: ["Evaluation", "Safety", "Guardrails"]
+          image: /assets/images/posts/2025-03-03-deploying-genai-without-hallucinations/guardian-hero.jpg
+  faq:
+    - q: "What is an AI agent?"
+      a: "An AI agent is a system that can reason, use tools, remember context, and act toward a goal."
+    - q: "What frameworks are used in these tutorials?"
+      a: "The tutorials may use the BeeAI Framework, LangChain, AutoGen, the A2A protocol, vector databases, Docker, and related tools."
+    - q: "Do I need prior experience to follow these guides?"
+      a: "Basic Python and familiarity with APIs are helpful. Some tutorials are beginner-friendly, while others focus on production patterns."
+- id: watsonx
+  title: "IBM watsonx"
+  url: /watsonx/
+  icon: "fas fa-cube"
+  label: "GUIDE"
+  desc: "Enterprise AI with IBM watsonx, orchestration, and governance."
+  description: "Hands-on tutorials for building enterprise AI systems with watsonx, orchestration, RAG, governance, and deployment."
+  fallback_thumbnail: /assets/images/guides/watsonx-thumb.svg
+  featured: /blog/hello-watsonx-orchestrate
+  featured_card:
+    title: "watsonx Orchestrate tutorial: build a multi-agent system"
+    url: /blog/hello-watsonx-orchestrate
+    excerpt: "Learn how to design, build, and deploy multi-agent systems with watsonx Orchestrate. Covers agents, skills, tools, and orchestration patterns."
+    tags: ["watsonx", "Orchestrate", "Agents", "Multi-Agent"]
+    image: /assets/images/posts/2025-07-07-hello-watsonx-orchestrate/watsonx-wallpaper-orchestrate.jpg
+  sections:
+    - title: "watsonx Orchestrate"
+      icon: "fas fa-sitemap"
+      posts:
+        - title: "Getting started with watsonx.ai"
+          url: /courses/watsonx-workshop/
+          excerpt: "Create projects, work with foundation models, and run experiments on watsonx.ai."
+          tags: ["watsonx", "AI", "Models"]
+          image: /assets/images/guides/watsonx-thumb.svg
+        - title: "Pluggable A2A agent with IBM watsonx.ai"
+          url: /blog/universal-a2a-agent-tutorial
+          excerpt: "Build a production-ready, pluggable Agent-to-Agent (A2A) agent with watsonx.ai, MatrixHub, and the MCP Gateway."
+          tags: ["watsonx", "A2A", "MCP"]
+          image: /assets/images/posts/2025-04-02-universal-a2a-agent-tutorial/a2awatsonx.jpg
+    - title: "watsonx Assistant & RAG"
+      icon: "fas fa-comments"
+      posts:
+        - title: "Build a RAG Assistant with watsonx and Milvus"
+          url: /blog/WatsonX-Assistant-with-Milvus-as-Vector-Database
+          excerpt: "Integrate Milvus vector search with watsonx Assistant for enterprise RAG applications."
+          tags: ["watsonx", "RAG", "Milvus"]
+          image: /assets/images/posts/2024-03-10-WatsonX-Assistant-with-Milvus-as-Vector-Database/intro.jpg
+    - title: "Data & Knowledge Management"
+      icon: "fas fa-folder-tree"
+      posts:
+        - title: "Data ingestion and knowledge bases in watsonx"
+          url: /blog/AI-Medical-Chatbot
+          excerpt: "Build and manage knowledge bases that ground enterprise AI assistants in trusted data."
+          tags: ["Data", "Ingestion", "Knowledge"]
+          image: /assets/images/posts/2024-01-23-AI-Medical-Chatbot/future.jpg
+    - title: "Governance & Responsible AI"
+      icon: "fas fa-shield-halved"
+      posts:
+        - title: "Governance and responsible AI with watsonx"
+          url: /blog/deploying-genai-without-hallucinations
+          excerpt: "Implement guardrails, bias detection, and monitoring in your AI systems."
+          tags: ["Governance", "Responsible AI", "Ethics"]
+          image: /assets/images/posts/2025-03-03-deploying-genai-without-hallucinations/guardian-hero.jpg
+        - title: "Monitor and evaluate watsonx models"
+          url: /blog/Guide-to-Evaluating-Language-Models--LLMs-with-Python
+          excerpt: "Track performance, drift, and metrics for production-grade AI systems."
+          tags: ["Monitoring", "Evaluation", "Metrics"]
+          image: /assets/images/guides/watsonx-thumb.svg
+    - title: "Deployment & Cloud"
+      icon: "fas fa-cloud"
+      posts:
+        - title: "Deploy watsonx applications on IBM Cloud"
+          url: /courses/ibm-watsonx-generative-ai-engineer/
+          excerpt: "Step-by-step guidance to deploy and scale watsonx apps securely on IBM Cloud."
+          tags: ["watsonx", "Cloud", "Deployment"]
+          image: /assets/images/guides/watsonx-thumb.svg
+  faq:
+    - q: "What is IBM watsonx?"
+      a: "IBM watsonx is an enterprise AI platform for building, deploying, and governing AI — including foundation models (watsonx.ai), assistants, and orchestration."
+    - q: "Do I need an IBM Cloud account to follow these tutorials?"
+      a: "Most tutorials work with a free IBM Cloud / watsonx tier. Some advanced deployment steps may need a paid plan."
+    - q: "Which watsonx components are covered in these guides?"
+      a: "watsonx.ai, watsonx Orchestrate, watsonx Assistant with RAG, governance and responsible AI, and deployment on IBM Cloud."
+- id: hugging-face
+  title: "Hugging Face"
+  hero_title: "Hugging Face & Local LLMs"
+  url: /hugging-face/
+  icon: "fas fa-meteor"
+  label: "GUIDE"
+  desc: "Models, datasets, and tools for the open-source AI ecosystem."
+  description: "Practical tutorials for Transformers, local models, embeddings, GGUF conversion, and open-source LLM workflows."
+  fallback_thumbnail: /assets/images/guides/hugging-face-thumb.svg
+  featured: /blog/How-to-convert-Models-to-GGUF-in-Google-Colab
+  featured_card:
+    title: "Convert a Hugging Face model to GGUF in Google Colab"
+    url: /blog/How-to-convert-Models-to-GGUF-in-Google-Colab
+    excerpt: "Quantize and export models from the Hub to GGUF for llama.cpp and Ollama. Step-by-step workflow using Transformers, bitsandbytes, and Colab."
+    tags: ["GGUF", "Colab", "Transformers", "llama.cpp"]
+    image: /assets/images/posts/2024-03-09-How-to-convert-Models-to-GGUF-in-Google-Colab/nord.jpg
+  sections:
+    - title: "Models & Storage"
+      icon: "fas fa-hard-drive"
+      posts:
+        - title: "How to download Hugging Face models to a custom cache folder"
+          url: /blog/How-to-download-and-save-HuggingFace-models-to-custom-path
+          excerpt: "Organize model files, snapshots, and revisions with a custom HF_HOME directory and cache_dir."
+          tags: ["Hugging Face", "Cache"]
+          image: /assets/images/posts/2020-09-17-How-to-download-and-save-HuggingFace-models-to-custom-path/Hugging-Face-Setup-750x422.jpg
+    - title: "Local LLMs"
+      icon: "fas fa-microchip"
+      posts:
+        - title: "Run FLAN-T5 and GPT locally with Gradio"
+          url: /blog/How-to-run-Large-Language-Model-FLAN-T5-and-GPT-locally
+          excerpt: "Launch interactive demos for local models with an easy Gradio interface."
+          tags: ["Gradio", "FLAN-T5", "GPT"]
+          image: /assets/images/posts/2023-05-02-How-to-run-Large-Language-Model-FLAN-T5-and-GPT-locally/wallpapersden.com_bloom-edges-blue.jpg
+    - title: "Transformers & Fine-tuning"
+      icon: "fas fa-screwdriver-wrench"
+      posts:
+        - title: "Build a basic LLM (GPT) from scratch in Python"
+          url: /blog/How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python
+          excerpt: "Implement a small GPT-style language model and understand the transformer loop end to end."
+          tags: ["Transformers", "LLM", "From Scratch"]
+          image: /assets/images/posts/2024-08-20-How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python/image.jpeg
+        - title: "Fine-tune a transformer model for text classification"
+          url: /blog/Fine-tune-a-Transformer-Model-for-Text-Classification
+          excerpt: "Prepare data, train, evaluate, and save your own transformer model with the Hugging Face Trainer."
+          tags: ["Transformers", "Fine-tuning", "NLP"]
+          image: /assets/images/posts/2026-06-02-Fine-tune-a-Transformer-Model-for-Text-Classification/hero.jpg
+    - title: "Embeddings & Vector Search"
+      icon: "fas fa-diagram-project"
+      posts:
+        - title: "Build embeddings and semantic search with Sentence Transformers"
+          url: /blog/Build-Embeddings-and-Semantic-Search-with-Sentence-Transformers
+          excerpt: "Create embeddings and a vector search pipeline with FAISS and Hugging Face Sentence Transformers."
+          tags: ["Embeddings", "Sentence Transformers", "FAISS"]
+          image: /assets/images/posts/2026-06-02-Build-Embeddings-and-Semantic-Search-with-Sentence-Transformers/hero.jpg
+    - title: "Deployment & Inference"
+      icon: "fas fa-server"
+      posts:
+        - title: "Deploy a Hugging Face model with FastAPI"
+          url: /blog/Deploy-a-Hugging-Face-Model-with-FastAPI
+          excerpt: "Build a production-ready API for inference with FastAPI and Uvicorn."
+          tags: ["FastAPI", "Deployment", "API"]
+          image: /assets/images/posts/2026-06-02-Deploy-a-Hugging-Face-Model-with-FastAPI/hero.jpg
+        - title: "Use Hugging Face pipelines for rapid prototyping"
+          url: /blog/Use-Hugging-Face-Pipelines-for-Rapid-Prototyping
+          excerpt: "Leverage pipelines for text, vision, speech, and more in just a few lines of code."
+          tags: ["Pipelines", "NLP", "Vision"]
+          image: /assets/images/posts/2026-06-02-Use-Hugging-Face-Pipelines-for-Rapid-Prototyping/hero.jpg
+  faq:
+    - q: "What is Hugging Face used for?"
+      a: "Hugging Face provides models, datasets, libraries, and tools for building and deploying machine learning and LLM workflows."
+    - q: "Can I run Hugging Face models locally?"
+      a: "Yes. Many models can be downloaded and run locally with Transformers, llama.cpp, Ollama, Gradio, or FastAPI depending on the format and hardware."
+    - q: "What is GGUF and why is it useful?"
+      a: "GGUF is a model format commonly used with llama.cpp and local inference tools. It helps run quantized models efficiently on local machines."
+- id: generative-ai
+  title: "Generative AI"
+  url: /generative-ai/
+  icon: "fas fa-magic"
+  label: "GUIDE"
+  desc: "Foundations, models, and applications of generative AI."
+  description: "Curated tutorials on text generation, diffusion models, multimodal systems, and cloud deployment."
+  fallback_thumbnail: /assets/images/guides/generative-ai-thumb.svg
+  featured: /blog/How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python
+  sections:
+    - title: "Text Generation"
+      icon: "fas fa-i-cursor"
+      posts:
+        - /blog/Text-Generation-from-Scratch
+        - /blog/How-to-Build-a-basic-LLM-GPT-from-Scratch-in-Python
+    - title: "Images & Multimodal"
+      icon: "fas fa-image"
+      posts:
+        - /blog/Diffusion-Models-in-Machine-Learning
+        - /blog/Building-a-Multimodal-Model-for-Image-Captioning-with-Deep-Learning
+        - /blog/Introduction-to-Convolutional-Models
+    - title: "GenAI in the Cloud"
+      icon: "fas fa-cloud"
+      posts:
+        - /blog/Develop-generative-AI-solutions-with-Azure-OpenAI
+        - /blog/deploying-genai-without-hallucinations
+  faq:
+    - q: "What is generative AI?"
+      a: "Models that create text, images, code, audio, or other content from learned patterns."
+    - q: "Do I need prior ML experience to follow these guides?"
+      a: "Basic Python is helpful. Some tutorials start from fundamentals, others are more advanced."
+    - q: "Which tools and libraries are used?"
+      a: "Python, PyTorch, Hugging Face Transformers, cloud AI services, and related open-source tools."

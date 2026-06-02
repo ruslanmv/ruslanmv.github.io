@@ -1,0 +1,142 @@
+---
+layout: default
+---
+{% include hub-styles.html %}
+{% assign A = site.author %}
+{%- assign latest_posts = site.posts | where_exp: "p", "p.essay != true" -%}
+{%- assign post_e = site.posts | where: "essay", true -%}
+{%- assign page_e = site.pages | where: "essay", true -%}
+{%- assign essays = post_e | concat: page_e | sort: "essay_date" | reverse -%}
+
+<div class="hub-hero">
+  <div class="hub-hero__inner">
+    <div class="hub-hero__lead">
+      <p class="hub-hero__eyebrow">Learn</p>
+      <h1 class="hub-hero__title">{{ page.hub_title | default: "Learn" }}</h1>
+      <p class="hub-hero__sub">{{ page.hub_subtitle }}</p>
+      <a class="hub-hero__cta" href="/projects/">View my work →</a>
+    </div>
+    <div class="hub-hero__profile">
+      {% if A.avatar %}<img src="{{ A.avatar | relative_url }}" alt="{{ A.name }}">{% endif %}
+      <div>
+        <div class="nm">{{ A.name | default: "Ruslan Magana Vsevolodovna" }}</div>
+        <div class="rl">Machine Learning Engineer · Data Scientist · Physicist</div>
+        {% if A.location %}<div class="lo"><i class="fas fa-map-marker-alt"></i> {{ A.location }}</div>{% endif %}
+        <div class="hub-hero__social">
+          <a href="https://github.com/ruslanmv" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/ruslanmv" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/c/ruslanmv" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://twitter.com/ruslanmv_" aria-label="X"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="vertical-align:-0.125em"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hub">
+  <div class="hub-layout">
+
+    <aside class="hub-aside">
+      <div class="hub-aside__block">
+        <div class="h"><i class="fas fa-crosshairs"></i> Focus</div>
+        <p>Autonomous AI, agents, ML systems, scientific computing, and applied AI products.</p>
+      </div>
+      <div class="hub-aside__block">
+        <div class="h"><i class="fas fa-location-dot"></i> Office</div>
+        <p><strong>{{ A.location | default: "Genoa, Italy" }}</strong><br>Available for remote collaborations worldwide.</p>
+      </div>
+      <div class="hub-aside__block">
+        <div class="h"><i class="fas fa-link"></i> Quick Links</div>
+        <ul class="hub-quick">
+          <li><a href="/essays/">Essays <span class="arr">›</span></a></li>
+          <li><a href="/blog/">Blog <span class="arr">›</span></a></li>
+          <li><a href="/guides/">Guides <span class="arr">›</span></a></li>
+          <li><a href="/courses/">All Courses <span class="arr">›</span></a></li>
+          <li><a href="/publications">Publications <span class="arr">›</span></a></li>
+          <li><a href="/talks/">Talks <span class="arr">›</span></a></li>
+          <li><a href="https://ruslanmv.com/news-and-trends/">News <span class="arr">›</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="hub-main">
+
+      <!-- GUIDES -->
+      <section class="hub-panel" aria-label="Guides">
+        <div class="hub-sec-head">
+          <h2><i class="fas fa-book"></i> Guides</h2>
+          <a class="viewall" href="/guides/">View all guides →</a>
+        </div>
+        <p class="hub-sec-desc">Curated in-depth guides and tutorials on key AI and data science topics.</p>
+        <div class="hub-cardgrid">
+          {% for g in site.data.guides %}
+          <a class="hub-card" href="{{ g.url }}">
+            <span class="hub-card__icon"><i class="{{ g.icon | default: 'fas fa-book' }}"></i></span>
+            <span class="hub-card__title">{{ g.title }}</span>
+            <span class="hub-card__desc">{{ g.desc }}</span>
+            <span class="hub-card__open">Explore guide →</span>
+          </a>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- COURSES -->
+      <section class="hub-panel" aria-label="Courses">
+        <div class="hub-sec-head">
+          <h2><i class="fas fa-graduation-cap"></i> Courses</h2>
+          <a class="viewall" href="/courses/">View all courses →</a>
+        </div>
+        <p class="hub-sec-desc">Structured learning paths and hands-on workshops.</p>
+        <div class="hub-rows">
+          {% for c in site.data.courses %}
+          <a class="hub-row" href="{{ c.slug }}">
+            <span class="hub-row__icon"><i class="{{ c.icon | default: 'fas fa-graduation-cap' }}"></i></span>
+            <span class="hub-row__body">
+              <span class="hub-row__title">{{ c.title }}</span>
+              <span class="hub-row__desc">{{ c.short }}</span>
+            </span>
+            <span class="hub-row__cta">View course →</span>
+          </a>
+          {% endfor %}
+        </div>
+      </section>
+
+      <div class="hub-cols">
+        <!-- LATEST ESSAYS -->
+        <section class="hub-panel" aria-label="Latest essays">
+          <div class="hub-sec-head">
+            <h2><i class="fas fa-feather"></i> Latest Essays</h2>
+            <a class="viewall" href="/essays/">View all essays →</a>
+          </div>
+          <div class="hub-rows">
+            {% for e in essays limit:4 %}
+            <a class="hub-row" href="{{ e.url }}">
+              <span class="hub-row__body"><span class="hub-row__title">{{ e.title }}</span></span>
+              <span class="hub-row__meta">{{ e.essay_date | append: " 12:00" | date: "%d %b %Y" }}</span>
+              <span class="hub-row__arr">›</span>
+            </a>
+            {% endfor %}
+          </div>
+        </section>
+
+        <!-- LATEST BLOG POSTS -->
+        <section class="hub-panel" aria-label="Latest blog posts">
+          <div class="hub-sec-head">
+            <h2><i class="fas fa-comment-dots"></i> Latest Blog Posts</h2>
+            <a class="viewall" href="/blog/">View all blog posts →</a>
+          </div>
+          <div class="hub-rows">
+            {% for p in latest_posts limit:4 %}
+            <a class="hub-row" href="{{ p.url }}">
+              <span class="hub-row__body"><span class="hub-row__title">{{ p.title }}</span></span>
+              <span class="hub-row__meta">{{ p.date | date: "%d %b %Y" }}</span>
+              <span class="hub-row__arr">›</span>
+            </a>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</div>
