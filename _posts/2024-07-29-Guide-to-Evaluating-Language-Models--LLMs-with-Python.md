@@ -1,6 +1,9 @@
 ---
 usemathjax: true
 title: "Comprehensive Guide to Evaluating Language Models (LLMs) with Python"
+permalink: /blog/Guide-to-Evaluating-Language-Models--LLMs-with-Python
+description: "A comprehensive Python guide to evaluating large language models (LLMs) — metrics, benchmarks, perplexity, BLEU/ROUGE, and practical evaluation code."
+last_modified_at: 2026-06-02
 redirect_from:
   - "/blog/Guide-to-Evaluating-Language-Models--LLMs-with Python"
   - "/blog/Guide-to-Evaluating-Language-Models--LLMs-with%20Python"
