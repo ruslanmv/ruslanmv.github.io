@@ -93,3 +93,15 @@
   font-size:13px;color:var(--ink,#10231a);white-space:pre-wrap;line-height:1.65;
   max-height:460px;overflow:auto;
 }
+
+/* mobile (Android) optimizations — shared RMVTool widgets ---------------------*/
+@media(max-width:560px){
+  .rmv-modes{display:flex;flex-wrap:wrap;border-radius:14px}
+  .rmv-modes button{flex:1 1 auto;text-align:center}
+  .rmv-actions{width:100%}
+  .rmv-actions .rmv-btn{flex:1 1 auto}
+  .rmv-ws,.rmv-ws-sel{width:100%}
+  .rmv-ws-sel{min-width:0}
+  /* responsive tables: scroll horizontally instead of overflowing the page */
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+}

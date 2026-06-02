@@ -90,20 +90,20 @@ feature_row2:
   ];
 
   function thumbDataUri(iconPath) {
-    var W = 640, H = 400, cx = W / 2, cy = H / 2;
+    var W = 640, H = 360, cx = W / 2, cy = H / 2;
     var svg =
       '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
         '<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">' +
           '<path d="M40 0H0V40" fill="none" stroke="rgba(47,217,135,0.10)" stroke-width="1"/></pattern></defs>' +
         '<rect width="' + W + '" height="' + H + '" fill="#08170f"/>' +
         '<rect width="' + W + '" height="' + H + '" fill="url(#g)"/>' +
-        '<circle cx="' + cx + '" cy="' + cy + '" r="118" fill="rgba(31,191,108,0.07)" stroke="rgba(47,217,135,0.30)" stroke-width="2"/>' +
-        '<circle cx="96" cy="84" r="11" fill="#0c6e3d" stroke="#2fd987" stroke-width="2.4"/>' +
-        '<circle cx="' + (W - 96) + '" cy="84" r="11" fill="#11140f" stroke="#2fd987" stroke-width="2.4"/>' +
-        '<circle cx="96" cy="' + (H - 84) + '" r="11" fill="#11140f" stroke="#2fd987" stroke-width="2.4"/>' +
-        '<circle cx="' + (W - 96) + '" cy="' + (H - 84) + '" r="13" fill="#1fbf6c" stroke="#bdffdd" stroke-width="2"/>' +
-        '<g stroke="rgba(47,217,135,0.32)" stroke-width="1.5"><path d="M107 92 250 168M' + (W - 107) + ' 92 390 168M107 ' + (H - 92) + ' 250 232M' + (W - 107) + ' ' + (H - 92) + ' 390 232"/></g>' +
-        '<g transform="translate(' + cx + ' ' + cy + ') scale(7) translate(-12 -12)" fill="none" stroke="#7ef0b0" stroke-width="0.52" stroke-linecap="round" stroke-linejoin="round">' + iconPath + '</g>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="104" fill="rgba(31,191,108,0.07)" stroke="rgba(47,217,135,0.30)" stroke-width="2"/>' +
+        '<circle cx="96" cy="74" r="11" fill="#0c6e3d" stroke="#2fd987" stroke-width="2.4"/>' +
+        '<circle cx="' + (W - 96) + '" cy="74" r="11" fill="#11140f" stroke="#2fd987" stroke-width="2.4"/>' +
+        '<circle cx="96" cy="' + (H - 74) + '" r="11" fill="#11140f" stroke="#2fd987" stroke-width="2.4"/>' +
+        '<circle cx="' + (W - 96) + '" cy="' + (H - 74) + '" r="13" fill="#1fbf6c" stroke="#bdffdd" stroke-width="2"/>' +
+        '<g stroke="rgba(47,217,135,0.32)" stroke-width="1.5"><path d="M106 82 250 150M' + (W - 106) + ' 82 390 150M106 ' + (H - 82) + ' 250 210M' + (W - 106) + ' ' + (H - 82) + ' 390 210"/></g>' +
+        '<g transform="translate(' + cx + ' ' + cy + ') scale(6.2) translate(-12 -12)" fill="none" stroke="#7ef0b0" stroke-width="0.58" stroke-linecap="round" stroke-linejoin="round">' + iconPath + '</g>' +
       '</svg>';
     return 'data:image/svg+xml,' + encodeURIComponent(svg);
   }
