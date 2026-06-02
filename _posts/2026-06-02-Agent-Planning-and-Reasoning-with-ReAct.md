@@ -54,7 +54,7 @@ The sender and URL are both suspicious.
 Verdict: phishing
 ```
 
-![Planning the next move from what you observe — the essence of ReAct]({{ '/assets/images/posts/2026-06-02-Agent-Planning-and-Reasoning-with-ReAct/inline.jpg' | relative_url }})
+![The ReAct loop: question, then a repeating Thought, Action, Observation cycle that calls tools, until a final answer]({{ '/assets/images/posts/2026-06-02-Agent-Planning-and-Reasoning-with-ReAct/diagram.svg' | relative_url }})
 
 ## Prerequisites
 

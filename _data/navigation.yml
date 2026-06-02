@@ -48,6 +48,17 @@ main:
 
   - title: "Learn"
     url: /learn/
+    children:
+      - title: "Learn Hub"
+        url: /learn/
+      - title: "Guides"
+        url: /guides/
+      - title: "Courses"
+        url: /courses/
+      - title: "Latest Essays"
+        url: /essays/
+      - title: "Latest Blog Posts"
+        url: /blog
 
   - title: "Publications"
     url: /publications
@@ -106,7 +117,10 @@ burger:
     indent: true
   - title: "Learn"
     url: /learn/
-  - title: "All Courses"
+  - title: "Learn Hub"
+    url: /learn/
+    indent: true
+  - title: "Courses"
     url: /courses/
     indent: true
   - title: "Publications"
