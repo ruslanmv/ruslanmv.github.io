@@ -1,6 +1,7 @@
 ---
 title: "About"
 layout: single
+description: "Ruslan Magana Vsevolodovna — Senior AI Engineer, Data Scientist, and Physicist (PhD). Building agentic AI, machine learning systems, and cloud-native automation, with a background in neural networks, generative AI, and scientific computing."
 excerpt: "Hi there! My name Ruslan Magana Vsevolodovna"
 sitemap: true
 permalink: /about/
@@ -15,7 +16,7 @@ header:
 
 # Hi there! I'm Ruslan Magana Vsevolodovna
 
-I'm  a **Data Scientist**, a **Cloud Architect** and a **Physicist**.
+I'm a **Senior AI Engineer**, **Data Scientist**, and **Physicist** focused on building practical AI systems for real-world use cases — combining **agentic AI**, **machine learning**, **cloud engineering**, **scientific computing**, and **automation**. Through tutorials, tools, and open-source projects, I help developers and teams understand, build, and deploy intelligent systems with modern AI platforms.
 
 ## About me
 
