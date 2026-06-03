@@ -4,7 +4,7 @@ This package is configured for your current setup:
 
 ```text
 Frontend tools:
-https://ruslanmv.com/tools/
+https://ruslanmv.com/assets/tools/
 https://ruslanmv.github.io/          # GitHub Pages origin/fallback
 
 Cloudflare Worker API:
@@ -58,7 +58,7 @@ https://www.ruslanmv.com
 https://ruslanmv.github.io
 ```
 
-Important: for a page like `https://ruslanmv.com/tools/ip-inspector.html`, the CORS origin is only:
+Important: for a page like `https://ruslanmv.com/assets/tools/ip-inspector.html`, the CORS origin is only:
 
 ```text
 https://ruslanmv.com

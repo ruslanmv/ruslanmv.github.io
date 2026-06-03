@@ -2,7 +2,7 @@
  * Cloudflare Worker backend for the RuslanMV MCP Server Inspector.
  *
  * Frontend tool lives at:
- *   https://ruslanmv.com/tools/mcp-inspector.html
+ *   https://ruslanmv.com/assets/tools/mcp-inspector.html
  *   https://ruslanmv.github.io/assets/tools/mcp-inspector.html   (GitHub Pages origin/fallback)
  *   http://localhost:4000/ or http://127.0.0.1:4001/ during Jekyll development
  *

@@ -2,7 +2,7 @@
  * Cloudflare Worker backend for the RuslanMV A2A Agent Validator.
  *
  * Frontend tool lives at:
- *   https://ruslanmv.com/tools/a2a-validator.html
+ *   https://ruslanmv.com/assets/tools/a2a-validator.html
  *   https://ruslanmv.github.io/assets/tools/a2a-validator.html   (GitHub Pages origin/fallback)
  *   http://localhost:4000/ or http://127.0.0.1:4001/ during Jekyll development
  *
