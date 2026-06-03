@@ -18,11 +18,11 @@ locale                   : "en"
 title                    : "Ruslan Magana Vsevolodovna"
 title_separator          : "-"
 name                     : "Ruslan Magana Vsevolodovna"
-description              : "Personal website of Ruslan Magana. We talk about Cloud Data Science, Public Speaking and Community."
+description              : "Ruslan Magana Vsevolodovna — Senior AI Engineer building agentic AI, machine learning systems, and cloud-native automation. Practical AI solutions, tutorials, and free developer tools."
 url                      : "https://ruslanmv.com"
 # baseurl                  : "/"
 repository               : "ruslanmv/ruslanmv.github.io"
-teaser                   : "assets/images/og_default_header.jpg"
+teaser                   : "/assets/images/og-default-header.jpg"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 220
 comments:
@@ -83,7 +83,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 : # Open Graph/Twitter default site image
+og_image                 : "/assets/images/og-default-header.jpg" # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
@@ -109,7 +109,7 @@ analytics:
 author:
   name             : "Ruslan Magana Vsevolodovna"
   avatar           : "/assets/images/avatar.png"
-  bio              : "Machine Learning Engineer & Data Scientist & Physicist"
+  bio              : "Senior AI Engineer — building agentic AI, machine learning systems & cloud-native automation."
   location         : "Genoa, Italy"
   email            : "contact@ruslanmv.com"
   uri              :

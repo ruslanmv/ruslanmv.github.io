@@ -131,16 +131,15 @@
   <link rel="next" href="{{ paginator.next_page_path | absolute_url }}">
 {% endif %}
 
-{% if site.og_image %}
   <script type="application/ld+json">
     {
       "@context": "http://schema.org",
       "@type": "Organization",
+      "name": {{ site.title | jsonify }},
       "url": {{ seo_url | jsonify }},
-      "logo": {{ site_og_image | jsonify }}
+      "logo": {{ "/icon-512.png" | absolute_url | jsonify }}
     }
   </script>
-{% endif %}
 
 {% if site.social %}
   <script type="application/ld+json">
@@ -149,6 +148,11 @@
       "@type": "{% if site.social.type %}{{ site.social.type }}{% else %}Person{% endif %}",
       "name": {{ site.social.name | default: site.name | jsonify }},
       "url": {{ seo_url | jsonify }},
+      "image": {{ "/assets/images/avatar.png" | absolute_url | jsonify }},
+      "jobTitle": "Senior AI Engineer",
+      "description": {{ site.description | jsonify }},
+      "knowsAbout": ["Agentic AI", "Large Language Models", "Machine Learning", "Data Science", "Cloud Computing", "Model Context Protocol", "Agent-to-Agent Protocol", "Physics"],
+      "address": { "@type": "PostalAddress", "addressLocality": "Genoa", "addressRegion": "Liguria", "addressCountry": "IT" },
       "sameAs": {{ site.social.links | jsonify }}
     }
   </script>
