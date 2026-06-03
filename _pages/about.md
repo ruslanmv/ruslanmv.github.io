@@ -20,9 +20,10 @@ header:
 
 I design and ship **multi-agent AI platforms** that actually hold up in enterprise environments — combining reasoning, execution, safety, and cost-awareness into systems that are reliable, not just demos. My work spans LLM applications, national-scale data platforms, and cloud-native MLOps.
 
+
 Before AI engineering, I trained as a **physicist (PhD)** — and the same research-driven mindset I used to study the universe now goes into building scalable, secure AI infrastructure.
 
-> **Quick facts:** PhD in Physics · 10+ AWS / Azure / IBM certifications · open-source AI tools & tutorials · fluent in four languages.
+> **Quick facts:** PhD in Physics · AI, cloud, and MLOps experience · open-source AI tools and tutorials · fluent in four languages.
 
 ## What I work on
 
