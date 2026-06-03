@@ -8,7 +8,20 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#0c6e3d">
+<meta name="theme-color" content="#0a76ad">
+
+{%- if page.url == "/" -%}
+<!-- WebSite entity: reinforces the site name (and the "ruslanmv" alias) in search -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Ruslan Magana Vsevolodovna",
+  "alternateName": "ruslanmv",
+  "url": "https://ruslanmv.com/"
+}
+</script>
+{%- endif -%}
 
 <!-- end custom head snippets -->
 

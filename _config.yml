@@ -88,9 +88,14 @@ og_image                 : # Open Graph/Twitter default site image
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
   type                   : "Person" # Person or Organization (defaults to Person)
-  name                   : # If the user or organization name differs from the site's name
-  links: # An array of links to social media profiles
+  name                   : "Ruslan Magana Vsevolodovna" # If the user or organization name differs from the site's name
+  links: # An array of links to social media profiles (powers schema.org sameAs)
+    - "https://github.com/ruslanmv"
+    - "https://linkedin.com/in/ruslanmv"
+    - "https://huggingface.co/ruslanmv"
+    - "https://www.youtube.com/c/ruslanmv"
     - "https://twitter.com/ruslanmv_"
+    - "https://keybase.io/ruslanmv"
 
 # Analytics
 analytics:
