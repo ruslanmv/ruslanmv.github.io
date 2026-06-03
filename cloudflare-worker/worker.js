@@ -2,7 +2,7 @@
  * Cloudflare Worker backend for RuslanMV Network & API tools.
  *
  * Frontend tools live at:
- *   https://ruslanmv.com/tools/
+ *   https://ruslanmv.com/assets/tools/
  *   https://ruslanmv.github.io/
  *   http://localhost:4000/ or http://127.0.0.1:4001/ during Jekyll development
  *

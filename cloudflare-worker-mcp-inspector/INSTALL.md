@@ -94,7 +94,7 @@ https://ruslanmv.com       https://www.ruslanmv.com
 https://ruslanmv.github.io
 ```
 
-For a page served from `https://ruslanmv.com/tools/mcp-inspector.html`, the CORS
+For a page served from `https://ruslanmv.com/assets/tools/mcp-inspector.html`, the CORS
 origin is exactly `https://ruslanmv.com`. Add/remove origins to match your hosts.
 
 ## 5. Quick verification

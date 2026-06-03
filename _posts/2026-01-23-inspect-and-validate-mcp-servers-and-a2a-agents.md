@@ -74,12 +74,12 @@ But a validator earns trust by how it *rejects*, not just how it accepts. Feed i
 
 These protocols make a lot more sense once you watch the raw data move. Both tools are live:
 
-1. Point the **[MCP Server Inspector](https://ruslanmv.com/tools/mcp-inspector.html)** at `https://mcp.deepwiki.com/mcp` and watch the three-step initialize-and-call loop happen in real time.
-2. Drop `https://silas.sylex.ai` into the **[A2A Agent Validator](https://ruslanmv.com/tools/a2a-validator.html)** to see how an agent presents its skills — then try `example.com` to see a clean failure.
+1. Point the **[MCP Server Inspector](https://ruslanmv.com/assets/tools/mcp-inspector.html)** at `https://mcp.deepwiki.com/mcp` and watch the three-step initialize-and-call loop happen in real time.
+2. Drop `https://silas.sylex.ai` into the **[A2A Agent Validator](https://ruslanmv.com/assets/tools/a2a-validator.html)** to see how an agent presents its skills — then try `example.com` to see a clean failure.
 
 By letting an ephemeral backend handle the proxying and token isolation, you get the speed of a web tool without giving up basic network security. The workflow stays clean, visual, and simple — which, when you're debugging agents at 2 a.m., is the entire point.
 
-> Protecting one of these endpoints yourself? The companion piece on [authentication for MCP and A2A](https://ruslanmv.com/blog/authentication-for-mcp-servers-and-a2a-agents) covers Bearer, Basic, and OAuth patterns — and the [Auth Generator](https://ruslanmv.com/tools/auth-generator.html) mints secure tokens and ready-to-paste configs.
+> Protecting one of these endpoints yourself? The companion piece on [authentication for MCP and A2A](https://ruslanmv.com/blog/authentication-for-mcp-servers-and-a2a-agents) covers Bearer, Basic, and OAuth patterns — and the [Auth Generator](https://ruslanmv.com/assets/tools/auth-generator.html) mints secure tokens and ready-to-paste configs.
 
 ### Sources & references
 

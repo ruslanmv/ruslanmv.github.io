@@ -1,51 +1,42 @@
 ---
 title: "About"
 layout: single
-description: "Ruslan Magana Vsevolodovna — Senior AI Engineer, Data Scientist, and Physicist (PhD). Building agentic AI, machine learning systems, and cloud-native automation, with a background in neural networks, generative AI, and scientific computing."
-excerpt: "Hi there! My name Ruslan Magana Vsevolodovna"
+description: "Ruslan Magana Vsevolodovna — Senior AI Engineer and Physicist (PhD) building governed, production-grade agentic AI: multi-agent systems, LLMs, and cloud-native MLOps."
+excerpt: "Hi there! I'm Ruslan Magana Vsevolodovna."
 sitemap: true
 permalink: /about/
 redirect_from:
   - /about
 author_profile: true
 header:
-    overlay_filter: "0.6"
-    overlay_image: "/assets/images/header-about.jpg"
-    show_overlay_excerpt: false
+  overlay_filter: "0.6"
+  overlay_image: "/assets/images/header-about.jpg"
+  show_overlay_excerpt: false
 ---
 
 # Hi there! I'm Ruslan Magana Vsevolodovna
 
-I'm a **Senior AI Engineer**, **Data Scientist**, and **Physicist** focused on building practical AI systems for real-world use cases — combining **agentic AI**, **machine learning**, **cloud engineering**, **scientific computing**, and **automation**. Through tutorials, tools, and open-source projects, I help developers and teams understand, build, and deploy intelligent systems with modern AI platforms.
+**Senior AI Engineer building governed, production-grade agentic AI.**
 
-## About me
-
-I am Data Scientist specializing in  Artificial Intelligence, with a distinct focus on Neural Networks. My core expertise lies in Generative AI and prompt engineering. I possess a strong commitment to precision and boast an extensive track record across diverse domains, including Data Extraction, Statistical Modeling, Data Mining, Machine Learning, Data Visualization, and Infrastructure Cloud Deployment. Proficient in Deep Learning, Neural Networks, Reinforcement Learning, and Generative AI, I consistently seek opportunities to push the boundaries of what's possible in this ever-evolving landscape.
-
-At present, I serve as a Data Scientist specialized in Artificial Intelligence at [IBM](https://www.ibm.com/it-it), where I continue to explore and innovate in the AI domain. My journey has also taken me through pivotal roles as a Data Scientist and Data Engineer at [Capgemini](https://www.capgemini.com/) and as a Data Engineer at [Reply](https://www.reply.com/it/topics/big-data-and-analytics/). Prior to these endeavors, I dedicated my time as a Postdoctoral Researcher at the National Institute for Nuclear Physics (INFN) in Genova, Italy. Here, I was deeply engaged in the development of theoretical models for nuclear research, contributing significantly to the creation of libraries and tools vital for the Nuclear Physics Community.
-
-My professional journey has always been marked by an unwavering commitment to delivering top-tier computational solutions for nuclear physics, while also sharing my enthusiasm for emerging technologies, particularly Machine Learning, with my colleagues. For a comprehensive overview of my career and achievements, please feel free to explore my curriculum vitae [here](https://cloud-data-science.com/).
-
-Let's connect and explore the endless possibilities at the intersection of data science, AI, and technology!
-
-## Data Scientist  & Cloud Architect 
-
-My professional background includes crafting algorithms, making use of machine learning to mine, make sense of data, and using data visualization to present it to decision-makers. I am instrumental in analyzing and delivering quantitative and qualitative research based solutions that reduce redundancy, improve accuracy and efficiency, and achieve organizational objectives. 
-
-I have the ability to expand existing data delivery platforms and creating data systems that optimize data management, capturing, and quality. 
-
-Please feel free to contact me at [contact@ruslanmv.com](mailto:contact@ruslanmv.com) with any thoughts, comments, or questions about my work — I’m always interested in making new professional acquaintances.  You can checkout some of  the projects that I have at [Github](https://github.com/ruslanmv?tab=repositories)  in addition you can visit  [Cloud-Data-Science.com](https://cloud-data-science.com/index.php/services/).
-
-## Free time
-
-In my free time, I like to  be with my family around and visit new places. I like also have discussions about the culture of each new place I  visit. Learn new languages and discover new people. I'm also in love to write topics about **Data Science** and **Data Engineering** Check out  [my Blog! ](https://ruslanmv.com/blog) 
-
-I like open source projects    [<i class="fab fa-github"></i>  Github profile](https://github.com/ruslanmv) to see my projects and get in touch!
+I design and ship **multi-agent AI platforms** that actually hold up in enterprise environments — combining reasoning, execution, safety, and cost-awareness into systems that are reliable, not just demos. My work spans LLM applications, national-scale data platforms, and cloud-native MLOps.
 
 
-<figure>
-  <img src="/assets/images/attachment-about.jpg" alt="Oaxaca Mexico">
-  <figcaption>Oaxaca Mexico</figcaption>
-</figure>
-I also really enjoy public speaking and sharing my experiences in Science. You can checkout some  my videos in [Youtube.](https://www.youtube.com/c/ruslanmv/playlists)
+Before AI engineering, I trained as a **physicist (PhD)** — and the same research-driven mindset I used to study the universe now goes into building scalable, secure AI infrastructure.
 
+> **Quick facts:** PhD in Physics · AI, cloud, and MLOps experience · open-source AI tools and tutorials · fluent in four languages.
+
+## What I work on
+
+- **Agentic & multi-agent systems** — orchestration, reasoning, tool use, and safety enforcement with MCP, LangGraph, CrewAI, and BeeAI.
+- **Generative AI & LLMs** — RAG, fine-tuning (PEFT/LoRA), and prompt engineering with Hugging Face and PyTorch.
+- **Cloud-native MLOps** — Kubernetes/OpenShift, Docker/Podman, Terraform, and CI/CD across AWS, Azure, Google Cloud, and IBM Cloud.
+
+## My journey
+
+I work as a **Senior AI Engineer** building enterprise multi-agent AI platforms in production. Earlier, I held data science and data engineering roles across tech and consulting, and I began my career as a **postdoctoral researcher in nuclear physics at INFN (Genoa)** — analyzing NUMEN-project data and publishing peer-reviewed work on nuclear structure and neutrinoless double-beta decay.
+
+→ [Publications](/publications) · [Projects](/projects/)
+
+## Beyond work
+
+When I'm not building AI systems, I'm usually with my family — traveling, and learning the culture and languages of each new place. I also enjoy writing about **Agentic AI**, **Data Science**, and **Cloud Engineering** on [my blog](/blog), and sharing talks on [YouTube](https://www.youtube.com/c/ruslanmv). You'll find my open-source work on [GitHub](https://github.com/ruslanmv?tab=repositories).

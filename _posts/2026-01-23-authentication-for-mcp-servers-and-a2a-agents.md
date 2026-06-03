@@ -202,7 +202,7 @@ The most common security mistake isn't using weak auth — it's reaching for ent
 - **Internal service-to-service.** Keep Bearer tokens, but route them through an API gateway with IP restrictions and automated rotation.
 - **Multi-tenant or enterprise production.** This is where you graduate to **OAuth 2.1 or OIDC**: scoped access tokens, real consent flows, and the audit trails your compliance team will eventually ask for.
 
-> If you're prototyping right now, you don't need any of the upper rungs — you need a *good* token and somewhere safe to keep it. Our [MCP / A2A Auth Generator](https://ruslanmv.com/tools/auth-generator.html) mints cryptographically secure Bearer, Basic, and Custom-Header configs in the browser and hands you ready-to-paste snippets for exactly this.
+> If you're prototyping right now, you don't need any of the upper rungs — you need a *good* token and somewhere safe to keep it. Our [MCP / A2A Auth Generator](https://ruslanmv.com/assets/tools/auth-generator.html) mints cryptographically secure Bearer, Basic, and Custom-Header configs in the browser and hands you ready-to-paste snippets for exactly this.
 
 ## The pre-flight checklist
 
@@ -221,7 +221,7 @@ MCP and A2A are two sides of the same coin. MCP protects *how models reach out t
 
 Bearer authentication is brilliant precisely because it's simple — which makes it the ideal foundation. Treat it as your starting layer while you prototype, and let it pave the way toward stronger identity frameworks like OAuth 2.1 as you take on real users and sensitive data. The AI web is moving fast. Make sure your security moves with it.
 
-> **Try it on the wire.** Generate a credential with the [Auth Generator](https://ruslanmv.com/tools/auth-generator.html), then exercise it against a real server with the [MCP Inspector and A2A Validator](https://ruslanmv.com/blog/inspect-and-validate-mcp-servers-and-a2a-agents) — both send all four auth types and show you the raw response.
+> **Try it on the wire.** Generate a credential with the [Auth Generator](https://ruslanmv.com/assets/tools/auth-generator.html), then exercise it against a real server with the [MCP Inspector and A2A Validator](https://ruslanmv.com/blog/inspect-and-validate-mcp-servers-and-a2a-agents) — both send all four auth types and show you the raw response.
 
 ### Sources & references
 

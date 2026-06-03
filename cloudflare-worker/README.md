@@ -154,7 +154,7 @@ This package has been updated for:
 
 ```text
 Frontend production path:
-https://ruslanmv.com/tools/
+https://ruslanmv.com/assets/tools/
 
 GitHub Pages origin/fallback:
 https://ruslanmv.github.io
