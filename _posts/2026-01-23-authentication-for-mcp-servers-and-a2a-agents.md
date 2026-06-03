@@ -1,5 +1,5 @@
 ---
-title: "Securing the AI Web: Authentication for MCP Servers and A2A Agents"
+title: "MCP and A2A Authentication"
 excerpt: "MCP and A2A are powerful — and wide open by default. Here's how authentication actually works for both, the practices production teams rely on, and two runnable Python demos protected by Bearer tokens."
 description: "A practical, human guide to securing MCP servers and A2A agents over HTTP: where auth fits in each protocol, how the industry handles it, and two runnable FastAPI demos — a Bearer-protected MCP server and an OpenAI-powered A2A agent."
 
@@ -12,8 +12,6 @@ tags: [MCP, A2A, Agents, Authentication, Security, OAuth, FastAPI, OpenAI]
 essay: true
 essay_date: "2026-01-23"
 read_time: "12 min read"
-toc: true
-toc_label: "Contents"
 card_image: /assets/images/posts/2026-01-23-authentication-for-mcp-servers-and-a2a-agents/hero.svg
 card_excerpt: "MCP and A2A are wide open by default. Here's how to lock them down — with two runnable Bearer-token demos."
 ---

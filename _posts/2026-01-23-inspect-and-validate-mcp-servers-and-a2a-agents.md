@@ -1,5 +1,5 @@
 ---
-title: "Inspecting MCP and A2A: Two Browser Tools, One Secure Worker"
+title: "Inspecting MCP and A2A Agents"
 excerpt: "Exposing an MCP server or A2A agent to the network means CORS walls, leaked tokens, and silent failures. Here are two free browser tools — and the hardened Worker — that make remote agent debugging human again."
 description: "A developer's tour of the MCP Server Inspector and A2A Agent Validator: why a static site needs a Cloudflare Worker proxy, the MCP initialize → tools/list → tools/call loop against DeepWiki and Context7, and agent-card validation against live A2A agents like Silas and PostalForm."
 
@@ -12,8 +12,6 @@ tags: [MCP, A2A, Agents, Cloudflare Workers, Developer Tools, JSON-RPC]
 essay: true
 essay_date: "2026-01-23"
 read_time: "9 min read"
-toc: true
-toc_label: "Contents"
 card_image: /assets/images/posts/2026-01-23-inspect-and-validate-mcp-servers-and-a2a-agents/hero.svg
 card_excerpt: "Test remote MCP servers and validate A2A agent cards from the browser — proxied through a hardened Cloudflare Worker."
 ---
