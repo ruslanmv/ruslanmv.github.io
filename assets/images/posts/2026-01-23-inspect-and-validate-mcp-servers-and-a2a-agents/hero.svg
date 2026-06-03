@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 760" width="1600" height="760" role="img" aria-label="Inspecting MCP servers and validating A2A agents from the browser through a Cloudflare Worker">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06140e"/><stop offset="0.55" stop-color="#0a2218"/><stop offset="1" stop-color="#04100b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7dffd0"/><stop offset="1" stop-color="#0a7d4f"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2fd987" stop-opacity="0.5"/><stop offset="1" stop-color="#2fd987" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wire" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2fd987" stop-opacity="0.15"/><stop offset="0.5" stop-color="#2fd987" stop-opacity="0.9"/><stop offset="1" stop-color="#2fd987" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="760" fill="url(#bg)"/>
+  <g opacity="0.07" stroke="#7ef0b0"><path d="M0 190 H1600 M0 380 H1600 M0 570 H1600 M400 0 V760 M800 0 V760 M1200 0 V760"/></g>
+
+  <!-- title -->
+  <text x="100" y="120" fill="#eaf3ee" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="58" font-weight="800" letter-spacing="-1">Inspect &amp; Validate</text>
+  <text x="100" y="172" fill="#9fcdb7" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="26">Two browser tools, one secure Cloudflare Worker</text>
+
+  <!-- browser node (left) -->
+  <g transform="translate(150,360)">
+    <circle r="120" fill="url(#halo)"/>
+    <rect x="-92" y="-70" width="184" height="140" rx="14" fill="#0c2a1c" stroke="#2fd987" stroke-width="2"/>
+    <rect x="-92" y="-70" width="184" height="30" rx="14" fill="#103725"/>
+    <circle cx="-74" cy="-55" r="5" fill="#2fd987"/><circle cx="-58" cy="-55" r="5" fill="#1a8a52"/><circle cx="-42" cy="-55" r="5" fill="#15613a"/>
+    <text x="0" y="2" fill="#cdeedd" font-family="JetBrains Mono, ui-monospace, monospace" font-size="15" text-anchor="middle">ruslanmv.com</text>
+    <text x="0" y="28" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">/tools</text>
+    <text x="0" y="112" fill="#9fcdb7" font-family="Trebuchet MS, sans-serif" font-size="18" text-anchor="middle" font-weight="700">GitHub Pages (static)</text>
+  </g>
+
+  <!-- worker node (centre) -->
+  <g transform="translate(700,360)">
+    <circle r="150" fill="url(#halo)"/>
+    <path d="M0 -96 L84 -52 V52 L0 96 L-84 52 V-52 Z" fill="#0d3322" stroke="#2fd987" stroke-width="2.5"/>
+    <circle r="46" fill="url(#glow)"/>
+    <path d="M-18 0 l12 13 l24 -28" fill="none" stroke="#06140e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="0" y="132" fill="#eaf3ee" font-family="Trebuchet MS, sans-serif" font-size="19" text-anchor="middle" font-weight="800">Cloudflare Worker</text>
+    <text x="0" y="158" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">CORS · HTTPS-only · SSRF guard</text>
+  </g>
+
+  <!-- two server targets (right) -->
+  <g transform="translate(1290,250)">
+    <circle r="92" fill="url(#halo)"/>
+    <rect x="-74" y="-46" width="148" height="92" rx="12" fill="#0c2a1c" stroke="#5fb0ff" stroke-width="2"/>
+    <text x="0" y="-8" fill="#cfe6ff" font-family="Trebuchet MS, sans-serif" font-size="18" text-anchor="middle" font-weight="800">MCP server</text>
+    <text x="0" y="18" fill="#8fb6d8" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12" text-anchor="middle">JSON-RPC / SSE</text>
+    <text x="0" y="74" fill="#9fcdb7" font-family="Trebuchet MS, sans-serif" font-size="15" text-anchor="middle">DeepWiki · Context7</text>
+  </g>
+  <g transform="translate(1290,500)">
+    <circle r="92" fill="url(#halo)"/>
+    <rect x="-74" y="-46" width="148" height="92" rx="12" fill="#0c2a1c" stroke="#f6c453" stroke-width="2"/>
+    <text x="0" y="-8" fill="#ffe6a8" font-family="Trebuchet MS, sans-serif" font-size="18" text-anchor="middle" font-weight="800">A2A agent</text>
+    <text x="0" y="18" fill="#d8bd84" font-family="JetBrains Mono, ui-monospace, monospace" font-size="11" text-anchor="middle">/.well-known/agent.json</text>
+    <text x="0" y="74" fill="#9fcdb7" font-family="Trebuchet MS, sans-serif" font-size="15" text-anchor="middle">Silas · PostalForm</text>
+  </g>
+
+  <!-- wires -->
+  <path d="M270 360 H540" stroke="url(#wire)" stroke-width="4" fill="none"/>
+  <path d="M850 330 C1010 300 1080 270 1210 255" stroke="url(#wire)" stroke-width="4" fill="none"/>
+  <path d="M850 390 C1010 420 1080 480 1210 500" stroke="url(#wire)" stroke-width="4" fill="none"/>
+  <g fill="#7ef0b0" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13">
+    <text x="405" y="348" text-anchor="middle">POST /api/*</text>
+  </g>
+</svg>

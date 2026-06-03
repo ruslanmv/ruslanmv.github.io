@@ -1,0 +1,16 @@
+name = "mcp-inspector-api"
+main = "worker.js"
+compatibility_date = "2025-05-01"
+
+# Optional custom domain route example:
+# routes = [
+#   { pattern = "api.ruslanmv.com/mcp/*", custom_domain = true }
+# ]
+
+# This Worker does NOT require any secrets to run. Cloudflare secrets should be
+# used only for YOUR OWN service keys (never for visitor-entered MCP tokens):
+#
+#   wrangler secret put MCP_INSPECTOR_KEY
+#
+# Secret values are write-only after definition and are not visible in the
+# dashboard. See: https://developers.cloudflare.com/workers/configuration/environment-variables/

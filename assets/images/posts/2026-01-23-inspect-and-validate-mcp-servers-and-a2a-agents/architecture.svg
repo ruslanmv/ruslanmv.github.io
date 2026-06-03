@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Why a Cloudflare Worker sits between the static browser tool and the remote server: the browser cannot bypass CORS or hold secrets safely, so the Worker proxies the request, adds CORS, blocks unsafe targets, and applies a timeout">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a2218"/><stop offset="1" stop-color="#05110b"/>
+    </linearGradient>
+    <radialGradient id="g2" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#7dffd0"/><stop offset="1" stop-color="#0a7d4f"/></radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg2)"/>
+  <g opacity="0.06" stroke="#7ef0b0"><path d="M0 180 H1280 M0 360 H1280 M0 540 H1280 M320 0 V720 M640 0 V720 M960 0 V720"/></g>
+
+  <text x="64" y="70" fill="#eaf3ee" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="34" font-weight="800">The three-tier request path</text>
+  <text x="64" y="104" fill="#9fcdb7" font-family="Trebuchet MS, sans-serif" font-size="18">Static hosting can't run backend code or bypass CORS — the Worker is the one piece that needs a server.</text>
+
+  <!-- Tier 1 -->
+  <g transform="translate(64,200)">
+    <rect width="320" height="380" rx="18" fill="#0c2a1c" stroke="#2fd987" stroke-width="2"/>
+    <text x="160" y="44" fill="#eaf3ee" font-family="Trebuchet MS, sans-serif" font-size="22" font-weight="800" text-anchor="middle">1 · Browser</text>
+    <text x="160" y="72" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">GitHub Pages · static</text>
+    <g font-family="Trebuchet MS, sans-serif" font-size="16" fill="#cdeedd">
+      <text x="28" y="128">• Builds the request</text>
+      <text x="28" y="162">• Holds token in memory only</text>
+      <text x="28" y="196">• Renders the JSON result</text>
+      <text x="28" y="230">• Runs the diagnostics checklist</text>
+    </g>
+    <g transform="translate(28,266)">
+      <rect width="264" height="86" rx="10" fill="#08190f" stroke="#15613a"/>
+      <text x="14" y="26" fill="#ff9b9b" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13">✕ cannot bypass CORS</text>
+      <text x="14" y="50" fill="#ff9b9b" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13">✕ cannot run npx / Python</text>
+      <text x="14" y="74" fill="#ff9b9b" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13">✕ cannot keep server secrets</text>
+    </g>
+  </g>
+
+  <!-- Tier 2 -->
+  <g transform="translate(480,200)">
+    <rect width="320" height="380" rx="18" fill="#0d3322" stroke="#2fd987" stroke-width="2.5"/>
+    <circle cx="160" cy="120" r="44" fill="url(#g2)"/>
+    <path d="M142 120 l12 13 l24 -28" fill="none" stroke="#06140e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="160" y="44" fill="#eaf3ee" font-family="Trebuchet MS, sans-serif" font-size="22" font-weight="800" text-anchor="middle">2 · Cloudflare Worker</text>
+    <text x="160" y="72" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">the secure proxy</text>
+    <g font-family="Trebuchet MS, sans-serif" font-size="15.5" fill="#cdeedd">
+      <text x="28" y="208">✓ adds CORS for ruslanmv.com</text>
+      <text x="28" y="240">✓ HTTPS-only, SSRF guard</text>
+      <text x="28" y="272">✓ attaches auth header once</text>
+      <text x="28" y="304">✓ timeout · size cap · rate limit</text>
+      <text x="28" y="336">✓ parses JSON or SSE response</text>
+    </g>
+  </g>
+
+  <!-- Tier 3 -->
+  <g transform="translate(896,200)">
+    <rect width="320" height="380" rx="18" fill="#0c2a1c" stroke="#5fb0ff" stroke-width="2"/>
+    <text x="160" y="44" fill="#eaf3ee" font-family="Trebuchet MS, sans-serif" font-size="22" font-weight="800" text-anchor="middle">3 · Remote server</text>
+    <text x="160" y="72" fill="#8fb6d8" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">MCP endpoint / A2A agent</text>
+    <g font-family="Trebuchet MS, sans-serif" font-size="16" fill="#cdeedd">
+      <text x="28" y="128">• MCP: POST /mcp (JSON-RPC)</text>
+      <text x="28" y="162">• A2A: GET agent card</text>
+      <text x="28" y="196">• may require Bearer / Basic</text>
+      <text x="28" y="230">• answers JSON or text/event-stream</text>
+    </g>
+    <g transform="translate(28,266)">
+      <rect width="264" height="86" rx="10" fill="#08190f" stroke="#1d4a8a"/>
+      <text x="132" y="34" fill="#cfe6ff" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">DeepWiki · Context7</text>
+      <text x="132" y="62" fill="#ffe6a8" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">Silas · PostalForm</text>
+    </g>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#2fd987" stroke-width="3" fill="#2fd987">
+    <path d="M392 360 H470" fill="none"/><path d="M470 360 l-12 -6 v12 z"/>
+    <path d="M808 360 H886" fill="none"/><path d="M886 360 l-12 -6 v12 z"/>
+  </g>
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" fill="#7ef0b0" text-anchor="middle">
+    <text x="431" y="345">POST</text>
+    <text x="847" y="345">fetch</text>
+  </g>
+  <g stroke="#5a8a72" stroke-width="2" stroke-dasharray="5 5" fill="#5a8a72">
+    <path d="M886 405 H392" fill="none"/><path d="M392 405 l12 -6 v12 z"/>
+  </g>
+  <text x="640" y="430" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="middle">JSON result · status · latency · headers subset</text>
+</svg>

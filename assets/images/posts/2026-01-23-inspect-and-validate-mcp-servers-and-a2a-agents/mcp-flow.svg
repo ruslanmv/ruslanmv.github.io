@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-label="The MCP inspection lifecycle: initialize returns serverInfo and an optional session id, tools/list discovers the tools, tools/call runs one. Context7 requires the session id to be replayed; DeepWiki is stateless.">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#06140e"/><stop offset="1" stop-color="#0a2218"/></linearGradient>
+    <radialGradient id="g3" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#7dffd0"/><stop offset="1" stop-color="#0a7d4f"/></radialGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg3)"/>
+  <g opacity="0.06" stroke="#7ef0b0"><path d="M0 160 H1280 M0 320 H1280 M0 480 H1280"/></g>
+
+  <text x="64" y="64" fill="#eaf3ee" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="32" font-weight="800">The MCP lifecycle, as the Inspector runs it</text>
+  <text x="64" y="96" fill="#9fcdb7" font-family="Trebuchet MS, sans-serif" font-size="17">Three JSON-RPC round-trips — the session id from step 1 is reused automatically in steps 2 and 3.</text>
+
+  <!-- 3 stage cards -->
+  <g font-family="Trebuchet MS, sans-serif">
+    <!-- 1 initialize -->
+    <g transform="translate(64,150)">
+      <rect width="360" height="200" rx="16" fill="#0d3322" stroke="#2fd987" stroke-width="2"/>
+      <circle cx="46" cy="46" r="22" fill="url(#g3)"/><text x="46" y="53" fill="#06140e" font-size="22" font-weight="800" text-anchor="middle">1</text>
+      <text x="84" y="42" fill="#eaf3ee" font-size="22" font-weight="800">initialize</text>
+      <text x="84" y="66" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12">method: "initialize"</text>
+      <line x1="24" y1="86" x2="336" y2="86" stroke="#155f39"/>
+      <text x="24" y="116" fill="#cdeedd" font-size="15">← serverInfo: name + version</text>
+      <text x="24" y="144" fill="#cdeedd" font-size="15">← protocolVersion: 2025-06-18</text>
+      <text x="24" y="172" fill="#ffe6a8" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13">← Mcp-Session-Id (if stateful)</text>
+    </g>
+    <!-- 2 tools/list -->
+    <g transform="translate(460,150)">
+      <rect width="360" height="200" rx="16" fill="#0d3322" stroke="#2fd987" stroke-width="2"/>
+      <circle cx="46" cy="46" r="22" fill="url(#g3)"/><text x="46" y="53" fill="#06140e" font-size="22" font-weight="800" text-anchor="middle">2</text>
+      <text x="84" y="42" fill="#eaf3ee" font-size="22" font-weight="800">tools/list</text>
+      <text x="84" y="66" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12">replays session id →</text>
+      <line x1="24" y1="86" x2="336" y2="86" stroke="#155f39"/>
+      <text x="24" y="116" fill="#cdeedd" font-size="15">← result.tools[ ]</text>
+      <text x="24" y="144" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12.5">read_wiki_structure</text>
+      <text x="24" y="166" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12.5">read_wiki_contents · ask_question</text>
+    </g>
+    <!-- 3 tools/call -->
+    <g transform="translate(856,150)">
+      <rect width="360" height="200" rx="16" fill="#0d3322" stroke="#2fd987" stroke-width="2"/>
+      <circle cx="46" cy="46" r="22" fill="url(#g3)"/><text x="46" y="53" fill="#06140e" font-size="22" font-weight="800" text-anchor="middle">3</text>
+      <text x="84" y="42" fill="#eaf3ee" font-size="22" font-weight="800">tools/call</text>
+      <text x="84" y="66" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12">name + arguments →</text>
+      <line x1="24" y1="86" x2="336" y2="86" stroke="#155f39"/>
+      <text x="24" y="116" fill="#cdeedd" font-size="15">← result.content[ ]</text>
+      <text x="24" y="144" fill="#cdeedd" font-size="15">← isError: false</text>
+      <text x="24" y="172" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12.5">"Available pages for …"</text>
+    </g>
+  </g>
+
+  <!-- arrows between -->
+  <g stroke="#2fd987" stroke-width="3" fill="#2fd987">
+    <path d="M424 250 H458" fill="none"/><path d="M458 250 l-12 -6 v12 z"/>
+    <path d="M820 250 H854" fill="none"/><path d="M854 250 l-12 -6 v12 z"/>
+  </g>
+
+  <!-- session band -->
+  <g transform="translate(64,400)">
+    <rect width="1152" height="180" rx="16" fill="#08190f" stroke="#155f39"/>
+    <text x="28" y="44" fill="#eaf3ee" font-family="Trebuchet MS, sans-serif" font-size="20" font-weight="800">Stateless vs stateful — the Inspector handles both</text>
+    <g transform="translate(28,72)">
+      <rect width="540" height="86" rx="10" fill="#0c2a1c" stroke="#1d6fb8"/>
+      <text x="20" y="32" fill="#cfe6ff" font-family="Trebuchet MS, sans-serif" font-size="17" font-weight="700">DeepWiki — stateless</text>
+      <text x="20" y="60" fill="#9fc4e6" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13">no session id · each call stands alone</text>
+    </g>
+    <g transform="translate(584,72)">
+      <rect width="540" height="86" rx="10" fill="#2a230c" stroke="#9a7b1f"/>
+      <text x="20" y="32" fill="#ffe6a8" font-family="Trebuchet MS, sans-serif" font-size="17" font-weight="700">Context7 — stateful</text>
+      <text x="20" y="60" fill="#d8bd84" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13">issues Mcp-Session-Id · must be replayed</text>
+    </g>
+  </g>
+</svg>

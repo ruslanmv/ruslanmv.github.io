@@ -1,0 +1,117 @@
+/* MCP Server Inspector — tool-specific styles layered on tool-shell.css */
+
+.panel { margin-top: 22px; }
+.panel[hidden] { display: none; }
+
+.hint { font-weight: 600; color: var(--faint); font-size: 12px; }
+
+code {
+  font-family: var(--mono);
+  font-size: .9em;
+  background: var(--green-tint);
+  color: var(--green-700);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+/* local/stdio command generator — intentionally de-emphasized, collapsed by default */
+.cmd-gen { border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); }
+.cmd-gen > summary {
+  cursor: pointer; list-style: none;
+  padding: 12px 14px; font-weight: 700; font-size: 13.5px; color: var(--muted);
+  display: flex; align-items: center; gap: 8px;
+}
+.cmd-gen > summary::-webkit-details-marker { display: none; }
+.cmd-gen > summary::before { content: "⌨"; opacity: .7; }
+.cmd-gen > summary::after { content: "▸"; margin-left: auto; opacity: .55; transition: transform .15s; }
+.cmd-gen[open] > summary::after { transform: rotate(90deg); }
+.cmd-gen > summary:hover { color: var(--green-700); }
+.cmd-gen[open] > summary { color: var(--ink); border-bottom: 1px solid var(--line); }
+.cmd-gen__body { padding: 14px; }
+.cmd-gen__note { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+
+/* token field with reveal toggle */
+.masked { position: relative; display: flex; gap: 8px; align-items: stretch; }
+.masked input { flex: 1; }
+.reveal-btn { flex: 0 0 auto; min-height: 0; }
+.reveal-btn.on { background: var(--green-soft); border-color: #cfe9d8; color: var(--green-700); }
+
+.action-row { gap: 10px; }
+.action-row .btn { flex: 1 1 auto; }
+
+/* auth panes + custom header rows */
+.auth-pane { border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: var(--surface-2); }
+.hdr-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.hdr-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: center; }
+.hdr-row .btn { min-height: 38px; }
+@media (max-width: 640px) { .hdr-row { grid-template-columns: 1fr 1fr; } .hdr-row .hdr-del { grid-column: 2; justify-self: end; } }
+
+.raw-box { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--surface-2); }
+.raw-box summary { font-weight: 800; color: #43524a; cursor: pointer; font-size: 13px; }
+.raw-box textarea { margin-top: 10px; }
+
+/* response metric strip */
+.metric-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+}
+.metric {
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--surface-2);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.metric__label { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.metric__value { font-size: 18px; font-weight: 800; color: var(--ink); font-family: var(--mono); }
+@media (max-width: 640px) { .metric-strip { grid-template-columns: repeat(2, 1fr); } }
+
+/* diagnostics checklist */
+.diag-list { display: flex; flex-direction: column; gap: 8px; }
+.diag-row {
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.diag-dot {
+  width: 24px; height: 24px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  font-weight: 800; font-size: 13px;
+  background: #eceee8; color: var(--faint);
+}
+.diag-label { font-weight: 700; color: var(--ink); }
+.diag-detail { font-size: 13px; color: var(--muted); text-align: right; }
+.diag-ok    .diag-dot { background: var(--green-soft); color: var(--green-700); }
+.diag-ok           { border-color: #cfe9d8; }
+.diag-fail  .diag-dot { background: #fff2f1; color: var(--red); }
+.diag-fail         { border-color: #ffd0cc; }
+.diag-warn  .diag-dot { background: #fff8e5; color: var(--amber); }
+.diag-warn         { border-color: #f7e3ab; }
+
+@media (max-width: 640px) {
+  .diag-row { grid-template-columns: 26px 1fr; }
+  .diag-detail { grid-column: 2; text-align: left; }
+}
+
+/* troubleshooting tips */
+.tip {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.tip strong { color: var(--ink); font-size: 14px; }
+.tip span { color: var(--muted); font-size: 13.5px; line-height: 1.5; }

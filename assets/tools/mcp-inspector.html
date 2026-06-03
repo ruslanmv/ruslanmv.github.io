@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MCP Server Inspector — Ruslan Magana Vsevolodovna</title>
+  <meta name="description" content="Test, inspect, and debug remote MCP servers with JSON-RPC checks, tool discovery, command generation, and deployment diagnostics. Generates the local npx inspector command and proxies remote HTTP/SSE MCP servers through a secure Cloudflare Worker." />
+  <meta name="author" content="Ruslan Magana Vsevolodovna" />
+  <meta property="og:title" content="MCP Server Inspector" />
+  <meta property="og:description" content="Test, inspect, and debug remote MCP servers — JSON-RPC checks, tool discovery, command generation, and deployment diagnostics." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ruslanmv.com/tools/mcp-inspector.html" />
+  <link rel="stylesheet" href="assets/shared/tool-shell.css" />
+  <link rel="stylesheet" href="assets/mcp-inspector/mcp-inspector.css" />
+</head>
+<body>
+  <header class="tool-header">
+    <div class="tool-header__in">
+      <a class="tool-header__back" href="index.html">← <span>All tools</span></a>
+      <div class="tool-header__title">♢ MCP Server Inspector</div>
+      <div class="tool-header__user"><span class="avatar">RM</span> Ruslan Magana Vsevolodovna ▾</div>
+    </div>
+  </header>
+
+  <main class="tool-wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Model Context Protocol</div>
+        <h1>MCP Server Inspector</h1>
+        <p class="sub">Test, inspect, and debug remote MCP servers live — JSON-RPC checks, tool discovery, authentication, and deployment diagnostics, right from your browser.</p>
+      </div>
+      <div class="actions">
+        <span class="badge" id="workerBadge">◎ Worker: checking…</span>
+        <span class="badge neutral">Tokens stay in memory</span>
+      </div>
+    </section>
+
+    <!-- ====== TABS ====== -->
+    <div class="tabs" role="tablist" aria-label="Inspector sections">
+      <button class="tab active" data-tab="remote" role="tab">Remote HTTP Test</button>
+      <button class="tab" data-tab="diagnostics" role="tab">Diagnostics</button>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- TAB 2 — REMOTE HTTP TEST                                      -->
+    <!-- ============================================================= -->
+    <section class="panel" data-panel="remote">
+      <div class="grid-2">
+        <!-- left: connection + actions -->
+        <article class="card">
+          <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">◎</span> Remote endpoint</h2></div>
+          <div class="card__body stack">
+            <div class="field">
+              <label for="rtUrl">Endpoint URL (HTTPS)</label>
+              <input id="rtUrl" type="url" placeholder="https://example.com/mcp" autocomplete="off" spellcheck="false" />
+            </div>
+            <div class="field">
+              <label>Authentication</label>
+              <div class="segmented" id="authSeg" role="tablist" aria-label="Authentication type">
+                <button type="button" class="active" data-auth="none">None</button>
+                <button type="button" data-auth="bearer">Bearer</button>
+                <button type="button" data-auth="basic">Basic</button>
+                <button type="button" data-auth="custom_headers">Headers</button>
+              </div>
+            </div>
+
+            <!-- Bearer -->
+            <div class="auth-pane" data-pane="bearer" hidden>
+              <div class="field">
+                <label for="authToken">Bearer token <span class="hint">(in memory only)</span></label>
+                <div class="masked">
+                  <input id="authToken" type="password" placeholder="token" autocomplete="off" spellcheck="false" />
+                  <button type="button" class="btn small reveal-btn" data-reveal="authToken" aria-label="Show / hide token">👁</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Basic -->
+            <div class="auth-pane" data-pane="basic" hidden>
+              <div class="field-row">
+                <div class="field">
+                  <label for="authUser">Username</label>
+                  <input id="authUser" type="text" placeholder="username" autocomplete="off" spellcheck="false" />
+                </div>
+                <div class="field">
+                  <label for="authPass">Password <span class="hint">(in memory only)</span></label>
+                  <div class="masked">
+                    <input id="authPass" type="password" placeholder="password" autocomplete="off" spellcheck="false" />
+                    <button type="button" class="btn small reveal-btn" data-reveal="authPass" aria-label="Show / hide password">👁</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Custom headers -->
+            <div class="auth-pane" data-pane="custom_headers" hidden>
+              <div class="field">
+                <label>Custom headers <span class="hint">(in memory only)</span></label>
+                <div class="hdr-list" id="hdrList"></div>
+                <button type="button" class="btn small" id="addHdrBtn">+ Add header</button>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="rtProtocol">Protocol version</label>
+                <select id="rtProtocol">
+                  <option value="2025-06-18">2025-06-18</option>
+                  <option value="2025-03-26">2025-03-26</option>
+                  <option value="2024-11-05">2024-11-05</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="rtTimeout">Request timeout (s)</label>
+                <input id="rtTimeout" type="number" min="1" max="120" value="30" />
+              </div>
+            </div>
+
+            <label>Actions</label>
+            <div class="row action-row">
+              <button class="btn primary" id="actInit">① Initialize</button>
+              <button class="btn" id="actList">② List tools</button>
+            </div>
+
+            <div class="field">
+              <label for="rtTool">Tool to call</label>
+              <select id="rtTool"><option value="">— run “List tools” first —</option></select>
+            </div>
+            <div class="field">
+              <label for="rtArgs">Arguments (JSON)</label>
+              <textarea id="rtArgs" spellcheck="false">{}</textarea>
+            </div>
+            <div class="row action-row">
+              <button class="btn" id="actCall">③ Call tool</button>
+              <button class="btn ghost" id="actRaw">Send raw JSON-RPC</button>
+            </div>
+
+            <details class="raw-box">
+              <summary>Raw JSON-RPC body</summary>
+              <textarea id="rtRaw" spellcheck="false">{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/list",
+  "params": {}
+}</textarea>
+            </details>
+          </div>
+          <div class="notice">ⓘ Requests are proxied through a Cloudflare Worker (CORS, HTTPS-only, SSRF-guarded). Auth (Bearer / Basic / custom headers) is forwarded once and never logged or stored.</div>
+        </article>
+
+        <!-- right: response viewer -->
+        <article class="card">
+          <div class="card__header">
+            <h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">▤</span> Response</h2>
+            <div class="row">
+              <button class="btn small" id="rtCopy">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="card__body stack">
+            <div class="metric-strip">
+              <div class="metric"><span class="metric__label">HTTP</span><span class="metric__value" id="mStatus">—</span></div>
+              <div class="metric"><span class="metric__label">Latency</span><span class="metric__value" id="mLatency">—</span></div>
+              <div class="metric"><span class="metric__label">Transport</span><span class="metric__value" id="mTransport">—</span></div>
+              <div class="metric"><span class="metric__label">Session</span><span class="metric__value" id="mSession">—</span></div>
+              <div class="metric"><span class="metric__label">Auth</span><span class="metric__value" id="mAuth">—</span></div>
+            </div>
+            <pre class="code-panel tall" id="rtOutput">Run an action to see the JSON-RPC response…</pre>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- TAB 3 — DIAGNOSTICS                                           -->
+    <!-- ============================================================= -->
+    <section class="panel" data-panel="diagnostics" hidden>
+      <div class="grid-2">
+        <article class="card">
+          <div class="card__header">
+            <h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">♢</span> Checklist</h2>
+            <button class="btn small primary" id="diagRun">↻ Run all checks</button>
+          </div>
+          <div class="card__body">
+            <div class="diag-list" id="diagList"></div>
+          </div>
+          <div class="notice">Checks reflect the latest Remote HTTP Test results. Run Initialize → List tools → Call tool to light them all up.</div>
+        </article>
+
+        <article class="card">
+          <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">ⓘ</span> Troubleshooting</h2></div>
+          <div class="card__body stack">
+            <div class="tip"><strong>HTTP 401 / 403</strong><span>Missing or invalid token. Paste a valid Bearer token; it is sent only for the current request.</span></div>
+            <div class="tip"><strong>Blocked target</strong><span>Localhost, private IPs and metadata addresses are rejected by the Worker by design. Test those locally.</span></div>
+            <div class="tip"><strong>Empty tools list</strong><span>Some servers require <code>initialize</code> first. Click Initialize, then List tools so the session id is reused.</span></div>
+            <div class="tip"><strong>Timeout / 504</strong><span>The remote server took too long. Increase the request timeout or check that the endpoint is reachable.</span></div>
+
+            <!-- Local / stdio command generator — tucked away; remote testing above is the main flow -->
+            <details class="cmd-gen">
+              <summary>Local / stdio server? Generate the <code>npx</code> command</summary>
+              <div class="cmd-gen__body stack">
+                <p class="cmd-gen__note">Remote HTTP servers are tested live in the tab above. A local stdio server (for example <code>mcpgateway.wrapper</code>) can only be inspected on your own machine — this just builds the command for you to paste into your terminal.</p>
+                <div class="field-row">
+                  <div class="field">
+                    <label for="cbUrl">MCP Server URL</label>
+                    <input id="cbUrl" type="url" placeholder="https://your-mcp-server.example.com/mcp" autocomplete="off" spellcheck="false" />
+                  </div>
+                  <div class="field">
+                    <label for="cbToken">Bearer token <span class="hint">(in memory only)</span></label>
+                    <div class="masked">
+                      <input id="cbToken" type="password" placeholder="paste token (optional)" autocomplete="off" spellcheck="false" />
+                      <button type="button" class="btn small reveal-btn" data-reveal="cbToken" aria-label="Show / hide token">👁</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field">
+                    <label for="cbTimeout">Tool call timeout (s)</label>
+                    <input id="cbTimeout" type="number" min="1" value="120" />
+                  </div>
+                  <div class="field">
+                    <label for="cbWrapper">Wrapper module</label>
+                    <input id="cbWrapper" type="text" value="mcpgateway.wrapper" spellcheck="false" />
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="cbPython">Python executable path</label>
+                  <input id="cbPython" type="text" placeholder="/path/to/venv/bin/python" value="/path/to/venv/bin/python" spellcheck="false" />
+                </div>
+                <div class="spread">
+                  <span class="hint">Generated command</span>
+                  <div class="row">
+                    <button class="btn small" id="cbCopy">⧉ Copy</button>
+                    <button class="btn small" id="cbDownload">⇩ Script</button>
+                    <button class="btn small ghost" id="cbClear">Clear</button>
+                  </div>
+                </div>
+                <pre class="code-panel small" id="cbOutput">npx @modelcontextprotocol/inspector …</pre>
+              </div>
+            </details>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div data-toast class="toast"></div>
+  <script type="module" src="assets/mcp-inspector/mcp-inspector.js"></script>
+</body>
+</html>
