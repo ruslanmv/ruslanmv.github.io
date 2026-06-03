@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MCP / A2A Auth Generator — Ruslan Magana Vsevolodovna</title>
+  <meta name="description" content="Generate authentication configs for MCP servers and A2A agents — None, Bearer, Basic, and Custom Headers — with cryptographically secure tokens, masked secrets, HTTP-header conversion, and downloadable, reusable snippets (JavaScript, curl, Python, .env) plus browser and Node libraries." />
+  <meta name="author" content="Ruslan Magana Vsevolodovna" />
+  <meta property="og:title" content="MCP / A2A Auth Generator" />
+  <meta property="og:description" content="Generate secure auth configs for MCP servers and A2A agents, with downloadable reusable snippets and libraries." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ruslanmv.com/tools/auth-generator.html" />
+  <link rel="stylesheet" href="assets/shared/tool-shell.css" />
+  <link rel="stylesheet" href="assets/auth-generator/auth-generator.css" />
+</head>
+<body>
+  <header class="tool-header">
+    <div class="tool-header__in">
+      <a class="tool-header__back" href="index.html">← <span>All tools</span></a>
+      <div class="tool-header__title">♢ MCP / A2A Auth Generator</div>
+      <div class="tool-header__user"><span class="avatar">RM</span> Ruslan Magana Vsevolodovna ▾</div>
+    </div>
+  </header>
+
+  <main class="tool-wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Agents · Security</div>
+        <h1>MCP / A2A Auth Generator</h1>
+        <p class="sub">Generate authentication configs for your MCP servers and A2A agents — secure tokens, HTTP headers, and ready-to-use snippets you can paste straight into the Inspector, the Validator, or your own code.</p>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="genBtn">✦ Generate</button>
+        <button class="btn" id="regenBtn">↻ Regenerate secret</button>
+        <span class="badge">✓ Runs locally</span>
+      </div>
+    </section>
+
+    <div class="grid-2">
+      <!-- LEFT — configuration -->
+      <article class="card">
+        <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">⚙</span> Configuration</h2></div>
+        <div class="card__body stack">
+          <div class="field">
+            <label>Authentication type</label>
+            <div class="segmented" id="authSeg" role="tablist" aria-label="Authentication type">
+              <button type="button" class="active" data-auth="none">None</button>
+              <button type="button" data-auth="bearer">Bearer</button>
+              <button type="button" data-auth="basic">Basic</button>
+              <button type="button" data-auth="custom_headers">Headers</button>
+            </div>
+          </div>
+
+          <!-- Bearer -->
+          <div class="auth-pane" data-pane="bearer" hidden>
+            <div class="field">
+              <label for="bearerToken">Bearer token <span class="hint">(leave empty to generate)</span></label>
+              <input id="bearerToken" type="text" placeholder="auto-generated if blank" autocomplete="off" spellcheck="false" />
+            </div>
+          </div>
+
+          <!-- Basic -->
+          <div class="auth-pane" data-pane="basic" hidden>
+            <div class="field-row">
+              <div class="field">
+                <label for="basicUser">Username</label>
+                <input id="basicUser" type="text" value="demo-user" autocomplete="off" spellcheck="false" />
+              </div>
+              <div class="field">
+                <label for="basicPass">Password <span class="hint">(blank = generate)</span></label>
+                <input id="basicPass" type="text" placeholder="auto-generated if blank" autocomplete="off" spellcheck="false" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom headers -->
+          <div class="auth-pane" data-pane="custom_headers" hidden>
+            <div class="field-row">
+              <div class="field">
+                <label for="hdrName">Header name</label>
+                <input id="hdrName" type="text" value="X-API-Key" autocomplete="off" spellcheck="false" />
+              </div>
+              <div class="field">
+                <label for="hdrValue">Header value <span class="hint">(blank = generate)</span></label>
+                <input id="hdrValue" type="text" placeholder="auto-generated if blank" autocomplete="off" spellcheck="false" />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="byteLen">Secret strength (random bytes)</label>
+              <select id="byteLen">
+                <option value="16">16 bytes (128-bit)</option>
+                <option value="24">24 bytes (192-bit)</option>
+                <option value="32" selected>32 bytes (256-bit)</option>
+                <option value="48">48 bytes (384-bit)</option>
+                <option value="64">64 bytes (512-bit)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="endpointKind">Snippet target</label>
+              <select id="endpointKind">
+                <option value="both" selected>MCP + A2A</option>
+                <option value="mcp">MCP only</option>
+                <option value="a2a">A2A only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="notice" style="border-radius:10px;border:1px solid var(--line)">
+            ⓘ Secrets are generated with <code>crypto.getRandomValues</code> in your browser. Nothing is sent anywhere or stored — secrets live in memory only and are masked until you reveal them.
+          </div>
+        </div>
+      </article>
+
+      <!-- RIGHT — generated config -->
+      <article class="card">
+        <div class="card__header">
+          <h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">{ }</span> Generated config</h2>
+          <div class="row">
+            <button class="btn small" id="revealBtn">👁 Reveal</button>
+            <button class="btn small" id="copyAuthBtn">⧉ Copy</button>
+          </div>
+        </div>
+        <div class="card__body stack">
+          <div>
+            <div class="sub-h">auth config <span class="hint">— for the Inspector / Validator</span></div>
+            <pre class="code-panel" id="authOut">{ "type": "none" }</pre>
+          </div>
+          <div>
+            <div class="sub-h">HTTP headers <span class="hint">— what the server receives</span></div>
+            <pre class="code-panel small" id="headersOut">{}</pre>
+          </div>
+          <div class="note-row" id="secretNote">Reveal is off — values are masked for screen-sharing. <strong>Copy &amp; Download always emit the real secret.</strong></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- SNIPPETS -->
+    <article class="card" style="margin-top:18px">
+      <div class="card__header">
+        <h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">&lt;/&gt;</span> Reusable snippets</h2>
+        <div class="row">
+          <button class="btn small" id="copySnippetBtn">⧉ Copy</button>
+          <button class="btn small primary" id="downloadSnippetBtn">⇩ Download</button>
+        </div>
+      </div>
+      <div class="card__body stack">
+        <div class="segmented snippet-seg" id="snippetSeg" role="tablist" aria-label="Snippet language">
+          <button type="button" class="active" data-snip="auth">Auth config</button>
+          <button type="button" data-snip="headers">Headers</button>
+          <button type="button" data-snip="js">JavaScript</button>
+          <button type="button" data-snip="curl">curl</button>
+          <button type="button" data-snip="python">Python</button>
+          <button type="button" data-snip="env">.env</button>
+        </div>
+        <pre class="code-panel tall" id="snippetOut">Click Generate to build your snippets…</pre>
+      </div>
+      <div class="notice">Snippets target the live Worker endpoints — paste them as-is, or swap the example server URLs for your own.</div>
+    </article>
+
+    <!-- LIBRARIES + INTEGRATION -->
+    <div class="grid-2" style="margin-top:18px">
+      <article class="card">
+        <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">⇩</span> Reusable libraries</h2></div>
+        <div class="card__body stack">
+          <p class="lib-note">Drop these framework-free helpers into your own projects. Same API on both sides: <code>generateAuthConfig()</code>, <code>authToHttpHeaders()</code>, <code>generateSecureToken()</code>.</p>
+          <a class="lib-row" href="assets/auth-generator/lib/auth-generator.js" download>
+            <span class="lib-row__ico">JS</span>
+            <span class="lib-row__txt"><strong>auth-generator.js</strong><span>Browser global — exposes <code>window.AuthGenerator</code></span></span>
+            <span class="lib-row__dl">⇩</span>
+          </a>
+          <a class="lib-row" href="assets/auth-generator/lib/auth-generator.node.js" download>
+            <span class="lib-row__ico">⬡</span>
+            <span class="lib-row__txt"><strong>auth-generator.node.js</strong><span>Node.js ESM — <code>import { generateAuthConfig }</code></span></span>
+            <span class="lib-row__dl">⇩</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">→</span> Use it with the tools</h2></div>
+        <div class="card__body stack">
+          <div class="tip"><strong>Server side</strong><span>Save the same secret on your server: <code>export MCP_BEARER_TOKEN=…</code> / <code>export A2A_BEARER_TOKEN=…</code> — grab the line from the <code>.env</code> snippet.</span></div>
+          <div class="tip"><strong>MCP Inspector</strong><span>Open the <a href="mcp-inspector.html">MCP Server Inspector</a>, pick the same auth type, and paste the generated secret.</span></div>
+          <div class="tip"><strong>A2A Validator</strong><span>Open the <a href="a2a-validator.html">A2A Agent Validator</a> and validate a protected agent card with the same credential.</span></div>
+          <div class="tip"><strong>Production</strong><span>Random Bearer tokens are great for demos. For multi-user systems, graduate to short-lived JWTs or OAuth 2.1 / OIDC with scoped tokens.</span></div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <div data-toast class="toast"></div>
+  <script type="module" src="assets/auth-generator/auth-generator.js"></script>
+</body>
+</html>

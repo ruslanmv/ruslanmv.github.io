@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="A request sequence to a Bearer-protected endpoint: a missing token returns 401, a wrong token returns 403, and a valid token returns 200 with the result. Public discovery is separated from protected execution.">
+  <defs>
+    <linearGradient id="sbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#06140e"/><stop offset="1" stop-color="#0a2218"/></linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#sbg)"/>
+  <g opacity="0.06" stroke="#7ef0b0"><path d="M0 180 H1280 M0 360 H1280 M0 540 H1280"/></g>
+
+  <text x="64" y="60" fill="#eaf3ee" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="32" font-weight="800">Public discovery, protected execution</text>
+  <text x="64" y="92" fill="#9fcdb7" font-family="Trebuchet MS, sans-serif" font-size="17">The card tells a client how to authenticate; the work endpoint enforces it. 401 = missing, 403 = invalid, 200 = ok.</text>
+
+  <!-- lifelines -->
+  <g font-family="Trebuchet MS, sans-serif">
+    <g transform="translate(220,140)">
+      <rect x="-110" y="0" width="220" height="52" rx="10" fill="#0c2a1c" stroke="#2fd987" stroke-width="2"/>
+      <text x="0" y="33" fill="#eaf3ee" font-size="19" font-weight="800" text-anchor="middle">Client</text>
+      <line x1="0" y1="52" x2="0" y2="660" stroke="#2fd987" stroke-width="2" opacity="0.4" stroke-dasharray="3 7"/>
+    </g>
+    <g transform="translate(1000,140)">
+      <rect x="-150" y="0" width="300" height="52" rx="10" fill="#0c2a1c" stroke="#5fb0ff" stroke-width="2"/>
+      <text x="0" y="33" fill="#cfe6ff" font-size="19" font-weight="800" text-anchor="middle">MCP server / A2A agent</text>
+      <line x1="0" y1="52" x2="0" y2="660" stroke="#5fb0ff" stroke-width="2" opacity="0.4" stroke-dasharray="3 7"/>
+    </g>
+  </g>
+
+  <!-- exchange rows -->
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="14">
+    <!-- discovery -->
+    <g transform="translate(0,236)">
+      <path d="M220 0 H995" stroke="#5fb0ff" stroke-width="2.5" fill="none"/><path d="M1000 0 l-14 -7 v14 z" fill="#5fb0ff"/>
+      <text x="610" y="-10" fill="#9fc4e6" text-anchor="middle">GET /.well-known/agent-card.json  (public)</text>
+      <path d="M1000 34 H225" stroke="#5fb0ff" stroke-width="2" fill="none" stroke-dasharray="6 5"/><path d="M220 34 l14 -7 v14 z" fill="#5fb0ff"/>
+      <text x="610" y="56" fill="#9fc4e6" text-anchor="middle">200 · securitySchemes: bearerAuth</text>
+    </g>
+    <!-- 401 -->
+    <g transform="translate(0,360)">
+      <path d="M220 0 H995" stroke="#9a7b1f" stroke-width="2.5" fill="none"/><path d="M1000 0 l-14 -7 v14 z" fill="#9a7b1f"/>
+      <text x="610" y="-10" fill="#ffe6a8" text-anchor="middle">POST /mcp   (no Authorization header)</text>
+      <path d="M1000 34 H225" stroke="#9a7b1f" stroke-width="2" fill="none" stroke-dasharray="6 5"/><path d="M220 34 l14 -7 v14 z" fill="#9a7b1f"/>
+      <text x="610" y="56" fill="#ffe6a8" text-anchor="middle">401 Missing Authorization header</text>
+    </g>
+    <!-- 403 -->
+    <g transform="translate(0,476)">
+      <path d="M220 0 H995" stroke="#c8453a" stroke-width="2.5" fill="none"/><path d="M1000 0 l-14 -7 v14 z" fill="#c8453a"/>
+      <text x="610" y="-10" fill="#ff9b9b" text-anchor="middle">POST /mcp   Authorization: Bearer wrong</text>
+      <path d="M1000 34 H225" stroke="#c8453a" stroke-width="2" fill="none" stroke-dasharray="6 5"/><path d="M220 34 l14 -7 v14 z" fill="#c8453a"/>
+      <text x="610" y="56" fill="#ff9b9b" text-anchor="middle">403 Invalid token</text>
+    </g>
+    <!-- 200 -->
+    <g transform="translate(0,592)">
+      <path d="M220 0 H995" stroke="#2fd987" stroke-width="3" fill="none"/><path d="M1000 0 l-14 -7 v14 z" fill="#2fd987"/>
+      <text x="610" y="-10" fill="#7ef0b0" text-anchor="middle">POST /mcp   Authorization: Bearer dev-mcp-token</text>
+      <path d="M1000 34 H225" stroke="#2fd987" stroke-width="2.5" fill="none" stroke-dasharray="6 5"/><path d="M220 34 l14 -7 v14 z" fill="#2fd987"/>
+      <text x="610" y="56" fill="#7ef0b0" text-anchor="middle">200 · result.content[ ]  ✓</text>
+    </g>
+  </g>
+</svg>

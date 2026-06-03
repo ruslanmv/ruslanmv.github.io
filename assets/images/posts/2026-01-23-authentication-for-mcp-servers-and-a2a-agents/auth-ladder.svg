@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 700" width="1280" height="700" role="img" aria-label="The authentication ladder from none to OAuth 2.1 / OIDC, climbing from simple demos toward enterprise multi-user systems, with the trade-off between simplicity and control.">
+  <defs>
+    <linearGradient id="lbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a2218"/><stop offset="1" stop-color="#05110b"/></linearGradient>
+  </defs>
+  <rect width="1280" height="700" fill="url(#lbg)"/>
+  <g opacity="0.06" stroke="#7ef0b0"><path d="M0 175 H1280 M0 350 H1280 M0 525 H1280 M320 0 V700 M640 0 V700 M960 0 V700"/></g>
+
+  <text x="64" y="64" fill="#eaf3ee" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="32" font-weight="800">The authentication ladder</text>
+  <text x="64" y="96" fill="#9fcdb7" font-family="Trebuchet MS, sans-serif" font-size="17">Climb only as high as the use case demands — simplicity at the bottom, control and auditability at the top.</text>
+
+  <!-- diagonal axis -->
+  <g stroke="#2fd987" stroke-width="2" opacity="0.35"><path d="M120 600 L1180 200"/></g>
+  <text x="120" y="640" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13">simple · demo</text>
+  <text x="1180" y="180" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13" text-anchor="end">enterprise · multi-user</text>
+
+  <g font-family="Trebuchet MS, sans-serif">
+    <!-- step 1 -->
+    <g transform="translate(96,500)">
+      <rect width="290" height="118" rx="14" fill="#0d3322" stroke="#3a5e4d" stroke-width="2"/>
+      <text x="22" y="40" fill="#eaf3ee" font-size="20" font-weight="800">None</text>
+      <text x="22" y="70" fill="#9fcdb7" font-size="14.5">Open endpoints, throwaway local tests.</text>
+      <text x="22" y="96" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12.5">{ "type": "none" }</text>
+    </g>
+    <!-- step 2 -->
+    <g transform="translate(340,388)">
+      <rect width="300" height="118" rx="14" fill="#0d3322" stroke="#2fd987" stroke-width="2.5"/>
+      <text x="22" y="40" fill="#eaf3ee" font-size="20" font-weight="800">Bearer token</text>
+      <text x="22" y="70" fill="#9fcdb7" font-size="14.5">Demos &amp; service-to-service prototypes.</text>
+      <text x="22" y="96" fill="#7ef0b0" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12.5">Authorization: Bearer …</text>
+    </g>
+    <!-- step 3 -->
+    <g transform="translate(596,300)">
+      <rect width="300" height="110" rx="14" fill="#0d3322" stroke="#3a5e4d" stroke-width="2"/>
+      <text x="22" y="38" fill="#eaf3ee" font-size="19" font-weight="800">Basic / Custom Headers</text>
+      <text x="22" y="66" fill="#9fcdb7" font-size="14.5">Behind a gateway, API-key style.</text>
+      <text x="22" y="92" fill="#7fb79a" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12.5">X-API-Key · X-Tenant-ID</text>
+    </g>
+    <!-- step 4 -->
+    <g transform="translate(860,196)">
+      <rect width="320" height="120" rx="14" fill="#0d3322" stroke="#5fb0ff" stroke-width="2.5"/>
+      <text x="22" y="40" fill="#eaf3ee" font-size="20" font-weight="800">OAuth 2.1 / OIDC</text>
+      <text x="22" y="70" fill="#9fcdb7" font-size="14.5">Users, consent, scopes, refresh, audit.</text>
+      <text x="22" y="96" fill="#cfe6ff" font-family="JetBrains Mono, ui-monospace, monospace" font-size="12">scoped tokens · least privilege</text>
+    </g>
+  </g>
+
+  <!-- annotations -->
+  <g font-family="Trebuchet MS, sans-serif" font-size="14" fill="#7fb79a">
+    <text x="64" y="676">Bearer is a stepping stone — fine until your endpoints touch real users, real tools, or sensitive data.</text>
+  </g>
+</svg>

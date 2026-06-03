@@ -1,0 +1,18 @@
+name = "a2a-validator"
+main = "worker.js"
+compatibility_date = "2025-05-01"
+
+# Deployed production URL:
+#   https://a2a-validator.cloud-data.workers.dev
+#
+# Preview URLs (versioned):
+#   *-a2a-validator.cloud-data.workers.dev
+#
+# This Worker requires no secrets. To push a future update, edit worker.js and:
+#   cd cloudflare-worker-a2a-validator
+#   wrangler deploy
+#
+# Optional custom domain route example:
+# routes = [
+#   { pattern = "api.ruslanmv.com/a2a/*", custom_domain = true }
+# ]

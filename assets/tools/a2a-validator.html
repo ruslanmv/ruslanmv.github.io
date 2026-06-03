@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A2A Agent Validator — Ruslan Magana Vsevolodovna</title>
+  <meta name="description" content="Validate Agent-to-Agent (A2A) agents: fetch the /.well-known/agent.json agent card, check required fields, skills, and capabilities, and review errors and warnings. Proxied through a secure Cloudflare Worker." />
+  <meta name="author" content="Ruslan Magana Vsevolodovna" />
+  <meta property="og:title" content="A2A Agent Validator" />
+  <meta property="og:description" content="Validate A2A agent cards — required fields, skills, capabilities, errors and warnings." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ruslanmv.com/tools/a2a-validator.html" />
+  <link rel="stylesheet" href="assets/shared/tool-shell.css" />
+  <link rel="stylesheet" href="assets/a2a-validator/a2a-validator.css" />
+</head>
+<body>
+  <header class="tool-header">
+    <div class="tool-header__in">
+      <a class="tool-header__back" href="index.html">← <span>All tools</span></a>
+      <div class="tool-header__title">♢ A2A Agent Validator</div>
+      <div class="tool-header__user"><span class="avatar">RM</span> Ruslan Magana Vsevolodovna ▾</div>
+    </div>
+  </header>
+
+  <main class="tool-wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Agent-to-Agent Protocol</div>
+        <h1>A2A Agent Validator</h1>
+        <p class="sub">Fetch an agent's <code>/.well-known/agent.json</code> card and validate its required fields, skills, and capabilities — with a clear pass/fail verdict, errors, and warnings.</p>
+      </div>
+      <div class="actions">
+        <span class="badge" id="workerBadge">◎ Worker: checking…</span>
+        <span class="badge neutral">Read-only checks</span>
+      </div>
+    </section>
+
+    <!-- ====== INPUT + VERDICT ====== -->
+    <div class="grid-2">
+      <article class="card">
+        <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">◎</span> Agent endpoint</h2></div>
+        <div class="card__body stack">
+          <div class="field">
+            <label for="agentUrl">Agent base URL or agent-card URL</label>
+            <input id="agentUrl" type="url" placeholder="https://your-agent.example.com" autocomplete="off" spellcheck="false" />
+          </div>
+
+          <div class="field">
+            <label for="authType">Authentication</label>
+            <div class="segmented" id="authSeg" role="tablist" aria-label="Authentication type">
+              <button type="button" class="active" data-auth="none">None</button>
+              <button type="button" data-auth="bearer">Bearer</button>
+              <button type="button" data-auth="basic">Basic</button>
+              <button type="button" data-auth="custom_headers">Headers</button>
+            </div>
+          </div>
+
+          <!-- Bearer -->
+          <div class="auth-pane" data-pane="bearer" hidden>
+            <div class="field">
+              <label for="authToken">Bearer token <span class="hint">(in memory only)</span></label>
+              <div class="masked">
+                <input id="authToken" type="password" placeholder="token" autocomplete="off" spellcheck="false" />
+                <button type="button" class="btn small reveal-btn" data-reveal="authToken" aria-label="Show / hide token">👁</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Basic -->
+          <div class="auth-pane" data-pane="basic" hidden>
+            <div class="field-row">
+              <div class="field">
+                <label for="authUser">Username</label>
+                <input id="authUser" type="text" placeholder="username" autocomplete="off" spellcheck="false" />
+              </div>
+              <div class="field">
+                <label for="authPass">Password <span class="hint">(in memory only)</span></label>
+                <div class="masked">
+                  <input id="authPass" type="password" placeholder="password" autocomplete="off" spellcheck="false" />
+                  <button type="button" class="btn small reveal-btn" data-reveal="authPass" aria-label="Show / hide password">👁</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Custom headers -->
+          <div class="auth-pane" data-pane="custom_headers" hidden>
+            <div class="field">
+              <label>Custom headers <span class="hint">(in memory only)</span></label>
+              <div class="hdr-list" id="hdrList"></div>
+              <button type="button" class="btn small" id="addHdrBtn">+ Add header</button>
+            </div>
+          </div>
+
+          <div class="row action-row">
+            <button class="btn primary" id="validateBtn">✓ Validate agent</button>
+            <button class="btn ghost" id="clearBtn">Clear</button>
+          </div>
+          <div class="resolved" id="resolvedRow" hidden>
+            <span class="resolved__label">Resolved card URL</span>
+            <code id="resolvedUrl">—</code>
+            <span class="badge neutral" id="resolvedAuth" hidden>auth: none</span>
+          </div>
+          <div class="notice" style="border-radius:10px;border:1px solid var(--line)">
+            ⓘ The base URL is auto-suffixed with <code>/.well-known/agent.json</code>. Localhost &amp; private IPs are blocked by the Worker — test those locally.
+          </div>
+          <div class="examples">
+            <span class="examples__label">Try</span>
+            <button class="chip-btn" data-ex="https://a2a-directory.example.com">an example</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card verdict-card">
+        <div class="card__header">
+          <h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">♢</span> Verdict</h2>
+          <span class="badge neutral" id="verdictBadge">Idle</span>
+        </div>
+        <div class="card__body stack">
+          <div class="metric-strip">
+            <div class="metric"><span class="metric__label">Result</span><span class="metric__value" id="mResult">—</span></div>
+            <div class="metric"><span class="metric__label">HTTP</span><span class="metric__value" id="mHttp">—</span></div>
+            <div class="metric"><span class="metric__label">Errors</span><span class="metric__value" id="mErrors">—</span></div>
+            <div class="metric"><span class="metric__label">Warnings</span><span class="metric__value" id="mWarnings">—</span></div>
+          </div>
+          <div class="msg-list" id="msgList">
+            <p class="placeholder">Enter an agent URL and run <strong>Validate agent</strong> to see the result.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ====== CHECKS + CARD ====== -->
+    <div class="grid-2" style="margin-top:18px">
+      <article class="card">
+        <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">▣</span> Required fields</h2></div>
+        <div class="card__body stack">
+          <div class="diag-list" id="fieldList"></div>
+          <h3 class="sub-h">Validation lifecycle</h3>
+          <div class="diag-list" id="lifecycleList"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__header">
+          <h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">▤</span> Agent card</h2>
+          <div class="row">
+            <button class="btn small" id="copyCardBtn">⧉ Copy</button>
+            <button class="btn small" id="downloadCardBtn">⇩ JSON</button>
+          </div>
+        </div>
+        <div class="card__body stack">
+          <div class="skills-preview" id="skillsPreview" hidden></div>
+          <pre class="code-panel tall" id="cardOutput">No agent card yet…</pre>
+        </div>
+      </article>
+    </div>
+
+    <!-- ====== TROUBLESHOOTING ====== -->
+    <article class="card" style="margin-top:18px">
+      <div class="card__header"><h2 class="card__title"><span class="kpi__icon" style="width:38px;height:38px">ⓘ</span> Troubleshooting &amp; reference</h2></div>
+      <div class="card__body grid-2">
+        <div class="stack">
+          <div class="tip"><strong>HTTP 404 on the card</strong><span>The agent must serve its card at <code>/.well-known/agent.json</code>. Confirm the path is publicly reachable.</span></div>
+          <div class="tip"><strong>Blocked target</strong><span>Localhost and private IP ranges are rejected by the Worker. Validate local agents from your own machine.</span></div>
+          <div class="tip"><strong>Content-Type warning</strong><span>Serve the card as <code>application/json</code>. A wrong type is a warning, not a hard failure.</span></div>
+        </div>
+        <div class="stack">
+          <div class="tip"><strong>Required fields</strong><span><code>name</code>, <code>description</code>, <code>url</code>, <code>version</code> (strings), <code>capabilities</code> (object), <code>skills</code> (array).</span></div>
+          <div class="tip"><strong>Skills</strong><span>Each skill should be an object with string <code>id</code> and <code>name</code>; a missing one is a warning.</span></div>
+          <div class="tip"><strong>API</strong><span><code>GET /validate?url=…</code> or <code>POST /validate {"url":"…"}</code> on the Worker.</span></div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <div data-toast class="toast"></div>
+  <script type="module" src="assets/a2a-validator/a2a-validator.js"></script>
+</body>
+</html>

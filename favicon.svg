@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ruslanmv">
+  <defs>
+    <radialGradient id="rmvbg" cx="30%" cy="20%" r="95%">
+      <stop offset="0" stop-color="#22c878"/>
+      <stop offset="0.62" stop-color="#0c6e3d"/>
+      <stop offset="1" stop-color="#083f25"/>
+    </radialGradient>
+    <linearGradient id="rmvsheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="url(#rmvbg)"/>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="url(#rmvsheen)"/>
+  <rect x="1.75" y="1.75" width="60.5" height="60.5" rx="14.25" fill="none" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1.5"/>
+  <path fill="#f3fff8" transform="translate(13.009,49.000) scale(0.02413,-0.02413)" d="M1105 0 778 535H432V0H137V1409H841Q1093 1409 1230.0 1300.5Q1367 1192 1367 989Q1367 841 1283.0 733.5Q1199 626 1056 592L1437 0ZM1070 977Q1070 1180 810 1180H432V764H818Q942 764 1006.0 820.0Q1070 876 1070 977Z"/>
+</svg>
