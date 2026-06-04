@@ -1,0 +1,528 @@
+<!-- ==========================================================================
+     Homepage highlight cards — Featured Trend + Today's Top Pick
+     --------------------------------------------------------------------------
+     Two stacked, single-column cards shown between the AI Rankings section and
+     the Recent Posts list. They are populated automatically (client-side, same
+     origin, no CORS) from the two sister sections so they stay in sync without
+     any manual editing:
+
+       • Featured Trend   ← /news-and-trends/featured-trend.json
+       • Today's Top Pick ← /Best-of-the-Best/blog/posts/index.json (newest post)
+
+     Both sources rebuild themselves daily, so these cards update on their own.
+     If a fetch fails, the static fallback content below is shown as-is.
+     ========================================================================== -->
+<section class="rmv-hl" aria-label="Today's AI Highlights">
+  <style>
+    /* Compact: the cards match the height & rhythm of the Recent posts card,
+       so they read as part of the blog layout, not full-width banners. */
+    /* No divider above this section — just comfortable open spacing. */
+    .rmv-hl { margin: 2em 0 1.25em; }
+    .rmv-hl__head { text-align: center; margin: 0 0 1rem; }
+    .rmv-hl__head-title {
+      margin: 0 0 .25rem;
+      font-size: 1.4rem;
+      line-height: 1.2;
+      font-weight: 700;
+      color: #1b1f1d;
+      letter-spacing: -.01em;
+    }
+    .rmv-hl__head-sub { margin: 0; color: #828983; font-size: .84rem; font-weight: 400; line-height: 1.45; }
+    @media (max-width: 600px) { .rmv-hl__head-title { font-size: 1.22rem; } }
+    .rmv-hl__card {
+      display: block;
+      background: #ffffff;
+      border: 1px solid #e7e9e8;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(16, 32, 24, 0.06);
+      overflow: hidden;
+      text-decoration: none !important;
+      color: #1b1f1d;
+      cursor: pointer;
+      margin-bottom: 1.25rem;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .rmv-hl__card:hover,
+    .rmv-hl__card:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(16, 32, 24, 0.11);
+      border-color: #bfe9d4;
+    }
+    .rmv-hl__banner {
+      display: block;
+      width: 100%;
+      aspect-ratio: 100 / 18;     /* short letterbox banner — visual header only */
+      background: #08170f linear-gradient(135deg, #08170f 0%, #0c3a24 55%, #0a2b1c 100%);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    @supports not (aspect-ratio: 1 / 1) {
+      .rmv-hl__banner { height: 0; padding-bottom: 18%; }
+    }
+    .rmv-hl__body { padding: 0.8rem 1.1rem 0.95rem; }
+    .rmv-hl__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      margin-bottom: .35rem;
+    }
+    .rmv-hl__label {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-weight: 700;
+      font-size: .86rem;
+      color: #0a7d4f;
+      letter-spacing: .01em;
+    }
+    .rmv-hl__label .rmv-hl__emoji { font-size: 1rem; line-height: 1; }
+    .rmv-hl__pill {
+      display: inline-block;
+      padding: .2rem .55rem;
+      border-radius: 999px;
+      background: #e7f8ef;
+      color: #0a7d4f;
+      font-size: .63rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    /* Top Pick metadata row: label on the left, date at the top-right
+       (same position as the TREND ANALYSIS tag on the Featured Trend card). */
+    .rmv-hl__metarow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: .5rem .75rem;
+      margin-bottom: .4rem;
+    }
+    .rmv-hl__meta {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      color: #6a726c;
+      font-size: .78rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .rmv-hl__title {
+      margin: 0 0 .26rem;
+      font-size: 1.06rem;
+      line-height: 1.22;
+      font-weight: 700;
+      color: #1b1f1d;
+    }
+    .rmv-hl__desc {
+      margin: 0 0 .5rem;
+      color: #5d6560;
+      font-size: .85rem;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .rmv-hl__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-weight: 700;
+      font-size: .87rem;
+      color: #0a8f5f;
+    }
+    .rmv-hl__cta .rmv-hl__arrow { transition: transform .18s ease; }
+    .rmv-hl__card:hover .rmv-hl__arrow { transform: translateX(3px); }
+
+    /* Split-link Top Pick card: the title is a "stretched" link covering the
+       whole card (-> the post); the CTA sits above it (-> the rankings list). */
+    .rmv-hl__card--split { position: relative; }
+    .rmv-hl__stretch { color: inherit; text-decoration: none !important; }
+    .rmv-hl__stretch::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+    .rmv-hl__card--split .rmv-hl__cta { position: relative; z-index: 2; }
+
+    @media (max-width: 600px) {
+      .rmv-hl__body { padding: 0.72rem 0.95rem 0.88rem; }
+      .rmv-hl__title { font-size: 1rem; }
+      .rmv-hl__banner { aspect-ratio: 100 / 28; }
+      @supports not (aspect-ratio: 1 / 1) {
+        .rmv-hl__banner { padding-bottom: 28%; }
+      }
+    }
+  </style>
+
+  <div class="rmv-hl__head">
+    <h2 class="rmv-hl__head-title">✨ Today&rsquo;s AI Highlights</h2>
+    <p class="rmv-hl__head-sub">Curated AI rankings, news, and trend analysis &mdash; updated daily.</p>
+  </div>
+
+  <!-- Featured Trend -->
+  <a class="rmv-hl__card" id="rmv-hl-trend" href="/news-and-trends/" aria-label="Read full trend analysis">
+    <span class="rmv-hl__banner" data-banner="trend"></span>
+    <div class="rmv-hl__body">
+      <div class="rmv-hl__row">
+        <span class="rmv-hl__label"><span class="rmv-hl__emoji">📈</span> Featured Trend</span>
+        <span class="rmv-hl__pill">Trend Analysis</span>
+      </div>
+      <h3 class="rmv-hl__title" data-field="title">AI Trends &amp; Analysis</h3>
+      <p class="rmv-hl__desc" data-field="summary">The latest AI and technology trend analysis, refreshed every day.</p>
+      <span class="rmv-hl__cta">Read full trend analysis <span class="rmv-hl__arrow" aria-hidden="true">→</span></span>
+    </div>
+  </a>
+
+  <!-- Today's Top Pick: card / title / image -> the specific post (stretched
+       link); the "View full ranking" CTA -> the full Best-of-the-Best list. -->
+  <div class="rmv-hl__card rmv-hl__card--split" id="rmv-hl-pick">
+    <span class="rmv-hl__banner" data-banner="pick"></span>
+    <div class="rmv-hl__body">
+      <div class="rmv-hl__metarow">
+        <span class="rmv-hl__label"><span class="rmv-hl__emoji">🏆</span> Today&rsquo;s Top Pick</span>
+        <span class="rmv-hl__meta" data-field="date" hidden><span aria-hidden="true">📅</span> <span data-field="date-text"></span></span>
+      </div>
+      <h3 class="rmv-hl__title"><a class="rmv-hl__stretch" id="rmv-hl-pick-link" href="/Best-of-the-Best/" data-field="title">Daily AI Top Pick</a></h3>
+      <p class="rmv-hl__desc" data-field="summary">Today&rsquo;s best AI repository, paper, package, course or tutorial.</p>
+      <a class="rmv-hl__cta" id="rmv-hl-pick-cta" href="/Best-of-the-Best/" aria-label="View all Best-of-the-Best rankings">View full ranking <span class="rmv-hl__arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  // In production the two sister sections live on the SAME origin
+  // (ruslanmv.com/news-and-trends/ and ruslanmv.com/Best-of-the-Best/), so
+  // relative paths resolve. But when previewing ONLY this repo locally
+  // (`jekyll serve`), those paths don't exist and the dev server logs 404s.
+  // So on localhost we read the LIVE remote feeds instead — GitHub Pages sends
+  // `Access-Control-Allow-Origin: *`, so cross-origin reads are allowed. This
+  // keeps local dev clean (no 404 noise) and shows real data.
+  var IS_LOCAL = /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]|.*\.local)$/i.test(location.hostname);
+  var ORIGIN   = IS_LOCAL ? "https://ruslanmv.com" : "";   // "" = same origin in production
+
+  var BOB_BASE = ORIGIN + "/Best-of-the-Best";   // Best-of-the-Best is served under this path
+  var NT_FEED  = ORIGIN + "/news-and-trends/featured-trend.json";
+  var BOB_FEED = BOB_BASE + "/blog/posts/index.json";
+
+  // ===========================================================================
+  // Premium SVG banners — TWO distinct visual families that share one design
+  // system (deep green, subtle grid, spotlight glow, vignette) but read very
+  // differently at a glance:
+  //   • TREND_DESIGNS → analytical: rising trend lines, signal maps, radar,
+  //                     orbits, waveforms → "analysis, movement, insight".
+  //   • PICK_DESIGNS  → editorial winner: trophy, podium, medal, spotlight star,
+  //                     with a warm gold focal object → "selected, daily winner".
+  // A design is chosen from the item's date, so each thumbnail rotates daily.
+  // The Top Pick normally shows the real post photo; these render only when no
+  // photo is available (fallback) — and even then the two cards never match.
+  // ===========================================================================
+  var TW = 800, TH = 224;
+
+  function svgURI(inner) {
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + TW + '" height="' + TH +
+      '" viewBox="0 0 ' + TW + ' ' + TH + '">' + inner + '</svg>';
+    return 'data:image/svg+xml,' + encodeURIComponent(svg);
+  }
+
+  // Shared premium frame: 3-stop radial gradient (depth) + faint grid +
+  // a soft spotlight glow at the focal point (fx,fy) + edge vignette, plus a
+  // reusable blur "glow" filter for hero elements. `s` = [inner, mid, outer].
+  function frame(s, fx, fy) {
+    fx = (fx == null) ? 400 : fx;
+    fy = (fy == null) ? 92 : fy;
+    return '<defs>' +
+        '<radialGradient id="bg" cx="50%" cy="34%" r="90%">' +
+          '<stop offset="0%" stop-color="' + s[0] + '"/>' +
+          '<stop offset="52%" stop-color="' + s[1] + '"/>' +
+          '<stop offset="100%" stop-color="' + s[2] + '"/></radialGradient>' +
+        '<radialGradient id="spot" cx="50%" cy="50%" r="50%">' +
+          '<stop offset="0%" stop-color="rgba(94,240,178,0.42)"/>' +
+          '<stop offset="100%" stop-color="rgba(94,240,178,0)"/></radialGradient>' +
+        '<radialGradient id="vig" cx="50%" cy="48%" r="72%">' +
+          '<stop offset="56%" stop-color="rgba(0,0,0,0)"/>' +
+          '<stop offset="100%" stop-color="rgba(0,0,0,0.50)"/></radialGradient>' +
+        '<pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse">' +
+          '<path d="M38 0H0V38" fill="none" stroke="rgba(94,240,178,0.09)" stroke-width="1"/></pattern>' +
+        '<filter id="glow" x="-50%" y="-50%" width="200%" height="200%">' +
+          '<feGaussianBlur stdDeviation="3.4" result="b"/>' +
+          '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
+      '</defs>' +
+      '<rect width="' + TW + '" height="' + TH + '" fill="url(#bg)"/>' +
+      '<rect width="' + TW + '" height="' + TH + '" fill="url(#grid)"/>' +
+      '<ellipse cx="' + fx + '" cy="' + fy + '" rx="320" ry="150" fill="url(#spot)"/>' +
+      '<rect width="' + TW + '" height="' + TH + '" fill="url(#vig)"/>';
+  }
+
+  // 5-point star path (cx,cy outer radius r) — used by the winner designs.
+  function star5(cx, cy, r) {
+    var p = "", i, a, R;
+    for (i = 0; i < 10; i++) {
+      a = Math.PI / 5 * i - Math.PI / 2;
+      R = (i % 2) ? r * 0.45 : r;
+      p += (i ? "L" : "M") + (cx + R * Math.cos(a)).toFixed(1) + " " + (cy + R * Math.sin(a)).toFixed(1) + " ";
+    }
+    return '<path d="' + p + 'Z"/>';
+  }
+  // 4-point sparkle.
+  function spark(cx, cy, r) {
+    var k = r * 0.26;
+    return '<path d="M' + cx + ' ' + (cy - r) + ' L' + (cx + k) + ' ' + (cy - k) +
+      ' L' + (cx + r) + ' ' + cy + ' L' + (cx + k) + ' ' + (cy + k) +
+      ' L' + cx + ' ' + (cy + r) + ' L' + (cx - k) + ' ' + (cy + k) +
+      ' L' + (cx - r) + ' ' + cy + ' L' + (cx - k) + ' ' + (cy - k) + ' Z"/>';
+  }
+
+  var P_TREND = ['#0f5e38', '#0a3a22', '#05130c'];
+  var P_TEAL  = ['#0c5a52', '#083a34', '#04130f'];
+  var P_DEEP  = ['#0c4a2c', '#072e1b', '#040f0a'];
+  var P_PICK  = ['#124a33', '#0a3320', '#05120c'];
+
+  // ---- Family A: TREND (analytical) -----------------------------------------
+  var TREND_DESIGNS = [
+    // 1 — Rising trend line + area + glowing peak (the signature "trend" visual)
+    function () {
+      var pts = [[70,184],[180,158],[290,168],[400,120],[510,140],[620,82],[730,56]];
+      var L = pts.map(function (p, i) { return (i ? "L" : "M") + p[0] + " " + p[1]; }).join(" ");
+      var dots = pts.map(function (p, i) {
+        return (i === pts.length - 1) ? "" : '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3.4" fill="#7ef0b0"/>';
+      }).join("");
+      return frame(P_TREND, 650, 80) +
+        '<path d="' + L + ' L730 200 L70 200 Z" fill="rgba(52,232,158,0.16)"/>' +
+        '<g filter="url(#glow)"><path d="' + L + '" fill="none" stroke="#34e89e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>' +
+        dots +
+        '<g filter="url(#glow)"><circle cx="730" cy="56" r="7" fill="#eafff4"/><circle cx="730" cy="56" r="12" fill="none" stroke="#7ef0b0" stroke-width="2"/></g>' +
+        '<path d="M700 70 L734 52 L720 30" fill="none" stroke="#7ef0b0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+    },
+    // 2 — Signal constellation with a bright glowing hub
+    function () {
+      var hub = [400, 100];
+      var nodes = [[150,60],[250,150],[330,72],[470,150],[560,70],[650,140],[720,72],[120,142]];
+      var edges = nodes.map(function (n) { return "M" + hub[0] + " " + hub[1] + " L" + n[0] + " " + n[1]; }).join("");
+      var dots = nodes.map(function (n) { return '<circle cx="' + n[0] + '" cy="' + n[1] + '" r="3.5" fill="#2fd987"/>'; }).join("");
+      return frame(P_DEEP, 400, 100) +
+        '<g fill="none" stroke="rgba(94,240,178,0.26)" stroke-width="1.2"><path d="' + edges + '"/></g>' +
+        dots +
+        '<g filter="url(#glow)"><circle cx="400" cy="100" r="11" fill="#eafff4"/><circle cx="400" cy="100" r="18" fill="none" stroke="#34e89e" stroke-width="2"/></g>';
+    },
+    // 3 — Radar sweep with glowing blips
+    function () {
+      var cx = 400, cy = 112, s = "";
+      [44, 86, 128, 168].forEach(function (r) {
+        s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="rgba(94,240,178,0.20)" stroke-width="1.2"/>';
+      });
+      s += '<path d="M' + cx + " " + cy + " L" + (cx + 168) + " " + cy + " A168 168 0 0 0 " + (cx + 119) + " " + (cy - 119) + ' Z" fill="rgba(94,240,178,0.16)"/>';
+      s += '<g filter="url(#glow)" fill="#7ef0b0"><circle cx="' + (cx + 80) + '" cy="' + (cy - 46) + '" r="4.5"/><circle cx="' + (cx - 100) + '" cy="' + (cy + 34) + '" r="3.5"/><circle cx="' + (cx + 120) + '" cy="' + (cy + 54) + '" r="3"/></g>';
+      s += '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="#eafff4"/>';
+      return frame(P_TEAL, cx, cy) + s;
+    },
+    // 4 — Ascending bars with a glowing trend overlay
+    function () {
+      var hs = [58, 86, 72, 116, 150, 128, 176, 150];
+      var s = '<defs><linearGradient id="bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7ef0b0"/><stop offset="100%" stop-color="#0a5230"/></linearGradient></defs>';
+      var line = "";
+      hs.forEach(function (h, i) {
+        var x = 78 + i * 80, y = 196 - h;
+        s += '<rect x="' + x + '" y="' + y + '" width="46" height="' + h + '" rx="5" fill="url(#bar)"/>';
+        line += (i ? "L" : "M") + (x + 23) + " " + (y - 9) + " ";
+      });
+      var tx = 78 + 6 * 80 + 23, ty = 196 - 176 - 9;
+      s += '<g filter="url(#glow)"><path d="' + line + '" fill="none" stroke="#eafff4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>' +
+           '<circle cx="' + tx + '" cy="' + ty + '" r="5.5" fill="#eafff4"/></g>';
+      return frame(P_TREND, tx, 88) + s;
+    },
+    // 5 — Orbiting intelligence core
+    function () {
+      var cx = 400, cy = 110, s = "";
+      [[160,58],[116,44],[74,30]].forEach(function (o, i) {
+        s += '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + o[0] + '" ry="' + o[1] + '" fill="none" stroke="rgba(94,240,178,' + (0.30 - i * 0.06) + ')" stroke-width="1.3" transform="rotate(' + (i * 36 - 36) + " " + cx + " " + cy + ')"/>';
+      });
+      s += '<g filter="url(#glow)"><circle cx="' + cx + '" cy="' + cy + '" r="12" fill="#eafff4"/></g>';
+      s += '<g fill="#34e89e"><circle cx="' + (cx + 158) + '" cy="' + (cy - 6) + '" r="5"/><circle cx="' + (cx - 104) + '" cy="' + (cy - 44) + '" r="4"/><circle cx="' + (cx + 44) + '" cy="' + (cy + 56) + '" r="4"/></g>';
+      return frame(P_TEAL, cx, cy) + s;
+    },
+    // 6 — Layered signal waveform with a glowing crest
+    function () {
+      function wave(yc, amp, ph, stroke, w, glow) {
+        var d = "";
+        for (var x = 0; x <= 800; x += 16) { var y = yc + amp * Math.sin((x / 80) + ph); d += (x ? "L" : "M") + x + " " + y.toFixed(1) + " "; }
+        return '<path d="' + d + '" fill="none" stroke="' + stroke + '" stroke-width="' + w + '"' + (glow ? ' filter="url(#glow)"' : "") + '/>';
+      }
+      var s = wave(112, 40, 1.2, "rgba(94,240,178,0.22)", 1.6, false) +
+              wave(112, 30, 2.6, "rgba(94,240,178,0.34)", 1.4, false) +
+              wave(112, 46, 0, "#34e89e", 2.6, true) +
+              '<g filter="url(#glow)"><circle cx="377" cy="66" r="6" fill="#eafff4"/></g>';
+      return frame(P_DEEP, 377, 66) + s;
+    }
+  ];
+
+  // ---- Family B: TOP PICK (editorial winner) --------------------------------
+  var PICK_DESIGNS = [
+    // 1 — Trophy in a spotlight
+    function () {
+      var s = '<path d="M400 -12 L296 224 L504 224 Z" fill="rgba(255,213,107,0.12)"/>';  // spotlight cone
+      s += '<g filter="url(#glow)" fill="#ffd56b">' +
+             '<path d="M362 64 H438 V86 A38 38 0 0 1 362 86 Z"/>' +     // cup
+             '<rect x="395" y="120" width="10" height="20"/>' +         // stem
+             '<path d="M372 140 H428 L420 158 H380 Z"/>' +              // pedestal
+             '<rect x="368" y="158" width="64" height="9" rx="3"/>' +   // base
+           '</g>' +
+           '<g fill="none" stroke="#ffd56b" stroke-width="4">' +        // handles
+             '<path d="M362 70 q-26 2 -26 22 q0 16 22 16"/>' +
+             '<path d="M438 70 q26 2 26 22 q0 16 -22 16"/></g>' +
+           '<g fill="#7a5512">' + star5(400, 80, 9) + '</g>' +          // star on cup
+           '<g fill="#ffe9a8">' + spark(300, 58, 5) + spark(520, 92, 6) + spark(478, 152, 4) + spark(330, 150, 4) + '</g>';
+      return frame(P_PICK, 400, 92) + s;
+    },
+    // 2 — Winner's podium / leaderboard (1·2·3, gold #1)
+    function () {
+      var base = 192;
+      var s = '<defs><linearGradient id="pod" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffe39a"/><stop offset="100%" stop-color="#c98c1e"/></linearGradient></defs>';
+      s += '<rect x="250" y="' + (base - 70) + '" width="92" height="70" rx="5" fill="#0f7a48"/>' +     // 2nd
+           '<rect x="458" y="' + (base - 56) + '" width="92" height="56" rx="5" fill="#0c633a"/>' +     // 3rd
+           '<g filter="url(#glow)"><rect x="354" y="' + (base - 110) + '" width="92" height="110" rx="6" fill="url(#pod)"/></g>'; // 1st
+      s += '<g fill="#eafff4" font-family="Arial,Helvetica,sans-serif" font-weight="700" text-anchor="middle">' +
+             '<text x="400" y="' + (base - 60) + '" font-size="44" fill="#5a3d05">1</text>' +
+             '<text x="296" y="' + (base - 28) + '" font-size="28" fill="#bfeed6">2</text>' +
+             '<text x="504" y="' + (base - 20) + '" font-size="28" fill="#bfeed6">3</text></g>';
+      s += '<g filter="url(#glow)" fill="#ffd56b">' + star5(400, base - 130, 15) + '</g>';              // crown star
+      return frame(P_PICK, 400, base - 124) + s;
+    },
+    // 3 — Award medal with ribbon
+    function () {
+      var cx = 400, cy = 126;
+      var s = '<g fill="#0f7a48"><path d="M372 58 L356 152 L390 132 L394 66 Z"/><path d="M428 58 L444 152 L410 132 L406 66 Z"/></g>' + // ribbons
+        '<g filter="url(#glow)"><circle cx="' + cx + '" cy="' + cy + '" r="40" fill="#ffd56b"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="40" fill="none" stroke="#fff7e0" stroke-width="2"/></g>' +
+        '<g fill="#7a5512">' + star5(cx, cy, 18) + '</g>' +
+        '<g fill="#ffe9a8">' + spark(300, 92, 5) + spark(502, 104, 6) + '</g>';
+      return frame(P_PICK, cx, cy - 8) + s;
+    },
+    // 4 — "The selected one": spotlight star with radiating rays
+    function () {
+      var cx = 400, cy = 108, rays = "";
+      for (var i = 0; i < 12; i++) {
+        var a = Math.PI / 6 * i;
+        rays += "M" + (cx + 48 * Math.cos(a)).toFixed(1) + " " + (cy + 48 * Math.sin(a)).toFixed(1) +
+                " L" + (cx + 92 * Math.cos(a)).toFixed(1) + " " + (cy + 92 * Math.sin(a)).toFixed(1) + " ";
+      }
+      return frame(P_PICK, cx, cy) +
+        '<g stroke="rgba(255,213,107,0.34)" stroke-width="2" stroke-linecap="round"><path d="' + rays + '"/></g>' +
+        '<g filter="url(#glow)" fill="#ffd56b">' + star5(cx, cy, 38) + '</g>' +
+        '<g fill="#7a5512">' + star5(cx, cy, 17) + '</g>';
+    }
+  ];
+
+  // Day-of-year for a date (defaults to today) → drives daily rotation.
+  function daySeed(dateStr) {
+    var d = dateStr ? new Date(dateStr) : new Date();
+    if (isNaN(d.getTime())) d = new Date();
+    var start = new Date(d.getFullYear(), 0, 0);
+    return Math.floor((d - start) / 86400000);
+  }
+  function pickFrom(arr, dateStr) {
+    var i = ((daySeed(dateStr) % arr.length) + arr.length) % arr.length;
+    return svgURI(arr[i]());
+  }
+  function trendBanner(dateStr) { return pickFrom(TREND_DESIGNS, dateStr); }   // analytical
+  function pickBanner(dateStr)  { return pickFrom(PICK_DESIGNS, dateStr); }    // winner / spotlight
+
+  // Paint both banners immediately (distinct families), before/without the fetch.
+  (function () {
+    var tb = document.querySelector('#rmv-hl-trend [data-banner="trend"]');
+    if (tb) tb.style.backgroundImage = 'url("' + trendBanner() + '")';
+    var pb = document.querySelector('#rmv-hl-pick [data-banner="pick"]');
+    if (pb) pb.style.backgroundImage = 'url("' + pickBanner() + '")';
+    // The "View full ranking" CTA always opens the full Best-of-the-Best list.
+    var pcta = document.getElementById("rmv-hl-pick-cta");
+    if (pcta) pcta.setAttribute("href", BOB_BASE + "/");
+  })();
+
+  function setBanner(el, url, fallback) {
+    if (!el) return;
+    if (!url) { el.style.backgroundImage = 'url("' + fallback + '")'; return; }
+    var im = new Image();
+    im.onload  = function () { el.style.backgroundImage = 'url("' + url + '")'; };
+    im.onerror = function () { el.style.backgroundImage = 'url("' + fallback + '")'; };
+    im.src = url;
+  }
+
+  function field(card, name) { return card.querySelector('[data-field="' + name + '"]'); }
+  function setText(card, name, value) {
+    var el = field(card, name);
+    if (el && value) el.textContent = value;
+  }
+
+  // Strip a leading short heading label (e.g. "Current Landscape") that some
+  // generated trend bodies start with, then tidy whitespace.
+  function cleanSummary(s) {
+    if (!s) return "";
+    s = String(s).replace(/\s+/g, " ").trim();
+    var m = s.match(/^([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,3})\s+(?=[A-Z])/);
+    if (m && m[1].length <= 28 && !/[.!?:]$/.test(m[1])) s = s.slice(m[0].length).trim();
+    return s;
+  }
+
+  function fmtDate(value) {
+    var d = new Date(value);
+    if (isNaN(d.getTime())) return String(value || "");
+    return d.toLocaleDateString("en-US", {
+      weekday: "long", year: "numeric", month: "long", day: "numeric"
+    });
+  }
+
+  // --- Featured Trend ---
+  fetch(NT_FEED, { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d) return;
+      var card = document.getElementById("rmv-hl-trend");
+      if (!card) return;
+      setText(card, "title", d.title);
+      setText(card, "summary", cleanSummary(d.summary));
+      // Link the whole card to the SPECIFIC trend article (not the section page).
+      if (d.url) card.setAttribute("href", /^https?:/i.test(d.url) ? d.url : (ORIGIN + d.url));
+      card.setAttribute("aria-label", "Read full trend analysis: " + (d.title || "today's featured trend"));
+      var tb = card.querySelector('[data-banner="trend"]');
+      if (d.image) setBanner(tb, d.image, trendBanner(d.date));
+      else if (tb) tb.style.backgroundImage = 'url("' + trendBanner(d.date) + '")';
+    })
+    .catch(function () {});
+
+  // --- Today's Top Pick (newest daily blog post) ---
+  fetch(BOB_FEED, { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (list) {
+      if (!Array.isArray(list) || !list.length) return;
+      var pick = list.slice().sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+      })[0];
+      if (!pick) return;
+
+      var card = document.getElementById("rmv-hl-pick");
+      if (!card) return;
+
+      setText(card, "title", pick.title);
+      setText(card, "summary", pick.excerpt);
+      // Card / title / image -> the SPECIFIC top-pick post (stretched title link).
+      // The CTA ("View full ranking") points at the rankings list, set on init.
+      var plink = document.getElementById("rmv-hl-pick-link");
+      if (plink && pick.url) {
+        plink.setAttribute("href", BOB_BASE + pick.url);
+        plink.setAttribute("aria-label", "Open top pick: " + (pick.title || "today's top pick"));
+      }
+
+      if (pick.date) {
+        var drow = field(card, "date");
+        setText(card, "date-text", fmtDate(pick.date));
+        if (drow) drow.hidden = false;
+      }
+
+      var teaser = pick.teaser ? (BOB_BASE + pick.teaser) : null;
+      setBanner(card.querySelector('[data-banner="pick"]'), teaser, pickBanner(pick.date));
+    })
+    .catch(function () {});
+})();
+</script>
