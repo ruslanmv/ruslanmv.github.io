@@ -7,6 +7,7 @@ sitemap: true
 canonical_url: https://ruslanmv.com/alive-system/
 header:
   og_image: /assets/images/og-default-header.jpg
+  teaser: /assets/images/essays/alive-system.svg
 
 # Surfaced on /essays
 essay: true

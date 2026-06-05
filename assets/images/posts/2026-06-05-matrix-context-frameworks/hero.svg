@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" width="1600" height="600" role="img" aria-label="One memory, every framework">
+  <defs>
+    <radialGradient id="h2bg" cx="0.35" cy="0.5" r="0.95">
+      <stop offset="0" stop-color="#0d271c"/><stop offset="0.6" stop-color="#08180f"/><stop offset="1" stop-color="#040c08"/>
+    </radialGradient>
+    <radialGradient id="h2halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7dffd0"/><stop offset="0.55" stop-color="#2fd996"/><stop offset="1" stop-color="#0a7d4f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="600" fill="url(#h2bg)"/>
+
+  <!-- central memory hub -->
+  <g transform="translate(840,300)">
+    <circle r="120" fill="url(#h2halo)" opacity="0.55"/>
+    <circle r="30" fill="#7dffd0"/>
+    <circle r="52" fill="none" stroke="#2fd996" stroke-width="2" opacity="0.7"/>
+    <!-- edges to three framework nodes on the right -->
+    <g stroke="#7dffd0" stroke-width="1.8" opacity="0.7">
+      <line x1="0" y1="0" x2="360" y2="-150"/>
+      <line x1="0" y1="0" x2="380" y2="10"/>
+      <line x1="0" y1="0" x2="360" y2="170"/>
+    </g>
+    <g>
+      <circle cx="360" cy="-150" r="40" fill="url(#h2halo)" opacity="0.6"/><circle cx="360" cy="-150" r="15" fill="#7dffd0"/>
+      <circle cx="380" cy="10"  r="40" fill="url(#h2halo)" opacity="0.6"/><circle cx="380" cy="10"  r="15" fill="#7dffd0"/>
+      <circle cx="360" cy="170" r="40" fill="url(#h2halo)" opacity="0.6"/><circle cx="360" cy="170" r="15" fill="#7dffd0"/>
+    </g>
+    <g font-family="Segoe UI, sans-serif" font-size="22" fill="#bfe9d6">
+      <text x="416" y="-144">LangChain</text>
+      <text x="436" y="16">LangGraph</text>
+      <text x="416" y="176">CrewAI</text>
+    </g>
+  </g>
+
+  <!-- the source pile feeding the hub (left) -->
+  <g fill="#1e6b4c" opacity="0.55">
+    <circle cx="360" cy="250" r="7"/><circle cx="420" cy="300" r="6"/><circle cx="350" cy="330" r="6"/>
+    <circle cx="410" cy="360" r="7"/><circle cx="300" cy="300" r="5"/><circle cx="470" cy="320" r="6"/>
+  </g>
+  <g stroke="#2fd996" stroke-width="1.6" opacity="0.4"><line x1="480" y1="310" x2="700" y2="300"/></g>
+  <path d="M694 294 l16 6 l-16 6 Z" fill="#2fd996" opacity="0.5"/>
+</svg>

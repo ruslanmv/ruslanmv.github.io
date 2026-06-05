@@ -11,11 +11,12 @@
 {% endif %}
 
 <div class="{{ include.type | default: "list" }}__item" style="position: relative">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item{% if post.essay %} essay-card{% endif %}" itemscope itemtype="http://schema.org/CreativeWork">
     <div style="position:relative;">
       {% if teaser %}
         <div class="archive__item-teaser" style="background-image: url({{ teaser | absolute_url }})"></div>
       {% endif %}
+      {% if post.essay %}<span class="essay-badge" title="Essay — long-form writing" aria-label="Essay"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>Essay</span>{% endif %}
       <div class="archive__item_titlecontainer">
         <h2 class="archive__item-title" itemprop="headline">
             <a href="{{ post.url | absolute_url }}" rel="permalink">{{ title }}</a>

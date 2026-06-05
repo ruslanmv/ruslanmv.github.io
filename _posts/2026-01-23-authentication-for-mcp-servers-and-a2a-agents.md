@@ -9,11 +9,8 @@ header:
   caption: "Public discovery, protected execution — starting with a Bearer token"
 
 tags: [MCP, A2A, Agents, Authentication, Security, OAuth, FastAPI, OpenAI]
-essay: true
-essay_date: "2026-01-23"
+essay: false   # practical guide — lives in /blog, not the /essays section
 read_time: "12 min read"
-card_image: /assets/images/posts/2026-01-23-authentication-for-mcp-servers-and-a2a-agents/hero.svg
-card_excerpt: "MCP and A2A are wide open by default. Here's how to lock them down — with two runnable Bearer-token demos."
 ---
 
 As AI systems become more agentic, we are rapidly moving away from isolated chatbots and toward interconnected networks of tools and models. Two protocols are driving this shift: **MCP** (Model Context Protocol), which connects AI clients to external tools and data, and **A2A** (Agent-to-Agent Protocol), which lets agents discover and converse with one another.

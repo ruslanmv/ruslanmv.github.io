@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 400" width="940" height="400" role="img" aria-label="The two-call memory loop: context_for before the model, record_turn after">
+  <defs>
+    <style>
+      .b  { fill:#ffffff; stroke:#cfd6d1; stroke-width:1.5; }
+      .bg { fill:#ecf7f1; stroke:#0a7d4f; stroke-width:1.7; }
+      .t  { font-family:'Segoe UI',Helvetica,Arial,sans-serif; fill:#1e2421; font-size:15px; }
+      .tg { font-family:'Segoe UI',Helvetica,Arial,sans-serif; fill:#0b3a27; font-size:15px; font-weight:600; }
+      .s  { font-family:'Segoe UI',Helvetica,Arial,sans-serif; fill:#6f766f; font-size:12px; }
+      .f  { stroke:#0a7d4f; stroke-width:1.7; fill:none; }
+      .a  { fill:#0a7d4f; }
+      .badge { font-family:'Segoe UI',sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; }
+    </style>
+  </defs>
+  <rect width="940" height="400" fill="#ffffff"/>
+
+  <text class="badge" x="40" y="40" fill="#0a7d4f">BEFORE THE MODEL ANSWERS</text>
+
+  <!-- top row -->
+  <rect class="b"  x="40"  y="56" width="150" height="60" rx="12"/>
+  <text class="t"  x="115" y="82" text-anchor="middle">User message</text>
+  <text class="s"  x="115" y="100" text-anchor="middle">“what db do we use?”</text>
+
+  <path class="f" d="M190 86 H236"/><path class="a" d="M232 80 l12 6 l-12 6 Z"/>
+
+  <rect class="bg" x="246" y="56" width="190" height="60" rx="12"/>
+  <text class="tg" x="341" y="82" text-anchor="middle">memory.context_for()</text>
+  <text class="s"  x="341" y="100" text-anchor="middle">find the right typed memory</text>
+
+  <path class="f" d="M436 86 H482"/><path class="a" d="M478 80 l12 6 l-12 6 Z"/>
+
+  <rect class="b"  x="492" y="56" width="160" height="60" rx="12"/>
+  <text class="t"  x="572" y="82" text-anchor="middle">LLM + memory</text>
+  <text class="s"  x="572" y="100" text-anchor="middle">prompt with context</text>
+
+  <path class="f" d="M652 86 H698"/><path class="a" d="M694 80 l12 6 l-12 6 Z"/>
+
+  <rect class="b"  x="708" y="56" width="150" height="60" rx="12"/>
+  <text class="t"  x="783" y="86" text-anchor="middle">Answer</text>
+
+  <!-- down from answer to record_turn -->
+  <path class="f" d="M783 116 V210"/><path class="a" d="M777 206 l6 12 l6 -12 Z"/>
+
+  <text class="badge" x="455" y="200" fill="#0a7d4f">AFTER THE MODEL ANSWERS</text>
+
+  <!-- record_turn -->
+  <rect class="bg" x="455" y="218" width="230" height="60" rx="12"/>
+  <text class="tg" x="570" y="244" text-anchor="middle">memory.record_turn()</text>
+  <text class="s"  x="570" y="262" text-anchor="middle">save the user + assistant turn</text>
+
+  <path class="f" d="M455 248 H300"/><path class="a" d="M304 242 l-12 6 l12 6 Z"/>
+
+  <!-- memory store (cylinder) -->
+  <g>
+    <ellipse cx="200" cy="222" rx="62" ry="16" fill="#ecf7f1" stroke="#0a7d4f" stroke-width="1.7"/>
+    <path d="M138 222 V292 a62 16 0 0 0 124 0 V222" fill="#ecf7f1" stroke="#0a7d4f" stroke-width="1.7"/>
+    <ellipse cx="200" cy="222" rx="62" ry="16" fill="#ffffff" stroke="#0a7d4f" stroke-width="1.5"/>
+    <text class="tg" x="200" y="262" text-anchor="middle">Typed memory</text>
+    <text class="s"  x="200" y="280" text-anchor="middle">profile · semantic · session …</text>
+  </g>
+
+  <!-- loop back: memory feeds context_for -->
+  <path class="f" d="M200 206 V150 a0 0 0 0 1 0 0 H246" stroke-dasharray="5 4"/>
+  <path class="a" d="M242 144 l12 6 l-12 6 Z"/>
+  <text class="s" x="150" y="150" text-anchor="middle" font-style="italic">recall</text>
+
+  <text class="s" x="470" y="360" text-anchor="middle" font-style="italic">Two calls per turn — find useful memory, then learn from the turn.</text>
+</svg>

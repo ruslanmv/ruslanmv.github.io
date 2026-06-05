@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" width="920" height="340" role="img" aria-label="The Matrix Context pipeline: route typed experts, retrieve, rerank, pack, inspect">
+  <defs>
+    <style>
+      .box { fill:#ffffff; stroke:#0a7d4f; stroke-width:1.6; }
+      .lbl { font-family: Georgia, 'Times New Roman', serif; fill:#1e2421; font-size:16px; }
+      .sub { font-family: Georgia, serif; fill:#6f766f; font-size:12.5px; }
+      .flow { stroke:#0a7d4f; stroke-width:1.6; fill:none; }
+      .chip-on { fill:#0a7d4f; }
+      .chip-off { fill:#e7e8e2; }
+      .chiptxt { font-family: Georgia, serif; font-size:11px; }
+      .accent { fill:#0a7d4f; }
+    </style>
+  </defs>
+  <rect width="920" height="340" fill="#faf9f5"/>
+
+  <!-- Stage 1: Query -->
+  <rect class="box" x="24" y="36" width="150" height="56" rx="12"/>
+  <text class="lbl" x="99" y="62" text-anchor="middle">Query</text>
+  <text class="sub" x="99" y="80" text-anchor="middle">a question</text>
+  <path class="flow" d="M174 64 H214"/><path class="accent" d="M210 58 l12 6 l-12 6 Z"/>
+
+  <!-- Stage 2: Hybrid router -->
+  <rect class="box" x="224" y="36" width="170" height="56" rx="12"/>
+  <text class="lbl" x="309" y="60" text-anchor="middle">Hybrid router</text>
+  <text class="sub" x="309" y="79" text-anchor="middle">pick the few experts</text>
+
+  <!-- typed expert chips under the router: 3 selected (on), 3 not -->
+  <g class="chiptxt">
+    <rect class="chip-on"  x="224" y="116" width="80" height="24" rx="8"/><text x="264" y="132" text-anchor="middle" fill="#fff">profile</text>
+    <rect class="chip-off" x="312" y="116" width="80" height="24" rx="8"/><text x="352" y="132" text-anchor="middle" fill="#6f766f">session</text>
+    <rect class="chip-on"  x="224" y="146" width="80" height="24" rx="8"/><text x="264" y="162" text-anchor="middle" fill="#fff">policy</text>
+    <rect class="chip-off" x="312" y="146" width="80" height="24" rx="8"/><text x="352" y="162" text-anchor="middle" fill="#6f766f">document</text>
+    <rect class="chip-on"  x="224" y="176" width="80" height="24" rx="8"/><text x="264" y="192" text-anchor="middle" fill="#fff">semantic</text>
+    <rect class="chip-off" x="312" y="176" width="80" height="24" rx="8"/><text x="352" y="192" text-anchor="middle" fill="#6f766f">episodic</text>
+  </g>
+  <text class="sub" x="309" y="216" text-anchor="middle">typed context experts (selected · skipped)</text>
+
+  <path class="flow" d="M394 64 H434"/><path class="accent" d="M430 58 l12 6 l-12 6 Z"/>
+
+  <!-- Stage 3: Retrieve + rerank -->
+  <rect class="box" x="444" y="36" width="170" height="56" rx="12"/>
+  <text class="lbl" x="529" y="60" text-anchor="middle">Retrieve + rerank</text>
+  <text class="sub" x="529" y="79" text-anchor="middle">lexical + dense fusion</text>
+  <path class="flow" d="M614 64 H654"/><path class="accent" d="M650 58 l12 6 l-12 6 Z"/>
+
+  <!-- Stage 4: Budgeted pack -->
+  <rect class="box" x="664" y="36" width="170" height="56" rx="12"/>
+  <text class="lbl" x="749" y="60" text-anchor="middle">Budgeted pack</text>
+  <text class="sub" x="749" y="79" text-anchor="middle">small · on-topic</text>
+
+  <!-- inspect() down from the pack -->
+  <path class="flow" d="M749 92 V150" stroke-dasharray="4 4"/><path class="accent" d="M743 146 l6 12 l6 -12 Z"/>
+  <rect x="664" y="158" width="170" height="44" rx="12" fill="#eef7f1" stroke="#0a7d4f" stroke-width="1.4"/>
+  <text class="lbl" x="749" y="178" text-anchor="middle" fill="#0b3a27">inspect()</text>
+  <text class="sub" x="749" y="194" text-anchor="middle">why each item won</text>
+
+  <text class="sub" x="460" y="300" text-anchor="middle" font-style="italic">route the few · retrieve · rerank · pack · explain</text>
+</svg>

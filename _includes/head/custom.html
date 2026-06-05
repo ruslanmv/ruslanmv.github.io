@@ -1,5 +1,21 @@
 <!-- start custom head snippets -->
 
+<!-- Essay badge on listing cards (homepage Recent Posts, /blog, tag/category archives) -->
+<style>
+  .essay-badge{
+    position:absolute; top:10px; right:10px; z-index:5; pointer-events:none;
+    display:inline-flex; align-items:center; gap:.4em;
+    font-family:'Montserrat',-apple-system,'Segoe UI',sans-serif;
+    font-weight:700; font-size:11px; line-height:1; letter-spacing:.12em; text-transform:uppercase;
+    color:#fff; padding:.5em .75em; border-radius:999px;
+    background:linear-gradient(135deg,#0a7d4f,#00b86b);
+    box-shadow:0 4px 14px rgba(10,125,79,.38); border:1px solid rgba(255,255,255,.28);
+  }
+  .essay-badge svg{ width:12px; height:12px; flex:0 0 auto; }
+  /* subtle premium cue on the whole essay card */
+  .essay-card .archive__item-teaser{ box-shadow: inset 0 0 0 2px rgba(10,125,79,.55); }
+</style>
+
 <!-- Favicons / brand icons (ruslanmv) -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
