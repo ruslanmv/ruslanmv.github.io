@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 420" width="940" height="420" role="img" aria-label="Ingest a document once into Matrix Context, then query it from LangChain, LangGraph, and CrewAI">
+  <defs>
+    <style>
+      .b   { fill:#ffffff; stroke:#cfd6d1; stroke-width:1.5; }
+      .core{ fill:#ecf7f1; stroke:#0a7d4f; stroke-width:1.9; }
+      .t   { font-family:'Segoe UI',Helvetica,Arial,sans-serif; fill:#1e2421; font-size:15px; }
+      .tg  { font-family:'Segoe UI',sans-serif; fill:#0b3a27; font-size:16px; font-weight:600; }
+      .s   { font-family:'Segoe UI',sans-serif; fill:#6f766f; font-size:12px; }
+      .f   { stroke:#0a7d4f; stroke-width:1.7; fill:none; }
+      .a   { fill:#0a7d4f; }
+    </style>
+  </defs>
+  <rect width="940" height="420" fill="#ffffff"/>
+
+  <!-- document -->
+  <g>
+    <rect class="b" x="36" y="150" width="118" height="120" rx="10"/>
+    <line x1="58" y1="182" x2="132" y2="182" stroke="#cfd6d1"/><line x1="58" y1="204" x2="132" y2="204" stroke="#cfd6d1"/>
+    <line x1="58" y1="226" x2="132" y2="226" stroke="#cfd6d1"/><line x1="58" y1="248" x2="110" y2="248" stroke="#cfd6d1"/>
+    <text class="s" x="95" y="292" text-anchor="middle">a doc from</text>
+    <text class="s" x="95" y="308" text-anchor="middle">the internet</text>
+  </g>
+
+  <path class="f" d="M154 210 H206"/><path class="a" d="M202 204 l12 6 l-12 6 Z"/>
+  <text class="s" x="180" y="198" text-anchor="middle">chunk + ingest</text>
+
+  <!-- Matrix Context core -->
+  <rect class="core" x="216" y="142" width="220" height="136" rx="16"/>
+  <text class="tg" x="326" y="178" text-anchor="middle">Matrix Context</text>
+  <text class="s"  x="326" y="200" text-anchor="middle">typed experts + router</text>
+  <!-- mini chips -->
+  <g font-family="Segoe UI, sans-serif" font-size="10.5">
+    <rect x="238" y="214" width="84" height="22" rx="7" fill="#0a7d4f"/><text x="280" y="229" text-anchor="middle" fill="#fff">document</text>
+    <rect x="330" y="214" width="84" height="22" rx="7" fill="#e7e8e2"/><text x="372" y="229" text-anchor="middle" fill="#6f766f">policy</text>
+    <rect x="238" y="242" width="84" height="22" rx="7" fill="#e7e8e2"/><text x="280" y="257" text-anchor="middle" fill="#6f766f">semantic</text>
+    <rect x="330" y="242" width="84" height="22" rx="7" fill="#e7e8e2"/><text x="372" y="257" text-anchor="middle" fill="#6f766f">profile</text>
+  </g>
+
+  <!-- fan-out to frameworks -->
+  <path class="f" d="M436 180 C 520 150, 540 96, 612 96"/><path class="a" d="M608 90 l12 6 l-12 6 Z"/>
+  <path class="f" d="M436 210 H612"/><path class="a" d="M608 204 l12 6 l-12 6 Z"/>
+  <path class="f" d="M436 240 C 520 270, 540 324, 612 324"/><path class="a" d="M608 318 l12 6 l-12 6 Z"/>
+  <text class="s" x="524" y="160" text-anchor="middle" font-style="italic">context_for() / build_pack()</text>
+
+  <rect class="b" x="622" y="70" width="220" height="52" rx="12"/><text class="t" x="732" y="101" text-anchor="middle">🦜 LangChain — Retriever</text>
+  <rect class="b" x="622" y="184" width="220" height="52" rx="12"/><text class="t" x="732" y="215" text-anchor="middle">🕸 LangGraph — memory node</text>
+  <rect class="b" x="622" y="298" width="220" height="52" rx="12"/><text class="t" x="732" y="329" text-anchor="middle">👥 CrewAI — memory tool</text>
+
+  <text class="s" x="470" y="392" text-anchor="middle" font-style="italic">Ingest once. Recall typed, budgeted, inspectable context from any framework.</text>
+</svg>

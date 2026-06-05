@@ -8,6 +8,7 @@ canonical_url: https://ruslanmv.com/personas-and-memory/
 tags: [homepilot, agent-matrix, memory, personas]
 header:
   og_image: /assets/images/header-home.jpg
+  teaser: /assets/images/essays/personas-memory.svg
 
 # Surfaced on /essays
 essay: true

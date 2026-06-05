@@ -9,11 +9,8 @@ header:
   caption: "Two static browser tools, one secure Cloudflare Worker"
 
 tags: [MCP, A2A, Agents, Cloudflare Workers, Developer Tools, JSON-RPC]
-essay: true
-essay_date: "2026-01-23"
+essay: false   # developer how-to — lives in /blog, not the /essays section
 read_time: "9 min read"
-card_image: /assets/images/posts/2026-01-23-inspect-and-validate-mcp-servers-and-a2a-agents/hero.svg
-card_excerpt: "Test remote MCP servers and validate A2A agent cards from the browser — proxied through a hardened Cloudflare Worker."
 ---
 
 Building with agentic AI right now feels a bit like the early days of the web. The protocols are shifting beneath our feet, and two in particular are quietly becoming the underlying plumbing: **Model Context Protocol (MCP)**, which links AI models to data sources and tools, and **Agent-to-Agent (A2A)**, which lets separate AI entities discover and talk to one another.

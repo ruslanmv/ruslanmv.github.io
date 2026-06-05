@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" width="1600" height="600" role="img" aria-label="A chatbot with memory">
+  <defs>
+    <radialGradient id="h1bg" cx="0.32" cy="0.45" r="0.95">
+      <stop offset="0" stop-color="#0d271c"/><stop offset="0.6" stop-color="#08180f"/><stop offset="1" stop-color="#040c08"/>
+    </radialGradient>
+    <radialGradient id="h1halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7dffd0"/><stop offset="0.55" stop-color="#2fd996"/><stop offset="1" stop-color="#0a7d4f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="600" fill="url(#h1bg)"/>
+
+  <!-- chat bubble, right -->
+  <g transform="translate(980,150)">
+    <path d="M40 0 H440 a40 40 0 0 1 40 40 V250 a40 40 0 0 1 -40 40 H150 L80 350 V290 H40 a40 40 0 0 1 -40 -40 V40 a40 40 0 0 1 40 -40 Z"
+          fill="#0c2a1e" stroke="#1f6b4c" stroke-width="2"/>
+    <!-- memory nodes inside the bubble -->
+    <g stroke="#1e6b4c" stroke-width="1.4" opacity="0.7">
+      <line x1="120" y1="120" x2="240" y2="80"/><line x1="240" y1="80" x2="360" y2="150"/>
+      <line x1="240" y1="80" x2="220" y2="200"/><line x1="360" y1="150" x2="380" y2="220"/>
+      <line x1="220" y1="200" x2="320" y2="210"/>
+    </g>
+    <g fill="url(#h1halo)"><circle cx="240" cy="80" r="34"/><circle cx="360" cy="150" r="30"/><circle cx="220" cy="200" r="32"/></g>
+    <g fill="#7dffd0"><circle cx="240" cy="80" r="11"/><circle cx="360" cy="150" r="9"/><circle cx="220" cy="200" r="10"/><circle cx="120" cy="120" r="6" opacity="0.8"/><circle cx="320" cy="210" r="5" opacity="0.8"/></g>
+  </g>
+
+  <!-- faint loop arrow motif, left-center -->
+  <g stroke="#2fd996" stroke-width="2" fill="none" opacity="0.30">
+    <path d="M250 430 a150 150 0 1 1 120 60"/>
+  </g>
+  <path d="M362 502 l28 -6 l-12 26 Z" fill="#2fd996" opacity="0.4"/>
+</svg>
