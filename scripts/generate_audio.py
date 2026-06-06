@@ -106,6 +106,9 @@ KOKORO_MODEL = os.environ.get("KOKORO_MODEL") or str(_SPEAKER.get("model", "koko
 KOKORO_VOICES = os.environ.get("KOKORO_VOICES", "voices-v1.0.bin")
 # Auto-download the model files when missing (set KOKORO_AUTO_DOWNLOAD=0 to disable).
 KOKORO_AUTO_DOWNLOAD = os.environ.get("KOKORO_AUTO_DOWNLOAD", "1").lower() not in ("0", "false", "no", "")
+# Default: only generate MISSING audio (never auto-recreate existing). Set
+# AUDIO_REGEN_ON_CHANGE=1 to also regenerate when the content hash changes.
+REGEN_ON_CHANGE = os.environ.get("AUDIO_REGEN_ON_CHANGE", "0").lower() in ("1", "true", "yes")
 KOKORO_VOICE = os.environ.get("KOKORO_VOICE") or str(_SPEAKER.get("voice", "am_michael"))
 KOKORO_LANG = os.environ.get("KOKORO_LANG") or str(_SPEAKER.get("lang", "en-us"))
 KOKORO_SPEED = float(os.environ.get("KOKORO_SPEED") or _SPEAKER.get("speed", 0.96))
@@ -582,6 +585,37 @@ def fmt_duration(n_samples: int) -> str:
     return f"{total // 60}:{total % 60:02d}"
 
 
+def probe_duration(path: Path) -> str:
+    """Duration ("m:ss") of an existing MP3 via ffprobe, or "" if unavailable."""
+    try:
+        out = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
+            capture_output=True, text=True,
+        )
+        total = int(round(float(out.stdout.strip())))
+        return f"{total // 60}:{total % 60:02d}"
+    except Exception:
+        return ""
+
+
+def manifest_entry(object_key: str, source_path, h: str, duration: str, mode: str) -> dict:
+    # Cache-busting ?v=<hash> on the public URL (object key stays clean).
+    version = h.split("-")[-1][:8]
+    return {
+        "audio_url": f"{R2_PUBLIC_BASE_URL}/{object_key}?v={version}",
+        "object_key": object_key,
+        "source_path": str(source_path),
+        "content_hash": h,
+        "duration": duration,
+        "voice": f"kokoro-{KOKORO_VOICE}",
+        "speed": f"{KOKORO_SPEED}",
+        "model": MODEL_ID,
+        "selection": mode,
+        "updated_at": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+    }
+
+
 def discover_posts(paths: Iterable[str]) -> list[Path]:
     explicit = [Path(a) for a in paths]
     if explicit:
@@ -767,39 +801,38 @@ def main(argv: list[str] | None = None) -> int:
         out_mp3 = AUDIO_OUT_DIR / object_key
         prior = manifest.get(slug)
 
-        # Skip expensive TTS when the narrated text + settings are unchanged.
-        # The local MP3 is usually absent in CI (only the manifest is tracked),
-        # so a hash match is sufficient — unless an R2 existence check tells us
-        # the object is actually missing, in which case we regenerate.
-        if not args.force and prior and prior.get("content_hash") == h:
-            r2_state = r2_object_exists(object_key)
-            if out_mp3.exists() or r2_state is not False:
-                where = "local" if out_mp3.exists() else ("R2" if r2_state is True else "manifest")
-                print(f"up-to-date ({where}): {slug}")
+        # Default policy: generate only MISSING audio — never automatically
+        # recreate audio we already have. CI fetches existing MP3s from R2 into
+        # AUDIO_OUT_DIR before this runs, so a present local file is the reliable
+        # "we already have it" signal (no dependency on head-object or the
+        # committed hash, which makes this resilient to branch/manifest drift).
+        # To intentionally refresh after editing an essay, use --force
+        # (or `make audio-force`). Set AUDIO_REGEN_ON_CHANGE=1 to restore the
+        # old "regenerate when the content hash changes" behaviour.
+        if not args.force:
+            local = out_mp3.exists()
+            r2_state = True if local else r2_object_exists(object_key)
+            exists = local or r2_state is True or (r2_state is None and prior is not None)
+            hash_changed = bool(prior) and prior.get("content_hash") != h
+            if exists and not (REGEN_ON_CHANGE and hash_changed):
+                where = "local" if local else ("R2" if r2_state is True else "manifest")
+                note = "  [content changed — run --force to refresh]" if hash_changed else ""
+                # Keep the manifest complete even if its entry was missing/drifted
+                # (e.g. after a branch merge): index the existing audio, no TTS.
+                if not prior:
+                    manifest[slug] = manifest_entry(object_key, path, h, probe_duration(out_mp3), mode)
+                    note = "  [indexed existing audio]"
+                print(f"up-to-date ({where}): {slug}{note}")
                 continue
-            print(f"regenerate (hash matches but missing in R2): {slug}")
+            if not exists:
+                print(f"generate (missing): {slug}")
+            else:
+                print(f"regenerate (content changed): {slug}")
 
         print(f"render: {slug} -> {out_mp3}")
         wav = synthesize(spoken, dry_run=args.dry_run)
         encode_mp3(wav, out_mp3)
-
-        # Cache-buster: the R2 objects are uploaded with immutable cache-control,
-        # so overwriting a key would otherwise serve a stale voice from browser/
-        # edge caches. The object key stays clean; only the public URL is
-        # versioned by content, so a new voice/text yields a fresh URL.
-        version = h.split("-")[-1][:8]
-        manifest[slug] = {
-            "audio_url": f"{R2_PUBLIC_BASE_URL}/{object_key}?v={version}",
-            "object_key": object_key,
-            "source_path": str(path),
-            "content_hash": h,
-            "duration": fmt_duration(len(wav)),
-            "voice": f"kokoro-{KOKORO_VOICE}",
-            "speed": f"{KOKORO_SPEED}",
-            "model": MODEL_ID,
-            "selection": mode,
-            "updated_at": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
-        }
+        manifest[slug] = manifest_entry(object_key, path, h, fmt_duration(len(wav)), mode)
         rendered += 1
 
     if not args.check_tags:

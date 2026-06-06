@@ -213,18 +213,27 @@ main-content detection and powers the optional beta.
    python scripts/generate_audio.py _posts/2026-06-05-my-essay.md --force
    ```
 
-## Caching: never regenerate unchanged audio
+## Caching: generate only what is missing
 
 `_data/audio_manifest.json` is the index **and** the cache. Each entry stores a
 `content_hash` = `sha256` of `{ cleaned text, voice, speed, model, bitrate,
-normalization }`. Before generating, the script computes that hash and:
+normalization }`.
 
-- **hash matches** → skip the (slow) TTS run;
-- **hash missing / changed**, or `--force` → regenerate;
-- in CI, if the hash matches but the object is **missing in R2** (checked with
-  `aws s3api head-object`), it regenerates so the bucket is repaired.
+**Default policy — never recreate audio we already have.** For each `audio: true`
+page the script:
 
-So a Markdown edit that doesn't change the narrated text never re-runs TTS.
+- **already has the MP3** (manifest entry + object present locally or in R2,
+  checked with `aws s3api head-object`) → **skip**, regardless of the hash. This
+  keeps merges/CI from re-running expensive TTS for essays that already exist.
+  If the text changed, it skips with a note: *"content changed — run --force."*
+- **missing** (no entry, or the R2 object is gone) → generate it;
+- `--force` (or `make audio-force`) → regenerate everything intentionally.
+
+To restore the old "auto-regenerate whenever the content hash changes" behaviour,
+set `AUDIO_REGEN_ON_CHANGE=1`.
+
+So editing an essay does **not** silently re-run TTS — refresh it on purpose
+with `--force` (the `content_hash` still tracks what changed).
 
 Manifest entry shape:
 

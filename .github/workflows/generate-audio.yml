@@ -1,10 +1,10 @@
 name: Generate blog audio
 
-# Generates MP3 narration only for Markdown pages with `audio: true`, and only
-# when the narrated text (or voice/speed/model/bitrate/normalization) changed.
-# The content hash in _data/audio_manifest.json is the cache key, so unchanged
-# essays never trigger a slow TTS run. New/changed MP3s are uploaded to R2 and
-# the manifest is committed back.
+# Generates MP3 narration for Markdown pages with `audio: true`. It never
+# recreates audio that already exists in R2: existing MP3s are fetched from R2
+# first, so only genuinely NEW essays are synthesized. New MP3s are uploaded to
+# R2 and the manifest is committed back. Use the workflow_dispatch `force` input
+# to intentionally regenerate everything.
 
 on:
   workflow_dispatch:
@@ -41,17 +41,39 @@ jobs:
       MANIFEST_PATH: _data/audio_manifest.json
       KOKORO_MODEL: kokoro-v1.0.fp16.onnx
       KOKORO_VOICES: voices-v1.0.bin
-      # --- R2 / S3 (secrets; the secret access key is never logged) ---
-      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-      R2_BUCKET: ${{ secrets.R2_BUCKET }}
-      R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL || 'https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev' }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: auto
+      # R2 credentials are set (whitespace-trimmed) by the "Configure R2
+      # credentials" step below — secrets sometimes contain a stray trailing
+      # newline which corrupts the AWS SigV4 Authorization header.
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Trim stray whitespace/newlines from the R2 secrets and export the clean
+      # values for every later step. A trailing newline in R2_ACCESS_KEY_ID
+      # otherwise produces: "Invalid header value ... Credential=***\n/..." and
+      # breaks all S3 calls. The trimmed secret is re-masked so it can't leak.
+      - name: Configure R2 credentials
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL || 'https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev' }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          trim() { printf %s "$1" | tr -d '[:space:]'; }
+          ak="$(trim "$R2_ACCESS_KEY_ID")"
+          sk="$(trim "$R2_SECRET_ACCESS_KEY")"
+          [ -n "$ak" ] && echo "::add-mask::$ak"
+          [ -n "$sk" ] && echo "::add-mask::$sk"
+          {
+            echo "R2_ACCOUNT_ID=$(trim "$R2_ACCOUNT_ID")"
+            echo "R2_BUCKET=$(trim "$R2_BUCKET")"
+            echo "R2_PUBLIC_BASE_URL=$(trim "$R2_PUBLIC_BASE_URL")"
+            echo "AWS_ACCESS_KEY_ID=$ak"
+            echo "AWS_SECRET_ACCESS_KEY=$sk"
+          } >> "$GITHUB_ENV"
 
       - name: Install system dependencies
         run: |
@@ -77,12 +99,23 @@ jobs:
             voices-v1.0.bin
           key: kokoro-onnx-v1-fp16
 
+      # Pull the MP3s already in R2 so the generator sees them locally and skips
+      # them. This is the authoritative "we already have it" signal and makes the
+      # job resilient to manifest/branch drift — we never regenerate audio that
+      # already exists in R2 (only genuinely new essays are synthesized).
+      - name: Fetch existing audio from R2
+        run: |
+          mkdir -p "${AUDIO_OUT_DIR}/essays"
+          aws s3 sync "s3://${R2_BUCKET}/essays" "${AUDIO_OUT_DIR}/essays" \
+            --endpoint-url "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
+            --exclude "*" --include "*.mp3" || echo "R2 fetch skipped/failed; will only generate missing files."
+
       - name: Download Kokoro model files if missing
         run: python scripts/generate_audio.py --ensure-models
 
-      # The script itself decides what to skip via the manifest content hash and
-      # an optional R2 head-object check, so we never blindly regenerate.
-      - name: Generate only missing or changed audio
+      # The script generates only MISSING audio (present local files from the
+      # fetch step above are skipped); use force=true to intentionally refresh.
+      - name: Generate only missing audio
         run: |
           force_flag=""
           if [ "${{ inputs.force }}" = "true" ]; then
@@ -94,12 +127,13 @@ jobs:
             python scripts/generate_audio.py --all $force_flag
           fi
 
-      - name: Upload new or changed MP3s to Cloudflare R2
+      - name: Upload new MP3s to Cloudflare R2
         run: |
           aws s3 sync "${AUDIO_OUT_DIR}/essays" "s3://${R2_BUCKET}/essays" \
             --endpoint-url "https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com" \
             --content-type audio/mpeg \
             --cache-control "public, max-age=31536000, immutable" \
+            --size-only \
             --exclude "*" \
             --include "*.mp3"
 
