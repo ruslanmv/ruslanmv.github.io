@@ -1,0 +1,13 @@
+{
+  "matrix-context": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/matrix-context.mp3",
+    "object_key": "essays/2026/matrix-context.mp3",
+    "source_path": "_posts/2026-06-05-matrix-context.md",
+    "content_hash": "sha256-<hash of cleaned narration text + voice + speed + model + bitrate + normalization>",
+    "duration": "8:06",
+    "voice": "kokoro-am_michael",
+    "speed": "0.96",
+    "model": "kokoro-v1.0.fp16",
+    "updated_at": "2026-06-06T00:00:00Z"
+  }
+}

@@ -1,0 +1,45 @@
+# Python dependencies for the essay/blog audio narration pipeline.
+# Canonical source of truth — the Makefile, CI, and the requirements*.txt
+# shims all install from here.
+#
+#   pip install .            # core: generate audio
+#   pip install ".[upload]"  # + AWS CLI for R2 upload (used by CI)
+#   pip install ".[ui]"      # + Gradio speaker-setup UI (scripts/setup_audio.py)
+#   pip install ".[dev]"     # everything
+#
+# Tip: use the project venv via `make audio-deps` / `make audio-ui` so the
+# system Python is never used by accident.
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ruslanmv-essay-audio"
+version = "0.1.0"
+description = "Essay & blog audio narration pipeline for ruslanmv.com (Kokoro TTS → Cloudflare R2)."
+readme = "scripts/README-audio.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Ruslan Magana Vsevolodovna" }]
+
+# Core: everything needed to turn tagged Markdown into MP3 + manifest.
+dependencies = [
+    "python-frontmatter",
+    "numpy",
+    "soundfile",
+    "kokoro-onnx",
+]
+
+[project.optional-dependencies]
+# Speaker-setup Gradio app (scripts/setup_audio.py).
+ui = ["gradio>=4.0", "PyYAML"]
+# R2 upload (aws s3 sync) — used by CI and `make audio-upload`.
+upload = ["awscli"]
+# Convenience: install everything for local development.
+dev = ["gradio>=4.0", "PyYAML", "awscli"]
+
+[tool.setuptools]
+# Standalone scripts under scripts/ are run by path, not imported as a package,
+# so this project ships dependencies only (no importable modules).
+py-modules = []

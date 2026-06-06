@@ -49,6 +49,17 @@ backup/
 /backup/
 
 # -------------------------------------------------------------------
+# Essay audio narration (generated locally / in CI, served from R2)
+# -------------------------------------------------------------------
+public/audio/
+.venv/
+# Local secrets for the audio pipeline (R2 credentials)
+.env
+# Kokoro ONNX model files (downloaded, never committed)
+kokoro-*.onnx
+voices-*.bin
+
+# -------------------------------------------------------------------
 # Project-specific ignores
 # -------------------------------------------------------------------
 assets/test/
@@ -62,3 +73,10 @@ ruby.exe
 # (Usually you WANT to track CNAME in the repo; keep it commented out here.)
 Gemfile.lock
 /contact-backend/.wrangler/cache
+
+# Python bytecode + packaging build artifacts (from `pip install .`)
+__pycache__/
+*.pyc
+build/
+dist/
+*.egg-info/

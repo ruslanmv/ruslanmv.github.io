@@ -148,6 +148,15 @@ exclude:
   - contact-backend
   - .idea
   - create-blogpost
+  # audio pipeline (local venv/artifacts/scripts) — not part of the site, and
+  # excluding .venv avoids the Jekyll watcher crash on its lib64 -> lib symlink
+  - .venv
+  - public
+  - scripts
+  - .env
+  - .env.example
+  - pyproject.toml
+  - requirements.txt
   # copy-paste starters — reference only, never built or listed
   - _pages/_essay-template.md
   - _pages/_blog-template.md

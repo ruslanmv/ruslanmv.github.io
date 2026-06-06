@@ -1,0 +1,7 @@
+# Dependencies for the speaker-setup UI (scripts/setup_audio.py).
+# Declared in pyproject.toml; this shim installs the core deps + the UI extra
+# (Gradio, PyYAML) and the generation deps needed for voice preview.
+#
+# Run from the repo root:   pip install -r scripts/requirements-setup.txt
+# Recommended instead:      make audio-ui   (sets up the venv and launches the app)
+.[ui]

@@ -10,12 +10,16 @@ header:
 
 essay: true
 essay_date: "2026-05-31"
+audio_slug: mxu
+audio: true
 read_time: "9 min read"
 card_image: /assets/images/essays/mxu-economy.svg
 card_excerpt: "Every agent must pay for the compute it consumes — the internal unit of the Matrix Treasury and the economy that lets a network of agents fund its own existence."
 ---
 
 > *A companion to [Agent-Matrix: The Architecture Behind the First Alive Autonomous AI System](/blog/Matrix-the-first-alive-AI-system). There we described an organism. Here we describe how it pays its bills — the economy implemented in [agent-matrix/matrix-treasury](https://github.com/agent-matrix/matrix-treasury).*
+
+<!-- audio:start -->
 
 In the [Alive System essay](/blog/Matrix-the-first-alive-AI-system), the Manifest — the genome every agent carries — declared one field almost in passing:
 
@@ -115,6 +119,8 @@ Step back, and the pieces resolve into a circulatory system. Agents consume comp
 We began the Alive System essay by declaring the death of the tool — the end of software as dead matter waiting for us to feed it. The Matrix Treasury is what comes after: the moment the organism stops being fed and **starts paying its own bills**. An ecosystem of agents that meters its own compute, lends against its own collateral, and balances its own books is an ecosystem that can keep running without us holding the purse strings.
 
 The Matrix is alive. The MXU is how it stays solvent.
+
+<!-- audio:end -->
 
 ---
 

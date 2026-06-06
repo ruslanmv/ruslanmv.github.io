@@ -10,10 +10,14 @@ header:
 tags: [autoself, robotics, agent-matrix, autonomy]
 essay: true
 essay_date: "2026-06-03"
+audio_slug: autoself
+audio: true
 read_time: "10 min read"
 card_image: /assets/images/posts/2026-06-15-autoself-self-consistency-reliability-primitive/autoself-hero.jpg
 card_excerpt: "On Mars, no one can catch an agent's mistakes for it. Building there forces the one discipline every autonomous system actually needs."
 ---
+
+<!-- audio:start -->
 
 A radio signal from Mars takes about twenty minutes to reach Earth, and twenty minutes to come back. Hold that number in your mind for a moment, because everything else follows from it. If a robot on the Martian surface begins extruding a structural wall a few degrees out of true, and a human controller on Earth notices, the correction they send will arrive more than half an hour after the mistake was made. By then the wall is built. By then the next wall is being built on top of it. There is no real-time rescue. There is no taking the controls. The distance has quietly removed the one safeguard that almost every autonomous system on Earth secretly relies upon: a person, watching, ready to step in.
 
@@ -73,6 +77,8 @@ The fix is not a smarter model. It is the loop. An enterprise agent that execute
 For a decade the story of AI has been a story of capability: bigger models, broader skills, more things an agent can attempt. That story is not over, but I think the interesting frontier has quietly moved. The question that now separates a demo from a system is not *can it act* but *can it be trusted to act unsupervised*, and that is a question about verification and self-correction, not about raw ability. The organisations that win the next phase will not be the ones with the most capable agents. They will be the ones whose agents can be left alone.
 
 Extraterrestrial construction is simply the cleanest place to learn this, because it removes the human safety net completely and forces the system to own its own correctness. The Moon does not let you cheat. And the lesson it teaches — that a quiet, relentless loop of execute, verify, correct is worth more than another increment of capability — is the lesson every autonomous system on Earth will eventually have to learn too. Better to learn it now, in simulation, than later, in production, on a wall that is already built.
+
+<!-- audio:end -->
 
 ---
 
