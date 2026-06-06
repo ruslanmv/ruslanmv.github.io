@@ -5,6 +5,11 @@
       this.page.identifier = "{{ page.id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
+      // Only load Disqus when the page actually renders a #disqus_thread
+      // container. Some layouts (e.g. essays) inherit comments: true from
+      // defaults but do not show the thread; without this guard Disqus's
+      // embed.js calls appendChild on a null element and throws in production.
+      if (!document.getElementById('disqus_thread')) { return; }
       var d = document, s = d.createElement('script');
       s.src = 'https://{{ site.comments.disqus.shortname }}.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
