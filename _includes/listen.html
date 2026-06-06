@@ -1,0 +1,18 @@
+{%- comment -%}
+  Minimal Mistakes / Jekyll include.
+
+  Usage inside a Markdown page body, or inside a layout's metadata row:
+    {% include listen.html %}
+
+  Looks up _data/audio_manifest.json by page.audio_slug (preferred) or page.slug.
+  Renders the inline "▷ Audio" control only when:
+    - the page front matter sets `audio: true`, and
+    - a matching manifest entry exists.
+  Otherwise it renders nothing.
+{%- endcomment -%}
+{%- assign audio_key = page.audio_slug | default: page.slug -%}
+{%- assign audio = site.data.audio_manifest[audio_key] -%}
+
+{%- if page.audio and audio -%}
+  {% include listen-player.html audio=audio slug=audio_key %}
+{%- endif -%}

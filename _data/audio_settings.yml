@@ -1,0 +1,28 @@
+# Speaker / narration settings for the essay audio pipeline.
+#
+# Edit with the Gradio UI:  python scripts/setup_audio.py
+# Or by hand. scripts/generate_audio.py reads these as defaults; matching
+# environment variables (KOKORO_VOICE, KOKORO_SPEED, ...) still override them.
+#
+# These values feed the content hash, so changing voice/speed/bitrate/
+# normalization will (correctly) regenerate audio on the next run.
+
+# Kokoro voice id. See scripts/setup_audio.py for the full list.
+# am_michael — calm American male: matches the author's identity for this
+# personal AI/technology blog. (am_adam is the deeper backup for heavier essays.)
+voice: am_michael
+
+# Kokoro ONNX model file (downloaded by setup_audio.py / the pipeline).
+model: kokoro-v1.0.fp16.onnx
+
+# Narration speed. 0.95–0.98 reads well for essays.
+speed: 0.96
+
+# Language / accent code passed to Kokoro.
+lang: en-us
+
+# MP3 encode bitrate.
+bitrate: 192k
+
+# ffmpeg loudness normalization filter (podcast-style, EBU R128).
+normalization: loudnorm=I=-16:TP=-1.5:LRA=11

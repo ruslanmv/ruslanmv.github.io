@@ -59,17 +59,30 @@ body.layout--essay .page__hero--overlay { display: none; }
   margin: 1.5rem auto 0; max-width: 46ch;
 }
 
-/* author row: portrait + name/role + read time, centered */
+/* metadata: author, then centered reading time, then a full-width audio bar.
+   Stacked and calm; no dividers. */
 .essay__byline {
-  display: inline-flex; align-items: center; gap: 1rem; margin: 2.2rem auto 0;
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-width: 680px; margin: 2.4rem auto 0;
 }
+.essay__byline .es-author { display: inline-flex; align-items: center; gap: 0.9rem; align-self: flex-start; }
 .essay__byline .es-photo { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 1px solid var(--es-line); flex: 0 0 auto; }
 .essay__byline .es-who { text-align: left; }
 .essay__byline .es-name { font-weight: 700; color: var(--es-ink); font-size: 1rem; line-height: 1.25; }
 .essay__byline .es-role { color: var(--es-muted); font-size: 0.88rem; line-height: 1.3; }
-.essay__byline .es-sep { width: 1px; height: 38px; background: var(--es-line); }
-.essay__byline .es-read { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--es-muted); font-size: 0.9rem; }
+/* reading time (centered) above the full-width audio bar */
+.essay__byline .es-meta { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; }
+.essay__byline .es-read { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--es-muted); font-size: 0.9rem; align-self: center; }
 .essay__byline .es-read svg { width: 16px; height: 16px; opacity: 0.7; }
+/* the audio bar fills the row; the seek track grows to use the full width */
+.essay__byline .article-audio { display: flex; width: 100%; gap: 0.7rem; }
+.essay__byline .article-audio__seek { flex: 1 1 auto; width: auto; }
+
+@media (max-width: 640px) {
+  .essay__byline { align-items: center; text-align: center; margin-top: 2rem; }
+  .essay__byline .es-author { flex-direction: column; gap: 0.6rem; align-self: center; }
+  .essay__byline .es-who { text-align: center; }
+}
 
 /* divider under the hero */
 .essay__rule { max-width: 1080px; margin: 1.75rem auto 0; padding: 0 1.5rem; }
@@ -196,15 +209,25 @@ body.layout--essay .page__hero--overlay { display: none; }
         {% if page.subtitle %}<span class="es-sub">{{ page.subtitle }}</span>{% endif %}
       </h1>
       {% if page.thesis %}<p class="essay__thesis">{{ page.thesis }}</p>{% endif %}
+      {%- assign audio_key = page.audio_slug | default: page.slug -%}
+      {%- assign essay_audio = site.data.audio_manifest[audio_key] -%}
       <div class="essay__byline">
-        <img class="es-photo" src="{{ site.author.avatar | relative_url }}" alt="{{ page.author_name | default: site.author.name }}">
-        <div class="es-who">
-          <div class="es-name">{{ page.author_name | default: site.author.name }}</div>
-          {% if page.author_role %}<div class="es-role">{{ page.author_role }}</div>{% endif %}
+        <div class="es-author">
+          <img class="es-photo" src="{{ site.author.avatar | relative_url }}" alt="{{ page.author_name | default: site.author.name }}">
+          <div class="es-who">
+            <div class="es-name">{{ page.author_name | default: site.author.name }}</div>
+            {% if page.author_role %}<div class="es-role">{{ page.author_role }}</div>{% endif %}
+          </div>
         </div>
-        {% if page.read_time %}
-        <span class="es-sep"></span>
-        <span class="es-read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{{ page.read_time }}</span>
+        {% if page.read_time or page.audio and essay_audio %}
+        <div class="es-meta">
+          {% if page.read_time %}
+          <span class="es-read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>{{ page.read_time }}</span>
+          {% endif %}
+          {% if page.audio and essay_audio %}
+          {% include listen-player.html audio=essay_audio slug=audio_key %}
+          {% endif %}
+        </div>
         {% endif %}
       </div>
     </header>

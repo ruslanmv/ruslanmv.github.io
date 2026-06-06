@@ -1,0 +1,166 @@
+{%- comment -%}
+  Premium, quiet audio bar:
+    [mute] [play/pause/replay]  thin seekable progress  current / total
+  Minimal by default, precise on interaction. No label, border, or container.
+  - speaker icon toggles mute (does not pause)
+  - progress line is a real slider: click, drag, and keyboard seek; the scrub
+    handle + time preview appear only on hover/focus/drag
+  - lazy: preload="none" (loads on first play); duration before that comes from
+    the manifest (data-audio-total)
+
+  Parameters:
+    include.audio  Entry from _data/audio_manifest.json (.audio_url, .duration)
+    include.slug   Stable id used to scope the player element ids
+{%- endcomment -%}
+{%- assign audio = include.audio -%}
+{%- assign slug = include.slug | default: page.slug -%}
+{%- assign player_id = 'essay-audio-' | append: slug -%}
+
+<span class="article-audio" data-audio-player data-audio-total="{{ audio.duration }}">
+  <button class="article-audio__mute" type="button" aria-label="Mute" aria-pressed="false" data-audio-mute>
+    <svg class="ic-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5.5a9 9 0 0 1 0 13"/></svg>
+    <svg class="ic-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
+  </button>
+
+  <button class="article-audio__toggle" type="button" aria-label="Play narration" aria-pressed="false" data-audio-toggle>
+    <svg class="ic-play"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+    <svg class="ic-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="9" y1="5" x2="9" y2="19"/><line x1="15" y1="5" x2="15" y2="19"/></svg>
+    <svg class="ic-replay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.3"/><path d="M3 4.5V9h4.5"/></svg>
+  </button>
+
+  <span class="article-audio__seek" role="slider" tabindex="0"
+        aria-label="Seek audio position" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"
+        data-audio-seek>
+    <span class="article-audio__track">
+      <span class="article-audio__bar" data-audio-progress></span>
+      <span class="article-audio__handle" data-audio-handle></span>
+    </span>
+    <span class="article-audio__preview" data-audio-preview hidden></span>
+  </span>
+
+  <span class="article-audio__time" data-audio-time>0:00{% if audio.duration %} / {{ audio.duration }}{% endif %}</span>
+
+  <audio id="{{ player_id }}" preload="none" data-audio>
+    <source src="{{ audio.audio_url }}" type="audio/mpeg">
+  </audio>
+</span>
+
+<script>
+(function () {
+  function parseDur(s) {
+    if (!s) return 0;
+    var p = ('' + s).split(':').map(Number);
+    if (p.some(isNaN)) return 0;
+    return p.length === 3 ? p[0]*3600 + p[1]*60 + p[2] : p.length === 2 ? p[0]*60 + p[1] : p[0];
+  }
+  function fmt(s) {
+    if (!isFinite(s) || s < 0) s = 0;
+    return Math.floor(s/60) + ':' + Math.floor(s%60).toString().padStart(2,'0');
+  }
+  function clamp(v) { return Math.min(1, Math.max(0, v)); }
+
+  document.querySelectorAll('[data-audio-player]').forEach(function (player) {
+    if (player.dataset.bound === 'true') return;
+    player.dataset.bound = 'true';
+
+    var audio   = player.querySelector('[data-audio]');
+    var toggle  = player.querySelector('[data-audio-toggle]');
+    var mute    = player.querySelector('[data-audio-mute]');
+    var seek    = player.querySelector('[data-audio-seek]');
+    var bar     = player.querySelector('[data-audio-progress]');
+    var handle  = player.querySelector('[data-audio-handle]');
+    var timeEl  = player.querySelector('[data-audio-time]');
+    var preview = player.querySelector('[data-audio-preview]');
+    if (!audio || !toggle || !seek) return;
+
+    var totalFallback = parseDur(player.getAttribute('data-audio-total'));
+    var scrubbing = false;
+
+    function dur() { return (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : totalFallback; }
+    function paint(frac) { frac = clamp(frac); bar.style.width = (frac*100)+'%'; if (handle) handle.style.left = (frac*100)+'%'; }
+    function render() {
+      var d = dur(), t = audio.currentTime || 0;
+      paint(d ? t/d : 0);
+      if (timeEl) timeEl.textContent = fmt(t) + ' / ' + fmt(d);
+      seek.setAttribute('aria-valuemax', String(Math.round(d)));
+      seek.setAttribute('aria-valuenow', String(Math.round(t)));
+      seek.setAttribute('aria-valuetext', fmt(t) + ' of ' + fmt(d));
+    }
+    function fracFromEvent(e) {
+      var r = seek.getBoundingClientRect();
+      var x = (e.clientX != null) ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      return clamp((x - r.left) / r.width);
+    }
+    function seekToFrac(frac) { var d = dur(); if (d) { audio.currentTime = clamp(frac) * d; render(); } }
+
+    // play / pause / replay
+    toggle.addEventListener('click', function () {
+      if (player.classList.contains('is-ended')) { audio.currentTime = 0; audio.play(); return; }
+      if (audio.paused) audio.play(); else audio.pause();
+    });
+    audio.addEventListener('play', function () {
+      player.classList.add('is-playing'); player.classList.remove('is-ended');
+      toggle.setAttribute('aria-pressed', 'true'); toggle.setAttribute('aria-label', 'Pause narration');
+    });
+    audio.addEventListener('pause', function () {
+      player.classList.remove('is-playing');
+      toggle.setAttribute('aria-pressed', 'false'); toggle.setAttribute('aria-label', 'Play narration');
+    });
+    audio.addEventListener('ended', function () {
+      player.classList.remove('is-playing'); player.classList.add('is-ended');
+      toggle.setAttribute('aria-label', 'Replay narration'); render();
+    });
+    audio.addEventListener('timeupdate', function () { if (!scrubbing) render(); });
+    audio.addEventListener('loadedmetadata', render);
+
+    // mute (does not pause)
+    if (mute) {
+      mute.addEventListener('click', function () {
+        audio.muted = !audio.muted;
+        player.classList.toggle('is-muted', audio.muted);
+        mute.setAttribute('aria-pressed', audio.muted ? 'true' : 'false');
+        mute.setAttribute('aria-label', audio.muted ? 'Unmute' : 'Mute');
+      });
+    }
+
+    // seek: click + drag (pointer events), state preserved
+    seek.addEventListener('pointerdown', function (e) {
+      scrubbing = true; player.classList.add('is-scrubbing');
+      try { seek.setPointerCapture(e.pointerId); } catch (_) {}
+      var f = fracFromEvent(e); paint(f);
+      if (timeEl) timeEl.textContent = fmt(f*dur()) + ' / ' + fmt(dur());
+      seekToFrac(f); e.preventDefault();
+    });
+    seek.addEventListener('pointermove', function (e) {
+      var f = fracFromEvent(e);
+      if (scrubbing) {
+        paint(f); var t = f*dur();
+        if (timeEl) timeEl.textContent = fmt(t) + ' / ' + fmt(dur());
+        if (dur()) audio.currentTime = t;
+      }
+      if (preview) { preview.hidden = false; preview.style.left = (f*100)+'%'; preview.textContent = fmt(f*dur()); }
+    });
+    function endScrub() { if (scrubbing) { scrubbing = false; player.classList.remove('is-scrubbing'); render(); } }
+    seek.addEventListener('pointerup', endScrub);
+    seek.addEventListener('pointercancel', endScrub);
+    seek.addEventListener('pointerleave', function () { if (preview && !scrubbing) preview.hidden = true; });
+
+    // keyboard (slider focused)
+    seek.addEventListener('keydown', function (e) {
+      var d = dur(), handled = true;
+      switch (e.key) {
+        case 'ArrowLeft':  audio.currentTime = Math.max(0, (audio.currentTime||0) - 5); break;
+        case 'ArrowRight': audio.currentTime = Math.min(d, (audio.currentTime||0) + 5); break;
+        case 'Home':       audio.currentTime = 0; break;
+        case 'End':        audio.currentTime = d; break;
+        case ' ': case 'Enter': if (audio.paused) audio.play(); else audio.pause(); break;
+        case 'm': case 'M': if (mute) mute.click(); break;
+        default: handled = false;
+      }
+      if (handled) { e.preventDefault(); render(); }
+    });
+
+    render();
+  });
+})();
+</script>

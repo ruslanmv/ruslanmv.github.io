@@ -10,10 +10,14 @@ header:
 tags: [mixture-of-experts, agent-matrix, inference, architecture]
 essay: true
 essay_date: "2026-06-03"
+audio_slug: mixture-of-agents
+audio: true
 read_time: "11 min read"
 card_image: /assets/images/posts/2026-06-22-from-mixture-of-experts-to-mixture-of-agents/moe-hero.svg
 card_excerpt: "The idea that powers today's frontier models is a routing idea — and routing was never going to stay inside the model."
 ---
+
+<!-- audio:start -->
 
 Almost every frontier model you have used in the last two years owes its economics to a single architectural trick, and almost no one is writing about where that trick is heading next. The trick is the Mixture of Experts, and the reason it matters is not really that it makes models bigger. It is that it makes them *sparse* — and sparsity, once you understand what it is for, turns out to be a principle far too useful to leave trapped inside a neural network.
 
@@ -78,6 +82,8 @@ I want to be precise about the claim, because the analogy is powerful enough to 
 The instinct of the last few years has been to chase one enormous model that can do everything. Mixture of Experts was the first crack in that instinct — the admission that even inside a single model, it is better to have many specialists and route between them than to make every parameter do every job. I think that admission is a preview, not an exception. The efficient AI systems of the next several years will not be one giant model. They will be well-routed systems of many: small models and large ones, general agents and narrow ones, cheap paths and expensive paths, with a gate deciding, request by request, where each piece of work should go.
 
 The hard part of building those systems is not the models. The models are abundant and getting cheaper. The hard part is the routing — the gate, the balancing, the deliberate avoidance of collapse and decay — and that is a discipline the field has already been quietly practising, at small scale, inside every MoE layer it has trained. Sparse routing is escaping the model. The teams that understand it as an architecture for systems, and not just a trick for layers, are the ones who will build what comes next.
+
+<!-- audio:end -->
 
 ---
 

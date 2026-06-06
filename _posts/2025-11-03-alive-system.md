@@ -5,6 +5,10 @@ permalink: /alive-system/
 layout: essay
 sitemap: true
 canonical_url: https://ruslanmv.com/alive-system/
+
+# --- essay audio narration (inline "▷ Audio") ---
+audio_slug: alive-system
+audio: true
 header:
   og_image: /assets/images/og-default-header.jpg
   teaser: /assets/images/essays/alive-system.svg
@@ -45,6 +49,8 @@ toc_items:
   - { id: "the-invitation",       title: "The Invitation" }
 ---
 
+<!-- audio:start -->
+
 <h2 id="the-physicist">1 · The physicist</h2>
 
 <p>For ten years, conservation laws were not optional for me. I spent that decade computing nuclear matrix elements — the quantities that decide whether an exotic nuclear reaction is allowed to happen at all — and in that work energy does not approximately balance. It balances exactly, to the last decimal, or the calculation is simply wrong. You do not get to wave your hands. The universe is keeping the books, and your job is to keep them as carefully as it does.</p>
@@ -80,6 +86,8 @@ toc_items:
 <h2 id="the-invitation">6 · The invitation</h2>
 
 <p>All of this is Agent-Matrix, and all of it is open source. I did not build it to be a product I own; I built it to be infrastructure that outlives me, the kind of thing that is more useful the more people take it apart and improve it. The same idea, shrunk down to the scale of a single personal assistant, is how I think about <a href="/personas-and-memory/">personas and memory</a> — an assistant that persists, governs what it keeps, and grows. The vision, the architecture, and the code are all in the open, and the door is open with them. If the idea of an AI system that is accountable for its safety and honest about its costs is one you have been waiting for too, that is the best reason I know to come and build it together.</p>
+
+<!-- audio:end -->
 
 <div class="ae-continue">
   <h2>Continue</h2>

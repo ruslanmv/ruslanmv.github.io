@@ -5,6 +5,10 @@ permalink: /personas-and-memory/
 layout: essay
 sitemap: true
 canonical_url: https://ruslanmv.com/personas-and-memory/
+
+# --- essay audio narration (inline "▷ Audio") ---
+audio_slug: personas-and-memory
+audio: true
 tags: [homepilot, agent-matrix, memory, personas]
 header:
   og_image: /assets/images/header-home.jpg
@@ -45,6 +49,8 @@ toc_items:
   - { id: "why-the-two-halves-need-each-other", title: "Why the two halves need each other" }
 ---
 
+<!-- audio:start -->
+
 <p>Every AI product you have used gives you the same thing: a text box that forgets you. You type, it answers, and the moment you close the tab the relationship resets to nothing. Open it again tomorrow and you are a stranger again, re-explaining who you are, what you like, what you already told it last week. The assistant has no name you chose, no face you recognise, and no memory of the conversation you had an hour ago. It is, underneath the friendly wrapper, a function call with a chat skin.</p>
 
 <p>I have come to believe this is the single biggest reason AI assistants still feel like tools rather than companions, and it is the problem HomePilot was built to solve. Not by making the model larger or the answers cleverer, but by giving the assistant something it has never had: a self that persists, and a memory that behaves the way memory actually should.</p>
@@ -74,3 +80,5 @@ toc_items:
 <p>This is the same conviction that runs through everything I build, the belief that intelligence becomes useful not when it is cleverer in a single answer but when it persists, governs itself, and behaves reliably over time. A persona with memory is, in miniature, an alive system: it perceives, it retains, it forgets on purpose, and it grows. HomePilot is where I have been working that idea out at the scale of a single relationship between a person and their assistant.</p>
 
 <p>If you want to see exactly how it is built, the <a href="https://github.com/ruslanmv/HomePilot/blob/master/docs/PERSONA.md">persona design</a> and the <a href="https://github.com/ruslanmv/HomePilot/blob/master/docs/MEMORY.md">memory system</a> are documented in full, and the whole project is <a href="https://github.com/ruslanmv/HomePilot">open source on GitHub</a>. And if the larger idea of <a href="/alive-system/">systems that stay alive</a> rather than answering once and stopping is what interests you, that is the thread I follow across all my work.</p>
+
+<!-- audio:end -->

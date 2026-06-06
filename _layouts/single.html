@@ -27,8 +27,16 @@ layout: default
       {% unless page.header.overlay_color or page.header.overlay_image %}
         <header>
           {% if page.title %}<h1 id="page-title" class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
-          {% if page.read_time %}
-            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
+          {%- assign audio_key = page.audio_slug | default: page.slug -%}
+          {%- assign post_audio = site.data.audio_manifest[audio_key] -%}
+          {% if page.read_time or page.audio %}
+            <p class="page__meta post-meta-inline">
+              {% if page.read_time %}<span class="post-read-time"><i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}</span>{% endif %}
+              {% if page.audio and post_audio %}
+                {% if page.read_time %}<span class="post-meta-dot" aria-hidden="true">·</span>{% endif %}
+                {% include listen-player.html audio=post_audio slug=audio_key %}
+              {% endif %}
+            </p>
           {% endif %}
         </header>
       {% endunless %}

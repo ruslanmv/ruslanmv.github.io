@@ -1,0 +1,7 @@
+# Dependencies are declared in pyproject.toml (the canonical source).
+# `pip install -r requirements.txt` installs the core audio-generation deps
+# (python-frontmatter, numpy, soundfile, kokoro-onnx). For R2 upload too:
+#   pip install ".[upload]"
+#
+# Recommended instead:  make audio-deps   (installs into the project venv)
+.

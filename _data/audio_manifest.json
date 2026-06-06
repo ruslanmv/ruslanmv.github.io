@@ -1,0 +1,98 @@
+{
+  "agent-matrix": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2025/agent-matrix.mp3?v=8bd6b660",
+    "content_hash": "sha256-8bd6b6606277d557884b835b9e520bb6b93d2c7787cee956285ada6004fad99a",
+    "duration": "19:00",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2025/agent-matrix.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2025-12-29-Matrix-the-first-alive-AI-system.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-06T11:07:04Z",
+    "voice": "kokoro-am_michael"
+  },
+  "alive-system": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2025/alive-system.mp3?v=c9f67b18",
+    "content_hash": "sha256-c9f67b1811a7c4a7fd7453cb7848afef4d1437d753f314e6e14ddb10dece4dea",
+    "duration": "5:38",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2025/alive-system.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2025-11-03-alive-system.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-06T11:01:56Z",
+    "voice": "kokoro-am_michael"
+  },
+  "audio-smoke-test": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/audio-smoke-test.mp3?v=95b1ad8e",
+    "content_hash": "sha256-95b1ad8e0ca072e9693d2e34a40043201a174c4a67bd3f66a4ee0961172a13c5",
+    "duration": "0:32",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2026/audio-smoke-test.mp3",
+    "selection": "tagged",
+    "source_path": "_pages/audio-smoke-test.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-06T10:58:00Z",
+    "voice": "kokoro-am_michael"
+  },
+  "autoself": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/autoself.mp3?v=827d25f7",
+    "content_hash": "sha256-827d25f7e970466e705e300adf7a8b401c5ebe9f738e3ff221eb0a40495bf9ba",
+    "duration": "11:05",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2026/autoself.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2026-06-03-autoself-self-consistency-the-missing-reliability-primitive.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-06T11:13:15Z",
+    "voice": "kokoro-am_michael"
+  },
+  "matrix-context": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/matrix-context.mp3?v=2cd512bc",
+    "content_hash": "sha256-2cd512bcca3f515633621354ba4674672118352b8893ec10c2fb18c6d0803584",
+    "duration": "9:31",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2026/matrix-context.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2026-06-05-matrix-context.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-06T11:19:02Z",
+    "voice": "kokoro-am_michael"
+  },
+  "mixture-of-agents": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/mixture-of-agents.mp3?v=ed421f08",
+    "content_hash": "sha256-ed421f08b5c372e45f48f53578df1f7983f826291953e6c5a12bbf64b10d7aaa",
+    "duration": "11:39",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2026/mixture-of-agents.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2026-06-03-from-mixture-of-experts-to-mixture-of-agents.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-06T11:16:26Z",
+    "voice": "kokoro-am_michael"
+  },
+  "mxu": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/mxu.mp3?v=39f633ee",
+    "content_hash": "sha256-39f633eeac8ffead832c56361a041c2fcf49994cb2e33c02177645988d583c43",
+    "duration": "11:31",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2026/mxu.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2026-05-31-MXU-the-currency-of-a-self-sustaining-agent-economy.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-06T11:10:12Z",
+    "voice": "kokoro-am_michael"
+  },
+  "personas-and-memory": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2025/personas-and-memory.mp3?v=4786b78d",
+    "content_hash": "sha256-4786b78d7f72ca66f75b1c6a7ec7e2ba14878f4bb966fad98685ff051701905d",
+    "duration": "8:47",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2025/personas-and-memory.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2025-09-14-personas-and-memory.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-06T11:00:23Z",
+    "voice": "kokoro-am_michael"
+  }
+}

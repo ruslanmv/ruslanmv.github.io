@@ -6,6 +6,11 @@ layout: essay
 sitemap: true
 canonical_url: https://ruslanmv.com/matrix-context/
 tags: [matrix-context, agent-matrix, memory, rag, retrieval]
+
+# --- essay audio narration (inline "▷ Audio" metadata) ---
+slug: matrix-context
+audio_slug: matrix-context
+audio: true
 header:
   og_image: /assets/images/og-default-header.jpg
   teaser: /assets/images/essays/matrix-context.svg
@@ -48,6 +53,8 @@ toc_items:
   - { id: "the-invitation",      title: "The Invitation" }
 ---
 
+<!-- audio:start -->
+
 <h2 id="the-pile">1 · The pile</h2>
 
 <p>Give an agent a memory and, almost always, what you have really given it is a pile. Every fact it has ever stored — a user's stated preference, a decision the team made last quarter, a paragraph lifted from a manual, a line of code, a policy it must never violate — goes into one index, embedded into the same vector space, flattened into the same neighbourhood of numbers. At question time the system reaches into that pile and pulls out whatever happens to sit nearest the query. It is simple, it demos beautifully, and it quietly discards the two things that matter most: the <em>type</em> of what was stored, and any account of <em>why</em> a particular item was chosen.</p>
@@ -66,10 +73,12 @@ toc_items:
 
 <p>That step is routing. Given a question, a hybrid router scores each expert — blending a learned similarity with cheap, robust priors about keywords, intent, scope, and recent activity — and selects only the few experts the question actually needs <em>before</em> retrieving anything. Retrieval then happens inside that small, relevant set, fusing a lexical and a dense channel so no single weak signal can dominate. What comes back is assembled into a token-budgeted pack, scored by relevance, importance, and recency and penalised for redundancy, so the context the model finally sees is small, on-topic, and free of near-duplicates. The idea is borrowed, openly, from the mechanism that lets mixture-of-experts models scale: expose many specialists, and activate only the handful a given input requires. Matrix Context applies it not to a network's weights, but to memory itself.</p>
 
+<!-- audio:skip:start -->
 <figure style="margin: 2.5rem 0; text-align: center;">
   <img src="/assets/images/essays/moc-pipeline.svg" alt="The Matrix Context pipeline: route typed experts, retrieve, rerank, pack, inspect" style="width: 100%; max-width: 720px; height: auto; border: 1px solid var(--es-line); border-radius: 12px;">
   <figcaption style="font-size: 0.9rem; color: var(--es-muted); margin-top: 0.7rem; font-family: var(--es-serif);">Route the few experts a question actually needs <em>before</em> retrieving — then retrieve, rerank, and pack under a token budget, with the whole decision left open to <code>inspect()</code>.</figcaption>
 </figure>
+<!-- audio:skip:end -->
 
 <p>And because every stage is a decision rather than an accident, every stage can be inspected. Ask Matrix Context <em>why</em>, and it returns the whole account: which experts it selected and which it skipped, the score each candidate earned, the items it kept, the items it dropped and the reason, and the exact prompt-ready pack it produced. The context an agent receives stops being a black box and becomes something you can audit, line by line.</p>
 
@@ -96,6 +105,8 @@ toc_items:
 <p>All of this is Matrix Context, and all of it is open source. It is local-first by default — a single small file, no model to download to get started, nothing to call out to — because memory you cannot run on your own machine is memory you do not really control. The whole loop fits in three lines: open a memory, add to it, ask it a question and get back a clean, typed, prompt-ready pack. The same engine answers over a Python SDK, a command line, a REST API, and an inspector you can watch decide in real time.</p>
 
 <p>I did not build it to be a product I own. I built it to be infrastructure — the kind of thing that is more useful the more people take it apart, contest its benchmark, and make it better. It is the memory half of the <a href="/alive-system/">alive system</a>, and the engine beneath <a href="/personas-and-memory/">personas and memory</a> in a personal assistant that persists. If you have been waiting for agent memory that is honest about what it costs and able to explain what it recalls, the door — and the source, and the benchmark — is open.</p>
+
+<!-- audio:end -->
 
 <div class="ae-continue">
   <h2>Continue</h2>
