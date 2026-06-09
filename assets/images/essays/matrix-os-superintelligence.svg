@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" width="920" height="480" font-family="'Inter Tight','Segoe UI',system-ui,-apple-system,sans-serif" role="img" aria-label="Matrix OS — real intelligence is a governed system">
+  <defs>
+    <radialGradient id="bg" cx="32%" cy="26%" r="95%">
+      <stop offset="0%" stop-color="#08150e"/>
+      <stop offset="100%" stop-color="#030605"/>
+    </radialGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00ff88" stop-opacity="0.9"/>
+      <stop offset="55%" stop-color="#00ff88" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14e0c8"/>
+      <stop offset="100%" stop-color="#00ff88"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="920" height="480" rx="22" fill="url(#bg)"/>
+  <rect x="1" y="1" width="918" height="478" rx="22" fill="none" stroke="rgba(0,255,136,0.16)"/>
+
+  <!-- ============ left: the governed-autonomy loop ============ -->
+  <g>
+    <!-- orbit -->
+    <circle cx="300" cy="240" r="150" fill="none" stroke="rgba(0,255,136,0.18)" stroke-width="1.5" stroke-dasharray="3 6"/>
+
+    <!-- central runtime core -->
+    <circle cx="300" cy="240" r="64" fill="url(#core)">
+      <animate attributeName="r" values="58;66;58" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="240" r="34" fill="rgba(3,8,5,0.9)" stroke="#00ff88" stroke-width="2"/>
+    <text x="300" y="236" text-anchor="middle" font-size="15" font-weight="700" fill="#ecfdf3">MATRIX OS</text>
+    <text x="300" y="252" text-anchor="middle" font-size="8.5" letter-spacing="3" fill="rgba(0,255,136,0.75)">RUNTIME</text>
+
+    <!-- stage nodes (clockwise from top) -->
+    <g font-size="12" font-weight="600" fill="#bff3d6">
+      <!-- Observe (top) -->
+      <circle cx="300" cy="90" r="6" fill="#06120c" stroke="#00ff88" stroke-width="2.4"/>
+      <text x="300" y="74" text-anchor="middle">Observe</text>
+      <!-- Remember -->
+      <circle cx="406" cy="134" r="6" fill="#06120c" stroke="#14e0c8" stroke-width="2.4"/>
+      <text x="420" y="128" text-anchor="start">Remember</text>
+      <!-- Plan -->
+      <circle cx="450" cy="240" r="6" fill="#06120c" stroke="#8b5cf6" stroke-width="2.4"/>
+      <text x="464" y="244" text-anchor="start">Plan</text>
+      <!-- Govern -->
+      <circle cx="406" cy="346" r="6" fill="#06120c" stroke="#f5c542" stroke-width="2.4"/>
+      <text x="420" y="352" text-anchor="start" fill="#fbe08a">Govern</text>
+      <!-- Fund -->
+      <circle cx="300" cy="390" r="6" fill="#06120c" stroke="#14e0c8" stroke-width="2.4"/>
+      <text x="300" y="410" text-anchor="middle">Fund</text>
+      <!-- Execute -->
+      <circle cx="194" cy="346" r="6" fill="#06120c" stroke="#00ff88" stroke-width="2.4"/>
+      <text x="180" y="352" text-anchor="end">Execute</text>
+      <!-- Verify -->
+      <circle cx="150" cy="240" r="6" fill="#06120c" stroke="#8b5cf6" stroke-width="2.4"/>
+      <text x="136" y="244" text-anchor="end">Verify</text>
+      <!-- Learn -->
+      <circle cx="194" cy="134" r="6" fill="#06120c" stroke="#00ff88" stroke-width="2.4"/>
+      <text x="180" y="128" text-anchor="end">Learn</text>
+    </g>
+
+    <!-- governance gate marker between Plan and Govern -->
+    <g opacity="0.9">
+      <text x="470" y="300" text-anchor="middle" font-size="9.5" letter-spacing="1.5" fill="#fbe08a">⛨ HUMAN GATE</text>
+    </g>
+
+    <!-- travelling comet (the live loop) -->
+    <g>
+      <circle r="7" fill="#00ff88">
+        <animateMotion dur="9s" repeatCount="indefinite" rotate="auto"
+          path="M300,90 A150,150 0 1 1 300,390 A150,150 0 1 1 300,90"/>
+      </circle>
+      <circle r="5" fill="#9bffce" opacity="0.55">
+        <animateMotion dur="9s" repeatCount="indefinite" begin="-0.18s"
+          path="M300,90 A150,150 0 1 1 300,390 A150,150 0 1 1 300,90"/>
+      </circle>
+      <circle r="3.4" fill="#14e0c8" opacity="0.35">
+        <animateMotion dur="9s" repeatCount="indefinite" begin="-0.36s"
+          path="M300,90 A150,150 0 1 1 300,390 A150,150 0 1 1 300,90"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- ============ right: why it is real superintelligence ============ -->
+  <g transform="translate(560,0)">
+    <text x="24" y="92" font-size="12" letter-spacing="3.5" fill="rgba(0,255,136,0.72)">THE THESIS</text>
+    <text x="24" y="128" font-size="27" font-weight="700" fill="#ecfdf3">Real intelligence is a</text>
+    <text x="24" y="160" font-size="27" font-weight="700" fill="#00ff88">governed system</text>
+    <text x="24" y="190" font-size="13.5" fill="rgba(180,240,205,0.62)">— not a bigger model.</text>
+
+    <text x="24" y="226" font-size="12.5" fill="rgba(180,240,205,0.7)">It observes, reasons, is gated, acts under</text>
+    <text x="24" y="244" font-size="12.5" fill="rgba(180,240,205,0.7)">budget, verifies, and learns — every step</text>
+    <text x="24" y="262" font-size="12.5" fill="rgba(180,240,205,0.7)">auditable and under human authority.</text>
+
+    <!-- property chips: a highlight sweeps through them -->
+    <g font-size="13" font-weight="600">
+      <g>
+        <rect x="24" y="286" width="300" height="32" rx="16" fill="rgba(0,255,136,0.06)" stroke="rgba(0,255,136,0.2)"/>
+        <rect x="24" y="286" width="300" height="32" rx="16" fill="none" stroke="#00ff88" stroke-width="1.6">
+          <animate attributeName="opacity" values="0;1;0;0;0;0" dur="6s" repeatCount="indefinite"/>
+        </rect>
+        <text x="44" y="306" fill="#d8ffe9">Auditable — every action emits evidence</text>
+      </g>
+      <g>
+        <rect x="24" y="326" width="300" height="32" rx="16" fill="rgba(0,255,136,0.06)" stroke="rgba(0,255,136,0.2)"/>
+        <rect x="24" y="326" width="300" height="32" rx="16" fill="none" stroke="#00ff88" stroke-width="1.6">
+          <animate attributeName="opacity" values="0;0;1;0;0;0" dur="6s" repeatCount="indefinite"/>
+        </rect>
+        <text x="44" y="346" fill="#d8ffe9">Corrigible — human gate, emergency stop</text>
+      </g>
+      <g>
+        <rect x="24" y="366" width="300" height="32" rx="16" fill="rgba(0,255,136,0.06)" stroke="rgba(0,255,136,0.2)"/>
+        <rect x="24" y="366" width="300" height="32" rx="16" fill="none" stroke="#00ff88" stroke-width="1.6">
+          <animate attributeName="opacity" values="0;0;0;1;0;0" dur="6s" repeatCount="indefinite"/>
+        </rect>
+        <text x="44" y="386" fill="#d8ffe9">Governed — policy decides, not the model</text>
+      </g>
+      <g>
+        <rect x="24" y="406" width="300" height="32" rx="16" fill="rgba(0,255,136,0.06)" stroke="rgba(0,255,136,0.2)"/>
+        <rect x="24" y="406" width="300" height="32" rx="16" fill="none" stroke="#00ff88" stroke-width="1.6">
+          <animate attributeName="opacity" values="0;0;0;0;1;0" dur="6s" repeatCount="indefinite"/>
+        </rect>
+        <text x="44" y="426" fill="#d8ffe9">Self-improving — it learns from outcomes</text>
+      </g>
+    </g>
+  </g>
+</svg>
