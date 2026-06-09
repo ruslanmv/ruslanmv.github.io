@@ -96,6 +96,7 @@ social:
     - "https://www.youtube.com/c/ruslanmv"
     - "https://twitter.com/ruslanmv_"
     - "https://keybase.io/ruslanmv"
+    - "https://podcastindex.social/@ruslanmv"
 
 # Analytics
 analytics:
@@ -148,6 +149,20 @@ exclude:
   - contact-backend
   - .idea
   - create-blogpost
+  # Internal deploy/dev docs (README/INSTALL .md) — never published. Without
+  # this they render as /cloudflare-worker/… pages and land in the sitemap,
+  # showing up in Search Console as "Crawled - currently not indexed".
+  - cloudflare-worker
+  - cloudflare-worker-a2a-validator
+  - cloudflare-worker-llm-finder
+  - cloudflare-worker-mcp-inspector
+  # Stray non-`_includes` partial dir; the real include lives in _includes/.
+  # Building it leaks /includes/head/custom.html as a crawlable junk URL.
+  - includes
+  # The Pages CI clones rbenv/ruby-build into the repo root to install Ruby;
+  # without this, Jekyll copies it into the site, leaking /ruby-build/ (and
+  # /ruby-build/feed.xml) as 404-prone junk URLs in Search Console.
+  - ruby-build
   # audio pipeline (local venv/artifacts/scripts) — not part of the site, and
   # excluding .venv avoids the Jekyll watcher crash on its lib64 -> lib symlink
   - .venv

@@ -21,7 +21,7 @@ Hello everyone, today we are going  create a custom Docker Container with **Jupy
 
 If you need to read your files in **S3 Bucket**  from **any computer** you need only do few steps:
 
-1. Install  [Docker]([https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)).
+1. Install [Docker](https://www.docker.com/products/docker-desktop).
 
 2. Run this command:
 

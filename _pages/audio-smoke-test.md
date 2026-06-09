@@ -4,6 +4,7 @@ permalink: /audio-smoke-test/
 layout: single
 author_profile: false
 sitemap: false
+robots: "noindex,follow"   # internal pipeline test page — keep out of the index
 read_time: "1 min read"
 date: 2026-06-06
 
