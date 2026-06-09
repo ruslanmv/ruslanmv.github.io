@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Trusted memories pass a governance gate while a plausible-but-poisoned memory is blocked; the gate emits an evidence trail">
+  <defs>
+    <radialGradient id="mbbg" cx="0.42" cy="0.46" r="0.9">
+      <stop offset="0" stop-color="#0b2018"/><stop offset="0.6" stop-color="#07150f"/><stop offset="1" stop-color="#040c08"/>
+    </radialGradient>
+    <radialGradient id="mbhalo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7dffd0"/><stop offset="0.5" stop-color="#2fd996"/><stop offset="1" stop-color="#0a7d4f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mbedge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2fd996" stop-opacity="0.2"/><stop offset="1" stop-color="#7dffd0"/>
+    </linearGradient>
+    <marker id="mbarrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0 0 L7 3 L0 6 Z" fill="#7dffd0"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="750" fill="url(#mbbg)"/>
+
+  <!-- eyebrow -->
+  <text x="120" y="120" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" letter-spacing="6" fill="#5f8c79">MATRIX&#160;BIOS&#160;&#183;&#160;GOVERNED&#160;MEMORY</text>
+
+  <!-- LEFT: candidate memories -->
+  <text x="120" y="250" font-family="Georgia, serif" font-style="italic" font-size="22" fill="#5f8c79">candidate memories</text>
+  <!-- trusted memories (teal) -->
+  <g>
+    <circle cx="170" cy="320" r="13" fill="#2fd996"/>
+    <circle cx="235" cy="395" r="11" fill="#2fd996" opacity="0.9"/>
+    <circle cx="160" cy="470" r="12" fill="#2fd996" opacity="0.85"/>
+    <circle cx="250" cy="520" r="10" fill="#2fd996" opacity="0.8"/>
+  </g>
+  <!-- the poisoned memory: larger/brighter = "more similar", but red = untrusted -->
+  <circle cx="205" cy="600" r="17" fill="#e0606a"/>
+  <circle cx="205" cy="600" r="27" fill="none" stroke="#e0606a" stroke-width="1.5" opacity="0.5"/>
+  <text x="240" y="606" font-family="Georgia, serif" font-style="italic" font-size="18" fill="#b8666c">plausible · poisoned</text>
+
+  <!-- flow lines toward the gate -->
+  <g fill="none" stroke="url(#mbedge)" stroke-width="2.4">
+    <path d="M183 320 C 330 330, 430 350, 528 372" marker-end="url(#mbarrow)"/>
+    <path d="M246 395 C 360 388, 440 382, 528 384" marker-end="url(#mbarrow)"/>
+    <path d="M172 470 C 320 452, 430 420, 528 398" marker-end="url(#mbarrow)"/>
+    <path d="M260 520 C 370 480, 440 430, 528 408" marker-end="url(#mbarrow)"/>
+  </g>
+  <!-- poisoned path: blocked at the gate -->
+  <path d="M222 600 C 360 560, 450 470, 520 420" fill="none" stroke="#e0606a" stroke-width="2.4" stroke-dasharray="7 7" opacity="0.8"/>
+
+  <!-- CENTER: the governance gate (hexagon + halo + check) -->
+  <circle cx="600" cy="392" r="120" fill="url(#mbhalo)" opacity="0.5"/>
+  <polygon points="600,290 690,341 690,443 600,494 510,443 510,341" fill="#07150f" stroke="#2fd996" stroke-width="2.5"/>
+  <polygon points="600,312 671,352 671,432 600,472 529,432 529,352" fill="none" stroke="#0a7d4f" stroke-width="1.4" opacity="0.7"/>
+  <!-- check / authorize glyph -->
+  <path d="M567 392 L592 418 L638 362" fill="none" stroke="#7dffd0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="540" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#7dffd0" text-anchor="middle">G(c) gate</text>
+  <text x="600" y="568" font-family="Georgia, serif" font-style="italic" font-size="18" fill="#5f8c79" text-anchor="middle">policy &#183; trust &#183; evidence</text>
+
+  <!-- block marker where the poisoned path meets the gate -->
+  <circle cx="516" cy="424" r="16" fill="#07150f" stroke="#e0606a" stroke-width="2.5"/>
+  <path d="M509 417 L523 431 M523 417 L509 431" stroke="#e0606a" stroke-width="2.6" stroke-linecap="round"/>
+
+  <!-- RIGHT: authorized action + evidence -->
+  <g fill="none" stroke="#7dffd0" stroke-width="2.6">
+    <path d="M692 392 C 800 392, 860 392, 940 392" marker-end="url(#mbarrow)"/>
+  </g>
+  <circle cx="1000" cy="392" r="40" fill="url(#mbhalo)" opacity="0.45"/>
+  <circle cx="1000" cy="392" r="22" fill="#7dffd0"/>
+  <text x="1000" y="465" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#cfe9dc" text-anchor="middle">action</text>
+
+  <!-- evidence ledger trail under the gate->action edge -->
+  <g stroke="#2fd996" stroke-width="1.6" opacity="0.55">
+    <line x1="720" y1="440" x2="780" y2="440"/>
+    <line x1="720" y1="458" x2="900" y2="458"/>
+    <line x1="720" y1="476" x2="840" y2="476"/>
+  </g>
+  <text x="720" y="512" font-family="Georgia, serif" font-style="italic" font-size="17" fill="#5f8c79">+ evidence bundle</text>
+
+  <!-- footer thesis -->
+  <text x="600" y="690" font-family="Georgia, serif" font-style="italic" font-size="26" fill="#9fc7b4" text-anchor="middle">remember under governance</text>
+</svg>

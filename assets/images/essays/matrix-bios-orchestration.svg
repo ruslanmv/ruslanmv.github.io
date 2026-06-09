@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 320" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <style>
+      .box{fill:#f8fafc;stroke:#334155;stroke-width:1.5;rx:10;}
+      .t{fill:#0f172a;font-size:15px;font-weight:600;}
+      .s{fill:#64748b;font-size:11px;}
+      .lane{fill:#0f172a;}
+      .flow{stroke:#94a3b8;stroke-width:2;fill:none;marker-end:url(#arrow);}
+      .orch{stroke:#cbd5e1;stroke-width:1.2;stroke-dasharray:3 4;fill:none;}
+    </style>
+  </defs>
+
+  <text x="460" y="30" text-anchor="middle" class="t" font-size="17">Matrix&#160;BIOS &#183; Governed Orchestration on Matrix&#160;OS</text>
+
+  <!-- connecting flows -->
+  <path id="f1" class="flow" d="M150,118 L188,118"/>
+  <path id="f2" class="flow" d="M342,118 L378,118"/>
+  <path id="f3" class="flow" d="M532,118 L568,118"/>
+  <path id="f4" class="flow" d="M722,118 L758,118"/>
+
+  <!-- pipeline boxes -->
+  <g>
+    <rect class="box" x="20"  y="92" width="130" height="56" rx="10"/>
+    <text x="85"  y="116" text-anchor="middle" class="t">Input</text>
+    <text x="85"  y="134" text-anchor="middle" class="s">query / action</text>
+  </g>
+  <g>
+    <rect class="box" x="212" y="92" width="130" height="56" rx="10" stroke="#d97706"/>
+    <text x="277" y="116" text-anchor="middle" class="t">Sentinel</text>
+    <text x="277" y="134" text-anchor="middle" class="s">content safety</text>
+  </g>
+  <g>
+    <rect class="box" x="402" y="92" width="130" height="56" rx="10" stroke="#2563eb"/>
+    <text x="467" y="116" text-anchor="middle" class="t">Memory</text>
+    <text x="467" y="134" text-anchor="middle" class="s">grounded + cited recall</text>
+  </g>
+  <g>
+    <rect class="box" x="592" y="92" width="130" height="56" rx="10" stroke="#16a34a" stroke-width="2.4">
+      <animate attributeName="stroke-opacity" values="1;0.35;1" dur="2.2s" repeatCount="indefinite"/>
+    </rect>
+    <text x="657" y="116" text-anchor="middle" class="t">Guardian</text>
+    <text x="657" y="134" text-anchor="middle" class="s">policy gate G(c)</text>
+  </g>
+  <g>
+    <rect class="box" x="782" y="92" width="120" height="56" rx="10"/>
+    <text x="842" y="116" text-anchor="middle" class="t">Action</text>
+    <text x="842" y="134" text-anchor="middle" class="s">+ evidence</text>
+  </g>
+
+  <!-- deny / quarantine branch from Guardian -->
+  <path class="flow" d="M657,148 L657,182" stroke="#dc2626"/>
+  <rect x="582" y="184" width="150" height="30" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.3"/>
+  <text x="657" y="204" text-anchor="middle" fill="#b91c1c" font-size="12" font-weight="600">deny / quarantine</text>
+  <circle cx="570" cy="199" r="4" fill="#dc2626">
+    <animate attributeName="opacity" values="1;0.2;1" dur="1.1s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- moving packets along the pipeline -->
+  <circle r="5" fill="#0ea5e9"><animateMotion dur="3.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1"
+      path="M85,118 L150,118 M188,118 L277,118 M342,118 L467,118 M378,118 L657,118 M568,118 L842,118"/></circle>
+  <circle r="5" fill="#22c55e"><animateMotion dur="3.6s" begin="1.2s" repeatCount="indefinite"
+      path="M85,118 L842,118"/></circle>
+  <circle r="5" fill="#f59e0b"><animateMotion dur="3.6s" begin="2.4s" repeatCount="indefinite"
+      path="M85,118 L842,118"/></circle>
+
+  <!-- Matrix OS orchestration lane -->
+  <rect x="20" y="250" width="882" height="48" rx="12" fill="#0f172a"/>
+  <text x="461" y="279" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="600">
+    Matrix&#160;OS&#160;kernel&#160;&#160;&#183;&#160;&#160;Observe&#160;&#8594;&#160;Plan&#160;&#8594;&#160;Govern&#160;&#8594;&#160;Execute&#160;&#8594;&#160;Verify&#160;&#8594;&#160;Record&#160;&#8594;&#160;Learn</text>
+  <!-- orchestration links down to the lane -->
+  <path class="orch" d="M85,148 L85,250"/>
+  <path class="orch" d="M277,148 L277,250"/>
+  <path class="orch" d="M467,148 L467,250"/>
+  <path class="orch" d="M657,214 L657,250"/>
+  <path class="orch" d="M842,148 L842,250"/>
+</svg>

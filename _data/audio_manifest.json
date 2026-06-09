@@ -47,6 +47,19 @@
     "updated_at": "2026-06-06T11:13:15Z",
     "voice": "kokoro-am_michael"
   },
+  "matrix-bios": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/matrix-bios.mp3?v=45489de0",
+    "bytes": 13133997,
+    "content_hash": "sha256-45489de093bd92777f61ce6ce07bf4db6fb9dcf1688a92b2c7e40234b133c197",
+    "duration": "9:07",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2026/matrix-bios.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2026-06-09-introducing-matrix-bios.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-09T19:01:51Z",
+    "voice": "kokoro-am_michael"
+  },
   "matrix-context": {
     "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/matrix-context.mp3?v=2cd512bc",
     "content_hash": "sha256-2cd512bcca3f515633621354ba4674672118352b8893ec10c2fb18c6d0803584",
