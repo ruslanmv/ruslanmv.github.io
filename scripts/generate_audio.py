@@ -599,10 +599,19 @@ def probe_duration(path: Path) -> str:
         return ""
 
 
-def manifest_entry(object_key: str, source_path, h: str, duration: str, mode: str) -> dict:
+def file_size_bytes(path: Path) -> int | None:
+    """Size of an MP3 in bytes (for the podcast feed's <enclosure length>)."""
+    try:
+        return path.stat().st_size
+    except OSError:
+        return None
+
+
+def manifest_entry(object_key: str, source_path, h: str, duration: str, mode: str,
+                   size_bytes: int | None = None) -> dict:
     # Cache-busting ?v=<hash> on the public URL (object key stays clean).
     version = h.split("-")[-1][:8]
-    return {
+    entry = {
         "audio_url": f"{R2_PUBLIC_BASE_URL}/{object_key}?v={version}",
         "object_key": object_key,
         "source_path": str(source_path),
@@ -614,6 +623,11 @@ def manifest_entry(object_key: str, source_path, h: str, duration: str, mode: st
         "selection": mode,
         "updated_at": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
     }
+    # `bytes` powers a correct RSS <enclosure length="…">; omitted if unknown so
+    # the feed falls back to a bitrate-based estimate.
+    if size_bytes is not None:
+        entry["bytes"] = size_bytes
+    return entry
 
 
 def discover_posts(paths: Iterable[str]) -> list[Path]:
@@ -820,7 +834,8 @@ def main(argv: list[str] | None = None) -> int:
                 # Keep the manifest complete even if its entry was missing/drifted
                 # (e.g. after a branch merge): index the existing audio, no TTS.
                 if not prior:
-                    manifest[slug] = manifest_entry(object_key, path, h, probe_duration(out_mp3), mode)
+                    manifest[slug] = manifest_entry(object_key, path, h, probe_duration(out_mp3), mode,
+                                                    size_bytes=file_size_bytes(out_mp3))
                     note = "  [indexed existing audio]"
                 print(f"up-to-date ({where}): {slug}{note}")
                 continue
@@ -832,7 +847,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"render: {slug} -> {out_mp3}")
         wav = synthesize(spoken, dry_run=args.dry_run)
         encode_mp3(wav, out_mp3)
-        manifest[slug] = manifest_entry(object_key, path, h, fmt_duration(len(wav)), mode)
+        manifest[slug] = manifest_entry(object_key, path, h, fmt_duration(len(wav)), mode,
+                                        size_bytes=file_size_bytes(out_mp3))
         rendered += 1
 
     if not args.check_tags:

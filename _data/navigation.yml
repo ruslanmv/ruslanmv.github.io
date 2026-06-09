@@ -43,6 +43,8 @@ main:
         url: /essays/
       - title: "Blog"
         url: /blog
+      - title: "Podcast"
+        url: /podcast/
       - title: "Guides"
         url: /guides/
 

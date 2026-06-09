@@ -23,6 +23,12 @@
 <meta name="robots" content="{{ page_robots }}">
 
 <link href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | relative_url }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
+<link href="{{ '/podcast.xml' | relative_url }}" type="application/rss+xml" rel="alternate" title="{{ site.data.podcast.title | default: 'Audio Essays' }}">
+
+{%- comment -%} Fediverse identity: verifies ruslanmv.com ↔ @ruslanmv@podcastindex.social
+   (Mastodon rel="me" website verification) and credits the author on shares. {%- endcomment -%}
+<link href="https://podcastindex.social/@ruslanmv" rel="me">
+<meta name="fediverse:creator" content="@ruslanmv@podcastindex.social">
 
 <!-- http://t.co/dKP3o1e -->
 <meta name="HandheldFriendly" content="True">
