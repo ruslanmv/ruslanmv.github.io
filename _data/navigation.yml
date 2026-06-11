@@ -43,6 +43,8 @@ main:
         url: /essays/
       - title: "Blog"
         url: /blog
+      - title: "Daily AI Blog"
+        url: /Best-of-the-Best/blog/
       - title: "Podcast"
         url: /podcast/
       - title: "Guides"
@@ -101,6 +103,9 @@ burger:
     indent: true
   - title: "Blog"
     url: /blog
+    indent: true
+  - title: "Daily AI Blog"
+    url: /Best-of-the-Best/blog/
     indent: true
   - title: "Guides"
     url: /guides/
