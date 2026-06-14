@@ -14,9 +14,6 @@ tags:
   - ai-coding
   - cli
   - claude-code
-toc: true
-toc_label: "On this page"
-toc_sticky: true
 ---
 
 AI writes code in seconds — then promptly forgets the rules, wanders off your architecture, and quietly edits files it shouldn't touch. We've all been there: a single loose prompt turns a clean codebase into an un-reviewable, 400-line diff nightmare.
@@ -146,13 +143,16 @@ The tiny model even abided by the contract's stop condition, ending its raw stre
 
 ## Why this matters: from "prompting" to "engineering"
 
-| | Prompt-and-pray AI coding | Contract-driven engineering (`mb`) |
-| --- | --- | --- |
-| **Blast radius** | Can modify, corrupt, or hallucinate any file in the repo | Strictly bound to declared files; forbidden edits drop out immediately |
-| **Auditability** | Lost in shell history or an ephemeral chat tab | Immutable **Matrix Commits** pinning prompt, diff, and compliance score |
-| **CI compatibility** | Subjective; hard to automate | **Fail-closed** binary exit codes built for deployment gates |
-| **Vendor lock-in** | Tied to a specific tool's workspace | Fully model-agnostic — free local LLMs or frontier APIs, same contract |
-| **Reproducibility** | Same prompt, different result each run | Deterministic — same idea replays into the same controlled build |
+
+
+![comparison](/assets/images/posts/2026-06-14-matrix-builder-cli/comparisons.jpg)
+
+As shown in the comparison above, the difference between these two worlds isn't just a matter of syntax—it's a fundamental shift in operational philosophy.
+
+Ultimately, moving from "prompting" to "engineering" means trading chaos for control. By forcing the AI to work within a strict execution boundary, Matrix Builder stops treating LLMs like unpredictable wizards and starts treating them like deterministic compilation engines.
+
+The bottom line: You keep the raw speed of AI generation, but you reclaim the safety, auditability, and peace of mind that production-grade software demands. It allows you to scale your output without scaling your technical debt.
+
 
 ---
 
@@ -169,8 +169,8 @@ pip install agent-generator
 mb init "your idea here" --quality standard
 ```
 
-* 🌐 **Docs:** [agent-matrix.github.io/matrix-builder](https://agent-matrix.github.io/matrix-builder/site/)
-* 💻 **Repo:** [agent-matrix/matrix-builder](https://github.com/agent-matrix/matrix-builder)
-* ⚙️ **Core engine:** [ruslanmv/agent-generator](https://github.com/ruslanmv/agent-generator)
+*  **Docs:** [agent-matrix.github.io/matrix-builder](https://agent-matrix.github.io/matrix-builder/site/)
+*  **Repo:** [agent-matrix/matrix-builder](https://github.com/agent-matrix/matrix-builder)
+*  **Core engine:** [ruslanmv/agent-generator](https://github.com/ruslanmv/agent-generator)
 
 *If deterministic AI development matches your philosophy, drop a ⭐ on the repo — it goes a long way. And tell me in the comments: which AI coder are you locking into a contract first?*
