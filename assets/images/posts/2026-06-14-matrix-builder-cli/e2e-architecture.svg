@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 600" width="1500" height="600" role="img" aria-label="End-to-end routing: idea to validated Matrix Commit via mb and an OllaBridge cloud LLM" font-family="'Segoe UI',Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="e-ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0L7 3L0 6Z" fill="#53f39d"/></marker>
+    <marker id="e-cl" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0L7 3L0 6Z" fill="#67d4ff"/></marker>
+    <marker id="e-am" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0L7 3L0 6Z" fill="#f0c44e"/></marker>
+  </defs>
+  <rect x="1" y="1" width="1498" height="598" rx="22" fill="#04140c" stroke="#163a28"/>
+
+  <text x="50" y="56" font-family="Georgia,'Times New Roman',serif" font-size="32" font-weight="600" fill="#f7fff9">How the demo runs end-to-end</text>
+  <text x="50" y="86" font-size="15.5" fill="#8fb2a2">Everything runs on your machine, offline and deterministic — except one step (the AI implementation), which routes to the cloud.</text>
+
+  <!-- CLOUD box (the only off-machine step) -->
+  <rect x="455" y="118" width="380" height="108" rx="16" fill="#06222e" stroke="#67d4ff" stroke-width="1.6"/>
+  <text x="645" y="150" text-anchor="middle" font-size="15.5" font-weight="700" fill="#bfeeff">☁  OllaBridge cloud — free LLM</text>
+  <text x="645" y="174" text-anchor="middle" font-size="13" fill="#8fc7d8">qwen2.5:1.5b · the AI implements the batch</text>
+  <text x="645" y="200" text-anchor="middle" font-size="11.5" fill="#5e93a3">test tier today → pair a larger model for production (next post)</text>
+
+  <!-- baseline boxes (your machine) -->
+  <g>
+    <rect x="50"   y="372" width="150" height="86" rx="13" fill="#0a2417" stroke="#1f5238"/>
+    <text x="125" y="410" text-anchor="middle" font-size="14.5" font-weight="700" fill="#f7fff9">Your idea</text>
+    <text x="125" y="431" text-anchor="middle" font-size="11.5" fill="#8fb2a2">plain English</text>
+
+    <rect x="258"  y="372" width="150" height="86" rx="13" fill="#0a2417" stroke="#1f5238"/>
+    <text x="333" y="404" text-anchor="middle" font-size="14.5" font-weight="700" fill="#f7fff9">Blueprint + Batch</text>
+    <text x="333" y="424" text-anchor="middle" font-size="11.5" fill="#8fb2a2">mb init · mb next</text>
+    <text x="333" y="441" text-anchor="middle" font-size="11" fill="#6f9a86">allowed files locked</text>
+
+    <rect x="466"  y="372" width="150" height="86" rx="13" fill="#0a2417" stroke="#1f5238"/>
+    <text x="541" y="410" text-anchor="middle" font-size="14.5" font-weight="700" fill="#f7fff9">Prompt</text>
+    <text x="541" y="431" text-anchor="middle" font-size="11.5" fill="#8fb2a2">mb prompt · contract</text>
+
+    <rect x="674"  y="372" width="150" height="86" rx="13" fill="#0a2417" stroke="#1f5238"/>
+    <text x="749" y="410" text-anchor="middle" font-size="14.5" font-weight="700" fill="#f7fff9">Files</text>
+    <text x="749" y="431" text-anchor="middle" font-size="11.5" fill="#8fb2a2">allowed only</text>
+
+    <rect x="882"  y="372" width="150" height="86" rx="13" fill="#0a2417" stroke="#1f5238"/>
+    <text x="957" y="410" text-anchor="middle" font-size="14.5" font-weight="700" fill="#f7fff9">Validate</text>
+    <text x="957" y="431" text-anchor="middle" font-size="11.5" fill="#8fb2a2">mb check · fail-closed</text>
+
+    <rect x="1090" y="372" width="150" height="86" rx="13" fill="#103a26" stroke="#53f39d" stroke-width="1.6"/>
+    <text x="1165" y="404" text-anchor="middle" font-size="14.5" font-weight="700" fill="#eafff4">Matrix Commit</text>
+    <text x="1165" y="424" text-anchor="middle" font-size="11.5" fill="#7dffb5">immutable</text>
+    <text x="1165" y="441" text-anchor="middle" font-size="11.5" fill="#7dffb5">#001 · #002 …</text>
+
+    <rect x="1298" y="372" width="150" height="86" rx="13" fill="#0a2417" stroke="#2f7d52"/>
+    <text x="1373" y="410" text-anchor="middle" font-size="14.5" font-weight="700" fill="#f7fff9">Page</text>
+    <text x="1373" y="431" text-anchor="middle" font-size="11.5" fill="#8fb2a2">the artifact</text>
+  </g>
+
+  <!-- baseline arrows -->
+  <line x1="200"  y1="415" x2="254"  y2="415" stroke="#53f39d" stroke-width="2" marker-end="url(#e-ar)"/>
+  <line x1="408"  y1="415" x2="462"  y2="415" stroke="#53f39d" stroke-width="2" marker-end="url(#e-ar)"/>
+  <line x1="824"  y1="415" x2="878"  y2="415" stroke="#53f39d" stroke-width="2" marker-end="url(#e-ar)"/>
+  <line x1="1032" y1="415" x2="1086" y2="415" stroke="#53f39d" stroke-width="2" marker-end="url(#e-ar)"/>
+  <text x="1059" y="405" text-anchor="middle" font-size="10.5" font-weight="700" fill="#53f39d">approved ✓</text>
+  <line x1="1240" y1="415" x2="1294" y2="415" stroke="#53f39d" stroke-width="2" marker-end="url(#e-ar)"/>
+
+  <!-- detour to the cloud and back (the only off-machine hop) -->
+  <path d="M541 372 C541 300, 560 250, 575 230" fill="none" stroke="#67d4ff" stroke-width="2" marker-end="url(#e-cl)"/>
+  <text x="470" y="300" text-anchor="middle" font-size="11" font-weight="700" fill="#67d4ff">contract prompt →</text>
+  <path d="M715 230 C730 250, 749 300, 749 368" fill="none" stroke="#67d4ff" stroke-width="2" marker-end="url(#e-cl)"/>
+  <text x="828" y="300" text-anchor="middle" font-size="11" font-weight="700" fill="#67d4ff">← generated files</text>
+
+  <!-- feedback: rejected → repair -->
+  <path d="M957 458 V508 H541 V462" fill="none" stroke="#f0c44e" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#e-am)"/>
+  <text x="749" y="502" text-anchor="middle" font-size="11.5" font-weight="700" fill="#f0c44e">rejected → mb repair (scoped fix)</text>
+
+  <!-- governance footer -->
+  <rect x="50" y="540" width="1400" height="40" rx="12" fill="rgba(34,200,120,0.07)" stroke="#1f5238"/>
+  <text x="750" y="565" text-anchor="middle" font-size="13" fill="#a7c9b8">🛡  Governed by the <tspan fill="#53f39d" font-weight="700">Ruslan Magana Definitions</tspan> — locked standards · allowed-files only · fail-closed validation · every accepted change pinned forever</text>
+</svg>
