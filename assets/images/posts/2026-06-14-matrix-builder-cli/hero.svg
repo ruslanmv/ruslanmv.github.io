@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" width="1600" height="600" role="img" aria-label="Matrix Builder — Git for AI" font-family="Georgia,'Times New Roman',serif">
+  <defs>
+    <radialGradient id="mbg" cx="0.78" cy="0.1" r="1.0">
+      <stop offset="0" stop-color="#0a3a24"/>
+      <stop offset="0.45" stop-color="#04190f"/>
+      <stop offset="1" stop-color="#010d08"/>
+    </radialGradient>
+    <marker id="hb-ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0 0L7 3L0 6Z" fill="#53f39d"/></marker>
+  </defs>
+  <rect width="1600" height="600" fill="url(#mbg)"/>
+  <!-- subtle grid -->
+  <g opacity="0.5">
+    <rect width="1600" height="600" fill="none"/>
+  </g>
+
+  <!-- diamond mark -->
+  <g transform="translate(120,118)">
+    <rect x="0" y="0" width="44" height="44" rx="3" transform="rotate(45 22 22)" fill="none" stroke="#22c878" stroke-width="2.5"/>
+    <rect x="14" y="14" width="16" height="16" transform="rotate(45 22 22)" fill="none" stroke="#53f39d" stroke-width="3"/>
+  </g>
+  <text x="184" y="150" font-size="30" font-weight="600" fill="#f7fff9">Matrix Builder</text>
+
+  <text x="118" y="290" font-size="118" font-weight="600" fill="#f7fff9" letter-spacing="-3">Git for <tspan font-style="italic" fill="#53f39d">AI</tspan>.</text>
+  <text x="122" y="356" font-size="30" fill="#a7c9b8" font-family="'Segoe UI',Helvetica,Arial,sans-serif">Give AI coders a contract, not a prompt.</text>
+
+  <!-- terminal card -->
+  <g transform="translate(118,410)" font-family="'JetBrains Mono',Consolas,monospace">
+    <rect x="0" y="0" width="1364" height="150" rx="16" fill="rgba(1,14,9,0.82)" stroke="#1f5238"/>
+    <circle cx="26" cy="26" r="6" fill="#ff5f57"/><circle cx="48" cy="26" r="6" fill="#febc2e"/><circle cx="70" cy="26" r="6" fill="#28c840"/>
+    <text x="26" y="74" font-size="22" fill="#cfe6da"><tspan fill="#53f39d" font-weight="600">$ mb</tspan> init "A GitHub repo intelligence agent" --quality standard</text>
+    <text x="26" y="108" font-size="22" fill="#cfe6da"><tspan fill="#53f39d" font-weight="600">$ mb</tspan> check backend/app/api/routes.py</text>
+    <text x="26" y="134" font-size="20" fill="#7dffb5">MATRIX_STATUS: approved  ·  committed mc-454fa2735cd7</text>
+  </g>
+</svg>
