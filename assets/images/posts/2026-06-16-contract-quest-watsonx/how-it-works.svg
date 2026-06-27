@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 900" width="1240" height="900" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="-10%" r="120%">
+      <stop offset="0%" stop-color="#16162e"/><stop offset="60%" stop-color="#0c0b1c"/><stop offset="100%" stop-color="#07060f"/>
+    </radialGradient>
+    <filter id="g" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5fd5ff"/></marker>
+    <marker id="arrL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ffb000"/></marker>
+  </defs>
+  <rect width="1240" height="900" fill="url(#bg)"/>
+
+  <text x="620" y="52" text-anchor="middle" fill="#00f0ff" font-size="32" font-weight="800" letter-spacing="1" filter="url(#g)">How it works — Matrix Builder × GitPilot × watsonx</text>
+  <text x="620" y="84" text-anchor="middle" fill="#9a9ac4" font-size="17">An AI writes the code — inside a contract it cannot exceed, validated before it can land.</text>
+
+  <!-- pipeline nodes -->
+  <g font-size="15" text-anchor="middle">
+    <!-- 1 IDEA -->
+    <rect x="40" y="150" width="200" height="110" rx="14" fill="#171733" stroke="#ffffff" stroke-opacity="0.25"/>
+    <text x="140" y="190" fill="#e8e8ff" font-weight="700" font-size="17">💡 Idea</text>
+    <text x="140" y="218" fill="#b9b9e6" font-size="13">“build a neon</text>
+    <text x="140" y="236" fill="#b9b9e6" font-size="13">Tetris game”</text>
+
+    <!-- 2 mb -->
+    <rect x="280" y="150" width="200" height="110" rx="14" fill="#2a210a" stroke="#ffb000" stroke-opacity="0.8" filter="url(#g)"/>
+    <text x="380" y="184" fill="#ffd97a" font-weight="700" font-size="15">mb init · next · prompt</text>
+    <text x="380" y="210" fill="#ffe6ad" font-size="12.5">locked blueprint +</text>
+    <text x="380" y="228" fill="#ffe6ad" font-size="12.5">allow-list + acceptance</text>
+    <text x="380" y="246" fill="#ffe6ad" font-size="12.5">→ contract prompt</text>
+
+    <!-- 3 GitPilot+Claude -->
+    <rect x="520" y="150" width="200" height="110" rx="14" fill="#211633" stroke="#8A63D2" stroke-opacity="0.9" filter="url(#g)"/>
+    <text x="620" y="182" fill="#c6abff" font-weight="700" font-size="15">GitPilot + gpt-oss</text>
+    <text x="620" y="202" fill="#c6abff" font-weight="700" font-size="15">120b · watsonx</text>
+    <text x="620" y="228" fill="#ddd0ff" font-size="12.5">writes ONLY the</text>
+    <text x="620" y="246" fill="#ddd0ff" font-size="12.5">allowed file</text>
+
+    <!-- 4 mb check -->
+    <rect x="760" y="150" width="200" height="110" rx="14" fill="#0c2a0c" stroke="#21e600" stroke-opacity="0.8" filter="url(#g)"/>
+    <text x="860" y="186" fill="#8cff70" font-weight="700" font-size="16">mb check</text>
+    <text x="860" y="212" fill="#c0ffb0" font-size="12.5">validate vs contract</text>
+    <text x="860" y="230" fill="#c0ffb0" font-size="12.5">fail-closed</text>
+    <text x="860" y="248" fill="#c0ffb0" font-size="12.5">(0 / 1 / 2 exit)</text>
+
+    <!-- 5 commit -->
+    <rect x="1000" y="150" width="200" height="110" rx="14" fill="#06262e" stroke="#00f0ff" stroke-opacity="0.8" filter="url(#g)"/>
+    <text x="1100" y="186" fill="#7fefff" font-weight="700" font-size="15">Matrix Commit</text>
+    <text x="1100" y="212" fill="#bdf6ff" font-size="12.5">immutable, signed</text>
+    <text x="1100" y="230" fill="#bdf6ff" font-size="12.5">checkpoint pins prompt</text>
+    <text x="1100" y="248" fill="#bdf6ff" font-size="12.5">+ diff + verdict</text>
+  </g>
+
+  <!-- arrows between nodes -->
+  <g stroke="#5fd5ff" stroke-width="2.5" marker-end="url(#arr)" fill="none">
+    <line x1="242" y1="205" x2="276" y2="205"/>
+    <line x1="482" y1="205" x2="516" y2="205"/>
+    <line x1="722" y1="205" x2="756" y2="205"/>
+    <line x1="962" y1="205" x2="996" y2="205"/>
+  </g>
+
+  <!-- loop back: commit -> mb (repeat per batch) -->
+  <path d="M1100 260 C1100 330, 380 330, 380 264" stroke="#ffb000" stroke-width="2.5" fill="none" marker-end="url(#arrL)" stroke-dasharray="7 5"/>
+  <text x="740" y="322" text-anchor="middle" fill="#ffb000" font-size="14" font-weight="700">repeat per batch — 6 batches built Contract Quest</text>
+
+  <!-- mb check outcomes -->
+  <g font-size="13" text-anchor="middle">
+    <rect x="600" y="372" width="180" height="34" rx="17" fill="#0c2a0c" stroke="#21e600" stroke-opacity="0.7"/>
+    <text x="690" y="394" fill="#8cff70">✓ approved → commit</text>
+    <rect x="800" y="372" width="190" height="34" rx="17" fill="#2a210a" stroke="#ffb000" stroke-opacity="0.7"/>
+    <text x="895" y="394" fill="#ffd97a">⟳ needs-repair → mb repair</text>
+    <rect x="1010" y="372" width="170" height="34" rx="17" fill="#2a0c0c" stroke="#ff4d4d" stroke-opacity="0.7"/>
+    <text x="1095" y="394" fill="#ff9d9d">✗ rejected → blocked</text>
+  </g>
+  <text x="430" y="394" text-anchor="middle" fill="#7d7da6" font-size="13">mb check verdict →</text>
+
+  <!-- advantages panel -->
+  <rect x="40" y="448" width="1160" height="412" rx="18" fill="#10101f" stroke="#00f0ff" stroke-opacity="0.25"/>
+  <text x="70" y="498" fill="#00f0ff" font-size="24" font-weight="800">Why Matrix Builder (mb)?</text>
+  <text x="70" y="526" fill="#9a9ac4" font-size="15">Turning AI coding from "prompting" into "engineering" — speed you keep, control you reclaim.</text>
+
+  <g font-size="16">
+    <!-- left column -->
+    <g transform="translate(70,560)">
+      <g><text x="0" y="0" fill="#21e600" font-weight="800">✓</text><text x="26" y="0" fill="#e8e8ff" font-weight="700">A contract, not a prompt</text><text x="26" y="22" fill="#9a9ac4" font-size="13.5">a locked blueprint + pinned standards, not a guess</text></g>
+      <g transform="translate(0,66)"><text x="0" y="0" fill="#21e600" font-weight="800">✓</text><text x="26" y="0" fill="#e8e8ff" font-weight="700">Allow-list scope control</text><text x="26" y="22" fill="#9a9ac4" font-size="13.5">the AI may edit only the files you permit</text></g>
+      <g transform="translate(0,132)"><text x="0" y="0" fill="#21e600" font-weight="800">✓</text><text x="26" y="0" fill="#e8e8ff" font-weight="700">Fail-closed validation</text><text x="26" y="22" fill="#9a9ac4" font-size="13.5">approved / needs-repair / rejected — exit 0 / 1 / 2</text></g>
+      <g transform="translate(0,198)"><text x="0" y="0" fill="#21e600" font-weight="800">✓</text><text x="26" y="0" fill="#e8e8ff" font-weight="700">Immutable Matrix Commits</text><text x="26" y="22" fill="#9a9ac4" font-size="13.5">a full audit trail: prompt + diff + verdict, pinned</text></g>
+    </g>
+    <!-- right column -->
+    <g transform="translate(640,560)">
+      <g><text x="0" y="0" fill="#21e600" font-weight="800">✓</text><text x="26" y="0" fill="#e8e8ff" font-weight="700">Standards baked in</text><text x="26" y="22" fill="#9a9ac4" font-size="13.5">NIST SSDF, OWASP Top 10 + LLM Top 10, SLSA</text></g>
+      <g transform="translate(0,66)"><text x="0" y="0" fill="#21e600" font-weight="800">✓</text><text x="26" y="0" fill="#e8e8ff" font-weight="700">Provider-agnostic</text><text x="26" y="22" fill="#9a9ac4" font-size="13.5">Claude, OpenAI, Watsonx, Ollama — swap freely</text></g>
+      <g transform="translate(0,132)"><text x="0" y="0" fill="#21e600" font-weight="800">✓</text><text x="26" y="0" fill="#e8e8ff" font-weight="700">CI-gateable</text><text x="26" y="22" fill="#9a9ac4" font-size="13.5">drop `mb check` into GitHub Actions to block rogue edits</text></g>
+      <g transform="translate(0,198)"><text x="0" y="0" fill="#21e600" font-weight="800">✓</text><text x="26" y="0" fill="#e8e8ff" font-weight="700">Offline &amp; deterministic</text><text x="26" y="22" fill="#9a9ac4" font-size="13.5">the governance layer never leaves your machine</text></g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="'Courier New',monospace">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="-10%" r="120%">
+      <stop offset="0%" stop-color="#0d1830"/>
+      <stop offset="60%" stop-color="#05060a"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="120" width="1060" height="400" rx="16" fill="#0b0f16" stroke="#39ff14" stroke-opacity="0.28"/>
+  <g fill="#39ff14" fill-opacity="0.18">
+    <rect x="598" y="135" width="4" height="22"/><rect x="598" y="170" width="4" height="22"/>
+    <rect x="598" y="205" width="4" height="22"/><rect x="598" y="240" width="4" height="22"/>
+    <rect x="598" y="275" width="4" height="22"/><rect x="598" y="310" width="4" height="22"/>
+    <rect x="598" y="345" width="4" height="22"/><rect x="598" y="380" width="4" height="22"/>
+    <rect x="598" y="415" width="4" height="22"/><rect x="598" y="450" width="4" height="22"/>
+    <rect x="598" y="485" width="4" height="22"/>
+  </g>
+  <g fill="#e8fff4" font-weight="bold" font-size="78" text-anchor="middle" opacity="0.92">
+    <text x="370" y="205">11</text>
+    <text x="830" y="205">9</text>
+  </g>
+  <g fill="#39ff14" filter="url(#glow)">
+    <rect x="104" y="250" width="14" height="120" rx="3"/>
+    <rect x="1082" y="300" width="14" height="120" rx="3"/>
+    <circle cx="700" cy="330" r="11"/>
+  </g>
+  <g fill="#39ff14" opacity="0.25">
+    <circle cx="660" cy="312" r="8"/><circle cx="624" cy="296" r="6"/><circle cx="592" cy="282" r="4"/>
+  </g>
+
+  <text x="600" y="80" text-anchor="middle" fill="#39ff14" font-size="58" font-weight="bold"
+        letter-spacing="14" filter="url(#glow)">PONG — UNDER CONTRACT</text>
+
+  <text x="600" y="560" text-anchor="middle" fill="#8fb7a6" font-size="21" letter-spacing="3">
+    actually coded by <tspan fill="#8A63D2" font-weight="bold">Claude Opus 4.8</tspan>
+    <tspan fill="#8fb7a6"> · driven by </tspan><tspan fill="#D95C3D">GitPilot</tspan>
+    <tspan fill="#8fb7a6"> · under a </tspan><tspan fill="#ffb000">Matrix Builder</tspan><tspan fill="#8fb7a6"> contract</tspan>
+  </text>
+
+  <g transform="translate(600,602)">
+    <rect x="-205" y="-18" width="410" height="30" rx="15" fill="#04210a" stroke="#39ff14" stroke-opacity="0.6"/>
+    <text x="0" y="3" text-anchor="middle" fill="#39ff14" font-size="15" letter-spacing="2">MATRIX_STATUS: approved · score 100 · mc-f10362a26971</text>
+  </g>
+
+  <rect x="70" y="120" width="1060" height="400" rx="16" fill="url(#scan)" opacity="0.5"/>
+</svg>

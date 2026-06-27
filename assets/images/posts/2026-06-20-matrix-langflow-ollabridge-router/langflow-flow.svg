@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 300" font-family="Inter, Segoe UI, system-ui, sans-serif">
+  <defs>
+    <marker id="arr3" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#7cc0ff"/>
+    </marker>
+  </defs>
+  <rect width="920" height="300" rx="16" fill="#0d1626"/>
+  <text x="36" y="44" fill="#fff" font-size="20" font-weight="700">The agentic workflow, as nodes in LangFlow</text>
+  <text x="36" y="68" fill="#8fb0d6" font-size="13.5">Drag, connect, run. The Language Model node points at one URL — OllaBridge Cloud.</text>
+
+  <!-- nodes -->
+  <g font-size="12.5">
+    <rect x="36"  y="110" width="150" height="64" rx="10" fill="#15233a" stroke="#3b6fb0"/>
+    <text x="111" y="138" fill="#cfe0f2" text-anchor="middle" font-weight="600">Chat Input</text>
+    <text x="111" y="156" fill="#88a8cc" text-anchor="middle" font-size="10.5">user question</text>
+
+    <rect x="226" y="110" width="160" height="64" rx="10" fill="#15233a" stroke="#3b6fb0"/>
+    <text x="306" y="138" fill="#cfe0f2" text-anchor="middle" font-weight="600">Prompt</text>
+    <text x="306" y="156" fill="#88a8cc" text-anchor="middle" font-size="10.5">system + variables</text>
+
+    <rect x="426" y="96" width="190" height="92" rx="10" fill="#1a1326" stroke="#8A63D2"/>
+    <text x="521" y="126" fill="#c4a9ff" text-anchor="middle" font-weight="700">Language Model</text>
+    <text x="521" y="146" fill="#b9a6d8" text-anchor="middle" font-size="10.5">base_url = …/v1</text>
+    <text x="521" y="162" fill="#b9a6d8" text-anchor="middle" font-size="10.5">model = free-best</text>
+    <text x="521" y="178" fill="#7fae97" text-anchor="middle" font-size="10">OllaBridge Cloud</text>
+
+    <rect x="656" y="110" width="150" height="64" rx="10" fill="#15233a" stroke="#3b6fb0"/>
+    <text x="731" y="138" fill="#cfe0f2" text-anchor="middle" font-weight="600">Chat Output</text>
+    <text x="731" y="156" fill="#88a8cc" text-anchor="middle" font-size="10.5">answer</text>
+  </g>
+
+  <line x1="186" y1="142" x2="224" y2="142" stroke="#7cc0ff" stroke-width="2" marker-end="url(#arr3)"/>
+  <line x1="386" y1="142" x2="424" y2="142" stroke="#7cc0ff" stroke-width="2" marker-end="url(#arr3)"/>
+  <line x1="616" y1="142" x2="654" y2="142" stroke="#7cc0ff" stroke-width="2" marker-end="url(#arr3)"/>
+
+  <text x="36" y="250" fill="#6f8aac" font-size="12">No vendor lock-in: change the alias from <tspan fill="#c4a9ff">free-best</tspan> to <tspan fill="#c4a9ff">fable-5</tspan> or <tspan fill="#c4a9ff">local-private</tspan> — the flow never changes.</text>
+  <text x="36" y="272" fill="#6f8aac" font-size="12">Same endpoint powers your LangFlow workflow <tspan fill="#8fb0d6">and</tspan> the TypeScript frontend below.</text>
+</svg>

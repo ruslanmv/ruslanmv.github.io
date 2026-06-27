@@ -102,8 +102,14 @@ h3.archive__date {
   border-radius: $border-radius;
   position: absolute;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.35);
-  padding: 1rem 1rem 1rem 1rem;
+  /* Premium editorial scrim: a gradient that is transparent near the top and
+     deepens toward the base, so the post title stays legible over clean cover
+     art without a heavy flat band (text-free thumbnails do the rest). */
+  background: linear-gradient(to top,
+              rgba(0, 0, 0, 0.74) 0%,
+              rgba(0, 0, 0, 0.40) 55%,
+              rgba(0, 0, 0, 0.00) 100%);
+  padding: 2.1rem 1rem 1rem 1rem;
   margin-bottom: 8px;
   width:100%;
 }

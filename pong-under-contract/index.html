@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>PONG - UNDER CONTRACT</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(ellipse at top, #0d1830 0%, #05060a 80%);
+    font-family: 'Courier New', Courier, monospace;
+    color: #e8f8e8;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #wrap {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    gap: 12px;
+  }
+  #title {
+    color: #39ff14;
+    font-weight: bold;
+    letter-spacing: 0.25em;
+    font-size: clamp(16px, 3.4vw, 34px);
+    text-shadow:
+      0 0 6px #39ff14,
+      0 0 14px #39ff14,
+      0 0 28px rgba(57,255,20,0.7);
+    text-align: center;
+    user-select: none;
+  }
+  #stage {
+    position: relative;
+    width: min(96vw, calc((100vh - 150px) * 1.6));
+    aspect-ratio: 16 / 10;
+    border-radius: 18px;
+    border: 1px solid rgba(57,255,20,0.35);
+    box-shadow:
+      0 0 18px rgba(57,255,20,0.15),
+      inset 0 0 40px rgba(57,255,20,0.06),
+      inset 0 0 10px rgba(57,255,20,0.08);
+    background: rgba(3,8,14,0.55);
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #scanlines {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 0px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,0.16) 3px,
+      rgba(0,0,0,0.16) 4px
+    );
+    mix-blend-mode: multiply;
+    animation: flicker 4.5s infinite;
+    border-radius: 18px;
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 0.85; }
+    48% { opacity: 0.85; }
+    50% { opacity: 0.72; }
+    52% { opacity: 0.85; }
+    96% { opacity: 0.85; }
+    97% { opacity: 0.78; }
+  }
+  #overlay {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+    padding: 20px;
+  }
+  #overlay .big {
+    color: #39ff14;
+    font-weight: bold;
+    letter-spacing: 0.18em;
+    font-size: clamp(22px, 5vw, 52px);
+    text-shadow: 0 0 8px #39ff14, 0 0 20px rgba(57,255,20,0.7);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  #overlay .sub {
+    color: #cfe9cf;
+    letter-spacing: 0.12em;
+    font-size: clamp(11px, 2.2vw, 18px);
+    text-shadow: 0 0 6px rgba(57,255,20,0.4);
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+  #mute {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    z-index: 5;
+    pointer-events: auto;
+    background: rgba(57,255,20,0.08);
+    border: 1px solid rgba(57,255,20,0.4);
+    color: #39ff14;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-shadow: 0 0 6px rgba(57,255,20,0.6);
+  }
+  #footer {
+    font-size: clamp(9px, 1.7vw, 13px);
+    letter-spacing: 0.04em;
+    text-align: center;
+    color: #b8c4d0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 8px;
+    max-width: 96vw;
+  }
+  #footer .claude { color: #8A63D2; text-shadow: 0 0 6px rgba(138,99,210,0.6); }
+  #footer .pilot { color: #D95C3D; text-shadow: 0 0 6px rgba(217,92,61,0.6); }
+  #footer .matrix { color: #ffb000; text-shadow: 0 0 6px rgba(255,176,0,0.6); }
+  #pill {
+    display: inline-block;
+    border: 1px solid rgba(57,255,20,0.5);
+    color: #39ff14;
+    background: rgba(57,255,20,0.07);
+    border-radius: 999px;
+    padding: 3px 12px;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 6px rgba(57,255,20,0.7);
+    box-shadow: 0 0 10px rgba(57,255,20,0.15);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="title">PONG - UNDER CONTRACT</div>
+    <div id="stage">
+      <canvas id="game"></canvas>
+      <div id="scanlines"></div>
+      <button id="mute">SOUND: ON</button>
+      <div id="overlay">
+        <div class="big" id="ovBig">PONG</div>
+        <div class="sub" id="ovSub">PRESS SPACE / TAP TO START</div>
+        <div class="sub" style="opacity:0.7">W/S or &uarr;&darr; or mouse/touch &mdash; P to pause</div>
+      </div>
+    </div>
+    <div id="footer">
+      <span>coded by <span class="claude">Claude Opus 4.8</span> - driven by <span class="pilot">GitPilot</span> - under a <span class="matrix">Matrix Builder</span> contract</span>
+      <span id="pill">MATRIX_STATUS: approved - score 100</span>
+    </div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  var canvas = document.getElementById("game");
+  var ctx = canvas.getContext("2d");
+  var stage = document.getElementById("stage");
+  var overlay = document.getElementById("overlay");
+  var ovBig = document.getElementById("ovBig");
+  var ovSub = document.getElementById("ovSub");
+  var muteBtn = document.getElementById("mute");
+
+  // Logical playfield dimensions (16:10). All physics in these units.
+  var W = 1280, H = 800;
+
+  // Game state
+  var STATE = { START: 0, PLAY: 1, PAUSE: 2, OVER: 3 };
+  var state = STATE.START;
+
+  var WIN_SCORE = 11;
+  var NEON = "#39ff14";
+
+  var paddleW = 16, paddleH = 120;
+  var player = { x: 36, y: H / 2 - paddleH / 2, vy: 0, score: 0 };
+  var ai     = { x: W - 36 - paddleW, y: H / 2 - paddleH / 2, score: 0 };
+  var AI_MAX_SPEED = 7.6; // capped -> beatable
+
+  var ball = { x: W / 2, y: H / 2, vx: 0, vy: 0, r: 11, speed: 7 };
+  var BASE_SPEED = 7;
+  var MAX_SPEED = 16;
+  var winner = "";
+
+  // Input
+  var keys = {};
+  var mouseTarget = null;
+
+  // Audio
+  var audioOn = true;
+  var actx = null;
+
+  function ensureAudio() {
+    if (!actx) {
+      try {
+        actx = new (window.AudioContext || window.webkitAudioContext)();
+      } catch (e) { actx = null; }
+    }
+    if (actx && actx.state === "suspended") actx.resume();
+  }
+
+  function blip(freq, dur, type) {
+    if (!audioOn || !actx) return;
+    try {
+      var o = actx.createOscillator();
+      var g = actx.createGain();
+      o.type = type || "square";
+      o.frequency.value = freq;
+      g.gain.setValueAtTime(0.0001, actx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.12, actx.currentTime + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + dur);
+      o.connect(g); g.connect(actx.destination);
+      o.start();
+      o.stop(actx.currentTime + dur + 0.02);
+    } catch (e) {}
+  }
+
+  function resetBall(dir) {
+    ball.x = W / 2; ball.y = H / 2;
+    ball.speed = BASE_SPEED;
+    var angle = (Math.random() * 0.6 - 0.3); // shallow start
+    var dx = (dir || (Math.random() < 0.5 ? -1 : 1));
+    ball.vx = dir ? dir * ball.speed * Math.cos(angle) : dx * ball.speed * Math.cos(angle);
+    ball.vy = ball.speed * Math.sin(angle);
+  }
+
+  function resetMatch() {
+    player.score = 0; ai.score = 0;
+    player.y = H / 2 - paddleH / 2;
+    ai.y = H / 2 - paddleH / 2;
+    resetBall();
+  }
+
+  function startGame() {
+    ensureAudio();
+    resetMatch();
+    state = STATE.PLAY;
+    updateOverlay();
+  }
+
+  function updateOverlay() {
+    if (state === STATE.PLAY) {
+      overlay.style.display = "none";
+      return;
+    }
+    overlay.style.display = "flex";
+    if (state === STATE.START) {
+      ovBig.textContent = "PONG";
+      ovSub.textContent = "PRESS SPACE / TAP TO START";
+    } else if (state === STATE.PAUSE) {
+      ovBig.textContent = "PAUSED";
+      ovSub.textContent = "PRESS P TO RESUME";
+    } else if (state === STATE.OVER) {
+      ovBig.textContent = winner;
+      ovSub.textContent = "PRESS SPACE / TAP TO PLAY AGAIN";
+    }
+  }
+
+  // ---- Input handlers ----
+  function onAction() {
+    if (state === STATE.START || state === STATE.OVER) {
+      startGame();
+    } else if (state === STATE.PAUSE) {
+      state = STATE.PLAY; updateOverlay();
+    }
+  }
+
+  window.addEventListener("keydown", function (e) {
+    if (["ArrowUp", "ArrowDown", " ", "Spacebar"].indexOf(e.key) !== -1) e.preventDefault();
+    keys[e.key.toLowerCase()] = true;
+    if (e.key === " " || e.key === "Spacebar") { onAction(); }
+    if (e.key.toLowerCase() === "p") {
+      if (state === STATE.PLAY) { state = STATE.PAUSE; updateOverlay(); }
+      else if (state === STATE.PAUSE) { state = STATE.PLAY; updateOverlay(); }
+    }
+  });
+  window.addEventListener("keyup", function (e) {
+    keys[e.key.toLowerCase()] = false;
+  });
+
+  function localY(clientY) {
+    var rect = stage.getBoundingClientRect();
+    var ry = (clientY - rect.top) / rect.height;
+    return ry * H;
+  }
+  function localX(clientX) {
+    var rect = stage.getBoundingClientRect();
+    return ((clientX - rect.left) / rect.width) * W;
+  }
+
+  stage.addEventListener("mousemove", function (e) {
+    if (localX(e.clientX) < W / 2) {
+      mouseTarget = localY(e.clientY);
+    }
+  });
+  stage.addEventListener("mousedown", function (e) {
+    ensureAudio();
+    if (state !== STATE.PLAY) onAction();
+  });
+
+  stage.addEventListener("touchstart", function (e) {
+    ensureAudio();
+    if (state !== STATE.PLAY) { onAction(); }
+    var t = e.touches[0];
+    if (t && localX(t.clientX) < W / 2) { mouseTarget = localY(t.clientY); }
+  }, { passive: true });
+  stage.addEventListener("touchmove", function (e) {
+    var t = e.touches[0];
+    if (t && localX(t.clientX) < W / 2) { mouseTarget = localY(t.clientY); }
+  }, { passive: true });
+
+  muteBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    audioOn = !audioOn;
+    muteBtn.textContent = "SOUND: " + (audioOn ? "ON" : "OFF");
+    if (audioOn) ensureAudio();
+  });
+
+  // ---- Physics / update ----
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+  function update() {
+    if (state !== STATE.PLAY) return;
+
+    // Player paddle control (keyboard)
+    var spd = 9;
+    var movingKb = false;
+    if (keys["w"] || keys["arrowup"]) { player.y -= spd; movingKb = true; }
+    if (keys["s"] || keys["arrowdown"]) { player.y += spd; movingKb = true; }
+
+    // Mouse/touch control overrides if active and no keyboard movement
+    if (!movingKb && mouseTarget !== null) {
+      var center = player.y + paddleH / 2;
+      var diff = mouseTarget - center;
+      player.y += clamp(diff, -spd * 1.8, spd * 1.8);
+    }
+    player.y = clamp(player.y, 0, H - paddleH);
+
+    // AI: track ball with capped speed
+    var aiCenter = ai.y + paddleH / 2;
+    var target = ball.y;
+    // add a slight idle lag when ball moving away
+    if (ball.vx < 0) target = H / 2 + (ball.y - H / 2) * 0.3;
+    var d = target - aiCenter;
+    var step = clamp(d, -AI_MAX_SPEED, AI_MAX_SPEED);
+    ai.y += step;
+    ai.y = clamp(ai.y, 0, H - paddleH);
+
+    // Ball move
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+
+    // Top/bottom walls
+    if (ball.y - ball.r < 0) {
+      ball.y = ball.r; ball.vy = Math.abs(ball.vy); blip(220, 0.05, "triangle");
+    } else if (ball.y + ball.r > H) {
+      ball.y = H - ball.r; ball.vy = -Math.abs(ball.vy); blip(220, 0.05, "triangle");
+    }
+
+    // Paddle collisions
+    // Player (left)
+    if (ball.vx < 0 &&
+        ball.x - ball.r < player.x + paddleW &&
+        ball.x - ball.r > player.x - 30 &&
+        ball.y > player.y && ball.y < player.y + paddleH) {
+      handlePaddleHit(player, 1);
+    }
+    // AI (right)
+    if (ball.vx > 0 &&
+        ball.x + ball.r > ai.x &&
+        ball.x + ball.r < ai.x + paddleW + 30 &&
+        ball.y > ai.y && ball.y < ai.y + paddleH) {
+      handlePaddleHit(ai, -1);
+    }
+
+    // Scoring
+    if (ball.x + ball.r < 0) {
+      ai.score++; blip(140, 0.18, "sawtooth");
+      checkWin(); if (state === STATE.PLAY) resetBall(1);
+    } else if (ball.x - ball.r > W) {
+      player.score++; blip(520, 0.18, "sawtooth");
+      checkWin(); if (state === STATE.PLAY) resetBall(-1);
+    }
+  }
+
+  function handlePaddleHit(pad, dir) {
+    var center = pad.y + paddleH / 2;
+    var rel = (ball.y - center) / (paddleH / 2); // -1..1
+    rel = clamp(rel, -1, 1);
+    var maxBounce = Math.PI / 3.2; // ~56 deg
+    var angle = rel * maxBounce;
+
+    ball.speed = Math.min(ball.speed * 1.06 + 0.15, MAX_SPEED);
+    ball.vx = dir * ball.speed * Math.cos(angle);
+    ball.vy = ball.speed * Math.sin(angle);
+
+    // nudge out of paddle to avoid sticking
+    if (dir > 0) ball.x = pad.x + paddleW + ball.r + 0.5;
+    else ball.x = pad.x - ball.r - 0.5;
+
+    blip(420, 0.05, "square");
+  }
+
+  function checkWin() {
+    if (player.score >= WIN_SCORE) {
+      winner = "YOU WIN"; state = STATE.OVER; updateOverlay();
+    } else if (ai.score >= WIN_SCORE) {
+      winner = "CPU WINS"; state = STATE.OVER; updateOverlay();
+    }
+  }
+
+  // ---- Render ----
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Center dashed net
+    ctx.save();
+    ctx.strokeStyle = "rgba(57,255,20,0.28)";
+    ctx.lineWidth = 4;
+    ctx.setLineDash([16, 20]);
+    ctx.beginPath();
+    ctx.moveTo(W / 2, 10);
+    ctx.lineTo(W / 2, H - 10);
+    ctx.stroke();
+    ctx.restore();
+
+    // Scores
+    ctx.save();
+    ctx.fillStyle = "rgba(235,248,235,0.92)";
+    ctx.font = "bold 96px 'Courier New', monospace";
+    ctx.textAlign = "center";
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = "rgba(57,255,20,0.5)";
+    ctx.fillText(String(player.score), W * 0.27, 110);
+    ctx.fillText(String(ai.score), W * 0.73, 110);
+    ctx.restore();
+
+    // Glowing neon elements
+    ctx.save();
+    ctx.shadowBlur = 14;
+    ctx.shadowColor = NEON;
+    ctx.fillStyle = NEON;
+
+    // Player paddle
+    roundRect(player.x, player.y, paddleW, paddleH, 6);
+    ctx.fill();
+    // AI paddle
+    roundRect(ai.x, ai.y, paddleW, paddleH, 6);
+    ctx.fill();
+
+    // Ball
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  // ---- Resize: keep crisp internal resolution at 16:10 ----
+  function resize() {
+    var rect = stage.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    // map logical W,H to canvas pixels
+    var sx = canvas.width / W;
+    var sy = canvas.height / H;
+    ctx.setTransform(sx, 0, 0, sy, 0, 0);
+  }
+  window.addEventListener("resize", resize);
+
+  // ---- Loop (fixed timestep ~60fps) ----
+  var last = 0, acc = 0, STEP = 1000 / 60;
+  function loop(ts) {
+    if (!last) last = ts;
+    var dt = ts - last;
+    last = ts;
+    acc += dt;
+    if (acc > 200) acc = 200;
+    while (acc >= STEP) {
+      update();
+      acc -= STEP;
+    }
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  // Init
+  resize();
+  resetBall();
+  updateOverlay();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

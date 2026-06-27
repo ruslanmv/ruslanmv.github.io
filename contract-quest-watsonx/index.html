@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CONTRACT QUEST</title>
+<style>
+  html, body { margin:0; padding:0; overflow:hidden; background:#000; }
+  canvas { display:block; }
+  .hud-font { font-family: "Press Start 2P", "Arial Black", "Helvetica", "sans-serif"; font-weight:bold; }
+  /* Mobile controls */
+  #mobile-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 30px;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#fff;
+    font-size:24px;
+    user-select:none;
+    pointer-events:auto;
+    touch-action: none;
+  }
+  #mute-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.5);
+    color:#fff;
+    border:none;
+    font-size:20px;
+    padding:5px 8px;
+    cursor:pointer;
+    pointer-events:auto;
+  }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div id="mobile-controls" style="display:none;">
+  <div class="btn" id="btn-left">←</div>
+  <div class="btn" id="btn-right">→</div>
+  <div class="btn" id="btn-jump">⤴</div>
+  <div class="btn" id="btn-pause">⏸</div>
+</div>
+
+<button id="mute-btn">🔊</button>
+
+<script>
+(() => {
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  let dpr = window.devicePixelRatio || 1;
+
+  // ---------- Safe Gradient Helpers ----------
+  function safeLinearGradient(x0, y0, x1, y1) {
+    if (![x0, y0, x1, y1].every(Number.isFinite)) return null;
+    return ctx.createLinearGradient(x0, y0, x1, y1);
+  }
+  function safeRadialGradient(x0, y0, r0, x1, y1, r1) {
+    if (![x0, y0, r0, x1, y1, r1].every(Number.isFinite)) return null;
+    if (r0 < 0.01) r0 = 0.01;
+    if (r1 < 0.01) r1 = 0.01;
+    return ctx.createRadialGradient(x0, y0, r0, x1, y1, r1);
+  }
+
+  // ---------- Audio ----------
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
+  const masterGain = audioCtx.createGain();
+  masterGain.connect(audioCtx.destination);
+  masterGain.gain.value = 1;
+  let muted = false;
+  const muteBtn = document.getElementById('mute-btn');
+  muteBtn.addEventListener('click', () => {
+    muted = !muted;
+    masterGain.gain.value = muted ? 0 : 1;
+    muteBtn.textContent = muted ? '🔇' : '🔊';
+  });
+  function playTone(freq, duration, type='square', vol=0.1){
+    if(muted) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.frequency.value = freq;
+    osc.type = type;
+    gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    osc.connect(gain).connect(masterGain);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  }
+  const SFX = {
+    jump:()=>playTone(300,0.12, 'sawtooth',0.15),
+    coin:()=>playTone(800,0.08, 'triangle',0.2),
+    stomp:()=>playTone(150,0.15, 'square',0.2),
+    damage:()=>playTone(100,0.2, 'sawtooth',0.25),
+    powerup:()=>playTone(600,0.12, 'triangle',0.2),
+    checkpoint:()=>playTone(400,0.2, 'square',0.2),
+    levelComplete:()=>playTone(500,0.3, 'sawtooth',0.3)
+  };
+
+  // ---------- Resize ----------
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const show = ('ontouchstart' in window) || window.innerWidth < 768;
+    document.getElementById('mobile-controls').style.display = show ? 'flex' : 'none';
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // ---------- Constants ----------
+  const GRAVITY = 0.6;
+  const JUMP_POWER = 12;
+  const MAX_JUMP_HOLD = 15; // frames
+  const ACCEL = 0.5;
+  const MAX_SPEED = 6;
+  const FRICTION = 0.85;
+  const SKY_TOP = '#0a2a5e';
+  const SKY_BOTTOM = '#ff9a3c';
+
+  // ---------- Game State ----------
+  let gameState = 'start'; // start, play, pause, complete, gameover
+  const keys = { left:false, right:false, jump:false, pause:false };
+  let jumpHoldTimer = 0;
+
+  // ---------- Stats ----------
+  let coinsCollected = 0;
+  let score = 0;
+  let flashMessage = '';
+  let flashTimer = 0;
+
+  // ---------- Lives & Invulnerability ----------
+  let lives = 3;
+  let invulnTimer = 0; // frames of invulnerability after damage
+  let shieldTimer = 0; // frames remaining for shield power‑up
+  let doubleJumpTimer = 0; // frames remaining for double‑jump power‑up
+  let doubleJumpActive = false;
+
+  // ---------- Level Management ----------
+  let currentLevel = 0;
+  let levelName = '';
+  let levelComplete = false;
+
+  const levels = [
+    // Level 1 – Build Fields
+    {
+      name: 'Build Fields',
+      platforms: [
+        {x:-500,y:canvas.height-80,w:2000,h:80,type:'ground'},
+        {x:300,y:canvas.height-200,w:120,h:20,type:'brick'},
+        {x:600,y:canvas.height-300,w:150,h:20,type:'brick'},
+        {x:950,y:canvas.height-250,w:100,h:20,type:'metal'},
+        {x:1300,y:canvas.height-180,w:140,h:20,type:'brick'},
+        {x:1700,y:canvas.height-220,w:120,h:20,type:'metal'}
+      ],
+      collectibles: [
+        {type:'coin', x:400, y:canvas.height-260, collected:false},
+        {type:'coin', x:440, y:canvas.height-300, collected:false},
+        {type:'coin', x:480, y:canvas.height-330, collected:false},
+        {type:'coin', x:520, y:canvas.height-350, collected:false},
+        {type:'gem', x:800, y:canvas.height-340, collected:false},
+        {type:'gem', x:840, y:canvas.height-380, collected:false},
+        {type:'star', x:1200, y:canvas.height-400, collected:false}
+      ],
+      powerUps: [
+        {type:'shield', x:700, y:canvas.height-320, collected:false},
+        {type:'doubleJump', x:1100, y:canvas.height-360, collected:false}
+      ],
+      enemies: [
+        {
+          type:'bugBot',
+          x:500,
+          y:canvas.height-200,
+          w:40,
+          h:30,
+          vx:1.2,
+          direction:1,
+          alive:true,
+          patrolMin:480,
+          patrolMax:560
+        }
+      ],
+      panels: [
+        { // LEFT
+          x:200,
+          y:canvas.height-500,
+          w:250,
+          h:200,
+          title:'// CONTRACT RULES',
+          lines:['✔ Clarity','✔ Compliance','✔ Performance','✔ Security','✔ Reliability'],
+          align:'left',
+          bg:'rgba(0,0,0,0.5)'
+        },
+        { // CENTER
+          x:800,
+          y:canvas.height-520,
+          w:300,
+          h:220,
+          title:'contract.yaml',
+          lines:['version: 1.0','parties:',' - Builder',' - Client','terms:',' - deliver_quality',' - uphold_integrity',' - ship_value'],
+          align:'center',
+          bg:'rgba(0,150,200,0.4)'
+        },
+        { // RIGHT
+          x:1400,
+          y:canvas.height-480,
+          w:260,
+          h:180,
+          title:'ACCESS LOG',
+          lines:['USER: GITPILOT','CONTRACT: MATRIX BUILDER','STATUS: ACTIVE'],
+          align:'right',
+          bg:'rgba(0,0,0,0.5)'
+        }
+      ],
+      checkpoint: { x:1700, y:canvas.height-280, w:40, h:80, saved:false },
+      matrixGate: { x:2100, y:canvas.height-350, w:200, h:300, reached:false }
+    },
+    // Level 2 – Dependency Cavern
+    {
+      name: 'Dependency Cavern',
+      platforms: [
+        {x:-500,y:canvas.height-80,w:2000,h:80,type:'ground'},
+        // moving platform (will be animated)
+        {x:800,y:canvas.height-250,w:150,h:20,type:'brick',moving:true,range:200,dx:0,dir:1,speed:2},
+        {x:1200,y:canvas.height-350,w:150,h:20,type:'metal'},
+        {x:1500,y:canvas.height-200,w:120,h:20,type:'brick'}
+      ],
+      collectibles: [
+        {type:'coin', x:500, y:canvas.height-260, collected:false},
+        {type:'coin', x:540, y:canvas.height-300, collected:false},
+        {type:'key', x:900, y:canvas.height-340, collected:false},
+        {type:'key', x:940, y:canvas.height-380, collected:false}
+      ],
+      powerUps: [
+        {type:'doubleJump', x:1300, y:canvas.height-360, collected:false}
+      ],
+      enemies: [
+        {
+          type:'promptSlime',
+          x:1000,
+          y:canvas.height-200,
+          w:45,
+          h:35,
+          vx:0.9,
+          direction:1,
+          alive:true,
+          patrolMin:980,
+          patrolMax:1060
+        }
+      ],
+      panels: [
+        // RMD governance sign
+        {
+          x:600,
+          y:canvas.height-500,
+          w:200,
+          h:80,
+          title:'RMD‑101',
+          lines:['AI coders are workers, not architects.'],
+          align:'center',
+          bg:'rgba(0,0,0,0.6)'
+        }
+      ],
+      checkpoint: { x:1600, y:canvas.height-280, w:40, h:80, saved:false },
+      matrixGate: { x:1900, y:canvas.height-350, w:200, h:300, reached:false }
+    },
+    // Level 3 – Validation Gate
+    {
+      name: 'Validation Gate',
+      platforms: [
+        {x:-500,y:canvas.height-80,w:2000,h:80,type:'ground'},
+        {x:600,y:canvas.height-250,w:150,h:20,type:'brick'},
+        {x:1000,y:canvas.height-300,w:150,h:20,type:'metal'}
+      ],
+      collectibles: [
+        {type:'coin', x:700, y:canvas.height-260, collected:false},
+        {type:'coin', x:740, y:canvas.height-300, collected:false}
+      ],
+      powerUps: [
+        {type:'shield', x:1100, y:canvas.height-360, collected:false}
+      ],
+      enemies: [
+        {
+          type:'bugBot',
+          x:800,
+          y:canvas.height-200,
+          w:40,
+          h:30,
+          vx:1.2,
+          direction:1,
+          alive:true,
+          patrolMin:780,
+          patrolMax:860
+        }
+        // Mini‑boss – Rogue Architect (added later in loadLevel)
+      ],
+      panels: [
+        {
+          x:500,
+          y:canvas.height-500,
+          w:250,
+          h:80,
+          title:'RMD‑111',
+          lines:['Acceptance criteria are law.'],
+          align:'center',
+          bg:'rgba(0,0,0,0.6)'
+        }
+      ],
+      checkpoint: { x:1300, y:canvas.height-280, w:40, h:80, saved:false },
+      matrixGate: { x:1700, y:canvas.height-350, w:200, h:300, reached:false }
+    }
+  ];
+
+  // ---------- Global Game Objects ----------
+  let platforms = [];
+  let collectibles = [];
+  let powerUps = [];
+  let enemies = [];
+  let panels = [];
+  let checkpoint = {};
+  let matrixGate = {};
+
+  const hero = {
+    x:100,
+    y:canvas.height-200,
+    w:40,
+    h:60,
+    vx:0,
+    vy:0,
+    facing:1,
+    state:'idle',
+    animTimer:0,
+    squashTimer:0,
+    jumpsUsed:0
+  };
+
+  const camera = {
+    x:0,
+    update(){
+      const targetX = hero.x - canvas.width*0.35;
+      this.x += (targetX - this.x)*0.08;
+    }
+  };
+
+  const particles = [];
+
+  // ---------- Transition & Shake ----------
+  let transitionAlpha = 0;
+  let transitionDir = 0; // -1 fade out, 1 fade in, 0 none
+  let shakeTimer = 0;
+  let shakeIntensity = 0;
+
+  // ---------- Level Loader ----------
+  function loadLevel(idx){
+    const lvl = levels[idx];
+    levelName = lvl.name;
+    platforms = JSON.parse(JSON.stringify(lvl.platforms));
+    collectibles = JSON.parse(JSON.stringify(lvl.collectibles));
+    powerUps = JSON.parse(JSON.stringify(lvl.powerUps));
+    enemies = JSON.parse(JSON.stringify(lvl.enemies));
+    panels = JSON.parse(JSON.stringify(lvl.panels));
+    checkpoint = JSON.parse(JSON.stringify(lvl.checkpoint));
+    matrixGate = JSON.parse(JSON.stringify(lvl.matrixGate));
+
+    if(idx===2){
+      enemies.push({
+        type:'rogueArchitect',
+        x:1200,
+        y:canvas.height-250,
+        w:80,
+        h:80,
+        direction:1,
+        speed:1.5,
+        patrolMin:1100,
+        patrolMax:1300,
+        alive:true,
+        shieldActive:true,
+        shieldTimer:180,
+        spawnTimer:150,
+        stompCount:0
+      });
+    }
+
+    resetHero();
+    levelComplete = false;
+    matrixGate.reached = false;
+    // start fade-in transition
+    transitionAlpha = 1;
+    transitionDir = -1;
+  }
+
+  // ---------- Game Flow ----------
+  function startGame(){
+    gameState='play';
+    lives = 3;
+    coinsCollected = 0;
+    score = 0;
+    currentLevel = 0;
+    loadLevel(currentLevel);
+  }
+  function restartGame(){
+    lives = 3;
+    coinsCollected = 0;
+    score = 0;
+    currentLevel = 0;
+    loadLevel(currentLevel);
+    gameState='play';
+  }
+
+  function resetHero(){
+    hero.x=100;
+    hero.y=canvas.height-200;
+    hero.vx=0;
+    hero.vy=0;
+    hero.facing=1;
+    hero.state='idle';
+    hero.animTimer=0;
+    hero.squashTimer=0;
+    hero.jumpsUsed=0;
+    camera.x=0;
+    invulnTimer=0;
+    shieldTimer=0;
+    doubleJumpTimer=0;
+    doubleJumpActive=false;
+  }
+
+  // ---------- Input ----------
+  window.addEventListener('keydown',e=>{
+    if(e.code==='ArrowLeft' || e.key==='a') keys.left=true;
+    if(e.code==='ArrowRight' || e.key==='d') keys.right=true;
+    if(e.code==='Space' || e.key==='ArrowUp' || e.key==='w') keys.jump=true;
+    if(e.key==='p' || e.key==='P') keys.pause=true;
+    if(e.key==='Enter') {
+      if(gameState==='start') startGame();
+      else if(gameState==='gameover') restartGame();
+      else if(gameState==='complete' && levelComplete){
+        if(currentLevel < levels.length-1){
+          currentLevel++;
+          loadLevel(currentLevel);
+          gameState='play';
+        }
+      }
+    }
+    if(e.key==='r' || e.key==='R'){
+      if(gameState!=='start') restartGame();
+    }
+    if(e.key==='m' || e.key==='M'){
+      muteBtn.click();
+    }
+  });
+  window.addEventListener('keyup',e=>{
+    if(e.code==='ArrowLeft' || e.key==='a') keys.left=false;
+    if(e.code==='ArrowRight' || e.key==='d') keys.right=false;
+    if(e.code==='Space' || e.key==='ArrowUp' || e.key==='w') keys.jump=false;
+    if(e.key==='p' || e.key==='P') keys.pause=false;
+  });
+
+  // Mobile button handlers
+  const btnLeft=document.getElementById('btn-left');
+  const btnRight=document.getElementById('btn-right');
+  const btnJump=document.getElementById('btn-jump');
+  const btnPause=document.getElementById('btn-pause');
+
+  let touchLeft={value:false}, touchRight={value:false}, touchJump={value:false}, touchPause={value:false};
+  function setTouch(el, flag){
+    el.addEventListener('touchstart',e=>{e.preventDefault(); flag.value=true;});
+    el.addEventListener('touchend',e=>{e.preventDefault(); flag.value=false;});
+    el.addEventListener('mousedown',e=>{e.preventDefault(); flag.value=true;});
+    el.addEventListener('mouseup',e=>{e.preventDefault(); flag.value=false;});
+    el.addEventListener('mouseleave',e=>{flag.value=false;});
+  }
+  setTouch(btnLeft,touchLeft);
+  setTouch(btnRight,touchRight);
+  setTouch(btnJump,touchJump);
+  setTouch(btnPause,touchPause);
+
+  // ---------- Physics ----------
+  function applyPhysics(){
+    const left = keys.left || touchLeft.value;
+    const right = keys.right || touchRight.value;
+    if(left){
+      hero.vx -= ACCEL;
+      hero.facing=-1;
+    }
+    if(right){
+      hero.vx += ACCEL;
+      hero.facing=1;
+    }
+    if(!left && !right){
+      hero.vx *= FRICTION;
+    }
+    if(hero.vx>MAX_SPEED) hero.vx=MAX_SPEED;
+    if(hero.vx<-MAX_SPEED) hero.vx=-MAX_SPEED;
+
+    const jump = keys.jump || touchJump.value;
+    if(jump){
+      if(hero.onGround){
+        hero.vy = -JUMP_POWER;
+        hero.onGround=false;
+        jumpHoldTimer=0;
+        hero.state='jump';
+        hero.jumpsUsed=1;
+        SFX.jump();
+      } else if(doubleJumpActive && hero.jumpsUsed<2 && hero.vy>0){
+        hero.vy = -JUMP_POWER;
+        hero.jumpsUsed++;
+        hero.state='jump';
+        SFX.jump();
+      } else if(jumpHoldTimer<MAX_JUMP_HOLD && hero.vy<0){
+        hero.vy -= 0.3;
+        jumpHoldTimer++;
+      }
+    }
+
+    hero.vy += GRAVITY;
+    hero.x += hero.vx;
+    hero.y += hero.vy;
+
+    let landed=false;
+    hero.onGround=false;
+    platforms.forEach(p=>{
+      if(p.moving){
+        p.dx += p.speed * p.dir;
+        if(p.dx > p.range || p.dx < -p.range){
+          p.dir *= -1;
+        }
+        p.x += p.dir * p.speed;
+      }
+      if(hero.vy>=0 &&
+         hero.x+hero.w>p.x &&
+         hero.x<p.x+p.w &&
+         hero.y+hero.h>p.y &&
+         hero.y+hero.h-hero.vy<=p.y){
+        hero.y = p.y - hero.h;
+        hero.vy = 0;
+        hero.onGround=true;
+        landed=true;
+        spawnDust(hero.x+hero.w/2, p.y);
+      }
+    });
+    if(!hero.onGround && hero.y>canvas.height){
+      hero.y = canvas.height - hero.h;
+      hero.vy = 0;
+      hero.onGround=true;
+      landed=true;
+    }
+
+    // Collectibles
+    collectibles.forEach(c=>{
+      if(c.collected) return;
+      const cx = c.x;
+      const cy = c.y;
+      const radius = (c.type==='coin')?12:(c.type==='gem')?10:(c.type==='star')?15:10;
+      const heroCenterX = hero.x + hero.w/2;
+      const heroCenterY = hero.y + hero.h/2;
+      const dx = heroCenterX - cx;
+      const dy = heroCenterY - cy;
+      if(Math.hypot(dx,dy) < radius + Math.max(hero.w,hero.h)/2){
+        c.collected = true;
+        if(c.type==='coin'){
+          coinsCollected++;
+          score+=10;
+          flashMessage = '+10 COINS';
+          SFX.coin();
+        } else if(c.type==='gem'){
+          score+=5;
+          flashMessage = '+5 SCORE';
+        } else if(c.type==='star'){
+          score+=100;
+          flashMessage = 'RMD STAR! +100';
+        } else if(c.type==='key'){
+          score+=20;
+          flashMessage = '+20 KEY';
+        }
+        flashTimer = 60;
+        spawnCollectEffect(cx,cy,c.type==='star'?'#00f':'#ff0');
+      }
+    });
+
+    // Power‑ups
+    powerUps.forEach(p=>{
+      if(p.collected) return;
+      const cx = p.x;
+      const cy = p.y;
+      const radius = 15;
+      const heroCenterX = hero.x + hero.w/2;
+      const heroCenterY = hero.y + hero.h/2;
+      const dx = heroCenterX - cx;
+      const dy = heroCenterY - cy;
+      if(Math.hypot(dx,dy) < radius + Math.max(hero.w,hero.h)/2){
+        p.collected = true;
+        if(p.type==='shield'){
+          shieldTimer = 600;
+          flashMessage = 'SHIELD ACTIVATED';
+        } else if(p.type==='doubleJump'){
+          doubleJumpTimer = 600;
+          doubleJumpActive = true;
+          flashMessage = 'DOUBLE JUMP ENABLED';
+        }
+        flashTimer = 60;
+        spawnCollectEffect(cx,cy,'#0ff');
+        SFX.powerup();
+      }
+    });
+
+    // Enemies & Mini‑Boss
+    enemies.forEach(e=>{
+      if(!e.alive) return;
+      if(e.type==='rogueArchitect'){
+        e.x += e.speed * e.direction;
+        if(e.x < e.patrolMin) e.direction = 1;
+        if(e.x > e.patrolMax) e.direction = -1;
+
+        e.shieldTimer--;
+        if(e.shieldTimer<=0){
+          e.shieldActive = !e.shieldActive;
+          e.shieldTimer = e.shieldActive ? 180 : 120;
+        }
+
+        e.spawnTimer--;
+        if(e.spawnTimer<=0){
+          enemies.push({
+            type:'bugBot',
+            x:e.x,
+            y:e.y,
+            w:40,
+            h:30,
+            vx:1.2,
+            direction:1,
+            alive:true,
+            patrolMin:e.x-20,
+            patrolMax:e.x+20
+          });
+          e.spawnTimer = 150;
+        }
+      } else {
+        e.x += e.vx * e.direction;
+        if(e.x < e.patrolMin){ e.direction = 1; }
+        if(e.x > e.patrolMax){ e.direction = -1; }
+      }
+
+      const heroBottom = hero.y + hero.h;
+      const heroPrevBottom = hero.y + hero.h - hero.vy;
+      const enemyTop = e.y;
+      const overlapX = hero.x < e.x + e.w && hero.x + hero.w > e.x;
+      const overlapY = hero.y < e.y + e.h && heroBottom > e.y;
+
+      if(overlapX && overlapY){
+        if(e.type==='rogueArchitect'){
+          if(e.shieldActive){
+            if(invulnTimer===0 && shieldTimer===0){
+              lives--;
+              invulnTimer = 120;
+              hero.vx = -hero.facing * 3;
+              hero.vy = -5;
+              flashMessage = 'HIT!';
+              flashTimer = 60;
+              SFX.damage();
+              shakeTimer = 20;
+              shakeIntensity = 6;
+              if(lives<=0) gameState='gameover';
+            }
+          } else {
+            if(hero.vy > 0 && heroPrevBottom <= enemyTop){
+              e.stompCount++;
+              score += 50;
+              flashMessage = `+${e.stompCount} STOMP`;
+              flashTimer = 60;
+              spawnEnemyDefeatEffect(e.x+e.w/2, e.y+e.h/2);
+              SFX.stomp();
+              if(e.stompCount>=3){
+                e.alive = false;
+                flashMessage = 'Architecture restored. Contract validated.';
+                flashTimer = 120;
+                matrixGate.reached = true;
+                levelComplete = true;
+                gameState = 'complete';
+                SFX.levelComplete();
+                shakeTimer = 30;
+                shakeIntensity = 8;
+              }
+            } else if(invulnTimer===0 && shieldTimer===0){
+              lives--;
+              invulnTimer = 120;
+              hero.vx = -hero.facing * 3;
+              hero.vy = -5;
+              flashMessage = 'HIT!';
+              flashTimer = 60;
+              SFX.damage();
+              shakeTimer = 20;
+              shakeIntensity = 6;
+              if(lives<=0) gameState='gameover';
+            }
+          }
+        } else {
+          if(hero.vy > 0 && heroPrevBottom <= enemyTop){
+            e.alive = false;
+            score += 50;
+            flashMessage = '+50 ENEMY';
+            flashTimer = 60;
+            spawnEnemyDefeatEffect(e.x+e.w/2, e.y+e.h/2);
+            SFX.stomp();
+          } else if(invulnTimer===0 && shieldTimer===0){
+            lives--;
+            invulnTimer = 120;
+            hero.vx = -hero.facing * 3;
+            hero.vy = -5;
+            flashMessage = 'HIT!';
+            flashTimer = 60;
+            SFX.damage();
+            shakeTimer = 20;
+            shakeIntensity = 6;
+            if(lives<=0) gameState='gameover';
+          }
+        }
+      }
+    });
+
+    // Power‑up timers
+    if(shieldTimer>0){
+      shieldTimer--;
+      if(shieldTimer===0){
+        flashMessage='SHIELD EXPIRED';
+        flashTimer=60;
+      }
+    }
+    if(doubleJumpTimer>0){
+      doubleJumpTimer--;
+      if(doubleJumpTimer===0){
+        doubleJumpActive=false;
+        flashMessage='DOUBLE JUMP EXPIRED';
+        flashTimer=60;
+      }
+    }
+
+    // Checkpoint
+    if(!checkpoint.saved &&
+       hero.x+hero.w>checkpoint.x &&
+       hero.x<checkpoint.x+checkpoint.w &&
+       hero.y+hero.h>checkpoint.y &&
+       hero.y<checkpoint.y+checkpoint.h){
+      checkpoint.saved = true;
+      flashMessage = 'Checkpoint saved';
+      flashTimer = 90;
+      SFX.checkpoint();
+    }
+
+    // Matrix Gate
+    if(!matrixGate.reached &&
+       hero.x+hero.w>matrixGate.x &&
+       hero.x<matrixGate.x+matrixGate.w &&
+       hero.y+hero.h>matrixGate.y &&
+       hero.y<matrixGate.y+matrixGate.h){
+      matrixGate.reached = true;
+      levelComplete = true;
+      gameState = 'complete';
+      SFX.levelComplete();
+      shakeTimer = 30;
+      shakeIntensity = 8;
+    }
+
+    // State transitions
+    if(hero.onGround){
+      if(hero.state==='jump' || hero.state==='fall'){
+        hero.state='land';
+        hero.squashTimer=6;
+      } else if(Math.abs(hero.vx)>0.5){
+        hero.state='run';
+      } else {
+        hero.state='idle';
+      }
+    } else {
+      hero.state = hero.vy<0 ? 'jump' : 'fall';
+    }
+
+    if(hero.squashTimer>0) hero.squashTimer--;
+    if(invulnTimer>0) invulnTimer--;
+    if(shakeTimer>0) shakeTimer--;
+  }
+
+  // ---------- Particle Helpers ----------
+  function spawnDust(x,y){
+    for(let i=0;i<3;i++){
+      particles.push({
+        x:x+Math.random()*10-5,
+        y:y,
+        vx:(Math.random()-0.5)*0.5,
+        vy:-Math.random()*0.5-0.2,
+        life:30,
+        size:2+Math.random()*2,
+        alpha:0.8
+      });
+    }
+  }
+  function spawnCollectEffect(x,y,color){
+    for(let i=0;i<8;i++){
+      particles.push({
+        x:x+Math.random()*10-5,
+        y:y+Math.random()*10-5,
+        vx:(Math.random()-0.5)*1,
+        vy:(Math.random()-0.5)*1,
+        life:40,
+        size:3+Math.random()*2,
+        alpha:0.9,
+        color:color
+      });
+    }
+  }
+  function spawnEnemyDefeatEffect(x,y){
+    for(let i=0;i<12;i++){
+      particles.push({
+        x:x,
+        y:y,
+        vx:(Math.random()-0.5)*2,
+        vy:(Math.random()-0.5)*2,
+        life:45,
+        size:3+Math.random()*2,
+        alpha:0.9,
+        color:'#ff6600'
+      });
+    }
+  }
+
+  // ---------- Drawing ----------
+  function drawSky(){
+    const grad = safeLinearGradient(0,0,0,canvas.height);
+    if(grad){
+      grad.addColorStop(0,SKY_TOP);
+      grad.addColorStop(1,SKY_BOTTOM);
+      ctx.fillStyle=grad;
+    } else {
+      ctx.fillStyle=SKY_TOP;
+    }
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='rgba(255,255,255,0.15)';
+    for(let i=0;i<8;i++){
+      const cx=(i*250+camera.x*0.3)%(canvas.width+200)-100;
+      const cy=80+Math.sin(i)*20;
+      ctx.beginPath();
+      ctx.ellipse(cx,cy,80,30,0,0,Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  // Placeholder skyline (simple rectangles)
+  const skylineLayers = [
+    {
+      speed:0.2,
+      color:'#222',
+      rects:[{x:0,y:canvas.height-150,w:canvas.width*2,h:150}],
+      windows:[{x:50,y:canvas.height-130,w:20,h:30}]
+    }
+  ];
+
+  function drawSkyline(){
+    skylineLayers.forEach(layer=>{
+      ctx.fillStyle=layer.color;
+      layer.rects.forEach(r=>{
+        const sx=r.x - camera.x*layer.speed;
+        ctx.fillRect(sx,r.y,r.w,r.h);
+        ctx.fillStyle='rgba(255,240,200,0.6)';
+        layer.windows.forEach(w=>{
+          const wx=w.x - camera.x*layer.speed;
+          if(wx>sx && wx<sx+r.w){
+            ctx.fillRect(wx,w.y,w.w,w.h);
+          }
+        });
+        ctx.strokeStyle='rgba(200,200,200,0.5)';
+        ctx.beginPath();
+        ctx.moveTo(sx+r.w/2, r.y);
+        ctx.lineTo(sx+r.w/2, r.y-30);
+        ctx.stroke();
+      });
+    });
+  }
+
+  function drawPlatforms(){
+    platforms.forEach(p=>{
+      const sx=p.x - camera.x;
+      if(p.type==='brick'){
+        ctx.fillStyle='#3b5d3b';
+        ctx.fillRect(sx,p.y,p.w,p.h);
+        ctx.fillStyle='#6abf6a';
+        ctx.fillRect(sx,p.y,p.w,6);
+        ctx.fillStyle='#2e462e';
+        ctx.fillRect(sx,p.y+6,4,p.h-6);
+        ctx.fillRect(sx+p.w-4,p.y+6,4,p.h-6);
+        ctx.fillStyle='#558855';
+        for(let i=0;i<3;i++){
+          const tx=sx+Math.random()*p.w;
+          const ty=p.y+Math.random()*p.h;
+          ctx.fillRect(tx,ty,2,2);
+        }
+      } else if(p.type==='metal'){
+        ctx.fillStyle='#222';
+        ctx.fillRect(sx,p.y,p.w,p.h);
+        ctx.fillStyle='rgba(0,255,255,0.2)';
+        ctx.fillRect(sx,p.y,p.w,4);
+        ctx.fillStyle='#555';
+        for(let i=0;i<4;i++){
+          const rx=sx+5+i*(p.w-10)/3;
+          const ry=p.y+5;
+          ctx.fillRect(rx,ry,3,3);
+        }
+      } else {
+        ctx.fillStyle='#444';
+        ctx.fillRect(sx,p.y,p.w,p.h);
+      }
+    });
+  }
+
+  function drawCollectibles(){
+    collectibles.forEach(c=>{
+      if(c.collected) return;
+      const sx = c.x - camera.x;
+      const sy = c.y;
+      if(c.type==='coin'){
+        ctx.fillStyle='gold';
+        ctx.beginPath();
+        ctx.arc(sx,sy,12,0,Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle='#000';
+        ctx.font='12px monospace';
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        ctx.fillText('</>',sx,sy);
+      } else if(c.type==='gem'){
+        ctx.fillStyle='cyan';
+        ctx.beginPath();
+        ctx.moveTo(sx,sy-10);
+        ctx.lineTo(sx+10,sy);
+        ctx.lineTo(sx,sy+10);
+        ctx.lineTo(sx-10,sy);
+        ctx.closePath();
+        ctx.fill();
+      } else if(c.type==='star'){
+        const pulse = Math.sin(Date.now()/200)*0.2+0.8;
+        ctx.fillStyle=`rgba(0,0,255,${pulse})`;
+        ctx.beginPath();
+        ctx.moveTo(sx,sy-15);
+        for(let i=0;i<5;i++){
+          const angle = i*Math.PI*2/5 - Math.PI/2;
+          ctx.lineTo(sx+Math.cos(angle)*15, sy+Math.sin(angle)*15);
+          const angle2 = angle + Math.PI/5;
+          ctx.lineTo(sx+Math.cos(angle2)*7, sy+Math.sin(angle2)*7);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle='#fff';
+        ctx.font='10px monospace';
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        ctx.fillText('RMD',sx,sy);
+      } else if(c.type==='key'){
+        ctx.fillStyle='gold';
+        ctx.fillRect(sx-5,sy-10,10,20);
+        ctx.fillRect(sx-8,sy-12,16,4);
+        ctx.fillStyle='#000';
+        ctx.font='10px monospace';
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        ctx.fillText('K',sx,sy);
+      }
+    });
+  }
+
+  function drawPowerUps(){
+    powerUps.forEach(p=>{
+      if(p.collected) return;
+      const sx = p.x - camera.x;
+      const sy = p.y;
+      if(p.type==='shield'){
+        ctx.fillStyle='rgba(0,200,255,0.6)';
+        ctx.beginPath();
+        ctx.arc(sx,sy,15,0,Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle='#fff';
+        ctx.font='12px monospace';
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        ctx.fillText('🛡',sx,sy);
+      } else if(p.type==='doubleJump'){
+        ctx.fillStyle='rgba(255,0,200,0.6)';
+        ctx.beginPath();
+        ctx.arc(sx,sy,15,0,Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle='#fff';
+        ctx.font='12px monospace';
+        ctx.textAlign='center';
+        ctx.textBaseline='middle';
+        ctx.fillText('⤴',sx,sy);
+      }
+    });
+  }
+
+  function drawEnemies(){
+    enemies.forEach(e=>{
+      if(!e.alive) return;
+      const sx = e.x - camera.x;
+      const sy = e.y;
+      if(e.type==='bugBot'){
+        ctx.fillStyle='orange';
+        ctx.fillRect(sx,sy,e.w,e.h);
+        ctx.fillStyle='red';
+        ctx.beginPath();
+        ctx.arc(sx+e.w*0.3, sy+e.h*0.3, 4,0,Math.PI*2);
+        ctx.arc(sx+e.w*0.7, sy+e.h*0.3, 4,0,Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle='orange';
+        ctx.beginPath();
+        ctx.moveTo(sx+e.w*0.2, sy);
+        ctx.lineTo(sx+e.w*0.2-5, sy-10);
+        ctx.moveTo(sx+e.w*0.8, sy);
+        ctx.lineTo(sx+e.w*0.8+5, sy-10);
+        ctx.stroke();
+      } else if(e.type==='promptSlime'){
+        ctx.fillStyle='purple';
+        ctx.beginPath();
+        ctx.arc(sx+e.w/2, sy+e.h/2, e.w/2,0,Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle='white';
+        ctx.beginPath();
+        ctx.arc(sx+e.w*0.35, sy+e.h*0.4, 3,0,Math.PI*2);
+        ctx.arc(sx+e.w*0.65, sy+e.h*0.4, 3,0,Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle='black';
+        ctx.beginPath();
+        ctx.arc(sx+e.w/2, sy+e.h*0.6, 4,0,Math.PI);
+        ctx.fill();
+      } else if(e.type==='rogueArchitect'){
+        ctx.fillStyle='gray';
+        ctx.fillRect(sx,sy,e.w,e.h);
+        if(e.shieldActive){
+          ctx.strokeStyle='rgba(0,200,255,0.7)';
+          ctx.lineWidth=4;
+          ctx.beginPath();
+          ctx.arc(sx+e.w/2, sy+e.h/2, e.w/2+5,0,Math.PI*2);
+          ctx.stroke();
+        }
+        ctx.fillStyle='red';
+        ctx.beginPath();
+        ctx.arc(sx+e.w*0.3, sy+e.h*0.3, 5,0,Math.PI*2);
+        ctx.arc(sx+e.w*0.7, sy+e.h*0.3, 5,0,Math.PI*2);
+        ctx.fill();
+      }
+    });
+  }
+
+  function drawPanels(){
+    panels.forEach(p=>{
+      const sx = p.x - camera.x;
+      const sy = p.y;
+      ctx.fillStyle = p.bg;
+      ctx.fillRect(sx,sy,p.w,p.h);
+      ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+      ctx.strokeRect(sx,sy,p.w,p.h);
+      ctx.fillStyle = '#0ff';
+      ctx.font='14px monospace';
+      ctx.textAlign = p.align;
+      ctx.textBaseline='top';
+      const titleX = p.align==='left'? sx+5 : p.align==='center'? sx+p.w/2 : sx+p.w-5;
+      ctx.fillText(p.title, titleX, sy+5);
+      ctx.fillStyle = '#fff';
+      ctx.font='12px monospace';
+      p.lines.forEach((line,i)=>{
+        const lineX = p.align==='left'? sx+5 : p.align==='center'? sx+p.w/2 : sx+p.w-5;
+        ctx.textAlign = p.align;
+        ctx.fillText(line, lineX, sy+30 + i*14);
+      });
+    });
+  }
+
+  function drawCheckpoint(){
+    const sx = checkpoint.x - camera.x;
+    const sy = checkpoint.y;
+    ctx.fillStyle = checkpoint.saved ? '#0f0' : '#ff0';
+    ctx.fillRect(sx,sy,checkpoint.w,checkpoint.h);
+    ctx.fillStyle = '#000';
+    ctx.font='12px monospace';
+    ctx.textAlign='center';
+    ctx.fillText('✔', sx+checkpoint.w/2, sy+checkpoint.h/2+4);
+  }
+
+  function drawMatrixGate(){
+    const sx = matrixGate.x - camera.x;
+    const sy = matrixGate.y;
+    ctx.fillStyle = '#555';
+    ctx.fillRect(sx-10,sy-10,matrixGate.w+20,matrixGate.h+20);
+    const grad = safeRadialGradient(sx+matrixGate.w/2, sy+matrixGate.h/2, 20,
+                                          sx+matrixGate.w/2, sy+matrixGate.h/2, matrixGate.w/2);
+    if(grad){
+      grad.addColorStop(0,'rgba(0,0,255,0.8)');
+      grad.addColorStop(1,'rgba(0,0,150,0.2)');
+      ctx.fillStyle = grad;
+    } else {
+      ctx.fillStyle = '#0000ff';
+    }
+    ctx.fillRect(sx,sy,matrixGate.w,matrixGate.h);
+    ctx.fillStyle = '#fff';
+    ctx.font='48px monospace';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText('</>', sx+matrixGate.w/2, sy+matrixGate.h/2);
+    ctx.fillStyle = '#0ff';
+    ctx.font='20px monospace';
+    ctx.fillText('MATRIX GATE', sx+matrixGate.w/2, sy+matrixGate.h - 20);
+  }
+
+  function drawHero(){
+    const sx=hero.x - camera.x;
+    const sy=hero.y;
+    ctx.save();
+    ctx.translate(sx+hero.w/2, sy+hero.h/2);
+    ctx.scale(hero.facing,1);
+    if(shieldTimer>0){
+      ctx.strokeStyle='rgba(0,200,255,0.7)';
+      ctx.lineWidth=4;
+      ctx.beginPath();
+      ctx.arc(0,0,hero.w,0,Math.PI*2);
+      ctx.stroke();
+    }
+    let scaleY=1;
+    if(hero.squashTimer>0){
+      const t=hero.squashTimer/6;
+      scaleY=0.8+0.2*t;
+    }
+    ctx.scale(1,scaleY);
+    ctx.fillStyle = invulnTimer>0 ? '#ff0' : '#777';
+    ctx.fillRect(-hero.w/2, -hero.h/2, hero.w, hero.h);
+    ctx.fillStyle='#ffb347';
+    ctx.beginPath();
+    ctx.arc(0, -hero.h/2 + 10, 20, Math.PI, 0);
+    ctx.fill();
+    ctx.fillStyle='#00f';
+    ctx.beginPath();
+    ctx.arc(0, -hero.h/2 + 10, 12, Math.PI, 0);
+    ctx.fill();
+    ctx.fillStyle='#555';
+    ctx.fillRect(-hero.w/2 - 8, -hero.h/2 + 5, 8, 30);
+    if(hero.state==='run'){
+      const legOffset = Math.sin(hero.animTimer*0.3)*5;
+      ctx.fillStyle='#555';
+      ctx.fillRect(-hero.w/4, hero.h/2 - 10 + legOffset, 8, 20);
+      ctx.fillRect(hero.w/4 - 8, hero.h/2 - 10 - legOffset, 8, 20);
+    } else {
+      ctx.fillStyle='#555';
+      ctx.fillRect(-hero.w/4, hero.h/2 - 10, 8, 20);
+      ctx.fillRect(hero.w/4 - 8, hero.h/2 - 10, 8, 20);
+    }
+    ctx.restore();
+    if(hero.state==='idle' || hero.state==='run'){
+      hero.animTimer++;
+    } else {
+      hero.animTimer=0;
+    }
+  }
+
+  function drawHUD(){
+    const barHeight=40;
+    ctx.fillStyle='#111';
+    ctx.fillRect(0,0,canvas.width,barHeight);
+    ctx.fillStyle='#fff';
+    ctx.font='18px monospace';
+    ctx.textBaseline='middle';
+    ctx.fillText('CONTRACT',12,barHeight/2);
+    ctx.fillStyle='#ff8800';
+    ctx.fillText('QUEST',120,barHeight/2);
+    const stats=[`COINS ${String(coinsCollected).padStart(3,'0')}`,
+                 `SCORE ${String(score).padStart(6,'0')}`,
+                 `LIVES ${lives}`];
+    ctx.fillStyle='#fff';
+    let offset=canvas.width-200;
+    stats.forEach(txt=>{
+      ctx.fillText(txt,offset,barHeight/2);
+      offset+=ctx.measureText(txt).width+30;
+    });
+    const badgeX=canvas.width-30;
+    const badgeY=barHeight/2;
+    ctx.fillStyle='#555';
+    ctx.beginPath();
+    ctx.arc(badgeX,badgeY,12,0,Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle='#bbb';
+    ctx.fillRect(badgeX-5,badgeY-2,10,8);
+    ctx.beginPath();
+    ctx.arc(badgeX,badgeY-4,5,Math.PI,0);
+    ctx.fill();
+    ctx.fillStyle='#777';
+    ctx.fillRect(badgeX-3,badgeY+2,6,6);
+  }
+
+  function drawFooter(){
+    const barHeight=30;
+    const y=canvas.height-barHeight;
+    ctx.fillStyle='#111';
+    ctx.fillRect(0,y,canvas.width,barHeight);
+    ctx.fillStyle='#ccc';
+    ctx.font='14px monospace';
+    ctx.textBaseline='middle';
+    const txt='coded by GitPilot — under a Matrix Builder contract';
+    const txtWidth=ctx.measureText(txt).width;
+    ctx.fillText(txt,(canvas.width-txtWidth)/2,y+barHeight/2);
+  }
+
+  const rmdTips = ['RMD‑101', 'RMD‑103', 'RMD‑111'];
+  let tipIndex = 0;
+  let tipTimer = 0;
+
+  function drawOverlay(){
+    ctx.fillStyle='rgba(0,0,0,0.7)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='#fff';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.font='48px "Press Start 2P",sans-serif';
+    if(gameState==='start'){
+      // Premium title
+      ctx.fillStyle='#fff';
+      ctx.font='64px "Press Start 2P",sans-serif';
+      ctx.fillText('CONTRACT',canvas.width/2-80,canvas.height/3);
+      ctx.fillStyle='#ff8800';
+      ctx.fillText('QUEST',canvas.width/2+80,canvas.height/3);
+      ctx.font='20px "Press Start 2P",sans-serif';
+      ctx.fillStyle='#fff';
+      const subtitle='A governed arcade platformer built with GitPilot and watsonx under a Matrix Builder contract';
+      ctx.fillText(subtitle,canvas.width/2,canvas.height/3+70);
+      // rotating tip
+      if(tipTimer===0){
+        tipIndex = (tipIndex+1)%rmdTips.length;
+        tipTimer = 180;
+      } else {
+        tipTimer--;
+      }
+      ctx.font='18px "Press Start 2P",sans-serif';
+      ctx.fillText(`TIP: ${rmdTips[tipIndex]}`,canvas.width/2,canvas.height/3+110);
+      // start prompt
+      ctx.font='24px "Press Start 2P",sans-serif';
+      ctx.fillText('Press Enter / Tap to Start',canvas.width/2,canvas.height/3+160);
+    } else if(gameState==='pause'){
+      ctx.fillText('PAUSED',canvas.width/2,canvas.height/2);
+      ctx.font='20px "Press Start 2P",sans-serif';
+      ctx.fillText('Press P to Resume',canvas.width/2,canvas.height/2+40);
+    } else if(gameState==='complete'){
+      ctx.fillText(`LEVEL COMPLETE — ${levelName}`,canvas.width/2,canvas.height/2);
+      ctx.font='20px "Press Start 2P",sans-serif';
+      ctx.fillText('Press Enter to Continue',canvas.width/2,canvas.height/2+40);
+    } else if(gameState==='gameover'){
+      ctx.fillText('GAME OVER',canvas.width/2,canvas.height/2);
+      ctx.font='20px "Press Start 2P",sans-serif';
+      ctx.fillText('Press R or Enter to Restart',canvas.width/2,canvas.height/2+40);
+    }
+    if(flashTimer>0){
+      ctx.fillStyle='rgba(255,255,0,0.9)';
+      ctx.font='30px "Press Start 2P",sans-serif';
+      ctx.fillText(flashMessage, canvas.width/2, canvas.height/2 - 80);
+    }
+  }
+
+  function drawParticles(){
+    particles.forEach(p=>{
+      const col = p.color || `rgba(255,200,100,${p.alpha})`;
+      ctx.fillStyle=col;
+      ctx.beginPath();
+      ctx.arc(p.x - camera.x, p.y, p.size,0,Math.PI*2);
+      ctx.fill();
+      p.x+=p.vx;
+      p.y+=p.vy;
+      p.alpha-=0.02;
+      p.life--;
+    });
+    for(let i=particles.length-1;i>=0;i--){
+      if(particles[i].life<=0||particles[i].alpha<=0) particles.splice(i,1);
+    }
+  }
+
+  function drawVignette(){
+    const grad=ctx.createRadialGradient(canvas.width/2,canvas.height/2,
+      Math.min(canvas.width,canvas.height)/2*0.7,
+      canvas.width/2,canvas.height/2,
+      Math.min(canvas.width,canvas.height)/2);
+    if(grad){
+      grad.addColorStop(0,'rgba(0,0,0,0)');
+      grad.addColorStop(1,'rgba(0,0,0,0.5)');
+      ctx.fillStyle=grad;
+    } else {
+      ctx.fillStyle='rgba(0,0,0,0.5)';
+    }
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+  }
+
+  // ---------- Main Loop ----------
+  function loop(){
+    // pause handling
+    if(keys.pause || touchPause.value){
+      if(gameState==='play'){
+        gameState='pause';
+      } else if(gameState==='pause'){
+        gameState='play';
+      }
+      keys.pause=false;
+      touchPause.value=false;
+    }
+
+    if(gameState==='play'){
+      applyPhysics();
+      camera.update();
+    }
+
+    if(flashTimer>0) flashTimer--;
+
+    // screen shake
+    let shakeX=0, shakeY=0;
+    if(shakeTimer>0){
+      shakeX = (Math.random()-0.5)*shakeIntensity;
+      shakeY = (Math.random()-0.5)*shakeIntensity;
+    }
+
+    ctx.save();
+    ctx.translate(shakeX, shakeY);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawSky();
+    drawSkyline();
+    drawPlatforms();
+    drawCollectibles();
+    drawPowerUps();
+    drawEnemies();
+    drawPanels();
+    drawCheckpoint();
+    drawMatrixGate();
+    drawHero();
+    drawHUD();
+    drawFooter();
+    drawParticles();
+    drawVignette();
+    ctx.restore();
+
+    // transition overlay
+    if(transitionDir!==0){
+      transitionAlpha += transitionDir*0.05;
+      if(transitionAlpha<=0){
+        transitionAlpha=0;
+        transitionDir=0;
+      } else if(transitionAlpha>=1){
+        transitionAlpha=1;
+        transitionDir=0;
+      }
+      ctx.fillStyle=`rgba(0,0,0,${transitionAlpha})`;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+
+    if(gameState!=='play'){
+      drawOverlay();
+    }
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

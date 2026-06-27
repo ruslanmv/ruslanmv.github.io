@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="A command-line turning an idea into a signed, approved contract">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#02140d"/><stop offset="0.55" stop-color="#04190f"/><stop offset="1" stop-color="#06231a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.62" cy="0.46" r="0.55">
+      <stop offset="0" stop-color="#22c878" stop-opacity="0.40"/>
+      <stop offset="0.45" stop-color="#15a86d" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#15a86d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="term" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c2a1e" stop-opacity="0.97"/><stop offset="1" stop-color="#071d14" stop-opacity="0.92"/>
+    </linearGradient>
+    <linearGradient id="seal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#103a26"/><stop offset="1" stop-color="#0a2a1c"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="28" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect width="1280" height="720" fill="url(#glow)"/>
+
+  <!-- faint command-grid in the left negative space -->
+  <g stroke="#1b6b49" stroke-width="1" opacity="0.10">
+    <path d="M0 150 H470 M0 270 H470 M0 390 H470 M0 510 H470"/>
+    <path d="M110 0 V720 M250 0 V720"/>
+  </g>
+
+  <!-- the CLI terminal (focal, right-weighted) -->
+  <g filter="url(#shadow)">
+    <rect x="430" y="150" width="540" height="380" rx="20" fill="url(#term)" stroke="#1f6b49"/>
+  </g>
+  <g><circle cx="462" cy="182" r="6" fill="#2fd996"/><circle cx="484" cy="182" r="6" fill="#3fae7a" opacity="0.7"/><circle cx="506" cy="182" r="6" fill="#2a7d59" opacity="0.6"/></g>
+  <line x1="430" y1="206" x2="970" y2="206" stroke="#14422e" stroke-width="1.5"/>
+  <!-- abstract prompt lines: a "$" cursor + command bars, then a status row (no readable text) -->
+  <g>
+    <g transform="translate(460,238)" fill="none">
+      <path d="M0 0 h10 m-10 8 h6" stroke="#7dffd0" stroke-width="3" stroke-linecap="round"/>
+      <rect x="22" y="-4" width="150" height="9" rx="4.5" fill="#2fd996" opacity="0.85"/>
+      <rect x="184" y="-4" width="92" height="9" rx="4.5" fill="#1f8f6a" opacity="0.6"/>
+    </g>
+    <g transform="translate(460,276)" fill="none">
+      <path d="M0 0 h10 m-10 8 h6" stroke="#7dffd0" stroke-width="3" stroke-linecap="round"/>
+      <rect x="22" y="-4" width="200" height="9" rx="4.5" fill="#2fd996" opacity="0.7"/>
+      <rect x="234" y="-4" width="120" height="9" rx="4.5" fill="#1f8f6a" opacity="0.55"/>
+    </g>
+    <!-- output rows -->
+    <rect x="482" y="318" width="300" height="8" rx="4" fill="#3f6b58" opacity="0.7"/>
+    <rect x="482" y="340" width="380" height="8" rx="4" fill="#3f6b58" opacity="0.55"/>
+    <rect x="482" y="362" width="250" height="8" rx="4" fill="#3f6b58" opacity="0.5"/>
+    <!-- approved status row with a green dot -->
+    <circle cx="468" cy="404" r="6" fill="#2fd996"/>
+    <rect x="486" y="400" width="170" height="9" rx="4.5" fill="#2fd996" opacity="0.85"/>
+    <rect x="668" y="400" width="120" height="9" rx="4.5" fill="#1f8f6a" opacity="0.5"/>
+    <!-- blinking cursor block -->
+    <rect x="482" y="438" width="14" height="18" rx="2" fill="#7dffd0"/>
+  </g>
+
+  <!-- a signed / approved contract seal overlapping the terminal's corner -->
+  <g filter="url(#shadow)">
+    <circle cx="980" cy="470" r="82" fill="url(#seal)" stroke="#2fd996" stroke-width="2.5"/>
+  </g>
+  <circle cx="980" cy="470" r="60" fill="none" stroke="#7dffd0" stroke-width="1.4" opacity="0.45"/>
+  <!-- checkmark -->
+  <path d="M946 472 l22 22 l46 -50" fill="none" stroke="#2fd996" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- subtle ribbon / signature tick under the seal -->
+  <g stroke="#1f8f6a" stroke-width="3" fill="none" opacity="0.6">
+    <path d="M935 556 q 45 26 90 0"/>
+  </g>
+
+  <!-- idea node → flow into the terminal (governed pipeline hint) -->
+  <g>
+    <circle cx="250" cy="300" r="30" fill="#0c2a1e" stroke="#2fd996" stroke-width="2"/>
+    <circle cx="250" cy="300" r="9" fill="#7dffd0"/>
+  </g>
+  <path d="M282 308 C 350 340, 380 300, 428 300" fill="none" stroke="#2fd996" stroke-width="2.4" opacity="0.85" filter="url(#soft)"/>
+  <g fill="#2fd996" opacity="0.85"><circle cx="330" cy="318" r="4"/><circle cx="372" cy="300" r="4"/></g>
+
+  <!-- floating particles -->
+  <g fill="#7dffd0">
+    <circle cx="560" cy="120" r="2.5" opacity="0.55"/><circle cx="1080" cy="170" r="2" opacity="0.45"/>
+    <circle cx="640" cy="600" r="2.5" opacity="0.5"/><circle cx="1140" cy="560" r="2" opacity="0.4"/>
+    <circle cx="160" cy="560" r="2" opacity="0.4"/><circle cx="1200" cy="320" r="2.5" opacity="0.45"/>
+  </g>
+</svg>

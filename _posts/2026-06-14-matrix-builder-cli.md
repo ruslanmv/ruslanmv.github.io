@@ -5,7 +5,7 @@ date: 2026-06-14
 permalink: /matrix-builder-cli/
 header:
   image: "/assets/images/posts/2026-06-14-matrix-builder-cli/hero.svg"
-  teaser: "/assets/images/posts/2026-06-14-matrix-builder-cli/hero.svg"
+  teaser: "/assets/images/posts/2026-06-14-matrix-builder-cli/cover.svg"
   caption: "Matrix Builder — Git for AI build contracts."
 tags:
   - matrix-builder
