@@ -19,7 +19,7 @@ toc: true
 toc_label: "Contents"
 ---
 
-Every other game in this arcade — [Pong]({{ '/blog/pong-under-contract/' | relative_url }}), [Tetris]({{ '/tetris-under-contract/' | relative_url }}), [Match-3]({{ '/blog/match-3-under-contract/' | relative_url }}) — was written by Claude Opus 4.8. **This one wasn't.** I wanted to prove the part of the pitch that's easy to *claim* and hard to *show*: that the governance is **provider-agnostic**. So I swapped the brain entirely and had an **open-weight** model — `openai/gpt-oss-120b`, running on **IBM watsonx.ai** — build the most advanced game of the set: a Mario-style neon platformer, across **6 governed batches**.
+Every other game in this arcade — [Pong]({{ '/blog/pong-under-contract/' | relative_url }}), [Tetris]({{ '/blog/tetris-under-contract/' | relative_url }}), [Match-3]({{ '/blog/match-3-under-contract/' | relative_url }}) — was written by Claude Opus 4.8. **This one wasn't.** I wanted to prove the part of the pitch that's easy to *claim* and hard to *show*: that the governance is **provider-agnostic**. So I swapped the brain entirely and had an **open-weight** model — `openai/gpt-oss-120b`, running on **IBM watsonx.ai** — build the most advanced game of the set: a Mario-style neon platformer, across **6 governed batches**.
 
 Same `mb` contracts. Same `gitpilot` driver. Same `mb check` gate. Different model. Here's the whole thing — and a one-command script to reproduce it.
 
