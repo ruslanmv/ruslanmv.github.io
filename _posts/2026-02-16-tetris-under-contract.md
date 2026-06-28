@@ -3,7 +3,7 @@ title: "I Made Claude Opus 4.8 Build a Full Tetris — in 5 Batches, Each Under 
 excerpt: "Not a one-shot prompt. I gave an AI a contract and let it build a complete, colorful neon Tetris one governed batch at a time — foundation, controls, scoring, juice, polish. Every batch validated before it could land. Play it, then see exactly how (and why) it works."
 description: "A step-by-step, fully auditable build: Matrix Builder turns one sentence into a contract, GitPilot drives Claude Opus 4.8 to write a single-file Tetris across 5 scoped batches, and mb check validates each one (approved, score 100) before commit. With diagrams and a real headless-browser screenshot."
 date: 2026-02-16
-permalink: /tetris-under-contract/
+permalink: /blog/tetris-under-contract/
 header:
   image: "/assets/images/posts/2026-06-16-tetris-under-contract/hero.svg"
   teaser: "/assets/images/posts/2026-06-16-tetris-under-contract/hero.svg"
@@ -19,7 +19,7 @@ toc: true
 toc_label: "Contents"
 ---
 
-A while back I let an AI build [a Pong game under contract]({{ '/pong-under-contract/' | relative_url }}). Pong is one file and a couple of hundred lines — a good proof, but small. So I raised the bar: could an AI build something *real* — a complete, polished, colorful **Tetris** — not in a single heroic prompt, but the way an engineer actually ships software: **one governed batch at a time**, with a validator standing between the model and `main`?
+A while back I let an AI build [a Pong game under contract]({{ '/blog/pong-under-contract/' | relative_url }}). Pong is one file and a couple of hundred lines — a good proof, but small. So I raised the bar: could an AI build something *real* — a complete, polished, colorful **Tetris** — not in a single heroic prompt, but the way an engineer actually ships software: **one governed batch at a time**, with a validator standing between the model and `main`?
 
 It could. Here's the whole thing, step by step — and a diagram of how (and why) it works.
 
@@ -155,6 +155,6 @@ mb check frontend/index.html
 - **Matrix Builder:** [agent-matrix/matrix-builder](https://github.com/agent-matrix/matrix-builder)
 - **GitPilot:** [gitpilot.ruslanmv.com](https://gitpilot.ruslanmv.com)
 - **Engine + `mb` CLI:** [ruslanmv/agent-generator](https://github.com/ruslanmv/agent-generator)
-- **Also:** [Pong, under contract]({{ '/pong-under-contract/' | relative_url }})
+- **Also:** [Pong, under contract]({{ '/blog/pong-under-contract/' | relative_url }})
 
 *The game was never really the point — the method was. Five scoped batches, each validated before it could land, show that AI can keep its raw speed without giving up control, auditability, or review. That is the kind of governed workflow I believe production AI coding will increasingly depend on, and it is the same approach behind Matrix Builder and GitPilot.*
