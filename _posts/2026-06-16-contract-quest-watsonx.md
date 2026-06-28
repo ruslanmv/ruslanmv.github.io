@@ -618,7 +618,7 @@ make build
 The script below is the executable summary of this article. It loads the environment, isolates `.venv`, validates the Matrix Designer bundle, normalizes the Matrix Builder export, skips implementation behavior for D-1, runs GitPilot for real implementation batches, checks only allowed files, and writes evidence.
 
 Save it as `build.sh`:
-https://gist.github.com/ruslanmv/b0ab0252cd8e10f29fb29a772e4a35d3
+<script src="https://gist.github.com/ruslanmv/b0ab0252cd8e10f29fb29a772e4a35d3.js"></script>
 
 
 ## Final word
