@@ -72,6 +72,11 @@ main:
 
   - title: "News"
     url: https://ruslanmv.com/news-and-trends/
+    children:
+      - title: "News"
+        url: https://ruslanmv.com/news-and-trends/
+      - title: "Sports"
+        url: https://ruslanmv.com/sports-trends/
 
   - title: "Contact"
     url: /contact/
@@ -136,6 +141,9 @@ burger:
     url: /talks/
   - title: "News"
     url: https://ruslanmv.com/news-and-trends/
+  - title: "Sports"
+    url: https://ruslanmv.com/sports-trends/
+    indent: true
   - title: "Certifications"
     url: /certifications/
   - title: "Contact"
