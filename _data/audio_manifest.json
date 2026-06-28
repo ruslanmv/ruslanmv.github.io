@@ -107,5 +107,18 @@
     "speed": "0.96",
     "updated_at": "2026-06-06T11:00:23Z",
     "voice": "kokoro-am_michael"
+  },
+  "why-i-created-matrix-designer": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/why-i-created-matrix-designer.mp3?v=269a8521",
+    "bytes": 12963501,
+    "content_hash": "sha256-269a85213260a97d306efa26b7272504bd23fe1659af1d37421b6488fd6f2aeb",
+    "duration": "9:00",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2026/why-i-created-matrix-designer.mp3",
+    "selection": "tagged",
+    "source_path": "_posts/2026-06-20-why-i-created-matrix-designer.md",
+    "speed": "0.96",
+    "updated_at": "2026-06-20T20:37:10Z",
+    "voice": "kokoro-am_michael"
   }
 }

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Matrix Designer — a brain before the code">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06160f"/><stop offset="1" stop-color="#0a2117"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.32" cy="0.42" r="0.5">
+      <stop offset="0" stop-color="#15a86d" stop-opacity="0.45"/><stop offset="1" stop-color="#15a86d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2fd996" stop-opacity="0.9"/><stop offset="1" stop-color="#7dffd0" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="2.2"/></filter>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect width="1200" height="750" fill="url(#glow)"/>
+
+  <!-- the brain: a small constellation of agent nodes -->
+  <g filter="url(#soft)" stroke="url(#edge)" stroke-width="2" fill="none" opacity="0.85">
+    <path d="M250 300 L360 250 M250 300 L360 360 M360 250 L470 300 M360 360 L470 300 M360 250 L360 360 M470 300 L360 420 M250 300 L300 410"/>
+  </g>
+  <g fill="#2fd996">
+    <circle cx="250" cy="300" r="13"/><circle cx="360" cy="250" r="11"/><circle cx="470" cy="300" r="11"/>
+    <circle cx="360" cy="360" r="11"/><circle cx="300" cy="410" r="9"/><circle cx="360" cy="420" r="9"/>
+  </g>
+  <text x="250" y="200" fill="#7dffd0" font-family="Georgia, serif" font-size="26" text-anchor="middle" opacity="0.9">the brain</text>
+
+  <!-- the pipeline: design → contract → code → validated -->
+  <g font-family="Georgia, serif" font-size="22" fill="#cdeede">
+    <g>
+      <rect x="600" y="250" width="150" height="64" rx="14" fill="#0f2c1e" stroke="#2b6b4c"/>
+      <text x="675" y="289" text-anchor="middle">Design</text>
+    </g>
+    <g>
+      <rect x="600" y="343" width="150" height="64" rx="14" fill="#0f2c1e" stroke="#2b6b4c"/>
+      <text x="675" y="382" text-anchor="middle">Contract</text>
+    </g>
+    <g>
+      <rect x="820" y="250" width="150" height="64" rx="14" fill="#0f2c1e" stroke="#2b6b4c"/>
+      <text x="895" y="289" text-anchor="middle">Code</text>
+    </g>
+    <g>
+      <rect x="820" y="343" width="150" height="64" rx="14" fill="#103a26" stroke="#2fd996"/>
+      <text x="895" y="382" text-anchor="middle" fill="#7dffd0">Validated ✓</text>
+    </g>
+  </g>
+  <g stroke="url(#edge)" stroke-width="2.5" fill="none" opacity="0.8">
+    <path d="M483 320 C 540 340, 560 282, 598 282" marker-end="url(#a)"/>
+    <path d="M675 314 L675 341"/>
+    <path d="M752 375 C 790 375, 790 282, 818 282"/>
+    <path d="M895 314 L895 341"/>
+  </g>
+
+  <text x="80" y="640" fill="#ffffff" font-family="Georgia, serif" font-size="58" font-weight="bold">A brain before the code.</text>
+  <text x="82" y="690" fill="#8fc7ab" font-family="Inter, system-ui, sans-serif" font-size="24">Why I created Matrix Designer · Ruslan Magana Vsevolodovna</text>
+</svg>

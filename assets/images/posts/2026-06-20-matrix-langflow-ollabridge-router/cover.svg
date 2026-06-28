@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Abstract orchestration network — agentic workflow routed through a central hub">
+  <defs>
+    <linearGradient id="bgA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#04130d"/><stop offset="0.55" stop-color="#06160f"/><stop offset="1" stop-color="#081d2a"/>
+    </linearGradient>
+    <radialGradient id="hubGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#2fd996" stop-opacity="0.85"/>
+      <stop offset="0.4" stop-color="#15a86d" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#15a86d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ambient" cx="0.66" cy="0.46" r="0.6">
+      <stop offset="0" stop-color="#0e6b6b" stop-opacity="0.35"/><stop offset="1" stop-color="#0e6b6b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1f8f6a" stop-opacity="0.15"/>
+      <stop offset="0.5" stop-color="#2fd996" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#7dffd0" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0e2920" stop-opacity="0.92"/><stop offset="1" stop-color="#0a1f18" stop-opacity="0.82"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="soft2"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bgA)"/>
+  <rect width="1280" height="720" fill="url(#ambient)"/>
+
+  <!-- faint matrix geometry in the left negative space -->
+  <g stroke="#1c6b4d" stroke-width="1" opacity="0.10">
+    <path d="M0 120 H520 M0 240 H520 M0 360 H520 M0 480 H520 M0 600 H520"/>
+    <path d="M120 0 V720 M260 0 V720 M400 0 V720"/>
+  </g>
+
+  <!-- glow behind the central hub (right-weighted) -->
+  <circle cx="840" cy="360" r="260" fill="url(#hubGlow)"/>
+
+  <!-- flow lines from input cards into the hub, and hub to output -->
+  <g fill="none" stroke="url(#flow)" stroke-width="2.4" opacity="0.9" filter="url(#soft2)">
+    <path d="M250 250 C 470 250, 600 330, 770 350"/>
+    <path d="M250 380 C 470 380, 600 360, 770 360"/>
+    <path d="M250 510 C 470 510, 600 400, 770 372"/>
+    <path d="M912 360 C 1010 360, 1060 250, 1150 240"/>
+    <path d="M912 372 C 1010 380, 1060 500, 1150 500"/>
+  </g>
+
+  <!-- modular stage cards on the left (abstract, no readable text) -->
+  <g>
+    <g transform="translate(150,206)">
+      <rect width="120" height="78" rx="14" fill="url(#card)" stroke="#2b6b4c"/>
+      <rect x="16" y="20" width="58" height="7" rx="3.5" fill="#3fe0a0" opacity="0.8"/>
+      <rect x="16" y="36" width="84" height="6" rx="3" fill="#1f8f6a" opacity="0.7"/>
+      <rect x="16" y="50" width="40" height="6" rx="3" fill="#1f8f6a" opacity="0.5"/>
+    </g>
+    <g transform="translate(150,338)">
+      <rect width="120" height="78" rx="14" fill="url(#card)" stroke="#2b6b4c"/>
+      <rect x="16" y="20" width="50" height="7" rx="3.5" fill="#3fe0a0" opacity="0.8"/>
+      <rect x="16" y="36" width="84" height="6" rx="3" fill="#1f8f6a" opacity="0.7"/>
+      <rect x="16" y="50" width="60" height="6" rx="3" fill="#1f8f6a" opacity="0.5"/>
+    </g>
+    <g transform="translate(150,470)">
+      <rect width="120" height="78" rx="14" fill="url(#card)" stroke="#2b6b4c"/>
+      <rect x="16" y="20" width="64" height="7" rx="3.5" fill="#3fe0a0" opacity="0.8"/>
+      <rect x="16" y="36" width="84" height="6" rx="3" fill="#1f8f6a" opacity="0.7"/>
+      <rect x="16" y="50" width="34" height="6" rx="3" fill="#1f8f6a" opacity="0.5"/>
+    </g>
+  </g>
+
+  <!-- output nodes on the right (the cloud) -->
+  <g fill="#0a1f18" stroke="#2b6b4c">
+    <circle cx="1170" cy="240" r="26"/><circle cx="1170" cy="500" r="26"/>
+  </g>
+  <g fill="#3fe0a0" opacity="0.9"><circle cx="1170" cy="240" r="6"/><circle cx="1170" cy="500" r="6"/></g>
+
+  <!-- the central router / bridge hub -->
+  <circle cx="840" cy="360" r="84" fill="#0c2b20" stroke="#2fd996" stroke-width="2.5"/>
+  <circle cx="840" cy="360" r="54" fill="none" stroke="#7dffd0" stroke-width="1.5" opacity="0.5"/>
+  <g stroke="#2fd996" stroke-width="2.4" fill="none" opacity="0.95">
+    <path d="M810 360 H870 M840 330 V390"/>
+    <circle cx="840" cy="360" r="9" fill="#7dffd0" stroke="none"/>
+  </g>
+  <!-- orbiting satellite nodes around the hub -->
+  <g fill="#2fd996">
+    <circle cx="760" cy="300" r="7"/><circle cx="930" cy="312" r="7"/>
+    <circle cx="930" cy="416" r="7"/><circle cx="760" cy="424" r="7"/>
+    <circle cx="840" cy="250" r="6" opacity="0.85"/><circle cx="840" cy="470" r="6" opacity="0.85"/>
+  </g>
+  <g stroke="#1f8f6a" stroke-width="1.4" opacity="0.55" fill="none">
+    <path d="M760 300 L840 360 L930 312 M760 424 L840 360 L930 416 M840 250 L840 360 L840 470"/>
+  </g>
+
+  <!-- floating particles for depth -->
+  <g fill="#7dffd0">
+    <circle cx="560" cy="170" r="2.5" opacity="0.6"/><circle cx="1080" cy="150" r="2" opacity="0.5"/>
+    <circle cx="660" cy="560" r="2.5" opacity="0.55"/><circle cx="1010" cy="600" r="2" opacity="0.45"/>
+    <circle cx="430" cy="640" r="2" opacity="0.4"/><circle cx="1200" cy="360" r="2.5" opacity="0.5"/>
+  </g>
+</svg>

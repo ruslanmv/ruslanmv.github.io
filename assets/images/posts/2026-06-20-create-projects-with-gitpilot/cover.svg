@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Abstract AI coding workspace — a controlled GitHub workflow with diffs and branches">
+  <defs>
+    <linearGradient id="bgB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141113"/><stop offset="0.5" stop-color="#1C1C1F"/><stop offset="1" stop-color="#241712"/>
+    </linearGradient>
+    <radialGradient id="emberB" cx="0.66" cy="0.42" r="0.6">
+      <stop offset="0" stop-color="#D95C3D" stop-opacity="0.5"/>
+      <stop offset="0.45" stop-color="#D95C3D" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#D95C3D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="panelB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#26262b" stop-opacity="0.96"/><stop offset="1" stop-color="#1a1a1e" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="panelB2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#201d1c" stop-opacity="0.95"/><stop offset="1" stop-color="#171516" stop-opacity="0.88"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="glowB"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bgB)"/>
+  <rect width="1280" height="720" fill="url(#emberB)"/>
+
+  <!-- faint dotted grid in the left negative space -->
+  <g fill="#3a3a42" opacity="0.5">
+    <g>
+      <circle cx="80" cy="120" r="1.6"/><circle cx="160" cy="120" r="1.6"/><circle cx="240" cy="120" r="1.6"/><circle cx="320" cy="120" r="1.6"/>
+      <circle cx="80" cy="200" r="1.6"/><circle cx="160" cy="200" r="1.6"/><circle cx="240" cy="200" r="1.6"/><circle cx="320" cy="200" r="1.6"/>
+      <circle cx="80" cy="280" r="1.6"/><circle cx="160" cy="280" r="1.6"/><circle cx="240" cy="280" r="1.6"/><circle cx="320" cy="280" r="1.6"/>
+      <circle cx="80" cy="520" r="1.6"/><circle cx="160" cy="520" r="1.6"/><circle cx="240" cy="520" r="1.6"/>
+      <circle cx="80" cy="600" r="1.6"/><circle cx="160" cy="600" r="1.6"/><circle cx="240" cy="600" r="1.6"/>
+    </g>
+  </g>
+
+  <!-- secondary panel: branch / repo graph (behind, left of main) -->
+  <g filter="url(#cardShadow)">
+    <rect x="300" y="250" width="300" height="300" rx="18" fill="url(#panelB2)" stroke="#34343b"/>
+  </g>
+  <!-- branch graph -->
+  <g stroke-width="3" fill="none">
+    <path d="M350 300 V520" stroke="#5a5a64"/>
+    <path d="M350 360 C 350 330, 430 330, 430 360 V470 C 430 500, 350 500, 350 470" stroke="#D95C3D" opacity="0.9"/>
+    <path d="M430 410 C 430 392, 500 392, 500 410 V440" stroke="#3fe0a0" opacity="0.85"/>
+  </g>
+  <g>
+    <circle cx="350" cy="300" r="9" fill="#8a8a92"/><circle cx="350" cy="380" r="9" fill="#8a8a92"/>
+    <circle cx="350" cy="470" r="9" fill="#8a8a92"/><circle cx="350" cy="520" r="9" fill="#8a8a92"/>
+    <circle cx="430" cy="360" r="9" fill="#D95C3D"/><circle cx="430" cy="470" r="9" fill="#D95C3D"/>
+    <circle cx="500" cy="410" r="8" fill="#3fe0a0"/><circle cx="500" cy="440" r="8" fill="#3fe0a0"/>
+  </g>
+
+  <!-- main dashboard / diff panel (focal, right-weighted) -->
+  <g filter="url(#cardShadow)">
+    <rect x="560" y="170" width="540" height="380" rx="20" fill="url(#panelB)" stroke="#3a3a42"/>
+  </g>
+  <!-- window chrome dots -->
+  <g><circle cx="592" cy="202" r="6" fill="#D95C3D"/><circle cx="614" cy="202" r="6" fill="#e0a23a"/><circle cx="636" cy="202" r="6" fill="#3fe0a0"/></g>
+  <line x1="560" y1="226" x2="1100" y2="226" stroke="#34343b" stroke-width="1.5"/>
+  <!-- abstract diff lines: green additions, red removals, neutral context (no readable text) -->
+  <g>
+    <!-- gutter -->
+    <rect x="560" y="226" width="34" height="324" fill="#201f23" opacity="0.7"/>
+    <g font-size="0">
+      <!-- rows -->
+      <rect x="612" y="252" width="300" height="9" rx="4.5" fill="#5a5a64"/>
+      <rect x="594" y="276" width="18" height="9" rx="2" fill="#1f8f6a"/><rect x="612" y="276" width="360" height="9" rx="4.5" fill="#1f8f6a" opacity="0.55"/>
+      <rect x="594" y="300" width="18" height="9" rx="2" fill="#1f8f6a"/><rect x="612" y="300" width="250" height="9" rx="4.5" fill="#1f8f6a" opacity="0.55"/>
+      <rect x="612" y="324" width="330" height="9" rx="4.5" fill="#5a5a64"/>
+      <rect x="594" y="348" width="18" height="9" rx="2" fill="#c0452f"/><rect x="612" y="348" width="210" height="9" rx="4.5" fill="#c0452f" opacity="0.5"/>
+      <rect x="612" y="372" width="280" height="9" rx="4.5" fill="#5a5a64"/>
+      <rect x="594" y="396" width="18" height="9" rx="2" fill="#1f8f6a"/><rect x="612" y="396" width="320" height="9" rx="4.5" fill="#1f8f6a" opacity="0.55"/>
+      <rect x="612" y="420" width="180" height="9" rx="4.5" fill="#5a5a64"/>
+      <rect x="612" y="444" width="300" height="9" rx="4.5" fill="#5a5a64" opacity="0.7"/>
+    </g>
+    <!-- approve / status chip (abstract, orange) -->
+    <rect x="980" y="496" width="90" height="30" rx="15" fill="#D95C3D"/>
+    <circle cx="1000" cy="511" r="6" fill="#fff" opacity="0.92"/>
+    <rect x="1014" y="507" width="44" height="8" rx="4" fill="#fff" opacity="0.85"/>
+  </g>
+
+  <!-- agent activity indicators (glowing dots rising) -->
+  <g filter="url(#glowB)">
+    <circle cx="1150" cy="300" r="5" fill="#D95C3D"/><circle cx="1180" cy="250" r="4" fill="#e0a23a"/>
+    <circle cx="1160" cy="200" r="3.5" fill="#3fe0a0"/>
+  </g>
+
+  <!-- floating particles -->
+  <g fill="#D95C3D" opacity="0.5">
+    <circle cx="700" cy="120" r="2.5"/><circle cx="1040" cy="610" r="2"/><circle cx="470" cy="160" r="2"/>
+  </g>
+</svg>

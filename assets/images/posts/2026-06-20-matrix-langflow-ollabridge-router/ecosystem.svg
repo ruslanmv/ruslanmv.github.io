@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 380" font-family="Inter, Segoe UI, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#02170f"/><stop offset="1" stop-color="#0b1f1a"/>
+    </linearGradient>
+    <marker id="arr2" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#22c878"/>
+    </marker>
+  </defs>
+  <rect width="940" height="380" rx="18" fill="url(#bg2)"/>
+  <text x="40" y="50" fill="#fff" font-size="26" font-weight="700">One idea → a governed agentic workflow</text>
+  <text x="40" y="78" fill="#7fae97" font-size="15">The Brain designs it, the contract controls it, the worker builds it — and every model call routes through one gateway.</text>
+
+  <!-- pipeline -->
+  <g>
+    <rect x="40" y="120" width="180" height="78" rx="12" fill="#0f1f1a" stroke="#2b6b4c"/>
+    <text x="130" y="150" fill="#8A63D2" font-size="15" font-weight="700" text-anchor="middle">Matrix Designer</text>
+    <text x="130" y="170" fill="#cfe9dc" font-size="11" text-anchor="middle">the Brain — designs</text>
+    <text x="130" y="186" fill="#7fae97" font-size="10.5" text-anchor="middle">→ Design Bundle</text>
+
+    <rect x="270" y="120" width="180" height="78" rx="12" fill="#0f1f1a" stroke="#2b6b4c"/>
+    <text x="360" y="150" fill="#53f39d" font-size="15" font-weight="700" text-anchor="middle">Matrix Builder</text>
+    <text x="360" y="170" fill="#cfe9dc" font-size="11" text-anchor="middle">the contract — controls</text>
+    <text x="360" y="186" fill="#7fae97" font-size="10.5" text-anchor="middle">→ signed Matrix Bundle</text>
+
+    <rect x="500" y="120" width="180" height="78" rx="12" fill="#0f1f1a" stroke="#2b6b4c"/>
+    <text x="590" y="150" fill="#D95C3D" font-size="15" font-weight="700" text-anchor="middle">GitPilot</text>
+    <text x="590" y="170" fill="#cfe9dc" font-size="11" text-anchor="middle">the worker — builds</text>
+    <text x="590" y="186" fill="#7fae97" font-size="10.5" text-anchor="middle">→ code + PR, under contract</text>
+  </g>
+
+  <!-- langflow output -->
+  <rect x="730" y="120" width="170" height="78" rx="12" fill="#101a2b" stroke="#3b6fb0"/>
+  <text x="815" y="150" fill="#7cc0ff" font-size="15" font-weight="700" text-anchor="middle">LangFlow</text>
+  <text x="815" y="170" fill="#cfe0f2" font-size="11" text-anchor="middle">the visual workflow</text>
+  <text x="815" y="186" fill="#9bb6cf" font-size="10.5" text-anchor="middle">you run + edit</text>
+
+  <line x1="220" y1="159" x2="268" y2="159" stroke="#22c878" stroke-width="2" marker-end="url(#arr2)"/>
+  <line x1="450" y1="159" x2="498" y2="159" stroke="#22c878" stroke-width="2" marker-end="url(#arr2)"/>
+  <line x1="680" y1="159" x2="728" y2="159" stroke="#22c878" stroke-width="2" marker-end="url(#arr2)"/>
+
+  <!-- router LLM -->
+  <rect x="270" y="262" width="410" height="74" rx="12" fill="#1a1326" stroke="#8A63D2"/>
+  <text x="475" y="290" fill="#c4a9ff" font-size="15" font-weight="700" text-anchor="middle">OllaBridge Cloud — the Router LLM</text>
+  <text x="475" y="312" fill="#b9a6d8" font-size="11" text-anchor="middle">one OpenAI-compatible /v1 endpoint · model aliases (free-best · fable-5 · local-private)</text>
+  <text x="475" y="328" fill="#9a87b8" font-size="10.5" text-anchor="middle">score-based routing + failover across OpenAI · Claude · Watsonx · your own Ollama</text>
+
+  <line x1="360" y1="198" x2="430" y2="260" stroke="#8A63D2" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr2)"/>
+  <line x1="590" y1="198" x2="520" y2="260" stroke="#8A63D2" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr2)"/>
+  <line x1="815" y1="198" x2="660" y2="280" stroke="#8A63D2" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr2)"/>
+
+  <text x="40" y="300" fill="#7fae97" font-size="12" font-weight="600">Every</text>
+  <text x="40" y="316" fill="#7fae97" font-size="12" font-weight="600">model</text>
+  <text x="40" y="332" fill="#7fae97" font-size="12" font-weight="600">call →</text>
+</svg>

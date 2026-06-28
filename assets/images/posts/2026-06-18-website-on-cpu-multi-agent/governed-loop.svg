@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 360" font-family="'Hanken Grotesk',system-ui,Segoe UI,sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#062315"/><stop offset="1" stop-color="#02170f"/>
+    </linearGradient>
+    <marker id="a2" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto">
+      <path d="M1,1 L9,5.5 L1,10" fill="none" stroke="#53f39d" stroke-width="1.8"/>
+    </marker>
+    <marker id="a2r" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto">
+      <path d="M1,1 L9,5.5 L1,10" fill="none" stroke="#ffb000" stroke-width="1.8"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1160" height="360" rx="22" fill="url(#bg2)"/>
+  <text x="40" y="50" fill="#eafff4" font-size="20" font-weight="700">The governed loop — one validated batch at a time</text>
+
+  <!-- idea -->
+  <rect x="40" y="92" width="150" height="70" rx="13" fill="#0a2a1d" stroke="rgba(120,200,160,.35)"/>
+  <text x="115" y="124" text-anchor="middle" fill="#53f39d" font-size="14" font-weight="700">idea</text>
+  <text x="115" y="144" text-anchor="middle" fill="#9bbcad" font-size="11">+ mb init</text>
+
+  <!-- loop boxes -->
+  <g font-size="13.5">
+    <rect x="226" y="92" width="150" height="70" rx="13" fill="#0a2a1d" stroke="rgba(120,200,160,.35)"/>
+    <text x="301" y="122" text-anchor="middle" fill="#cfe8db" font-family="monospace">mb next</text>
+    <text x="301" y="142" text-anchor="middle" fill="#88ab9c" font-size="11">plan a batch</text>
+
+    <rect x="412" y="92" width="170" height="70" rx="13" fill="#0a2a1d" stroke="rgba(120,200,160,.35)"/>
+    <text x="497" y="122" text-anchor="middle" fill="#cfe8db" font-family="monospace">mb prompt</text>
+    <text x="497" y="142" text-anchor="middle" fill="#88ab9c" font-size="11">contract-bound prompt</text>
+
+    <rect x="618" y="92" width="178" height="70" rx="13" fill="#0a2a1d" stroke="rgba(120,200,160,.35)"/>
+    <text x="707" y="122" text-anchor="middle" fill="#53f39d" font-weight="700">🚁 GitPilot</text>
+    <text x="707" y="142" text-anchor="middle" fill="#88ab9c" font-size="11">generate the code (local LLM)</text>
+
+    <rect x="832" y="92" width="170" height="70" rx="13" fill="#0a2a1d" stroke="rgba(120,200,160,.35)"/>
+    <text x="917" y="122" text-anchor="middle" fill="#cfe8db" font-family="monospace">mb check</text>
+    <text x="917" y="142" text-anchor="middle" fill="#88ab9c" font-size="11">validate, fail-closed</text>
+  </g>
+
+  <line x1="190" y1="127" x2="224" y2="127" stroke="#53f39d" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="376" y1="127" x2="410" y2="127" stroke="#53f39d" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="582" y1="127" x2="616" y2="127" stroke="#53f39d" stroke-width="2" marker-end="url(#a2)"/>
+  <line x1="796" y1="127" x2="830" y2="127" stroke="#53f39d" stroke-width="2" marker-end="url(#a2)"/>
+
+  <!-- approved -> commit -->
+  <rect x="1030" y="92" width="96" height="70" rx="13" fill="#10331f" stroke="#22c878"/>
+  <text x="1078" y="120" text-anchor="middle" fill="#9affc0" font-size="12.5" font-weight="700">approved</text>
+  <text x="1078" y="140" text-anchor="middle" fill="#cfe8db" font-size="11">commit mc-…</text>
+  <line x1="1002" y1="127" x2="1028" y2="127" stroke="#53f39d" stroke-width="2" marker-end="url(#a2)"/>
+
+  <!-- needs-repair loop back -->
+  <path d="M917,162 L917,228 L497,228 L497,164" fill="none" stroke="#ffb000" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#a2r)"/>
+  <text x="707" y="248" text-anchor="middle" fill="#ffd27f" font-size="12.5">needs-repair → mb repair → try again (nothing ships until it passes)</text>
+
+  <!-- next batch loop -->
+  <path d="M1078,162 L1078,300 L301,300 L301,164" fill="none" stroke="rgba(120,200,160,.5)" stroke-width="1.6" stroke-dasharray="3 5" marker-end="url(#a2)"/>
+  <text x="690" y="320" text-anchor="middle" fill="#7fb8a0" font-size="12">repeat for the next batch — the plan grows, the governance holds</text>
+</svg>

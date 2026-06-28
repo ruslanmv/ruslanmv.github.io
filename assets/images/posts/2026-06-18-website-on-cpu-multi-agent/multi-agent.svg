@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 300" font-family="'Hanken Grotesk',system-ui,Segoe UI,sans-serif">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1430"/><stop offset="1" stop-color="#05122a"/>
+    </linearGradient>
+    <marker id="a3" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto">
+      <path d="M1,1 L9,5.5 L1,10" fill="none" stroke="#8a63d2" stroke-width="1.8"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1160" height="300" rx="22" fill="url(#bg3)"/>
+  <text x="40" y="48" fill="#eafff4" font-size="20" font-weight="700">🧠 Matrix Designer — a LangGraph crew of specialist agents</text>
+
+  <!-- 7 agent nodes -->
+  <g font-size="12.5">
+    <rect x="40"  y="92" width="138" height="76" rx="12" fill="#16224a" stroke="rgba(138,99,210,.5)"/>
+    <text x="109" y="124" text-anchor="middle" fill="#b9a3ff" font-weight="700">Planner</text>
+    <text x="109" y="144" text-anchor="middle" fill="#cdd5f5" font-size="11">orchestrator</text>
+
+    <rect x="196" y="92" width="138" height="76" rx="12" fill="#16224a" stroke="rgba(138,99,210,.5)"/>
+    <text x="265" y="118" text-anchor="middle" fill="#b9a3ff" font-weight="700">Requirements</text>
+    <text x="265" y="138" text-anchor="middle" fill="#cdd5f5" font-size="11">features · scope</text>
+
+    <rect x="352" y="92" width="138" height="76" rx="12" fill="#16224a" stroke="rgba(138,99,210,.5)"/>
+    <text x="421" y="118" text-anchor="middle" fill="#b9a3ff" font-weight="700">Architect</text>
+    <text x="421" y="138" text-anchor="middle" fill="#cdd5f5" font-size="11">components</text>
+
+    <rect x="508" y="92" width="138" height="76" rx="12" fill="#16224a" stroke="rgba(138,99,210,.5)"/>
+    <text x="577" y="118" text-anchor="middle" fill="#b9a3ff" font-weight="700">UI / UX</text>
+    <text x="577" y="138" text-anchor="middle" fill="#cdd5f5" font-size="11">flows · assets</text>
+
+    <rect x="664" y="92" width="150" height="76" rx="12" fill="#1d2a55" stroke="#8a63d2"/>
+    <text x="739" y="118" text-anchor="middle" fill="#d7c9ff" font-weight="700">Batch Planner 🧩</text>
+    <text x="739" y="138" text-anchor="middle" fill="#cdd5f5" font-size="11">the ordered roadmap</text>
+
+    <rect x="832" y="92" width="138" height="76" rx="12" fill="#16224a" stroke="rgba(138,99,210,.5)"/>
+    <text x="901" y="118" text-anchor="middle" fill="#b9a3ff" font-weight="700">Quality</text>
+    <text x="901" y="138" text-anchor="middle" fill="#cdd5f5" font-size="11">RMD rules</text>
+
+    <rect x="988" y="92" width="138" height="76" rx="12" fill="#16224a" stroke="rgba(138,99,210,.5)"/>
+    <text x="1057" y="118" text-anchor="middle" fill="#b9a3ff" font-weight="700">Synthesizer</text>
+    <text x="1057" y="138" text-anchor="middle" fill="#cdd5f5" font-size="11">3 blueprints</text>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#8a63d2" stroke-width="2">
+    <line x1="178" y1="130" x2="194" y2="130" marker-end="url(#a3)"/>
+    <line x1="334" y1="130" x2="350" y2="130" marker-end="url(#a3)"/>
+    <line x1="490" y1="130" x2="506" y2="130" marker-end="url(#a3)"/>
+    <line x1="646" y1="130" x2="662" y2="130" marker-end="url(#a3)"/>
+    <line x1="814" y1="130" x2="830" y2="130" marker-end="url(#a3)"/>
+    <line x1="970" y1="130" x2="986" y2="130" marker-end="url(#a3)"/>
+  </g>
+
+  <text x="580" y="216" text-anchor="middle" fill="#9aa6d8" font-size="13">Each agent owns one slice of the design; together they decide the batches before a line of code is written.</text>
+  <text x="580" y="244" text-anchor="middle" fill="#7c86b8" font-size="12">AI proposes the design · Matrix Definitions enforce it · the brain never approves itself.</text>
+</svg>
