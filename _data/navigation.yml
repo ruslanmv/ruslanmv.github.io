@@ -70,7 +70,7 @@ main:
   - title: "Talks"
     url: /talks/
 
-  - title: "News"
+  - title: "Trends"
     url: https://ruslanmv.com/news-and-trends/
     children:
       - title: "News"
@@ -139,8 +139,11 @@ burger:
     url: /publications
   - title: "Talks"
     url: /talks/
+  - title: "Trends"
+    url: https://ruslanmv.com/news-and-trends/
   - title: "News"
     url: https://ruslanmv.com/news-and-trends/
+    indent: true
   - title: "Sports"
     url: https://ruslanmv.com/sports-trends/
     indent: true
