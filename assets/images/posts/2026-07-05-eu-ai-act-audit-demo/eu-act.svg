@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 480" font-family="'Hanken Grotesk',system-ui,Segoe UI,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#062315"/><stop offset="1" stop-color="#02170f"/>
+    </linearGradient>
+    <marker id="arr" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto">
+      <path d="M1,1 L9,5.5 L1,10" fill="none" stroke="#53f39d" stroke-width="1.8"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1160" height="480" rx="22" fill="url(#bg)"/>
+  <text x="48" y="66" fill="#53f39d" font-size="15" font-family="monospace" letter-spacing="2">EU AI ACT · AGENTIC AUDIT · &lt; 60s</text>
+  <text x="48" y="112" fill="#eafff4" font-size="34" font-weight="800">A rogue prompt meets a fail-closed contract.</text>
+
+  <!-- rogue prompt -->
+  <g>
+    <rect x="60" y="180" width="250" height="150" rx="16" fill="#0a2a1d" stroke="rgba(220,110,100,.55)"/>
+    <text x="185" y="216" text-anchor="middle" fill="#ff8f7a" font-size="16" font-weight="700">rogue agent</text>
+    <text x="185" y="248" text-anchor="middle" fill="#ffb37a" font-size="12" font-family="monospace">"bypass auth for</text>
+    <text x="185" y="268" text-anchor="middle" fill="#ffb37a" font-size="12" font-family="monospace">easier testing"</text>
+    <text x="185" y="300" text-anchor="middle" fill="#ffb37a" font-size="12" font-family="monospace">+ import nocheck pkg</text>
+  </g>
+  <line x1="312" y1="255" x2="420" y2="255" stroke="#ff8f7a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- mb gate -->
+  <g>
+    <rect x="424" y="176" width="220" height="180" rx="16" fill="#0d3524" stroke="rgba(120,200,160,.55)"/>
+    <text x="534" y="212" text-anchor="middle" fill="#53f39d" font-size="18" font-weight="800">mb check</text>
+    <text x="534" y="246" text-anchor="middle" fill="#7dffd0" font-size="13" font-family="monospace">✗ SEC-OWASP-A01</text>
+    <text x="534" y="270" text-anchor="middle" fill="#7dffd0" font-size="13" font-family="monospace">✗ SEC-AUTH-003</text>
+    <text x="534" y="294" text-anchor="middle" fill="#7dffd0" font-size="13" font-family="monospace">✗ DEP-002</text>
+    <rect x="470" y="312" width="128" height="30" rx="8" fill="#3a0f0c" stroke="#ff6b5e"/>
+    <text x="534" y="332" text-anchor="middle" fill="#ff9c8f" font-size="14" font-weight="700" font-family="monospace">exit code 2</text>
+  </g>
+  <line x1="646" y1="255" x2="754" y2="255" stroke="#53f39d" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- hash-chained ledger -->
+  <g font-family="monospace">
+    <rect x="758" y="176" width="200" height="180" rx="16" fill="#0a2a1d" stroke="rgba(120,200,160,.45)"/>
+    <text x="858" y="208" text-anchor="middle" fill="#eafff4" font-size="15" font-weight="700">ledger.jsonl</text>
+    <rect x="782" y="224" width="152" height="26" rx="6" fill="#0d3524" stroke="rgba(120,200,160,.35)"/>
+    <text x="858" y="242" text-anchor="middle" fill="#bfe9d3" font-size="11">seq 41 · e3b0…</text>
+    <rect x="782" y="256" width="152" height="26" rx="6" fill="#0d3524" stroke="rgba(120,200,160,.35)"/>
+    <text x="858" y="274" text-anchor="middle" fill="#bfe9d3" font-size="11">seq 42 · 1a4d…</text>
+    <rect x="782" y="288" width="152" height="26" rx="6" fill="#0d3524" stroke="rgba(120,200,160,.35)"/>
+    <text x="858" y="306" text-anchor="middle" fill="#bfe9d3" font-size="11">seq 43 · 77f0…</text>
+    <text x="858" y="338" text-anchor="middle" fill="#7dffd0" font-size="11">↑ hash-chained</text>
+  </g>
+
+  <!-- signed report -->
+  <g>
+    <line x1="960" y1="255" x2="1004" y2="255" stroke="#53f39d" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="1008" y="200" width="112" height="120" rx="14" fill="#0d3524" stroke="rgba(120,200,160,.55)"/>
+    <text x="1064" y="252" text-anchor="middle" fill="#7dffd0" font-size="30">🔏</text>
+    <text x="1064" y="288" text-anchor="middle" fill="#bfe9d3" font-size="11" font-family="monospace">signed</text>
+    <text x="1064" y="306" text-anchor="middle" fill="#bfe9d3" font-size="11" font-family="monospace">report</text>
+  </g>
+
+  <text x="48" y="446" fill="#7fb8a0" font-size="14" font-family="monospace">Art. 12 traceability · Art. 14 oversight · OWASP Top 10 · ed25519 · chain verified 43/43</text>
+</svg>
