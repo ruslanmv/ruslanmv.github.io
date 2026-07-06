@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Abstract: a local pipeline of three nodes on a constrained board producing an app, next to a CPU chip">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#06271a"/><stop offset="1" stop-color="#02150e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="58%">
+      <stop offset="0" stop-color="#0c3a27" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#02150e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="node" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f3b28"/><stop offset="1" stop-color="#0a2c1e"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2fd996"/><stop offset="1" stop-color="#15a86d"/>
+    </linearGradient>
+    <marker id="ar" markerWidth="12" markerHeight="12" refX="7" refY="5.5" orient="auto">
+      <path d="M1,1 L9,5.5 L1,10" fill="none" stroke="#53f39d" stroke-width="1.8"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="630" rx="26" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- constrained board boundary (the "Pi limit") -->
+  <rect x="60" y="150" width="900" height="330" rx="22" fill="none"
+        stroke="#2fd996" stroke-opacity=".4" stroke-width="2.5" stroke-dasharray="10 9"/>
+  <!-- corner mounting holes -->
+  <g fill="none" stroke="#2fd996" stroke-opacity=".45" stroke-width="2.5">
+    <circle cx="96" cy="186" r="9"/><circle cx="924" cy="186" r="9"/>
+    <circle cx="96" cy="444" r="9"/><circle cx="924" cy="444" r="9"/>
+  </g>
+
+  <!-- NODE 1: model (stacked cylinder) -->
+  <g transform="translate(150,235)">
+    <rect x="-6" y="-6" width="200" height="160" rx="16" fill="url(#node)" stroke="#2fd996" stroke-opacity=".55" stroke-width="1.6"/>
+    <g transform="translate(94,80)" stroke="#53f39d" stroke-width="3" fill="#0a2c1e">
+      <ellipse cx="0" cy="-30" rx="46" ry="15"/>
+      <path d="M-46,-30 v22 a46,15 0 0 0 92,0 v-22" fill="#0a2c1e"/>
+      <ellipse cx="0" cy="-8" rx="46" ry="15" fill="none" opacity=".7"/>
+      <path d="M-46,-8 v22 a46,15 0 0 0 92,0 v-22" fill="none"/>
+      <path d="M-46,14 v10 a46,15 0 0 0 92,0 v-10" fill="none" opacity=".7"/>
+    </g>
+  </g>
+  <line x1="356" y1="315" x2="410" y2="315" stroke="#53f39d" stroke-width="3" marker-end="url(#ar)"/>
+
+  <!-- NODE 2: gateway (bridge / arch) -->
+  <g transform="translate(422,235)">
+    <rect x="-6" y="-6" width="200" height="160" rx="16" fill="url(#node)" stroke="#2fd996" stroke-opacity=".55" stroke-width="1.6"/>
+    <g stroke="#53f39d" stroke-width="4" fill="none" stroke-linecap="round">
+      <path d="M20,112 v-30 a74,60 0 0 1 148,0 v30"/>
+      <line x1="20" y1="112" x2="168" y2="112"/>
+      <line x1="57" y1="112" x2="57" y2="66"/>
+      <line x1="94" y1="112" x2="94" y2="52"/>
+      <line x1="131" y1="112" x2="131" y2="66"/>
+    </g>
+  </g>
+  <line x1="628" y1="315" x2="682" y2="315" stroke="#53f39d" stroke-width="3" marker-end="url(#ar)"/>
+
+  <!-- NODE 3: orchestration hub (4 agents) -->
+  <g transform="translate(694,235)">
+    <rect x="-6" y="-6" width="200" height="160" rx="16" fill="url(#node)" stroke="#2fd996" stroke-opacity=".7" stroke-width="1.8"/>
+    <g transform="translate(94,74)">
+      <circle r="20" fill="#12855a" stroke="#53f39d" stroke-width="2.5"/>
+      <g stroke="#53f39d" stroke-width="2.5" opacity=".8">
+        <line x1="0" y1="-20" x2="0" y2="-46"/><line x1="0" y1="20" x2="0" y2="46"/>
+        <line x1="-20" y1="0" x2="-56" y2="0"/><line x1="20" y1="0" x2="56" y2="0"/>
+      </g>
+      <g fill="#0a2c1e" stroke="#53f39d" stroke-width="2.5">
+        <circle cx="0" cy="-54" r="12"/><circle cx="0" cy="54" r="12"/>
+        <circle cx="-64" cy="0" r="12"/><circle cx="64" cy="0" r="12"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- flow out of board to result -->
+  <line x1="900" y1="315" x2="1000" y2="315" stroke="#53f39d" stroke-width="3" marker-end="url(#ar)"/>
+
+  <!-- RESULT: app window with React-atom orbit -->
+  <g transform="translate(1010,215)">
+    <rect x="0" y="0" width="150" height="200" rx="16" fill="#082217" stroke="#2fd996" stroke-opacity=".6" stroke-width="1.8"/>
+    <rect x="0" y="0" width="150" height="34" rx="16" fill="#0f3b28"/>
+    <g fill="#53f39d"><circle cx="20" cy="17" r="5"/><circle cx="40" cy="17" r="5"/><circle cx="60" cy="17" r="5"/></g>
+    <g transform="translate(75,120)" stroke="#53f39d" fill="none" stroke-width="2.5">
+      <circle r="8" fill="#53f39d" stroke="none"/>
+      <ellipse rx="42" ry="16"/>
+      <ellipse rx="42" ry="16" transform="rotate(60)"/>
+      <ellipse rx="42" ry="16" transform="rotate(120)"/>
+    </g>
+  </g>
+
+  <!-- CPU chip accent (bottom-left, outside pipeline row) -->
+  <g transform="translate(150,470)">
+    <rect x="0" y="0" width="70" height="70" rx="10" fill="#0a2c1e" stroke="url(#acc)" stroke-width="2.5"/>
+    <rect x="16" y="16" width="38" height="38" rx="5" fill="none" stroke="#53f39d" stroke-width="2" opacity=".8"/>
+    <g stroke="#2fd996" stroke-width="2.5" opacity=".7">
+      <line x1="18" y1="-8" x2="18" y2="0"/><line x1="35" y1="-8" x2="35" y2="0"/><line x1="52" y1="-8" x2="52" y2="0"/>
+      <line x1="18" y1="70" x2="18" y2="78"/><line x1="35" y1="70" x2="35" y2="78"/><line x1="52" y1="70" x2="52" y2="78"/>
+      <line x1="-8" y1="18" x2="0" y2="18"/><line x1="-8" y1="35" x2="0" y2="35"/><line x1="-8" y1="52" x2="0" y2="52"/>
+      <line x1="70" y1="18" x2="78" y2="18"/><line x1="70" y1="35" x2="78" y2="35"/><line x1="70" y1="52" x2="78" y2="52"/>
+    </g>
+  </g>
+</svg>

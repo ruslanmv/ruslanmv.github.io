@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Abstract: a red intrusion bolt blocked by a shield gate, feeding a hash-chained ledger sealed by a lock">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#06271a"/><stop offset="1" stop-color="#02150e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="46%" cy="44%" r="55%">
+      <stop offset="0" stop-color="#0c3a27" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#02150e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2fd996"/><stop offset="1" stop-color="#12855a"/>
+    </linearGradient>
+    <linearGradient id="blk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f3b28"/><stop offset="1" stop-color="#0a2c1e"/>
+    </linearGradient>
+    <marker id="ar" markerWidth="12" markerHeight="12" refX="7" refY="5.5" orient="auto">
+      <path d="M1,1 L9,5.5 L1,10" fill="none" stroke="#53f39d" stroke-width="1.8"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="630" rx="26" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- LEFT: rogue intrusion bolt -->
+  <g>
+    <path d="M96,250 L232,250 L188,300 L250,300 L120,430 L172,326 L112,326 Z"
+          fill="#ff6b5e" opacity=".92"/>
+    <path d="M96,250 L232,250 L188,300 L250,300 L120,430 L172,326 L112,326 Z"
+          fill="none" stroke="#ffb37a" stroke-width="2" opacity=".6"/>
+    <g fill="#ff8f7a" opacity=".7">
+      <circle cx="150" cy="220" r="5"/><circle cx="205" cy="205" r="4"/><circle cx="120" cy="470" r="4"/>
+    </g>
+  </g>
+  <line x1="262" y1="315" x2="342" y2="315" stroke="#ff8f7a" stroke-width="3" marker-end="url(#ar)" opacity=".9"/>
+
+  <!-- CENTER: shield gate that blocks -->
+  <g>
+    <path d="M470,150 C470,150 545,196 610,196 C610,196 610,360 470,470
+             C330,360 330,196 330,196 C395,196 470,150 470,150 Z"
+          fill="url(#shield)" opacity=".15"/>
+    <path d="M470,150 C470,150 545,196 610,196 C610,196 610,360 470,470
+             C330,360 330,196 330,196 C395,196 470,150 470,150 Z"
+          fill="none" stroke="url(#shield)" stroke-width="3.5"/>
+    <!-- prohibition / blocked mark (no text) -->
+    <circle cx="470" cy="312" r="66" fill="#2a0f0c" stroke="#ff6b5e" stroke-width="6"/>
+    <line x1="425" y1="357" x2="515" y2="267" stroke="#ff6b5e" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <line x1="622" y1="315" x2="702" y2="315" stroke="#53f39d" stroke-width="3" marker-end="url(#ar)" opacity=".9"/>
+
+  <!-- RIGHT: hash-chained ledger + seal -->
+  <g>
+    <!-- three linked ledger blocks -->
+    <g>
+      <rect x="742" y="196" width="250" height="66" rx="12" fill="url(#blk)" stroke="#2fd996" stroke-opacity=".6" stroke-width="1.6"/>
+      <rect x="742" y="286" width="250" height="66" rx="12" fill="url(#blk)" stroke="#2fd996" stroke-opacity=".6" stroke-width="1.6"/>
+      <rect x="742" y="376" width="250" height="66" rx="12" fill="url(#blk)" stroke="#2fd996" stroke-opacity=".6" stroke-width="1.6"/>
+    </g>
+    <!-- chain links between blocks -->
+    <g fill="none" stroke="#53f39d" stroke-width="4">
+      <rect x="856" y="256" width="22" height="34" rx="11"/>
+      <rect x="856" y="346" width="22" height="34" rx="11"/>
+    </g>
+    <!-- hash-dot rows inside blocks -->
+    <g fill="#53f39d" opacity=".7">
+      <circle cx="772" cy="229" r="4"/><circle cx="792" cy="229" r="4"/><circle cx="812" cy="229" r="4"/><circle cx="832" cy="229" r="4"/>
+      <circle cx="772" cy="319" r="4"/><circle cx="792" cy="319" r="4"/><circle cx="812" cy="319" r="4"/><circle cx="832" cy="319" r="4"/>
+      <circle cx="772" cy="409" r="4"/><circle cx="792" cy="409" r="4"/><circle cx="812" cy="409" r="4"/><circle cx="832" cy="409" r="4"/>
+    </g>
+    <g stroke="#2fd996" stroke-width="3" opacity=".3" stroke-linecap="round">
+      <line x1="900" y1="229" x2="968" y2="229"/><line x1="900" y1="319" x2="968" y2="319"/><line x1="900" y1="409" x2="968" y2="409"/>
+    </g>
+    <!-- wax-seal / lock over the head of the chain -->
+    <g transform="translate(1058,196)">
+      <circle r="52" fill="#0a2c1e" stroke="#2fd996" stroke-width="3"/>
+      <path d="M-20,-4 v-14 a20,20 0 0 1 40,0 v14" fill="none" stroke="#53f39d" stroke-width="6"/>
+      <rect x="-26" y="-4" width="52" height="40" rx="9" fill="#12855a" stroke="#53f39d" stroke-width="2.5"/>
+      <circle cx="0" cy="14" r="6" fill="#06271a"/>
+      <rect x="-3" y="14" width="6" height="14" rx="3" fill="#06271a"/>
+    </g>
+  </g>
+</svg>
