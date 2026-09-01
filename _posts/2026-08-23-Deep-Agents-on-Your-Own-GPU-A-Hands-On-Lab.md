@@ -253,7 +253,7 @@ and the remainder is on the CPU, dragging the whole run down to that speed.
 
 Seven checks, in the order they'd otherwise ruin your afternoon. Check 6 is the important one — that's your model proving it can actually call a tool. Check 5 is the one that says whether your card can hold the model and the context at the same time.
 
-If something says FAIL, jump to [Troubleshooting] section.(https://github.com/ruslanmv/deep-agents-tutorial/blob/master/TROUBLESHOOTING.md). Get a clean run here before moving on. Every one of these failures shows up later as weird agent behaviour rather than a clear error, which is a miserable way to spend an evening.
+If something says FAIL, jump to [Troubleshooting] (https://github.com/ruslanmv/deep-agents-tutorial/blob/master/TROUBLESHOOTING.md) section. Get a clean run here before moving on. Every one of these failures shows up later as weird agent behaviour rather than a clear error, which is a miserable way to spend an evening.
 
 ## 7. Lab 1: The Plain Agent
 
