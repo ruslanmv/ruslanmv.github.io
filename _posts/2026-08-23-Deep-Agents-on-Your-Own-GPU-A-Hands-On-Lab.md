@@ -15,8 +15,6 @@ tags:
   - uv
   - langchain
   - python
-toc: true
-toc_label: "Contents"
 ---
 
 Ask an AI agent to look up one fact and it does fine.
@@ -240,31 +238,11 @@ Before writing any agent code, let's find out whether this is going to work at a
 make doctor
 ```
 
-```
-deep-agents preflight — model=qwen3:8b num_ctx=24576
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-01-55.png)
 
-1. GPU
-  PASS  NVIDIA GeForce RTX 4080 Laptop GPU — 12282 MiB total, 8504 MiB in use, driver 595.79
-2. Ollama daemon
-  PASS  reachable at http://localhost:11434 — 12 model(s) installed
-3. Configured model
-  PASS  qwen3:8b is pulled (4.9 GiB on disk)
-4. Context window
-  PASS  num_ctx=24576 fits the model's trained window of 40960
-5. VRAM headroom
-        weights ~4.9 GiB + KV cache ~2.9 GiB = ~7.7 GiB, and ~11.0 GiB is usable
-        (of 12.0 GiB, minus ~1 GiB for your display)
-  PASS  fits, with ~3.2 GiB spare
-6. Tool calling
-  PASS  model emitted a tool call: get_weather({'city': 'Copenhagen'})
-6b. Where the model actually landed
-        qwen3:8b — 8.4 GiB resident, 8.4 GiB of it on the GPU (100%)
-  PASS  fully on the GPU — this will run at full speed
-7. deepagents harness
-  PASS  auto-compaction is context-relative (85% of 24576 tokens)
-  PASS  graph assembled with 10 tools: delete, edit_file, execute, glob, grep,
-        ls, read_file, task, write_file, write_todos
-```
+
+
+
 
 That is a real run on the reference machine. Note check 5 against check 6b: the
 estimate said ~7.7 GiB, the measurement said 8.4 GiB. Estimates of KV-cache size
@@ -275,7 +253,7 @@ and the remainder is on the CPU, dragging the whole run down to that speed.
 
 Seven checks, in the order they'd otherwise ruin your afternoon. Check 6 is the important one — that's your model proving it can actually call a tool. Check 5 is the one that says whether your card can hold the model and the context at the same time.
 
-If something says FAIL, jump to [section 13](#13-when-things-go-wrong). Get a clean run here before moving on. Every one of these failures shows up later as weird agent behaviour rather than a clear error, which is a miserable way to spend an evening.
+If something says FAIL, jump to [Troubleshooting] section.(https://github.com/ruslanmv/deep-agents-tutorial/blob/master/TROUBLESHOOTING.md). Get a clean run here before moving on. Every one of these failures shows up later as weird agent behaviour rather than a clear error, which is a miserable way to spend an evening.
 
 ## 7. Lab 1: The Plain Agent
 
@@ -307,6 +285,10 @@ One model, one tool, one loop. Run it:
 ```bash
 make shallow
 ```
+
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-02-36.png)
+
+
 
 You'll get a good answer with sources, and something like `[messages in context: 4]` at the bottom. One question, a search or two, done. For this, the plain loop is perfect. Don't let anyone tell you that you need an agent framework for a question like this.
 
@@ -388,53 +370,7 @@ That `TodoListMiddleware()` line isn't optional decoration. In `deepagents` 0.7.
 ```bash
 make deep
 ```
-
-```
-[deep agent] qwen3:8b @ 24576 ctx via ollama http://localhost:11434
-
-[deep agent] streaming — every line below appears as it happens
-          (the first model call also loads the weights into VRAM — 30-60s is normal)
-
-      3.0s  ask  write_todos
-      3.0s  got write_todos  (0.0s)
-      3.9s  ask  task  (a sub-agent runs here — expect a long pause)
-     13.5s  got task  (9.6s)
-     15.5s  ask  task  (a sub-agent runs here — expect a long pause)
-     27.1s  got task  (11.5s)
-     29.2s  ask  task  (a sub-agent runs here — expect a long pause)
-     38.5s  got task  (9.3s)
-     40.2s  ask  read_file
-     40.2s  got read_file  (0.0s)
-     47.2s  ask  write_file
-     47.2s  got write_file  (0.0s)
-     49.1s  ---  the agent gave its final answer
-
-[deep agent] finished in 49.1s over 6 tool-calling turns
-
-The report has been successfully updated with the latest information on the top 3
-open-source LLM inference engines in 2026. [...] The report provides a clear
-comparison of vLLM, TensorRT-LLM, and SGLang, highlighting their strengths and
-ideal use cases.
-
-[virtual filesystem: 3 file(s)]
-
-===== /report.md (1437 chars) =====
-# Top 3 Open-Source LLM Inference Engines in 2026
-
-### 1. vLLM
-- **Developer**: UC Berkeley
-- **License**: Apache 2.0
-- **Best For**: Production serving, high concurrency
-...
-
-===== /research/top-3-open-source-llm-inference-engines-2026.md (676 chars) =====
-- **vLLM** (Rank 1)
-  - Developer: UC Berkeley
-  - Source: [Best LLM Inference Engines in 2026](https://gigagpu.com/...)
-...
-
-[orchestrator messages: 14]
-```
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-03-21.png)
 
 That is an unedited run on the reference machine: 49 seconds, six tool-calling
 turns, three sub-agent delegations.
@@ -477,6 +413,11 @@ minute, for free.
 Now look at that last number and compare it to Lab 1 on the same task. **Eighteen messages** — for three helpers and a dozen searches. All that digging happened in the helpers' conversations and never touched the main one.
 
 That gap is the entire point of this post. And on a 24k window it isn't a nice optimisation, it's the difference between finishing the job and silently forgetting it.
+
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-04-40.png)
+
+
+
 
 ### One gotcha when you print the files
 
@@ -565,29 +506,8 @@ Use `create_file_data()` rather than writing `{"content": "..."}` by hand. A bar
 
 The script prints which tools got called, in order:
 
-```
-[toolbox agent] qwen3:8b @ 24576 ctx via http://localhost:11434
-[project: 4 files, no network needed]
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-07-06.png)
 
-Audited 3 files and wrote /AUDIT.md with 3 findings.
-
-[the agent made 8 tool calls]
-  order: write_todos -> ls -> glob -> grep -> grep -> task -> write_file -> edit_file
-  grep         x2
-  write_todos  x1
-  ls           x1
-  glob         x1
-  task         x1
-  write_file   x1
-  edit_file    x1
-
-===== AUDIT.md =====
-| File | Line | Issue |
-|---|---|---|
-| billing.py | 3 | Refunds ignored, negative totals possible |
-| billing.py | 9 | No retry on charge, a network blip loses it silently |
-| users.py | 7 | Role check is a string compare |
-```
 
 That `order:` line is the whole lab. You can read the agent's thinking off it: plan, get oriented, narrow by filename, narrow by content, delegate the reading, write the result, tidy it up. Nobody wrote that sequence — it chose it.
 
@@ -605,9 +525,19 @@ command execution (SandboxBackendProtocol).
 That's the correct answer, not a bug. If you want a real shell, swap the backend for a sandbox one — and think hard first, because an agent with a shell can do everything you can do.
 {: .notice--warning }
 
+
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-07-39.png)
+
 ## 10. Lab 4: Watching It Work
 
 An agent that runs on its own for five minutes needs to be watchable. Since `deepagents` is built on LangGraph, [Langfuse](https://langfuse.com) traces it in two lines — this is the same setup as my [previous post](https://ruslanmv.com/blog/Langfuse-Observability-for-LLM-Applications):
+
+
+This lab needs a Langfuse key. Get a free one at [https://cloud.langfuse.com](https://cloud.langfuse.com),
+  then put it in .env (run `make env` first if you have no .env yet).
+
+  The model itself is local — this is the one hosted piece.
+
 
 ```python
 from langfuse.langchain import CallbackHandler
@@ -624,6 +554,8 @@ Add your Langfuse keys to `.env` and run:
 ```bash
 make observed
 ```
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-13-15.png)
+
 
 You get one trace with the whole tree in it: every plan, every search with its arguments, every helper as a nested span. You don't have to pass the handler down to the helpers — LangGraph carries it along automatically.
 
@@ -632,12 +564,17 @@ You get one trace with the whole tree in it: every plan, every search with its a
   <figcaption>The shape of a healthy run — and one step that is eight seconds longer than its neighbours.</figcaption>
 </figure>
 
+
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-16-41.png)
 Locally, what you're watching is different from the cloud. There's no bill, so you're not tracking spend. You're tracking **time and forgetting**:
 
 - A step that took eight seconds longer than its neighbours? Ollama reloaded the model. Fix `keep_alive`.
 - The agent repeating a search it already did? Its context got truncated. Raise `num_ctx`.
 
 Both are obvious in a trace and nearly invisible in terminal output.
+
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-01-23-14-41.png)
+
 
 ## 11. Lab 5: One URL for Every Model
 
@@ -673,21 +610,10 @@ The endpoint comes up at `http://localhost:11435/v1`. Note **11435** — one abo
 
 Here's what you should see:
 
-```
-OllaBridge demo — gateway=http://localhost:11435/v1 model=qwen3:8b
 
-1. Gateway
-  PASS  reachable — publishes 1 model(s): qwen3:8b
-  PASS  no API key needed — the gateway trusted this loopback request
-  PASS  qwen3:8b is published through the gateway
-2. Plain chat through the gateway
-  PASS  the model answered through OllaBridge: 'bridged'
-3. Does tool calling survive the gateway?
-  PASS  tool calls come back: get_weather({'city': 'Copenhagen'})
-4. A deep agent, through the gateway
-  PASS  3 tool calls through the gateway
-        order: write_todos -> grep -> write_file
-```
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-02-00-01-06.png)
+
+
 
 A real deep agent — planning, grepping, writing files — over an OpenAI-compatible URL that could just as easily be pointing at the GPU box upstairs.
 
@@ -811,6 +737,8 @@ Both are in one runnable lab, and it needs no API key:
 ```bash
 make advanced
 ```
+
+![](/assets/images/posts/2026-08-23-Deep-Agents-Ollama/screenshots/2026-09-02-00-03-03.png)
 
 ### 14.1 Middleware
 
