@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" role="img"
+     aria-label="The task tool: the orchestrator sends one instruction, the sub-agent starts from a blank conversation, does the messy work in its own window, and returns one paragraph plus whatever it wrote to the shared filesystem.">
+  <title>What sub-agent context isolation actually does</title>
+  <style>
+    :root, svg {
+      --ink:    #16182b;
+      --muted:  #6b7280;
+      --border: #e3e5ee;
+      --panel:  #f6f7fb;
+      --panel2: #eef0fa;
+      --accent: #4f46e5;
+      --fill:   #dfe2f7;
+      --warn:   #d92d20;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, svg {
+        --ink:    #e9eaf3;
+        --muted:  #a0a4b8;
+        --border: #33364d;
+        --panel:  #191b2b;
+        --panel2: #1e2138;
+        --accent: #8b8bf5;
+        --fill:   #2c3060;
+        --warn:   #f97066;
+      }
+    }
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .h    { font-size: 15px; font-weight: 650; fill: var(--ink); }
+    .sub  { font-size: 12.5px; fill: var(--muted); }
+    .lbl  { font-size: 11.5px; fill: var(--muted); }
+    .chip { font-size: 12px; font-weight: 550; fill: var(--ink); }
+    .code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; fill: var(--accent); }
+    .card { fill: var(--panel); stroke: var(--border); stroke-width: 1.25; rx: 14; }
+    .row  { stroke: var(--border); stroke-width: 1.1; rx: 5; fill: var(--fill); }
+  </style>
+
+  <!-- orchestrator -->
+  <rect class="card" x="20" y="24" width="278" height="282"/>
+  <text class="h"   x="42" y="54">Orchestrator</text>
+  <text class="sub" x="42" y="74">Stays clear-headed.</text>
+  <g>
+    <rect class="row" x="42" y="90"  width="234" height="24"/>
+    <text class="chip" x="54" y="107">your question</text>
+    <rect class="row" x="42" y="118" width="234" height="24"/>
+    <text class="chip" x="54" y="135">the plan</text>
+    <rect class="row" x="42" y="146" width="234" height="24"/>
+    <text class="chip" x="54" y="163">“vLLM: 3 findings”</text>
+  </g>
+  <text class="lbl" x="42" y="196">Three messages, not thirty.</text>
+  <text class="lbl" x="42" y="214">It never sees the searches</text>
+  <text class="lbl" x="42" y="230">happening on the right.</text>
+
+  <!-- sub-agent -->
+  <rect class="card" x="482" y="24" width="278" height="282" fill="var(--panel2)"/>
+  <text class="h"   x="504" y="54">Sub-agent</text>
+  <text class="sub" x="504" y="74">Starts from nothing, every time.</text>
+  <g>
+    <rect class="row" x="504" y="90" width="234" height="24"/>
+    <text class="chip" x="516" y="107" font-size="11.5">the one instruction you gave it</text>
+  </g>
+  <text class="lbl" x="504" y="134">then, in its own window:</text>
+  <g opacity=".92">
+    <rect class="row" x="504" y="144" width="234" height="20"/>
+    <text class="chip" x="516" y="158" font-size="11">search result (raw JSON)</text>
+    <rect class="row" x="504" y="168" width="234" height="20"/>
+    <text class="chip" x="516" y="182" font-size="11">search result (raw JSON)</text>
+    <rect class="row" x="504" y="192" width="234" height="20"/>
+    <text class="chip" x="516" y="206" font-size="11">search result (raw JSON)</text>
+    <rect class="row" x="504" y="216" width="234" height="20"/>
+    <text class="chip" x="516" y="230" font-size="11">…and a dozen more</text>
+  </g>
+  <text class="lbl" x="504" y="262" fill="var(--warn)">All this noise stays here,</text>
+  <text class="lbl" x="504" y="280" fill="var(--warn)">then is thrown away.</text>
+
+  <!-- arrows between the two -->
+  <g stroke="var(--accent)" stroke-width="1.6" fill="none">
+    <path d="M300 112 L474 112"/>
+    <path d="M467 107 L475 112 L467 117"/>
+  </g>
+  <text class="code" x="389" y="102" text-anchor="middle">task(description=…)</text>
+  <text class="lbl"  x="389" y="130" text-anchor="middle">one instruction in</text>
+
+  <g stroke="var(--accent)" stroke-width="1.6" fill="none">
+    <path d="M474 206 L300 206"/>
+    <path d="M307 201 L299 206 L307 211"/>
+  </g>
+  <text class="lbl" x="389" y="196" text-anchor="middle">one paragraph back</text>
+  <text class="lbl" x="389" y="224" text-anchor="middle">+ files it wrote</text>
+
+  <!-- shared filesystem: a band under both, not between them -->
+  <rect x="20" y="334" width="740" height="72" rx="12" fill="none"
+        stroke="var(--accent)" stroke-width="1.35" stroke-dasharray="5 4"/>
+  <text class="chip" x="390" y="362" text-anchor="middle"
+        font-size="13.5" font-weight="700">shared filesystem</text>
+  <text class="lbl"  x="390" y="382" text-anchor="middle">Both can read and write it — the one channel wide enough to carry real work.</text>
+  <text class="lbl"  x="390" y="399" text-anchor="middle">/notes_1.md · /notes_2.md · /report.md</text>
+
+  <!-- ties from each card into the band -->
+  <g stroke="var(--accent)" stroke-width="1.3" fill="none" opacity=".7">
+    <path d="M159 306 L159 330"/>
+    <path d="M154 324 L159 331 L164 324"/>
+    <path d="M621 306 L621 330"/>
+    <path d="M616 324 L621 331 L626 324"/>
+  </g>
+</svg>

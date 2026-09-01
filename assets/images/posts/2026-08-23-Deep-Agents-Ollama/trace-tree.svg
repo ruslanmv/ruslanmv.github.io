@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" role="img"
+     aria-label="A Langfuse trace of one deep-agent run as a waterfall. The run spans 96 seconds. Under it: write_todos, then three researcher sub-agents each holding their own searches and model calls, then read_file and write_file. One model call inside the first sub-agent is nine seconds long and flagged as a model reload.">
+  <title>One deep-agent run as a Langfuse trace</title>
+  <style>
+    :root, svg {
+      --ink:    #16182b;
+      --muted:  #6b7280;
+      --border: #e3e5ee;
+      --panel:  #f6f7fb;
+      --accent: #4f46e5;
+      --fill:   #dfe2f7;
+      --sub-f:  #c7cdf0;
+      --warn:   #d92d20;
+      --warnbg: #fdeceb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, svg {
+        --ink:    #e9eaf3;
+        --muted:  #a0a4b8;
+        --border: #33364d;
+        --panel:  #191b2b;
+        --accent: #8b8bf5;
+        --fill:   #2c3060;
+        --sub-f:  #3b4180;
+        --warn:   #f97066;
+        --warnbg: #3a1d1d;
+      }
+    }
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .h    { font-size: 16px; font-weight: 650; fill: var(--ink); }
+    .sub  { font-size: 12.5px; fill: var(--muted); }
+    .lbl  { font-size: 11.5px; fill: var(--muted); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 11.5px; fill: var(--ink); }
+    .card { fill: var(--panel); stroke: var(--border); stroke-width: 1.25; rx: 14; }
+    .bar  { rx: 4; }
+    .warn-t { font-size: 11.5px; font-weight: 650; fill: var(--warn); }
+  </style>
+
+  <text class="h"   x="24" y="30">One run, one trace</text>
+  <text class="sub" x="24" y="51">Every nested span is free — LangGraph carries the handler into the sub-agents for you.</text>
+
+  <rect class="card" x="20" y="68" width="740" height="312"/>
+
+  <!-- time axis: x 320..740 spans 0..96s -->
+  <g>
+    <path d="M320 96 L740 96" stroke="var(--border)" stroke-width="1.1"/>
+    <text class="lbl" x="320" y="88">0s</text>
+    <text class="lbl" x="740" y="88" text-anchor="end">96s</text>
+  </g>
+
+  <!-- rows -->
+  <g>
+    <!-- root -->
+    <text class="mono" x="44" y="122">deep-agent run</text>
+    <rect class="bar" x="320" y="112" width="420" height="14" fill="var(--fill)"
+          stroke="var(--accent)" stroke-width="1.1"/>
+
+    <!-- write_todos -->
+    <text class="mono" x="58" y="150">write_todos</text>
+    <rect class="bar" x="324" y="140" width="5" height="14" fill="var(--sub-f)"/>
+    <text class="lbl" x="340" y="150">0.7s</text>
+
+    <!-- sub-agent 1 -->
+    <text class="mono" x="58" y="178">task: researcher</text>
+    <text class="lbl"  x="184" y="178">vllm</text>
+    <rect class="bar" x="329" y="168" width="125" height="14" fill="var(--sub-f)"/>
+    <text class="lbl" x="462" y="178">28s</text>
+
+    <text class="mono" x="72" y="206" fill="var(--muted)">internet_search</text>
+    <rect class="bar" x="333" y="196" width="27" height="14" fill="var(--fill)"
+          stroke="var(--border)" stroke-width="1"/>
+    <text class="mono" x="72" y="234" fill="var(--muted)">internet_search</text>
+    <rect class="bar" x="365" y="224" width="22" height="14" fill="var(--fill)"
+          stroke="var(--border)" stroke-width="1"/>
+
+    <!-- the slow model call -->
+    <text class="mono" x="72" y="262" fill="var(--warn)">chat completion</text>
+    <rect class="bar" x="392" y="252" width="40" height="14" fill="var(--warnbg)"
+          stroke="var(--warn)" stroke-width="1.2"/>
+    <text class="warn-t" x="440" y="262">9s — the model was reloaded</text>
+
+    <!-- sub-agents 2 and 3 -->
+    <text class="mono" x="58" y="290">task: researcher</text>
+    <text class="lbl"  x="184" y="290">sglang</text>
+    <rect class="bar" x="459" y="280" width="116" height="14" fill="var(--sub-f)"/>
+
+    <text class="mono" x="58" y="318">task: researcher</text>
+    <text class="lbl"  x="184" y="318">llama.cpp</text>
+    <rect class="bar" x="580" y="308" width="116" height="14" fill="var(--sub-f)"/>
+
+    <!-- tail -->
+    <text class="mono" x="58" y="346">write_file</text>
+    <text class="lbl"  x="140" y="346">report.md</text>
+    <rect class="bar" x="701" y="336" width="27" height="14" fill="var(--sub-f)"/>
+  </g>
+
+  <text class="sub" x="44" y="372">Three sub-agents ran for 80 of those 96 seconds — and sent back three paragraphs.</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 430" role="img"
+     aria-label="Two strategies for a file-using agent. Reading every file fills the context window with code the agent did not need, and the part it did need gets truncated. Narrowing first with glob then grep then read_file takes three cheap calls, reads only three files, and leaves most of the window free.">
+  <title>Narrow before you read: glob, then grep, then read_file</title>
+  <style>
+    :root, svg {
+      --ink:    #16182b;
+      --muted:  #6b7280;
+      --border: #e3e5ee;
+      --panel:  #f6f7fb;
+      --accent: #4f46e5;
+      --fill:   #dfe2f7;
+      --warn:   #d92d20;
+      --warnbg: #fdeceb;
+      --good:   #067647;
+      --goodbg: #e6f4ec;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, svg {
+        --ink:    #e9eaf3;
+        --muted:  #a0a4b8;
+        --border: #33364d;
+        --panel:  #191b2b;
+        --accent: #8b8bf5;
+        --fill:   #2c3060;
+        --warn:   #f97066;
+        --warnbg: #3a1d1d;
+        --good:   #47cd89;
+        --goodbg: #14301f;
+      }
+    }
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .h    { font-size: 16px; font-weight: 650; fill: var(--ink); }
+    .sub  { font-size: 12.5px; fill: var(--muted); }
+    .lbl  { font-size: 11.5px; fill: var(--muted); }
+    .chip { font-size: 12px; font-weight: 550; fill: var(--ink); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 12px; fill: var(--ink); }
+    .card { fill: var(--panel); stroke: var(--border); stroke-width: 1.25; rx: 14; }
+    .stage{ stroke: var(--border); stroke-width: 1.1; rx: 6; fill: var(--fill); }
+    .verdict { font-size: 13px; font-weight: 650; }
+  </style>
+
+  <!-- ================= LEFT: read everything ================= -->
+  <rect class="card" x="20" y="20" width="350" height="390"/>
+  <text class="h"   x="44" y="52">Read it all</text>
+  <text class="sub" x="44" y="73">One tool, used twenty times.</text>
+
+  <text class="mono" x="44" y="106">read_file × 20</text>
+
+  <text class="lbl" x="44" y="140">context window</text>
+  <g>
+    <rect x="44" y="150" width="302" height="26" rx="5" fill="var(--warnbg)"
+          stroke="var(--warn)" stroke-width="1.1"/>
+    <text class="chip" x="56" y="167" fill="var(--warn)">files it never needed</text>
+
+    <rect x="44" y="182" width="302" height="26" rx="5" fill="var(--warnbg)"
+          stroke="var(--warn)" stroke-width="1.1"/>
+    <text class="chip" x="56" y="199" fill="var(--warn)">more of the same</text>
+
+    <rect x="44" y="214" width="302" height="26" rx="5" fill="var(--warnbg)"
+          stroke="var(--warn)" stroke-width="1.1"/>
+    <text class="chip" x="56" y="231" fill="var(--warn)">and more</text>
+
+    <!-- the cliff -->
+    <path d="M44 252 L346 252" stroke="var(--warn)" stroke-width="1.8"
+          stroke-dasharray="5 4"/>
+    <text class="lbl" x="346" y="268" text-anchor="end" fill="var(--warn)">end of the window</text>
+
+    <rect x="44" y="278" width="302" height="26" rx="5" fill="none"
+          stroke="var(--warn)" stroke-width="1.1" stroke-dasharray="4 3"/>
+    <text class="chip" x="56" y="295" fill="var(--warn)">the one file that mattered</text>
+  </g>
+
+  <text class="verdict" x="44" y="344" fill="var(--warn)">Truncated before it answers</text>
+  <text class="sub"     x="44" y="366">The agent read everything and remembers</text>
+  <text class="sub"     x="44" y="384">almost none of it.</text>
+
+  <!-- ================= RIGHT: narrow first ================= -->
+  <rect class="card" x="410" y="20" width="350" height="390"/>
+  <text class="h"   x="434" y="52">Narrow first</text>
+  <text class="sub" x="434" y="73">Three cheap calls, then one read.</text>
+
+  <!-- funnel: three stages, each narrower -->
+  <g>
+    <rect class="stage" x="434" y="94" width="302" height="30"/>
+    <text class="mono" x="446" y="113">ls</text>
+    <text class="lbl"  x="724" y="113" text-anchor="end">get oriented</text>
+
+    <rect class="stage" x="434" y="132" width="240" height="30"/>
+    <text class="mono" x="446" y="151">glob</text>
+    <text class="lbl"  x="662" y="151" text-anchor="end">20 files → 12</text>
+
+    <rect class="stage" x="434" y="170" width="150" height="30"/>
+    <text class="mono" x="446" y="189">grep</text>
+    <text class="lbl"  x="572" y="189" text-anchor="end">12 → 3</text>
+
+    <rect x="434" y="208" width="92" height="30" rx="6" fill="var(--goodbg)"
+          stroke="var(--good)" stroke-width="1.2"/>
+    <text class="mono" x="446" y="227">read_file</text>
+    <text class="lbl"  x="536" y="227">× 3</text>
+  </g>
+
+  <text class="lbl" x="434" y="272">context window</text>
+  <g>
+    <rect x="434" y="282" width="98" height="26" rx="5" fill="var(--goodbg)"
+          stroke="var(--good)" stroke-width="1.1"/>
+    <text class="chip" x="446" y="299" fill="var(--good)">3 files</text>
+
+    <rect x="536" y="282" width="200" height="26" rx="5" fill="none"
+          stroke="var(--border)" stroke-width="1.1" stroke-dasharray="3 3"/>
+    <text class="lbl" x="636" y="299" text-anchor="middle">still free</text>
+  </g>
+
+  <text class="verdict" x="434" y="344" fill="var(--good)">Room left to think</text>
+  <text class="sub"     x="434" y="366">Which is exactly when it needs the</text>
+  <text class="sub"     x="434" y="384">room — at the end.</text>
+</svg>

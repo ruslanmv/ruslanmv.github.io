@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 470" role="img"
+     aria-label="Side by side: a ReAct agent whose single context fills with raw tool output until the oldest turns fall off the edge, next to a deep agent whose orchestrator context stays small because notes go to files and messy work goes to sub-agents.">
+  <title>ReAct agent versus deep agent, on the same task</title>
+  <style>
+    :root, svg {
+      --ink:    #16182b;
+      --muted:  #6b7280;
+      --border: #e3e5ee;
+      --panel:  #f6f7fb;
+      --accent: #4f46e5;
+      --fill:   #dfe2f7;
+      --warn:   #d92d20;
+      --warnbg: #fdeceb;
+      --good:   #067647;
+      --goodbg: #e6f4ec;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, svg {
+        --ink:    #e9eaf3;
+        --muted:  #a0a4b8;
+        --border: #33364d;
+        --panel:  #191b2b;
+        --accent: #8b8bf5;
+        --fill:   #2c3060;
+        --warn:   #f97066;
+        --warnbg: #3a1d1d;
+        --good:   #47cd89;
+        --goodbg: #14301f;
+      }
+    }
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .h     { font-size: 16px; font-weight: 650; fill: var(--ink); }
+    .sub   { font-size: 12.5px; fill: var(--muted); }
+    .lbl   { font-size: 11.5px; fill: var(--muted); }
+    .chip  { font-size: 12px; font-weight: 550; fill: var(--ink); }
+    .card  { fill: var(--panel); stroke: var(--border); stroke-width: 1.25; rx: 14; }
+    .ctx   { stroke: var(--border); stroke-width: 1.1; rx: 5; }
+    .verdict { font-size: 13px; font-weight: 650; }
+  </style>
+
+  <!-- ================= LEFT: ReAct ================= -->
+  <rect class="card" x="20" y="20" width="350" height="430"/>
+  <text class="h"   x="44" y="52">ReAct agent</text>
+  <text class="sub" x="44" y="73">One list. Everything lives in it.</text>
+
+  <text class="lbl" x="44" y="104">context window</text>
+
+  <!-- context bar: filling up -->
+  <g>
+    <rect class="ctx" x="44" y="114" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="56" y="131">your question</text>
+
+    <rect class="ctx" x="44" y="142" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="56" y="159">search result (raw JSON)</text>
+
+    <rect class="ctx" x="44" y="170" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="56" y="187">search result (raw JSON)</text>
+
+    <rect class="ctx" x="44" y="198" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="56" y="215">search result (raw JSON)</text>
+
+    <rect class="ctx" x="44" y="226" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="56" y="243">search result (raw JSON)</text>
+
+    <rect class="ctx" x="44" y="254" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="56" y="271">a wrong turn, still in here</text>
+
+    <rect class="ctx" x="44" y="282" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="56" y="299">search result (raw JSON)</text>
+  </g>
+
+  <!-- the edge -->
+  <line x1="36" y1="316" x2="354" y2="316" stroke="var(--warn)" stroke-width="1.75" stroke-dasharray="5 4"/>
+  <text class="lbl" x="44" y="333" fill="var(--warn)">the edge of the window</text>
+
+  <!-- falls off -->
+  <g opacity=".55">
+    <rect class="ctx" x="44" y="344" width="302" height="24" fill="var(--warnbg)" stroke="var(--warn)"/>
+    <text class="chip" x="56" y="361" fill="var(--warn)">your question — gone</text>
+  </g>
+
+  <rect x="44" y="386" width="302" height="44" rx="10" fill="var(--warnbg)" stroke="var(--warn)" stroke-width="1.1"/>
+  <text class="verdict" x="60" y="404" fill="var(--warn)">It forgot the task.</text>
+  <text class="lbl" x="60" y="421" fill="var(--warn)">No error. No warning. Just a thinner answer.</text>
+
+  <!-- ================= RIGHT: Deep ================= -->
+  <rect class="card" x="410" y="20" width="350" height="430"/>
+  <text class="h"   x="434" y="52">Deep agent</text>
+  <text class="sub" x="434" y="73">The noise goes somewhere else.</text>
+
+  <text class="lbl" x="434" y="104">orchestrator context</text>
+
+  <g>
+    <rect class="ctx" x="434" y="114" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="446" y="131">your question</text>
+
+    <rect class="ctx" x="434" y="142" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="446" y="159">the plan</text>
+
+    <rect class="ctx" x="434" y="170" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="446" y="187">“vLLM: 3 findings, see notes”</text>
+
+    <rect class="ctx" x="434" y="198" width="302" height="24" fill="var(--fill)"/>
+    <text class="chip" x="446" y="215">“SGLang: 2 findings, see notes”</text>
+  </g>
+
+  <!-- offloaded -->
+  <g>
+    <rect x="434" y="262" width="146" height="72" rx="10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+    <text class="chip" x="507" y="286" text-anchor="middle" fill="var(--accent)">files</text>
+    <text class="lbl" x="507" y="304" text-anchor="middle">/notes_1.md</text>
+    <text class="lbl" x="507" y="320" text-anchor="middle">/report.md</text>
+
+    <rect x="590" y="262" width="146" height="72" rx="10" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+    <text class="chip" x="663" y="286" text-anchor="middle" fill="var(--accent)">sub-agents</text>
+    <text class="lbl" x="663" y="304" text-anchor="middle">own blank</text>
+    <text class="lbl" x="663" y="320" text-anchor="middle">conversation</text>
+  </g>
+
+  <g stroke="var(--accent)" stroke-width="1.4" fill="none" opacity=".8">
+    <path d="M470 226 L470 258"/><path d="M465 252 L470 259 L475 252"/>
+    <path d="M660 226 L660 258"/><path d="M655 252 L660 259 L665 252"/>
+  </g>
+
+  <rect x="434" y="386" width="302" height="44" rx="10" fill="var(--goodbg)" stroke="var(--good)" stroke-width="1.1"/>
+  <text class="verdict" x="450" y="404" fill="var(--good)">It still knows the task.</text>
+  <text class="lbl" x="450" y="421" fill="var(--good)">Measured: 14 messages, 3 delegations, 49s.</text>
+</svg>

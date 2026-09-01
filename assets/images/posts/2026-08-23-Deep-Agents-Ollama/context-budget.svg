@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" role="img"
+     aria-label="Two scenarios on a 24,576-token window. With a model profile, compaction fires at 85 percent, around 20,900 tokens, leaving room to keep working. Without one, deepagents waits for 170,000 tokens — a threshold seven times past the end of the window — so Ollama silently truncates first.">
+  <title>Why the model profile decides whether compaction ever fires</title>
+  <style>
+    :root, svg {
+      --ink:    #16182b;
+      --muted:  #6b7280;
+      --border: #e3e5ee;
+      --panel:  #f6f7fb;
+      --accent: #4f46e5;
+      --fill:   #dfe2f7;
+      --warn:   #d92d20;
+      --warnbg: #fdeceb;
+      --good:   #067647;
+      --goodbg: #e6f4ec;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, svg {
+        --ink:    #e9eaf3;
+        --muted:  #a0a4b8;
+        --border: #33364d;
+        --panel:  #191b2b;
+        --accent: #8b8bf5;
+        --fill:   #2c3060;
+        --warn:   #f97066;
+        --warnbg: #3a1d1d;
+        --good:   #47cd89;
+        --goodbg: #14301f;
+      }
+    }
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .h    { font-size: 16px; font-weight: 650; fill: var(--ink); }
+    .h2   { font-size: 14.5px; font-weight: 650; fill: var(--ink); }
+    .sub  { font-size: 12.5px; fill: var(--muted); }
+    .lbl  { font-size: 11.5px; fill: var(--muted); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; }
+    .card { fill: var(--panel); stroke: var(--border); stroke-width: 1.25; rx: 14; }
+    .good-t { font-size: 12.5px; font-weight: 650; fill: var(--good); }
+    .warn-t { font-size: 12.5px; font-weight: 650; fill: var(--warn); }
+  </style>
+
+  <text class="h"   x="24" y="30">A 24,576-token window, two ways</text>
+  <text class="sub" x="24" y="51">deepagents decides when to summarise by asking the model how big its window is.</text>
+
+  <!-- ===================== WITH PROFILE ===================== -->
+  <rect class="card" x="20" y="70" width="740" height="146"/>
+  <text class="h2"   x="44" y="98">With a profile</text>
+  <text class="mono" x="162" y="98" fill="var(--accent)">profile={"max_input_tokens": 24576}</text>
+
+  <!-- bar: x 44..640 = 0..24576 tokens -->
+  <g>
+    <!-- used portion, 0 to 85% -->
+    <rect x="44" y="118" width="507" height="26" rx="5" fill="var(--fill)"
+          stroke="var(--border)" stroke-width="1.1"/>
+    <!-- remaining headroom -->
+    <rect x="551" y="118" width="89" height="26" rx="5" fill="none"
+          stroke="var(--border)" stroke-width="1.1" stroke-dasharray="3 3"/>
+    <text class="lbl" x="56" y="135">orchestrator context</text>
+    <text class="lbl" x="640" y="112" text-anchor="end">24,576</text>
+  </g>
+
+  <!-- the 85% trigger line -->
+  <g stroke="var(--good)" stroke-width="1.8">
+    <path d="M551 110 L551 152"/>
+  </g>
+  <text class="good-t" x="551" y="170" text-anchor="middle">compaction fires — 85% ≈ 20,900</text>
+  <text class="sub"    x="551" y="190" text-anchor="middle">the old turns get summarised, and the run continues</text>
+
+  <!-- ===================== WITHOUT PROFILE ===================== -->
+  <rect class="card" x="20" y="232" width="740" height="146"/>
+  <text class="h2"   x="44" y="260">Without one</text>
+  <text class="mono" x="180" y="260" fill="var(--muted)">ChatOllama publishes no profile</text>
+
+  <g>
+    <!-- the whole window fills, nothing summarised -->
+    <rect x="44" y="280" width="596" height="26" rx="5" fill="var(--warnbg)"
+          stroke="var(--warn)" stroke-width="1.1"/>
+    <text class="lbl" x="56" y="297" fill="var(--warn)">orchestrator context — full, and still growing</text>
+  </g>
+
+  <!-- the truncation cliff at the end of the real window -->
+  <g stroke="var(--warn)" stroke-width="1.8">
+    <path d="M640 272 L640 314"/>
+  </g>
+  <text class="warn-t" x="640" y="332" text-anchor="middle">Ollama truncates here. Silently.</text>
+
+  <!-- broken axis, then the unreachable default trigger -->
+  <g stroke="var(--border)" stroke-width="1.4" fill="none">
+    <path d="M646 293 L658 293"/>
+    <path d="M658 287 L664 299 L670 287 L676 299 L682 287"/>
+    <path d="M682 293 L688 293"/>
+  </g>
+  <text class="lbl" x="722" y="272" text-anchor="middle">never hit</text>
+  <rect x="688" y="281" width="68" height="24" rx="8" fill="none"
+        stroke="var(--muted)" stroke-width="1.3" stroke-dasharray="4 3"/>
+  <text class="lbl" x="722" y="297" text-anchor="middle">170,000</text>
+
+  <text class="sub" x="44" y="360">The default trigger assumes a cloud-sized window, so it sits about seven screens past the end of yours.</text>
+</svg>

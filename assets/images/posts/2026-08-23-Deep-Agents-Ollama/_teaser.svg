@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <title>Deep Agents on Your Own GPU — post teaser</title>
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"   stop-color="#0a0c18"/>
+      <stop offset=".5"  stop-color="#121639"/>
+      <stop offset="1"   stop-color="#0b0f26"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="12%" cy="14%" r="70%">
+      <stop offset="0" stop-color="#6366f1" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="92%" cy="92%" r="62%">
+      <stop offset="0" stop-color="#3ddc97" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#3ddc97" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3ddc97"/>
+      <stop offset="1" stop-color="#5eead4"/>
+    </linearGradient>
+    <linearGradient id="cardFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".10"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".03"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".035" stroke-width="1"/>
+    </pattern>
+    <filter id="softer" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <style>
+      .eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 16px;
+                 font-weight: 600; letter-spacing: 4.4px; fill: #3ddc97; }
+      .t1  { font-family: Inter, system-ui, sans-serif; font-weight: 800; font-size: 72px;
+             fill: #ffffff; letter-spacing: -2.2px; }
+      .t2  { font-family: Inter, system-ui, sans-serif; font-weight: 800; font-size: 72px;
+             fill: url(#mint); letter-spacing: -2.2px; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 17px;
+              fill: #9ca4cc; }
+      .lbl  { font-family: Inter, system-ui, sans-serif; font-weight: 700; font-size: 15px;
+              fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect width="800" height="480" fill="url(#ground)"/>
+  <rect width="800" height="480" fill="url(#grid)"/>
+  <rect width="800" height="480" fill="url(#glowA)"/>
+  <rect width="800" height="480" fill="url(#glowB)"/>
+
+  <text class="eyebrow" x="60" y="104">HANDS-ON LAB</text>
+  <text class="t1" x="58" y="196">Deep Agents</text>
+  <text class="t2" x="58" y="268">on your GPU</text>
+
+  <rect x="62" y="308" width="64" height="4" rx="2" fill="url(#mint)"/>
+  <text class="mono" x="60" y="356">deepagents · ollama · uv</text>
+
+  <!-- compact orchestrator → sub-agents glyph, bottom right -->
+  <g transform="translate(398 372)">
+    <ellipse cx="46" cy="30" rx="56" ry="30" fill="#6366f1" opacity=".35" filter="url(#softer)"/>
+    <rect x="0" y="10" width="92" height="40" rx="11"
+          fill="url(#cardFill)" stroke="#8b93f8" stroke-opacity=".6" stroke-width="1.3"/>
+    <circle cx="18" cy="30" r="4" fill="#3ddc97"/>
+    <text class="lbl" x="30" y="35" font-size="13">plan</text>
+
+    <g fill="none" stroke="#8b93f8" stroke-opacity=".6" stroke-width="1.5">
+      <path d="M92 22 C120 22 122 8 148 8"/>
+      <path d="M92 30 C120 30 122 30 148 30"/>
+      <path d="M92 38 C120 38 122 52 148 52"/>
+    </g>
+    <g fill="url(#cardFill)" stroke="#ffffff" stroke-opacity=".16" stroke-width="1.1">
+      <rect x="150" y="-1" width="76" height="18" rx="6"/>
+      <rect x="150" y="21" width="76" height="18" rx="6"/>
+      <rect x="150" y="43" width="76" height="18" rx="6"/>
+    </g>
+    <g fill="#3ddc97" opacity=".85">
+      <circle cx="162" cy="8"  r="2.6"/>
+      <circle cx="162" cy="30" r="2.6"/>
+      <circle cx="162" cy="52" r="2.6"/>
+    </g>
+    <text class="lbl" x="242" y="35" font-size="13" fill="#98a0c8">sub-agents</text>
+  </g>
+
+  <rect x="0" y="476" width="800" height="4" fill="url(#mint)" opacity=".75"/>
+</svg>

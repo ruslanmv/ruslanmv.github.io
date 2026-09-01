@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" role="img"
+     aria-label="Three layers: the model at the bottom, the harness above it, and the deep-agent layer on top.">
+  <title>The three layers of a deep agent</title>
+  <style>
+    :root, svg {
+      --ink:      #16182b;
+      --muted:    #6b7280;
+      --border:   #e3e5ee;
+      --panel-1:  #f6f7fb;
+      --panel-2:  #eef0fa;
+      --panel-3:  #e5e8fb;
+      --accent:   #4f46e5;
+      --accent-s: #6366f1;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, svg {
+        --ink:      #e9eaf3;
+        --muted:    #a0a4b8;
+        --border:   #33364d;
+        --panel-1:  #191b2b;
+        --panel-2:  #1e2138;
+        --panel-3:  #242847;
+        --accent:   #8b8bf5;
+        --accent-s: #a5a5f7;
+      }
+    }
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .h    { font-size: 17px; font-weight: 650; fill: var(--ink); }
+    .sub  { font-size: 13px; fill: var(--muted); }
+    .tag  { font-size: 11px; font-weight: 700; fill: var(--accent); letter-spacing: .09em; }
+    .chip { font-size: 12.5px; font-weight: 550; fill: var(--ink); }
+    .band { stroke: var(--border); stroke-width: 1.25; rx: 14; }
+    .pill { fill: none; stroke: var(--accent-s); stroke-width: 1.25; rx: 9; opacity: .85; }
+  </style>
+
+  <!-- Layer 3 -->
+  <rect class="band" x="24" y="24" width="712" height="112" fill="var(--panel-3)"/>
+  <text class="tag" x="48" y="52">LAYER 3</text>
+  <text class="h"   x="48" y="76">The deep-agent layer</text>
+  <text class="sub" x="48" y="98">Somewhere to put things, so the model stops holding it all in its head.</text>
+  <g>
+    <rect class="pill" x="48"  y="108" width="112" height="20"/>
+    <text class="chip" x="104" y="122" text-anchor="middle">a plan</text>
+    <rect class="pill" x="170" y="108" width="112" height="20"/>
+    <text class="chip" x="226" y="122" text-anchor="middle">files</text>
+    <rect class="pill" x="292" y="108" width="112" height="20"/>
+    <text class="chip" x="348" y="122" text-anchor="middle">sub-agents</text>
+    <rect class="pill" x="414" y="108" width="150" height="20"/>
+    <text class="chip" x="489" y="122" text-anchor="middle">a strong prompt</text>
+  </g>
+
+  <!-- Layer 2 -->
+  <rect class="band" x="24" y="152" width="712" height="112" fill="var(--panel-2)"/>
+  <text class="tag" x="48" y="180">LAYER 2</text>
+  <text class="h"   x="48" y="204">The harness</text>
+  <text class="sub" x="48" y="226">The loop. Keeps the history, offers tools, runs them, decides when to stop.</text>
+  <g>
+    <rect class="pill" x="48"  y="236" width="128" height="20"/>
+    <text class="chip" x="112" y="250" text-anchor="middle">conversation</text>
+    <rect class="pill" x="186" y="236" width="128" height="20"/>
+    <text class="chip" x="250" y="250" text-anchor="middle">tool calling</text>
+    <rect class="pill" x="324" y="236" width="128" height="20"/>
+    <text class="chip" x="388" y="250" text-anchor="middle">middleware</text>
+  </g>
+
+  <!-- Layer 1 -->
+  <rect class="band" x="24" y="280" width="712" height="112" fill="var(--panel-1)"/>
+  <text class="tag" x="48" y="308">LAYER 1</text>
+  <text class="h"   x="48" y="332">The model</text>
+  <text class="sub" x="48" y="354">Text in, text out. No memory, no hands. Brilliant and completely helpless.</text>
+  <text class="sub" x="48" y="376" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+        font-size="12">qwen3:8b on your GPU</text>
+
+  <!-- each layer wraps the one below it -->
+  <g stroke="var(--accent)" stroke-width="1.6" fill="none" opacity=".8">
+    <path d="M636 280 L636 268"/><path d="M631 272 L636 265 L641 272"/>
+    <path d="M636 152 L636 140"/><path d="M631 144 L636 137 L641 144"/>
+  </g>
+  <text class="sub" x="650" y="276" font-size="11.5">wraps</text>
+  <text class="sub" x="650" y="148" font-size="11.5">wraps</text>
+</svg>

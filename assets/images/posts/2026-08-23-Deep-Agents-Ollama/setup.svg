@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 200" role="img"
+     aria-label="Four setup commands and what each one produces. make setup builds a .venv from pinned versions. make env writes a .env for your Tavily key. make model pulls qwen3:8b, about five gigabytes. make doctor runs seven checks against your actual machine.">
+  <title>The four commands that build the environment</title>
+  <style>
+    :root, svg {
+      --ink:    #16182b;
+      --muted:  #6b7280;
+      --border: #e3e5ee;
+      --panel:  #f6f7fb;
+      --accent: #4f46e5;
+      --good:   #067647;
+      --goodbg: #e6f4ec;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, svg {
+        --ink:    #e9eaf3;
+        --muted:  #a0a4b8;
+        --border: #33364d;
+        --panel:  #191b2b;
+        --accent: #8b8bf5;
+        --good:   #47cd89;
+        --goodbg: #14301f;
+      }
+    }
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .sub  { font-size: 12.5px; fill: var(--muted); }
+    .lbl  { font-size: 11px; fill: var(--muted); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+    .card { fill: var(--panel); stroke: var(--border); stroke-width: 1.25; rx: 12; }
+  </style>
+
+  <!-- 1 -->
+  <rect class="card" x="20" y="34" width="166" height="96"/>
+  <text class="mono" x="36" y="62">make setup</text>
+  <text class="lbl"  x="36" y="86">a .venv, nothing</text>
+  <text class="lbl"  x="36" y="103">system-wide</text>
+  <text class="lbl"  x="36" y="120">versions pinned</text>
+
+  <!-- 2 -->
+  <rect class="card" x="210" y="34" width="166" height="96"/>
+  <text class="mono" x="226" y="62">make env</text>
+  <text class="lbl"  x="226" y="86">a .env file</text>
+  <text class="lbl"  x="226" y="103">add one Tavily</text>
+  <text class="lbl"  x="226" y="120">key, or skip it</text>
+
+  <!-- 3 -->
+  <rect class="card" x="400" y="34" width="166" height="96"/>
+  <text class="mono" x="416" y="62">make model</text>
+  <text class="lbl"  x="416" y="86">qwen3:8b, ~5 GB</text>
+  <text class="lbl"  x="416" y="103">must do tool</text>
+  <text class="lbl"  x="416" y="120">calling</text>
+
+  <!-- 4 -->
+  <rect x="590" y="34" width="170" height="96" rx="12"
+        fill="var(--goodbg)" stroke="var(--good)" stroke-width="1.4"/>
+  <text class="mono" x="606" y="62" fill="var(--good)">make doctor</text>
+  <text class="lbl"  x="606" y="86">seven checks on</text>
+  <text class="lbl"  x="606" y="103">your real card</text>
+  <text class="lbl"  x="606" y="120">get this green</text>
+
+  <!-- arrows -->
+  <g stroke="var(--border)" stroke-width="1.6" fill="none">
+    <path d="M186 82 L204 82"/><path d="M198 77 L204 82 L198 87"/>
+    <path d="M376 82 L394 82"/><path d="M388 77 L394 82 L388 87"/>
+    <path d="M566 82 L584 82"/><path d="M578 77 L584 82 L578 87"/>
+  </g>
+
+  <text class="sub" x="20" y="168">Four commands, in this order. Everything after them is one make target per lab.</text>
+</svg>
