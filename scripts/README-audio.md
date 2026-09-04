@@ -72,6 +72,8 @@ That's everything a blogger needs. The sections below are for maintainers.
 | `_data/audio_manifest.json` | Maps `audio_slug` → `{ audio_url, duration, voice, content_hash, … }` |
 | `_includes/listen.html` | Renders the control when `page.audio` + a manifest entry exist |
 | `_includes/listen-player.html` | The inline `▷ Audio` trigger + compact panel |
+| `_includes/guided-tour.html` | Chaptered player that scrolls the page in sync with the narration |
+| `_pages/ecosystem-narration.md` | Voice-over script + chapter cues for `/ecosystem/` |
 | `_layouts/essay.html` | Premium byline: `Author · ▷ Audio · ◷ read time` |
 | `_layouts/single.html` | Blog meta: `◷ read time · ▷ Audio` |
 
@@ -184,6 +186,98 @@ Industry note: explicit opt-in regions (like Medium/Substack "Listen") give the
 cleanest control and are the standard here; reader-mode extraction (Mozilla
 Readability, `trafilatura`, `newspaper3k`) is the standard for *automatic*
 main-content detection and powers the optional beta.
+
+## Chapter cues and the guided tour
+
+A page can play its narration **and scroll itself** through the story, one
+section at a time. That needs one extra thing from the pipeline: the exact
+second each chapter starts.
+
+Mark the chapters in the narrated text:
+
+```markdown
+<!-- audio:cue: architecture | Five projects. One personal stack -->
+```
+
+The id is required, the title after `|` is optional (it labels the chapter in
+the player and is never spoken). Cues split the text into segments that are
+synthesized in order, so the running sample count at each boundary *is* the
+chapter start — accurate to a few hundredths of a second, and re-scaled to the
+encoded MP3 after loudness normalization. They land in the manifest:
+
+```json
+"chapters": [
+  { "id": "hero",         "title": "I wanted a personal AI", "start": 22.02 },
+  { "id": "architecture", "title": "Five projects…",         "start": 99.5  }
+]
+```
+
+Then tag the matching sections on the page and drop in the player:
+
+```html
+<section data-tour-chapter="architecture"> … </section>
+
+{% raw %}{% include guided-tour.html audio=site.data.audio_manifest.ecosystem
+                          slug="ecosystem" label="Play the guided tour" %}{% endraw %}
+```
+
+`_includes/guided-tour.html` renders the launcher, the player, the chapter rail
+and the spotlight/auto-scroll behaviour. A cue with no matching section is
+skipped with a console warning; with no chapters at all the include degrades to
+a plain narration player, and with no JavaScript to a native `<audio controls>`.
+
+Playback has one visible control at a time — the launcher **or** the player,
+never both:
+
+| State | On screen |
+| --- | --- |
+| `idle` | large "Start the guided tour"; no player |
+| `playing-collapsed` | compact mini-player, bottom-right — **the normal state**: play/pause, `2 / 14`, `1:23 / 10:12`, level meter, expand. No chapter title. |
+| `playing-expanded` | adds the chapter title, progress bar and prev/next/close; only after the reader opens it, folds back after 5 s idle |
+| `paused-collapsed` | same mini-player, play icon |
+| `closed` | no player; the launcher (or a quiet "Resume at m:ss" chip once it has scrolled away) |
+
+Collapse and close are different actions: `⌄` keeps the narration running, `×`
+stops it.
+
+The chapter list is a **drawer**, not a column. Closed it is a hairline and one
+violet dot at the right edge; it opens on the rail's chevron or the chapter
+button in the full transport, and closes on an outside click, a chapter choice,
+or `Esc`. It never opens by itself — the player already names the live chapter.
+Below 1280px nothing is reserved for it at all and it slides in over the page.
+
+The host page reserves only what is permanent — the player's bottom strip and
+the drawer's closed hairline — see `body.gt-active` in
+`_layouts/ecosystem.html`.
+
+**Preview the chapter split without rendering audio:**
+
+```bash
+python scripts/generate_audio.py _pages/ecosystem-narration.md --check-tags
+```
+
+**Cues are part of the content hash**, so moving one marks the audio stale — but
+the default policy still never regenerates on its own. Refresh on purpose:
+
+```bash
+python scripts/generate_audio.py _pages/ecosystem-narration.md --force
+```
+
+An MP3 that predates its cues has no chapter marks, and the generator says so
+(`[no chapter marks — run --force to record them]`).
+
+### Narration scripts for hand-built pages
+
+A visual landing page (`_pages/ecosystem.html`) is mostly labels, diagram nodes
+and card text — narrating it verbatim sounds like a screen reader. So the audio
+gets its own source, the way a voice-over script is separate from the layout:
+`_pages/ecosystem-narration.md` carries `published: false` (Jekyll emits no
+page), `audio_slug: ecosystem`, the cue markers, and prose written to be *heard*.
+The page then reads the manifest entry by that slug. The cue ids in the script
+and the `data-tour-chapter` ids on the page are the contract between them.
+
+Pages written in HTML can also opt in directly — `audio: true` is honoured in
+`.html` front matter, and tags/cues work there unchanged.
 
 ## Add audio to a page
 

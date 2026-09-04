@@ -23,6 +23,15 @@ Optional pause tag:
 
   <!-- audio:pause -->
 
+Optional chapter cue (drives the synchronized "guided tour" player):
+
+  <!-- audio:cue: architecture | Five projects. One personal stack. -->
+
+  Each cue starts a new chapter. The generator records the exact second the
+  chapter begins in the rendered MP3 and writes it to the manifest as
+  `chapters: [{ id, title, start }]`. A page can then scroll itself in sync
+  with the narration by tagging its sections `data-tour-chapter="<id>"`.
+
 Local test:
   python scripts/generate_audio.py _pages/matrix-context.md --preview-text /tmp/matrix-context-spoken.txt
   python scripts/generate_audio.py _pages/matrix-context.md --force
@@ -132,6 +141,11 @@ AUDIO_END_RE = re.compile(r"<!--\s*(?:audio|tts):end\s*-->", re.IGNORECASE)
 AUDIO_SKIP_START_RE = re.compile(r"<!--\s*(?:audio|tts):skip:start\s*-->", re.IGNORECASE)
 AUDIO_SKIP_END_RE = re.compile(r"<!--\s*(?:audio|tts):skip:end\s*-->", re.IGNORECASE)
 AUDIO_PAUSE_RE = re.compile(r"<!--\s*(?:audio|tts):pause\s*-->", re.IGNORECASE)
+# <!-- audio:cue: some-id | Optional spoken-free chapter title -->
+AUDIO_CUE_RE = re.compile(
+    r"<!--\s*(?:audio|tts):cue:\s*([A-Za-z0-9][A-Za-z0-9_-]*)\s*(?:\|\s*([^>]*?)\s*)?-->",
+    re.IGNORECASE,
+)
 HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
 
 
@@ -255,6 +269,35 @@ def extract_audio_regions(md: str) -> tuple[str, str]:
         search_from = end.end()
 
     return "\n\n".join(blocks), "tagged"
+
+
+def split_cues(md: str) -> list[dict]:
+    """Split narratable Markdown at <!-- audio:cue: id | Title --> markers.
+
+    Returns an ordered list of segments:
+        [{"id": None, "title": "", "markdown": "<intro / pre-roll>"},
+         {"id": "why", "title": "Why this exists", "markdown": "..."}, ...]
+
+    The first segment carries id=None when text precedes the first cue (the
+    editorial intro belongs there); it is dropped if empty. Segments are
+    synthesized in order and their sample offsets become the chapter start
+    times, so a cue marks the exact word the chapter opens on.
+    """
+    segments: list[dict] = []
+    cursor = 0
+    current: dict = {"id": None, "title": "", "markdown": ""}
+    for m in AUDIO_CUE_RE.finditer(md):
+        current["markdown"] = md[cursor : m.start()]
+        segments.append(current)
+        cue_id = m.group(1)
+        if any(s["id"] == cue_id for s in segments):
+            raise ValueError(f"Duplicate audio cue id: {cue_id!r}. Cue ids must be unique.")
+        current = {"id": cue_id, "title": (m.group(2) or "").strip(), "markdown": ""}
+        cursor = m.end()
+    current["markdown"] = md[cursor:]
+    segments.append(current)
+    # An empty leading segment (a cue on the very first line) carries no audio.
+    return [s for s in segments if s["id"] is not None or s["markdown"].strip()]
 
 
 def remove_skip_regions(md: str) -> str:
@@ -447,27 +490,74 @@ def _get_kokoro():
     return _KOKORO
 
 
-def synthesize(text: str, dry_run: bool = False) -> np.ndarray:
-    chunks = chunk_text(text)
+def synthesize_segments(segments: list[dict], dry_run: bool = False) -> tuple[np.ndarray, list[dict]]:
+    """Render cue segments in order into one waveform, with chapter start times.
+
+    Each segment is chunked and synthesized independently, so the running sample
+    count at a segment boundary is exactly where that chapter begins. Returns
+    (waveform, chapters) where chapters is
+    [{"id": "why", "title": "Why this exists", "start": 12.34}, ...] — the
+    id-less intro segment produces no chapter.
+    """
     gap = np.zeros(int(GAP_SECONDS * SAMPLE_RATE), dtype=np.float32)
     pieces: list[np.ndarray] = []
+    chapters: list[dict] = []
+    total_samples = 0
 
-    if dry_run:
-        rng = np.random.default_rng(0)
-        for _ in chunks:
-            pieces.append((rng.standard_normal(int(0.1 * SAMPLE_RATE)) * 1e-3).astype(np.float32))
+    plan = [(seg, chunk_text(seg["text"])) for seg in segments]
+    total_chunks = sum(len(chunks) for _, chunks in plan)
+    kokoro = None if dry_run else _get_kokoro()
+    rng = np.random.default_rng(0) if dry_run else None
+    done = 0
+
+    for seg, chunks in plan:
+        if seg.get("id"):
+            chapters.append({
+                "id": seg["id"],
+                "title": seg.get("title") or "",
+                "start": round(total_samples / SAMPLE_RATE, 2),
+            })
+        for chunk in chunks:
+            if dry_run:
+                samples = (rng.standard_normal(int(0.1 * SAMPLE_RATE)) * 1e-3).astype(np.float32)
+            else:
+                samples, sr = kokoro.create(chunk, voice=KOKORO_VOICE, speed=KOKORO_SPEED, lang=KOKORO_LANG)
+                if sr != SAMPLE_RATE:
+                    raise RuntimeError(f"Unexpected Kokoro sample rate: {sr}")
+                samples = np.asarray(samples, dtype=np.float32)
+            pieces.append(samples)
             pieces.append(gap)
-        return np.concatenate(pieces) if pieces else np.zeros(SAMPLE_RATE, dtype=np.float32)
+            total_samples += len(samples) + len(gap)
+            done += 1
+            if not dry_run:
+                print(f"    chunk {done}/{total_chunks} ({len(chunk)} chars)")
 
-    kokoro = _get_kokoro()
-    for i, chunk in enumerate(chunks, 1):
-        samples, sr = kokoro.create(chunk, voice=KOKORO_VOICE, speed=KOKORO_SPEED, lang=KOKORO_LANG)
-        if sr != SAMPLE_RATE:
-            raise RuntimeError(f"Unexpected Kokoro sample rate: {sr}")
-        pieces.append(np.asarray(samples, dtype=np.float32))
-        pieces.append(gap)
-        print(f"    chunk {i}/{len(chunks)} ({len(chunk)} chars)")
-    return np.concatenate(pieces) if pieces else np.zeros(1, dtype=np.float32)
+    wav = np.concatenate(pieces) if pieces else np.zeros(SAMPLE_RATE, dtype=np.float32)
+    return wav, chapters
+
+
+def synthesize(text: str, dry_run: bool = False) -> np.ndarray:
+    """Render a single block of spoken text (no chapters)."""
+    wav, _ = synthesize_segments([{"id": None, "title": "", "text": text}], dry_run=dry_run)
+    return wav
+
+
+def retime_chapters(chapters: list[dict], wav_samples: int, mp3_path: Path) -> list[dict]:
+    """Rescale chapter marks to the encoded MP3's real duration.
+
+    Loudness normalization and the MP3 encoder can shift the running time by a
+    fraction of a second. The cues are measured on the WAV, so they are scaled
+    by the (tiny) ratio between the two — but only when the ratio is plausible,
+    so a failed/odd ffprobe reading can never corrupt the marks.
+    """
+    if not chapters or wav_samples <= 0:
+        return chapters
+    encoded = probe_seconds(mp3_path)
+    rendered = wav_samples / SAMPLE_RATE
+    if not encoded or not (0.9 < encoded / rendered < 1.1):
+        return chapters
+    ratio = encoded / rendered
+    return [{**c, "start": round(c["start"] * ratio, 2)} for c in chapters]
 
 
 def encode_mp3(wav: np.ndarray, out_mp3: Path) -> None:
@@ -528,7 +618,7 @@ def year_for(post, path: Path | None = None) -> str:
     return f"{_dt.date.today().year}"
 
 
-def content_hash(text: str, voice: str, speed: float) -> str:
+def content_hash(text: str, voice: str, speed: float, cues: list[str] | None = None) -> str:
     """Stable hash of everything that affects the rendered audio.
 
     Folding the voice, speed, model, bitrate, and normalization filter into the
@@ -543,6 +633,11 @@ def content_hash(text: str, voice: str, speed: float) -> str:
         "bitrate": MP3_BITRATE,
         "normalization": NORMALIZATION,
     }
+    # Cue boundaries change where chapters land (and, because segments are
+    # chunked independently, the audio itself). Added only when cues exist so
+    # hashes of un-chaptered essays stay byte-identical to previous runs.
+    if cues:
+        hash_input["cues"] = cues
     digest = hashlib.sha256(
         json.dumps(hash_input, sort_keys=True, ensure_ascii=False).encode("utf-8")
     ).hexdigest()
@@ -585,18 +680,26 @@ def fmt_duration(n_samples: int) -> str:
     return f"{total // 60}:{total % 60:02d}"
 
 
-def probe_duration(path: Path) -> str:
-    """Duration ("m:ss") of an existing MP3 via ffprobe, or "" if unavailable."""
+def probe_seconds(path: Path) -> float | None:
+    """Exact duration in seconds of an existing MP3 via ffprobe, or None."""
     try:
         out = subprocess.run(
             ["ffprobe", "-v", "error", "-show_entries", "format=duration",
              "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
             capture_output=True, text=True,
         )
-        total = int(round(float(out.stdout.strip())))
-        return f"{total // 60}:{total % 60:02d}"
+        return float(out.stdout.strip())
     except Exception:
+        return None
+
+
+def probe_duration(path: Path) -> str:
+    """Duration ("m:ss") of an existing MP3 via ffprobe, or "" if unavailable."""
+    seconds = probe_seconds(path)
+    if seconds is None:
         return ""
+    total = int(round(seconds))
+    return f"{total // 60}:{total % 60:02d}"
 
 
 def file_size_bytes(path: Path) -> int | None:
@@ -608,7 +711,7 @@ def file_size_bytes(path: Path) -> int | None:
 
 
 def manifest_entry(object_key: str, source_path, h: str, duration: str, mode: str,
-                   size_bytes: int | None = None) -> dict:
+                   size_bytes: int | None = None, chapters: list[dict] | None = None) -> dict:
     # Cache-busting ?v=<hash> on the public URL (object key stays clean).
     version = h.split("-")[-1][:8]
     entry = {
@@ -627,17 +730,28 @@ def manifest_entry(object_key: str, source_path, h: str, duration: str, mode: st
     # the feed falls back to a bitrate-based estimate.
     if size_bytes is not None:
         entry["bytes"] = size_bytes
+    # `chapters` powers the synchronized guided-tour player. Omitted entirely for
+    # pages without cues, so plain narration entries keep their current shape.
+    if chapters:
+        entry["chapters"] = chapters
     return entry
+
+
+# Front-matter documents the generator will read. `.html` is included so that
+# hand-built landing pages (which Jekyll renders from HTML, not Markdown) can
+# opt into narration too — clean_markdown already strips tags to plain speech.
+NARRATABLE_SUFFIXES = (".md", ".markdown", ".html")
 
 
 def discover_posts(paths: Iterable[str]) -> list[Path]:
     explicit = [Path(a) for a in paths]
     if explicit:
-        return [p for p in explicit if p.suffix.lower() in (".md", ".markdown")]
+        return [p for p in explicit if p.suffix.lower() in NARRATABLE_SUFFIXES]
     found: list[Path] = []
     for base in (PAGES_DIR, POSTS_DIR):
         if base.exists():
-            found.extend(base.rglob("*.md"))
+            for suffix in NARRATABLE_SUFFIXES:
+                found.extend(base.rglob(f"*{suffix}"))
     return sorted(set(found))
 
 
@@ -706,7 +820,17 @@ def build_intro(meta: dict) -> str:
     return "\n\n".join(p for p in parts if p)
 
 
-def build_spoken_text(post_content: str, intro_md: str = "", force_auto: bool = False) -> tuple[str, str]:
+def build_spoken_segments(post_content: str, intro_md: str = "",
+                          force_auto: bool = False) -> tuple[list[dict], str]:
+    """Select the narratable text and split it into cue segments.
+
+    Returns (segments, mode) where each segment is
+    {"id": str|None, "title": str, "text": "<cleaned spoken text>"}. Pages with
+    no cues yield exactly one id-less segment, which is the pre-existing
+    behaviour. Segments that clean down to nothing are dropped, except that a
+    cue whose own prose is empty keeps its place by absorbing the next segment's
+    start — i.e. empty chapters are never emitted.
+    """
     if force_auto:
         selected_md, mode = auto_select(post_content), "auto"
     else:
@@ -715,8 +839,20 @@ def build_spoken_text(post_content: str, intro_md: str = "", force_auto: bool = 
         # Prepend the intro to the selected body, then clean together so the same
         # pronunciation/emphasis rules apply to both.
         selected_md = intro_md + "\n\n" + selected_md
-    spoken = clean_markdown(selected_md)
-    return spoken, mode
+
+    segments = []
+    for raw in split_cues(selected_md):
+        text = clean_markdown(raw["markdown"])
+        if not text:
+            continue
+        segments.append({"id": raw["id"], "title": raw["title"], "text": text})
+    return segments, mode
+
+
+def build_spoken_text(post_content: str, intro_md: str = "", force_auto: bool = False) -> tuple[str, str]:
+    """The full spoken text as one string (cue markers removed)."""
+    segments, mode = build_spoken_segments(post_content, intro_md=intro_md, force_auto=force_auto)
+    return " ".join(s["text"] for s in segments).strip(), mode
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -788,20 +924,27 @@ def main(argv: list[str] | None = None) -> int:
         year = year_for(post, path)
         try:
             intro_md = build_intro(meta)
-            spoken, mode = build_spoken_text(
+            segments, mode = build_spoken_segments(
                 post.content, intro_md=intro_md, force_auto=(args.auto or not tagged)
             )
         except ValueError as exc:
             print(f"ERROR in {path}: {exc}", file=sys.stderr)
             return 2
+        spoken = " ".join(s["text"] for s in segments).strip()
+        cues = [s["id"] for s in segments if s["id"]]
 
         if args.preview_text:
             args.preview_text.parent.mkdir(parents=True, exist_ok=True)
             args.preview_text.write_text(spoken + "\n", encoding="utf-8")
             print(f"preview text written: {args.preview_text}")
 
-        print(f"{slug}: mode={mode}, spoken_chars={len(spoken)}, chunks={len(chunk_text(spoken))}")
+        cue_note = f", cues={len(cues)}" if cues else ""
+        print(f"{slug}: mode={mode}, spoken_chars={len(spoken)}, chunks={len(chunk_text(spoken))}{cue_note}")
         if args.check_tags:
+            if cues:
+                print("--- chapters ---")
+                for i, seg in enumerate([s for s in segments if s["id"]], 1):
+                    print(f"  {i:2d}. {seg['id']:<16} {seg['title']}  ({len(seg['text'])} chars)")
             print("--- preview ---")
             print(spoken[:2000] + ("..." if len(spoken) > 2000 else ""))
             continue
@@ -810,7 +953,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"skip (too short after cleaning): {path}")
             continue
 
-        h = content_hash(spoken, KOKORO_VOICE, KOKORO_SPEED)
+        h = content_hash(spoken, KOKORO_VOICE, KOKORO_SPEED, cues=cues)
         object_key = f"essays/{year}/{slug}.mp3"
         out_mp3 = AUDIO_OUT_DIR / object_key
         prior = manifest.get(slug)
@@ -837,6 +980,11 @@ def main(argv: list[str] | None = None) -> int:
                     manifest[slug] = manifest_entry(object_key, path, h, probe_duration(out_mp3), mode,
                                                     size_bytes=file_size_bytes(out_mp3))
                     note = "  [indexed existing audio]"
+                # Chapter marks can only be measured while rendering, so an
+                # existing MP3 that predates its cues has none. Say so loudly —
+                # the guided-tour player degrades to a plain listen without them.
+                if cues and not manifest[slug].get("chapters"):
+                    note += "  [no chapter marks — run --force to record them]"
                 print(f"up-to-date ({where}): {slug}{note}")
                 continue
             if not exists:
@@ -845,10 +993,14 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"regenerate (content changed): {slug}")
 
         print(f"render: {slug} -> {out_mp3}")
-        wav = synthesize(spoken, dry_run=args.dry_run)
+        wav, chapters = synthesize_segments(segments, dry_run=args.dry_run)
         encode_mp3(wav, out_mp3)
+        chapters = retime_chapters(chapters, len(wav), out_mp3)
+        if chapters:
+            print(f"    {len(chapters)} chapter cue(s): " +
+                  ", ".join(f"{c['id']}@{fmt_duration(int(c['start'] * SAMPLE_RATE))}" for c in chapters))
         manifest[slug] = manifest_entry(object_key, path, h, fmt_duration(len(wav)), mode,
-                                        size_bytes=file_size_bytes(out_mp3))
+                                        size_bytes=file_size_bytes(out_mp3), chapters=chapters)
         rendered += 1
 
     if not args.check_tags:

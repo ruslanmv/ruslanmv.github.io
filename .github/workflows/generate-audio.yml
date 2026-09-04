@@ -20,6 +20,7 @@ on:
   push:
     paths:
       - "_pages/**/*.md"
+      - "_pages/**/*.html"
       - "_posts/**/*.md"
       - "scripts/generate_audio.py"
       - "requirements.txt"

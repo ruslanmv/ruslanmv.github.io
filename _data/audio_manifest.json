@@ -47,6 +47,91 @@
     "updated_at": "2026-06-06T11:13:15Z",
     "voice": "kokoro-am_michael"
   },
+  "ecosystem": {
+    "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/ecosystem.mp3?v=7710bbc5",
+    "bytes": 14694381,
+    "chapters": [
+      {
+        "id": "hero",
+        "start": 22.02,
+        "title": "I wanted a personal AI"
+      },
+      {
+        "id": "why",
+        "start": 51.01,
+        "title": "The problem is fragmentation"
+      },
+      {
+        "id": "architecture",
+        "start": 99.5,
+        "title": "Five projects. One personal stack"
+      },
+      {
+        "id": "surfaces",
+        "start": 126.83,
+        "title": "Different places to meet it"
+      },
+      {
+        "id": "day",
+        "start": 170.95,
+        "title": "A day with the system"
+      },
+      {
+        "id": "secretary",
+        "start": 236.4,
+        "title": "From chatbot to personal secretary"
+      },
+      {
+        "id": "build",
+        "start": 284.17,
+        "title": "The stack helps build the stack"
+      },
+      {
+        "id": "local",
+        "start": 326.34,
+        "title": "Local-first, not cloud-absolutist"
+      },
+      {
+        "id": "solves",
+        "start": 376.48,
+        "title": "Replace seams with architecture"
+      },
+      {
+        "id": "projects",
+        "start": 420.27,
+        "title": "Independent today. Designed to converge"
+      },
+      {
+        "id": "manifesto",
+        "start": 489.82,
+        "title": "The manifesto"
+      },
+      {
+        "id": "roadmap",
+        "start": 535.12,
+        "title": "Capability stages, not release promises"
+      },
+      {
+        "id": "open",
+        "start": 569.59,
+        "title": "Built for myself. Open so others can inspect"
+      },
+      {
+        "id": "final",
+        "start": 586.54,
+        "title": "The reason"
+      }
+    ],
+    "content_hash": "sha256-7710bbc5014782c29657ffd80498c90ea828e92cb304950eb487e5f16588f39a",
+    "duration": "10:12",
+    "model": "kokoro-v1.0.fp16",
+    "object_key": "essays/2026/ecosystem.mp3",
+    "selection": "tagged",
+    "source_path": "_pages/ecosystem-narration.md",
+    "speed": "0.96",
+    "updated_at": "2026-09-04T11:34:40Z",
+    "voice": "kokoro-am_michael"
+  },
   "matrix-bios": {
     "audio_url": "https://pub-18ecc6bab6074b2e89efa5c36d39a544.r2.dev/essays/2026/matrix-bios.mp3?v=45489de0",
     "bytes": 13133997,
