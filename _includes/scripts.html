@@ -9,7 +9,11 @@
   {% endfor %}
 {% else %}
   <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
-  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+  {%- comment -%}
+    Font Awesome now ships as a stylesheet from head/custom.html rather than the
+    SVG-with-JS kit that used to load here — same icons, far fewer bytes, and no
+    main-thread pass rewriting every <i> into an inline <svg>.
+  {%- endcomment -%}
 {% endif %}
 
 {% if site.search == true or page.layout == "search" %}

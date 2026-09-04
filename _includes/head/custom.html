@@ -41,11 +41,23 @@
 
 <!-- end custom head snippets -->
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway:400,700" rel="stylesheet">
+<!-- Google Fonts — same families/weights as before, but loaded off the critical
+     path: preconnect warms the connection, `display=swap` paints text with the
+     fallback immediately instead of blocking on the webfont, and the
+     media="print" swap stops the stylesheet from blocking first render. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+{%- capture google_fonts_href -%}https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway:wght@400;700&display=swap{%- endcapture -%}
+<link rel="stylesheet" href="{{ google_fonts_href }}" media="print" onload="this.media='all';this.onload=null;">
+<noscript><link rel="stylesheet" href="{{ google_fonts_href }}"></noscript>
 
-<!-- TypewriterJS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/1.0.0/typewriter.min.js"></script>
+<!-- Font Awesome — the CSS build instead of the ~1.3 MB SVG-with-JS kit. Same
+     `<i class="fas fa-…">` markup, a fraction of the bytes, and no runtime pass
+     that rewrites every icon element into inline SVG. -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+{%- capture fontawesome_href -%}https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css{%- endcapture -%}
+<link rel="stylesheet" href="{{ fontawesome_href }}" media="print" onload="this.media='all';this.onload=null;">
+<noscript><link rel="stylesheet" href="{{ fontawesome_href }}"></noscript>
 
 <style>
 /* =========================================================================

@@ -1,0 +1,743 @@
+---
+layout: default
+---
+
+<style>
+  /* Premium ecosystem visual system. Everything page-specific stays scoped. */
+  .ecosystem-page {
+    --ecosystem-bg: #070a10;
+    --ecosystem-bg-raised: #0c1018;
+    --ecosystem-panel: #0f1420;
+    --ecosystem-panel-strong: #121827;
+    --ecosystem-ink: #f2efe8;
+    --ecosystem-muted: #b9bcc7;
+    --ecosystem-dim: #7f8595;
+    --ecosystem-line: rgba(242, 239, 232, .10);
+    --ecosystem-line-strong: rgba(242, 239, 232, .20);
+    --ecosystem-violet: #a394ff;
+    --ecosystem-blue: #7d97ff;
+    --ecosystem-cyan: #6fd3f2;
+    --ecosystem-amber: #e6b26a;
+    --ecosystem-green: #74cf9a;
+    --ecosystem-rose: #d79ad8;
+    --ecosystem-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    --ecosystem-sans: Inter, "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --ecosystem-mono: "SFMono-Regular", "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --ecosystem-radius-lg: 24px;
+    --ecosystem-radius-md: 15px;
+    --ecosystem-shadow-sm: 0 14px 40px rgba(0, 0, 0, .18);
+    --ecosystem-shadow-md: 0 28px 76px rgba(0, 0, 0, .28);
+    --ecosystem-shadow-lg: 0 42px 120px rgba(0, 0, 0, .36);
+    --ecosystem-ease: cubic-bezier(.22, 1, .36, 1);
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    min-height: 100vh;
+    color: var(--ecosystem-ink);
+    background:
+      radial-gradient(900px 560px at 92% 3%, rgba(163, 148, 255, .09), transparent 69%),
+      radial-gradient(760px 520px at 3% 26%, rgba(111, 211, 242, .055), transparent 72%),
+      var(--ecosystem-bg);
+    font-family: var(--ecosystem-sans);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .ecosystem-page *, .ecosystem-page *::before, .ecosystem-page *::after { box-sizing: border-box; }
+  .ecosystem-page > * { position: relative; z-index: 1; }
+  .ecosystem-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .36;
+    background-image:
+      linear-gradient(rgba(242, 239, 232, .035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242, 239, 232, .035) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(72% 34% at 70% 8%, #000 8%, transparent 100%);
+    -webkit-mask-image: radial-gradient(72% 34% at 70% 8%, #000 8%, transparent 100%);
+  }
+  /* Film grain. Tiled at its natural 180px so the browser rasterises the
+     turbulence filter once instead of stretching it across the full page
+     height, and limited to pointer devices — on phones the blend mode forced
+     the whole (very tall) page into one composited layer for an effect that is
+     invisible at that pixel density. */
+  @media (min-width: 901px) {
+    .ecosystem-page::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .10;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      background-repeat: repeat;
+      mix-blend-mode: soft-light;
+    }
+  }
+  .ecosystem-page ::selection { background: rgba(163, 148, 255, .30); color: #fff; }
+  .ecosystem-page a { color: inherit; }
+  .ecosystem-page a:focus-visible, .ecosystem-page button:focus-visible {
+    outline: 2px solid var(--ecosystem-cyan);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+
+  .ecosystem-shell { width: min(1180px, calc(100% - 2 * clamp(20px, 5vw, 56px))); margin-inline: auto; }
+  /* The page is a dozen tall sections of gradients, blurred shadows and blend
+     layers, and the hero (which is not an .ecosystem-section) is the only part
+     that has to render immediately. The rest are skipped until they approach
+     the viewport.
+
+     The placeholder is a content-box height — section padding is added on top —
+     set to the measured mean (≈700px desktop, ≈1070px mobile) so the estimated
+     page height lands close to the real one; `auto` then lets each section
+     remember its true height once rendered, so the scrollbar stays steady. */
+  .ecosystem-section {
+    position: relative;
+    padding: clamp(88px, 11vw, 148px) 0;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 700px;
+  }
+  /* Skipped sections must still appear on paper. */
+  @media print {
+    .ecosystem-section { content-visibility: visible; }
+  }
+  .ecosystem-section + .ecosystem-section { border-top: 1px solid var(--ecosystem-line); }
+  .ecosystem-section + .ecosystem-section::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    width: min(760px, 72vw);
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, rgba(163, 148, 255, .18), transparent);
+  }
+
+  .ecosystem-kicker {
+    margin: 0 0 18px;
+    color: var(--ecosystem-dim);
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .ecosystem-kicker::before {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 1px;
+    margin-right: 12px;
+    vertical-align: middle;
+    background: var(--ecosystem-violet);
+    box-shadow: 0 0 12px rgba(163, 148, 255, .40);
+  }
+  .ecosystem-title, .ecosystem-heading {
+    margin: 0;
+    color: var(--ecosystem-ink);
+    font-family: var(--ecosystem-serif);
+    font-weight: 400;
+    text-wrap: balance;
+  }
+  .ecosystem-title {
+    max-width: 860px;
+    margin-bottom: 28px;
+    font-size: clamp(42px, 5.8vw, 76px);
+    line-height: 1.01;
+    letter-spacing: -.028em;
+  }
+  .ecosystem-heading {
+    max-width: 800px;
+    margin-bottom: 24px;
+    font-size: clamp(34px, 4.6vw, 58px);
+    line-height: 1.07;
+    letter-spacing: -.02em;
+  }
+  .ecosystem-lede { max-width: 70ch; margin: 0; color: var(--ecosystem-muted); font-size: clamp(18px, 1.55vw, 21px); }
+  .ecosystem-emphasis { color: var(--ecosystem-ink); font-weight: 550; }
+
+  /* Hero */
+  .ecosystem-hero {
+    position: relative;
+    min-height: min(860px, calc(100svh - 70px));
+    display: grid;
+    align-items: center;
+    padding: clamp(72px, 8vw, 112px) 0 clamp(82px, 9vw, 120px);
+  }
+  .ecosystem-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(58% 52% at calc(78% + var(--hero-x, 0px)) calc(30% + var(--hero-y, 0px)), rgba(163, 148, 255, .18), transparent 70%),
+      radial-gradient(42% 38% at 16% 92%, rgba(111, 211, 242, .07), transparent 72%);
+  }
+  .ecosystem-hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr); gap: clamp(40px, 6vw, 78px); align-items: center; }
+  .ecosystem-hero .ecosystem-title span {
+    display: block;
+    font-style: italic;
+    color: transparent;
+    background: linear-gradient(112deg, var(--ecosystem-muted) 5%, #fff 48%, var(--ecosystem-violet) 94%);
+    background-size: 220% 100%;
+    background-position: 0 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ecosystem-hero .ecosystem-title span { animation: ecosystem-shimmer 10s ease-in-out infinite; }
+    @keyframes ecosystem-shimmer { 0%, 70%, 100% { background-position: 0 50%; } 84% { background-position: 100% 50%; } }
+  }
+
+  .ecosystem-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .ecosystem-button {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 22px;
+    border: 1px solid var(--ecosystem-line-strong);
+    border-radius: 999px;
+    color: var(--ecosystem-ink) !important;
+    background: rgba(255, 255, 255, .012);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .035);
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: .01em;
+    text-decoration: none !important;
+    transition: transform .32s var(--ecosystem-ease), border-color .25s ease, background .25s ease, box-shadow .32s ease;
+  }
+  .ecosystem-button::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    opacity: 0;
+    background: radial-gradient(180px circle at var(--button-x, 50%) var(--button-y, 0%), rgba(255, 255, 255, .16), transparent 62%);
+    transition: opacity .25s ease;
+  }
+  .ecosystem-button:hover { transform: translateY(-2px); border-color: var(--ecosystem-violet); box-shadow: 0 12px 34px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255, 255, 255, .07); }
+  .ecosystem-button:hover::before { opacity: 1; }
+  .ecosystem-button--primary { border-color: var(--ecosystem-ink); background: var(--ecosystem-ink); color: #0a0d13 !important; box-shadow: 0 12px 36px rgba(242, 239, 232, .08); }
+  .ecosystem-button--primary:hover { border-color: #fff; background: #fff; box-shadow: 0 18px 46px rgba(242, 239, 232, .13); }
+
+  /* Animated hero network */
+  .ecosystem-network {
+    position: relative;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(242, 239, 232, .13);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(163, 148, 255, .14), transparent 39%),
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .02), transparent 62%);
+    box-shadow: inset 0 0 70px rgba(163, 148, 255, .035), 0 42px 100px rgba(0, 0, 0, .25);
+    transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+    transform-style: preserve-3d;
+    transition: transform .65s var(--ecosystem-ease), border-color .3s ease;
+  }
+  .ecosystem-network::before, .ecosystem-network::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .ecosystem-network::before { inset: 12%; border: 1px dashed rgba(242, 239, 232, .13); }
+  .ecosystem-network::after { inset: 28%; border: 1px solid rgba(163, 148, 255, .32); box-shadow: 0 0 36px rgba(163, 148, 255, .06); }
+  @media (prefers-reduced-motion: no-preference) {
+    .ecosystem-network::before { animation: ecosystem-spin 28s linear infinite; }
+    .ecosystem-network::after { animation: ecosystem-pulse 5.5s ease-in-out infinite; }
+    @keyframes ecosystem-spin { to { transform: rotate(360deg); } }
+    @keyframes ecosystem-pulse { 50% { transform: scale(1.055); opacity: .62; } }
+  }
+  .ecosystem-network-core {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 34%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(163, 148, 255, .72);
+    border-radius: 50%;
+    background: linear-gradient(145deg, #171c30, #0f1322);
+    box-shadow: 0 0 0 9px rgba(163, 148, 255, .035), 0 0 58px rgba(163, 148, 255, .18), inset 0 1px 0 rgba(255, 255, 255, .05);
+    text-align: center;
+  }
+  .ecosystem-network-core::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    border: 1px dotted rgba(163, 148, 255, .27);
+    border-radius: 50%;
+  }
+  @media (prefers-reduced-motion: no-preference) { .ecosystem-network-core::after { animation: ecosystem-spin 18s linear infinite reverse; } }
+  .ecosystem-network-core strong { display: block; color: var(--ecosystem-ink); font-size: 15px; font-weight: 650; }
+  .ecosystem-network-core small { display: block; margin-top: 4px; color: var(--ecosystem-violet); font-size: 10px; letter-spacing: .17em; }
+  .ecosystem-satellite {
+    position: absolute;
+    z-index: 4;
+    padding: 8px 12px;
+    border: 1px solid var(--ecosystem-line-strong);
+    border-radius: 999px;
+    color: var(--ecosystem-muted);
+    background: rgba(12, 16, 24, .86);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .18), inset 0 1px 0 rgba(255, 255, 255, .035);
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    transition: transform .3s var(--ecosystem-ease), border-color .3s ease, color .3s ease, box-shadow .3s ease;
+  }
+  .ecosystem-satellite::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 12px currentColor; vertical-align: 1px; }
+  .ecosystem-satellite--one { top: 7%; color: var(--ecosystem-blue); }
+  .ecosystem-satellite--two { right: -3%; top: 44%; color: var(--ecosystem-rose); }
+  .ecosystem-satellite--three { bottom: 7%; color: var(--ecosystem-cyan); }
+  .ecosystem-satellite--four { left: -3%; top: 44%; color: var(--ecosystem-green); }
+  .ecosystem-satellite:hover { transform: translateY(-3px) scale(1.02); border-color: currentColor; box-shadow: 0 16px 38px rgba(0, 0, 0, .24), 0 0 24px color-mix(in srgb, currentColor 15%, transparent); }
+  /* The frosted-glass pass is expensive on mobile GPUs and barely reads against
+     an almost-opaque chip on a dark page, so it is desktop-only. */
+  @media (min-width: 901px) {
+    .ecosystem-satellite { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  }
+
+  /* Problems and architecture */
+  .ecosystem-problem-grid, .ecosystem-principles, .ecosystem-projects { display: grid; gap: 16px; margin-top: 48px; }
+  .ecosystem-problem-grid { grid-template-columns: repeat(2, 1fr); }
+  .ecosystem-problem {
+    position: relative;
+    overflow: hidden;
+    padding: 22px 24px;
+    border: 1px solid var(--ecosystem-line);
+    border-radius: var(--ecosystem-radius-md);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .025), rgba(255, 255, 255, .008));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .022);
+  }
+  .ecosystem-problem span { display: block; color: var(--ecosystem-dim); font-size: 14px; }
+  .ecosystem-problem strong { color: var(--ecosystem-ink); font-size: 17px; font-weight: 600; }
+  .ecosystem-quote { max-width: 920px; margin: 62px 0 0; color: var(--ecosystem-ink); font-family: var(--ecosystem-serif); font-size: clamp(26px, 3.5vw, 46px); line-height: 1.16; letter-spacing: -.015em; }
+
+  .ecosystem-architecture {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto 82px auto 82px auto;
+    margin-top: 64px;
+    padding: clamp(18px, 3vw, 38px);
+    border: 1px solid var(--ecosystem-line);
+    border-radius: var(--ecosystem-radius-lg);
+    background: radial-gradient(60% 56% at 50% 31%, rgba(163, 148, 255, .10), transparent 72%), var(--ecosystem-bg-raised);
+    box-shadow: var(--ecosystem-shadow-md), inset 0 1px 0 rgba(255, 255, 255, .025);
+  }
+  .ecosystem-architecture::before {
+    content: "";
+    position: absolute;
+    inset: 108px 20% 108px;
+    background:
+      linear-gradient(var(--ecosystem-line-strong), var(--ecosystem-line-strong)) center / 1px 100% no-repeat,
+      linear-gradient(90deg, var(--ecosystem-line-strong), var(--ecosystem-line-strong)) center 29% / 68% 1px no-repeat,
+      linear-gradient(90deg, var(--ecosystem-line-strong), var(--ecosystem-line-strong)) center 79% / 68% 1px no-repeat;
+    opacity: .72;
+  }
+  .ecosystem-node {
+    --node-color: var(--ecosystem-violet);
+    position: relative;
+    z-index: 2;
+    min-height: 142px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+    border: 1px solid var(--ecosystem-line-strong);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .038), rgba(255, 255, 255, .01)), var(--ecosystem-panel);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, .16), inset 0 1px 0 rgba(255, 255, 255, .025);
+    transition: transform .38s var(--ecosystem-ease), border-color .3s ease, box-shadow .38s ease;
+  }
+  .ecosystem-node::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(330px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in srgb, var(--node-color) 13%, transparent), transparent 58%);
+    transition: opacity .3s ease;
+  }
+  .ecosystem-node:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--node-color) 70%, transparent); box-shadow: 0 26px 62px rgba(0, 0, 0, .28), 0 0 28px color-mix(in srgb, var(--node-color) 8%, transparent); }
+  .ecosystem-node:hover::after { opacity: 1; }
+  .ecosystem-node small { color: var(--node-color); font-size: 10px; font-weight: 650; letter-spacing: .16em; }
+  .ecosystem-node strong { color: var(--ecosystem-ink); font-family: var(--ecosystem-serif); font-size: 25px; font-weight: 400; }
+  .ecosystem-node span { color: var(--ecosystem-dim); font-size: 13px; }
+  .ecosystem-node--home { --node-color: var(--ecosystem-violet); grid-column: 5 / 9; grid-row: 1; text-align: center; border-color: rgba(163, 148, 255, .54); background: linear-gradient(145deg, rgba(163, 148, 255, .08), rgba(255, 255, 255, .01)), #121728; }
+  .ecosystem-node--day { --node-color: var(--ecosystem-blue); grid-column: 2 / 6; grid-row: 3; }
+  .ecosystem-node--avatar { --node-color: var(--ecosystem-amber); grid-column: 8 / 12; grid-row: 3; }
+  .ecosystem-node--olla { --node-color: var(--ecosystem-cyan); grid-column: 2 / 6; grid-row: 5; }
+  .ecosystem-node--git { --node-color: var(--ecosystem-green); grid-column: 8 / 12; grid-row: 5; }
+  .ecosystem-architecture-note { position: absolute; z-index: 3; left: 50%; top: 63%; transform: translate(-50%, -50%); padding: 4px 12px; color: var(--ecosystem-dim); background: var(--ecosystem-bg-raised); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+
+  /* Surfaces and timeline */
+  .ecosystem-surfaces { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(48px, 7vw, 90px); align-items: start; }
+  .ecosystem-surface-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ecosystem-line); }
+  .ecosystem-surface-list li { display: grid; grid-template-columns: 130px 1fr; gap: 22px; padding: 20px 0; border-bottom: 1px solid var(--ecosystem-line); transition: padding-left .35s var(--ecosystem-ease), background .3s ease; }
+  .ecosystem-surface-list li:hover { padding-left: 10px; }
+  .ecosystem-surface-list strong { color: var(--ecosystem-ink); font-weight: 600; }
+  .ecosystem-surface-list span { color: var(--ecosystem-muted); }
+
+  .ecosystem-timeline { position: relative; margin-top: 56px; padding-left: 100px; }
+  .ecosystem-timeline::before { content: ""; position: absolute; left: 63px; top: 10px; bottom: 10px; width: 1px; background: linear-gradient(var(--ecosystem-blue), var(--ecosystem-violet) 48%, var(--ecosystem-amber)); opacity: .68; }
+  .ecosystem-moment { position: relative; display: grid; grid-template-columns: minmax(110px, .55fr) 2fr; gap: 34px; padding: 0 0 44px; }
+  .ecosystem-moment::before { content: ""; position: absolute; left: -42px; top: 8px; width: 10px; height: 10px; border: 2px solid var(--ecosystem-violet); border-radius: 50%; background: var(--ecosystem-bg); transition: transform .3s var(--ecosystem-ease), box-shadow .3s ease; }
+  .ecosystem-moment:hover::before { transform: scale(1.25); box-shadow: 0 0 18px rgba(163, 148, 255, .5); }
+  .ecosystem-time { color: var(--ecosystem-dim); font-family: var(--ecosystem-mono); font-size: 13px; }
+  .ecosystem-moment h3 { margin: 0 0 6px; color: var(--ecosystem-ink); font-family: var(--ecosystem-serif); font-size: 24px; font-weight: 400; }
+  .ecosystem-moment p { max-width: 66ch; margin: 0; color: var(--ecosystem-muted); }
+
+  /* Secretary and build loop */
+  .ecosystem-secretary { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 7vw, 86px); align-items: center; }
+  .ecosystem-dialogue {
+    position: relative;
+    overflow: hidden;
+    padding: 34px;
+    border: 1px solid rgba(230, 178, 106, .28);
+    border-radius: var(--ecosystem-radius-lg);
+    background: linear-gradient(145deg, rgba(230, 178, 106, .075), transparent 58%), var(--ecosystem-panel);
+    box-shadow: var(--ecosystem-shadow-md), inset 0 1px 0 rgba(255, 255, 255, .028);
+  }
+  .ecosystem-dialogue blockquote { margin: 0; padding: 0; border: 0; color: var(--ecosystem-ink); background: transparent; font-family: var(--ecosystem-serif); font-size: 20px; font-style: normal; line-height: 1.45; }
+  .ecosystem-dialogue p { margin: 22px 0 0; padding-top: 22px; border-top: 1px solid var(--ecosystem-line); color: var(--ecosystem-muted); }
+  .ecosystem-status { display: inline-block; margin-bottom: 18px; color: var(--ecosystem-amber); font-size: 10px; font-weight: 700; letter-spacing: .15em; }
+
+  .ecosystem-build-flow { display: flex; align-items: center; gap: 8px; margin: 48px 0 22px; overflow-x: auto; padding: 4px 2px 18px; scrollbar-width: thin; }
+  .ecosystem-build-step { flex: 0 0 auto; padding: 12px 15px; border: 1px solid var(--ecosystem-line); border-radius: 9px; color: var(--ecosystem-ink); background: var(--ecosystem-panel); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .02); font-family: var(--ecosystem-mono); font-size: 12px; }
+  .ecosystem-arrow { flex: 0 0 auto; color: var(--ecosystem-violet); }
+  .ecosystem-compute { padding: 20px 22px; border: 1px solid rgba(111, 211, 242, .22); border-left: 2px solid var(--ecosystem-cyan); border-radius: 0 var(--ecosystem-radius-md) var(--ecosystem-radius-md) 0; color: var(--ecosystem-muted); background: rgba(111, 211, 242, .045); }
+
+  /* Principles, solutions and projects */
+  .ecosystem-principles { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .ecosystem-principle { position: relative; padding: 24px 0 0; border-top: 1px solid var(--ecosystem-line-strong); }
+  .ecosystem-principle h3 { margin: 0 0 12px; color: var(--ecosystem-green); font-size: 12px; font-weight: 650; letter-spacing: .14em; }
+  .ecosystem-principle p { margin: 0; color: var(--ecosystem-muted); }
+  .ecosystem-cloud-line { margin: 68px 0 0; color: var(--ecosystem-dim); font-family: var(--ecosystem-serif); font-size: clamp(40px, 6vw, 88px); font-weight: 400; line-height: 1; letter-spacing: -.025em; }
+  .ecosystem-cloud-line span { color: var(--ecosystem-ink); }
+
+  .ecosystem-solutions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 48px; }
+  .ecosystem-solution {
+    position: relative;
+    overflow: hidden;
+    padding: 20px 22px;
+    border: 1px solid var(--ecosystem-line);
+    border-radius: var(--ecosystem-radius-md);
+    background: var(--ecosystem-panel);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .02);
+  }
+  .ecosystem-solution span { color: var(--ecosystem-dim); font-size: 14px; text-decoration: line-through; text-decoration-color: rgba(242, 239, 232, .30); }
+  .ecosystem-solution strong { display: block; margin-top: 7px; color: var(--ecosystem-ink); font-weight: 600; }
+
+  .ecosystem-projects { grid-template-columns: repeat(2, 1fr); }
+  .ecosystem-project {
+    --accent: var(--ecosystem-violet);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 330px;
+    padding: 34px;
+    border: 1px solid var(--ecosystem-line);
+    border-radius: var(--ecosystem-radius-lg);
+    background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 58%), var(--ecosystem-panel);
+    box-shadow: var(--ecosystem-shadow-sm), inset 0 1px 0 rgba(255, 255, 255, .024);
+    transition: transform .42s var(--ecosystem-ease), border-color .3s ease, box-shadow .42s var(--ecosystem-ease);
+  }
+  .ecosystem-project::before { content: ""; position: absolute; inset: 0 auto auto 0; width: 100%; height: 1px; background: linear-gradient(90deg, var(--accent), transparent 72%); opacity: .8; }
+  .ecosystem-project::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(460px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in srgb, var(--accent) 12%, transparent), transparent 54%);
+    transition: opacity .3s ease;
+  }
+  .ecosystem-project:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 48%, transparent); box-shadow: var(--ecosystem-shadow-md), inset 0 1px 0 rgba(255, 255, 255, .035); }
+  .ecosystem-project:hover::after { opacity: 1; }
+  .ecosystem-project:first-child { grid-column: 1 / -1; min-height: 300px; --accent: var(--ecosystem-violet); background: linear-gradient(135deg, rgba(163, 148, 255, .10), var(--ecosystem-panel) 58%); }
+  .ecosystem-project:nth-child(2) { --accent: var(--ecosystem-blue); }
+  .ecosystem-project:nth-child(3) { --accent: var(--ecosystem-amber); }
+  .ecosystem-project:nth-child(4) { --accent: var(--ecosystem-cyan); }
+  .ecosystem-project:nth-child(5) { --accent: var(--ecosystem-green); }
+  .ecosystem-project-role { color: var(--accent); font-size: 11px; font-weight: 650; letter-spacing: .15em; }
+  .ecosystem-project h3 { margin: 8px 0 12px; color: var(--ecosystem-ink); font-family: var(--ecosystem-serif); font-size: 32px; font-weight: 400; }
+  .ecosystem-project p, .ecosystem-project li { color: var(--ecosystem-muted); }
+  .ecosystem-project ul { padding-left: 20px; columns: 2; }
+  .ecosystem-project a { display: inline-block; color: var(--ecosystem-ink); font-weight: 650; text-decoration-color: var(--ecosystem-line-strong); text-underline-offset: 4px; transition: transform .2s ease, text-decoration-color .2s ease; }
+  .ecosystem-project a:hover { transform: translateX(2px); text-decoration-color: var(--accent); }
+  .ecosystem-current { display: inline-block; margin-top: 10px; color: var(--ecosystem-green); font-size: 10px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+
+  /* Manifesto, roadmap and closing */
+  .ecosystem-manifesto { background: radial-gradient(circle at 82% 50%, rgba(163, 148, 255, .11), transparent 43%); }
+  .ecosystem-manifesto-lines { margin: 0; color: var(--ecosystem-ink); font-family: var(--ecosystem-serif); font-size: clamp(46px, 7.5vw, 106px); font-weight: 400; line-height: .91; letter-spacing: -.035em; }
+  .ecosystem-manifesto-lines span { display: block; }
+  .ecosystem-manifesto-lines span:nth-child(2) { color: var(--ecosystem-violet); }
+  .ecosystem-manifesto-lines span:nth-child(3) { color: var(--ecosystem-cyan); }
+  .ecosystem-manifesto-lines span:nth-child(4) { color: var(--ecosystem-green); }
+  .ecosystem-beliefs { columns: 2; column-gap: 60px; margin: 64px 0 0; padding: 0; list-style: none; }
+  .ecosystem-beliefs li { break-inside: avoid; padding: 18px 0; border-top: 1px solid var(--ecosystem-line); color: var(--ecosystem-muted); transition: padding-left .35s var(--ecosystem-ease), color .25s ease; }
+  .ecosystem-beliefs li:hover { padding-left: 8px; color: var(--ecosystem-ink); }
+
+  .ecosystem-roadmap { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 52px; }
+  .ecosystem-stage { position: relative; padding: 30px 22px 0 0; border-top: 1px solid var(--ecosystem-line-strong); }
+  .ecosystem-stage::before { content: ""; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border: 1px solid var(--ecosystem-violet); border-radius: 50%; background: #141828; transition: transform .3s var(--ecosystem-ease), box-shadow .3s ease; }
+  .ecosystem-stage:first-child::before { background: var(--ecosystem-green); border-color: var(--ecosystem-green); box-shadow: 0 0 16px rgba(116, 207, 154, .55); }
+  .ecosystem-stage:hover::before { transform: scale(1.25); box-shadow: 0 0 18px rgba(163, 148, 255, .45); }
+  .ecosystem-stage small { color: var(--ecosystem-violet); font-size: 10px; font-weight: 650; letter-spacing: .12em; }
+  .ecosystem-stage:first-child small { color: var(--ecosystem-green); }
+  .ecosystem-stage h3 { margin: 9px 0; color: var(--ecosystem-ink); font-family: var(--ecosystem-serif); font-size: 22px; font-weight: 400; }
+  .ecosystem-stage p { margin: 0; color: var(--ecosystem-muted); font-size: 14px; }
+
+  .ecosystem-open { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 7vw, 88px); align-items: end; }
+  .ecosystem-repo-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .ecosystem-repo-links a { position: relative; overflow: hidden; padding: 15px 16px; border: 1px solid var(--ecosystem-line); border-radius: 10px; color: var(--ecosystem-ink); background: rgba(255, 255, 255, .012); text-decoration: none; font-size: 13px; transition: transform .3s var(--ecosystem-ease), border-color .25s ease, background .25s ease; }
+  .ecosystem-repo-links a:hover { transform: translateY(-2px); border-color: var(--ecosystem-violet); background: rgba(163, 148, 255, .045); }
+
+  .ecosystem-final { min-height: 74vh; display: grid; align-items: center; text-align: center; background: radial-gradient(50% 56% at 50% 78%, rgba(163, 148, 255, .16), transparent 72%); }
+  .ecosystem-final .ecosystem-heading, .ecosystem-final .ecosystem-lede { margin-inline: auto; }
+  .ecosystem-final .ecosystem-buttons { justify-content: center; }
+  .ecosystem-signature { margin-top: 52px; color: var(--ecosystem-dim); font-family: var(--ecosystem-serif); font-size: 19px; font-style: italic; }
+
+  /* Reusable pointer spotlight for premium surfaces. */
+  .ecosystem-problem::after, .ecosystem-solution::after, .ecosystem-dialogue::after, .ecosystem-repo-links a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(360px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 255, 255, .055), transparent 52%);
+    transition: opacity .3s ease;
+  }
+  .ecosystem-problem:hover::after, .ecosystem-solution:hover::after, .ecosystem-dialogue:hover::after, .ecosystem-repo-links a:hover::after { opacity: 1; }
+
+  /* The hero's orbit, pulse and title shimmer are infinite animations that used
+     to keep painting for as long as the tab was open, even once the hero was
+     scrolled far off-screen. They are parked whenever the hero is not in view. */
+  .ecosystem-page.is-hero-offscreen .ecosystem-network::before,
+  .ecosystem-page.is-hero-offscreen .ecosystem-network::after,
+  .ecosystem-page.is-hero-offscreen .ecosystem-network-core::after,
+  .ecosystem-page.is-hero-offscreen .ecosystem-title span { animation-play-state: paused; }
+
+  /* Scroll progress and progressive reveal are layout-level enhancements. */
+  .ecosystem-scroll-progress { position: fixed; inset: 0 0 auto 0; z-index: 1000; height: 2px; pointer-events: none; background: rgba(255, 255, 255, .02); }
+  .ecosystem-scroll-progress span { display: block; width: 100%; height: 100%; transform: scaleX(var(--ecosystem-progress, 0)); transform-origin: left center; background: linear-gradient(90deg, var(--ecosystem-cyan, #6fd3f2), var(--ecosystem-violet, #a394ff) 55%, var(--ecosystem-amber, #e6b26a)); box-shadow: 0 0 18px rgba(163, 148, 255, .45); }
+  /* Opacity and transform only: both are composited, so a reveal costs no
+     repaint. The blur() this used to animate forced a full re-rasterisation of
+     every revealing element on every frame — the single worst offender for
+     scroll smoothness on mobile. */
+  html.ecosystem-js .ecosystem-page .ecosystem-reveal { opacity: 0; transform: translate3d(0, 24px, 0) scale(.992); transition: opacity .78s var(--ecosystem-ease), transform .9s var(--ecosystem-ease); transition-delay: var(--reveal-delay, 0ms); }
+  html.ecosystem-js .ecosystem-page .ecosystem-reveal.is-visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+
+  @media (max-width: 900px) {
+    .ecosystem-hero { min-height: auto; }
+    .ecosystem-hero-grid, .ecosystem-surfaces, .ecosystem-secretary, .ecosystem-open { grid-template-columns: 1fr; }
+    .ecosystem-network { width: min(540px, 90%); margin-inline: auto; transform: none !important; }
+    .ecosystem-roadmap { grid-template-columns: 1fr; gap: 0; }
+    .ecosystem-stage { padding: 28px 0 28px 34px; border-top: 0; border-left: 1px solid var(--ecosystem-line-strong); }
+    .ecosystem-stage::before { top: 36px; left: -6px; }
+  }
+  @media (max-width: 650px) {
+    .ecosystem-page { font-size: 16px; }
+    .ecosystem-shell { width: min(100% - 32px, 1180px); }
+    .ecosystem-section { padding: 76px 0; contain-intrinsic-size: auto 1070px; }
+    .ecosystem-hero { padding-top: 64px; }
+    .ecosystem-title { font-size: clamp(40px, 12vw, 58px); }
+    .ecosystem-problem-grid, .ecosystem-principles, .ecosystem-projects, .ecosystem-solutions { grid-template-columns: 1fr; }
+    .ecosystem-project:first-child { grid-column: auto; }
+    .ecosystem-project ul { columns: 1; }
+    .ecosystem-architecture { display: flex; flex-direction: column; gap: 12px; padding: 16px; }
+    .ecosystem-architecture::before, .ecosystem-architecture-note { display: none; }
+    .ecosystem-node { min-height: 110px; }
+    .ecosystem-node--home { order: -1; }
+    .ecosystem-timeline { padding-left: 38px; }
+    .ecosystem-timeline::before { left: 5px; }
+    .ecosystem-moment { grid-template-columns: 1fr; gap: 4px; padding-bottom: 36px; }
+    .ecosystem-moment::before { left: -38px; }
+    .ecosystem-beliefs { columns: 1; }
+    .ecosystem-repo-links { grid-template-columns: 1fr; }
+    .ecosystem-surface-list li { grid-template-columns: 100px 1fr; }
+    .ecosystem-project, .ecosystem-dialogue { padding: 26px 22px; }
+  }
+  @media (max-width: 420px) {
+    .ecosystem-shell { width: calc(100% - 24px); }
+    .ecosystem-buttons { flex-direction: column; }
+    .ecosystem-button { width: 100%; }
+    .ecosystem-satellite { font-size: 8px; padding: 6px 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ecosystem-page *, .ecosystem-page *::before, .ecosystem-page *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; transition-delay: 0ms !important; }
+    html.ecosystem-js .ecosystem-page .ecosystem-reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+    .ecosystem-network { transform: none !important; }
+  }
+</style>
+
+<div class="ecosystem-scroll-progress" aria-hidden="true"><span></span></div>
+
+{{ content }}
+
+<script>
+(function () {
+  var page = document.querySelector('.ecosystem-page');
+  if (!page) return;
+
+  var root = document.documentElement;
+  root.classList.add('ecosystem-js');
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var progress = document.querySelector('.ecosystem-scroll-progress');
+  var hero = page.querySelector('.ecosystem-hero');
+  var network = page.querySelector('.ecosystem-network');
+  var ticking = false;
+
+  // scrollHeight is a layout-forcing read. Measuring it inside the scroll
+  // handler made every scroll frame flush layout; it is cached instead and
+  // refreshed only when something can actually have changed the page height.
+  // The document height does drift while reading — reveal transitions land and
+  // off-screen sections resolve their real height — so it cannot be measured
+  // once. But it must not be measured every frame either. It is refreshed at
+  // most a few times a second, from inside the same frame callback that writes
+  // the bar, which keeps it to one layout flush rather than one per scroll event.
+  var scrollMax = 1;
+  var lastMeasured = 0;
+  var MEASURE_INTERVAL = 400;
+  function syncScroll() {
+    ticking = false;
+    var now = performance.now();
+    if (now - lastMeasured > MEASURE_INTERVAL) {
+      lastMeasured = now;
+      scrollMax = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    }
+    var value = Math.max(0, Math.min(1, window.scrollY / scrollMax));
+    if (progress) progress.style.setProperty('--ecosystem-progress', value.toFixed(4));
+  }
+  function requestSync() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(syncScroll);
+    }
+  }
+  syncScroll();
+  window.addEventListener('scroll', requestSync, { passive: true });
+  window.addEventListener('resize', function () {
+    lastMeasured = 0;
+    requestSync();
+  }, { passive: true });
+
+  var selectors = [
+    '.ecosystem-section > .ecosystem-shell > .ecosystem-kicker',
+    '.ecosystem-section .ecosystem-heading',
+    '.ecosystem-problem',
+    '.ecosystem-architecture',
+    '.ecosystem-surface-list li',
+    '.ecosystem-moment',
+    '.ecosystem-dialogue',
+    '.ecosystem-build-flow',
+    '.ecosystem-compute',
+    '.ecosystem-principle',
+    '.ecosystem-solution',
+    '.ecosystem-project',
+    '.ecosystem-beliefs li',
+    '.ecosystem-stage',
+    '.ecosystem-repo-links a',
+    '.ecosystem-final .ecosystem-lede',
+    '.ecosystem-final .ecosystem-buttons'
+  ];
+  var reveal = Array.prototype.slice.call(page.querySelectorAll(selectors.join(',')));
+  reveal.forEach(function (el, index) {
+    el.classList.add('ecosystem-reveal');
+    el.style.setProperty('--reveal-delay', ((index % 5) * 55) + 'ms');
+  });
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    reveal.forEach(function (el) { el.classList.add('is-visible'); });
+  } else {
+    var observer = new IntersectionObserver(function (entries, instance) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        instance.unobserve(entry.target);
+      });
+    }, { threshold: .08, rootMargin: '0px 0px -7% 0px' });
+    reveal.forEach(function (el) { observer.observe(el); });
+
+    // Park the hero's infinite animations while the hero is off-screen.
+    if (hero) {
+      new IntersectionObserver(function (entries) {
+        page.classList.toggle('is-hero-offscreen', !entries[0].isIntersecting);
+      }, { rootMargin: '120px' }).observe(hero);
+    }
+  }
+
+  if (!finePointer || reduceMotion) return;
+
+  // Pointer moves arrive far faster than the screen refreshes. Coalescing the
+  // custom-property writes into one per frame keeps a single style recalc and
+  // paint per frame instead of one per event.
+  function onFrame(handler) {
+    var pending = null;
+    var scheduled = false;
+    return function (event) {
+      pending = event;
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(function () {
+        scheduled = false;
+        handler(pending);
+      });
+    };
+  }
+
+  var surfaces = page.querySelectorAll('.ecosystem-project, .ecosystem-node, .ecosystem-problem, .ecosystem-solution, .ecosystem-dialogue, .ecosystem-repo-links a');
+  surfaces.forEach(function (el) {
+    el.addEventListener('pointermove', onFrame(function (event) {
+      var rect = el.getBoundingClientRect();
+      el.style.setProperty('--spot-x', (event.clientX - rect.left) + 'px');
+      el.style.setProperty('--spot-y', (event.clientY - rect.top) + 'px');
+    }), { passive: true });
+  });
+
+  page.querySelectorAll('.ecosystem-button').forEach(function (button) {
+    button.addEventListener('pointermove', onFrame(function (event) {
+      var rect = button.getBoundingClientRect();
+      button.style.setProperty('--button-x', (event.clientX - rect.left) + 'px');
+      button.style.setProperty('--button-y', (event.clientY - rect.top) + 'px');
+    }), { passive: true });
+  });
+
+  if (hero && network) {
+    hero.addEventListener('pointermove', onFrame(function (event) {
+      var rect = hero.getBoundingClientRect();
+      var nx = ((event.clientX - rect.left) / rect.width) - .5;
+      var ny = ((event.clientY - rect.top) / rect.height) - .5;
+      network.style.setProperty('--tilt-y', (nx * 4.8).toFixed(2) + 'deg');
+      network.style.setProperty('--tilt-x', (-ny * 3.6).toFixed(2) + 'deg');
+      hero.style.setProperty('--hero-x', (nx * 16).toFixed(1) + 'px');
+      hero.style.setProperty('--hero-y', (ny * 12).toFixed(1) + 'px');
+    }), { passive: true });
+    hero.addEventListener('pointerleave', function () {
+      network.style.setProperty('--tilt-y', '0deg');
+      network.style.setProperty('--tilt-x', '0deg');
+      hero.style.setProperty('--hero-x', '0px');
+      hero.style.setProperty('--hero-y', '0px');
+    }, { passive: true });
+  }
+})();
+</script>
