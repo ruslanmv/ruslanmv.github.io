@@ -9,18 +9,32 @@ description: "Why I am building HomePilot, DayPilot, OllaBridge, GitPilot and a 
 excerpt: "One AI identity, one memory architecture, and different surfaces for work, meetings, building, and life."
 author_profile: false
 toc: false
+# Narration for the guided tour. The MP3 + chapter marks are rendered from
+# _pages/ecosystem-narration.md and published to R2; this only names the
+# manifest entry to read. Section ids below are `data-tour-chapter="…"`.
+audio_slug: ecosystem
 ---
 
 <main class="ecosystem-page" id="ecosystem-main">
-  <section class="ecosystem-hero" aria-labelledby="ecosystem-title">
+  <section class="ecosystem-hero" aria-labelledby="ecosystem-title" data-tour-chapter="hero">
     <div class="ecosystem-shell ecosystem-hero-grid">
       <div>
         <p class="ecosystem-kicker">Personal AI Ecosystem</p>
         <h1 class="ecosystem-title" id="ecosystem-title">I wanted a personal AI. <span>So I started building the stack.</span></h1>
         <p class="ecosystem-lede">Not another chatbot. Not another collection of subscriptions. I wanted an AI that could know me, remember, work beside me, attend meetings, help build software, use compute I control, and eventually share both work and life with me.</p>
+        {%- assign tour_audio = site.data.audio_manifest[page.audio_slug] -%}
+        {%- if tour_audio and tour_audio.audio_url -%}
+        <div class="ecosystem-tour-launch">
+          {% include guided-tour.html
+             audio=tour_audio
+             slug=page.audio_slug
+             label="Start the guided tour"
+             title=page.og_title %}
+        </div>
+        {%- endif -%}
         <div class="ecosystem-buttons">
-          <a class="ecosystem-button ecosystem-button--primary" href="#architecture">Explore the ecosystem</a>
-          <a class="ecosystem-button" href="https://github.com/ruslanmv" target="_blank" rel="noopener">View projects on GitHub ↗</a>
+          <a class="ecosystem-button ecosystem-button--quiet" href="#architecture">Explore the ecosystem<span class="ecosystem-button__arrow" aria-hidden="true">→</span></a>
+          <a class="ecosystem-button ecosystem-button--quiet" href="https://github.com/ruslanmv" target="_blank" rel="noopener">View projects on GitHub<span class="ecosystem-button__arrow" aria-hidden="true">↗</span></a>
         </div>
       </div>
       <div class="ecosystem-network" role="img" aria-label="HomePilot at the center of four connected surfaces: work, presence, compute, and builder">
@@ -33,7 +47,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="why-title">
+  <section class="ecosystem-section" aria-labelledby="why-title" data-tour-chapter="why">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">Why this exists</p>
       <h2 class="ecosystem-heading" id="why-title">The problem is not a lack of AI. It is fragmentation.</h2>
@@ -48,7 +62,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" id="architecture" aria-labelledby="architecture-title">
+  <section class="ecosystem-section" id="architecture" aria-labelledby="architecture-title" data-tour-chapter="architecture">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">System architecture</p>
       <h2 class="ecosystem-heading" id="architecture-title">Five projects. One personal stack.</h2>
@@ -64,7 +78,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="surfaces-title">
+  <section class="ecosystem-section" aria-labelledby="surfaces-title" data-tour-chapter="surfaces">
     <div class="ecosystem-shell ecosystem-surfaces">
       <div><p class="ecosystem-kicker">Different surfaces</p><h2 class="ecosystem-heading" id="surfaces-title">One intelligence. Different places to meet it.</h2><p class="ecosystem-lede">I do not want a DayPilot AI, an Avatar AI, a Meeting AI, and a Coding AI that behave like strangers. I want the same underlying identity and continuity wherever the conversation happens.</p></div>
       <ul class="ecosystem-surface-list">
@@ -77,7 +91,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="day-title">
+  <section class="ecosystem-section" aria-labelledby="day-title" data-tour-chapter="day">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">A day with the system · vision</p>
       <h2 class="ecosystem-heading" id="day-title">The interface changes. The relationship and memory do not.</h2>
@@ -93,7 +107,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="secretary-title">
+  <section class="ecosystem-section" aria-labelledby="secretary-title" data-tour-chapter="secretary">
     <div class="ecosystem-shell ecosystem-secretary">
       <div><p class="ecosystem-kicker">Long-term direction</p><h2 class="ecosystem-heading" id="secretary-title">From chatbot to personal secretary.</h2><p class="ecosystem-lede">The goal is not a model that only waits for prompts. It is an AI that can know what is happening, remember what matters, prepare me, work with me, and follow up—while asking before any consequential action.</p></div>
       <div class="ecosystem-dialogue">
@@ -104,7 +118,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="build-title">
+  <section class="ecosystem-section" aria-labelledby="build-title" data-tour-chapter="build">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">GitPilot × OllaBridge</p><h2 class="ecosystem-heading" id="build-title">The stack helps build the stack.</h2>
       <p class="ecosystem-lede">I can use my own AI infrastructure to help build my own AI infrastructure. This is not autonomous recursive self-improvement. It is an engineering loop with an explicit human checkpoint.</p>
@@ -115,7 +129,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="local-title">
+  <section class="ecosystem-section" aria-labelledby="local-title" data-tour-chapter="local">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">Local-first, not cloud-absolutist</p><h2 class="ecosystem-heading" id="local-title">Local where practical. Cloud where useful. Choice always.</h2>
       <div class="ecosystem-principles">
@@ -128,7 +142,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="solves-title">
+  <section class="ecosystem-section" aria-labelledby="solves-title" data-tour-chapter="solves">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">What this solves</p><h2 class="ecosystem-heading" id="solves-title">Replace seams with architecture.</h2>
       <div class="ecosystem-solutions">
@@ -144,21 +158,21 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="projects-title">
+  <section class="ecosystem-section" aria-labelledby="projects-title" data-tour-chapter="projects">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">The projects</p><h2 class="ecosystem-heading" id="projects-title">Independent today. Designed to converge.</h2>
       <p class="ecosystem-lede">These are active repositories at different stages. The cards separate the role each project already plays from the larger integration direction.</p>
       <div class="ecosystem-projects">
         <article class="ecosystem-project"><span class="ecosystem-project-role">BRAIN · CORE</span><h3>HomePilot</h3><p><strong class="ecosystem-emphasis">HomePilot is who my AI is.</strong> The personal AI backend for personas, identity, memory, knowledge, multimodal capabilities, tools, communication, policy, and model access.</p><ul><li>Persistent personas</li><li>Long-term memory</li><li>Knowledge / RAG</li><li>MeetingSense</li><li>Agent orchestration</li></ul><span class="ecosystem-current">Current foundation · broader secretary experience is vision</span><p><a href="https://github.com/ruslanmv/HomePilot" target="_blank" rel="noopener">View HomePilot on GitHub ↗</a></p></article>
         <article class="ecosystem-project"><span class="ecosystem-project-role">WORK</span><h3>DayPilot</h3><p><strong class="ecosystem-emphasis">DayPilot is how my AI works with me.</strong> A professional cockpit where HomePilot personas can operate with context and approval.</p><ul><li>Calendar & tasks</li><li>Projects & documents</li><li>Planning & email</li><li>RAG & agents</li><li>Approval center</li></ul><p><a href="https://github.com/ruslanmv/DayPilot" target="_blank" rel="noopener">View DayPilot on GitHub ↗</a></p></article>
-        <article class="ecosystem-project"><span class="ecosystem-project-role">PRESENCE</span><h3>3D Avatar Chatbot</h3><p><strong class="ecosystem-emphasis">The Avatar is how my AI shares space with me.</strong> Embodiment, voice, expression, and a future social and leisure surface for the same persona.</p><ul><li>3D avatar & voice</li><li>Expressions</li><li>WebXR / VR / AR</li><li>Companion mode</li><li>Coaching & activities</li></ul><span class="ecosystem-current">Active development · shared HomePilot identity is direction</span><p><a href="https://github.com/ruslanmv/3D-Avatar-Chatbot" target="_blank" rel="noopener">View development branch ↗</a></p></article>
+        <article class="ecosystem-project"><span class="ecosystem-project-role">PRESENCE</span><h3>3D Avatar Chatbot</h3><p><strong class="ecosystem-emphasis">The Avatar is how my AI shares space with me.</strong> Embodiment, voice, expression, and a future social and leisure surface for the same persona.</p><ul><li>3D avatar & voice</li><li>Expressions</li><li>WebXR / VR / AR</li><li>Companion mode</li><li>Coaching & activities</li></ul><span class="ecosystem-current">Active development · shared HomePilot identity is direction</span><p><a href="https://github.com/ruslanmv/3D-Avatar-Chatbot/tree/claude/upgrade-feature-batches-3x0z82" target="_blank" rel="noopener">View development branch ↗</a></p></article>
         <article class="ecosystem-project"><span class="ecosystem-project-role">COMPUTE</span><h3>OllaBridge</h3><p><strong class="ecosystem-emphasis">OllaBridge is where my AI thinks.</strong> One OpenAI-compatible control plane between applications and the place inference actually runs.</p><ul><li>Local Ollama / GPU</li><li>Remote workstation</li><li>Optional cloud GPUs</li><li>BYOK providers</li><li>Model routing</li></ul><p><a href="https://github.com/ruslanmv/ollabridge" target="_blank" rel="noopener">View OllaBridge on GitHub ↗</a></p></article>
         <article class="ecosystem-project"><span class="ecosystem-project-role">BUILDER</span><h3>GitPilot</h3><p><strong class="ecosystem-emphasis">GitPilot helps me build the ecosystem itself.</strong> Specialized agents explore, plan, generate, test, and review—with approval modes and GitHub integration.</p><ul><li>Repository exploration</li><li>Plan & code generation</li><li>Tests & review</li><li>Pull requests</li><li>Local model support</li></ul><p><a href="https://github.com/ruslanmv/gitpilot" target="_blank" rel="noopener">View GitPilot on GitHub ↗</a></p></article>
       </div>
     </div>
   </section>
 
-  <section class="ecosystem-section ecosystem-manifesto" aria-labelledby="manifesto-title">
+  <section class="ecosystem-section ecosystem-manifesto" aria-labelledby="manifesto-title" data-tour-chapter="manifesto">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker" id="manifesto-title">The manifesto</p>
       <p class="ecosystem-manifesto-lines"><span>OWN THE AI.</span><span>OWN THE MEMORY.</span><span>OWN THE COMPUTE.</span><span>OWN THE TOOLS.</span></p>
@@ -168,7 +182,7 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="roadmap-title">
+  <section class="ecosystem-section" aria-labelledby="roadmap-title" data-tour-chapter="roadmap">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">Where this is going</p><h2 class="ecosystem-heading" id="roadmap-title">Capability stages, not release promises.</h2>
       <div class="ecosystem-roadmap">
@@ -181,14 +195,14 @@ toc: false
     </div>
   </section>
 
-  <section class="ecosystem-section" aria-labelledby="open-title">
+  <section class="ecosystem-section" aria-labelledby="open-title" data-tour-chapter="open">
     <div class="ecosystem-shell ecosystem-open">
       <div><p class="ecosystem-kicker">Build in public</p><h2 class="ecosystem-heading" id="open-title">Built for myself. Open so others can inspect.</h2><p class="ecosystem-lede">This is a personal engineering project and a long-term vision—not a pitch deck. The repositories are public so people can learn, fork, improve, or use only the pieces they need.</p></div>
       <nav class="ecosystem-repo-links" aria-label="Ecosystem repositories"><a href="https://github.com/ruslanmv/HomePilot">HomePilot ↗</a><a href="https://github.com/ruslanmv/DayPilot">DayPilot ↗</a><a href="https://github.com/ruslanmv/3D-Avatar-Chatbot">3D Avatar ↗</a><a href="https://github.com/ruslanmv/ollabridge">OllaBridge ↗</a><a href="https://github.com/ruslanmv/gitpilot">GitPilot ↗</a><a href="https://github.com/ruslanmv">All repositories ↗</a></nav>
     </div>
   </section>
 
-  <section class="ecosystem-section ecosystem-final" aria-labelledby="final-title">
+  <section class="ecosystem-section ecosystem-final" aria-labelledby="final-title" data-tour-chapter="final">
     <div class="ecosystem-shell">
       <p class="ecosystem-kicker">The reason</p><h2 class="ecosystem-heading" id="final-title">I am not trying to build another chatbot.<br>I am trying to build the AI I wanted to have.</h2>
       <p class="ecosystem-lede">One that knows my work. Remembers what matters. Runs on infrastructure I can control. Helps build the software around it. And eventually shares both productive and ordinary moments with me.</p>

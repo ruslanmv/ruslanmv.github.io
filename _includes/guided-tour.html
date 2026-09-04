@@ -1,0 +1,1111 @@
+{%- comment -%}
+  Guided tour — a narrated page that scrolls itself.
+
+  One click plays the whole narration; the page follows the audio, section by
+  section, using the chapter marks recorded at synthesis time
+  (`chapters` in _data/audio_manifest.json).
+
+  Playback UI states (never two at once):
+
+    idle              large "Start the guided tour" control, no player
+    playing-collapsed compact mini-player, bottom-right   <- the normal state
+    playing-expanded  full transport, only after the reader expands it
+    paused-collapsed  same mini-player, play icon
+    closed            no player; a quiet "Resume guided tour" if there is progress
+
+  Collapse and close are different actions: collapse keeps the narration
+  running, close stops it. The mini-player is the default once narration
+  begins — the full bar is never persistent.
+
+  Text is rationed by state. Collapsed the player carries only its position in
+  the tour and the clock; the chapter name appears when it is expanded. The
+  chapter list is likewise a drawer, not a column: closed it is a hairline and
+  one violet dot at the right edge, and it opens only when the reader asks (the
+  rail's chevron, or the chapter button in the full transport). Chapter changes
+  are always announced to assistive tech, whatever is on screen.
+
+  Contract
+  --------
+  * the manifest entry needs `chapters: [{ id, title, start }]` — produced by
+    <!-- audio:cue: id | Title --> markers in the narration source
+  * every chapter id must match a `data-tour-chapter="<id>"` element on the page
+    (a missing one is reported in the console, never to the reader)
+
+  Degrades in this order: no chapters -> plain narration player; no JS -> a
+  native <audio controls>; no manifest entry -> nothing renders.
+
+  The host page reserves the space: see `body.gt-active` in _layouts/ecosystem.html.
+
+  Parameters
+  ----------
+    include.audio     manifest entry (.audio_url, .duration, .chapters)
+    include.slug      stable id (scopes element ids + the saved position)
+    include.label     launcher label      (default "Start the guided tour")
+    include.sublabel  launcher meta line  (default "<duration> · N chapters")
+    include.title     media-session title (default page.title)
+    include.artwork   media-session artwork URL
+{%- endcomment -%}
+{%- assign gt = include.audio -%}
+{%- assign gt_slug = include.slug | default: page.slug -%}
+{%- assign gt_chapters = gt.chapters -%}
+{%- assign gt_label = include.label | default: "Start the guided tour" -%}
+{%- assign gt_title = include.title | default: page.og_title | default: page.title -%}
+
+<style>
+/* =========================================================================
+   Guided tour. The dock, rail and curtain are re-parented to <body> at
+   runtime, so their custom properties live on :root and every --ecosystem-*
+   lookup carries a literal fallback. Playback state lives on <body> for the
+   same reason.
+   ========================================================================= */
+:root {
+  --gt-ink:      var(--ecosystem-ink, #f2efe8);
+  --gt-muted:    var(--ecosystem-muted, #b9bcc7);
+  --gt-dim:      var(--ecosystem-dim, #7f8595);
+  --gt-accent:   var(--ecosystem-violet, #a394ff);
+  --gt-accent-2: var(--ecosystem-cyan, #6fd3f2);
+  --gt-glass:    rgba(11, 15, 24, .78);
+  --gt-line:     rgba(242, 239, 232, .14);
+  --gt-ease:     cubic-bezier(.22, 1, .36, 1);
+  /* only the drawer's closed hairline is ever reserved; opening it slides the
+     panel over the page rather than reflowing it */
+  --gt-rail-width: 0px;
+  --gt-edge: 20px;
+}
+@media (min-width: 1280px) { :root { --gt-rail-width: 46px; --gt-edge: 32px; } }
+
+.gt { display: block; }
+.gt-sr {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---- 1. Launcher (idle state only) ------------------------------------- */
+.gt-launch {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 15px;
+  padding: 11px 26px 11px 11px;
+  border: 1px solid var(--gt-line);
+  border-radius: 999px;
+  background: linear-gradient(120deg, rgba(163, 148, 255, .13), rgba(111, 211, 242, .07)), var(--gt-glass);
+  color: var(--gt-ink);
+  font: inherit; text-align: left; cursor: pointer;
+  isolation: isolate;
+  transition: transform .35s var(--gt-ease), border-color .35s var(--gt-ease), box-shadow .35s var(--gt-ease), opacity .3s ease;
+}
+.gt-launch:hover { transform: translateY(-2px); border-color: rgba(163, 148, 255, .5); box-shadow: 0 18px 46px rgba(0, 0, 0, .34); }
+/* the tour is running: there must never be a "start" control at the same time */
+body.gt-active .gt-launch { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* the theme paints every `button:focus` with a thick warning-coloured ring;
+   ours is drawn for keyboard focus only */
+.gt-launch:focus, .gt-revive:focus, .gt-rail button:focus,
+.gt-dock__btn:focus, .gt-play:focus, .gt-follow:focus, .gt-seek:focus { outline: none; }
+.gt-launch:focus-visible, .gt-revive:focus-visible, .gt-rail button:focus-visible,
+.gt-dock__btn:focus-visible, .gt-play:focus-visible, .gt-follow:focus-visible, .gt-seek:focus-visible {
+  outline: 2px solid var(--gt-accent); outline-offset: 3px;
+}
+
+.gt-launch__disc {
+  position: relative; flex: 0 0 auto;
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: linear-gradient(150deg, var(--gt-accent), var(--gt-accent-2));
+  color: #0a0d14;
+}
+.gt-launch__disc::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--gt-accent); }
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.gt-active) .gt-launch__disc::after { animation: gt-pulse 3.2s var(--gt-ease) infinite; }
+}
+@keyframes gt-pulse {
+  0%   { transform: scale(1);   opacity: .5; }
+  70%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+.gt-launch__disc svg { width: 19px; height: 19px; }
+.gt-launch__text { display: grid; gap: 3px; }
+.gt-launch__title { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+.gt-launch__meta {
+  font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--gt-muted); font-variant-numeric: tabular-nums;
+}
+
+/* Transport icons, shared by the launcher and the dock. */
+.gt-icon--pause, .gt-icon--replay { display: none; }
+body.gt-playing .gt-icon--play  { display: none; }
+body.gt-playing .gt-icon--pause { display: block; }
+body.gt-ended .gt-icon--play,
+body.gt-ended .gt-icon--pause   { display: none; }
+body.gt-ended .gt-icon--replay  { display: block; }
+
+.gt-error { margin: 12px 0 0; color: var(--ecosystem-amber, #e6b26a); font-size: 13px; }
+.gt-fallback { margin-top: 14px; width: min(420px, 100%); }
+
+/* ---- 2. Spotlight ------------------------------------------------------- */
+body.gt-active [data-tour-chapter] {
+  scroll-margin-top: var(--gt-offset, 96px);
+  transition: opacity .55s var(--gt-ease);
+  opacity: .3;
+}
+body.gt-active [data-tour-chapter].is-gt-current { opacity: 1; }
+/* once the reader takes the scroll back they are reading, not watching:
+   the spotlight relaxes to a hint so the whole page stays legible */
+body.gt-active.gt-unfollowed [data-tour-chapter] { opacity: .8; }
+body.gt-active.gt-unfollowed [data-tour-chapter].is-gt-current { opacity: 1; }
+
+.gt-curtain {
+  position: fixed; inset: 0; z-index: 998; pointer-events: none;
+  background: radial-gradient(120% 80% at 50% 40%, transparent 38%, rgba(4, 6, 11, .78) 100%);
+  opacity: 0; transition: opacity .5s ease;
+}
+.gt-curtain.is-on { opacity: 1; }
+
+/* ---- 3. Chapter drawer --------------------------------------------------
+   Closed it is a hairline and one violet dot; the list is a menu the reader
+   opens, never a permanent column. The mini-player already says which chapter
+   is playing, so the list would only repeat it. It never opens by itself. */
+.gt-rail {
+  position: fixed; z-index: 999; top: 0; bottom: 0; right: 0;
+  width: var(--gt-rail-width);
+  display: flex; align-items: center;
+  overflow: hidden;
+  border-left: 1px solid rgba(242, 239, 232, .07);
+  pointer-events: none;
+  opacity: 0; visibility: hidden;
+  transition: width .42s var(--gt-ease), background .42s ease,
+              opacity .5s var(--gt-ease), visibility .5s;
+}
+body.gt-active .gt-rail { opacity: 1; visibility: visible; }
+.gt-rail.is-open {
+  width: min(268px, 84vw);
+  pointer-events: auto;
+  background: rgba(9, 12, 19, .9);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: -24px 0 60px rgba(0, 0, 0, .4);
+}
+/* below the desktop breakpoint nothing is reserved at all: the drawer is
+   reached from the player's chapter button and slides in over the page */
+@media (max-width: 1279px) { .gt-rail:not(.is-open) { border-left: 0; } }
+
+/* the closed affordance: chevron + the live chapter's dot */
+.gt-rail__toggle {
+  pointer-events: auto;
+  flex: 0 0 var(--gt-rail-width);
+  align-self: stretch; width: var(--gt-rail-width);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--gt-dim);
+  transition: color .25s ease, flex-basis .42s var(--gt-ease), width .42s var(--gt-ease);
+}
+.gt-rail.is-open .gt-rail__toggle { flex-basis: 44px; width: 44px; }
+.gt-rail__toggle:hover { color: var(--gt-ink); }
+.gt-rail__toggle svg { width: 15px; height: 15px; transition: transform .42s var(--gt-ease); }
+.gt-rail.is-open .gt-rail__toggle svg { transform: rotate(180deg); }
+.gt-rail__pip {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gt-accent);
+  box-shadow: 0 0 0 4px rgba(163, 148, 255, .12);
+}
+.gt-rail.is-open .gt-rail__pip { opacity: 0; }
+@media (max-width: 1279px) { .gt-rail:not(.is-open) .gt-rail__toggle { display: none; } }
+
+.gt-rail__panel {
+  flex: 1 1 auto; min-width: 0; overflow: hidden;
+  padding-right: 22px;
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s ease, visibility .3s;
+}
+.gt-rail.is-open .gt-rail__panel { opacity: 1; visibility: visible; transition-delay: .12s; }
+.gt-rail__panel > * { width: 202px; }
+.gt-rail__head {
+  margin: 0 0 14px;
+  font-size: 10px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gt-dim);
+}
+.gt-rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.gt-rail li button {
+  display: flex; align-items: flex-start; gap: 12px; width: 100%;
+  padding: 5px 0; border: 0; background: none; cursor: pointer;
+  color: var(--gt-dim); font: inherit; font-size: 12.5px; line-height: 1.34; text-align: left;
+}
+.gt-rail__dot {
+  position: relative; flex: 0 0 auto; margin-top: 4px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(242, 239, 232, .2);
+  transition: background .3s, transform .3s var(--gt-ease);
+}
+.gt-rail li button:hover { color: var(--gt-ink); }
+.gt-rail li button:hover .gt-rail__dot { background: rgba(242, 239, 232, .48); transform: scale(1.3); }
+.gt-rail li.is-done .gt-rail__dot { background: rgba(163, 148, 255, .45); }
+.gt-rail li.is-current .gt-rail__dot { background: var(--gt-accent); transform: scale(1.45); }
+.gt-rail li.is-current button { color: var(--gt-ink); }
+
+/* ---- 4. Player: compact by default, expanded only on request ------------ */
+.gt-dock {
+  position: fixed; z-index: 1000;
+  right: calc(var(--gt-rail-width) + var(--gt-edge));
+  bottom: 28px;
+  /* collapsed the bar is sized by its content, not stretched to a set width */
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--gt-edge));
+  transform: translateY(130%);
+  opacity: 0; visibility: hidden;
+  transition: transform .55s var(--gt-ease), opacity .35s ease, visibility .55s, width .4s var(--gt-ease);
+  color: var(--gt-ink);
+  font-family: var(--ecosystem-sans, Inter, -apple-system, system-ui, sans-serif);
+}
+body.gt-active .gt-dock { transform: translateY(0); opacity: 1; visibility: visible; }
+body.gt-expanded .gt-dock { width: min(660px, calc(100vw - 2 * var(--gt-edge))); }
+
+.gt-dock__inner {
+  /* Collapsed: a flex row with explicit gaps, so nothing is pushed apart by a
+     stretching column. Expanded switches to the three-column grid below. */
+  display: flex;
+  align-items: center; gap: 0;
+  padding: 10px 16px;
+  border: 1px solid rgba(242, 239, 232, .13);
+  border-radius: 20px;
+  background: var(--gt-glass);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .42);
+  cursor: pointer;                       /* the surface expands the player */
+}
+body.gt-expanded .gt-dock__inner {
+  cursor: default;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px; padding: 11px 14px; border-radius: 18px;
+}
+
+.gt-play {
+  position: relative; flex: 0 0 46px; display: grid; place-items: center;
+  width: 46px; height: 46px; padding: 0;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: linear-gradient(150deg, var(--gt-accent), var(--gt-accent-2));
+  color: #0a0d14;
+}
+.gt-play svg.gt-icon { width: 16px; height: 16px; }
+.gt-play__ring { position: absolute; inset: -5px; transform: rotate(-90deg); pointer-events: none; }
+.gt-play__ring circle { fill: none; stroke-width: 1.7; }
+.gt-play__ring .gt-ring-bg { stroke: rgba(242, 239, 232, .14); }
+.gt-play__ring .gt-ring-fg { stroke: var(--gt-accent); stroke-linecap: round; transition: stroke-dashoffset .25s linear; }
+
+/* Collapsed is one quiet line — position in the tour and the clock, nothing to
+   read. The chapter name belongs to the expanded player: the drawer and the
+   page's own headings already say where the narration is, and a title here
+   turns a playback utility into a second content block. */
+.gt-dock__body { min-width: 0; display: flex; align-items: center; gap: 22px; margin-left: 14px; }
+body.gt-expanded .gt-dock__body { display: grid; gap: 3px; margin-left: 0; }
+.gt-dock__head { display: flex; align-items: baseline; gap: 9px; min-width: 0; margin: 0; }
+.gt-dock__index {
+  flex: 0 0 auto; font-size: 12px; color: var(--gt-accent); font-variant-numeric: tabular-nums;
+}
+body:not(.gt-expanded) .gt-dock__title { display: none; }
+body.gt-expanded .gt-dock__index::after {
+  content: ""; display: inline-block; width: 1px; height: 10px;
+  margin-left: 9px; background: var(--gt-line); vertical-align: -1px;
+}
+.gt-dock__title {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 13.5px; font-weight: 550; letter-spacing: -.005em;
+  transition: opacity .3s ease;
+}
+body.gt-swapping .gt-dock__title { opacity: 0; }
+.gt-dock__time {
+  flex: 0 0 auto; margin: 0;
+  font-size: 12px; color: var(--gt-dim); font-variant-numeric: tabular-nums;
+}
+
+
+/* progress bar: expanded only */
+.gt-seek { display: none; position: relative; height: 14px; cursor: pointer; touch-action: none; }
+body.gt-expanded .gt-seek { display: block; }
+.gt-seek__track {
+  position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px;
+  border-radius: 999px; background: rgba(242, 239, 232, .14); overflow: hidden;
+}
+.gt-seek__buffer { position: absolute; inset: 0 auto 0 0; width: 0; background: rgba(242, 239, 232, .12); }
+.gt-seek__fill { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, var(--gt-accent), var(--gt-accent-2)); }
+.gt-seek__tick { position: absolute; top: 50%; width: 2px; height: 7px; margin-top: -3.5px; background: rgba(11, 15, 24, .8); border-radius: 1px; }
+.gt-seek__handle {
+  position: absolute; top: 50%; left: 0; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px;
+  border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+  opacity: 0; transition: opacity .2s;
+}
+.gt-seek:hover .gt-seek__handle, .gt-seek:focus-visible .gt-seek__handle, body.gt-scrubbing .gt-seek__handle { opacity: 1; }
+
+.gt-dock__actions { display: flex; align-items: center; gap: 12px; margin-left: 18px; }
+body.gt-expanded .gt-dock__actions { gap: 6px; margin-left: 0; }
+.gt-dock__btn {
+  display: grid; place-items: center;
+  width: 30px; height: 30px; padding: 0;
+  border: 1px solid transparent; border-radius: 50%;
+  background: transparent; color: var(--gt-muted);
+  cursor: pointer; transition: color .25s, border-color .25s, background .25s;
+}
+.gt-dock__btn:hover { color: #fff; border-color: rgba(163, 148, 255, .45); background: rgba(163, 148, 255, .1); }
+.gt-dock__btn svg { width: 14px; height: 14px; }
+/* prev / next / close belong to the expanded transport only */
+.gt-dock__btn--full { display: none; }
+body.gt-expanded .gt-dock__btn--full { display: grid; }
+.gt-icon--collapse { display: none; }
+body.gt-expanded .gt-icon--expand { display: none; }
+body.gt-expanded .gt-icon--collapse { display: block; }
+
+/* level meter: decorative, alive only while playing */
+.gt-eq { display: flex; align-items: flex-end; gap: 2px; height: 16px; }
+.gt-eq i { width: 2px; height: 3px; border-radius: 1px; background: var(--gt-accent); opacity: .6; }
+@media (prefers-reduced-motion: no-preference) {
+  body.gt-playing .gt-eq i { animation: gt-bounce 1.05s ease-in-out infinite; }
+}
+.gt-eq i:nth-child(2) { animation-delay: .16s; }
+.gt-eq i:nth-child(3) { animation-delay: .32s; }
+.gt-eq i:nth-child(4) { animation-delay: .48s; }
+.gt-eq i:nth-child(5) { animation-delay: .64s; }
+@keyframes gt-bounce { 0%, 100% { height: 3px; } 50% { height: 14px; } }
+
+/* "follow the narration" — only after the reader takes the scroll back */
+.gt-follow {
+  position: absolute; right: 0; bottom: calc(100% + 10px);
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 15px; border: 1px solid rgba(163, 148, 255, .4); border-radius: 999px;
+  background: var(--gt-glass);
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  color: var(--gt-ink); font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap;
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity .3s, transform .3s var(--gt-ease), visibility .3s;
+}
+.gt-follow svg { width: 13px; height: 13px; }
+body.gt-unfollowed .gt-follow { opacity: 1; visibility: visible; transform: translateY(0); }
+
+/* closed with progress, and the launcher is out of sight */
+.gt-revive {
+  position: fixed; z-index: 1000;
+  right: calc(var(--gt-rail-width) + var(--gt-edge)); bottom: 28px;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 11px 18px; border: 1px solid var(--gt-line); border-radius: 999px;
+  background: var(--gt-glass);
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  color: var(--gt-muted); font: inherit; font-size: 13px; cursor: pointer;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .34);
+  transition: color .25s, border-color .25s;
+}
+.gt-revive:hover { color: var(--gt-ink); border-color: rgba(163, 148, 255, .45); }
+.gt-revive svg { width: 13px; height: 13px; }
+/* an author `display` outranks the UA sheet's [hidden] rule, so the elements
+   JavaScript hides with the attribute need to say so themselves */
+.gt-revive[hidden], .gt-error[hidden], .gt-rail[hidden] { display: none; }
+
+@media (max-width: 640px) {
+  .gt-dock { right: var(--gt-edge); left: var(--gt-edge); width: auto; bottom: 18px; }
+  body.gt-expanded .gt-dock { width: auto; }
+  .gt-dock__inner { gap: 11px; padding: 10px 12px; }
+  .gt-eq { display: none; }
+  .gt-dock__actions { gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gt-dock, .gt-rail, .gt-curtain, .gt-follow, body.gt-active [data-tour-chapter] { transition-duration: .01ms !important; }
+}
+</style>
+
+<div class="gt" data-guided-tour
+     data-slug="{{ gt_slug }}"
+     data-total="{{ gt.duration }}"
+     data-title="{{ gt_title | strip_html | escape }}"
+     data-artist="{{ include.artist | default: site.author.name | escape }}"
+     data-artwork="{{ include.artwork | default: site.og_image | absolute_url }}">
+
+  <script type="application/json" data-gt-chapters>{% if gt_chapters %}{{ gt_chapters | jsonify }}{% else %}[]{% endif %}</script>
+
+  <audio data-gt-audio preload="none" playsinline>
+    <source src="{{ gt.audio_url }}" type="audio/mpeg">
+  </audio>
+
+  <button class="gt-launch" type="button" data-gt-launch>
+    <span class="gt-launch__disc" aria-hidden="true">
+      <svg class="gt-icon gt-icon--play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6L19 12z"/></svg>
+      <svg class="gt-icon gt-icon--pause" viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="5" width="3.4" height="14" rx="1.2"/><rect x="13.6" y="5" width="3.4" height="14" rx="1.2"/></svg>
+      <svg class="gt-icon gt-icon--replay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.3"/><path d="M3 4.5V9h4.5"/></svg>
+    </span>
+    <span class="gt-launch__text">
+      <span class="gt-launch__title" data-gt-launch-label>{{ gt_label }}</span>
+      <span class="gt-launch__meta">
+        {%- if include.sublabel -%}{{ include.sublabel }}
+        {%- else -%}
+          {{ gt.duration }}{% if gt_chapters %} · {{ gt_chapters | size }} chapters{% endif %} · narrated
+        {%- endif -%}
+      </span>
+    </span>
+  </button>
+
+  <p class="gt-error" data-gt-error hidden>The narration could not be loaded. <a href="{{ gt.audio_url }}">Open the audio file</a>.</p>
+
+  <noscript>
+    <audio class="gt-fallback" controls preload="none" src="{{ gt.audio_url }}"></audio>
+  </noscript>
+
+  <p class="gt-sr" aria-live="polite" data-gt-announce></p>
+
+  <!-- moved to <body> on init so fixed positioning never depends on ancestors -->
+  <div class="gt-curtain" data-gt-curtain aria-hidden="true"></div>
+
+  <nav class="gt-rail" data-gt-rail aria-label="Tour chapters">
+    <button class="gt-rail__toggle" type="button" data-gt-rail-toggle
+            aria-expanded="false" aria-controls="gt-rail-panel-{{ gt_slug }}" aria-label="Show the chapter list">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg>
+      <span class="gt-rail__pip" aria-hidden="true"></span>
+    </button>
+    <div class="gt-rail__panel" id="gt-rail-panel-{{ gt_slug }}">
+      <p class="gt-rail__head">Chapters</p>
+      <ol></ol>
+    </div>
+  </nav>
+
+  <button class="gt-revive" type="button" data-gt-revive hidden>
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg>
+    <span data-gt-revive-label>Resume guided tour</span>
+  </button>
+
+  <div class="gt-dock" data-gt-dock role="region" aria-label="Guided tour player">
+    <button class="gt-follow" type="button" data-gt-follow>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>
+      Follow the narration
+    </button>
+
+    <div class="gt-dock__inner" data-gt-surface>
+      <button class="gt-play" type="button" data-gt-toggle aria-label="Pause the tour">
+        <svg class="gt-play__ring" viewBox="0 0 54 54" aria-hidden="true">
+          <circle class="gt-ring-bg" cx="27" cy="27" r="25"/>
+          <circle class="gt-ring-fg" cx="27" cy="27" r="25" data-gt-ring stroke-dasharray="157.1" stroke-dashoffset="157.1"/>
+        </svg>
+        <svg class="gt-icon gt-icon--play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg>
+        <svg class="gt-icon gt-icon--pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.4" height="14" rx="1.2"/><rect x="13.6" y="5" width="3.4" height="14" rx="1.2"/></svg>
+        <svg class="gt-icon gt-icon--replay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.3"/><path d="M3 4.5V9h4.5"/></svg>
+      </button>
+
+      <div class="gt-dock__body">
+        <p class="gt-dock__head">
+          <span class="gt-dock__index" data-gt-index></span>
+          <span class="gt-dock__title" data-gt-chapter-title></span>
+        </p>
+        <span class="gt-seek" role="slider" tabindex="0" data-gt-seek
+              aria-label="Seek the narration" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
+          <span class="gt-seek__track">
+            <span class="gt-seek__buffer" data-gt-buffer></span>
+            <span class="gt-seek__fill" data-gt-fill></span>
+          </span>
+          <span class="gt-seek__handle" data-gt-handle></span>
+        </span>
+        <p class="gt-dock__time" data-gt-time>0:00 / {{ gt.duration }}</p>
+      </div>
+
+      <div class="gt-dock__actions">
+        <span class="gt-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <button class="gt-dock__btn gt-dock__btn--full" type="button" data-gt-chapter-list aria-label="Show the chapter list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="M4.5 6h.01"/><path d="M4.5 12h.01"/><path d="M4.5 18h.01"/></svg>
+        </button>
+        <button class="gt-dock__btn gt-dock__btn--full" type="button" data-gt-prev aria-label="Previous chapter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 8 12l10 6z"/><path d="M6 5v14"/></svg>
+        </button>
+        <button class="gt-dock__btn gt-dock__btn--full" type="button" data-gt-next aria-label="Next chapter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 6 10 6-10 6z"/><path d="M18 5v14"/></svg>
+        </button>
+        <button class="gt-dock__btn" type="button" data-gt-expand aria-label="Show the full player" aria-expanded="false">
+          <svg class="gt-icon--expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>
+          <svg class="gt-icon--collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <button class="gt-dock__btn gt-dock__btn--full" type="button" data-gt-stop aria-label="Stop the tour and close the player">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  // The include is rendered inline in the hero, so the rest of the page does
+  // not exist yet when this runs. Every chapter lookup would miss.
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+
+  function boot() {
+    var root = document.querySelector('[data-guided-tour]');
+    if (!root || root.dataset.bound === 'true') return;
+    root.dataset.bound = 'true';
+
+    var body      = document.body;
+    var audio     = root.querySelector('[data-gt-audio]');
+    var launch    = root.querySelector('[data-gt-launch]');
+    var launchLbl = root.querySelector('[data-gt-launch-label]');
+    var errorEl   = root.querySelector('[data-gt-error]');
+    var announce  = root.querySelector('[data-gt-announce]');
+    if (!audio || !launch) return;
+
+    // Everything below sits inside the dock/rail/revive, which are re-parented
+    // to <body> a few lines further down — so they are all looked up first.
+    var dock      = root.querySelector('[data-gt-dock]');
+    var rail      = root.querySelector('[data-gt-rail]');
+    var railToggle= root.querySelector('[data-gt-rail-toggle]');
+    var chaptersBtn = root.querySelector('[data-gt-chapter-list]');
+    var curtain   = root.querySelector('[data-gt-curtain]');
+    var revive    = root.querySelector('[data-gt-revive]');
+    var surface   = root.querySelector('[data-gt-surface]');
+    var toggleBtn = root.querySelector('[data-gt-toggle]');
+    var expandBtn = root.querySelector('[data-gt-expand]');
+    var stopBtn   = root.querySelector('[data-gt-stop]');
+    var prevBtn   = root.querySelector('[data-gt-prev]');
+    var nextBtn   = root.querySelector('[data-gt-next]');
+    var followBtn = root.querySelector('[data-gt-follow]');
+    var seek      = root.querySelector('[data-gt-seek]');
+    var fill      = root.querySelector('[data-gt-fill]');
+    var buffer    = root.querySelector('[data-gt-buffer]');
+    var handle    = root.querySelector('[data-gt-handle]');
+    var ring      = root.querySelector('[data-gt-ring]');
+    var timeEl    = root.querySelector('[data-gt-time]');
+    var titleEl   = root.querySelector('[data-gt-chapter-title]');
+    var indexEl   = root.querySelector('[data-gt-index]');
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var slug = root.dataset.slug || 'tour';
+    var storeKey = 'gt:' + slug;
+    var startLabel = launchLbl ? launchLbl.textContent.trim() : 'Start the guided tour';
+
+    // ---- chapters -------------------------------------------------------
+    var declared = [];
+    try { declared = JSON.parse(root.querySelector('[data-gt-chapters]').textContent) || []; } catch (e) { declared = []; }
+    if (!Array.isArray(declared)) declared = [];
+
+    var chapters = [];
+    declared.forEach(function (c) {
+      var el = document.querySelector('[data-tour-chapter="' + c.id + '"]');
+      if (!el) {
+        // A cue with no section on this page: drop it rather than scroll nowhere.
+        if (window.console) console.warn('[guided-tour] no [data-tour-chapter="' + c.id + '"] on this page');
+        return;
+      }
+      chapters.push({ id: c.id, title: c.title || '', start: Number(c.start) || 0, el: el });
+    });
+    chapters.sort(function (a, b) { return a.start - b.start; });
+
+    // ---- helpers --------------------------------------------------------
+    function parseDur(s) {
+      if (!s) return 0;
+      var p = ('' + s).split(':').map(Number);
+      if (p.some(isNaN)) return 0;
+      return p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p.length === 2 ? p[0] * 60 + p[1] : p[0];
+    }
+    function fmt(s) {
+      if (!isFinite(s) || s < 0) s = 0;
+      return Math.floor(s / 60) + ':' + Math.floor(s % 60).toString().padStart(2, '0');
+    }
+    function clamp01(v) { return Math.min(1, Math.max(0, v)); }
+    function state(name, on) { body.classList.toggle('gt-' + name, !!on); }
+
+    var totalFallback = parseDur(root.dataset.total);
+    function duration() {
+      return (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : totalFallback;
+    }
+
+    // Sticky masthead height, so a section never lands underneath the header.
+    function syncOffset() {
+      var offset = 24;
+      var head = document.querySelector('.masthead');
+      if (head) {
+        var pos = getComputedStyle(head).position;
+        if (pos === 'sticky' || pos === 'fixed') offset = head.getBoundingClientRect().height + 24;
+      }
+      document.documentElement.style.setProperty('--gt-offset', Math.round(offset) + 'px');
+    }
+
+    // preload="none" means there is no timeline until the file is opened. Any
+    // seek therefore has to wait for metadata, or it is silently dropped.
+    function seekTo(seconds, then) {
+      var apply = function () {
+        try { audio.currentTime = seconds; } catch (e) {}
+        if (then) then();
+      };
+      if (audio.readyState > 0) { apply(); return; }
+      audio.addEventListener('loadedmetadata', apply, { once: true });
+      audio.load();
+    }
+
+    // ---- chapter drawer --------------------------------------------------
+    var railItems = [];
+    if (chapters.length) {
+      var ol = rail.querySelector('ol');
+      chapters.forEach(function (c, i) {
+        var li = document.createElement('li');
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.innerHTML = '<span class="gt-rail__dot"></span>';
+        var label = document.createElement('span');
+        label.className = 'gt-rail__label';
+        label.textContent = c.title || ('Chapter ' + (i + 1));
+        btn.appendChild(label);
+        btn.setAttribute('aria-label', 'Chapter ' + (i + 1) + ': ' + label.textContent);
+        // choosing a chapter closes the menu, the way a menu should behave
+        btn.addEventListener('click', function () { setRailOpen(false); jumpTo(i); });
+        li.appendChild(btn);
+        ol.appendChild(li);
+        railItems.push(li);
+      });
+    } else {
+      rail.hidden = true;
+    }
+
+    // Fixed-position UI belongs on <body>: then no ancestor can clip it or turn
+    // itself into its containing block (transform/filter/contain all would).
+    [curtain, rail, revive, dock].forEach(function (el) { if (el) body.appendChild(el); });
+
+    // ---- state ----------------------------------------------------------
+    var armed = false;      // the player is on screen
+    var expanded = false;   // full transport rather than the mini-player
+    var following = true;   // the page is still driving itself
+    var current = -1;
+    var scrubbing = false;
+    var hovering = false;
+    var programmaticUntil = 0;
+    var collapseTimer = null;
+    var launchVisible = true;
+
+    function setPlaying(on) {
+      state('playing', on);
+      if (on) state('ended', false);
+      toggleBtn.setAttribute('aria-label', on ? 'Pause the tour' : 'Play the tour');
+    }
+
+    function setFollowing(on) {
+      following = on;
+      state('unfollowed', armed && !on);
+      if (on && armed && current >= 0) scrollToChapter(current);
+    }
+
+    // ---- collapse / expand ----------------------------------------------
+    // Expanded is a transient state: it folds back to the mini-player once the
+    // reader stops touching it, so the transport never sits over the page.
+    var COLLAPSE_AFTER = 5000;
+    function cancelAutoCollapse() { window.clearTimeout(collapseTimer); collapseTimer = null; }
+    function scheduleAutoCollapse() {
+      cancelAutoCollapse();
+      if (!expanded || hovering || scrubbing || dock.contains(document.activeElement)) return;
+      collapseTimer = window.setTimeout(function () { setExpanded(false); }, COLLAPSE_AFTER);
+    }
+    function setExpanded(on) {
+      if (expanded === on) { if (on) scheduleAutoCollapse(); return; }
+      expanded = on;
+      state('expanded', on);
+      expandBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      expandBtn.setAttribute('aria-label', on ? 'Show the mini player' : 'Show the full player');
+      if (on) { render(); placeTicks(); scheduleAutoCollapse(); } else { cancelAutoCollapse(); }
+    }
+
+    // ---- chapter drawer state -------------------------------------------
+    // Opened only by the reader — never while narration simply advances, since
+    // the mini-player already names the live chapter.
+    var railOpen = false;
+    function setRailOpen(on) {
+      if (railOpen === on || !chapters.length) return;
+      railOpen = on;
+      rail.classList.toggle('is-open', on);
+      railToggle.setAttribute('aria-expanded', on ? 'true' : 'false');
+      railToggle.setAttribute('aria-label', on ? 'Hide the chapter list' : 'Show the chapter list');
+      if (chaptersBtn) chaptersBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      if (on) {
+        var live = railItems[current] || railItems[0];
+        if (live) live.querySelector('button').focus({ preventScroll: true });
+      } else if (rail.contains(document.activeElement)) {
+        railToggle.focus({ preventScroll: true });
+      }
+    }
+    railToggle.addEventListener('click', function () { setRailOpen(!railOpen); });
+    if (chaptersBtn) {
+      chaptersBtn.addEventListener('click', function () { setRailOpen(!railOpen); scheduleAutoCollapse(); });
+    }
+    // clicking anywhere outside puts the menu away
+    document.addEventListener('pointerdown', function (e) {
+      if (!railOpen) return;
+      if (rail.contains(e.target) || (chaptersBtn && chaptersBtn.contains(e.target))) return;
+      setRailOpen(false);
+    }, true);
+
+    dock.addEventListener('pointerenter', function () { hovering = true; cancelAutoCollapse(); });
+    dock.addEventListener('pointerleave', function () { hovering = false; scheduleAutoCollapse(); });
+    dock.addEventListener('focusin', cancelAutoCollapse);
+    dock.addEventListener('focusout', function () { window.setTimeout(scheduleAutoCollapse, 0); });
+
+    // clicking the mini-player surface (but not a control) opens it
+    surface.addEventListener('click', function (e) {
+      if (expanded) return;
+      if (e.target.closest('button, [role="slider"]')) return;
+      setExpanded(true);
+    });
+
+    function scrollToChapter(i) {
+      var c = chapters[i];
+      if (!c) return;
+      syncOffset();
+      var distance = Math.abs(c.el.getBoundingClientRect().top);
+      // Smooth scrolling keeps emitting scroll events after we ask for it; they
+      // are ignored for about as long as the animation can run, so one of our
+      // own scrolls is never mistaken for the reader taking over.
+      programmaticUntil = performance.now() + (reduce ? 150 : Math.min(2400, 700 + distance * 0.4));
+      c.el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    }
+
+    function setChapter(i, force) {
+      if (!chapters[i]) return;
+      if (i === current) {
+        if (force && following) scrollToChapter(i);
+        return;
+      }
+      var first = current === -1;
+      current = i;
+
+      chapters.forEach(function (c, n) { c.el.classList.toggle('is-gt-current', n === i); });
+      railItems.forEach(function (li, n) {
+        li.classList.toggle('is-current', n === i);
+        li.classList.toggle('is-done', n < i);
+      });
+
+      state('swapping', true);
+      window.setTimeout(function () {
+        titleEl.textContent = chapters[i].title || ('Chapter ' + (i + 1));
+        indexEl.textContent = (i + 1) + ' / ' + chapters.length;
+        state('swapping', false);
+      }, first ? 0 : 180);
+
+      if (announce) announce.textContent = 'Chapter ' + (i + 1) + ' of ' + chapters.length + '. ' + (chapters[i].title || '');
+      if (following || force) scrollToChapter(i);
+      updateMediaPosition();
+    }
+
+    function chapterAt(t) {
+      if (!chapters.length) return -1;
+      var i = 0;
+      for (var n = 0; n < chapters.length; n++) {
+        if (chapters[n].start <= t + 0.05) i = n; else break;
+      }
+      return i;
+    }
+
+    function jumpTo(i) {
+      if (!chapters[i]) return;
+      arm();
+      seekTo(chapters[i].start + 0.01, function () {
+        setFollowing(true);
+        setChapter(i, true);
+        play();
+      });
+      scheduleAutoCollapse();
+    }
+
+    // ---- render ---------------------------------------------------------
+    var RING = 2 * Math.PI * 25;
+    function render() {
+      var d = duration();
+      var t = audio.currentTime || 0;
+      var frac = d ? clamp01(t / d) : 0;
+      fill.style.width = (frac * 100) + '%';
+      handle.style.left = (frac * 100) + '%';
+      if (ring) ring.setAttribute('stroke-dashoffset', (RING * (1 - frac)).toFixed(1));
+      timeEl.textContent = fmt(t) + ' / ' + fmt(d);
+      seek.setAttribute('aria-valuemax', String(Math.round(d)));
+      seek.setAttribute('aria-valuenow', String(Math.round(t)));
+      seek.setAttribute('aria-valuetext', fmt(t) + ' of ' + fmt(d));
+      if (!d) return;
+      try {
+        if (audio.buffered.length) {
+          buffer.style.width = (clamp01(audio.buffered.end(audio.buffered.length - 1) / d) * 100) + '%';
+        }
+      } catch (e) { /* buffered can throw before metadata lands */ }
+    }
+
+    function placeTicks() {
+      var d = duration();
+      if (!d || !chapters.length || seek.querySelector('.gt-seek__tick')) return;
+      var track = seek.querySelector('.gt-seek__track');
+      chapters.forEach(function (c) {
+        if (c.start <= 0) return;
+        var tick = document.createElement('span');
+        tick.className = 'gt-seek__tick';
+        tick.style.left = (clamp01(c.start / d) * 100) + '%';
+        track.appendChild(tick);
+      });
+    }
+
+    // ---- transport ------------------------------------------------------
+    function arm() {
+      if (armed) return;
+      armed = true;
+      syncOffset();
+      // Opening the rail column and un-skipping every section relayouts the
+      // page; that is our scroll, not the reader's.
+      programmaticUntil = performance.now() + 1400;
+      body.classList.add('gt-active');
+      revive.hidden = true;
+      if (!reduce && curtain) {
+        curtain.classList.add('is-on');
+        window.setTimeout(function () { curtain.classList.remove('is-on'); }, 620);
+      }
+      // the host page now reserves the rail column and the dock's safe area;
+      // let layout settle for a frame so the first scroll lands where it should
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { setChapter(chapterAt(audio.currentTime || 0), true); });
+      });
+    }
+
+    function play() {
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () { setPlaying(false); });
+    }
+
+    function toggle() {
+      if (body.classList.contains('gt-ended')) { seekTo(0, play); return; }
+      if (audio.paused) { arm(); play(); } else { audio.pause(); }
+    }
+
+    // Close is not collapse: the narration stops and the player goes away.
+    function close() {
+      audio.pause();
+      armed = false;
+      expanded = false;
+      setRailOpen(false);
+      cancelAutoCollapse();
+      body.classList.remove('gt-active', 'gt-expanded');
+      state('unfollowed', false);
+      chapters.forEach(function (c) { c.el.classList.remove('is-gt-current'); });
+      following = true;
+      save();
+      syncRevive();
+    }
+
+    // The launcher is the resume control while it is on screen; once it has
+    // scrolled away a quiet chip takes over, so there is never a second
+    // playback control competing with it.
+    function syncRevive() {
+      var progress = audio.currentTime || 0;
+      var hasProgress = progress > 10 && (!totalFallback || progress < totalFallback - 15);
+      if (launchLbl) launchLbl.textContent = hasProgress ? 'Resume the guided tour' : startLabel;
+      revive.hidden = armed || !hasProgress || launchVisible;
+      if (!revive.hidden) {
+        revive.querySelector('[data-gt-revive-label]').textContent = 'Resume at ' + fmt(progress);
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        launchVisible = entries[0].isIntersecting;
+        syncRevive();
+      }, { rootMargin: '0px 0px -80px 0px' }).observe(launch);
+    }
+
+    // preload="none" keeps the MP3 off every page load, but it also means the
+    // first click has to open the file before anything is heard. Fetching the
+    // metadata as soon as the reader reaches for the button hides that.
+    var warmed = false;
+    function warm() {
+      if (warmed || audio.readyState > 0) return;
+      warmed = true;
+      audio.preload = 'metadata';
+      audio.load();
+    }
+    launch.addEventListener('pointerenter', warm);
+    launch.addEventListener('focus', warm);
+
+    launch.addEventListener('click', toggle);
+    revive.addEventListener('click', function () { arm(); play(); });
+    toggleBtn.addEventListener('click', function () { toggle(); scheduleAutoCollapse(); });
+    expandBtn.addEventListener('click', function () { setExpanded(!expanded); });
+    stopBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', function () {
+      // Inside the first 4 seconds of a chapter, "previous" means the one before.
+      var i = chapterAt(audio.currentTime || 0);
+      if (i > 0 && (audio.currentTime - chapters[i].start) < 4) i -= 1;
+      jumpTo(i);
+    });
+    nextBtn.addEventListener('click', function () {
+      jumpTo(Math.min(chapters.length - 1, chapterAt(audio.currentTime || 0) + 1));
+    });
+    followBtn.addEventListener('click', function () { setFollowing(true); });
+
+    audio.addEventListener('play', function () { arm(); setPlaying(true); updateMediaPosition(); });
+    audio.addEventListener('pause', function () { setPlaying(false); save(); });
+    audio.addEventListener('ended', function () {
+      setPlaying(false);
+      state('ended', true);
+      try { localStorage.removeItem(storeKey); } catch (e) {}
+    });
+    audio.addEventListener('loadedmetadata', function () { placeTicks(); render(); });
+    audio.addEventListener('progress', render);
+    audio.addEventListener('error', function () {
+      if (errorEl) errorEl.hidden = false;
+      close();
+    });
+
+    var lastSave = 0;
+    audio.addEventListener('timeupdate', function () {
+      if (!scrubbing) {
+        render();
+        var i = chapterAt(audio.currentTime);
+        if (i !== current) setChapter(i);
+      }
+      var now = Date.now();
+      if (now - lastSave > 5000) { lastSave = now; save(); }
+    });
+
+    // ---- seeking (expanded only) ----------------------------------------
+    function fracFromEvent(e) {
+      var r = seek.getBoundingClientRect();
+      var x = (e.clientX != null) ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      return clamp01((x - r.left) / r.width);
+    }
+    seek.addEventListener('pointerdown', function (e) {
+      scrubbing = true;
+      state('scrubbing', true);
+      cancelAutoCollapse();
+      try { seek.setPointerCapture(e.pointerId); } catch (_) {}
+      var d = duration();
+      if (d) seekTo(fracFromEvent(e) * d, render);
+      e.preventDefault();
+    });
+    seek.addEventListener('pointermove', function (e) {
+      if (!scrubbing) return;
+      var d = duration();
+      if (d) seekTo(fracFromEvent(e) * d, render);
+    });
+    function endScrub() {
+      if (!scrubbing) return;
+      scrubbing = false;
+      state('scrubbing', false);
+      setFollowing(true);
+      setChapter(chapterAt(audio.currentTime), true);
+      render();
+      scheduleAutoCollapse();
+    }
+    seek.addEventListener('pointerup', endScrub);
+    seek.addEventListener('pointercancel', endScrub);
+
+    seek.addEventListener('keydown', function (e) {
+      var d = duration(), handled = true;
+      switch (e.key) {
+        case 'ArrowLeft':  seekTo(Math.max(0, (audio.currentTime || 0) - 10), render); break;
+        case 'ArrowRight': seekTo(Math.min(d, (audio.currentTime || 0) + 10), render); break;
+        case 'Home':       seekTo(0, render); break;
+        case 'End':        seekTo(d, render); break;
+        case ' ': case 'Enter': toggle(); break;
+        default: handled = false;
+      }
+      if (handled) e.preventDefault();
+    });
+
+    // ---- the reader takes over -------------------------------------------
+    // Two things here are not the reader scrolling, and neither may release the
+    // auto-scroll: our own smooth scrolls, and the reflow when the page opens
+    // up its rail column and un-skips every section. So scrolls are ignored
+    // inside a programmatic window, and a release needs real distance rather
+    // than the pixel of jitter a reflow produces.
+    var settledY = window.scrollY;
+    window.addEventListener('scroll', function () {
+      if (!armed || !following) return;
+      if (performance.now() < programmaticUntil) { settledY = window.scrollY; return; }
+      if (Math.abs(window.scrollY - settledY) < 40) return;
+      setFollowing(false);
+    }, { passive: true });
+    window.addEventListener('resize', syncOffset, { passive: true });
+
+    // ---- keyboard ---------------------------------------------------------
+    document.addEventListener('keydown', function (e) {
+      if (!armed || e.metaKey || e.ctrlKey || e.altKey) return;
+      var t = e.target;
+      if (t && t.closest) {
+        if (t.closest('input, textarea, select, [contenteditable="true"]')) return;
+        // Let Space/Enter activate whatever button actually has focus.
+        if ((e.key === ' ' || e.key === 'Enter') && t.closest('button, a, [role="slider"]')) return;
+      }
+      var d = duration();
+      switch (e.key) {
+        case ' ': case 'k': case 'K': toggle(); break;
+        case 'ArrowRight': case 'l': case 'L': seekTo(Math.min(d, audio.currentTime + 10), render); break;
+        case 'ArrowLeft':  case 'j': case 'J': seekTo(Math.max(0, audio.currentTime - 10), render); break;
+        case 'ArrowDown':  case 'n': case 'N': jumpTo(Math.min(chapters.length - 1, current + 1)); break;
+        case 'ArrowUp':    case 'p': case 'P': jumpTo(Math.max(0, current - 1)); break;
+        case 'f': case 'F': setFollowing(!following); break;
+        // Escape unwinds one layer at a time: the chapter menu, then the
+        // expanded transport, and only then the tour itself.
+        case 'Escape':
+          if (railOpen) setRailOpen(false);
+          else if (expanded) setExpanded(false);
+          else close();
+          break;
+        default: return;
+      }
+      e.preventDefault();
+    });
+
+    // ---- saved position ----------------------------------------------------
+    function save() {
+      try {
+        var t = audio.currentTime || 0;
+        if (t > 10) localStorage.setItem(storeKey, JSON.stringify({ t: t, at: Date.now() }));
+      } catch (e) { /* private mode */ }
+    }
+    (function restore() {
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(storeKey) || 'null'); } catch (e) {}
+      if (!saved || !saved.t || saved.t < 15) return;
+      if (totalFallback && saved.t > totalFallback - 25) return;
+      if (launchLbl) launchLbl.textContent = 'Resume the guided tour · ' + fmt(saved.t);
+      launch.addEventListener('click', function once() {
+        launch.removeEventListener('click', once);
+        seekTo(saved.t, function () { setChapter(chapterAt(saved.t), true); });
+      }, true);
+    })();
+    window.addEventListener('pagehide', save);
+
+    // ---- OS media controls -------------------------------------------------
+    function updateMediaPosition() {
+      if (!('mediaSession' in navigator)) return;
+      try {
+        if (navigator.mediaSession.setPositionState && isFinite(audio.duration)) {
+          navigator.mediaSession.setPositionState({
+            duration: audio.duration, playbackRate: audio.playbackRate, position: audio.currentTime
+          });
+        }
+      } catch (e) {}
+    }
+    if ('mediaSession' in navigator && window.MediaMetadata) {
+      var art = root.dataset.artwork;
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: root.dataset.title || document.title,
+        artist: root.dataset.artist || '',
+        album: 'Guided tour',
+        artwork: art ? [{ src: art, sizes: '512x512' }] : []
+      });
+      var actions = {
+        play: function () { arm(); play(); },
+        pause: function () { audio.pause(); },
+        seekbackward: function () { seekTo(Math.max(0, audio.currentTime - 10), render); },
+        seekforward: function () { seekTo(Math.min(duration(), audio.currentTime + 10), render); },
+        previoustrack: function () { jumpTo(Math.max(0, current - 1)); },
+        nexttrack: function () { jumpTo(Math.min(chapters.length - 1, current + 1)); },
+        seekto: function (d) { seekTo(d.seekTime, render); }
+      };
+      Object.keys(actions).forEach(function (name) {
+        try { navigator.mediaSession.setActionHandler(name, actions[name]); } catch (e) {}
+      });
+    }
+
+    syncOffset();
+    render();
+    if (!chapters.length) {
+      indexEl.textContent = '';
+      titleEl.textContent = root.dataset.title || '';
+    }
+  }
+})();
+</script>

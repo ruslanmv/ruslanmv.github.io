@@ -89,6 +89,29 @@ layout: default
   }
 
   .ecosystem-shell { width: min(1180px, calc(100% - 2 * clamp(20px, 5vw, 56px))); margin-inline: auto; }
+
+  /* ---- Guided tour: the host page's side of the contract ----------------
+     The component owns the launcher, player and rail; the page owns the space
+     they need. The launch row keeps its height after the launcher hides, so
+     starting the tour never reflows the hero. */
+  .ecosystem-tour-launch { margin: 34px 0 18px; min-height: 68px; display: flex; align-items: center; }
+  .ecosystem-tour-launch + .ecosystem-buttons { margin-top: 0; }
+  @media (max-width: 650px) { .ecosystem-tour-launch { margin: 26px 0 14px; } }
+
+  /* Nothing may become unreachable because the player is sitting over it: the
+     mini-player's strip at the bottom, and the chapter rail's closed hairline
+     on the right, are reserved while the tour is running. The chapter drawer
+     itself is a menu — it slides over the page rather than reflowing it. */
+  body.gt-active .ecosystem-page { padding-bottom: 96px; }
+  @media (min-width: 1280px) {
+    body.gt-active .ecosystem-page {
+      padding-right: var(--gt-rail-width, 46px);
+      transition: padding-right .4s var(--ecosystem-ease);
+    }
+  }
+  /* every section must know its real height for the auto-scroll to land */
+  body.gt-active .ecosystem-section { content-visibility: visible; }
+
   /* The page is a dozen tall sections of gradients, blurred shadows and blend
      layers, and the hero (which is not an .ecosystem-section) is the only part
      that has to render immediately. The rest are skipped until they approach
@@ -230,6 +253,35 @@ layout: default
   .ecosystem-button:hover::before { opacity: 1; }
   .ecosystem-button--primary { border-color: var(--ecosystem-ink); background: var(--ecosystem-ink); color: #0a0d13 !important; box-shadow: 0 12px 36px rgba(242, 239, 232, .08); }
   .ecosystem-button--primary:hover { border-color: #fff; background: #fff; box-shadow: 0 18px 46px rgba(242, 239, 232, .13); }
+
+  /* Secondary navigation, not a call to action: dark glass, muted text, and a
+     trailing arrow. Used in the hero, where the guided tour is the primary
+     action and these must not compete with it or with the headline. */
+  .ecosystem-button--quiet {
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 56px;
+    min-width: 255px;
+    padding: 0 26px;
+    border-color: rgba(255, 255, 255, .16);
+    background: rgba(13, 18, 29, .48);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: rgba(235, 238, 245, .66) !important;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: none;
+  }
+  .ecosystem-button--quiet::before { display: none; }   /* no spotlight glow */
+  .ecosystem-button--quiet:hover {
+    transform: none;
+    border-color: rgba(255, 255, 255, .26);
+    background: rgba(255, 255, 255, .045);
+    color: rgba(255, 255, 255, .9) !important;
+    box-shadow: none;
+  }
+  .ecosystem-button__arrow { flex: 0 0 auto; font-size: 16px; line-height: 1; opacity: .7; transition: transform .3s var(--ecosystem-ease), opacity .3s ease; }
+  .ecosystem-button--quiet:hover .ecosystem-button__arrow { transform: translateX(3px); opacity: 1; }
 
   /* Animated hero network */
   .ecosystem-network {
