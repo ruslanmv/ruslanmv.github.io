@@ -5,6 +5,58 @@
 {% else %}
   {% assign lang = "en" %}
 {% endcase %}
-<script src="{{ '/assets/js/lunr/lunr.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/lunr/lunr-store.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/lunr/lunr-' | append: lang | append: '.js' | relative_url }}"></script>
+{%- comment -%}
+  The Lunr bundle is ~170 KB (most of it the generated document store) and every
+  page used to download and parse it whether or not anyone searched. It is now
+  fetched the first time the reader shows intent to search — hovering, focusing
+  or activating the search toggle — which keeps it off the initial load of every
+  page while still being ready by the time the search panel is usable.
+
+  Order matters: lunr.min.js defines `lunr`, lunr-store.js defines `store`, and
+  lunr-<lang>.js builds the index from both, so they are chained rather than
+  loaded in parallel.
+{%- endcomment -%}
+<script>
+  (function () {
+    var sources = [
+      '{{ "/assets/js/lunr/lunr.min.js" | relative_url }}',
+      '{{ "/assets/js/lunr/lunr-store.js" | relative_url }}',
+      '{{ "/assets/js/lunr/lunr-" | append: lang | append: ".js" | relative_url }}'
+    ];
+    var started = false;
+
+    function loadSearchIndex() {
+      if (started) return;
+      started = true;
+      (function next(i) {
+        if (i >= sources.length) return;
+        var script = document.createElement('script');
+        script.src = sources[i];
+        script.async = false;
+        script.onload = function () { next(i + 1); };
+        document.head.appendChild(script);
+      })(0);
+    }
+
+    function arm() {
+      var toggle = document.querySelector('.search__toggle');
+      if (toggle) {
+        // pointerenter/focus give the download a head start before the click.
+        toggle.addEventListener('pointerenter', loadSearchIndex, { once: true, passive: true });
+        toggle.addEventListener('focus', loadSearchIndex, { once: true });
+        toggle.addEventListener('click', loadSearchIndex, { once: true });
+      }
+      var input = document.querySelector('.search-content input#search');
+      if (input) {
+        input.addEventListener('focus', loadSearchIndex, { once: true });
+        input.addEventListener('keydown', loadSearchIndex, { once: true });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', arm);
+    } else {
+      arm();
+    }
+  })();
+</script>

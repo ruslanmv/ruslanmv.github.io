@@ -21,6 +21,8 @@ main:
     children:
       - title: "Projects"
         url: /projects/
+      - title: "Ecosystem"
+        url: /ecosystem/
       - title: "Labs"
         url: /labs/
       - title: "Alive System"
@@ -91,6 +93,9 @@ burger:
     url: /projects/
   - title: "Projects"
     url: /projects/
+    indent: true
+  - title: "Ecosystem"
+    url: /ecosystem/
     indent: true
   - title: "Labs"
     url: /labs/
