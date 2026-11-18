@@ -84,7 +84,7 @@ print(list(map(lambda x: fibonacci(x),lista)))
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/701f59c1f2" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=I1RoZSBmaWJvbmFjaSBzZXF1ZW5jZSBpcyBnaXZlbiBieQojdGhlIGZvbGxvd2luZyByZWN1cnNpb24KI0Zfbj1GX3tuLTF9LUZfe24tMn0KIyBGXzA9MCBhbmQgRl8xPTEKCmxpc3RhPWxpc3QocmFuZ2UoMSwxMCkpCgpkZWYgZmlib25hY2NpKG4pOgogICAgcmV0dXJuIE5vbmUKCnByaW50KGxpc3QobWFwKGxhbWJkYSB4OiBmaWJvbmFjY2koeCksbGlzdGEpKSkK&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -105,7 +105,7 @@ print(solution('missisipi','s'))
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/3dc3185e4f" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=JycnCkNvdW50IGhvdyAgbWFueSB0aW1lcyBpcyByZXBlYXRlZCBhIGNoYXJhY3RlciBpbiBhIHN0cmluZwpjZXJ0YWluIGNoYXJhY3RlcgonJycKZGVmIHNvbHV0aW9uKHN0cmluZyxzdWJzdHJpbmcpOgoKICAgICByZXR1cm4gTm9uZQogICAgIAogICAgIApwcmludChzb2x1dGlvbignbWlzc2lzaXBpJywncycpKQo&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -130,7 +130,7 @@ print(solution(list))
 
 **Practice yourself:**
 
-<iframe src="https://trinket.io/embed/python/bef350191b" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=IyByZXBsYWNlIHRoZSBOb25lIHZhbHVlIHdpdGggcHJldmlvdXMgbnVtYmVyIG9mIHRoZSBmb2xsb3dpZyBsaXN0Cmxpc3QgPSBbMSxOb25lLCAzICw0LE5vbmUsNV0KCmRlZiBzb2x1dGlvbihsaXN0KToKCiAgICByZXR1cm4gTm9uZQoKcHJpbnQoc29sdXRpb24obGlzdCkpCg&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 ### 4. Count the occurrences of each word in a given sentence
 
@@ -153,7 +153,7 @@ print(solution('Sono Annapaola a Annapaola piace la pizza perche Annapaola adora
 
 **Practice yourself:**
 
-<iframe src="https://trinket.io/embed/python/74669246cd" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=IyBDb3VudCB0aGUgb2NjdXJyZW5jZXMgb2YgZWFjaCB3b3JkIGluIGEgZ2l2ZW4gc2VudGVuY2UKCmRlZiBzb2x1dGlvbihzdHJpbmcpOgoKICAgIHJldHVybiBOb25lCgoKcHJpbnQoc29sdXRpb24oJ1Nvbm8gQW5uYXBhb2xhIGEgQW5uYXBhb2xhIHBpYWNlIGxhIHBpenphIHBlcmNoZSBBbm5hcGFvbGEgYWRvcmEgbGEgbW96YXJlbGxhJykpCg&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 ### 5. Odd position of list 
 
@@ -185,7 +185,7 @@ assert solution([1,-1,2,-2]) == [-1,-2]
 
 **Practice yourself:**
 
-<iframe src="https://trinket.io/embed/python/62512b3494" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=IiIiCldyaXRlIGEgZnVuY3Rpb24gdGhhdCByZXR1cm5zIHRoZSBlbGVtZW50cyBvbiBvZGQgcG9zaXRpb25zICgwCmJhc2VkKSBpbiBhIGxpc3QKIiIiCgoKZGVmIHNvbHV0aW9uKGlucHV0KToKCiAgICByZXR1cm4gTm9uZQogICAgCiAgICAKcHJpbnQoc29sdXRpb24oWzAsMSwyLDMsNCw1XSkpCnByaW50KHNvbHV0aW9uKFsxLC0xLDIsLTJdKSkKYXNzZXJ0IHNvbHV0aW9uKFswLDEsMiwzLDQsNV0pID09IFsxLDMsNV0KYXNzZXJ0IHNvbHV0aW9uKFsxLC0xLDIsLTJdKSA9PSBbLTEsLTJdCg&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 ### 6. List of its digits
 
@@ -210,7 +210,7 @@ assert solution(400) == [4,0,0]
 
 **Practice yourself:**
 
-<iframe src="https://trinket.io/embed/python/5e138ee3ef" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=IiIiCldyaXRlIGEgZnVuY3Rpb24gdGhhdCB0YWtlcyBhIG51bWJlciBhbmQgcmV0dXJucyBhIGxpc3Qgb2YgaXRzCmRpZ2l0cwoiIiIKZGVmIHNvbHV0aW9uKGlucHV0KToKCiAgICByZXR1cm4gTm9uZQoKCnByaW50KHNvbHV0aW9uKDQwMCkpCmFzc2VydCBzb2x1dGlvbigxMjMpID09IFsxLDIsM10KYXNzZXJ0IHNvbHV0aW9uKDQwMCkgPT0gWzQsMCwwXQo&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -251,7 +251,7 @@ assert solution([-10, -4, -2, -4, -2, 0]) == -3
 
 **Practice yourself:**
 
-<iframe src="https://trinket.io/embed/python/45146e48eb" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=IiIiCkZyb206IGh0dHA6Ly9jb2RpbmdiYXQuY29tL3Byb2IvcDEyNjk2OApSZXR1cm4gdGhlICJjZW50ZXJlZCIgYXZlcmFnZSBvZiBhbiBhcnJheSBvZiBpbnRzLCB3aGljaCB3ZSdsbApzYXkgaXMgdGhlIG1lYW4gYXZlcmFnZSBvZiB0aGUgdmFsdWVzLCBleGNlcHQgaWdub3JpbmcgdGhlIGxhcmdlc3QgYW5kCnNtYWxsZXN0IHZhbHVlcyBpbiB0aGUgYXJyYXkuIElmIHRoZXJlIGFyZSBtdWx0aXBsZSBjb3BpZXMgb2YgdGhlCnNtYWxsZXN0IHZhbHVlLCBpZ25vcmUganVzdCBvbmUgY29weSwgYW5kIGxpa2V3aXNlIGZvciB0aGUKbGFyZ2VzdCAgdmFsdWUuIFVzZSBpbnQgZGl2aXNpb24gdG8gcHJvZHVjZSB0aGUgZmluYWwgYXZlcmFnZS4gWW91IG1heQphc3N1bWUgIHRoYXQgdGhlIGFycmF5IGlzIGxlbmd0aCAzIG9yIG1vcmUuCiIiIgoKZGVmIHNvbHV0aW9uKG51bWJlcnMpOgoKICAgIHJldHVybiBOb25lCgoKcHJpbnQoc29sdXRpb24oWzEsIDEsIDUsIDUsIDEwLCA4LCA3XSkpCmFzc2VydCBzb2x1dGlvbihbMSwgMiwgMywgNCwgMTAwXSkgPT0gMwphc3NlcnQgc29sdXRpb24oWzEsIDEsIDUsIDUsIDEwLCA4LCA3XSkgPT0gNQphc3NlcnQgc29sdXRpb24oWy0xMCwgLTQsIC0yLCAtNCwgLTIsIDBdKSA9PSAtMwo&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -279,7 +279,7 @@ print(countword(sentence2))
 
 **Practice yourself:**
 
-<iframe src="https://trinket.io/embed/python/a762c13b74" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=I0ZvciBhIGdpdmVuIHNldGVuY2UsIHJldHVybiB0aGUgYXZlcmFnZSB3b3JkIGxlbmdodAojIFJlbW92ZSB0aGUgcHVuY3R1YXRpb24gZmlyc3QKCnNlbnRlbmNlMT0gIiBIaSBhbGwsIG15IG5hbWUgaXMgVG9tLi4uIEkgYW0gZnJvbSBBdXN0cmFsaWEiCnNlbnRlbmNlMj0gIiBJIG5lZWQgd29yayBoYXJkIHRvIGxlYXJuIG1vcmUgUHl0aG9uISIKCmRlZiBjb3VudHdvcmQoc2VudGVuY2UpOgoKICAgIHJldHVybiBOb25lCgoKcHJpbnQoY291bnR3b3JkKHNlbnRlbmNlMSkpCnByaW50KGNvdW50d29yZChzZW50ZW5jZTIpKQo&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -305,7 +305,7 @@ print(sumation(num1,num2))
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/2423f98330" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=I0dpdmVuIHR3byBub24gbmVnYXRpdmUgaW50ZWdlcnMgbnVtMSBhbmQgbnVtMgojcmVwcmVzbmV0ZWQgYXMgc3RyaW5nCiNyZXR1cm4gdGhlIHN1bSBvZiBudW0xIGFuZCBudW0yCgojIG51bTEgYW5kIG51bTIgY29udGFpbnMgZGlnaXRzIDAtOQojIG51bTEgYW5kIG51bTIgZG9lcyBub3QgY29udGFpbiBhbnkgbGVhZGluZyB6ZXJvCgpudW0xPSczNjQnCm51bTI9JzE4MzYnCgpkZWYgc3VtYXRpb24obnVtMSxudW0yKToKICAgIHJldHVybiBOb25lCnByaW50KHN1bWF0aW9uKG51bTEsbnVtMikpCg&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -333,7 +333,7 @@ for vowel in filtered_vowels:
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/c446cee1b4" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=IyBsaXN0IG9mIGxldHRlcnMKbGV0dGVycyA9IFsnYScsICdiJywgJ2QnLCAnZScsICdpJywgJ2onLCAnbyddCgojIGZ1bmN0aW9uIHRoYXQgZmlsdGVycyB2b3dlbHMKZGVmIGZpbHRlcl92b3dlbHMobGV0dGVyKToKICAgIHJldHVybiBOb25lCiAgICAgICAgCiAgICAgICAgCmZpbHRlcmVkX3Zvd2VscyA9IGZpbHRlcihmaWx0ZXJfdm93ZWxzLCBsZXR0ZXJzKQoKcHJpbnQoJ1RoZSBmaWx0ZXJlZCB2b3dlbHMgYXJlOicpCmZvciB2b3dlbCBpbiBmaWx0ZXJlZF92b3dlbHM6CiAgICBwcmludCh2b3dlbCkK&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -350,7 +350,7 @@ print(solution(2))
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/5d078074d9" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=CnNvbHV0aW9uID0gTm9uZQoKcHJpbnQoc29sdXRpb24oMikpCg&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -373,7 +373,7 @@ print(reversedigits(345))
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/9ffd08899b" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=I1RoZSBpbnRlZ2VyIGNvdWxkIGJlIGVpdGhlciBwb3NpdGl2ZSBvciBuZWdhdGl2ZQojR2l2ZW4gYW5kIGludGVnZXIsIHJldHVybiB0aGUgaW50ZWdlciB3aXRoIHJldmVyc2VkIGRpZ2l0cwoKZGVmIHJldmVyc2VkaWdpdHMoeCk6CiAgICByZXR1cm4gTm9uZQoKcHJpbnQocmV2ZXJzZWRpZ2l0cygtMjMxKSkKcHJpbnQocmV2ZXJzZWRpZ2l0cygzNDUpKQo&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -395,7 +395,7 @@ print("ODDn numbers in the list: ", odd_nos)
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/29e04ff574" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=IyBQeXRob24gcHJvZ3JhbSB0byBwcmludCBldmVuIGFuZCBvZGQgTnVtYmVycyBpbiBhIExpc3QKIyBsaXN0IG9mIG51bWJlcnMKbGlzdDEgPSBsaXN0KHJhbmdlKDIsMjApKQojIHVzaW5nIGxpc3QgY29tcHJlaGVuc2lvbgpldmVuX25vcyA9IE5vbmUKCnByaW50KCJFdmVuIG51bWJlcnMgaW4gdGhlIGxpc3Q6ICIsIGV2ZW5fbm9zKQoKb2RkX25vcyA9IE5vbmUKCnByaW50KCJPRERuIG51bWJlcnMgaW4gdGhlIGxpc3Q6ICIsIG9kZF9ub3MpCg&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -415,7 +415,7 @@ print(solution(sentence1, sentence2))
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/f9f2569cef" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=c2VudGVuY2UxPSdXZSBhcmUgcmVhbGx5IHBsZWFzZWQgdG8gbW1ldCB5b3UgaW4gb3VyIGNpdHksIFJ1c2xhbicKc2VudGVuY2UyPSdUaGUgY2l0eSB3YXMgaGl0IGJ5IGEgcmVhbGx5IGhlYXZ5IHN0b3JtLCBSdXNsYW4nCmRlZiBzb2x1dGlvbihzZW50ZW5jZTEsIHNlbnRlbmNlMik6CiAKICAgIHJldHVybiBOb25lCnByaW50KHNvbHV0aW9uKHNlbnRlbmNlMSwgc2VudGVuY2UyKSkK&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -435,7 +435,7 @@ print(prime)
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/73ca0127ee" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=I3ByaW50IHByaW1lIG51bWJlcnMKbGlzdGE9cmFuZ2UoMiwxMDApCgpwcmltZSA9Tm9uZQoKcHJpbnQocHJpbWUpCg&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -457,7 +457,7 @@ print(solution(list))
 
 **Practice yourself**
 
-<iframe src="https://trinket.io/embed/python/e176aa736c" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=bGlzdCA9IFsiMSIsICI0IiwgIjAiLCAiNiIsICI5Il0KCmRlZiBzb2x1dGlvbihsaXN0KToKCiAgICByZXR1cm4gTm9uZQoKCnByaW50KHNvbHV0aW9uKGxpc3QpKQo&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
@@ -490,7 +490,7 @@ for item in list:
 
 
 
-<iframe src="https://trinket.io/embed/python/90a99fcfbf" width="100%" height="300" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+<figure style="margin:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden"><iframe src="https://coddy.tech/embed-editor?lang=python&theme=light&layout=stacked&code=bGlzdCA9IFsxLDIyLDM0LDEyLDExLDQzLDhdCgoKCgoKICAgICAgICAgICAgCiAgICAgICAgICAgIAogICAgICAKICAgICAgICAgICAgICAgIHByaW50KCJUaGlzIGlzIGJpZ2dlciB0aGFuIGFsbCIsaXRlbSxyZXNhKQogICAgIAogICAgICAgICAgICAKICAgICAgICAgICAgCiAgICAgICAgICAgIAoKICAgICAgICAgICAgCiAgICAgICAgICAgIAogICAgICAgICAgCiAgICAgICAgICAgICAgICBwcmludCgiVGhpcyBpcyBzbWFsbGVyIHRoYW4gYWxsIixpdGVtLHJlc2Ffc21hbGwpICAgCiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAKICAgICAgICAgICAgcHJpbnQoIkZvciB0aGUgbnVtYmVyIiwKICAgICAgICAgICAgICAgICAgIGl0ZW0sCiAgICAgICAgICAgICAgICAgICAiVGhlIHNtYWxsZXIgbnVtYmVycyBhcmUiLAogICAgICAgICAgICAgICAgICAgcmVzYSwKICAgICAgICAgICAgICAgICAgICJUaGUgYmlnZ2VyIG51bWJlcnMgYXJlIiwKICAgICAgICAgICAgICAgICAgICByZXNhX3NtYWxsCiAgICAgICAgICAgICAgICAgICAgKQo&credit=0" width="100%" height="420" style="display:block;border:0;width:100%" title="Python code editor by Coddy" loading="lazy"></iframe><figcaption style="box-sizing:border-box;padding:5px 12px;font:11px/1.4 system-ui,-apple-system,sans-serif;color:#64748b;background:#f1f5f9;border-top:1px solid #e2e8f0;text-align:right" dir="ltr">Powered by <a href="https://coddy.tech/embed" target="_blank" rel="noopener" style="color:#0077ff;font-weight:600;text-decoration:none;">Coddy</a></figcaption></figure>
 
 
 
